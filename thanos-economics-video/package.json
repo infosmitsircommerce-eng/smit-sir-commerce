@@ -1,0 +1,22 @@
+{
+  "name": "thanos-economics-video",
+  "version": "1.0.0",
+  "description": "Cinematic Thanos teaches Scarcity – CBSE Economics",
+  "scripts": {
+    "start": "npx remotion studio",
+    "build:horizontal": "npx remotion render --composition=ThanosEconomics-Horizontal --output=out/thanos-economics-horizontal.mp4",
+    "build:vertical": "npx remotion render --composition=ThanosEconomics-Vertical --output=out/thanos-economics-vertical.mp4",
+    "build:both": "npm run build:horizontal && npm run build:vertical"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "remotion": "^4.0.0",
+    "@remotion/cli": "^4.0.0",
+    "@remotion/transitions": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "typescript": "^5.0.0"
+  }
+}

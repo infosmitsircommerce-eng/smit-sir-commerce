@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #080620;
+  }
+  .container {
+    width: 1200px;
+    height: 630px;
+    background: linear-gradient(135deg, #080620 0%, #0d0b2e 40%, #130f3a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Background glows */
+  .glow1 {
+    position: absolute;
+    top: -100px; left: -100px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .glow2 {
+    position: absolute;
+    bottom: -100px; right: -50px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,158,11,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Left side */
+  .left {
+    flex: 1;
+    z-index: 10;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(245,158,11,0.1);
+    border: 1px solid rgba(245,158,11,0.3);
+    border-radius: 50px;
+    padding: 8px 18px;
+    margin-bottom: 24px;
+  }
+  .badge-dot {
+    width: 8px; height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+  }
+  .badge-text {
+    color: #f59e0b;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .brand {
+    font-size: 52px;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+  .brand span {
+    background: linear-gradient(135deg, #fcd34d, #f59e0b, #fbbf24);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .tagline {
+    font-size: 20px;
+    color: #a5b4fc;
+    margin-bottom: 32px;
+    font-weight: 500;
+  }
+
+  .subjects {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 36px;
+  }
+  .subject-chip {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 6px 14px;
+    color: #e2e8f0;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .info-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #94a3b8;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .info-icon {
+    color: #f59e0b;
+    font-size: 16px;
+  }
+
+  /* Right side — stats card */
+  .right {
+    z-index: 10;
+    margin-left: 60px;
+  }
+  .stats-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(245,158,11,0.2);
+    border-radius: 24px;
+    padding: 36px 40px;
+    text-align: center;
+    min-width: 260px;
+    backdrop-filter: blur(10px);
+  }
+  .stats-card .logo {
+    width: 64px; height: 64px;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 20px;
+    box-shadow: 0 8px 24px rgba(245,158,11,0.4);
+  }
+  .stat-item {
+    margin-bottom: 16px;
+  }
+  .stat-value {
+    font-size: 36px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #fcd34d, #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+  .stat-label {
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 4px;
+  }
+  .stat-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+    margin: 14px 0;
+  }
+  .free-demo {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #0f0d2e;
+    font-weight: 800;
+    font-size: 14px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    margin-top: 20px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Bottom watermark */
+  .watermark {
+    position: absolute;
+    bottom: 24px;
+    right: 40px;
+    color: rgba(255,255,255,0.15);
+    font-size: 12px;
+    font-weight: 500;
+    z-index: 10;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="glow1"></div>
+  <div class="glow2"></div>
+
+  <!-- Left -->
+  <div class="left">
+    <div class="badge">
+      <div class="badge-dot"></div>
+      <span class="badge-text">CBSE Class 11 &amp; 12 · Mehsana, Gujarat</span>
+    </div>
+
+    <div class="brand">Smit Sir<br><span>Commerce</span></div>
+    <div class="tagline">Master Commerce. Score Better. ✦</div>
+
+    <div class="subjects">
+      <div class="subject-chip">📈 Economics</div>
+      <div class="subject-chip">🏢 Business Studies</div>
+      <div class="subject-chip">📊 Accountancy</div>
+      <div class="subject-chip">💡 Entrepreneurship</div>
+    </div>
+
+    <div class="info-row">
+      <div class="info-item">
+        <span class="info-icon">📞</span>
+        <span>+91 63537 09585</span>
+      </div>
+      <div class="info-item">
+        <span class="info-icon">🌐</span>
+        <span>smitsircommerce.netlify.app</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right -->
+  <div class="right">
+    <div class="stats-card">
+      <div class="logo">🎓</div>
+      <div class="stat-item">
+        <div class="stat-value">200+</div>
+        <div class="stat-label">Students</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-value">95%</div>
+        <div class="stat-label">Top Score</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-value">5 ★</div>
+        <div class="stat-label">Rating</div>
+      </div>
+      <div class="free-demo">📅 Book Free Demo Class</div>
+    </div>
+  </div>
+
+  <div class="watermark">smitsircommerce.netlify.app</div>
+</div>
+</body>
+</html>
