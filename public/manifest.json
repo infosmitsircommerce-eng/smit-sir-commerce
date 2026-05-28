@@ -1,0 +1,20 @@
+{
+  "name": "Smit Sir Commerce",
+  "short_name": "SmitSir",
+  "description": "CBSE Class 11 & 12 Commerce Coaching — Notes, Quizzes, Test Series | Mehsana",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030112",
+  "theme_color": "#D4AF37",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education"],
+  "lang": "en-IN"
+}

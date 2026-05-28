@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Smit Sir Commerce — Level Up</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{
+  width:100vw;height:100vh;
+  overflow:hidden;
+  background:#000;
+  font-family:'Poppins',sans-serif;
+  cursor:none;
+}
+
+/* ─── Scanline overlay ─── */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background:repeating-linear-gradient(
+    0deg,
+    transparent,transparent 2px,
+    rgba(0,0,0,0.07) 2px,rgba(0,0,0,0.07) 4px
+  );
+  pointer-events:none;z-index:9998;
+}
+
+/* ─── CRT flicker ─── */
+@keyframes flicker{
+  0%,100%{opacity:1}
+  92%{opacity:1}
+  93%{opacity:0.85}
+  94%{opacity:1}
+  96%{opacity:0.9}
+  97%{opacity:1}
+}
+body{animation:flicker 5s infinite}
+
+/* ─── Curtain ─── */
+#curtain{
+  position:fixed;inset:0;
+  background:#000;
+  z-index:9997;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity 0.3s ease;
+}
+#curtain.show{opacity:1}
+
+/* ─── Bar ─── */
+#bar{
+  position:fixed;top:0;left:0;
+  height:3px;width:0%;
+  background:linear-gradient(90deg,#00ff88,#00cfff,#bf00ff);
+  z-index:9999;
+  box-shadow:0 0 16px #00ff88;
+  transition:width 0.2s linear;
+}
+
+/* ─── Scenes ─── */
+.scene{
+  position:fixed;inset:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+}
+.scene.active{opacity:1;pointer-events:all}
+
+/* ─── Neon text helper ─── */
+.neon-g{color:#00ff88;text-shadow:0 0 20px #00ff88,0 0 40px #00ff8855}
+.neon-b{color:#00cfff;text-shadow:0 0 20px #00cfff,0 0 40px #00cfff55}
+.neon-p{color:#bf00ff;text-shadow:0 0 20px #bf00ff,0 0 40px #bf00ff55}
+.neon-y{color:#ffe000;text-shadow:0 0 20px #ffe000,0 0 40px #ffe00055}
+
+/* ══════════════════════════════════════
+   SCENE 1 — BOOT SCREEN
+══════════════════════════════════════ */
+#s1{background:#000}
+.boot-logo{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(9px,1.8vw,16px);
+  color:rgba(0,255,136,0.5);
+  letter-spacing:0.3em;
+  margin-bottom:clamp(20px,4vh,50px);
+  animation:fadeIn 0.5s ease both;
+}
+.boot-title{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(32px,9vw,90px);
+  font-weight:900;
+  text-align:center;
+  line-height:1;
+  animation:glitchIn 0.6s 0.3s ease both;
+}
+.boot-sub{
+  font-size:clamp(12px,2.5vw,22px);
+  color:rgba(255,255,255,0.4);
+  margin-top:clamp(12px,2.5vh,28px);
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  animation:fadeIn 0.5s 0.8s ease both;
+}
+.boot-press{
+  margin-top:clamp(30px,6vh,70px);
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(10px,2vw,18px);
+  color:#00ff88;
+  letter-spacing:0.25em;
+  animation:blink 1s 1s step-end infinite;
+}
+.boot-ver{
+  position:absolute;bottom:clamp(16px,3vh,32px);right:clamp(16px,3vw,32px);
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(8px,1.4vw,12px);
+  color:rgba(255,255,255,0.15);
+  letter-spacing:0.2em;
+}
+
+/* ══════════════════════════════════════
+   SCENE 2 — PLAYER SELECT
+══════════════════════════════════════ */
+#s2{background:radial-gradient(ellipse at 50% 50%,#0a001a,#000 70%)}
+.ps-tag{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(9px,1.8vw,15px);
+  letter-spacing:0.4em;
+  text-transform:uppercase;
+  margin-bottom:clamp(14px,3vh,36px);
+  animation:fadeIn 0.4s ease both;
+}
+.player-card{
+  width:min(680px,85vw);
+  border:2px solid rgba(191,0,255,0.5);
+  border-radius:clamp(12px,2vw,24px);
+  padding:clamp(20px,4vw,48px);
+  background:rgba(191,0,255,0.05);
+  box-shadow:0 0 40px rgba(191,0,255,0.15),inset 0 0 40px rgba(191,0,255,0.03);
+  animation:slideUp 0.6s 0.2s ease both;
+}
+.player-name{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(22px,5.5vw,54px);
+  font-weight:900;
+  color:#fff;
+  margin-bottom:clamp(4px,1vh,12px);
+}
+.player-role{
+  font-size:clamp(11px,2.2vw,20px);
+  color:rgba(255,255,255,0.4);
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  margin-bottom:clamp(20px,4vh,44px);
+}
+.stat-row{
+  display:flex;align-items:center;
+  gap:clamp(10px,2vw,20px);
+  margin-bottom:clamp(10px,2vh,18px);
+}
+.stat-label{
+  width:clamp(80px,14vw,130px);
+  font-size:clamp(9px,1.8vw,16px);
+  font-family:'Orbitron',sans-serif;
+  color:rgba(255,255,255,0.5);
+  flex-shrink:0;
+}
+.stat-track{
+  flex:1;
+  height:clamp(8px,1.2vw,14px);
+  background:rgba(255,255,255,0.08);
+  border-radius:100px;
+  overflow:hidden;
+}
+.stat-fill{
+  height:100%;
+  border-radius:100px;
+  animation:fillBar 1s 0.6s ease both;
+  transform-origin:left;
+}
+.sf-low{
+  background:linear-gradient(90deg,#ff4444,#ff6666);
+  box-shadow:0 0 12px #ff4444;
+  width:18%;
+}
+.sf-med{
+  background:linear-gradient(90deg,#ff8800,#ffaa00);
+  box-shadow:0 0 12px #ff8800;
+  width:25%;
+}
+.sf-vlow{
+  background:linear-gradient(90deg,#ff4444,#ff6666);
+  box-shadow:0 0 12px #ff4444;
+  width:12%;
+}
+.stat-pct{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(10px,1.8vw,16px);
+  width:clamp(36px,5vw,52px);
+  text-align:right;
+  flex-shrink:0;
+  color:rgba(255,255,255,0.35);
+}
+.ps-warning{
+  margin-top:clamp(16px,3vh,32px);
+  padding:clamp(10px,1.8vw,16px) clamp(16px,3vw,28px);
+  background:rgba(255,68,68,0.1);
+  border:1px solid rgba(255,68,68,0.3);
+  border-radius:clamp(8px,1.2vw,14px);
+  font-size:clamp(11px,2vw,18px);
+  color:#ff6666;
+  text-align:center;
+  animation:fadeIn 0.5s 1.2s ease both;
+}
+
+/* ══════════════════════════════════════
+   SCENE 3 — LOADING / UNLOCK
+══════════════════════════════════════ */
+#s3{background:#000}
+.unlock-ring{
+  position:absolute;
+  width:min(500px,55vw);height:min(500px,55vw);
+  border-radius:50%;
+  border:2px solid transparent;
+  animation:spinFast 1.5s linear infinite;
+}
+.ur1{border-top-color:#00ff88;border-right-color:rgba(0,255,136,0.2);animation-duration:1.2s}
+.ur2{
+  width:min(380px,42vw);height:min(380px,42vw);
+  border-top-color:#00cfff;border-left-color:rgba(0,207,255,0.2);
+  animation-duration:0.9s;animation-direction:reverse;
+}
+.ur3{
+  width:min(260px,28vw);height:min(260px,28vw);
+  border-top-color:#bf00ff;border-bottom-color:rgba(191,0,255,0.2);
+  animation-duration:0.6s;
+}
+.unlock-pct{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(36px,9vw,90px);
+  font-weight:900;
+  color:#00ff88;
+  text-shadow:0 0 30px #00ff88;
+  z-index:1;
+  animation:countUp 2s ease both;
+}
+.unlock-label{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(9px,1.8vw,16px);
+  letter-spacing:0.4em;
+  color:rgba(255,255,255,0.3);
+  text-transform:uppercase;
+  z-index:1;
+  margin-top:clamp(4px,1vh,10px);
+}
+.unlock-items{
+  position:absolute;
+  bottom:clamp(30px,8vh,100px);
+  display:flex;gap:clamp(8px,2vw,24px);
+  animation:fadeIn 0.5s 1.5s ease both;
+}
+.ul-item{
+  font-size:clamp(9px,1.8vw,16px);
+  color:rgba(0,255,136,0.6);
+  font-family:'Orbitron',sans-serif;
+  letter-spacing:0.1em;
+}
+.ul-item::before{content:'■ ';color:#00ff88}
+
+/* ══════════════════════════════════════
+   SCENE 4 — POWER-UPS
+══════════════════════════════════════ */
+#s4{
+  background:radial-gradient(ellipse at 50% 50%,#001a0d,#000 65%);
+  gap:clamp(8px,1.5vh,16px);
+  padding:clamp(16px,3vh,40px) 5vw;
+}
+.pu-title{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(16px,4vw,40px);
+  font-weight:900;
+  margin-bottom:clamp(6px,1.5vh,16px);
+  animation:glitchIn 0.5s ease both;
+}
+.powerup{
+  display:flex;align-items:center;
+  gap:clamp(10px,2vw,22px);
+  width:min(760px,88vw);
+  padding:clamp(10px,1.8vw,18px) clamp(12px,2.5vw,28px);
+  border-radius:clamp(8px,1.2vw,16px);
+  animation:slideRight 0.5s ease both;
+  position:relative;overflow:hidden;
+}
+.powerup::before{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(0,255,136,0.08),transparent);
+  border-left:2px solid;
+  border-radius:inherit;
+}
+.pu1{background:rgba(0,255,136,0.05);animation-delay:0.05s}
+.pu1::before{border-color:#00ff88}
+.pu2{background:rgba(0,207,255,0.05);animation-delay:0.12s}
+.pu2::before{border-color:#00cfff;background:linear-gradient(90deg,rgba(0,207,255,0.08),transparent)}
+.pu3{background:rgba(191,0,255,0.05);animation-delay:0.19s}
+.pu3::before{border-color:#bf00ff;background:linear-gradient(90deg,rgba(191,0,255,0.08),transparent)}
+.pu4{background:rgba(255,224,0,0.05);animation-delay:0.26s}
+.pu4::before{border-color:#ffe000;background:linear-gradient(90deg,rgba(255,224,0,0.08),transparent)}
+.pu5{background:rgba(255,136,0,0.05);animation-delay:0.33s}
+.pu5::before{border-color:#ff8800;background:linear-gradient(90deg,rgba(255,136,0,0.08),transparent)}
+
+.pu-icon{font-size:clamp(22px,4vw,42px);z-index:1}
+.pu-info{flex:1;z-index:1}
+.pu-name{font-size:clamp(13px,2.8vw,26px);font-weight:800;color:#fff}
+.pu-xp{font-size:clamp(9px,1.8vw,16px);color:rgba(255,255,255,0.35);margin-top:2px;font-family:'Orbitron',sans-serif}
+.pu-badge{
+  z-index:1;
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(8px,1.5vw,13px);
+  font-weight:700;
+  padding:clamp(4px,0.7vw,7px) clamp(8px,1.5vw,16px);
+  border-radius:6px;
+  white-space:nowrap;
+}
+.badge-g{background:rgba(0,255,136,0.15);color:#00ff88;border:1px solid rgba(0,255,136,0.3)}
+.badge-b{background:rgba(0,207,255,0.15);color:#00cfff;border:1px solid rgba(0,207,255,0.3)}
+.badge-p{background:rgba(191,0,255,0.15);color:#bf00ff;border:1px solid rgba(191,0,255,0.3)}
+.badge-y{background:rgba(255,224,0,0.15);color:#ffe000;border:1px solid rgba(255,224,0,0.3)}
+.badge-o{background:rgba(255,136,0,0.15);color:#ff8800;border:1px solid rgba(255,136,0,0.3)}
+
+/* ══════════════════════════════════════
+   SCENE 5 — AFTER STATS
+══════════════════════════════════════ */
+#s5{background:#000;overflow:hidden}
+.s5-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,255,136,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,255,136,0.04) 1px,transparent 1px);
+  background-size:clamp(30px,5vw,60px) clamp(30px,5vw,60px);
+}
+.s5-tag{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(9px,1.8vw,15px);
+  letter-spacing:0.4em;
+  text-transform:uppercase;
+  color:rgba(0,255,136,0.5);
+  margin-bottom:clamp(12px,3vh,40px);
+  z-index:1;
+  animation:fadeIn 0.4s ease both;
+}
+.new-stats{
+  display:flex;flex-direction:column;
+  gap:clamp(12px,2.5vh,28px);
+  width:min(680px,85vw);
+  z-index:1;
+}
+.ns-row{
+  display:flex;align-items:center;
+  gap:clamp(10px,2vw,20px);
+  animation:slideRight 0.5s ease both;
+}
+.ns-row:nth-child(1){animation-delay:0}
+.ns-row:nth-child(2){animation-delay:0.1s}
+.ns-row:nth-child(3){animation-delay:0.2s}
+.ns-label{
+  width:clamp(80px,16vw,150px);
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(8px,1.6vw,14px);
+  color:rgba(255,255,255,0.45);
+  flex-shrink:0;
+}
+.ns-track{
+  flex:1;
+  height:clamp(12px,2vw,20px);
+  background:rgba(255,255,255,0.05);
+  border-radius:100px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.06);
+}
+.ns-fill{
+  height:100%;border-radius:100px;
+  animation:fillFull 1.5s 0.4s cubic-bezier(0.16,1,0.3,1) both;
+}
+.nf1{width:95%;background:linear-gradient(90deg,#00ff88,#00cfff);box-shadow:0 0 16px #00ff88}
+.nf2{width:91%;background:linear-gradient(90deg,#00cfff,#bf00ff);box-shadow:0 0 16px #00cfff}
+.nf3{width:99%;background:linear-gradient(90deg,#bf00ff,#ff00aa);box-shadow:0 0 16px #bf00ff}
+.ns-val{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(12px,2.5vw,22px);
+  font-weight:700;
+  flex-shrink:0;
+  width:clamp(50px,8vw,80px);
+  text-align:right;
+}
+
+/* Achievement popup */
+#ach{
+  position:fixed;
+  top:clamp(16px,3vh,32px);
+  left:50%;transform:translateX(-50%) translateY(-120%);
+  background:rgba(0,0,0,0.9);
+  border:1px solid #ffe000;
+  border-radius:clamp(10px,1.5vw,16px);
+  padding:clamp(12px,2vw,20px) clamp(20px,4vw,40px);
+  display:flex;align-items:center;gap:clamp(10px,2vw,20px);
+  z-index:9990;
+  box-shadow:0 0 30px rgba(255,224,0,0.3);
+  transition:transform 0.5s cubic-bezier(0.16,1,0.3,1);
+  white-space:nowrap;
+}
+#ach.show{transform:translateX(-50%) translateY(0)}
+#ach-icon{font-size:clamp(22px,4vw,40px)}
+#ach-text{font-family:'Orbitron',sans-serif;font-size:clamp(9px,1.8vw,16px);color:#ffe000}
+#ach-sub{font-size:clamp(8px,1.4vw,13px);color:rgba(255,255,255,0.45);margin-top:3px}
+
+/* ══════════════════════════════════════
+   SCENE 6 — LEVEL COMPLETE
+══════════════════════════════════════ */
+#s6{background:#000;overflow:hidden}
+#s6 .s5-grid{opacity:0.5}
+.lc-burst{
+  position:absolute;
+  width:min(800px,85vw);height:min(800px,85vw);
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(0,255,136,0.12) 0%,transparent 65%);
+  filter:blur(40px);
+  animation:pulse 2s ease-in-out infinite alternate;
+}
+.lc-tag{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(9px,1.8vw,15px);
+  letter-spacing:0.5em;
+  text-transform:uppercase;
+  color:rgba(0,255,136,0.6);
+  z-index:1;
+  margin-bottom:clamp(8px,2vh,20px);
+  animation:fadeIn 0.4s ease both;
+}
+.lc-title{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(36px,9.5vw,96px);
+  font-weight:900;
+  text-align:center;
+  line-height:1;
+  z-index:1;
+  animation:glitchIn 0.6s 0.2s ease both;
+}
+.lc-url{
+  z-index:1;
+  margin-top:clamp(20px,4vh,48px);
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(12px,2.8vw,26px);
+  font-weight:700;
+  padding:clamp(12px,2vw,20px) clamp(28px,5vw,60px);
+  border-radius:8px;
+  color:#000;
+  background:linear-gradient(135deg,#00ff88,#00cfff);
+  box-shadow:0 0 40px rgba(0,255,136,0.5);
+  animation:popIn 0.6s 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+  letter-spacing:0.05em;
+}
+.lc-sub{
+  z-index:1;
+  margin-top:clamp(12px,2.5vh,28px);
+  font-size:clamp(10px,2vw,18px);
+  color:rgba(255,255,255,0.3);
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  animation:fadeIn 0.5s 1s ease both;
+}
+.lc-toppers{
+  z-index:1;
+  display:flex;gap:clamp(6px,1.5vw,16px);
+  flex-wrap:wrap;justify-content:center;
+  margin-top:clamp(14px,3vh,34px);
+  width:min(680px,85vw);
+  animation:fadeIn 0.5s 1.2s ease both;
+}
+.lc-top{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(8px,1.5vw,13px);
+  padding:clamp(4px,0.8vw,8px) clamp(10px,2vw,18px);
+  border-radius:6px;
+  background:rgba(0,255,136,0.08);
+  border:1px solid rgba(0,255,136,0.2);
+  color:#00ff88;
+}
+
+/* ─── Keyframes ─── */
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideRight{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes glitchIn{
+  0%{opacity:0;transform:scale(1.05) skewX(-3deg);filter:blur(4px)}
+  40%{filter:blur(0);transform:scale(1.02) skewX(1deg)}
+  100%{opacity:1;transform:scale(1) skewX(0)}
+}
+@keyframes popIn{
+  0%{opacity:0;transform:scale(0.5)}
+  70%{transform:scale(1.06)}
+  100%{opacity:1;transform:scale(1)}
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes spinFast{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes fillBar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes fillFull{from{width:0!important}to{}}
+@keyframes pulse{from{transform:scale(0.9)}to{transform:scale(1.1)}}
+@keyframes countUp{
+  0%{opacity:0;transform:scale(0.8)}
+  100%{opacity:1;transform:scale(1)}
+}
+
+/* ─── Dots ─── */
+.dots{
+  position:fixed;right:clamp(10px,2vw,24px);top:50%;
+  transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:10px;
+  z-index:9990;
+}
+.dot{
+  width:clamp(6px,0.8vw,9px);height:clamp(6px,0.8vw,9px);
+  border-radius:50%;background:rgba(255,255,255,0.12);
+  transition:all 0.3s ease;
+}
+.dot.on{background:#00ff88;transform:scale(1.6);box-shadow:0 0 8px #00ff88}
+
+/* ─── Corner HUD ─── */
+.hud-tl{
+  position:fixed;top:clamp(16px,3vh,28px);left:clamp(16px,3vw,28px);
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(8px,1.4vw,12px);
+  color:rgba(0,255,136,0.4);
+  letter-spacing:0.2em;
+  z-index:9990;
+  line-height:1.8;
+}
+.hud-tr{
+  position:fixed;top:clamp(16px,3vh,28px);right:clamp(28px,4vw,50px);
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(8px,1.4vw,12px);
+  color:rgba(0,207,255,0.4);
+  letter-spacing:0.2em;
+  z-index:9990;
+  text-align:right;
+  line-height:1.8;
+}
+</style>
+</head>
+<body>
+
+<div id="curtain"></div>
+<div id="bar"></div>
+
+<!-- Achievement Popup -->
+<div id="ach">
+  <div id="ach-icon">🏆</div>
+  <div>
+    <div id="ach-text">ACHIEVEMENT UNLOCKED</div>
+    <div id="ach-sub">AI Doubt Solver Activated!</div>
+  </div>
+</div>
+
+<!-- HUD -->
+<div class="hud-tl" id="hud-l">SMIT SIR COMMERCE<br/>v2.0.24</div>
+<div class="hud-tr" id="hud-r">MEHSANA, GUJARAT<br/>CBSE CLASS 11-12</div>
+
+<!-- Dots -->
+<div class="dots">
+  <div class="dot on" id="d0"></div>
+  <div class="dot" id="d1"></div>
+  <div class="dot" id="d2"></div>
+  <div class="dot" id="d3"></div>
+  <div class="dot" id="d4"></div>
+  <div class="dot" id="d5"></div>
+</div>
+
+<!-- ════════════════ S1: BOOT ════════════════ -->
+<div class="scene active" id="s1">
+  <div class="boot-logo">◈ EDUCATION OS ◈</div>
+  <div class="boot-title">
+    <span class="neon-g">SMIT</span><br/>
+    <span class="neon-b">SIR</span><br/>
+    <span class="neon-p">COMMERCE</span>
+  </div>
+  <div class="boot-sub">Commerce Learning — Upgraded</div>
+  <div class="boot-press">▶ PRESS START</div>
+  <div class="boot-ver">BUILD 2024.12 — FREE FOR ALL</div>
+</div>
+
+<!-- ════════════════ S2: PLAYER ════════════════ -->
+<div class="scene" id="s2">
+  <div class="ps-tag neon-p">◈ Player Profile ◈</div>
+  <div class="player-card">
+    <div class="player-name">CLASS 12<br/>STUDENT</div>
+    <div class="player-role">Commerce • CBSE • Level 1</div>
+    <div class="stat-row">
+      <div class="stat-label">KNOWLEDGE</div>
+      <div class="stat-track"><div class="stat-fill sf-low"></div></div>
+      <div class="stat-pct">18%</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-label">CONFIDENCE</div>
+      <div class="stat-track"><div class="stat-fill sf-med"></div></div>
+      <div class="stat-pct">25%</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-label">EXAM READY</div>
+      <div class="stat-track"><div class="stat-fill sf-vlow"></div></div>
+      <div class="stat-pct">12%</div>
+    </div>
+    <div class="ps-warning">⚠ CRITICAL: Board Exam approaching. Upgrade required.</div>
+  </div>
+</div>
+
+<!-- ════════════════ S3: LOADING ════════════════ -->
+<div class="scene" id="s3">
+  <div class="unlock-ring ur1"></div>
+  <div class="unlock-ring ur2"></div>
+  <div class="unlock-ring ur3"></div>
+  <div class="unlock-pct" id="pct">0%</div>
+  <div class="unlock-label">Loading Power-Ups...</div>
+  <div class="unlock-items">
+    <div class="ul-item">AI SOLVER</div>
+    <div class="ul-item">FLASHCARDS</div>
+    <div class="ul-item">QUIZZES</div>
+    <div class="ul-item">GAMES</div>
+  </div>
+</div>
+
+<!-- ════════════════ S4: POWER-UPS ════════════════ -->
+<div class="scene" id="s4">
+  <div class="pu-title neon-g">⚡ POWER-UPS UNLOCKED</div>
+  <div class="powerup pu1"><span class="pu-icon">🤖</span><div class="pu-info"><div class="pu-name">AI Doubt Solver</div><div class="pu-xp">+500 XP • DOUBT CRUSHER</div></div><span class="pu-badge badge-g">FREE</span></div>
+  <div class="powerup pu2"><span class="pu-icon">🃏</span><div class="pu-info"><div class="pu-name">Flashcard Flipper</div><div class="pu-xp">+300 XP • MEMORY BOOST</div></div><span class="pu-badge badge-b">FREE</span></div>
+  <div class="powerup pu3"><span class="pu-icon">📝</span><div class="pu-info"><div class="pu-name">Practice Quizzes</div><div class="pu-xp">+400 XP • SPEED MODE</div></div><span class="pu-badge badge-p">FREE</span></div>
+  <div class="powerup pu4"><span class="pu-icon">🎮</span><div class="pu-info"><div class="pu-name">Commerce Games</div><div class="pu-xp">+250 XP • BRAIN HACK</div></div><span class="pu-badge badge-y">FREE</span></div>
+  <div class="powerup pu5"><span class="pu-icon">🎬</span><div class="pu-info"><div class="pu-name">Video Lectures</div><div class="pu-xp">+600 XP • MASTER MODE</div></div><span class="pu-badge badge-o">FREE</span></div>
+</div>
+
+<!-- ════════════════ S5: AFTER STATS ════════════════ -->
+<div class="scene" id="s5">
+  <div class="s5-grid"></div>
+  <div class="s5-tag">◈ Stats After Smit Sir ◈</div>
+  <div class="new-stats">
+    <div class="ns-row">
+      <div class="ns-label">KNOWLEDGE</div>
+      <div class="ns-track"><div class="ns-fill nf1"></div></div>
+      <div class="ns-val neon-g">95%</div>
+    </div>
+    <div class="ns-row">
+      <div class="ns-label">AVG SCORE</div>
+      <div class="ns-track"><div class="ns-fill nf2"></div></div>
+      <div class="ns-val neon-b">91%</div>
+    </div>
+    <div class="ns-row">
+      <div class="ns-label">EXAM READY</div>
+      <div class="ns-track"><div class="ns-fill nf3"></div></div>
+      <div class="ns-val neon-p">99%</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ S6: LEVEL COMPLETE ════════════════ -->
+<div class="scene" id="s6">
+  <div class="s5-grid"></div>
+  <div class="lc-burst"></div>
+  <div class="lc-tag">◈ Mission Complete ◈</div>
+  <div class="lc-title">
+    <span class="neon-g">LEVEL</span><br/>
+    <span class="neon-b">COMPLETE</span><br/>
+    <span class="neon-y" style="font-size:0.6em">🏆 CBSE 2024</span>
+  </div>
+  <div class="lc-toppers">
+    <div class="lc-top">95.4%</div>
+    <div class="lc-top">94.2%</div>
+    <div class="lc-top">93.8%</div>
+    <div class="lc-top">93.1%</div>
+    <div class="lc-top">92.6%</div>
+    <div class="lc-top">91.9%</div>
+    <div class="lc-top">91.4%</div>
+    <div class="lc-top">90.8%</div>
+    <div class="lc-top">90.2%</div>
+  </div>
+  <div class="lc-url">smitsircommerce.vercel.app</div>
+  <div class="lc-sub">Join Free • Start Your Level Up</div>
+</div>
+
+<script>
+const IDS=['s1','s2','s3','s4','s5','s6'];
+const DUR=[4000,5500,4000,6000,5500,5500];
+const TOTAL=DUR.reduce((a,b)=>a+b,0);
+let cur=0, startTs=null;
+
+// Loading counter for scene 3
+function animatePct(){
+  let v=0;
+  const el=document.getElementById('pct');
+  const iv=setInterval(()=>{
+    v+=Math.floor(Math.random()*8)+3;
+    if(v>=100){v=100;clearInterval(iv)}
+    el.textContent=v+'%';
+  },60);
+}
+
+// Achievement popup
+const achs=[
+  {icon:'🤖',text:'DOUBT CRUSHER',sub:'AI Solver Activated!'},
+  {icon:'🃏',text:'MEMORY MASTER',sub:'Flashcards Unlocked!'},
+  {icon:'🎮',text:'GAME ON',sub:'Commerce Games Ready!'},
+  {icon:'🏆',text:'BOARD TOPPER',sub:'91% Average Achieved!'},
+];
+let achIdx=0;
+function showAch(){
+  if(achIdx>=achs.length) return;
+  const a=achs[achIdx++];
+  const el=document.getElementById('ach');
+  document.getElementById('ach-icon').textContent=a.icon;
+  document.getElementById('ach-text').textContent=a.text;
+  document.getElementById('ach-sub').textContent=a.sub;
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),2200);
+}
+
+function setScene(idx){
+  IDS.forEach((id,i)=>{
+    document.getElementById(id).classList.toggle('active',i===idx);
+    document.getElementById('d'+i).classList.toggle('on',i===idx);
+  });
+  cur=idx;
+  if(idx===2) animatePct();
+  if(idx===4){
+    setTimeout(showAch,600);
+    setTimeout(showAch,2200);
+  }
+  if(idx===5){
+    setTimeout(showAch,800);
+    setTimeout(showAch,2800);
+  }
+}
+
+function transition(toIdx){
+  const c=document.getElementById('curtain');
+  c.classList.add('show');
+  setTimeout(()=>{setScene(toIdx);c.classList.remove('show')},300);
+}
+
+function tick(ts){
+  if(!startTs) startTs=ts;
+  const el=ts-startTs;
+  document.getElementById('bar').style.width=Math.min(el/TOTAL*100,100)+'%';
+  let acc=0,next=0;
+  for(let i=0;i<DUR.length;i++){
+    acc+=DUR[i];
+    if(el<acc){next=i;break}
+    if(i===DUR.length-1) next=DUR.length;
+  }
+  if(next!==cur && next<IDS.length) transition(next);
+  if(el<TOTAL) requestAnimationFrame(tick);
+  else{startTs=null;transition(0);requestAnimationFrame(tick)}
+}
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>

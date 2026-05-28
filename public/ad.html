@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Smit Sir Commerce — Ad</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{
+  width:100vw;height:100vh;
+  overflow:hidden;
+  background:#000;
+  font-family:'Poppins',sans-serif;
+  cursor:none;
+}
+
+/* ─── Transition overlay ─── */
+#curtain{
+  position:fixed;inset:0;
+  background:#000;
+  z-index:999;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity 0.35s ease;
+}
+#curtain.show{opacity:1}
+
+/* ─── Progress bar ─── */
+#bar{
+  position:fixed;top:0;left:0;
+  height:3px;width:0%;
+  background:linear-gradient(90deg,#D4AF37,#fff8d6,#D4AF37);
+  z-index:998;
+  transition:width 0.2s linear;
+  box-shadow:0 0 12px #D4AF37;
+}
+
+/* ─── Scene base ─── */
+.scene{
+  position:fixed;inset:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  opacity:0;
+  pointer-events:none;
+}
+.scene.active{opacity:1;pointer-events:all}
+
+/* ═══════════════════════════════════════
+   SCENE 1 — HOOK
+═══════════════════════════════════════ */
+#s1{background:radial-gradient(ellipse at 30% 40%,#1a0a00 0%,#000 70%)}
+#s1::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 70% 60%,rgba(212,175,55,0.12) 0%,transparent 60%);
+}
+.s1-emoji{
+  font-size:clamp(60px,15vw,120px);
+  animation:popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+  margin-bottom:clamp(16px,3vw,30px);
+}
+.s1-q{
+  font-size:clamp(28px,7vw,72px);
+  font-weight:900;
+  color:#fff;
+  text-align:center;
+  line-height:1.1;
+  padding:0 5vw;
+  animation:slamIn 0.6s 0.25s cubic-bezier(0.16,1,0.3,1) both;
+}
+.s1-q span{
+  background:linear-gradient(135deg,#D4AF37,#ffe88a);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.s1-sub{
+  font-size:clamp(14px,3.5vw,34px);
+  color:rgba(255,255,255,0.45);
+  margin-top:clamp(12px,2vw,20px);
+  text-align:center;
+  padding:0 8vw;
+  animation:fadeUp 0.7s 0.55s ease both;
+}
+
+/* ═══════════════════════════════════════
+   SCENE 2 — PROBLEMS
+═══════════════════════════════════════ */
+#s2{
+  background:radial-gradient(ellipse at 50% 0%,#1a001a,#000 60%);
+  gap:clamp(10px,2vw,22px);
+  padding:0 5vw;
+}
+.s2-head{
+  font-size:clamp(11px,2.5vw,22px);
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.3);
+  margin-bottom:clamp(6px,1.5vw,16px);
+  animation:fadeUp 0.5s ease both;
+}
+.prob{
+  display:flex;align-items:center;
+  gap:clamp(12px,2.5vw,28px);
+  width:min(820px,90vw);
+  padding:clamp(14px,2.5vw,26px) clamp(16px,3vw,36px);
+  border-radius:clamp(12px,2vw,20px);
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.07);
+  backdrop-filter:blur(10px);
+  animation:slideRight 0.5s ease both;
+}
+.prob:nth-child(2){animation-delay:0.1s}
+.prob:nth-child(3){animation-delay:0.2s}
+.prob:nth-child(4){animation-delay:0.3s}
+.prob:nth-child(5){animation-delay:0.4s}
+.prob-icon{font-size:clamp(26px,5vw,52px)}
+.prob-text{font-size:clamp(14px,3vw,30px);color:rgba(255,255,255,0.8);font-weight:600}
+
+/* ═══════════════════════════════════════
+   SCENE 3 — SOLUTION
+═══════════════════════════════════════ */
+#s3{background:#000;overflow:hidden}
+.s3-ring{
+  position:absolute;
+  border-radius:50%;
+  animation:spinRing 8s linear infinite;
+  opacity:0.15;
+}
+.s3-r1{
+  width:min(700px,80vw);height:min(700px,80vw);
+  border:2px solid #D4AF37;
+  animation-duration:12s;
+}
+.s3-r2{
+  width:min(500px,60vw);height:min(500px,60vw);
+  border:1px solid #60a5fa;
+  animation-duration:8s;animation-direction:reverse;
+}
+.s3-r3{
+  width:min(300px,40vw);height:min(300px,40vw);
+  border:1px solid #34d399;
+  animation-duration:5s;
+}
+.s3-intro{
+  font-size:clamp(10px,2.2vw,20px);
+  letter-spacing:0.4em;
+  text-transform:uppercase;
+  color:#D4AF37;
+  font-weight:700;
+  z-index:1;
+  animation:fadeUp 0.5s ease both;
+}
+.s3-title{
+  font-size:clamp(44px,11vw,120px);
+  font-weight:900;
+  color:#fff;
+  text-align:center;
+  line-height:0.95;
+  z-index:1;
+  animation:scaleReveal 0.7s 0.2s cubic-bezier(0.16,1,0.3,1) both;
+}
+.s3-title span{
+  background:linear-gradient(135deg,#D4AF37 0%,#ffe88a 50%,#D4AF37 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.s3-badge{
+  z-index:1;
+  margin-top:clamp(16px,3vw,32px);
+  background:linear-gradient(135deg,#D4AF37,#ffe88a);
+  color:#000;
+  font-size:clamp(14px,3vw,30px);
+  font-weight:900;
+  padding:clamp(10px,1.8vw,18px) clamp(24px,4vw,48px);
+  border-radius:100px;
+  animation:popIn 0.6s 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+  box-shadow:0 0 40px rgba(212,175,55,0.4);
+}
+
+/* ═══════════════════════════════════════
+   SCENE 4 — FEATURES
+═══════════════════════════════════════ */
+#s4{
+  background:radial-gradient(ellipse at 50% 100%,#001a0a,#000 60%);
+  justify-content:center;
+  gap:clamp(8px,1.5vw,16px);
+  padding:clamp(20px,4vh,50px) 5vw;
+}
+.s4-head{
+  font-size:clamp(11px,2.2vw,20px);
+  letter-spacing:0.35em;
+  text-transform:uppercase;
+  color:#34d399;
+  font-weight:700;
+  margin-bottom:clamp(4px,1vw,12px);
+  animation:fadeUp 0.5s ease both;
+}
+.feat{
+  display:flex;align-items:center;
+  gap:clamp(10px,2vw,24px);
+  width:min(780px,88vw);
+  padding:clamp(10px,2vw,20px) clamp(14px,2.5vw,28px);
+  border-radius:clamp(10px,1.5vw,18px);
+  backdrop-filter:blur(20px);
+  animation:slideRight 0.5s ease both;
+  position:relative;overflow:hidden;
+}
+.feat::after{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;
+  width:3px;
+  border-radius:0 3px 3px 0;
+}
+.feat:nth-child(2){animation-delay:0.05s;background:rgba(212,175,55,0.07);border:1px solid rgba(212,175,55,0.15)}
+.feat:nth-child(2)::after{background:#D4AF37}
+.feat:nth-child(3){animation-delay:0.12s;background:rgba(96,165,250,0.07);border:1px solid rgba(96,165,250,0.15)}
+.feat:nth-child(3)::after{background:#60a5fa}
+.feat:nth-child(4){animation-delay:0.19s;background:rgba(52,211,153,0.07);border:1px solid rgba(52,211,153,0.15)}
+.feat:nth-child(4)::after{background:#34d399}
+.feat:nth-child(5){animation-delay:0.26s;background:rgba(168,85,247,0.07);border:1px solid rgba(168,85,247,0.15)}
+.feat:nth-child(5)::after{background:#a855f7}
+.feat:nth-child(6){animation-delay:0.33s;background:rgba(249,115,22,0.07);border:1px solid rgba(249,115,22,0.15)}
+.feat:nth-child(6)::after{background:#f97316}
+.feat-icon{font-size:clamp(24px,4.5vw,46px)}
+.feat-info{flex:1}
+.feat-name{font-size:clamp(14px,3vw,30px);font-weight:800;color:#fff}
+.feat-desc{font-size:clamp(10px,2vw,20px);color:rgba(255,255,255,0.4);margin-top:2px}
+.feat-pill{
+  font-size:clamp(9px,1.6vw,16px);font-weight:700;
+  padding:clamp(4px,0.6vw,6px) clamp(10px,1.5vw,18px);
+  border-radius:100px;
+  background:rgba(212,175,55,0.12);
+  color:#D4AF37;border:1px solid rgba(212,175,55,0.25);
+  white-space:nowrap;
+}
+
+/* ═══════════════════════════════════════
+   SCENE 5 — STATS
+═══════════════════════════════════════ */
+#s5{
+  background:#000;
+  gap:0;
+}
+.s5-glow{
+  position:absolute;
+  width:min(600px,70vw);height:min(600px,70vw);
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(212,175,55,0.15) 0%,transparent 70%);
+  filter:blur(40px);
+  pointer-events:none;
+}
+.s5-label{
+  font-size:clamp(11px,2.2vw,20px);
+  letter-spacing:0.4em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.3);
+  margin-bottom:clamp(20px,4vh,50px);
+  animation:fadeUp 0.5s ease both;
+  z-index:1;
+}
+.stat{
+  text-align:center;
+  z-index:1;
+  animation:fadeUp 0.6s ease both;
+}
+.stat:nth-child(2){animation-delay:0s}
+.stat:nth-child(3){animation-delay:0.15s}
+.stat:nth-child(4){animation-delay:0.3s}
+.stat-n{
+  font-size:clamp(56px,16vw,160px);
+  font-weight:900;
+  line-height:1;
+  background:linear-gradient(135deg,#D4AF37,#ffe88a,#D4AF37);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  background-size:200%;
+  animation:shimmer 2s linear infinite;
+}
+.stat-d{
+  font-size:clamp(14px,3vw,28px);
+  color:rgba(255,255,255,0.6);
+  font-weight:600;
+  margin-top:clamp(-4px,-0.5vw,-2px);
+}
+.stat-sep{
+  width:clamp(60px,15vw,180px);
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(212,175,55,0.3),transparent);
+  margin:clamp(12px,2.5vh,28px) auto;
+}
+
+/* ═══════════════════════════════════════
+   SCENE 6 — CTA
+═══════════════════════════════════════ */
+#s6{background:radial-gradient(ellipse at 50% 50%,#0a0500,#000 65%)}
+#s6::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 50%,rgba(212,175,55,0.08) 0%,transparent 60%);
+}
+.s6-free{
+  font-size:clamp(11px,2.2vw,20px);
+  color:#34d399;font-weight:700;
+  letter-spacing:0.25em;text-transform:uppercase;
+  margin-bottom:clamp(10px,2vw,20px);
+  animation:fadeUp 0.5s ease both;
+  z-index:1;
+}
+.s6-main{
+  font-size:clamp(36px,9vw,96px);
+  font-weight:900;color:#fff;
+  text-align:center;line-height:1.05;
+  padding:0 5vw;z-index:1;
+  animation:slamIn 0.6s 0.15s cubic-bezier(0.16,1,0.3,1) both;
+}
+.s6-main span{
+  background:linear-gradient(135deg,#D4AF37,#ffe88a);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.s6-url{
+  z-index:1;
+  margin-top:clamp(20px,3.5vw,40px);
+  background:linear-gradient(135deg,#D4AF37,#ffe88a);
+  color:#000;
+  font-size:clamp(13px,2.8vw,28px);
+  font-weight:900;
+  padding:clamp(12px,2vw,20px) clamp(28px,5vw,60px);
+  border-radius:100px;
+  letter-spacing:0.05em;
+  box-shadow:0 0 50px rgba(212,175,55,0.5);
+  animation:popIn 0.6s 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.s6-arrow{
+  font-size:clamp(28px,5vw,50px);
+  margin-top:clamp(10px,2vw,20px);
+  z-index:1;
+  animation:arrowBounce 1s 1s ease infinite;
+}
+.s6-hint{
+  font-size:clamp(10px,2vw,18px);
+  color:rgba(255,255,255,0.3);
+  margin-top:clamp(8px,1.5vw,16px);
+  z-index:1;
+  animation:fadeUp 0.5s 0.9s ease both;
+}
+
+/* ─── Shared keyframes ─── */
+@keyframes popIn{
+  0%{opacity:0;transform:scale(0.4)}
+  70%{transform:scale(1.08)}
+  100%{opacity:1;transform:scale(1)}
+}
+@keyframes slamIn{
+  0%{opacity:0;transform:translateY(40px) scale(0.95)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes slideRight{
+  from{opacity:0;transform:translateX(-40px)}
+  to{opacity:1;transform:translateX(0)}
+}
+@keyframes scaleReveal{
+  from{opacity:0;transform:scale(0.75)}
+  to{opacity:1;transform:scale(1)}
+}
+@keyframes spinRing{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+@keyframes shimmer{
+  0%{background-position:0% 50%}
+  100%{background-position:200% 50%}
+}
+@keyframes arrowBounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
+
+/* ─── Dots ─── */
+.dots{
+  position:fixed;right:clamp(10px,2vw,24px);top:50%;
+  transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:10px;
+  z-index:997;
+}
+.dot{
+  width:clamp(6px,0.8vw,9px);
+  height:clamp(6px,0.8vw,9px);
+  border-radius:50%;
+  background:rgba(255,255,255,0.18);
+  transition:all 0.3s ease;
+}
+.dot.on{background:#D4AF37;transform:scale(1.6);box-shadow:0 0 8px #D4AF37}
+
+/* ─── Logo ─── */
+.wm{
+  position:fixed;bottom:clamp(12px,2.5vh,28px);left:50%;
+  transform:translateX(-50%);
+  display:flex;align-items:center;gap:10px;
+  z-index:997;opacity:0.5;
+}
+.wm-icon{
+  width:clamp(28px,4vw,44px);height:clamp(28px,4vw,44px);
+  background:linear-gradient(135deg,#D4AF37,#ffe88a);
+  border-radius:clamp(6px,1vw,12px);
+  display:flex;align-items:center;justify-content:center;
+  font-size:clamp(14px,2vw,22px);
+}
+.wm-text{
+  font-size:clamp(12px,2.2vw,20px);
+  font-weight:700;color:#fff;
+}
+.wm-text em{color:#D4AF37;font-style:normal}
+</style>
+</head>
+<body>
+
+<div id="curtain"></div>
+<div id="bar"></div>
+
+<div class="dots">
+  <div class="dot on" id="d0"></div>
+  <div class="dot" id="d1"></div>
+  <div class="dot" id="d2"></div>
+  <div class="dot" id="d3"></div>
+  <div class="dot" id="d4"></div>
+  <div class="dot" id="d5"></div>
+</div>
+
+<div class="wm">
+  <div class="wm-icon">🎓</div>
+  <div class="wm-text">Smit Sir <em>COMMERCE</em></div>
+</div>
+
+<!-- S1: HOOK -->
+<div class="scene active" id="s1">
+  <div class="s1-emoji">😰</div>
+  <div class="s1-q">Class 12 Commerce<br/><span>samajh nahi aata?</span></div>
+  <div class="s1-sub">Accountancy... Economics... BST<br/>sab confusing lagta hai?</div>
+</div>
+
+<!-- S2: PROBLEM -->
+<div class="scene" id="s2">
+  <div class="s2-head">The Struggle Is Real</div>
+  <div class="prob"><span class="prob-icon">📚</span><span class="prob-text">Textbook boring lagti hai</span></div>
+  <div class="prob"><span class="prob-icon">❓</span><span class="prob-text">Doubts clear karne wala koi nahi</span></div>
+  <div class="prob"><span class="prob-icon">😴</span><span class="prob-text">Raat ko padha — subah bhool gaye</span></div>
+  <div class="prob"><span class="prob-icon">📉</span><span class="prob-text">Board exam mein marks gir jaate hain</span></div>
+</div>
+
+<!-- S3: SOLUTION -->
+<div class="scene" id="s3">
+  <div class="s3-ring s3-r1"></div>
+  <div class="s3-ring s3-r2"></div>
+  <div class="s3-ring s3-r3"></div>
+  <div class="s3-intro">✨ Introducing</div>
+  <div class="s3-title">Smit Sir<br/><span>Commerce</span></div>
+  <div class="s3-badge">🚀 100% FREE to Join</div>
+</div>
+
+<!-- S4: FEATURES -->
+<div class="scene" id="s4">
+  <div class="s4-head">⚡ Sab Kuch Ek Jagah</div>
+  <div class="feat"><span class="feat-icon">🤖</span><div class="feat-info"><div class="feat-name">AI Doubt Solver</div><div class="feat-desc">24/7 instant answers in seconds</div></div><span class="feat-pill">FREE</span></div>
+  <div class="feat"><span class="feat-icon">🃏</span><div class="feat-info"><div class="feat-name">Flashcards</div><div class="feat-desc">50+ smart revision cards</div></div><span class="feat-pill">FREE</span></div>
+  <div class="feat"><span class="feat-icon">📝</span><div class="feat-info"><div class="feat-name">Practice Quizzes</div><div class="feat-desc">120+ MCQs with explanations</div></div><span class="feat-pill">FREE</span></div>
+  <div class="feat"><span class="feat-icon">🎮</span><div class="feat-info"><div class="feat-name">Commerce Games</div><div class="feat-desc">Learn while you play</div></div><span class="feat-pill">FREE</span></div>
+  <div class="feat"><span class="feat-icon">🎬</span><div class="feat-info"><div class="feat-name">Video Lectures</div><div class="feat-desc">Chapter-wise by Smit Sir</div></div><span class="feat-pill">FREE</span></div>
+</div>
+
+<!-- S5: PROOF -->
+<div class="scene" id="s5">
+  <div class="s5-glow"></div>
+  <div class="s5-label">🏆 Real Results • CBSE 2024</div>
+  <div class="stat"><div class="stat-n" id="n1">0+</div><div class="stat-d">Students Enrolled</div></div>
+  <div class="stat-sep"></div>
+  <div class="stat"><div class="stat-n" id="n2">0%</div><div class="stat-d">Average Board Score</div></div>
+  <div class="stat-sep"></div>
+  <div class="stat"><div class="stat-n" id="n3">0</div><div class="stat-d">CBSE Toppers 🎖️</div></div>
+</div>
+
+<!-- S6: CTA -->
+<div class="scene" id="s6">
+  <div class="s6-free">✅ Free Account • No Credit Card</div>
+  <div class="s6-main">Ab <span>90%+</span> laana<br/>possible hai! 🔥</div>
+  <div class="s6-url">smitsircommerce.vercel.app</div>
+  <div class="s6-arrow">👆</div>
+  <div class="s6-hint">Link in Bio • Join in 30 Seconds</div>
+</div>
+
+<script>
+// Scenes + durations (ms)
+const IDS = ['s1','s2','s3','s4','s5','s6'];
+const DUR = [4200, 5200, 4500, 6200, 5500, 5200];
+const TOTAL = DUR.reduce((a,b)=>a+b,0);
+
+let cur = 0, startTs = null;
+
+function setScene(idx){
+  IDS.forEach((id,i)=>{
+    document.getElementById(id).classList.toggle('active', i===idx);
+    document.getElementById('d'+i).classList.toggle('on', i===idx);
+  });
+  cur = idx;
+  // Re-trigger animations by cloning scene
+  const el = document.getElementById(IDS[idx]);
+  el.querySelectorAll('[style*="animation"]').forEach(e=>{
+    e.style.animation='none';
+    void e.offsetWidth;
+    e.style.animation='';
+  });
+  if(idx===4) startCounters();
+}
+
+// Counter animation for stats scene
+function animCount(el, target, suffix, dur){
+  let start=null;
+  function step(ts){
+    if(!start) start=ts;
+    const p=Math.min((ts-start)/dur,1);
+    const ease=1-Math.pow(1-p,3);
+    el.textContent=Math.floor(ease*target)+suffix;
+    if(p<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+function startCounters(){
+  setTimeout(()=>animCount(document.getElementById('n1'),200,'+',1200),200);
+  setTimeout(()=>animCount(document.getElementById('n2'),91,'%',1000),500);
+  setTimeout(()=>animCount(document.getElementById('n3'),9,'',800),800);
+}
+
+// Curtain transition
+function transition(toIdx){
+  const c=document.getElementById('curtain');
+  c.classList.add('show');
+  setTimeout(()=>{
+    setScene(toIdx);
+    c.classList.remove('show');
+  },350);
+}
+
+// Main loop
+function tick(ts){
+  if(!startTs) startTs=ts;
+  const elapsed=ts-startTs;
+
+  // Progress bar
+  document.getElementById('bar').style.width=
+    Math.min(elapsed/TOTAL*100,100)+'%';
+
+  // Scene timing
+  let acc=0, next=0;
+  for(let i=0;i<DUR.length;i++){
+    acc+=DUR[i];
+    if(elapsed<acc){ next=i; break; }
+    if(i===DUR.length-1) next=DUR.length; // done
+  }
+
+  if(next!==cur && next<IDS.length){
+    transition(next);
+  }
+
+  if(elapsed<TOTAL){
+    requestAnimationFrame(tick);
+  } else {
+    // Loop
+    startTs=null;
+    transition(0);
+    requestAnimationFrame(tick);
+  }
+}
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>

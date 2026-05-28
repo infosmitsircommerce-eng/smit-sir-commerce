@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://smitsircommerce.vercel.app/sitemap.xml
