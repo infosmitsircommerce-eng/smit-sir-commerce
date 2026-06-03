@@ -279,12 +279,12 @@ function ChapterCard({ chapter, masteredTerms, onStart, index }) {
         <div className="text-4xl">{chapter.emoji}</div>
         <div className="text-right">
           <div className="text-xs font-bold" style={{ color: chapter.color }}>{mastered}/{total}</div>
-          <div className="text-[10px]" style={{ color: '#64748b' }}>mastered</div>
+          <div className="text-[10px]" style={{ color: 'rgba(255,255,255,0.5)' }}>mastered</div>
         </div>
       </div>
 
-      <h3 className="text-lg font-black text-white mb-0.5">{chapter.title}</h3>
-      <p className="text-xs mb-4" style={{ color: 'rgba(255,255,255,0.45)' }}>{chapter.subtitle}</p>
+      <h3 className="text-lg font-black mb-0.5" style={{ color: '#ffffff' }}>{chapter.title}</h3>
+      <p className="text-xs mb-4" style={{ color: 'rgba(255,255,255,0.75)' }}>{chapter.subtitle}</p>
 
       {/* progress bar */}
       <div className="h-1.5 rounded-full mb-3" style={{ background: 'rgba(255,255,255,0.05)' }}>
@@ -298,7 +298,7 @@ function ChapterCard({ chapter, masteredTerms, onStart, index }) {
       </div>
 
       <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold" style={{ color: '#94a3b8' }}>
+        <span className="text-xs font-semibold" style={{ color: 'rgba(255,255,255,0.55)' }}>
           {total} cards
         </span>
         <span className="text-xs font-black" style={{ color: chapter.color }}>
@@ -473,7 +473,7 @@ export default function Flashcards() {
                 style={{ background: 'linear-gradient(90deg, #D4AF37, #F0C040)' }}
               />
             </div>
-            <p className="text-xs mt-2" style={{ color: '#64748b' }}>
+            <p className="text-xs mt-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
               {totalCards - totalMastered} cards left to master • Progress saved automatically
             </p>
           </motion.div>
