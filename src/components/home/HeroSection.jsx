@@ -110,6 +110,18 @@ export default function HeroSection() {
               and premium study material.
             </motion.p>
 
+            {/* Scarcity badge */}
+            <motion.div {...fade(0.28)} style={{
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              background: '#FFF5F5', border: '1px solid #FCA5A5',
+              borderRadius: '999px', padding: '5px 14px', marginBottom: '18px',
+            }}>
+              <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#ef4444', flexShrink: 0, boxShadow: '0 0 0 2px rgba(239,68,68,0.3)' }} />
+              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', fontWeight: 600, color: '#dc2626' }}>
+                Only 6 seats left for 2025–26 batch
+              </span>
+            </motion.div>
+
             {/* CTA buttons */}
             <motion.div {...fade(0.32)} style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '36px' }}>
               <Link to="/contact" className="btn-primary" style={{ fontSize: '15px', padding: '13px 28px' }}>

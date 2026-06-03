@@ -1,26 +1,27 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
+import { Users, FileText, BookOpen, Star, Award, Target } from 'lucide-react';
 
 const stats = [
-  { end: 200,  suffix: '+', label: 'Students Taught',      desc: 'Class 11 & 12 Commerce',    icon: '🎓' },
-  { end: 91,   suffix: '%', label: 'Avg. Board Score',     desc: 'CBSE 2024 batch results',    icon: '📊' },
-  { end: 120,  suffix: '+', label: 'Practice Questions',   desc: 'MCQ, HOTS & board level',   icon: '✍️' },
-  { end: 3,    suffix: '+', label: 'Years Teaching',       desc: 'Commerce specialist',        icon: '📅' },
-  { end: 4,    suffix: '',  label: 'Subjects Covered',     desc: 'Eco · BST · Acc · Entrep.', icon: '📚' },
-  { end: 5,    suffix: '★', label: 'Student Rating',       desc: 'Google & personal reviews',  icon: '⭐' },
+  { icon: Users,    value: 200, suffix: '+', label: 'Students Taught',      sub: 'Class 11 & 12 Commerce' },
+  { icon: FileText, value: 234, suffix: '+', label: 'Premium PDFs',         sub: 'Notes, PYQs, Mind Maps'  },
+  { icon: Target,   value: 91,  suffix: '%', label: 'Score Improvement',    sub: 'CBSE Board Average'      },
+  { icon: Star,     value: 5,   suffix: '★', label: 'Student Rating',       sub: 'Google Reviews'          },
+  { icon: BookOpen, value: 4,   suffix: '',  label: 'Subjects Covered',     sub: 'Eco, BST, Acc, Ent'      },
+  { icon: Award,    value: 3,   suffix: '+', label: 'Years Specialisation', sub: 'Commerce Only'           },
 ];
 
-function CountUp({ end, suffix, inView, duration = 1800 }) {
+function CountUp({ end, suffix, inView, duration = 1400 }) {
   const [count, setCount] = useState(0);
   useEffect(() => {
     if (!inView) return;
-    let startTime = null;
-    const step = (timestamp) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * end));
-      if (progress < 1) requestAnimationFrame(step);
+    let st = null;
+    const step = (ts) => {
+      if (!st) st = ts;
+      const p = Math.min((ts - st) / duration, 1);
+      const e = 1 - Math.pow(1 - p, 3);
+      setCount(Math.floor(e * end));
+      if (p < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
   }, [inView, end, duration]);
@@ -29,89 +30,105 @@ function CountUp({ end, suffix, inView, duration = 1800 }) {
 
 export default function StatsSection() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '100px' });
+  const inView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
-    <section ref={ref} className="section-padding relative overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #030112 0%, #060321 50%, #030112 100%)' }}>
-
-      {/* Atmospheric glow */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[400px] rounded-full opacity-[0.15]"
-          style={{ background: 'radial-gradient(ellipse, rgba(245,158,11,0.6) 0%, transparent 65%)' }} />
-        <div className="absolute top-0 left-0 right-0 h-px"
-          style={{ background: 'linear-gradient(90deg, transparent, rgba(245,158,11,0.4), transparent)' }} />
-        <div className="absolute bottom-0 left-0 right-0 h-px"
-          style={{ background: 'linear-gradient(90deg, transparent, rgba(99,102,241,0.3), transparent)' }} />
-      </div>
-
-      <div className="page-container relative z-10">
-        {/* Heading */}
+    <section ref={ref} style={{
+      background: 'var(--bg-white)',
+      borderTop: '1px solid var(--border)',
+      borderBottom: '1px solid var(--border)',
+      padding: '64px 0',
+    }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px' }}>
+        {/* Top label */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center mb-16"
+          transition={{ duration: 0.5 }}
+          style={{
+            display: 'flex', alignItems: 'center', gap: '16px',
+            marginBottom: '48px',
+          }}
         >
-          <div className="section-subheading">By The Numbers</div>
-          <h2 className="section-heading">
-            Everything You Need to <span className="gradient-text">Score Better</span>
-          </h2>
+          <div style={{ height: '1px', flex: 1, background: 'var(--border)' }} />
+          <span style={{
+            fontFamily: "'Inter', sans-serif",
+            fontSize: '10.5px', letterSpacing: '0.18em',
+            textTransform: 'uppercase', color: 'var(--gold)',
+            fontWeight: 600,
+          }}>
+            Trusted by students &amp; parents across Gujarat
+          </span>
+          <div style={{ height: '1px', flex: 1, background: 'var(--border)' }} />
         </motion.div>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 28, scale: 0.92 }}
-              animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-              transition={{ delay: i * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative rounded-2xl p-5 sm:p-6 text-center overflow-hidden cursor-default"
-              style={{
-                background: 'rgba(255,255,255,0.025)',
-                border: '1px solid rgba(255,255,255,0.07)',
-              }}
-            >
-              {/* Card hover gold glow */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
-                style={{ background: 'radial-gradient(ellipse at 50% 100%, rgba(245,158,11,0.1) 0%, transparent 70%)' }} />
-              {/* Top edge glow on hover */}
-              <div className="absolute top-0 inset-x-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                style={{ background: 'linear-gradient(90deg, transparent, rgba(245,158,11,0.6), transparent)' }} />
-
-              {/* Icon */}
-              <div className="text-2xl sm:text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">{stat.icon}</div>
-
-              {/* Big number */}
-              <div className="font-display font-black leading-none mb-2 gradient-text"
-                style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)' }}>
-                {inView
-                  ? <CountUp end={stat.end} suffix={stat.suffix} inView={inView} duration={1400 + i * 120} />
-                  : `0${stat.suffix}`}
-              </div>
-
-              <div className="text-white font-semibold text-xs sm:text-sm leading-tight mb-1">{stat.label}</div>
-              <div className="text-navy-500 text-xs leading-tight hidden sm:block">{stat.desc}</div>
-            </motion.div>
-          ))}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(6, 1fr)',
+          gap: '1px',
+          background: 'var(--border)',
+          border: '1px solid var(--border)',
+          borderRadius: '16px',
+          overflow: 'hidden',
+        }} className="stats-grid">
+          {stats.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <motion.div
+                key={s.label}
+                initial={{ opacity: 0, y: 16 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: i * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                style={{
+                  background: 'var(--bg-white)',
+                  padding: '28px 24px',
+                  textAlign: 'center',
+                  transition: 'background 0.18s',
+                }}
+                onMouseEnter={e => e.currentTarget.style.background = 'var(--bg-ivory)'}
+                onMouseLeave={e => e.currentTarget.style.background = 'var(--bg-white)'}
+              >
+                <div style={{
+                  width: '36px', height: '36px',
+                  borderRadius: '8px',
+                  background: 'var(--gold-bg)',
+                  border: '1px solid rgba(184,135,47,0.15)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  margin: '0 auto 12px',
+                }}>
+                  <Icon style={{ width: '16px', height: '16px', color: 'var(--gold)' }} />
+                </div>
+                <div style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: '1.75rem', fontWeight: 700,
+                  color: 'var(--ink)', lineHeight: 1,
+                  marginBottom: '4px',
+                }}>
+                  <CountUp end={s.value} suffix={s.suffix} inView={inView} />
+                </div>
+                <div style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: '12px', fontWeight: 600,
+                  color: 'var(--charcoal)', marginBottom: '2px',
+                }}>
+                  {s.label}
+                </div>
+                <div style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: '10.5px', color: 'var(--subtle)',
+                }}>
+                  {s.sub}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
-
-        {/* Bottom trust bar */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.85 }}
-          className="mt-12 flex flex-wrap justify-center items-center gap-x-8 gap-y-2 text-navy-500 text-xs"
-        >
-          {['CBSE Board Focused', 'Class 11 & 12', 'Online & Offline Batches', 'Mehsana, Gujarat', '200+ Students Taught', '9 Board Toppers in 2024'].map((t) => (
-            <div key={t} className="flex items-center gap-1.5">
-              <span className="w-1 h-1 bg-gold-500/60 rounded-full" />
-              <span>{t}</span>
-            </div>
-          ))}
-        </motion.div>
       </div>
+      <style>{`
+        @media (max-width: 1024px) { .stats-grid { grid-template-columns: repeat(3, 1fr) !important; } }
+        @media (max-width: 640px)  { .stats-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+      `}</style>
     </section>
   );
 }
