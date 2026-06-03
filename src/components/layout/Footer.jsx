@@ -20,7 +20,7 @@ const links = {
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#0f1219', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+    <footer style={{ background: '#fdf8f0', borderTop: '1px solid #e8e4de' }}>
 
       {/* Main */}
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '80px 32px 64px' }}>
@@ -42,7 +42,7 @@ export default function Footer() {
               <div>
                 <div style={{
                   fontFamily: "'Playfair Display', Georgia, serif",
-                  fontWeight: 700, fontSize: '18px', color: '#ffffff', lineHeight: 1.1,
+                  fontWeight: 700, fontSize: '18px', color: '#1e293b', lineHeight: 1.1,
                   letterSpacing: '-0.01em',
                 }}>Smit Sir</div>
                 <div style={{
@@ -55,7 +55,7 @@ export default function Footer() {
 
             <p style={{
               fontSize: '14px', lineHeight: 1.75,
-              color: 'rgba(255,255,255,0.45)',
+              color: '#64748b',
               fontFamily: "'Inter', system-ui, sans-serif",
               maxWidth: '280px', marginBottom: '28px',
             }}>
@@ -71,14 +71,14 @@ export default function Footer() {
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer"
                   style={{
                     width: '36px', height: '36px', borderRadius: '8px',
-                    border: '1px solid rgba(255,255,255,0.12)',
+                    border: '1px solid #e2e8f0',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    color: 'rgba(255,255,255,0.4)',
+                    color: '#94a3b8',
                     transition: 'all 0.2s',
-                    background: 'rgba(255,255,255,0.04)',
+                    background: 'transparent',
                   }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = '#D4AF37'; e.currentTarget.style.color = '#D4AF37'; e.currentTarget.style.background = 'rgba(212,175,55,0.08)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)'; e.currentTarget.style.color = 'rgba(255,255,255,0.4)'; e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = '#D4AF37'; e.currentTarget.style.color = '#D4AF37'; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.color = '#94a3b8'; }}
                 >
                   <Icon style={{ width: '15px', height: '15px' }} />
                 </a>
@@ -109,13 +109,13 @@ export default function Footer() {
                 {items.map(({ label, path }) => (
                   <li key={path}>
                     <Link to={path} style={{
-                      fontSize: '14px', color: 'rgba(255,255,255,0.45)',
+                      fontSize: '14px', color: '#94a3b8',
                       textDecoration: 'none',
                       fontFamily: "'Inter', system-ui, sans-serif",
                       transition: 'color 0.15s',
                     }}
-                    onMouseEnter={e => e.currentTarget.style.color = '#D4AF37'}
-                    onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.45)'}>
+                    onMouseEnter={e => e.currentTarget.style.color = '#1e293b'}
+                    onMouseLeave={e => e.currentTarget.style.color = '#94a3b8'}>
                       {label}
                     </Link>
                   </li>
@@ -129,7 +129,7 @@ export default function Footer() {
             <div style={{
               fontSize: '10.5px', fontWeight: 600,
               letterSpacing: '0.2em', textTransform: 'uppercase',
-              color: 'rgba(255,255,255,0.3)',
+              color: '#94a3b8',
               fontFamily: "'Inter', system-ui, sans-serif",
               marginBottom: '20px',
             }}>
@@ -144,11 +144,11 @@ export default function Footer() {
                 <div key={text} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
                   <Icon style={{ width: '14px', height: '14px', color: 'rgba(212,175,55,0.6)', flexShrink: 0, marginTop: '3px' }} />
                   <div>
-                    <div style={{ fontSize: '13.5px', color: 'rgba(255,255,255,0.6)', fontFamily: "'Inter', system-ui, sans-serif", lineHeight: 1.4 }}>
+                    <div style={{ fontSize: '13.5px', color: '#475569', fontFamily: "'Inter', system-ui, sans-serif", lineHeight: 1.4 }}>
                       {text}
                     </div>
                     {sub && (
-                      <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)', fontFamily: "'Inter', system-ui, sans-serif", marginTop: '2px' }}>
+                      <div style={{ fontSize: '11px', color: '#94a3b8', fontFamily: "'Inter', system-ui, sans-serif", marginTop: '2px' }}>
                         {sub}
                       </div>
                     )}
@@ -162,14 +162,14 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <div style={{ borderTop: '1px solid #e2e8f0' }}>
         <div style={{
           maxWidth: '1280px', margin: '0 auto', padding: '20px 32px',
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           flexWrap: 'wrap', gap: '12px',
         }}>
           <p style={{
-            fontSize: '12.5px', color: 'rgba(255,255,255,0.25)',
+            fontSize: '12.5px', color: '#94a3b8',
             fontFamily: "'Inter', system-ui, sans-serif",
           }}>
             © 2026 Smit Sir Commerce. All rights reserved.
@@ -177,12 +177,12 @@ export default function Footer() {
           <div style={{ display: 'flex', gap: '24px' }}>
             {[['FAQ', '/faq'], ['About', '/about'], ['Contact', '/contact']].map(([label, path]) => (
               <Link key={path} to={path} style={{
-                fontSize: '12px', color: 'rgba(255,255,255,0.3)',
+                fontSize: '12px', color: '#94a3b8',
                 textDecoration: 'none', fontFamily: "'Inter', system-ui, sans-serif",
                 transition: 'color 0.15s',
               }}
-              onMouseEnter={e => e.currentTarget.style.color = '#D4AF37'}
-              onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.3)'}>
+              onMouseEnter={e => e.currentTarget.style.color = '#1e293b'}
+              onMouseLeave={e => e.currentTarget.style.color = '#94a3b8'}>
                 {label}
               </Link>
             ))}
