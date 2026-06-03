@@ -31,7 +31,7 @@ function TypingIndicator() {
         S
       </div>
       <div className="px-4 py-3 rounded-2xl rounded-bl-sm"
-        style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}>
+        style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)' }}>
         <div className="flex gap-1 items-center h-4">
           {[0, 1, 2].map(i => (
             <motion.div
@@ -65,7 +65,7 @@ function ChatMessage({ msg }) {
         </div>
       ) : (
         <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm shrink-0 mb-0.5"
-          style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)' }}>
+          style={{ background: '#f8fafc', border: '1px solid #e2e8f0' }}>
           🙋
         </div>
       )}
@@ -75,8 +75,8 @@ function ChatMessage({ msg }) {
         isBot ? 'rounded-2xl rounded-bl-sm' : 'rounded-2xl rounded-br-sm'
       }`}
         style={isBot ? {
-          background: 'rgba(255,255,255,0.05)',
-          border: '1px solid rgba(255,255,255,0.08)',
+          background: 'rgba(255,255,255,0.07)',
+          border: '1px solid rgba(255,255,255,0.1)',
           color: 'rgba(255,255,255,0.9)',
         } : {
           background: 'linear-gradient(135deg, #D4AF37, #F0C040)',
@@ -165,7 +165,7 @@ export default function AskDoubt() {
 
   return (
     <div className="min-h-screen flex flex-col py-6 px-4"
-      style={{ background: 'radial-gradient(ellipse at 30% 10%, rgba(212,175,55,0.05) 0%, transparent 60%)' }}>
+      style={{ background: 'radial-gradient(ellipse at 30% 10%, rgba(212,175,55,0.12) 0%, transparent 60%), linear-gradient(160deg, #0a0f1e 0%, #0f1628 100%)' }}>
       <SEO
         title="AI Doubt Solver — Ask Commerce Questions Free"
         description="Get instant AI answers for CBSE Class 11 & 12 Commerce doubts. Economics, Accountancy, Business Studies — free AI doubt solver by Smit Sir Commerce."
@@ -190,7 +190,7 @@ export default function AskDoubt() {
           <h1 className="text-3xl sm:text-4xl font-black text-white mb-2">
             Ask Your <span style={{ color: '#D4AF37' }}>Commerce Doubt</span>
           </h1>
-          <p className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>
+          <p className="text-sm" style={{ color: '#94a3b8' }}>
             Instant AI answers · Board exam focused · 100% free
           </p>
         </motion.div>
@@ -211,9 +211,9 @@ export default function AskDoubt() {
                 background: 'linear-gradient(135deg, #D4AF37, #F0C040)',
                 color: '#0a0f2c',
               } : {
-                background: 'rgba(255,255,255,0.05)',
-                color: 'rgba(255,255,255,0.5)',
-                border: '1px solid rgba(255,255,255,0.1)',
+                background: 'rgba(255,255,255,0.07)',
+                color: 'rgba(255,255,255,0.6)',
+                border: '1px solid rgba(255,255,255,0.12)',
               }}
             >
               {s.icon} {s.label}
@@ -228,8 +228,8 @@ export default function AskDoubt() {
           transition={{ delay: 0.15 }}
           className="flex-1 rounded-3xl overflow-hidden flex flex-col"
           style={{
-            background: 'rgba(255,255,255,0.02)',
-            border: '1px solid rgba(255,255,255,0.07)',
+            background: 'rgba(255,255,255,0.03)',
+            border: '1px solid rgba(255,255,255,0.1)',
             minHeight: '420px',
             maxHeight: '520px',
           }}
@@ -255,7 +255,7 @@ export default function AskDoubt() {
                   exit={{ opacity: 0 }}
                   className="ml-10"
                 >
-                  <p className="text-xs mb-2" style={{ color: 'rgba(255,255,255,0.25)' }}>
+                  <p className="text-xs mb-2" style={{ color: '#94a3b8' }}>
                     Try these popular questions:
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -267,9 +267,9 @@ export default function AskDoubt() {
                         onClick={() => sendMessage(s.text)}
                         className="text-xs px-3 py-2 rounded-xl text-left transition-all flex items-center gap-1.5"
                         style={{
-                          background: 'rgba(212,175,55,0.06)',
-                          border: '1px solid rgba(212,175,55,0.15)',
-                          color: 'rgba(255,255,255,0.6)',
+                          background: 'rgba(212,175,55,0.08)',
+                          border: '1px solid rgba(212,175,55,0.25)',
+                          color: 'rgba(255,255,255,0.8)',
                         }}
                       >
                         <span>{s.icon}</span> {s.text}
@@ -285,7 +285,7 @@ export default function AskDoubt() {
           </div>
 
           {/* ── INPUT BAR ── */}
-          <div className="p-3 border-t" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+          <div className="p-3 border-t" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
             <div className="flex gap-2 items-end">
               <textarea
                 ref={inputRef}
@@ -298,9 +298,9 @@ export default function AskDoubt() {
                 disabled={loading}
                 className="flex-1 resize-none outline-none text-sm leading-relaxed rounded-2xl px-4 py-2.5 transition-all"
                 style={{
-                  background: 'rgba(255,255,255,0.05)',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  color: 'white',
+                  background: 'rgba(255,255,255,0.07)',
+                  border: '1px solid rgba(255,255,255,0.12)',
+                  color: 'rgba(255,255,255,0.9)',
                   caretColor: '#D4AF37',
                   maxHeight: '100px',
                 }}
@@ -333,14 +333,14 @@ export default function AskDoubt() {
 
         {/* ── BOTTOM ROW ── */}
         <div className="flex items-center justify-between mt-3 px-1">
-          <p className="text-xs" style={{ color: 'rgba(255,255,255,0.2)' }}>
+          <p className="text-xs" style={{ color: '#94a3b8' }}>
             ⚡ Powered by Groq AI · Always verify with textbook
           </p>
           {messages.length > 1 && (
             <button
               onClick={clearChat}
               className="text-xs px-3 py-1 rounded-full transition-all"
-              style={{ color: 'rgba(255,255,255,0.3)', border: '1px solid rgba(255,255,255,0.07)' }}
+              style={{ color: 'rgba(255,255,255,0.4)', border: '1px solid rgba(255,255,255,0.15)' }}
             >
               🗑 Clear chat
             </button>

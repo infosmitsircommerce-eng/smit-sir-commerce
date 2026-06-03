@@ -263,19 +263,19 @@ function TimeMachineGame() {
     <div>
       <div className="mb-4">
         <h2 className="text-lg font-black text-white">Money Time Machine 💸</h2>
-        <p className="text-xs" style={{color:'rgba(255,255,255,0.5)'}}>See how much ₹ from the past is worth today!</p>
+        <p className="text-xs" style={{color: '#64748b'}}>See how much ₹ from the past is worth today!</p>
       </div>
-      <div className="rounded-2xl p-4 mb-4" style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.08)'}}>
-        <p className="text-xs font-semibold mb-2" style={{color:'rgba(255,255,255,0.6)'}}>💰 Pick an amount:</p>
+      <div className="rounded-2xl p-4 mb-4" style={{background: 'rgba(255,255,255,0.05)',border: '1px solid rgba(255,255,255,0.1)'}}>
+        <p className="text-xs font-semibold mb-2" style={{color: 'rgba(255,255,255,0.65)'}}>💰 Pick an amount:</p>
         <div className="flex flex-wrap gap-2 mb-4">
           {[100,500,1000,5000,10000].map(a=>(
             <button key={a} onClick={()=>setAmount(a)} className="px-3 py-2 rounded-xl text-sm font-bold transition-all"
-              style={{background:amount===a?'rgba(212,175,55,0.25)':'rgba(255,255,255,0.06)',color:amount===a?'#D4AF37':'rgba(255,255,255,0.6)',border:amount===a?'2px solid rgba(212,175,55,0.5)':'1px solid rgba(255,255,255,0.1)'}}>
+              style={{background:amount===a?'rgba(212,175,55,0.2)':'rgba(255,255,255,0.06)',color:amount===a?'#D4AF37':'rgba(255,255,255,0.7)',border:amount===a?'2px solid rgba(212,175,55,0.5)':'1px solid rgba(255,255,255,0.12)'}}>
               ₹{a.toLocaleString('en-IN')}
             </button>
           ))}
         </div>
-        <p className="text-xs font-semibold mb-2" style={{color:'rgba(255,255,255,0.6)'}}>📅 Pick a year:</p>
+        <p className="text-xs font-semibold mb-2" style={{color: 'rgba(255,255,255,0.65)'}}>📅 Pick a year:</p>
         <div className="flex flex-wrap gap-2">
           {[2000,2005,2010,2015,2020].map(y=>(
             <button key={y} onClick={()=>setYear(y)} className="px-3 py-2 rounded-xl text-sm font-bold transition-all"
@@ -288,21 +288,21 @@ function TimeMachineGame() {
       <motion.div key={`${amount}-${year}`} initial={{opacity:0,scale:0.95}} animate={{opacity:1,scale:1}}
         className="rounded-2xl p-5 mb-4 text-center"
         style={{background:'linear-gradient(135deg,rgba(212,175,55,0.15),rgba(212,175,55,0.05))',border:'2px solid rgba(212,175,55,0.3)'}}>
-        <p className="text-sm mb-1" style={{color:'rgba(255,255,255,0.7)'}}>₹{amount.toLocaleString('en-IN')} from <span style={{color:'#D4AF37',fontWeight:'bold'}}>{year}</span> =</p>
+        <p className="text-sm mb-1" style={{color: 'rgba(255,255,255,0.85)'}}>₹{amount.toLocaleString('en-IN')} from <span style={{color:'#D4AF37',fontWeight:'bold'}}>{year}</span> =</p>
         <p className="text-5xl font-black mb-1" style={{color:'#D4AF37'}}>₹{todayValue.toLocaleString('en-IN')}</p>
-        <p className="text-sm mb-3" style={{color:'rgba(255,255,255,0.5)'}}>in 2024</p>
-        <div className="inline-block px-4 py-2 rounded-full font-black mb-4" style={{background:'rgba(0,0,0,0.3)',color:shock.c}}>
+        <p className="text-sm mb-3" style={{color: '#64748b'}}>in 2024</p>
+        <div className="inline-block px-4 py-2 rounded-full font-black mb-4" style={{background: 'rgba(0,0,0,0.04)',color:shock.c}}>
           {shock.label} +{inflation}% inflation
         </div>
         <div>
-          <div className="flex justify-between text-xs mb-1" style={{color:'rgba(255,255,255,0.5)'}}>
+          <div className="flex justify-between text-xs mb-1" style={{color: '#64748b'}}>
             <span>Buying power today</span><span style={{color:'#f87171',fontWeight:'bold'}}>{powerPct}%</span>
           </div>
-          <div className="h-4 rounded-full overflow-hidden" style={{background:'rgba(255,255,255,0.08)'}}>
+          <div className="h-4 rounded-full overflow-hidden" style={{background: 'rgba(255,255,255,0.06)'}}>
             <motion.div initial={{width:0}} animate={{width:`${powerPct}%`}} transition={{duration:1,ease:'easeOut'}}
               className="h-full rounded-full" style={{background:'linear-gradient(90deg,#ef4444,#f97316,#D4AF37)'}}/>
           </div>
-          <p className="text-xs mt-1 text-left" style={{color:'rgba(255,255,255,0.4)'}}>
+          <p className="text-xs mt-1 text-left" style={{color: '#94a3b8'}}>
             Your ₹{amount.toLocaleString('en-IN')} can only buy what ₹{Math.round(amount*powerPct/100).toLocaleString('en-IN')} buys today 😬
           </p>
         </div>
@@ -312,11 +312,11 @@ function TimeMachineGame() {
           const then=Math.round(item.p2000*INDIA_CPI[year]/INDIA_CPI[2000]);
           const rise=Math.round(((item.p2024-then)/then)*100);
           return(
-            <div key={item.name} className="rounded-xl p-3" style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.07)'}}>
+            <div key={item.name} className="rounded-xl p-3" style={{background: 'rgba(255,255,255,0.05)',border: '1px solid rgba(255,255,255,0.1)'}}>
               <div className="text-2xl mb-1">{item.emoji}</div>
-              <div className="text-xs font-semibold mb-1" style={{color:'rgba(255,255,255,0.7)'}}>{item.name}</div>
-              <div className="text-xs" style={{color:'rgba(255,255,255,0.4)'}}>{year}: <span style={{color:'#60a5fa',fontWeight:'bold'}}>₹{then}</span></div>
-              <div className="text-xs" style={{color:'rgba(255,255,255,0.4)'}}>2024: <span style={{color:'#34d399',fontWeight:'bold'}}>₹{item.p2024}</span></div>
+              <div className="text-xs font-semibold mb-1" style={{color: 'rgba(255,255,255,0.85)'}}>{item.name}</div>
+              <div className="text-xs" style={{color: '#94a3b8'}}>{year}: <span style={{color:'#60a5fa',fontWeight:'bold'}}>₹{then}</span></div>
+              <div className="text-xs" style={{color: '#94a3b8'}}>2024: <span style={{color:'#34d399',fontWeight:'bold'}}>₹{item.p2024}</span></div>
               <div className="text-xs font-bold mt-1" style={{color:'#f87171'}}>+{rise}% 📈</div>
             </div>
           );
@@ -324,10 +324,10 @@ function TimeMachineGame() {
       </div>
       <div className="rounded-xl p-3" style={{background:'rgba(212,175,55,0.06)',border:'1px solid rgba(212,175,55,0.15)'}}>
         <p className="text-xs font-semibold mb-1" style={{color:'#D4AF37'}}>📋 Board Formula</p>
-        <p className="text-xs font-mono mb-1 px-2 py-1 rounded" style={{background:'rgba(0,0,0,0.3)',color:'#60a5fa'}}>
+        <p className="text-xs font-mono mb-1 px-2 py-1 rounded" style={{background: 'rgba(0,0,0,0.04)',color:'#60a5fa'}}>
           Value today = (Old Amount × CPI Now) ÷ CPI Then
         </p>
-        <p className="text-xs" style={{color:'rgba(255,255,255,0.55)'}}>Example: ₹{amount.toLocaleString('en-IN')} × {cpiNow} ÷ {cpiThen} = ₹{todayValue.toLocaleString('en-IN')}</p>
+        <p className="text-xs" style={{color: '#475569'}}>Example: ₹{amount.toLocaleString('en-IN')} × {cpiNow} ÷ {cpiThen} = ₹{todayValue.toLocaleString('en-IN')}</p>
       </div>
     </div>
   );
@@ -461,12 +461,12 @@ function QuizEngine({ chapter, levelKey, onBack }) {
         className="rounded-2xl p-6 text-center" style={{ background: 'rgba(239,68,68,0.08)', border: '2px solid rgba(239,68,68,0.3)' }}>
         <div className="text-6xl mb-3">💀</div>
         <h2 className="text-3xl font-black text-white mb-1">GAME OVER!</h2>
-        <p className="text-sm mb-4" style={{ color: 'rgba(255,255,255,0.5)' }}>You ran out of lives</p>
+        <p className="text-sm mb-4" style={{ color: '#64748b' }}>You ran out of lives</p>
         <div className="text-5xl font-black mb-1" style={{ color: '#D4AF37' }}>{score}</div>
-        <p className="text-sm mb-6" style={{ color: 'rgba(255,255,255,0.5)' }}>points · {idx}/{scenarios.length} questions</p>
+        <p className="text-sm mb-6" style={{ color: '#64748b' }}>points · {idx}/{scenarios.length} questions</p>
         <div className="flex gap-3">
           <button onClick={onBack} className="flex-1 py-3 rounded-xl font-bold text-sm"
-            style={{ background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.1)' }}>
+            style={{ background: 'rgba(255,255,255,0.07)', color: 'rgba(255,255,255,0.85)', border: '1px solid rgba(255,255,255,0.12)' }}>
             ← Levels
           </button>
           <button onClick={restart} className="flex-1 py-4 rounded-xl font-black text-navy-950 text-base"
@@ -494,13 +494,13 @@ function QuizEngine({ chapter, levelKey, onBack }) {
         <div className="text-3xl mb-2">{stars > 0 ? '⭐'.repeat(stars) : '🔄'}</div>
         <h2 className="text-2xl font-black text-white mb-1">Level {levelKey} Complete!</h2>
         <div className="text-5xl font-black mb-1" style={{ color: '#D4AF37' }}>{score}</div>
-        <p className="text-sm mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>points scored</p>
+        <p className="text-sm mb-1" style={{ color: '#94a3b8' }}>points scored</p>
         <p className="font-bold mb-5 text-lg" style={{ color: grade.c }}>{grade.l}</p>
         <div className="grid grid-cols-3 gap-3 mb-5">
           {[{ l: 'Correct', v: correct, c: '#34d399' }, { l: 'Wrong', v: scenarios.length - correct, c: '#f87171' }, { l: 'Best Streak', v: bestStreak, c: '#D4AF37' }].map(s => (
             <div key={s.l} className="rounded-xl p-3" style={{ background: 'rgba(255,255,255,0.05)' }}>
               <div className="text-2xl font-black" style={{ color: s.c }}>{s.v}</div>
-              <div className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.5)' }}>{s.l}</div>
+              <div className="text-xs mt-0.5" style={{ color: '#64748b' }}>{s.l}</div>
             </div>
           ))}
         </div>
@@ -509,14 +509,14 @@ function QuizEngine({ chapter, levelKey, onBack }) {
             <div key={i} className="flex items-center gap-3 rounded-xl px-3 py-2"
               style={{ background: h.correct ? 'rgba(52,211,153,0.08)' : 'rgba(248,113,113,0.08)' }}>
               <span className="text-base">{h.sc.emoji}</span>
-              <span className="flex-1 text-xs truncate" style={{ color: 'rgba(255,255,255,0.7)' }}>{h.sc.product}</span>
+              <span className="flex-1 text-xs truncate" style={{ color: '#1e293b' }}>{h.sc.product}</span>
               <span>{h.correct ? '✅' : '❌'}</span>
             </div>
           ))}
         </div>
         <div className="flex gap-3">
           <button onClick={onBack} className="flex-1 py-3 rounded-xl font-bold text-sm"
-            style={{ background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.1)' }}>
+            style={{ background: 'rgba(255,255,255,0.07)', color: 'rgba(255,255,255,0.85)', border: '1px solid rgba(255,255,255,0.12)' }}>
             ← Back
           </button>
           <button onClick={restart} className="flex-1 py-4 rounded-xl font-black text-navy-950"
@@ -587,7 +587,7 @@ function QuizEngine({ chapter, levelKey, onBack }) {
       </div>
 
       {/* ── Timer bar ── */}
-      <div className="h-2.5 rounded-full mb-4 overflow-hidden" style={{ background: 'rgba(255,255,255,0.08)' }}>
+      <div className="h-2.5 rounded-full mb-4 overflow-hidden" style={{ background: 'rgba(255,255,255,0.05)' }}>
         <motion.div
           className="h-full rounded-full transition-colors"
           style={{ background: timerColor, width: `${timerPct}%` }}
@@ -595,7 +595,7 @@ function QuizEngine({ chapter, levelKey, onBack }) {
           transition={{ duration: 0.9, ease: 'linear' }}
         />
       </div>
-      <div className="flex justify-between text-xs mb-4 px-1" style={{ color: 'rgba(255,255,255,0.35)' }}>
+      <div className="flex justify-between text-xs mb-4 px-1" style={{ color: '#64748b' }}>
         <span style={{ color: timerColor, fontWeight: 'bold' }}>⏱ {timer}s</span>
         <span>100 × {Math.min(streak + 1, 5)}x = <span style={{ color: '#D4AF37', fontWeight: 'bold' }}>+{100 * Math.min(streak + 1, 5)} pts</span></span>
       </div>
@@ -623,7 +623,7 @@ function QuizEngine({ chapter, levelKey, onBack }) {
 
           {/* News headline */}
           <div className="rounded-2xl p-4 mb-3"
-            style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderLeft: `4px solid ${chapter.color}` }}>
+            style={{ background: 'rgba(255,255,255,0.04)', border: `1px solid rgba(255,255,255,0.1)`, borderLeft: `4px solid ${chapter.color}` }}>
             <div className="flex items-center gap-2 mb-2">
               <span className="text-xs font-black px-2 py-0.5 rounded-full"
                 style={{ background: 'rgba(239,68,68,0.2)', color: '#f87171', border: '1px solid rgba(239,68,68,0.3)' }}>
@@ -725,7 +725,7 @@ function QuizEngine({ chapter, levelKey, onBack }) {
                 <div className="rounded-xl px-4 py-3 mb-3 flex gap-3 items-start"
                   style={{ background: 'rgba(212,175,55,0.08)', border: '1px solid rgba(212,175,55,0.25)' }}>
                   <span className="text-base flex-shrink-0">📋</span>
-                  <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.65)' }}>
+                  <p className="text-xs leading-relaxed" style={{ color: '#374151' }}>
                     <span style={{ color: '#D4AF37', fontWeight: 'bold' }}>Board Tip: </span>{sc.tip}
                   </p>
                 </div>
@@ -764,14 +764,14 @@ function LevelSelect({ chapter, onSelect, onBack }) {
   return (
     <div>
       <button onClick={onBack} className="flex items-center gap-2 text-sm mb-5 px-3 py-1.5 rounded-lg"
-        style={{background:'rgba(255,255,255,0.06)',color:'rgba(255,255,255,0.6)',border:'1px solid rgba(255,255,255,0.1)'}}>
+        style={{background: 'rgba(255,255,255,0.07)',color: 'rgba(255,255,255,0.8)',border: '1px solid rgba(255,255,255,0.12)'}}>
         ← Back
       </button>
       <div className="flex items-center gap-3 mb-6">
         <span className="text-4xl">{chapter.emoji}</span>
         <div>
           <h2 className="text-xl font-black text-white">{chapter.title}</h2>
-          <p className="text-xs" style={{color:'rgba(255,255,255,0.5)'}}>{chapter.cbse}</p>
+          <p className="text-xs" style={{color: '#64748b'}}>{chapter.cbse}</p>
         </div>
       </div>
       <div className="space-y-3">
@@ -782,7 +782,7 @@ function LevelSelect({ chapter, onSelect, onBack }) {
             <motion.button key={lv} whileHover={{x:4}} whileTap={{scale:0.98}}
               onClick={()=>onSelect(lv)}
               className="w-full text-left rounded-2xl p-5 transition-all"
-              style={{background:'rgba(255,255,255,0.04)',border:`1px solid ${colors[lv]}30`}}>
+              style={{background: 'rgba(255,255,255,0.04)',border:`1px solid ${colors[lv]}50`}}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="text-3xl">{l.emoji}</div>
@@ -794,7 +794,7 @@ function LevelSelect({ chapter, onSelect, onBack }) {
                         {l.label}
                       </span>
                     </div>
-                    <p className="text-xs" style={{color:'rgba(255,255,255,0.5)'}}>{l.desc}</p>
+                    <p className="text-xs" style={{color: '#64748b'}}>{l.desc}</p>
                     <p className="text-xs mt-0.5" style={{color:'rgba(255,255,255,0.3)'}}>{l.scenarios.length} questions</p>
                   </div>
                 </div>
@@ -817,7 +817,7 @@ export default function Games() {
   const [selectedLevel, setSelectedLevel] = useState(null);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" style={{ background: 'linear-gradient(160deg, #0a0f1e 0%, #0f1628 100%)' }}>
       {/* Hero */}
       {screen==='home' && (
         <>
@@ -833,7 +833,7 @@ export default function Games() {
                 Economics is<span style={{color:'#D4AF37'}}> Fun!</span>
               </motion.h1>
               <motion.p initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{delay:0.15}}
-                className="text-base max-w-lg mx-auto" style={{color:'rgba(255,255,255,0.6)'}}>
+                className="text-base max-w-lg mx-auto" style={{color: 'rgba(255,255,255,0.65)'}}>
                 No boring textbooks. Real stories, real prices, real fun. 🇮🇳
               </motion.p>
             </div>
@@ -847,7 +847,7 @@ export default function Games() {
                   whileHover={{y:-6,scale:1.02}} whileTap={{scale:0.98}}
                   onClick={()=>setScreen('chapters')}
                   className="text-left rounded-2xl p-6"
-                  style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(96,165,250,0.3)'}}>
+                  style={{background: 'rgba(255,255,255,0.04)',border:'1px solid rgba(96,165,250,0.3)'}}>
                   <div className="text-5xl mb-4">🎯</div>
                   <div className="inline-block text-xs font-bold px-2.5 py-1 rounded-full mb-3"
                     style={{background:'rgba(96,165,250,0.15)',color:'#60a5fa',border:'1px solid rgba(96,165,250,0.3)'}}>
@@ -855,7 +855,7 @@ export default function Games() {
                   </div>
                   <h3 className="text-xl font-black text-white mb-1">Predict the Price!</h3>
                   <p className="text-sm font-semibold mb-2" style={{color:'#60a5fa'}}>5 Chapters · 3 Levels each</p>
-                  <p className="text-xs mb-3" style={{color:'rgba(255,255,255,0.5)'}}>
+                  <p className="text-xs mb-3" style={{color: '#64748b'}}>
                     Demand, Supply, Equilibrium, National Income, Inflation — with Giffen goods, Veblen goods, PED, tax incidence & more!
                   </p>
                   <div className="flex flex-wrap gap-1 mb-4">
@@ -869,7 +869,7 @@ export default function Games() {
                   whileHover={{y:-6,scale:1.02}} whileTap={{scale:0.98}}
                   onClick={()=>setScreen('timemachine')}
                   className="text-left rounded-2xl p-6"
-                  style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(52,211,153,0.3)'}}>
+                  style={{background: 'rgba(255,255,255,0.04)',border:'1px solid rgba(52,211,153,0.3)'}}>
                   <div className="text-5xl mb-4">💸</div>
                   <div className="inline-block text-xs font-bold px-2.5 py-1 rounded-full mb-3"
                     style={{background:'rgba(52,211,153,0.15)',color:'#34d399',border:'1px solid rgba(52,211,153,0.3)'}}>
@@ -877,7 +877,7 @@ export default function Games() {
                   </div>
                   <h3 className="text-xl font-black text-white mb-1">Money Time Machine</h3>
                   <p className="text-sm font-semibold mb-2" style={{color:'#34d399'}}>India CPI 2000–2024</p>
-                  <p className="text-xs mb-4" style={{color:'rgba(255,255,255,0.5)'}}>
+                  <p className="text-xs mb-4" style={{color: '#64748b'}}>
                     See how inflation ate your money! Pick any amount and year — the result is shocking! 😱
                   </p>
                   <div className="flex items-center gap-2 text-sm font-black" style={{color:'#34d399'}}>Play Now →</div>
@@ -887,7 +887,7 @@ export default function Games() {
               <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:0.5}}
                 className="mt-5 rounded-2xl p-4 text-center"
                 style={{background:'rgba(255,255,255,0.02)',border:'1px dashed rgba(255,255,255,0.1)'}}>
-                <p className="text-sm" style={{color:'rgba(255,255,255,0.35)'}}>
+                <p className="text-sm" style={{color: '#64748b'}}>
                   🚧 More coming soon — Budget Simulator, GDP Quiz, Market Failure Explorer
                 </p>
               </motion.div>
@@ -901,11 +901,11 @@ export default function Games() {
         <section className="section-padding pt-28 pb-16">
           <div className="page-container max-w-2xl mx-auto">
             <button onClick={()=>setScreen('home')} className="flex items-center gap-2 text-sm mb-6 px-3 py-1.5 rounded-lg"
-              style={{background:'rgba(255,255,255,0.06)',color:'rgba(255,255,255,0.6)',border:'1px solid rgba(255,255,255,0.1)'}}>
+              style={{background: 'rgba(255,255,255,0.07)',color: 'rgba(255,255,255,0.8)',border: '1px solid rgba(255,255,255,0.12)'}}>
               ← Back to Games
             </button>
             <h2 className="text-2xl font-black text-white mb-1">Choose a Chapter</h2>
-            <p className="text-sm mb-6" style={{color:'rgba(255,255,255,0.5)'}}>Each chapter has 3 levels — Easy, Medium, Hard</p>
+            <p className="text-sm mb-6" style={{color: '#64748b'}}>Each chapter has 3 levels — Easy, Medium, Hard</p>
             <div className="space-y-3">
               {CHAPTERS.map((ch,i)=>(
                 <motion.button key={ch.id}
@@ -913,7 +913,7 @@ export default function Games() {
                   whileHover={{x:4}} whileTap={{scale:0.98}}
                   onClick={()=>{setSelectedChapter(ch);setScreen('levels');}}
                   className="w-full text-left rounded-2xl p-5 transition-all"
-                  style={{background:'rgba(255,255,255,0.04)',border:`1px solid ${ch.color}25`}}>
+                  style={{background: 'rgba(255,255,255,0.04)',border:`1px solid ${ch.color}40`}}>
                   <div className="flex items-center gap-4">
                     <div className="text-4xl flex-shrink-0">{ch.emoji}</div>
                     <div className="flex-1 min-w-0">
@@ -927,7 +927,7 @@ export default function Games() {
                       <p className="text-xs truncate" style={{color:'rgba(255,255,255,0.45)'}}>{ch.subtitle}</p>
                     </div>
                     <div className="text-right flex-shrink-0">
-                      <div className="text-xs mb-1" style={{color:'rgba(255,255,255,0.35)'}}>
+                      <div className="text-xs mb-1" style={{color: '#64748b'}}>
                         {Object.values(ch.levels).reduce((a,l)=>a+l.scenarios.length,0)} Qs
                       </div>
                       <span className="text-lg" style={{color:ch.color}}>→</span>
@@ -958,10 +958,10 @@ export default function Games() {
         <section className="section-padding pt-28 pb-16">
           <div className="page-container max-w-2xl mx-auto">
             <button onClick={()=>setScreen('levels')} className="flex items-center gap-2 text-sm mb-5 px-3 py-1.5 rounded-lg"
-              style={{background:'rgba(255,255,255,0.06)',color:'rgba(255,255,255,0.6)',border:'1px solid rgba(255,255,255,0.1)'}}>
+              style={{background: 'rgba(255,255,255,0.07)',color: 'rgba(255,255,255,0.8)',border: '1px solid rgba(255,255,255,0.12)'}}>
               ← Change Level
             </button>
-            <div className="rounded-2xl p-5" style={{background:'rgba(255,255,255,0.03)',border:'1px solid rgba(255,255,255,0.08)'}}>
+            <div className="rounded-2xl p-5" style={{background: 'rgba(255,255,255,0.05)',border: '1px solid rgba(255,255,255,0.1)'}}>
               <QuizEngine key={`${selectedChapter.id}-${selectedLevel}`}
                 chapter={selectedChapter} levelKey={selectedLevel}
                 onBack={()=>setScreen('levels')}/>
@@ -975,10 +975,10 @@ export default function Games() {
         <section className="section-padding pt-28 pb-16">
           <div className="page-container max-w-2xl mx-auto">
             <button onClick={()=>setScreen('home')} className="flex items-center gap-2 text-sm mb-5 px-3 py-1.5 rounded-lg"
-              style={{background:'rgba(255,255,255,0.06)',color:'rgba(255,255,255,0.6)',border:'1px solid rgba(255,255,255,0.1)'}}>
+              style={{background: 'rgba(255,255,255,0.07)',color: 'rgba(255,255,255,0.8)',border: '1px solid rgba(255,255,255,0.12)'}}>
               ← Back to Games
             </button>
-            <div className="rounded-2xl p-5" style={{background:'rgba(255,255,255,0.03)',border:'1px solid rgba(255,255,255,0.08)'}}>
+            <div className="rounded-2xl p-5" style={{background: 'rgba(255,255,255,0.05)',border: '1px solid rgba(255,255,255,0.1)'}}>
               <TimeMachineGame/>
             </div>
           </div>
