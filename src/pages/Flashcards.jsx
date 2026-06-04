@@ -153,7 +153,7 @@ function FlipCard({ card, color, bg, border, onKnow, onAgain }) {
             <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight mb-4">
               {card.term}
             </h2>
-            <p className="text-sm" style={{ color: '#64748b' }}>
+            <p className="text-sm" style={{ color: 'rgba(255,255,255,0.35)' }}>
               Do you know this concept?
             </p>
           </div>
@@ -164,7 +164,7 @@ function FlipCard({ card, color, bg, border, onKnow, onAgain }) {
               animate={{ y: [0, 4, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
               className="flex items-center gap-2 text-xs font-semibold px-4 py-2 rounded-full"
-              style={{ background: '#f8fafc', color: '#94a3b8', border: '1px solid #e2e8f0' }}
+              style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.4)', border: '1px solid rgba(255,255,255,0.08)' }}
             >
               👇 Tap card to flip
             </motion.div>
@@ -279,15 +279,15 @@ function ChapterCard({ chapter, masteredTerms, onStart, index }) {
         <div className="text-4xl">{chapter.emoji}</div>
         <div className="text-right">
           <div className="text-xs font-bold" style={{ color: chapter.color }}>{mastered}/{total}</div>
-          <div className="text-[10px]" style={{ color: 'rgba(255,255,255,0.5)' }}>mastered</div>
+          <div className="text-[10px]" style={{ color: 'rgba(255,255,255,0.35)' }}>mastered</div>
         </div>
       </div>
 
-      <h3 className="text-lg font-black mb-0.5" style={{ color: '#ffffff' }}>{chapter.title}</h3>
-      <p className="text-xs mb-4" style={{ color: 'rgba(255,255,255,0.75)' }}>{chapter.subtitle}</p>
+      <h3 className="text-lg font-black text-white mb-0.5">{chapter.title}</h3>
+      <p className="text-xs mb-4" style={{ color: 'rgba(255,255,255,0.45)' }}>{chapter.subtitle}</p>
 
       {/* progress bar */}
-      <div className="h-1.5 rounded-full mb-3" style={{ background: 'rgba(255,255,255,0.05)' }}>
+      <div className="h-1.5 rounded-full mb-3" style={{ background: 'rgba(255,255,255,0.08)' }}>
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${pct}%` }}
@@ -298,7 +298,7 @@ function ChapterCard({ chapter, masteredTerms, onStart, index }) {
       </div>
 
       <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold" style={{ color: 'rgba(255,255,255,0.55)' }}>
+        <span className="text-xs font-semibold" style={{ color: 'rgba(255,255,255,0.4)' }}>
           {total} cards
         </span>
         <span className="text-xs font-black" style={{ color: chapter.color }}>
@@ -407,7 +407,7 @@ export default function Flashcards() {
   // ── HOME SCREEN ──────────────────────────────────────────────────────────────
   if (screen === 'home') {
     return (
-      <div className="min-h-screen py-20 px-4" style={{ background: 'linear-gradient(160deg, #0a0f1e 0%, #0f1628 100%)' }}>
+      <div className="min-h-screen py-20 px-4">
         <div className="max-w-2xl mx-auto">
           {/* header */}
           <motion.div
@@ -422,7 +422,7 @@ export default function Flashcards() {
             <h1 className="text-4xl sm:text-5xl font-black text-white mb-3">
               Flashcard <span style={{ color: '#D4AF37' }}>Flipper</span>
             </h1>
-            <p className="text-base max-w-md mx-auto mb-2" style={{ color: '#475569' }}>
+            <p className="text-base max-w-md mx-auto mb-2" style={{ color: 'rgba(255,255,255,0.55)' }}>
               Tap a card to reveal the definition. Mark what you know — review what you don't.
             </p>
             {totalMastered > 0 && (
@@ -456,15 +456,15 @@ export default function Flashcards() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
             className="rounded-2xl p-5"
-            style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}
+            style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
           >
             <div className="flex justify-between items-center mb-2">
-              <span className="text-sm font-bold" style={{ color: 'rgba(255,255,255,0.9)' }}>Overall Mastery</span>
+              <span className="text-sm font-bold text-white">Overall Mastery</span>
               <span className="text-sm font-black" style={{ color: '#D4AF37' }}>
                 {totalMastered}/{totalCards}
               </span>
             </div>
-            <div className="h-2.5 rounded-full" style={{ background: 'rgba(255,255,255,0.05)' }}>
+            <div className="h-2.5 rounded-full" style={{ background: 'rgba(255,255,255,0.06)' }}>
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${Math.round((totalMastered / totalCards) * 100)}%` }}
@@ -473,7 +473,7 @@ export default function Flashcards() {
                 style={{ background: 'linear-gradient(90deg, #D4AF37, #F0C040)' }}
               />
             </div>
-            <p className="text-xs mt-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
+            <p className="text-xs mt-2" style={{ color: 'rgba(255,255,255,0.35)' }}>
               {totalCards - totalMastered} cards left to master • Progress saved automatically
             </p>
           </motion.div>
@@ -490,20 +490,20 @@ export default function Flashcards() {
     const masteredCount = (progress[chapter.id] || []).length;
 
     return (
-      <div className="min-h-screen py-20 px-4" style={{ background: 'linear-gradient(160deg, #0a0f1e 0%, #0f1628 100%)' }}>
+      <div className="min-h-screen py-20 px-4">
         <div className="max-w-xl mx-auto">
           {/* top bar */}
           <div className="flex items-center justify-between mb-6">
             <button
               onClick={() => setScreen('home')}
               className="flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-xl transition-all"
-              style={{ background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.8)', border: '1px solid rgba(255,255,255,0.12)' }}
+              style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.6)', border: '1px solid rgba(255,255,255,0.1)' }}
             >
               ← Back
             </button>
             <div className="text-center">
               <div className="text-sm font-black text-white">{chapter.emoji} {chapter.title}</div>
-              <div className="text-xs" style={{ color: '#94a3b8' }}>
+              <div className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>
                 Card {doneInSession + 1} of {totalInSession}
               </div>
             </div>
@@ -514,7 +514,7 @@ export default function Flashcards() {
           </div>
 
           {/* progress bar */}
-          <div className="h-1.5 rounded-full mb-6" style={{ background: 'rgba(255,255,255,0.05)' }}>
+          <div className="h-1.5 rounded-full mb-6" style={{ background: 'rgba(255,255,255,0.07)' }}>
             <motion.div
               animate={{ width: `${pct}%` }}
               transition={{ duration: 0.4 }}
@@ -556,7 +556,7 @@ export default function Flashcards() {
           </AnimatePresence>
 
           {/* keyboard hint */}
-          <p className="text-center text-xs mt-5" style={{ color: '#94a3b8' }}>
+          <p className="text-center text-xs mt-5" style={{ color: 'rgba(255,255,255,0.25)' }}>
             Be honest with yourself — spaced repetition works best when you're truthful!
           </p>
         </div>
@@ -567,7 +567,7 @@ export default function Flashcards() {
   // ── REVIEW PROMPT SCREEN ─────────────────────────────────────────────────────
   if (screen === 'review' && chapter) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4" style={{ background: 'linear-gradient(160deg, #0a0f1e 0%, #0f1628 100%)' }}>
+      <div className="min-h-screen flex items-center justify-center px-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -579,7 +579,7 @@ export default function Flashcards() {
         >
           <div className="text-6xl mb-4">🔄</div>
           <h2 className="text-2xl font-black text-white mb-2">Almost there!</h2>
-          <p className="text-sm mb-6" style={{ color: '#374151' }}>
+          <p className="text-sm mb-6" style={{ color: 'rgba(255,255,255,0.6)' }}>
             You marked <span className="font-bold text-white">{againList.length}</span> card{againList.length !== 1 ? 's' : ''} for review.
             Want to go through them again?
           </p>
@@ -597,7 +597,7 @@ export default function Flashcards() {
               whileTap={{ scale: 0.96 }}
               onClick={() => { setShowParticles(true); setTimeout(() => setShowParticles(false), 1500); setScreen('done'); }}
               className="w-full py-3 rounded-2xl font-bold text-sm"
-              style={{ background: '#f8fafc', color: '#64748b', border: '1px solid #e2e8f0' }}
+              style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.5)', border: '1px solid rgba(255,255,255,0.1)' }}
             >
               Skip — I'm done for now
             </motion.button>
@@ -615,7 +615,7 @@ export default function Flashcards() {
     const stars = pct >= 90 ? 3 : pct >= 60 ? 2 : 1;
 
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden" style={{ background: 'linear-gradient(160deg, #0a0f1e 0%, #0f1628 100%)' }}>
+      <div className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
         {/* particles */}
         {showParticles && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -655,7 +655,7 @@ export default function Flashcards() {
             {pct === 100 ? 'Perfect! 🎉' : pct >= 75 ? 'Great Job! 🔥' : 'Keep Going! 💪'}
           </motion.h2>
 
-          <p className="text-sm mb-6" style={{ color: '#475569' }}>
+          <p className="text-sm mb-6" style={{ color: 'rgba(255,255,255,0.55)' }}>
             {chapter.emoji} {chapter.title} · Session complete
           </p>
 
@@ -666,10 +666,10 @@ export default function Flashcards() {
               { label: 'Total Mastered', value: `${chMastered}/${total}`, color: '#D4AF37', emoji: '⭐' },
             ].map(s => (
               <div key={s.label} className="rounded-2xl p-4"
-                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
                 <div className="text-xl mb-1">{s.emoji}</div>
                 <div className="text-lg font-black" style={{ color: s.color }}>{s.value}</div>
-                <div className="text-xs" style={{ color: '#94a3b8' }}>{s.label}</div>
+                <div className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>{s.label}</div>
               </div>
             ))}
           </div>
@@ -677,10 +677,10 @@ export default function Flashcards() {
           {/* progress bar */}
           <div className="mb-6">
             <div className="flex justify-between text-xs mb-1.5">
-              <span style={{ color: '#94a3b8' }}>Chapter Mastery</span>
+              <span style={{ color: 'rgba(255,255,255,0.4)' }}>Chapter Mastery</span>
               <span className="font-bold" style={{ color: chapter.color }}>{pct}%</span>
             </div>
-            <div className="h-2.5 rounded-full" style={{ background: 'rgba(255,255,255,0.05)' }}>
+            <div className="h-2.5 rounded-full" style={{ background: 'rgba(255,255,255,0.08)' }}>
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${pct}%` }}
@@ -704,14 +704,14 @@ export default function Flashcards() {
             <button
               onClick={() => setScreen('home')}
               className="w-full py-3 rounded-2xl font-bold text-sm"
-              style={{ background: '#f8fafc', color: '#64748b', border: '1px solid #e2e8f0' }}
+              style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.5)', border: '1px solid rgba(255,255,255,0.1)' }}
             >
               ← Choose Another Chapter
             </button>
             <button
               onClick={resetChapter}
               className="text-xs py-2"
-              style={{ color: '#94a3b8' }}
+              style={{ color: 'rgba(255,255,255,0.25)' }}
             >
               Reset progress for this chapter
             </button>

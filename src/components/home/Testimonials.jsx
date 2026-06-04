@@ -1,154 +1,117 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Star, TrendingUp, Award, Users, CheckCircle } from 'lucide-react';
+import { Star, Quote } from 'lucide-react';
 import { testimonials } from '../../data/testimonials';
-
-const credStats = [
-  { icon: TrendingUp, value: '91.2%', label: 'Class Average',  color: '#059669', bg: '#ECFDF5', border: '#A7F3D0' },
-  { icon: Award,      value: '9',     label: 'CBSE Toppers',   color: '#d97706', bg: '#FFFBEB', border: '#FDE68A' },
-  { icon: CheckCircle,value: '100%',  label: 'Pass Rate',      color: '#2563eb', bg: '#EFF6FF', border: '#BFDBFE' },
-  { icon: Star,       value: '5★',    label: 'Avg. Rating',    color: '#7c3aed', bg: '#F5F3FF', border: '#DDD6FE' },
-];
 
 export default function Testimonials() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '80px' });
+  const inView = useInView(ref, { once: true, margin: '100px' });
 
   return (
-    <section ref={ref} style={{ background: 'var(--bg-white)', padding: '80px 0', borderTop: '1px solid var(--border)' }}>
-      <div className="page-container">
+    <section ref={ref} className="section-padding relative overflow-hidden"
+      style={{ background: 'linear-gradient(180deg, #F8FAFC 0%, #EEF2FF 100%)' }}>
 
-        {/* Header */}
+      {/* Subtle separator */}
+      <div className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.25), transparent)' }} />
+
+      {/* Faint decorative circles */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full opacity-[0.04]"
+          style={{ background: 'radial-gradient(circle, #f59e0b 0%, transparent 70%)' }} />
+        <div className="absolute -bottom-24 -left-24 w-80 h-80 rounded-full opacity-[0.04]"
+          style={{ background: 'radial-gradient(circle, #6366f1 0%, transparent 70%)' }} />
+      </div>
+
+      <div className="page-container relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          style={{ textAlign: 'center', marginBottom: '48px' }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center mb-14"
         >
-          <span className="section-subheading">Student Success Stories</span>
-          <h2 style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: 'clamp(1.875rem, 3.5vw, 2.6rem)',
-            fontWeight: 700, color: 'var(--ink)', marginBottom: '12px',
-            letterSpacing: '-0.025em', lineHeight: 1.12,
-            marginBottom: '16px',
-          }}>
-            Real Students. Real Results.
+          <div className="section-subheading">Student Success Stories</div>
+          <h2 className="section-heading" style={{ color: '#111827' }}>
+            Real Students. <span className="gradient-text">Real Results.</span>
           </h2>
-          <p style={{
-            fontFamily: "'Inter', sans-serif",
-            fontSize: '15px', color: 'var(--muted)',
-            maxWidth: '520px', margin: '0 auto 28px', lineHeight: 1.7,
-          }}>
-            Every review below is from a real student who prepared with Smit Sir Commerce
-            and appeared in CBSE Board Exams.
+          <p className="text-gray-600 max-w-xl mx-auto mt-4 mb-6">
+            Every review below is from a real student who prepared with Smit Sir Commerce and appeared in CBSE Board Exams.
           </p>
-
-          {/* Credibility stats */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '10px' }}>
-            {credStats.map(s => {
-              const Icon = s.icon;
-              return (
-                <div key={s.label} style={{
-                  display: 'inline-flex', alignItems: 'center', gap: '8px',
-                  padding: '8px 16px', borderRadius: '999px',
-                  background: s.bg, border: `1px solid ${s.border}`,
-                  boxShadow: 'var(--shadow-xs)',
-                }}>
-                  <Icon style={{ width: '13px', height: '13px', color: s.color }} />
-                  <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '13px', fontWeight: 700, color: s.color }}>{s.value}</span>
-                  <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', color: 'var(--muted)' }}>{s.label}</span>
-                </div>
-              );
-            })}
+          {/* Social proof bar */}
+          <div className="flex flex-wrap justify-center gap-3">
+            {[
+              { emoji: '📊', label: '91.2%', sub: 'Class Average' },
+              { emoji: '🏆', label: '9 Toppers', sub: 'CBSE 2024' },
+              { emoji: '💯', label: '100%', sub: 'Pass Rate' },
+              { emoji: '⭐', label: '5★', sub: 'Avg. Rating' },
+            ].map(s => (
+              <div key={s.label} className="flex items-center gap-2 px-4 py-2 rounded-full"
+                style={{ background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.15)' }}>
+                <span className="text-sm">{s.emoji}</span>
+                <span className="font-black text-sm" style={{ color: '#92400e' }}>{s.label}</span>
+                <span className="text-xs text-gray-500">{s.sub}</span>
+              </div>
+            ))}
           </div>
         </motion.div>
 
-        {/* Testimonial grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '16px',
-        }} className="testimonials-grid">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {testimonials.map((t, i) => (
             <motion.div
               key={t.id}
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ delay: i * 0.06, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="group relative bg-white rounded-2xl p-6 overflow-hidden"
               style={{
-                background: 'var(--bg-white)',
-                border: '1px solid var(--border)',
-                borderRadius: '16px',
-                padding: '24px',
-                display: 'flex', flexDirection: 'column',
-                transition: 'all 0.2s ease',
-                position: 'relative',
+                border: '1px solid rgba(0,0,0,0.06)',
+                boxShadow: '0 2px 16px rgba(0,0,0,0.05)',
+                transition: 'transform 0.25s cubic-bezier(0.4,0,0.2,1), box-shadow 0.25s cubic-bezier(0.4,0,0.2,1)',
               }}
-              whileHover={{ y: -3, boxShadow: '0 8px 28px rgba(43,33,24,0.09)', borderColor: 'var(--border)' }}
+              whileHover={{ y: -4 }}
+              onMouseEnter={e => {
+                e.currentTarget.style.boxShadow = '0 16px 48px rgba(0,0,0,0.1), 0 0 0 1px rgba(212,175,55,0.2)';
+                e.currentTarget.style.borderColor = 'rgba(212,175,55,0.25)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.boxShadow = '0 2px 16px rgba(0,0,0,0.05)';
+                e.currentTarget.style.borderColor = 'rgba(0,0,0,0.06)';
+              }}
             >
-              {/* Gold top accent */}
-              <div style={{
-                position: 'absolute', top: 0, left: '24px', right: '24px',
-                height: '2px',
-                background: 'linear-gradient(90deg, transparent, var(--gold-soft), transparent)',
-                borderRadius: '2px',
-                opacity: 0,
-                transition: 'opacity 0.2s',
-              }} className="card-top-line" />
+              {/* Large decorative quote mark */}
+              <div className="absolute -top-3 -right-1 opacity-[0.04] pointer-events-none select-none"
+                style={{ fontSize: '120px', lineHeight: 1, fontFamily: 'Georgia, serif', color: '#111' }}>
+                "
+              </div>
+
+              {/* Gold accent top line */}
+              <div className="absolute top-0 left-6 right-6 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"
+                style={{ background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.5), transparent)' }} />
 
               {/* Stars */}
-              <div style={{ display: 'flex', gap: '2px', marginBottom: '14px' }}>
-                {[1,2,3,4,5].map(s => (
-                  <Star key={s} style={{ width: '14px', height: '14px', color: '#d97706', fill: '#d97706' }} />
+              <div className="flex items-center gap-0.5 mb-4">
+                {[1, 2, 3, 4, 5].map((s) => (
+                  <Star key={s} className="w-3.5 h-3.5 text-gold-400 fill-gold-400" />
                 ))}
               </div>
 
               {/* Quote */}
-              <p style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: '14px', lineHeight: 1.72,
-                color: 'var(--charcoal)',
-                flex: 1, marginBottom: '20px',
-                fontStyle: 'italic',
-              }}>
+              <p className="text-sm leading-relaxed mb-6 relative z-10" style={{ color: '#1f2937' }}>
                 "{t.quote}"
               </p>
 
               {/* Author */}
-              <div style={{
-                display: 'flex', alignItems: 'center', gap: '12px',
-                paddingTop: '16px',
-                borderTop: '1px solid var(--border-soft)',
-              }}>
-                <div style={{
-                  width: '36px', height: '36px',
-                  borderRadius: '50%',
-                  background: 'var(--gold-bg)',
-                  border: '1px solid rgba(184,135,47,0.2)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '13px', fontWeight: 700,
-                  color: 'var(--gold)',
-                  flexShrink: 0,
-                }}>
-                  {t.avatar || t.name?.charAt(0) || 'S'}
+              <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-gold-500 text-sm flex-shrink-0"
+                  style={{ background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.2)' }}>
+                  {t.avatar}
                 </div>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '13px', fontWeight: 700, color: 'var(--ink)' }}>
-                    {t.name}
-                  </div>
-                  <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', color: 'var(--subtle)', marginTop: '1px' }}>
-                    {t.class} · {t.subject}
-                  </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-sm" style={{ color: '#111827' }}>{t.name}</div>
+                  <div className="text-xs" style={{ color: '#4B5563' }}>{t.class} · {t.subject}</div>
                 </div>
-                <div style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '12px', fontWeight: 700,
-                  padding: '3px 10px', borderRadius: '8px',
-                  background: '#ECFDF5', border: '1px solid #A7F3D0',
-                  color: '#059669', flexShrink: 0,
-                }}>
+                <div className="font-bold text-sm px-2.5 py-1 rounded-lg flex-shrink-0"
+                  style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.2)', color: '#059669' }}>
                   {t.score}
                 </div>
               </div>
@@ -156,12 +119,6 @@ export default function Testimonials() {
           ))}
         </div>
       </div>
-
-      <style>{`
-        @media (max-width: 1024px) { .testimonials-grid { grid-template-columns: repeat(2, 1fr) !important; } }
-        @media (max-width: 640px)  { .testimonials-grid { grid-template-columns: 1fr !important; } }
-        .testimonials-grid > div:hover .card-top-line { opacity: 1 !important; }
-      `}</style>
     </section>
   );
 }
