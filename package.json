@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "studio": "remotion studio remotion/index.jsx",
     "render": "remotion render remotion/index.jsx CosmicAd out/SmitSirAd.mp4",
-    "render:manga": "remotion render remotion/index.jsx MangaAd out/MangaAd.mp4"
+    "render:manga": "remotion render remotion/index.jsx MangaAd out/MangaAd.mp4",
+    "render:premium": "remotion render remotion/index.jsx PremiumAd out/PremiumAd.mp4"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.468",
