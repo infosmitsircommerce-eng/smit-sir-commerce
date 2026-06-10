@@ -2,6 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===================== THE LEDGER — EDITORIAL TOKENS =====================
+   Warm ivory paper, ink text, old-gold rules. Single source of truth for
+   the editorial theme used across the homepage and light pages. */
+:root {
+  /* Paper */
+  --bg-ivory:    #FAF6EE;
+  --bg-cream:    #F3ECDD;
+  --bg-soft:     #F1EAD9;
+  --bg-white:    #FFFFFF;
+
+  /* Ink */
+  --ink:         #1E1812;
+  --espresso:    #2E2418;
+  --charcoal:    #4A4036;
+  --muted:       #6E6354;
+  --subtle:      #9A8E7C;
+
+  /* Rules & hairlines */
+  --border:      #E6DCC8;
+  --border-soft: #EFE8D8;
+
+  /* Old gold */
+  --gold:        #A87B2A;
+  --gold-soft:   #C9A050;
+  --gold-bright: #D9AC5C;
+  --gold-bg:     rgba(168,123,42,0.09);
+
+  /* Dark "ink" sections (warm, not navy) */
+  --ink-bg:      #181310;
+  --ink-bg-2:    #221B15;
+  --ivory-on-ink:#F3ECDD;
+  --muted-on-ink:#A6988A;
+
+  /* Semantic */
+  --green:       #4D7C0F;
+
+  /* Elevation */
+  --shadow-sm:   0 1px 2px rgba(30,24,18,0.06), 0 2px 8px rgba(30,24,18,0.05);
+  --shadow-md:   0 4px 12px rgba(30,24,18,0.07), 0 12px 32px rgba(30,24,18,0.08);
+  --shadow-gold: 0 8px 28px rgba(168,123,42,0.28);
+
+  /* Type */
+  --font-serif:  'Playfair Display', Georgia, serif;
+  --font-accent: 'Cormorant Garamond', Georgia, serif;
+  --font-sans:   'DM Sans', system-ui, sans-serif;
+}
+
 @layer base {
   *, *::before, *::after {
     box-sizing: border-box;
@@ -18,7 +65,7 @@
 
   body {
     @apply bg-navy-950 text-white font-sans;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
@@ -28,7 +75,7 @@
   img { max-width: 100%; height: auto; }
 
   h1 {
-    font-family: 'Poppins', system-ui, sans-serif;
+    font-family: var(--font-serif);
     letter-spacing: -0.02em;
     line-height: 1.1;
     -webkit-font-smoothing: antialiased;
@@ -36,18 +83,18 @@
   }
 
   h2, h3 {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: var(--font-serif);
     letter-spacing: -0.02em;
     line-height: 1.1;
   }
 
   h4, h5, h6 {
-    font-family: 'Poppins', system-ui, sans-serif;
+    font-family: var(--font-sans);
     letter-spacing: -0.01em;
   }
 
   p {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: var(--font-sans);
     line-height: 1.7;
     letter-spacing: 0.01em;
   }
@@ -92,13 +139,17 @@
 
 @layer components {
   .btn-primary {
-    @apply relative text-navy-950 font-bold px-6 py-3 rounded-xl overflow-hidden;
-    background: linear-gradient(135deg, #D4AF37 0%, #F0C040 50%, #D4AF37 100%);
+    @apply relative font-bold px-6 py-3 overflow-hidden inline-flex items-center justify-center gap-2;
+    font-family: var(--font-sans);
+    color: var(--ivory-on-ink);
+    background: linear-gradient(135deg, #2A2118 0%, #1E1812 55%, #2A2118 100%);
     background-size: 200% 200%;
-    box-shadow: 0 4px 20px rgba(212,175,55,0.3);
+    border: 1px solid rgba(217,172,92,0.35);
+    border-radius: 10px;
+    box-shadow: 0 4px 18px rgba(30,24,18,0.25), inset 0 1px 0 rgba(217,172,92,0.18);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .btn-primary:hover  { background-position: right center; box-shadow: 0 6px 30px rgba(212,175,55,0.5); transform: translateY(-2px); }
+  .btn-primary:hover  { background-position: right center; border-color: rgba(217,172,92,0.7); box-shadow: 0 8px 28px rgba(30,24,18,0.32), inset 0 1px 0 rgba(217,172,92,0.3); transform: translateY(-2px); color: var(--gold-bright); }
   .btn-primary:active { transform: translateY(0px) scale(0.97); transition-duration: 0.08s; }
 
   .btn-primary::after {
@@ -108,10 +159,37 @@
     left: -75%;
     width: 50%;
     height: 200%;
-    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+    background: linear-gradient(120deg, transparent, rgba(217,172,92,0.22), transparent);
     transform: skewX(-20deg);
-    animation: btn-shimmer 3s infinite;
+    animation: btn-shimmer 4s infinite;
   }
+
+  /* Gold filled button — the loud CTA, used sparingly */
+  .btn-gold {
+    @apply relative font-bold px-6 py-3 inline-flex items-center justify-center gap-2;
+    font-family: var(--font-sans);
+    color: #1E1812;
+    background: linear-gradient(135deg, #C9A050 0%, #D9AC5C 50%, #B8872F 100%);
+    background-size: 200% 200%;
+    border-radius: 10px;
+    box-shadow: var(--shadow-gold);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .btn-gold:hover  { background-position: right center; transform: translateY(-2px); box-shadow: 0 12px 36px rgba(168,123,42,0.4); }
+  .btn-gold:active { transform: translateY(0) scale(0.97); }
+
+  /* Hairline outline button for light editorial sections */
+  .btn-outline-ink {
+    @apply font-semibold px-6 py-3 inline-flex items-center justify-center gap-2;
+    font-family: var(--font-sans);
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--ink);
+    border-radius: 10px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .btn-outline-ink:hover  { background: var(--ink); color: var(--ivory-on-ink); transform: translateY(-2px); }
+  .btn-outline-ink:active { transform: translateY(0) scale(0.97); }
 
   .btn-secondary {
     @apply bg-transparent border-2 border-gold-500 text-gold-400 hover:bg-gold-500 hover:text-navy-950 font-bold px-6 py-3 rounded-xl;
@@ -192,9 +270,76 @@
 
   .section-subheading {
     @apply font-semibold uppercase mb-4;
+    font-family: var(--font-sans);
     font-size: 11px;
-    letter-spacing: 0.15em;
-    color: #f59e0b;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+  }
+
+  /* Editorial eyebrow pill — small caps over a gold dot */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold-bg);
+    border: 1px solid rgba(184,135,47,0.22);
+    border-radius: 999px;
+    padding: 5px 14px;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .eyebrow::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+  .eyebrow-on-ink {
+    background: rgba(217,172,92,0.08);
+    border-color: rgba(217,172,92,0.28);
+    color: var(--gold-bright);
+  }
+  .eyebrow-on-ink::before { background: var(--gold-bright); }
+
+  /* Big editorial section headline */
+  .headline {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: clamp(2rem, 3.6vw, 2.9rem);
+    letter-spacing: -0.025em;
+    line-height: 1.12;
+    color: var(--ink);
+  }
+  .headline em {
+    font-family: var(--font-accent);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.08em;
+    background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .headline-on-ink { color: var(--ivory-on-ink); }
+  .headline-on-ink em {
+    background: linear-gradient(135deg, var(--gold-bright), #EDD9AE);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Ledger double rule — the signature divider */
+  .ledger-rule {
+    position: relative;
+    height: 7px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
   }
 
   /* Light section overrides — add class "section-light" to section element */
@@ -337,14 +482,14 @@ section:not(.section-light):not(.section-soft) .section-heading { color: #fff; }
   width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #0f0d2e;
+  background: #1E1812;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #f59e0b, #3730a3);
+  background: linear-gradient(180deg, #C9A050, #6E5520);
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #fbbf24, #4f46d8);
+  background: linear-gradient(180deg, #D9AC5C, #8C6B28);
 }
 
 /* Shimmer button animation */
@@ -512,8 +657,8 @@ section:not(.section-light):not(.section-soft) .section-heading { color: #fff; }
 
 /* Selection color */
 ::selection {
-  background: rgba(245, 158, 11, 0.3);
-  color: #fff;
+  background: rgba(184, 135, 47, 0.28);
+  color: inherit;
 }
 
 /* ===================== ULTRA PREMIUM ===================== */
@@ -688,12 +833,12 @@ section.section-padding {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #fde68a 0%, #f59e0b 25%, #fbbf24 50%, #fde68a 75%, #f59e0b 100%);
+  background: linear-gradient(135deg, #D9AC5C 0%, #B8872F 30%, #C9A050 55%, #E8CF96 80%, #B8872F 100%);
   background-size: 300% 300%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: text-shimmer 6s ease-in-out infinite;
+  animation: text-shimmer 8s ease-in-out infinite;
 }
 
 /* Card entrance animation */

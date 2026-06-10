@@ -80,9 +80,9 @@ function PayModal({ plan, onClose }) {
         </button>
 
         <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-          <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>{plan.label}</div>
+          <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '12px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>{plan.label}</div>
           <div style={{ fontFamily: "'Playfair Display', serif", fontSize: '2.5rem', fontWeight: 700, color: 'var(--gold)', lineHeight: 1 }}>₹{plan.price}</div>
-          <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', color: 'var(--subtle)', marginTop: '4px' }}>One-time · Lifetime Access</div>
+          <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '11px', color: 'var(--subtle)', marginTop: '4px' }}>One-time · Lifetime Access</div>
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
@@ -91,14 +91,14 @@ function PayModal({ plan, onClose }) {
           </div>
         </div>
 
-        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', color: 'var(--muted)', textAlign: 'center', marginBottom: '16px', lineHeight: 1.6 }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '12px', color: 'var(--muted)', textAlign: 'center', marginBottom: '16px', lineHeight: 1.6 }}>
           Scan with Google Pay · PhonePe · Paytm<br/>
           <strong style={{ color: 'var(--gold)' }}>Pay exactly ₹{plan.price}</strong>
         </p>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '20px' }}>
           {['Scan QR & pay ₹' + plan.price, 'Screenshot your payment', 'WhatsApp for instant access'].map((s, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontFamily: "'Inter', sans-serif", fontSize: '13px', color: 'var(--charcoal)' }}>
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontFamily: "'DM Sans', sans-serif", fontSize: '13px', color: 'var(--charcoal)' }}>
               <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '10px', color: 'var(--gold)', flexShrink: 0 }}>
                 {i + 1}
               </div>
@@ -143,7 +143,7 @@ export default function PricingSection() {
           }}>
             Get All Study Material in One Pack
           </h2>
-          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '15px', color: 'var(--muted)', maxWidth: '500px', margin: '0 auto', lineHeight: 1.7 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '15px', color: 'var(--muted)', maxWidth: '500px', margin: '0 auto', lineHeight: 1.7 }}>
             Premium PDFs, PPTs, notes, PYQs, mind maps, WhatsApp group access — one-time payment, lifetime access.
           </p>
         </motion.div>
@@ -171,7 +171,7 @@ export default function PricingSection() {
                   display: 'flex', alignItems: 'center', gap: '5px',
                   padding: '4px 14px', borderRadius: '999px',
                   background: 'linear-gradient(135deg, var(--gold), var(--gold-soft))',
-                  fontFamily: "'Inter', sans-serif",
+                  fontFamily: "'DM Sans', sans-serif",
                   fontSize: '11px', fontWeight: 700,
                   color: 'var(--espresso)',
                   boxShadow: 'var(--shadow-gold)',
@@ -183,7 +183,7 @@ export default function PricingSection() {
               )}
 
               <div style={{ marginBottom: '20px' }}>
-                <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: plan.featured ? 'var(--gold-soft)' : 'var(--muted)', marginBottom: '12px' }}>
+                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '11px', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: plan.featured ? 'var(--gold-soft)' : 'var(--muted)', marginBottom: '12px' }}>
                   {plan.class}
                 </div>
                 <div style={{ display: 'flex', alignItems: 'flex-end', gap: '10px', marginBottom: '6px' }}>
@@ -191,13 +191,13 @@ export default function PricingSection() {
                     ₹{plan.price}
                   </div>
                   <div style={{ marginBottom: '4px' }}>
-                    <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '14px', textDecoration: 'line-through', color: plan.featured ? 'rgba(255,255,255,0.3)' : 'var(--subtle)' }}>₹{plan.original}</div>
-                    <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', fontWeight: 700, color: '#16a34a' }}>
+                    <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '14px', textDecoration: 'line-through', color: plan.featured ? 'rgba(255,255,255,0.3)' : 'var(--subtle)' }}>₹{plan.original}</div>
+                    <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '11px', fontWeight: 700, color: '#16a34a' }}>
                       {Math.round((1 - plan.price / plan.original) * 100)}% OFF
                     </div>
                   </div>
                 </div>
-                <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', color: plan.featured ? 'rgba(255,255,255,0.4)' : 'var(--subtle)' }}>
+                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '11px', color: plan.featured ? 'rgba(255,255,255,0.4)' : 'var(--subtle)' }}>
                   One-time payment · Lifetime access
                 </div>
               </div>
@@ -207,7 +207,7 @@ export default function PricingSection() {
                 {plan.subjects.map(s => (
                   <span key={s} style={{
                     padding: '3px 10px', borderRadius: '6px',
-                    fontFamily: "'Inter', sans-serif", fontSize: '11px', fontWeight: 500,
+                    fontFamily: "'DM Sans', sans-serif", fontSize: '11px', fontWeight: 500,
                     background: plan.featured ? 'rgba(255,255,255,0.08)' : 'var(--bg-ivory)',
                     border: plan.featured ? '1px solid rgba(255,255,255,0.1)' : '1px solid var(--border)',
                     color: plan.featured ? 'rgba(255,255,255,0.7)' : 'var(--charcoal)',
@@ -218,7 +218,7 @@ export default function PricingSection() {
               {/* Features */}
               <ul style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '28px', flex: 1 }}>
                 {plan.features.map(f => (
-                  <li key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontFamily: "'Inter', sans-serif", fontSize: '13.5px', color: plan.featured ? 'rgba(255,255,255,0.75)' : 'var(--charcoal)' }}>
+                  <li key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontFamily: "'DM Sans', sans-serif", fontSize: '13.5px', color: plan.featured ? 'rgba(255,255,255,0.75)' : 'var(--charcoal)' }}>
                     <CheckCircle style={{ width: '14px', height: '14px', flexShrink: 0, marginTop: '2px', color: plan.featured ? 'var(--gold-soft)' : 'var(--green)' }} />
                     {f}
                   </li>
@@ -240,7 +240,7 @@ export default function PricingSection() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.4 }}
-          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontFamily: "'Inter', sans-serif", fontSize: '12px', color: 'var(--muted)' }}
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontFamily: "'DM Sans', sans-serif", fontSize: '12px', color: 'var(--muted)' }}
         >
           <Shield style={{ width: '13px', height: '13px', color: 'var(--green)' }} />
           Secure UPI payment · Instant WhatsApp delivery · 200+ students already enrolled

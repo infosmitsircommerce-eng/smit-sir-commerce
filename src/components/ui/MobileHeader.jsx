@@ -8,7 +8,7 @@ export default function MobileHeader() {
   return (
     <div className="lg:hidden sticky top-0 z-40 flex items-center justify-between px-4 h-14"
       style={{
-        background: 'rgba(3,1,18,0.92)',
+        background: 'rgba(24,19,16,0.94)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
         borderBottom: '1px solid rgba(255,255,255,0.06)',
@@ -17,7 +17,7 @@ export default function MobileHeader() {
       {/* Logo */}
       <Link to="/" className="flex items-center gap-2">
         <div className="w-8 h-8 rounded-xl flex items-center justify-center"
-          style={{ background: 'linear-gradient(135deg, #D4AF37, #F0C040)' }}>
+          style={{ background: 'linear-gradient(135deg, #C9A050, #B8872F)' }}>
           <GraduationCap className="w-4 h-4 text-navy-950" strokeWidth={2.5} />
         </div>
         <div>
@@ -30,14 +30,14 @@ export default function MobileHeader() {
       <div className="flex items-center gap-2">
         <Link to="/contact"
           className="text-xs font-bold px-3 py-1.5 rounded-xl"
-          style={{ background: 'linear-gradient(135deg, #D4AF37, #F0C040)', color: '#0a0f2c' }}>
+          style={{ background: 'linear-gradient(135deg, #C9A050, #B8872F)', color: '#0a0f2c' }}>
           Free Demo
         </Link>
 
         {user ? (
           <Link to="/dashboard"
             className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black text-navy-950"
-            style={{ background: 'linear-gradient(135deg, #D4AF37, #F0C040)' }}>
+            style={{ background: 'linear-gradient(135deg, #C9A050, #B8872F)' }}>
             {initials}
           </Link>
         ) : (

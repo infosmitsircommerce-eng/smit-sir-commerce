@@ -86,7 +86,7 @@ function QuizPlayer({ quiz, onClose }) {
           <div className="h-full bg-gold-500 rounded-full transition-all" style={{ width: `${((current + 1) / questions.length) * 100}%` }} />
         </div>
         {/* Question */}
-        <h3 className="font-semibold text-base mb-5 leading-relaxed" style={{ color: 'var(--ink)', fontFamily: "'Inter', sans-serif" }}>{q.q}</h3>
+        <h3 className="font-semibold text-base mb-5 leading-relaxed" style={{ color: 'var(--ink)', fontFamily: "'DM Sans', sans-serif" }}>{q.q}</h3>
         {/* Options */}
         <div className="space-y-3 mb-6">
           {q.options.map((opt, idx) => {
@@ -127,13 +127,13 @@ function QuizCard({ quiz }) {
       >
         <div className="flex items-start justify-between gap-2 mb-3">
           <div>
-            <div className="text-xs mb-1" style={{ color: 'var(--muted)', fontFamily: "'Inter', sans-serif" }}>{quiz.subject} · Class {quiz.class}</div>
-            <h3 className="font-semibold text-sm leading-tight" style={{ color: 'var(--ink)', fontFamily: "'Inter', sans-serif", fontWeight: 600 }}>{quiz.title}</h3>
+            <div className="text-xs mb-1" style={{ color: 'var(--muted)', fontFamily: "'DM Sans', sans-serif" }}>{quiz.subject} · Class {quiz.class}</div>
+            <h3 className="font-semibold text-sm leading-tight" style={{ color: 'var(--ink)', fontFamily: "'DM Sans', sans-serif", fontWeight: 600 }}>{quiz.title}</h3>
           </div>
           {quiz.isFree ? <span className="tag-free flex-shrink-0">Free</span> : <span className="tag-premium flex-shrink-0">Pro</span>}
         </div>
 
-        <div className="rounded-lg px-3 py-2 text-xs mb-3" style={{ background: 'var(--bg-ivory)', color: 'var(--muted)', border: '1px solid var(--border-soft)', fontFamily: "'Inter', sans-serif" }}>{quiz.chapter}</div>
+        <div className="rounded-lg px-3 py-2 text-xs mb-3" style={{ background: 'var(--bg-ivory)', color: 'var(--muted)', border: '1px solid var(--border-soft)', fontFamily: "'DM Sans', sans-serif" }}>{quiz.chapter}</div>
 
         <div className="flex flex-wrap gap-2 mb-4">
           <span className={`text-xs px-2 py-1 rounded-full border ${difficultyColors[quiz.difficulty]}`}>
@@ -192,7 +192,7 @@ export default function Quizzes() {
             style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.22)', borderRadius: '999px', padding: '5px 16px', marginBottom: '20px' }}
           >
             <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'var(--gold)' }} />
-            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--gold)' }}>Test Your Knowledge</span>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '11px', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--gold)' }}>Test Your Knowledge</span>
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
@@ -206,7 +206,7 @@ export default function Quizzes() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.14 }}
-            style={{ fontFamily: "'Inter', sans-serif", fontSize: '15px', color: 'var(--muted)', maxWidth: '480px', margin: '0 auto', lineHeight: 1.7 }}
+            style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '15px', color: 'var(--muted)', maxWidth: '480px', margin: '0 auto', lineHeight: 1.7 }}
           >
             Chapter-wise quizzes, MCQs, HOTS, case studies, and board exam practice.
           </motion.p>

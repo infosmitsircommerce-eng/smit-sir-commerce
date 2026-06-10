@@ -16,15 +16,15 @@ export default function FAQSection() {
   const inView = useInView(ref, { once: true, margin: '100px' });
 
   return (
-    <section ref={ref} className="section-padding section-soft">
+    <section ref={ref} className="section-padding" style={{ background: 'var(--bg-ivory)' }}>
       <div className="page-container max-w-3xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           className="text-center mb-10"
         >
-          <div className="section-subheading">Got Questions?</div>
-          <h2 className="section-heading">Frequently Asked <span className="gradient-text">Questions</span></h2>
+          <span className="eyebrow">Got Questions?</span>
+          <h2 className="headline mt-6">Frequently asked <em>questions.</em></h2>
         </motion.div>
 
         <div className="space-y-3">
@@ -34,19 +34,22 @@ export default function FAQSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: i * 0.06 }}
-              className="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm"
+              className="rounded-xl overflow-hidden"
+              style={{ background: 'var(--bg-white)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}
             >
               <button
-                className="w-full text-left px-5 py-4 flex items-center justify-between gap-4 hover:bg-gray-50 transition-colors"
+                className="w-full text-left px-5 py-4 flex items-center justify-between gap-4 transition-colors"
                 onClick={() => setOpen(open === faq.id ? null : faq.id)}
+                onMouseEnter={e => { e.currentTarget.style.background = 'var(--bg-ivory)'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; }}
               >
-                <span className="font-medium text-gray-900 text-sm">{faq.question}</span>
+                <span className="text-sm" style={{ fontFamily: 'var(--font-serif)', fontWeight: 700, color: 'var(--ink)' }}>{faq.question}</span>
                 <motion.div
                   animate={{ rotate: open === faq.id ? 180 : 0 }}
                   transition={{ duration: 0.2 }}
                   className="flex-shrink-0"
                 >
-                  <ChevronDown className="w-5 h-5 text-gold-400" />
+                  <ChevronDown className="w-5 h-5" style={{ color: 'var(--gold)' }} />
                 </motion.div>
               </button>
               <AnimatePresence>
@@ -58,7 +61,8 @@ export default function FAQSection() {
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
-                    <div className="px-5 pb-4 text-gray-600 text-sm leading-relaxed border-t border-gray-100 pt-3">
+                    <div className="px-5 pb-4 text-sm leading-relaxed pt-3"
+                      style={{ color: 'var(--muted)', borderTop: '1px solid var(--border-soft)' }}>
                       {faq.answer}
                     </div>
                   </motion.div>
@@ -77,7 +81,8 @@ export default function FAQSection() {
         >
           <Link
             to="/faq"
-            className="inline-flex items-center gap-2 text-gold-500 hover:text-gold-400 font-medium text-sm transition-colors group"
+            className="inline-flex items-center gap-2 font-medium text-sm transition-colors group"
+            style={{ color: 'var(--gold)' }}
           >
             See all {faqs.length} frequently asked questions
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

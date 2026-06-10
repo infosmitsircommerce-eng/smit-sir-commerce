@@ -161,7 +161,7 @@ function SubjectCard({ subject, index }) {
           <Icon style={{ width: '20px', height: '20px', color: subject.color }} />
         </div>
         <span style={{
-          fontFamily: "'Inter', sans-serif",
+          fontFamily: "'DM Sans', sans-serif",
           fontSize: '10px', fontWeight: 800,
           letterSpacing: '0.14em',
           color: subject.color,
@@ -180,7 +180,7 @@ function SubjectCard({ subject, index }) {
 
       {/* Description */}
       <p style={{
-        fontFamily: "'Inter', sans-serif",
+        fontFamily: "'DM Sans', sans-serif",
         fontSize: '12.5px', color: 'var(--muted)',
         lineHeight: 1.6, marginBottom: '14px', flex: 1,
       }}>{subject.desc}</p>
@@ -201,8 +201,8 @@ function SubjectCard({ subject, index }) {
           const SIcon = s.icon;
           return (
             <div key={s.label} style={{ flex: 1, textAlign: 'center' }}>
-              <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '15px', fontWeight: 700, color: 'var(--ink)', lineHeight: 1 }}>{s.val}</div>
-              <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '10px', color: 'var(--subtle)', marginTop: '2px' }}>{s.label}</div>
+              <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '15px', fontWeight: 700, color: 'var(--ink)', lineHeight: 1 }}>{s.val}</div>
+              <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '10px', color: 'var(--subtle)', marginTop: '2px' }}>{s.label}</div>
             </div>
           );
         })}
@@ -212,7 +212,7 @@ function SubjectCard({ subject, index }) {
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '16px' }}>
         {['Board Focused', 'PDF Notes', 'Tests Included'].map(b => (
           <span key={b} style={{
-            fontFamily: "'Inter', sans-serif",
+            fontFamily: "'DM Sans', sans-serif",
             fontSize: '10px', fontWeight: 600,
             padding: '2px 8px', borderRadius: '4px',
             background: 'var(--bg-ivory)',
@@ -226,7 +226,7 @@ function SubjectCard({ subject, index }) {
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginBottom: '16px' }}>
         {subject.tags.map(t => (
           <span key={t} style={{
-            fontFamily: "'Inter', sans-serif",
+            fontFamily: "'DM Sans', sans-serif",
             fontSize: '10.5px',
             padding: '2px 8px', borderRadius: '4px',
             background: subject.bg, border: `1px solid ${subject.border}`,
@@ -241,7 +241,7 @@ function SubjectCard({ subject, index }) {
           flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px',
           padding: '9px 12px', borderRadius: '8px',
           background: 'var(--bg-ivory)', border: '1px solid var(--border)',
-          fontFamily: "'Inter', sans-serif", fontSize: '12px', fontWeight: 600,
+          fontFamily: "'DM Sans', sans-serif", fontSize: '12px', fontWeight: 600,
           color: 'var(--charcoal)', textDecoration: 'none',
           transition: 'all 0.18s',
         }}
@@ -254,7 +254,7 @@ function SubjectCard({ subject, index }) {
           flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px',
           padding: '9px 12px', borderRadius: '8px',
           background: subject.color,
-          fontFamily: "'Inter', sans-serif", fontSize: '12px', fontWeight: 600,
+          fontFamily: "'DM Sans', sans-serif", fontSize: '12px', fontWeight: 600,
           color: '#fff', textDecoration: 'none',
           transition: 'opacity 0.18s',
         }}
@@ -287,7 +287,7 @@ export default function CoursesPreview() {
             borderRadius: '999px', padding: '5px 16px', marginBottom: '20px',
           }}>
             <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'var(--gold)' }} />
-            <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--gold)' }}>CBSE Commerce Curriculum</span>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '11px', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--gold)' }}>CBSE Commerce Curriculum</span>
           </div>
           <h2 style={{
             fontFamily: "'Playfair Display', serif",
@@ -299,7 +299,7 @@ export default function CoursesPreview() {
             Choose Your <em style={{ fontStyle: 'italic', background: 'linear-gradient(135deg, var(--gold), var(--gold-soft))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Commerce Track</em>
           </h2>
           <p style={{
-            fontFamily: "'Inter', sans-serif",
+            fontFamily: "'DM Sans', sans-serif",
             fontSize: '15px', color: 'var(--muted)',
             maxWidth: '520px', margin: '0 auto 32px',
             lineHeight: 1.7,
@@ -325,7 +325,7 @@ export default function CoursesPreview() {
                   position: 'relative',
                   padding: '9px 28px',
                   borderRadius: '9px',
-                  fontFamily: "'Inter', sans-serif",
+                  fontFamily: "'DM Sans', sans-serif",
                   fontSize: '14px', fontWeight: 600,
                   color: activeClass === cls ? 'var(--ink)' : 'var(--subtle)',
                   background: 'transparent',
@@ -383,7 +383,7 @@ export default function CoursesPreview() {
             padding: '12px 28px', borderRadius: '10px',
             background: 'var(--bg-ivory)',
             border: '1.5px solid var(--ink)',
-            fontFamily: "'Inter', sans-serif",
+            fontFamily: "'DM Sans', sans-serif",
             fontSize: '14px', fontWeight: 600,
             color: 'var(--ink)', textDecoration: 'none',
             transition: 'all 0.18s',

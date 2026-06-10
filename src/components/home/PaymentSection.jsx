@@ -33,7 +33,7 @@ export default function PaymentSection() {
           }}>
             Pay Fees or Book a <span className="gradient-text">Free Demo</span>
           </h2>
-          <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '14px', color: 'var(--muted)', maxWidth: '480px', margin: '0 auto', lineHeight: 1.7 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '14px', color: 'var(--muted)', maxWidth: '480px', margin: '0 auto', lineHeight: 1.7 }}>
             Scan the UPI QR code below using any payment app. Zero extra charges.
           </p>
         </motion.div>
@@ -59,10 +59,10 @@ export default function PaymentSection() {
                 style={{ width: '220px', height: '220px', objectFit: 'contain', display: 'block', borderRadius: '10px' }}
               />
               <div style={{ marginTop: '14px', textAlign: 'center' }}>
-                <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '14px', fontWeight: 700, color: 'var(--ink)' }}>
+                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '14px', fontWeight: 700, color: 'var(--ink)' }}>
                   Smit Sir Commerce
                 </div>
-                <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', color: 'var(--muted)', marginTop: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
+                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '11px', color: 'var(--muted)', marginTop: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
                   <Smartphone style={{ width: '11px', height: '11px' }} />
                   Google Pay · PhonePe · Paytm
                 </div>
@@ -73,7 +73,7 @@ export default function PaymentSection() {
               display: 'inline-flex', alignItems: 'center', gap: '6px',
               padding: '6px 14px', borderRadius: '999px',
               background: '#F0FDF4', border: '1px solid #BBF7D0',
-              fontFamily: "'Inter', sans-serif",
+              fontFamily: "'DM Sans', sans-serif",
               fontSize: '12px', fontWeight: 600, color: '#15803d',
             }}>
               <CheckCircle style={{ width: '13px', height: '13px' }} />
@@ -88,7 +88,7 @@ export default function PaymentSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <h3 style={{
-              fontFamily: "'Inter', sans-serif",
+              fontFamily: "'DM Sans', sans-serif",
               fontSize: '16px', fontWeight: 700,
               color: 'var(--ink)', marginBottom: '24px',
             }}>
@@ -108,7 +108,7 @@ export default function PaymentSection() {
                     width: '36px', height: '36px', borderRadius: '10px',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     flexShrink: 0,
-                    fontFamily: "'Inter', sans-serif",
+                    fontFamily: "'DM Sans', sans-serif",
                     fontSize: '12px', fontWeight: 700,
                     background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.22)',
                     color: 'var(--gold)',
@@ -116,7 +116,7 @@ export default function PaymentSection() {
                     {s.step}
                   </div>
                   <div style={{
-                    fontFamily: "'Inter', sans-serif",
+                    fontFamily: "'DM Sans', sans-serif",
                     fontSize: '14px', lineHeight: 1.65,
                     color: 'var(--charcoal)', paddingTop: '8px',
                   }}>
@@ -134,7 +134,7 @@ export default function PaymentSection() {
               WhatsApp after payment
             </a>
 
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', color: 'var(--subtle)', marginTop: '12px' }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '12px', color: 'var(--subtle)', marginTop: '12px' }}>
               For batch fees, demo booking, or any queries — we respond within 1 hour.
             </p>
           </motion.div>

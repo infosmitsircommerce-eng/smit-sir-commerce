@@ -11,19 +11,7 @@ export default function BatchCTA() {
 
   return (
     <section ref={ref} className="section-padding relative overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #06041a 0%, #0b0828 100%)' }}>
-
-      {/* Top separator glow */}
-      <div className="absolute top-0 left-0 right-0 h-px pointer-events-none"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(245,158,11,0.35), transparent)' }} />
-
-      {/* Ambient glow blobs */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -left-32 top-1/2 -translate-y-1/2 w-96 h-96 rounded-full blur-3xl opacity-[0.07]"
-          style={{ background: 'radial-gradient(circle, #f59e0b 0%, transparent 70%)' }} />
-        <div className="absolute -right-32 top-1/2 -translate-y-1/2 w-96 h-96 rounded-full blur-3xl opacity-[0.06]"
-          style={{ background: 'radial-gradient(circle, #6366f1 0%, transparent 70%)' }} />
-      </div>
+      style={{ background: 'var(--bg-cream)' }}>
 
       <div className="page-container relative z-10">
         {/* Heading */}
@@ -33,11 +21,11 @@ export default function BatchCTA() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="text-center mb-14"
         >
-          <div className="section-subheading">Join a Batch</div>
-          <h2 className="section-heading">
-            Online &amp; Offline <span className="gradient-text">Batches Available</span>
+          <span className="eyebrow">Join a Batch</span>
+          <h2 className="headline mt-6">
+            Online &amp; offline <em>batches available.</em>
           </h2>
-          <p className="text-navy-400 max-w-xl mx-auto text-sm mt-3">
+          <p className="max-w-xl mx-auto text-sm mt-4" style={{ color: 'var(--muted)' }}>
             Choose what works for you — join our classroom in Mehsana or study from anywhere online.
           </p>
         </motion.div>
@@ -45,48 +33,43 @@ export default function BatchCTA() {
         {/* Cards */}
         <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
 
-          {/* ── Offline Batch ── */}
+          {/* ── Offline Batch — flagship ink card ── */}
           <motion.div
             initial={{ opacity: 0, x: -32 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.12, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="group relative rounded-2xl overflow-hidden"
             style={{
-              background: 'linear-gradient(145deg, rgba(245,158,11,0.07) 0%, rgba(15,13,46,0.6) 60%)',
-              border: '1px solid rgba(245,158,11,0.18)',
-              boxShadow: '0 0 0 0 rgba(245,158,11,0)',
+              background: 'linear-gradient(150deg, var(--ink-bg-2) 0%, var(--ink-bg) 65%)',
+              border: '1px solid rgba(201,160,80,0.35)',
+              boxShadow: '0 20px 56px rgba(30,24,18,0.16)',
               transition: 'box-shadow 0.4s ease, border-color 0.4s ease',
             }}
             whileHover={{ y: -6 }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'rgba(245,158,11,0.4)';
-              e.currentTarget.style.boxShadow = '0 20px 60px rgba(245,158,11,0.1), 0 0 0 1px rgba(245,158,11,0.1)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(245,158,11,0.18)';
-              e.currentTarget.style.boxShadow = '0 0 0 0 rgba(245,158,11,0)';
-            }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(217,172,92,0.6)'; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(201,160,80,0.35)'; }}
           >
-            {/* Gradient glow at top-left */}
-            <div className="absolute top-0 left-0 w-64 h-64 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-              style={{ background: 'radial-gradient(circle, rgba(245,158,11,0.12) 0%, transparent 70%)', transform: 'translate(-40%, -40%)' }} />
+            {/* Gold hairline top */}
+            <div className="absolute top-0 inset-x-0 h-px"
+              style={{ background: 'linear-gradient(90deg, transparent, rgba(217,172,92,0.7), transparent)' }} />
+            <div className="absolute top-0 left-0 w-64 h-64 rounded-full pointer-events-none opacity-60"
+              style={{ background: 'radial-gradient(circle, rgba(201,160,80,0.12) 0%, transparent 70%)', transform: 'translate(-40%, -40%)' }} />
 
             <div className="relative p-8">
-              {/* Header row */}
               <div className="flex items-start justify-between mb-7">
-                <div className="w-16 h-16 rounded-2xl flex items-center justify-center"
-                  style={{ background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.25)' }}>
-                  <Users className="w-8 h-8 text-gold-400" />
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center"
+                  style={{ background: 'rgba(217,172,92,0.1)', border: '1px solid rgba(217,172,92,0.3)' }}>
+                  <Users className="w-7 h-7" style={{ color: 'var(--gold-bright)' }} strokeWidth={1.6} />
                 </div>
                 <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold"
-                  style={{ background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.2)', color: '#f59e0b' }}>
+                  style={{ background: 'rgba(217,172,92,0.08)', border: '1px solid rgba(217,172,92,0.25)', color: 'var(--gold-bright)' }}>
                   <MapPin className="w-3 h-3" />
                   Mehsana, Gujarat
                 </div>
               </div>
 
-              <h3 className="font-display font-black text-2xl text-white mb-1">Offline Batch</h3>
-              <p className="text-navy-500 text-sm mb-7">In-person classroom · Limited seats</p>
+              <h3 style={{ fontFamily: 'var(--font-serif)', fontWeight: 700, fontSize: '1.5rem', color: 'var(--ivory-on-ink)', marginBottom: '4px' }}>Offline Batch</h3>
+              <p className="text-sm mb-7" style={{ color: 'var(--muted-on-ink)' }}>In-person classroom · Limited seats</p>
 
               <ul className="space-y-3.5 mb-8">
                 {[
@@ -96,60 +79,56 @@ export default function BatchCTA() {
                   'Interactive doubt-solving sessions',
                   'Study notes & materials provided',
                 ].map((f) => (
-                  <li key={f} className="flex items-center gap-3 text-navy-300 text-sm">
-                    <CheckCircle className="w-4 h-4 text-gold-400 flex-shrink-0" />
+                  <li key={f} className="flex items-center gap-3 text-sm" style={{ color: 'rgba(243,236,221,0.8)' }}>
+                    <CheckCircle className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--gold-bright)' }} />
                     {f}
                   </li>
                 ))}
               </ul>
 
-              <Link to="/offline-batch" className="btn-primary flex items-center justify-center gap-2 w-full py-3.5">
+              <Link to="/offline-batch" className="btn-gold flex items-center justify-center gap-2 w-full py-3.5">
                 Enquire for Offline Batch <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </motion.div>
 
-          {/* ── Online Batch ── */}
+          {/* ── Online Batch — white card ── */}
           <motion.div
             initial={{ opacity: 0, x: 32 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.22, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="group relative rounded-2xl overflow-hidden"
             style={{
-              background: 'linear-gradient(145deg, rgba(99,102,241,0.07) 0%, rgba(15,13,46,0.6) 60%)',
-              border: '1px solid rgba(99,102,241,0.18)',
+              background: 'var(--bg-white)',
+              border: '1px solid var(--border)',
+              boxShadow: 'var(--shadow-sm)',
               transition: 'box-shadow 0.4s ease, border-color 0.4s ease',
             }}
             whileHover={{ y: -6 }}
             onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'rgba(99,102,241,0.4)';
-              e.currentTarget.style.boxShadow = '0 20px 60px rgba(99,102,241,0.12), 0 0 0 1px rgba(99,102,241,0.1)';
+              e.currentTarget.style.borderColor = 'rgba(184,135,47,0.4)';
+              e.currentTarget.style.boxShadow = 'var(--shadow-md)';
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(99,102,241,0.18)';
-              e.currentTarget.style.boxShadow = '0 0 0 0 rgba(99,102,241,0)';
+              e.currentTarget.style.borderColor = 'var(--border)';
+              e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
             }}
           >
-            {/* Gradient glow at top-right */}
-            <div className="absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-              style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%)', transform: 'translate(40%, -40%)' }} />
-
             <div className="relative p-8">
-              {/* Header row */}
               <div className="flex items-start justify-between mb-7">
-                <div className="w-16 h-16 rounded-2xl flex items-center justify-center"
-                  style={{ background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.25)' }}>
-                  <Wifi className="w-8 h-8 text-indigo-400" />
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center"
+                  style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.2)' }}>
+                  <Wifi className="w-7 h-7" style={{ color: 'var(--gold)' }} strokeWidth={1.6} />
                 </div>
                 <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold"
-                  style={{ background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.2)', color: '#818cf8' }}>
+                  style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.22)', color: 'var(--gold)' }}>
                   <Globe className="w-3 h-3" />
                   Pan India
                 </div>
               </div>
 
-              <h3 className="font-display font-black text-2xl text-white mb-1">Online Batch</h3>
-              <p className="text-navy-500 text-sm mb-7">Study from anywhere · Flexible schedule</p>
+              <h3 style={{ fontFamily: 'var(--font-serif)', fontWeight: 700, fontSize: '1.5rem', color: 'var(--ink)', marginBottom: '4px' }}>Online Batch</h3>
+              <p className="text-sm mb-7" style={{ color: 'var(--muted)' }}>Study from anywhere · Flexible schedule</p>
 
               <ul className="space-y-3.5 mb-8">
                 {[
@@ -159,8 +138,8 @@ export default function BatchCTA() {
                   'Online test series & quizzes',
                   'WhatsApp doubt support included',
                 ].map((f) => (
-                  <li key={f} className="flex items-center gap-3 text-navy-300 text-sm">
-                    <CheckCircle className="w-4 h-4 text-indigo-400 flex-shrink-0" />
+                  <li key={f} className="flex items-center gap-3 text-sm" style={{ color: 'var(--charcoal)' }}>
+                    <CheckCircle className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--gold)' }} />
                     {f}
                   </li>
                 ))}
@@ -178,11 +157,12 @@ export default function BatchCTA() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.7 }}
-          className="text-center text-navy-500 text-sm mt-8"
+          className="text-center text-sm mt-8"
+          style={{ color: 'var(--muted)' }}
         >
           Still not sure?{' '}
           <a href={WA_LINK} target="_blank" rel="noopener noreferrer"
-            className="text-emerald-400 font-semibold hover:text-emerald-300 transition-colors">
+            className="font-semibold transition-colors" style={{ color: 'var(--green)' }}>
             Chat on WhatsApp →
           </a>
         </motion.p>

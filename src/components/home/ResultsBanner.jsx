@@ -2,22 +2,22 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 
 const RESULTS = [
-  { name: 'Heer Patel',     score: '95', subject: 'Economics',        medal: '🥇' },
-  { name: 'Niv Patel',      score: '94', subject: 'Accountancy',      medal: '🥈' },
-  { name: 'Manan Dunti',    score: '93', subject: 'Accountancy',      medal: '🥉' },
-  { name: 'Mann Prajapati', score: '92', subject: 'Economics',        medal: '⭐' },
-  { name: 'Laksh Rajput',   score: '91', subject: 'Accountancy',      medal: '⭐' },
-  { name: 'Vishal Rajput',  score: '90', subject: 'Business Studies', medal: '⭐' },
-  { name: 'Kavya Patel',    score: '89', subject: 'Online Batch',     medal: '⭐' },
-  { name: 'Arwa Rupawala',  score: '88', subject: 'All Subjects',     medal: '⭐' },
-  { name: 'Hussaina',       score: '86', subject: 'Economics',        medal: '⭐' },
+  { name: 'Heer Patel',     score: 95, subject: 'Economics'        },
+  { name: 'Niv Patel',      score: 94, subject: 'Accountancy'      },
+  { name: 'Manan Dunti',    score: 93, subject: 'Accountancy'      },
+  { name: 'Mann Prajapati', score: 92, subject: 'Economics'        },
+  { name: 'Laksh Rajput',   score: 91, subject: 'Accountancy'      },
+  { name: 'Vishal Rajput',  score: 90, subject: 'Business Studies' },
+  { name: 'Kavya Patel',    score: 89, subject: 'Online Batch'     },
+  { name: 'Arwa Rupawala',  score: 88, subject: 'All Subjects'     },
+  { name: 'Hussaina',       score: 86, subject: 'Economics'        },
 ];
 
 const AGG = [
-  { value: '91.2%', label: 'Class Average',   color: '#34d399', sub: 'CBSE Board 2024' },
-  { value: '95%',   label: 'Highest Score',   color: '#D4AF37', sub: 'Heer Patel · Economics' },
-  { value: '9/9',   label: 'Students Passed', color: '#60a5fa', sub: '100% pass rate' },
-  { value: '6',     label: 'Scored 90%+',     color: '#f97316', sub: 'Out of 9 students' },
+  { value: '91.2%', label: 'Class Average',   sub: 'CBSE Board 2024'        },
+  { value: '95%',   label: 'Highest Score',   sub: 'Heer Patel · Economics' },
+  { value: '9/9',   label: 'Students Passed', sub: '100% pass rate'         },
+  { value: '6',     label: 'Scored 90%+',     sub: 'Out of 9 students'      },
 ];
 
 export default function ResultsBanner() {
@@ -26,17 +26,7 @@ export default function ResultsBanner() {
 
   return (
     <section ref={ref} className="section-padding relative overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #04011a 0%, #080520 100%)' }}>
-
-      {/* Top glow line */}
-      <div className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(52,211,153,0.5), transparent)' }} />
-
-      {/* Background radial glow */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full opacity-[0.12] blur-3xl"
-          style={{ background: 'radial-gradient(ellipse, #34d399 0%, transparent 70%)' }} />
-      </div>
+      style={{ background: 'var(--bg-white)' }}>
 
       <div className="page-container relative z-10">
 
@@ -45,71 +35,87 @@ export default function ResultsBanner() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="text-center mb-10"
+          className="text-center mb-12"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-black mb-4"
-            style={{ background: 'rgba(52,211,153,0.12)', border: '1px solid rgba(52,211,153,0.3)', color: '#34d399' }}>
-            🏆 CBSE Board Exam Results — 2024
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-black text-white mb-2">
-            Results That <span style={{ color: '#34d399' }}>Speak for Themselves</span>
+          <span className="eyebrow">CBSE Board Exam Results — 2024</span>
+          <h2 className="headline mt-6 mb-3">
+            Results that <em>speak for themselves.</em>
           </h2>
-          <p className="text-sm max-w-lg mx-auto" style={{ color: 'rgba(255,255,255,0.5)' }}>
+          <p className="text-sm max-w-lg mx-auto" style={{ color: 'var(--muted)' }}>
             Every student who prepared with Smit Sir Commerce scored above 85% in the CBSE 2024 Board Exams.
           </p>
         </motion.div>
 
-        {/* Aggregate stat boxes */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-10">
+        {/* Aggregate row — ledger columns */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 mb-12 rounded-2xl overflow-hidden"
+          style={{ border: '1px solid var(--border)', background: 'var(--bg-ivory)' }}>
           {AGG.map((a, i) => (
             <motion.div
               key={a.label}
-              initial={{ opacity: 0, y: 20, scale: 0.92 }}
-              animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: i * 0.08, duration: 0.5 }}
-              className="rounded-2xl p-5 text-center"
+              className="p-6 text-center"
               style={{
-                background: `${a.color}10`,
-                border: `1px solid ${a.color}30`,
-                boxShadow: `0 8px 24px ${a.color}10`,
+                borderRight: i % 2 === 0 ? '1px solid var(--border)' : undefined,
+                borderLeft: i === 2 ? undefined : undefined,
+                borderTop: i >= 2 ? '1px solid var(--border)' : undefined,
               }}
             >
-              <div className="text-2xl sm:text-3xl font-black mb-1" style={{ color: a.color }}>{a.value}</div>
-              <div className="text-xs font-bold text-white mb-0.5">{a.label}</div>
-              <div className="text-[10px]" style={{ color: 'rgba(255,255,255,0.4)' }}>{a.sub}</div>
+              <div style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 700,
+                fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)', lineHeight: 1,
+                color: 'var(--gold)', marginBottom: '8px',
+              }}>{a.value}</div>
+              <div className="text-xs font-bold uppercase tracking-wider mb-0.5" style={{ color: 'var(--ink)' }}>{a.label}</div>
+              <div className="text-[11px]" style={{ color: 'var(--subtle)' }}>{a.sub}</div>
             </motion.div>
           ))}
         </div>
 
-        {/* Student result chips — horizontal scroll on mobile */}
+        {/* The merit ledger — ruled table */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.35 }}
-          className="mb-6"
+          className="max-w-2xl mx-auto mb-10"
         >
-          <p className="text-xs font-semibold mb-3 text-center" style={{ color: 'rgba(255,255,255,0.35)' }}>
-            INDIVIDUAL RESULTS
-          </p>
-          <div className="flex flex-wrap gap-2 justify-center">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="flex-1 h-px" style={{ background: 'var(--border)' }} />
+            <p className="text-[11px] font-bold tracking-[0.2em] uppercase" style={{ color: 'var(--subtle)' }}>
+              Individual Results
+            </p>
+            <div className="flex-1 h-px" style={{ background: 'var(--border)' }} />
+          </div>
+
+          <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}>
             {RESULTS.map((r, i) => (
               <motion.div
                 key={r.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={inView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ delay: 0.4 + i * 0.06 }}
-                className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold"
+                initial={{ opacity: 0, x: -12 }}
+                animate={inView ? { opacity: 1, x: 0 } : {}}
+                transition={{ delay: 0.4 + i * 0.05 }}
+                className="flex items-center gap-3 px-5 py-3"
                 style={{
-                  background: 'rgba(255,255,255,0.04)',
-                  border: `1px solid ${parseInt(r.score) >= 93 ? 'rgba(212,175,55,0.35)' : parseInt(r.score) >= 90 ? 'rgba(52,211,153,0.25)' : 'rgba(255,255,255,0.1)'}`,
+                  background: i % 2 === 0 ? 'var(--bg-white)' : 'var(--bg-ivory)',
+                  borderTop: i > 0 ? '1px solid var(--border-soft)' : 'none',
                 }}
               >
-                <span>{r.medal}</span>
-                <span className="text-white">{r.name}</span>
-                <span className="font-black" style={{ color: parseInt(r.score) >= 93 ? '#D4AF37' : parseInt(r.score) >= 90 ? '#34d399' : '#60a5fa' }}>
-                  {r.score}%
+                <span style={{
+                  fontFamily: 'var(--font-accent)', fontStyle: 'italic',
+                  fontSize: '13px', color: 'var(--subtle)', width: '22px', flexShrink: 0,
+                }}>{String(i + 1).padStart(2, '0')}</span>
+                <span className="text-sm font-semibold flex-1 truncate" style={{ color: 'var(--ink)' }}>{r.name}</span>
+                <span className="text-xs hidden sm:block truncate" style={{ color: 'var(--muted)', maxWidth: '160px' }}>{r.subject}</span>
+                {/* Dot leaders, like a table of contents */}
+                <span aria-hidden="true" className="flex-1 hidden sm:block overflow-hidden whitespace-nowrap text-xs tracking-[0.35em]" style={{ color: 'var(--border)' }}>
+                  ······································
                 </span>
-                <span className="text-xs hidden sm:inline" style={{ color: 'rgba(255,255,255,0.35)' }}>· {r.subject}</span>
+                <span style={{
+                  fontFamily: 'var(--font-serif)', fontWeight: 700, fontSize: '1.05rem',
+                  color: r.score >= 93 ? 'var(--gold)' : r.score >= 90 ? 'var(--green)' : 'var(--charcoal)',
+                  flexShrink: 0,
+                }}>{r.score}%</span>
               </motion.div>
             ))}
           </div>
@@ -120,11 +126,14 @@ export default function ResultsBanner() {
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.9 }}
-          className="rounded-2xl p-5 text-center"
-          style={{ background: 'rgba(212,175,55,0.06)', border: '1px solid rgba(212,175,55,0.18)' }}
+          className="rounded-2xl p-6 text-center max-w-2xl mx-auto"
+          style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.25)' }}
         >
-          <p className="text-sm font-semibold" style={{ color: 'rgba(255,255,255,0.7)' }}>
-            🎯 <span style={{ color: '#D4AF37', fontWeight: 900 }}>Your name could be here next year.</span>{' '}
+          <p className="text-sm" style={{ color: 'var(--charcoal)' }}>
+            <span style={{ fontFamily: 'var(--font-accent)', fontStyle: 'italic', fontWeight: 600, fontSize: '1.15rem', color: 'var(--gold)' }}>
+              Your name could be here next year.
+            </span>
+            <br />
             Join Smit Sir Commerce and get the same focused preparation that delivered these results.
           </p>
         </motion.div>

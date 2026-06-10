@@ -11,23 +11,21 @@ export default function ContactCTA() {
 
   return (
     <section ref={ref} className="relative overflow-hidden py-24 sm:py-32"
-      style={{ background: 'linear-gradient(180deg, #0a0825 0%, #040216 100%)' }}>
+      style={{ background: 'linear-gradient(180deg, var(--ink-bg) 0%, #120D0A 100%)' }}>
 
       {/* Dramatic background layers */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Central gold glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full blur-3xl opacity-[0.18]"
-          style={{ background: 'radial-gradient(ellipse, rgba(245,158,11,0.8) 0%, transparent 65%)' }} />
-        {/* Side blobs */}
-        <div className="absolute top-0 left-1/4 w-64 h-64 rounded-full blur-3xl opacity-[0.1]"
-          style={{ background: 'radial-gradient(circle, rgba(245,158,11,1) 0%, transparent 70%)' }} />
-        <div className="absolute bottom-0 right-1/4 w-64 h-64 rounded-full blur-3xl opacity-[0.08]"
-          style={{ background: 'radial-gradient(circle, rgba(99,102,241,1) 0%, transparent 70%)' }} />
-        {/* Top line */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full blur-3xl opacity-[0.16]"
+          style={{ background: 'radial-gradient(ellipse, rgba(201,160,80,0.8) 0%, transparent 65%)' }} />
+        {/* Double gold rule, top */}
         <div className="absolute top-0 left-0 right-0 h-px"
-          style={{ background: 'linear-gradient(90deg, transparent, rgba(245,158,11,0.35), transparent)' }} />
-        {/* Subtle grid */}
-        <div className="absolute inset-0 bg-grid opacity-20" />
+          style={{ background: 'linear-gradient(90deg, transparent, rgba(201,160,80,0.45), transparent)' }} />
+        <div className="absolute top-[3px] left-0 right-0 h-px"
+          style={{ background: 'linear-gradient(90deg, transparent, rgba(201,160,80,0.18), transparent)' }} />
+        {/* Faint ruled lines */}
+        <div className="absolute inset-0 opacity-50"
+          style={{ backgroundImage: 'repeating-linear-gradient(180deg, transparent 0px, transparent 55px, rgba(201,160,80,0.05) 55px, rgba(201,160,80,0.05) 56px)' }} />
       </div>
 
       <div className="page-container relative z-10 text-center">
@@ -36,12 +34,12 @@ export default function ContactCTA() {
           initial={{ opacity: 0, y: 16, scale: 0.9 }}
           animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="inline-flex items-center gap-2 rounded-full px-5 py-2 text-gold-400 text-sm font-semibold mb-8"
-          style={{ background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.25)' }}
+          className="inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold mb-8"
+          style={{ background: 'rgba(217,172,92,0.08)', border: '1px solid rgba(217,172,92,0.3)', color: 'var(--gold-bright)' }}
         >
           <Sparkles className="w-3.5 h-3.5" />
           Free Demo Class — No Fees, No Pressure
-          <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+          <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#8FBF6B' }} />
         </motion.div>
 
         {/* Main heading */}
@@ -49,10 +47,19 @@ export default function ContactCTA() {
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display font-black text-white leading-tight mb-5"
-          style={{ fontSize: 'clamp(2rem, 5.5vw, 3.8rem)' }}
+          style={{
+            fontFamily: 'var(--font-serif)', fontWeight: 700,
+            fontSize: 'clamp(2.2rem, 5.5vw, 4rem)',
+            letterSpacing: '-0.025em', lineHeight: 1.1,
+            color: 'var(--ivory-on-ink)', marginBottom: '22px',
+          }}
         >
-          Ready to <span className="gradient-text">Score Better</span>
+          Ready to{' '}
+          <em style={{
+            fontFamily: 'var(--font-accent)', fontStyle: 'italic', fontWeight: 600, fontSize: '1.1em',
+            background: 'linear-gradient(135deg, var(--gold-bright), #EDD9AE)',
+            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
+          }}>score better</em>
           <br />in Commerce?
         </motion.h2>
 
@@ -60,7 +67,8 @@ export default function ContactCTA() {
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="text-navy-300 text-base sm:text-lg max-w-xl mx-auto mb-10 leading-relaxed"
+          className="text-base sm:text-lg max-w-xl mx-auto mb-10 leading-relaxed"
+          style={{ color: 'var(--muted-on-ink)' }}
         >
           See how Smit Sir teaches before you decide. One free class — no fees, no pressure.
           Join 200+ students already learning Commerce the right way.
@@ -75,21 +83,21 @@ export default function ContactCTA() {
         >
           <Link
             to="/contact"
-            className="btn-primary flex items-center gap-2 text-base px-8 py-4 w-full sm:w-auto justify-center"
+            className="btn-gold flex items-center gap-2 text-base px-8 py-4 w-full sm:w-auto justify-center"
           >
-            <ArrowRight className="w-5 h-5" />
             Book Free Demo Class
+            <ArrowRight className="w-5 h-5" />
           </Link>
 
           <a
             href={WA_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-base font-semibold px-8 py-4 rounded-xl w-full sm:w-auto justify-center transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+            className="flex items-center gap-2 text-base font-semibold px-8 py-4 rounded-xl w-full sm:w-auto justify-center transition-all duration-200 hover:-translate-y-0.5"
             style={{
-              background: 'rgba(37,211,102,0.1)',
-              border: '1px solid rgba(37,211,102,0.3)',
-              color: '#25D366',
+              background: 'rgba(143,191,107,0.08)',
+              border: '1px solid rgba(143,191,107,0.3)',
+              color: '#8FBF6B',
             }}
           >
             <svg viewBox="0 0 32 32" className="w-5 h-5" fill="currentColor">
@@ -100,9 +108,12 @@ export default function ContactCTA() {
 
           <a
             href="tel:+916353709585"
-            className="flex items-center gap-2 text-base font-semibold text-navy-300 hover:text-white transition-colors px-4 py-4"
+            className="flex items-center gap-2 text-base font-semibold transition-colors px-4 py-4"
+            style={{ color: 'var(--muted-on-ink)' }}
+            onMouseEnter={e => { e.currentTarget.style.color = 'var(--ivory-on-ink)'; }}
+            onMouseLeave={e => { e.currentTarget.style.color = 'var(--muted-on-ink)'; }}
           >
-            <Phone className="w-4 h-4 text-gold-400" />
+            <Phone className="w-4 h-4" style={{ color: 'var(--gold-bright)' }} />
             +91 63537 09585
           </a>
         </motion.div>
@@ -112,11 +123,12 @@ export default function ContactCTA() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.5 }}
-          className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-navy-500 text-xs"
+          className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-xs"
+          style={{ color: 'var(--muted-on-ink)' }}
         >
           {['Class 11 & 12', 'CBSE Focused', 'Online + Offline', 'Mehsana, Gujarat', 'Mon–Sat 9am–8pm'].map((t) => (
             <div key={t} className="flex items-center gap-1.5">
-              <span className="w-1 h-1 bg-gold-500/60 rounded-full" />
+              <span className="w-1 h-1 rounded-full" style={{ background: 'rgba(201,160,80,0.6)' }} />
               {t}
             </div>
           ))}

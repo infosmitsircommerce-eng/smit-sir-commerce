@@ -31,7 +31,7 @@ export default function MobileBottomBar() {
       {/* Blur backdrop */}
       <div className="relative"
         style={{
-          background: 'rgba(3, 1, 18, 0.92)',
+          background: 'rgba(24,19,16,0.94)',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
           borderTop: '1px solid rgba(255,255,255,0.07)',
@@ -57,9 +57,9 @@ export default function MobileBottomBar() {
                     className="w-12 h-12 rounded-2xl flex items-center justify-center mb-0.5 -mt-4"
                     style={{
                       background: active
-                        ? 'linear-gradient(135deg, #D4AF37, #F0C040)'
-                        : 'linear-gradient(135deg, rgba(212,175,55,0.9), rgba(240,192,64,0.9))',
-                      boxShadow: '0 4px 20px rgba(212,175,55,0.4)',
+                        ? 'linear-gradient(135deg, #C9A050, #B8872F)'
+                        : 'linear-gradient(135deg, rgba(201,160,80,0.9), rgba(184,135,47,0.9))',
+                      boxShadow: '0 4px 20px rgba(201,160,80,0.4)',
                     }}
                   >
                     <Icon className="w-5 h-5 text-navy-950" strokeWidth={2.5} />
@@ -75,14 +75,14 @@ export default function MobileBottomBar() {
                           animate={{ opacity: 1, scale: 1 }}
                           exit={{ opacity: 0, scale: 0.8 }}
                           className="absolute inset-0 rounded-xl"
-                          style={{ background: 'rgba(212,175,55,0.12)' }}
+                          style={{ background: 'rgba(201,160,80,0.12)' }}
                         />
                       )}
                     </AnimatePresence>
 
                     <Icon
                       className="w-5 h-5 relative z-10 transition-all"
-                      style={{ color: active ? '#D4AF37' : 'rgba(148,163,184,0.6)' }}
+                      style={{ color: active ? '#D9AC5C' : 'rgba(148,163,184,0.6)' }}
                       strokeWidth={active ? 2.5 : 1.8}
                     />
 
@@ -98,8 +98,8 @@ export default function MobileBottomBar() {
                   className="text-[10px] font-semibold transition-all leading-none"
                   style={{
                     color: tab.highlight
-                      ? '#D4AF37'
-                      : active ? '#D4AF37' : 'rgba(148,163,184,0.5)',
+                      ? '#D9AC5C'
+                      : active ? '#D9AC5C' : 'rgba(148,163,184,0.5)',
                   }}
                 >
                   {tab.label}

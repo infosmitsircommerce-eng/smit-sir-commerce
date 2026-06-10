@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { GraduationCap, Phone, Mail, MapPin, Instagram, Youtube, MessageCircle } from 'lucide-react';
+import { GraduationCap, Phone, Mail, MapPin, Instagram, MessageCircle } from 'lucide-react';
 
 const quickLinks = [
   { label: 'Home', path: '/' },
@@ -15,48 +15,73 @@ const quickLinks = [
 const class11Links = ['Accountancy', 'Business Studies', 'Economics', 'Entrepreneurship', 'Physical Education'];
 const class12Links = ['Accountancy', 'Business Studies', 'Economics', 'Entrepreneurship', 'Physical Education'];
 
+const mutedLink = { color: 'var(--muted-on-ink)' };
+const headingStyle = { fontFamily: 'var(--font-serif)', fontWeight: 700, color: 'var(--ivory-on-ink)' };
+
+function FooterLink({ to, children }) {
+  return (
+    <Link to={to} className="text-sm transition-colors" style={mutedLink}
+      onMouseEnter={e => { e.currentTarget.style.color = 'var(--gold-bright)'; }}
+      onMouseLeave={e => { e.currentTarget.style.color = 'var(--muted-on-ink)'; }}>
+      {children}
+    </Link>
+  );
+}
+
 export default function Footer() {
   return (
-    <footer className="bg-navy-950 border-t border-navy-800/50">
+    <footer style={{ background: 'var(--ink-bg)', borderTop: '1px solid rgba(201,160,80,0.2)' }}>
+      {/* Double gold rule at the very top */}
+      <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(201,160,80,0.4), transparent)' }} />
+      <div style={{ height: '2px' }} />
+      <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(201,160,80,0.15), transparent)' }} />
+
       {/* Main Footer */}
       <div className="page-container py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-3 mb-5">
-              <div className="w-12 h-12 bg-gradient-to-br from-gold-400 to-gold-600 rounded-xl flex items-center justify-center shadow-gold">
-                <GraduationCap className="w-6 h-6 text-navy-950" />
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center"
+                style={{ background: 'linear-gradient(135deg, #C9A050, #B8872F)', boxShadow: '0 4px 18px rgba(184,135,47,0.3)' }}>
+                <GraduationCap className="w-6 h-6" style={{ color: '#1E1812' }} />
               </div>
               <div>
-                <div className="font-display font-bold text-white text-lg leading-tight">Smit Sir</div>
-                <div className="font-display font-bold text-gold-400 text-sm leading-tight tracking-wider">COMMERCE</div>
+                <div className="text-lg leading-tight" style={headingStyle}>Smit Sir</div>
+                <div className="text-sm leading-tight" style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, letterSpacing: '0.16em', color: 'var(--gold-bright)' }}>COMMERCE</div>
               </div>
             </Link>
-            <p className="text-navy-400 text-sm leading-relaxed mb-3">
+            <p className="text-sm leading-relaxed mb-3" style={mutedLink}>
               Master Class 11 &amp; 12 Commerce with Smit Sir. CBSE-focused coaching for Economics, Business Studies, Accountancy &amp; Entrepreneurship in Mehsana, Gujarat.
             </p>
-            <a href="tel:+916353709585" className="text-gold-400 text-sm font-semibold hover:text-gold-300 transition-colors mb-5 inline-block">
+            <a href="tel:+916353709585" className="text-sm font-semibold transition-colors mb-5 inline-block" style={{ color: 'var(--gold-bright)' }}>
               📞 +91 63537 09585
             </a>
             <div className="flex items-center gap-3">
-              <a href="https://instagram.com/smitthker" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-navy-800 hover:bg-gold-500 rounded-lg flex items-center justify-center transition-colors group">
-                <Instagram className="w-4 h-4 text-navy-400 group-hover:text-navy-950" />
+              <a href="https://instagram.com/smitthker" target="_blank" rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg flex items-center justify-center transition-all group"
+                style={{ background: 'rgba(243,236,221,0.06)', border: '1px solid rgba(243,236,221,0.1)' }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(217,172,92,0.15)'; e.currentTarget.style.borderColor = 'rgba(217,172,92,0.4)'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(243,236,221,0.06)'; e.currentTarget.style.borderColor = 'rgba(243,236,221,0.1)'; }}>
+                <Instagram className="w-4 h-4" style={{ color: 'var(--gold-bright)' }} />
               </a>
-              <a href="https://wa.me/916353709585?text=Hello%20Smit%20Sir%2C%20I%20want%20to%20know%20about%20Class%2011%2F12%20Commerce%20batch%20admission." className="w-9 h-9 bg-navy-800 hover:bg-green-600 rounded-lg flex items-center justify-center transition-colors group">
-                <MessageCircle className="w-4 h-4 text-navy-400 group-hover:text-white" />
+              <a href="https://wa.me/916353709585?text=Hello%20Smit%20Sir%2C%20I%20want%20to%20know%20about%20Class%2011%2F12%20Commerce%20batch%20admission."
+                className="w-9 h-9 rounded-lg flex items-center justify-center transition-all group"
+                style={{ background: 'rgba(243,236,221,0.06)', border: '1px solid rgba(243,236,221,0.1)' }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(143,191,107,0.15)'; e.currentTarget.style.borderColor = 'rgba(143,191,107,0.4)'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(243,236,221,0.06)'; e.currentTarget.style.borderColor = 'rgba(243,236,221,0.1)'; }}>
+                <MessageCircle className="w-4 h-4" style={{ color: '#8FBF6B' }} />
               </a>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-display font-semibold text-white mb-5">Quick Links</h4>
+            <h4 className="mb-5" style={headingStyle}>Quick Links</h4>
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.path}>
-                  <Link to={link.path} className="text-navy-400 hover:text-gold-400 text-sm transition-colors">
-                    {link.label}
-                  </Link>
+                  <FooterLink to={link.path}>{link.label}</FooterLink>
                 </li>
               ))}
             </ul>
@@ -64,25 +89,21 @@ export default function Footer() {
 
           {/* Subjects */}
           <div>
-            <h4 className="font-display font-semibold text-white mb-5">Subjects</h4>
+            <h4 className="mb-5" style={headingStyle}>Subjects</h4>
             <div className="space-y-4">
               <div>
-                <div className="text-gold-400 text-xs font-semibold uppercase tracking-wider mb-2">Class 11</div>
+                <div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--gold-bright)' }}>Class 11</div>
                 <ul className="space-y-1">
                   {class11Links.map((s) => (
-                    <li key={s}>
-                      <Link to="/courses" className="text-navy-400 hover:text-gold-400 text-sm transition-colors">{s}</Link>
-                    </li>
+                    <li key={s}><FooterLink to="/courses">{s}</FooterLink></li>
                   ))}
                 </ul>
               </div>
               <div>
-                <div className="text-gold-400 text-xs font-semibold uppercase tracking-wider mb-2">Class 12</div>
+                <div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--gold-bright)' }}>Class 12</div>
                 <ul className="space-y-1">
                   {class12Links.map((s) => (
-                    <li key={s}>
-                      <Link to="/courses" className="text-navy-400 hover:text-gold-400 text-sm transition-colors">{s}</Link>
-                    </li>
+                    <li key={s}><FooterLink to="/courses">{s}</FooterLink></li>
                   ))}
                 </ul>
               </div>
@@ -91,26 +112,26 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-display font-semibold text-white mb-5">Contact</h4>
+            <h4 className="mb-5" style={headingStyle}>Contact</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <Phone className="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" />
+                <Phone className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--gold-bright)' }} />
                 <div>
-                  <div className="text-white text-sm font-medium">+91 63537 09585</div>
-                  <div className="text-navy-400 text-xs">Mon–Sat, 9am–8pm</div>
+                  <div className="text-sm font-medium" style={{ color: 'var(--ivory-on-ink)' }}>+91 63537 09585</div>
+                  <div className="text-xs" style={mutedLink}>Mon–Sat, 9am–8pm</div>
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <Mail className="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" />
-                <div className="text-navy-400 text-sm">infosmitsircommerce@gmail.com</div>
+                <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--gold-bright)' }} />
+                <div className="text-sm" style={mutedLink}>infosmitsircommerce@gmail.com</div>
               </li>
               <li className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-gold-400 mt-0.5 flex-shrink-0" />
-                <div className="text-navy-400 text-sm">Mehsana, Gujarat, India</div>
+                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--gold-bright)' }} />
+                <div className="text-sm" style={mutedLink}>Mehsana, Gujarat, India</div>
               </li>
             </ul>
             <div className="mt-5">
-              <Link to="/contact" className="btn-primary text-sm py-2 px-4 inline-block">
+              <Link to="/contact" className="btn-gold text-sm py-2 px-4 inline-flex">
                 Book Free Demo
               </Link>
             </div>
@@ -119,13 +140,16 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-navy-800/50">
+      <div style={{ borderTop: '1px solid rgba(243,236,221,0.08)' }}>
         <div className="page-container py-5 flex flex-col md:flex-row items-center justify-between gap-3">
-          <p className="text-navy-500 text-sm">© 2026 Smit Sir Commerce. All Rights Reserved.</p>
+          <p className="text-sm" style={{ color: 'rgba(166,152,138,0.7)' }}>
+            © 2026 Smit Sir Commerce ·{' '}
+            <span style={{ fontFamily: 'var(--font-accent)', fontStyle: 'italic' }}>All accounts balanced.</span>
+          </p>
           <div className="flex items-center gap-4">
-            <Link to="/faq" className="text-navy-500 hover:text-gold-400 text-xs transition-colors">FAQ</Link>
-            <Link to="/about" className="text-navy-500 hover:text-gold-400 text-xs transition-colors">About</Link>
-            <Link to="/contact" className="text-navy-500 hover:text-gold-400 text-xs transition-colors">Contact</Link>
+            <FooterLink to="/faq">FAQ</FooterLink>
+            <FooterLink to="/about">About</FooterLink>
+            <FooterLink to="/contact">Contact</FooterLink>
           </div>
         </div>
       </div>

@@ -1,22 +1,26 @@
 import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import {
+  Gamepad2, Layers, ListChecks, FileText, Lock, User,
+  BarChart3, TrendingUp, BookOpen, Target, Bell, MessageCircle, Sparkles, ArrowRight,
+} from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 const FREE_FEATURES = [
-  { icon: '🎮', text: 'Economics Games (all levels)' },
-  { icon: '🃏', text: 'Flashcard Flipper (all chapters)' },
-  { icon: '📝', text: 'Chapter Quizzes (basic)' },
-  { icon: '📄', text: 'Sample notes & previews' },
+  { icon: Gamepad2,   text: 'Economics Games (all levels)'     },
+  { icon: Layers,     text: 'Flashcard Flipper (all chapters)' },
+  { icon: ListChecks, text: 'Chapter Quizzes (basic)'          },
+  { icon: FileText,   text: 'Sample notes & previews'          },
 ];
 
 const PREMIUM_FEATURES = [
-  { icon: '📊', text: 'Full Test Series with detailed analysis', hot: true },
-  { icon: '📈', text: 'Personal score tracking & progress graph', hot: false },
-  { icon: '📚', text: 'Complete PDF notes for all chapters', hot: true },
-  { icon: '🎯', text: 'Weak-topic reports after every quiz', hot: false },
-  { icon: '🔔', text: 'Exam reminders & study schedule', hot: false },
-  { icon: '💬', text: 'Priority doubt support access', hot: true },
+  { icon: BarChart3,     text: 'Full Test Series with detailed analysis',   hot: true  },
+  { icon: TrendingUp,    text: 'Personal score tracking & progress graph',  hot: false },
+  { icon: BookOpen,      text: 'Complete PDF notes for all chapters',       hot: true  },
+  { icon: Target,        text: 'Weak-topic reports after every quiz',       hot: false },
+  { icon: Bell,          text: 'Exam reminders & study schedule',           hot: false },
+  { icon: MessageCircle, text: 'Priority doubt support access',             hot: true  },
 ];
 
 export default function PremiumUnlock() {
@@ -29,19 +33,7 @@ export default function PremiumUnlock() {
 
   return (
     <section ref={ref} className="section-padding relative overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #070420 0%, #050218 100%)' }}>
-
-      {/* Top glow line */}
-      <div className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.4), transparent)' }} />
-
-      {/* Ambient */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/2 right-0 w-96 h-96 rounded-full opacity-[0.08] blur-3xl -translate-y-1/2 translate-x-1/3"
-          style={{ background: 'radial-gradient(circle, #D4AF37 0%, transparent 70%)' }} />
-        <div className="absolute top-1/2 left-0 w-96 h-96 rounded-full opacity-[0.06] blur-3xl -translate-y-1/2 -translate-x-1/3"
-          style={{ background: 'radial-gradient(circle, #60a5fa 0%, transparent 70%)' }} />
-      </div>
+      style={{ background: 'var(--bg-cream)' }}>
 
       <div className="page-container relative z-10">
 
@@ -51,90 +43,96 @@ export default function PremiumUnlock() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-black mb-4"
-            style={{ background: 'rgba(212,175,55,0.12)', border: '1px solid rgba(212,175,55,0.3)', color: '#D4AF37' }}>
-            🔓 Free Account — Takes 30 Seconds
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-black text-white mb-3">
-            Create Your Free Account &<br />
-            <span style={{ color: '#D4AF37' }}>Unlock Everything</span>
+          <span className="eyebrow">Free Account — Takes 30 Seconds</span>
+          <h2 className="headline mt-6 mb-3">
+            Create your free account &amp; <em>unlock everything.</em>
           </h2>
-          <p className="text-sm max-w-lg mx-auto" style={{ color: 'rgba(255,255,255,0.5)' }}>
+          <p className="text-sm max-w-lg mx-auto" style={{ color: 'var(--muted)' }}>
             Basic features are open to all. Sign up free to unlock test series, track your scores, and get a personalized study plan.
           </p>
         </motion.div>
 
         {/* Two-column comparison */}
-        <div className="grid md:grid-cols-2 gap-5 max-w-3xl mx-auto mb-8">
+        <div className="grid md:grid-cols-2 gap-5 max-w-3xl mx-auto mb-10">
 
-          {/* Free column */}
+          {/* Free column — white */}
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.1 }}
             className="rounded-2xl p-6"
-            style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}
+            style={{ background: 'var(--bg-white)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}
           >
-            <div className="flex items-center gap-2 mb-5">
-              <span className="text-lg">👤</span>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                style={{ background: 'var(--bg-ivory)', border: '1px solid var(--border)' }}>
+                <User style={{ width: '18px', height: '18px', color: 'var(--muted)' }} strokeWidth={1.8} />
+              </div>
               <div>
-                <div className="font-black text-white text-base">Without Account</div>
-                <div className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>Limited access</div>
+                <div className="text-base" style={{ fontFamily: 'var(--font-serif)', fontWeight: 700, color: 'var(--ink)' }}>Without Account</div>
+                <div className="text-xs" style={{ color: 'var(--subtle)' }}>Limited access</div>
               </div>
             </div>
             <ul className="space-y-3">
-              {FREE_FEATURES.map(f => (
-                <li key={f.text} className="flex items-center gap-3">
-                  <span className="text-base flex-shrink-0">{f.icon}</span>
-                  <span className="text-sm" style={{ color: 'rgba(255,255,255,0.6)' }}>{f.text}</span>
-                </li>
-              ))}
-              {/* Locked items preview */}
+              {FREE_FEATURES.map(f => {
+                const Icon = f.icon;
+                return (
+                  <li key={f.text} className="flex items-center gap-3">
+                    <Icon className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--gold)' }} strokeWidth={1.8} />
+                    <span className="text-sm" style={{ color: 'var(--charcoal)' }}>{f.text}</span>
+                  </li>
+                );
+              })}
               {['Full Test Series', 'Score Tracking', 'PDF Notes', 'Weak Topic Reports'].map(t => (
-                <li key={t} className="flex items-center gap-3 opacity-40">
-                  <span className="text-base flex-shrink-0">🔒</span>
-                  <span className="text-sm line-through" style={{ color: 'rgba(255,255,255,0.4)' }}>{t}</span>
+                <li key={t} className="flex items-center gap-3 opacity-45">
+                  <Lock className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--subtle)' }} strokeWidth={1.8} />
+                  <span className="text-sm line-through" style={{ color: 'var(--subtle)' }}>{t}</span>
                 </li>
               ))}
             </ul>
           </motion.div>
 
-          {/* Premium / Signed In column */}
+          {/* Unlocked column — ink */}
           <motion.div
             initial={{ opacity: 0, x: 24 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.15 }}
             className="rounded-2xl p-6 relative overflow-hidden"
             style={{
-              background: 'linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(10,15,44,0.8) 100%)',
-              border: '1.5px solid rgba(212,175,55,0.35)',
-              boxShadow: '0 0 40px rgba(212,175,55,0.08)',
+              background: 'linear-gradient(150deg, var(--ink-bg-2) 0%, var(--ink-bg) 65%)',
+              border: '1px solid rgba(217,172,92,0.45)',
+              boxShadow: '0 16px 48px rgba(30,24,18,0.18)',
             }}
           >
-            {/* Glow top */}
-            <div className="absolute top-0 left-0 right-0 h-0.5 rounded-full"
-              style={{ background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.7), transparent)' }} />
+            <div className="absolute top-0 left-0 right-0 h-px"
+              style={{ background: 'linear-gradient(90deg, transparent, rgba(217,172,92,0.8), transparent)' }} />
 
-            <div className="flex items-center gap-2 mb-5">
-              <span className="text-lg">✨</span>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                style={{ background: 'rgba(217,172,92,0.1)', border: '1px solid rgba(217,172,92,0.3)' }}>
+                <Sparkles style={{ width: '18px', height: '18px', color: 'var(--gold-bright)' }} strokeWidth={1.8} />
+              </div>
               <div>
-                <div className="font-black text-white text-base">With Free Account</div>
-                <div className="text-xs" style={{ color: '#D4AF37' }}>Full access unlocked</div>
+                <div className="text-base" style={{ fontFamily: 'var(--font-serif)', fontWeight: 700, color: 'var(--ivory-on-ink)' }}>With Free Account</div>
+                <div className="text-xs" style={{ color: 'var(--gold-bright)' }}>Full access unlocked</div>
               </div>
             </div>
             <ul className="space-y-3">
-              {PREMIUM_FEATURES.map(f => (
-                <li key={f.text} className="flex items-center gap-3">
-                  <span className="text-base flex-shrink-0">{f.icon}</span>
-                  <span className="text-sm text-white">{f.text}</span>
-                  {f.hot && (
-                    <span className="text-[10px] px-1.5 py-0.5 rounded-full font-black flex-shrink-0"
-                      style={{ background: 'rgba(212,175,55,0.2)', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.3)' }}>
-                      HOT
-                    </span>
-                  )}
-                </li>
-              ))}
+              {PREMIUM_FEATURES.map(f => {
+                const Icon = f.icon;
+                return (
+                  <li key={f.text} className="flex items-center gap-3">
+                    <Icon className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--gold-bright)' }} strokeWidth={1.8} />
+                    <span className="text-sm" style={{ color: 'rgba(243,236,221,0.9)' }}>{f.text}</span>
+                    {f.hot && (
+                      <span className="text-[10px] px-1.5 py-0.5 rounded-full font-bold flex-shrink-0 tracking-wide"
+                        style={{ background: 'rgba(217,172,92,0.15)', color: 'var(--gold-bright)', border: '1px solid rgba(217,172,92,0.3)' }}>
+                        HOT
+                      </span>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </motion.div>
         </div>
@@ -144,16 +142,13 @@ export default function PremiumUnlock() {
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <Link
-            to="/login"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-black text-navy-950 text-base transition-all active:scale-95"
-            style={{ background: 'linear-gradient(135deg, #D4AF37, #F0C040)', boxShadow: '0 8px 30px rgba(212,175,55,0.35)' }}
-          >
-            🚀 Create Free Account — 30 Seconds
+          <Link to="/login" className="btn-gold text-base px-8 py-4">
+            Create Free Account — 30 Seconds
+            <ArrowRight className="w-4 h-4" />
           </Link>
-          <p className="text-xs" style={{ color: 'rgba(255,255,255,0.3)' }}>
+          <p className="text-xs" style={{ color: 'var(--subtle)' }}>
             No credit card · No spam · Cancel anytime
           </p>
         </motion.div>
