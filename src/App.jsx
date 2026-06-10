@@ -50,10 +50,11 @@ function NotFound() {
 // Minimal fallback while a lazy page chunk loads
 function PageFallback() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-navy-950">
+    <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--bg-ivory)' }}>
       <div className="flex flex-col items-center gap-4">
-        <div className="w-10 h-10 rounded-full border-2 border-gold-500/30 border-t-gold-400 animate-spin" />
-        <p className="text-navy-500 text-sm">Loading…</p>
+        <div className="w-10 h-10 rounded-full border-2 animate-spin"
+          style={{ borderColor: 'rgba(184,135,47,0.25)', borderTopColor: 'var(--gold)' }} />
+        <p className="text-sm" style={{ color: 'var(--subtle)' }}>Loading…</p>
       </div>
     </div>
   );
@@ -188,7 +189,7 @@ export default function App() {
   return (
     <HelmetProvider>
       <LazyMotion features={domAnimation}>
-        <BrowserRouter>
+        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <AuthProvider>
             <AnimatedRoutes />
             <InstallPWA />

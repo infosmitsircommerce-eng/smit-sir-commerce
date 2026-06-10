@@ -22,7 +22,7 @@ export default function AboutSection() {
   const inView = useInView(ref, { once: true, margin: '100px' });
 
   return (
-    <section ref={ref} className="section-padding" style={{ background: 'var(--bg-white)' }}>
+    <section ref={ref} className="section-padding" style={{ background: 'var(--bg-ivory)' }}>
       <div className="page-container">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
@@ -77,7 +77,7 @@ export default function AboutSection() {
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.05 * i, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                   className="rounded-xl p-4 hover:-translate-y-0.5 transition-all duration-300"
-                  style={{ background: 'var(--bg-ivory)', border: '1px solid var(--border)' }}
+                  style={{ background: 'var(--bg-white)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}
                 >
                   <div className="w-9 h-9 rounded-lg flex items-center justify-center mb-3"
                     style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.18)' }}>

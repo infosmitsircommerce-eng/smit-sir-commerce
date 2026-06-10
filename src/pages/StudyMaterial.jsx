@@ -6,21 +6,6 @@ import { materialTypes } from '../data/studyMaterial';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
 
-const typeColors = {
-  'PDF Notes': 'text-blue-400 bg-blue-400/10',
-  'Revision Sheet': 'text-emerald-400 bg-emerald-400/10',
-  'Mind Map': 'text-purple-400 bg-purple-400/10',
-  'Formula Sheet': 'text-gold-400 bg-gold-400/10',
-  'One-Shot Notes': 'text-orange-400 bg-orange-400/10',
-  'Case Study': 'text-red-400 bg-red-400/10',
-  'Important Questions': 'text-cyan-400 bg-cyan-400/10',
-  'Board Exam Notes': 'text-pink-400 bg-pink-400/10',
-  'Sample Paper': 'text-indigo-400 bg-indigo-400/10',
-  'PYQ': 'text-yellow-400 bg-yellow-400/10',
-  'Practice Sheet': 'text-teal-400 bg-teal-400/10',
-  'NCERT Solutions': 'text-lime-400 bg-lime-400/10',
-};
-
 // Premium Lock Modal
 function PremiumLockModal({ onClose, isLoggedIn }) {
   return (
@@ -30,7 +15,7 @@ function PremiumLockModal({ onClose, isLoggedIn }) {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         className="fixed inset-0 z-50 flex items-center justify-center p-4"
-        style={{ background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(4px)' }}
+        style={{ background: 'rgba(30,24,18,0.6)', backdropFilter: 'blur(4px)' }}
         onClick={onClose}
       >
         <motion.div
@@ -38,22 +23,22 @@ function PremiumLockModal({ onClose, isLoggedIn }) {
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.9, opacity: 0, y: 20 }}
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className="bg-navy-900 border border-navy-700 rounded-2xl p-8 max-w-md w-full relative"
-          style={{ boxShadow: '0 0 60px rgba(212,175,55,0.15), 0 24px 60px rgba(0,0,0,0.5)' }}
+          className="rounded-2xl p-8 max-w-md w-full relative"
+          style={{ background: 'var(--bg-white)', border: '1px solid var(--border)', boxShadow: '0 24px 64px rgba(30,24,18,0.25)' }}
           onClick={(e) => e.stopPropagation()}
         >
-          <button onClick={onClose} className="absolute top-4 right-4 text-navy-400 hover:text-white transition-colors">
+          <button onClick={onClose} className="absolute top-4 right-4 transition-colors" style={{ color: 'var(--subtle)' }}>
             <X className="w-5 h-5" />
           </button>
 
           {/* Lock icon */}
           <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5"
-            style={{ background: 'rgba(212,175,55,0.1)', border: '1px solid rgba(212,175,55,0.3)' }}>
-            <Lock className="w-8 h-8 text-gold-400" />
+            style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.3)' }}>
+            <Lock className="w-8 h-8" style={{ color: 'var(--gold)' }} />
           </div>
 
-          <h3 className="text-white font-bold text-xl text-center mb-2">Premium Content</h3>
-          <p className="text-navy-400 text-sm text-center leading-relaxed mb-6">
+          <h3 className="text-xl text-center mb-2" style={{ fontFamily: 'var(--font-serif)', fontWeight: 700, color: 'var(--ink)' }}>Premium Content</h3>
+          <p className="text-sm text-center leading-relaxed mb-6" style={{ color: 'var(--muted)' }}>
             This PDF is exclusive to enrolled students. Join Smit Sir Commerce to get full access to all premium notes, tests, and lectures.
           </p>
 
@@ -62,8 +47,7 @@ function PremiumLockModal({ onClose, isLoggedIn }) {
               <Link
                 to="/login"
                 onClick={onClose}
-                className="flex items-center justify-center gap-2 w-full py-3 rounded-xl font-semibold text-sm transition-all"
-                style={{ background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.3)', color: '#D4AF37' }}
+                className="btn-primary flex items-center justify-center gap-2 w-full py-3 text-sm"
               >
                 <LogIn className="w-4 h-4" />
                 Login to Your Account
@@ -74,14 +58,15 @@ function PremiumLockModal({ onClose, isLoggedIn }) {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full py-3 rounded-xl font-semibold text-sm transition-all"
-              style={{ background: 'rgba(37,211,102,0.12)', border: '1px solid rgba(37,211,102,0.3)', color: '#25d366' }}
+              style={{ background: 'rgba(77,124,15,0.08)', border: '1px solid rgba(77,124,15,0.3)', color: 'var(--green)' }}
             >
               <MessageCircle className="w-4 h-4" />
               Contact Smit Sir on WhatsApp
             </a>
             <button
               onClick={onClose}
-              className="w-full py-3 rounded-xl text-sm text-navy-400 hover:text-white transition-colors"
+              className="w-full py-3 rounded-xl text-sm transition-colors"
+              style={{ color: 'var(--subtle)' }}
             >
               Maybe Later
             </button>
@@ -92,8 +77,7 @@ function PremiumLockModal({ onClose, isLoggedIn }) {
   );
 }
 
-function MaterialCard({ material, currentUser, isPremiumUser, onPremiumClick }) {
-  const color = typeColors[material.type] || 'text-navy-400 bg-navy-400/10';
+function MaterialCard({ material, isPremiumUser, onPremiumClick }) {
   const isFree = material.isFree ?? material.is_free;
   const classLevel = material.class ?? material.class_level;
   const fileUrl = material.file_url;
@@ -102,24 +86,28 @@ function MaterialCard({ material, currentUser, isPremiumUser, onPremiumClick }) 
   const canAccess = isFree || isPremiumUser;
 
   return (
-    <motion.div whileHover={{ y: -3 }} className="card-premium group flex flex-col">
+    <motion.div whileHover={{ y: -3 }} className="card-paper group flex flex-col p-5">
       <div className="flex items-start gap-3 mb-3">
-        <div className="w-10 h-10 rounded-lg bg-navy-800 flex items-center justify-center flex-shrink-0">
-          <FileText className="w-5 h-5 text-gold-400" />
+        <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+          style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.18)' }}>
+          <FileText className="w-5 h-5" style={{ color: 'var(--gold)' }} strokeWidth={1.8} />
         </div>
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-1 flex-wrap">
-            <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${color}`}>{material.type}</span>
+            <span className="text-xs font-semibold px-2 py-0.5 rounded-full"
+              style={{ background: 'var(--bg-ivory)', border: '1px solid var(--border)', color: 'var(--charcoal)' }}>
+              {material.type}
+            </span>
             {isFree
-              ? <span className="tag-free">Free</span>
-              : <span className="tag-premium">Premium</span>
+              ? <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: 'rgba(77,124,15,0.08)', border: '1px solid rgba(77,124,15,0.25)', color: 'var(--green)' }}>Free</span>
+              : <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.25)', color: 'var(--gold)' }}>Premium</span>
             }
           </div>
-          <h3 className="font-semibold text-white text-sm leading-tight">{material.title}</h3>
+          <h3 className="text-sm leading-tight" style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, color: 'var(--ink)' }}>{material.title}</h3>
         </div>
       </div>
 
-      <div className="flex items-center gap-3 text-navy-400 text-xs mb-4 flex-wrap">
+      <div className="flex items-center gap-3 text-xs mb-4 flex-wrap" style={{ color: 'var(--subtle)' }}>
         <span>{material.subject}</span>
         <span>•</span>
         <span>Class {classLevel}</span>
@@ -133,14 +121,16 @@ function MaterialCard({ material, currentUser, isPremiumUser, onPremiumClick }) 
             href={fileUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-navy-800 hover:bg-navy-700 text-navy-300 hover:text-white text-xs transition-colors"
+            className="tile-paper flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-medium"
+            style={{ color: 'var(--charcoal)' }}
           >
             <Eye className="w-3.5 h-3.5" /> View
           </a>
         ) : (
           <button
             onClick={onPremiumClick}
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-navy-800 hover:bg-navy-700 text-navy-400 hover:text-gold-400 text-xs transition-colors"
+            className="tile-paper flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-medium"
+            style={{ color: 'var(--subtle)' }}
           >
             <Lock className="w-3.5 h-3.5" /> View
           </button>
@@ -153,15 +143,18 @@ function MaterialCard({ material, currentUser, isPremiumUser, onPremiumClick }) 
             download
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs transition-colors bg-gold-500/20 hover:bg-gold-500 text-gold-400 hover:text-navy-950 border border-gold-500/30"
+            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold transition-all"
+            style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.3)', color: 'var(--gold)' }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'var(--gold)'; e.currentTarget.style.color = '#fff'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'var(--gold-bg)'; e.currentTarget.style.color = 'var(--gold)'; }}
           >
             <Download className="w-3.5 h-3.5" /> Download
           </a>
         ) : (
           <button
             onClick={onPremiumClick}
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs transition-colors"
-            style={{ background: 'rgba(212,175,55,0.08)', border: '1px solid rgba(212,175,55,0.2)', color: 'rgba(212,175,55,0.6)' }}
+            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold transition-colors"
+            style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.2)', color: 'rgba(168,123,42,0.6)' }}
           >
             <Lock className="w-3.5 h-3.5" /> Unlock
           </button>
@@ -200,8 +193,23 @@ export default function StudyMaterial() {
     return matchSearch && matchClass && matchType && matchSubject;
   });
 
+  const pillStyle = (active) => active
+    ? { background: 'var(--ink)', color: 'var(--ivory-on-ink)', border: '1px solid var(--ink)' }
+    : { background: 'var(--bg-white)', color: 'var(--muted)', border: '1px solid var(--border)' };
+
+  const inputStyle = {
+    background: 'var(--bg-white)',
+    border: '1px solid var(--border)',
+    borderRadius: '12px',
+    color: 'var(--ink)',
+    padding: '12px 16px',
+    fontFamily: 'var(--font-sans)',
+    fontSize: '14px',
+    width: '100%',
+  };
+
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
       {/* Premium Modal */}
       {showPremiumModal && (
         <PremiumLockModal
@@ -210,23 +218,23 @@ export default function StudyMaterial() {
         />
       )}
 
-      <div className="hero-bg py-16 border-b border-navy-800/50">
+      <div className="page-hero">
         <div className="page-container text-center">
-          <div className="section-subheading">All Study Resources</div>
-          <h1 className="section-heading text-4xl md:text-5xl">Study <span className="gradient-text">Material</span></h1>
-          <p className="text-navy-400 max-w-xl mx-auto">Notes, mind maps, formula sheets, sample papers, PYQs and more — all chapter-wise.</p>
+          <span className="eyebrow">All Study Resources</span>
+          <h1 className="mt-5">Study <em>material.</em></h1>
+          <p className="mx-auto">Notes, mind maps, formula sheets, sample papers, PYQs and more — all chapter-wise.</p>
 
           {/* Premium access banner */}
           {!authLoading && !isPremiumUser && (
             <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium"
-              style={{ background: 'rgba(212,175,55,0.1)', border: '1px solid rgba(212,175,55,0.25)', color: '#D4AF37' }}>
+              style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.25)', color: 'var(--gold)' }}>
               <Lock className="w-3.5 h-3.5" />
               {currentUser ? 'Your account doesn\'t have premium access yet' : 'Login or enroll to access premium materials'}
             </div>
           )}
           {!authLoading && isPremiumUser && (
             <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium"
-              style={{ background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.25)', color: '#10b981' }}>
+              style={{ background: 'rgba(77,124,15,0.08)', border: '1px solid rgba(77,124,15,0.25)', color: 'var(--green)' }}>
               ✓ You have full premium access
             </div>
           )}
@@ -236,14 +244,15 @@ export default function StudyMaterial() {
       <div className="page-container section-padding">
         {/* Material type pills */}
         <div className="flex flex-wrap gap-2 mb-8">
-          <button onClick={() => setFilterType('All')} className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${filterType === 'All' ? 'bg-gold-500 text-navy-950' : 'bg-navy-800 text-navy-400 hover:bg-navy-700'}`}>
+          <button onClick={() => setFilterType('All')} className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors" style={pillStyle(filterType === 'All')}>
             All Types
           </button>
           {materialTypes.map((t) => (
             <button
               key={t}
               onClick={() => setFilterType(t)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${filterType === t ? 'bg-gold-500 text-navy-950' : 'bg-navy-800 text-navy-400 hover:bg-navy-700'}`}
+              className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors"
+              style={pillStyle(filterType === t)}
             >
               {t}
             </button>
@@ -251,49 +260,45 @@ export default function StudyMaterial() {
         </div>
 
         {/* Filters */}
-        <div className="bg-navy-900/80 border border-navy-700/50 rounded-2xl p-5 mb-8 flex flex-wrap gap-4">
+        <div className="card-paper p-5 mb-8 flex flex-wrap gap-4">
           <div className="flex-1 min-w-[200px] relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-navy-500" />
-            <input className="input-field pl-10" placeholder="Search material..." value={search} onChange={(e) => setSearch(e.target.value)} />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: 'var(--subtle)' }} />
+            <input style={{ ...inputStyle, paddingLeft: '40px' }} placeholder="Search material..." value={search} onChange={(e) => setSearch(e.target.value)} />
           </div>
-          <select value={filterClass} onChange={(e) => setFilterClass(e.target.value)} className="input-field min-w-[140px]">
+          <select value={filterClass} onChange={(e) => setFilterClass(e.target.value)} style={{ ...inputStyle, width: 'auto', minWidth: '140px' }}>
             <option value="All">All Classes</option>
             <option value="11">Class 11</option>
             <option value="12">Class 12</option>
           </select>
-          <select value={filterSubject} onChange={(e) => setFilterSubject(e.target.value)} className="input-field min-w-[160px]">
+          <select value={filterSubject} onChange={(e) => setFilterSubject(e.target.value)} style={{ ...inputStyle, width: 'auto', minWidth: '160px' }}>
             {subjects.map((s) => <option key={s} value={s}>{s}</option>)}
           </select>
         </div>
 
-        <div className="text-navy-400 text-sm mb-5">
-          Showing <span className="text-gold-400 font-medium">{filtered.length}</span> materials
+        <div className="text-sm mb-5" style={{ color: 'var(--muted)' }}>
+          Showing <span className="font-semibold" style={{ color: 'var(--gold)' }}>{filtered.length}</span> materials
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-          {filtered.map((material) => {
-            const isFree = material.isFree ?? material.is_free;
-            return (
-              <MaterialCard
-                key={material.id}
-                material={material}
-                currentUser={currentUser}
-                isPremiumUser={isPremiumUser}
-                onPremiumClick={() => setShowPremiumModal(true)}
-              />
-            );
-          })}
+          {filtered.map((material) => (
+            <MaterialCard
+              key={material.id}
+              material={material}
+              isPremiumUser={isPremiumUser}
+              onPremiumClick={() => setShowPremiumModal(true)}
+            />
+          ))}
         </div>
 
         {loadingUploaded && (
           <div className="flex items-center justify-center py-16">
-            <Loader className="w-6 h-6 text-gold-400 animate-spin" />
+            <Loader className="w-6 h-6 animate-spin" style={{ color: 'var(--gold)' }} />
           </div>
         )}
         {!loadingUploaded && filtered.length === 0 && (
           <div className="text-center py-16">
-            <div className="text-4xl mb-3">📄</div>
-            <div className="text-navy-400">No materials found. Upload PDFs from the Admin Panel.</div>
+            <FileText className="w-10 h-10 mx-auto mb-3" style={{ color: 'var(--subtle)' }} strokeWidth={1.5} />
+            <div style={{ color: 'var(--muted)' }}>No materials found.</div>
           </div>
         )}
       </div>

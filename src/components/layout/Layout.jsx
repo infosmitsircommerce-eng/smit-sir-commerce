@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import WhatsAppButton from '../ui/WhatsAppButton';
@@ -7,10 +8,15 @@ import ScrollToTop from '../ui/ScrollToTop';
 import PageLoader from '../ui/PageLoader';
 import CursorSpotlight from '../ui/CursorSpotlight';
 import ScrollProgressBar from '../ui/ScrollProgressBar';
+import { isLightRoute } from '../../lib/theme';
 
 export default function Layout({ children }) {
+  const { pathname } = useLocation();
+  const light = isLightRoute(pathname);
+
   return (
-    <div className="min-h-screen bg-navy-950 flex flex-col">
+    <div className="min-h-screen flex flex-col"
+      style={{ background: light ? 'var(--bg-ivory)' : '#0f0d2e' }}>
       <ScrollProgressBar />
       <PageLoader />
       <CursorSpotlight />

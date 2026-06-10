@@ -10,25 +10,28 @@ import { faqs } from '../../data/faqs';
 const HOME_FAQ_IDS = [9, 3]; // "Is there a free demo class?" + "Can I join online batches?"
 const homeFaqs = HOME_FAQ_IDS.map(id => faqs.find(f => f.id === id));
 
-export default function FAQSection() {
+export default function FAQSection({ showAll = false }) {
   const [open, setOpen] = useState(null);
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '100px' });
+  const items = showAll ? faqs : homeFaqs;
 
   return (
     <section ref={ref} className="section-padding" style={{ background: 'var(--bg-ivory)' }}>
       <div className="page-container max-w-3xl">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          className="text-center mb-10"
-        >
-          <span className="eyebrow">Got Questions?</span>
-          <h2 className="headline mt-6">Frequently asked <em>questions.</em></h2>
-        </motion.div>
+        {!showAll && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            className="text-center mb-10"
+          >
+            <span className="eyebrow">Got Questions?</span>
+            <h2 className="headline mt-6">Frequently asked <em>questions.</em></h2>
+          </motion.div>
+        )}
 
         <div className="space-y-3">
-          {homeFaqs.map((faq, i) => (
+          {items.map((faq, i) => (
             <motion.div
               key={faq.id}
               initial={{ opacity: 0, y: 20 }}
@@ -72,22 +75,24 @@ export default function FAQSection() {
           ))}
         </div>
 
-        {/* See all FAQs link */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.3 }}
-          className="text-center mt-8"
-        >
-          <Link
-            to="/faq"
-            className="inline-flex items-center gap-2 font-medium text-sm transition-colors group"
-            style={{ color: 'var(--gold)' }}
+        {/* See all FAQs link — only on the homepage teaser */}
+        {!showAll && (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.3 }}
+            className="text-center mt-8"
           >
-            See all {faqs.length} frequently asked questions
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </motion.div>
+            <Link
+              to="/faq"
+              className="inline-flex items-center gap-2 font-medium text-sm transition-colors group"
+              style={{ color: 'var(--gold)' }}
+            >
+              See all {faqs.length} frequently asked questions
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </motion.div>
+        )}
 
       </div>
     </section>

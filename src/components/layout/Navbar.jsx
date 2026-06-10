@@ -3,41 +3,39 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown, GraduationCap, LogOut, User } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { isLightRoute } from '../../lib/theme';
 
 const navLinks = [
   { label: 'Home', path: '/' },
   {
     label: 'Learn',
     children: [
-      { label: '📚 Courses', path: '/courses' },
-      { label: '🎥 Lectures', path: '/lectures' },
-      { label: '📄 Study Material', path: '/study-material' },
+      { label: 'Courses', path: '/courses' },
+      { label: 'Lectures', path: '/lectures' },
+      { label: 'Study Material', path: '/study-material' },
     ],
   },
   {
     label: 'Practice',
     children: [
-      { label: '🤖 Ask AI Doubt', path: '/ask' },
-      { label: '🎬 Reel Generator', path: '/reel' },
-      { label: '📝 Quizzes', path: '/quizzes' },
-      { label: '📊 Test Series', path: '/test-series' },
-      { label: '🎮 Games', path: '/games' },
-      { label: '🃏 Flashcards', path: '/flashcards' },
+      { label: 'Ask AI Doubt', path: '/ask' },
+      { label: 'Reel Generator', path: '/reel' },
+      { label: 'Quizzes', path: '/quizzes' },
+      { label: 'Test Series', path: '/test-series' },
+      { label: 'Games', path: '/games' },
+      { label: 'Flashcards', path: '/flashcards' },
     ],
   },
   {
     label: 'Batches',
     children: [
-      { label: '🏫 Online Batch', path: '/online-batch' },
-      { label: '🏛️ Offline Batch', path: '/offline-batch' },
-      { label: '📺 Live Classes', path: '/live-classes' },
+      { label: 'Online Batch', path: '/online-batch' },
+      { label: 'Offline Batch', path: '/offline-batch' },
+      { label: 'Live Classes', path: '/live-classes' },
     ],
   },
   { label: 'Contact', path: '/contact' },
 ];
-
-// Routes that use the light editorial (ivory) theme
-const LIGHT_ROUTES = ['/'];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,7 +46,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const { user, displayName, initials, isPremium, signOut } = useAuth();
 
-  const light = LIGHT_ROUTES.includes(location.pathname);
+  const light = isLightRoute(location.pathname);
 
   async function handleLogout() {
     await signOut();

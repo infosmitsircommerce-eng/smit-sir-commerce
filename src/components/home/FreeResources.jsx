@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { PlayCircle, FileText, HelpCircle, FileDown, PenTool, ArrowRight } from 'lucide-react';
+import { PlayCircle, FileText, HelpCircle, FileDown, PenTool, ArrowRight, Gamepad2 } from 'lucide-react';
 
 const resources = [
   { icon: PlayCircle, title: 'Free Demo Lecture',   desc: 'Watch a complete class for free before enrolling.',       link: '/lectures'       },
@@ -81,15 +81,55 @@ export default function FreeResources() {
           })}
         </div>
 
-        {/* CTA */}
+        {/* Games strip — the standout free feature */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.5 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          transition={{ delay: 0.4 }}
         >
-          <Link to="/study-material" className="btn-primary inline-flex items-center gap-2">
-            Browse All Free Resources <ArrowRight className="w-4 h-4" />
+          <Link to="/games"
+            className="group relative flex flex-col sm:flex-row items-center gap-5 rounded-2xl p-6 sm:p-7 overflow-hidden transition-transform duration-300 hover:-translate-y-1"
+            style={{
+              background: 'linear-gradient(135deg, var(--ink-bg-2) 0%, var(--ink-bg) 60%)',
+              border: '1px solid rgba(201,160,80,0.3)',
+              boxShadow: '0 16px 44px rgba(30,24,18,0.14)',
+            }}>
+            <div className="absolute top-0 inset-x-0 h-px"
+              style={{ background: 'linear-gradient(90deg, transparent, rgba(217,172,92,0.6), transparent)' }} />
+            <div className="absolute top-0 right-0 w-56 h-56 rounded-full pointer-events-none"
+              style={{ background: 'radial-gradient(circle, rgba(201,160,80,0.12), transparent 70%)', transform: 'translate(30%, -30%)' }} />
+
+            <div className="w-13 h-13 rounded-2xl flex items-center justify-center flex-shrink-0 p-3.5"
+              style={{ background: 'rgba(217,172,92,0.1)', border: '1px solid rgba(217,172,92,0.3)' }}>
+              <Gamepad2 style={{ width: '24px', height: '24px', color: 'var(--gold-bright)' }} strokeWidth={1.6} />
+            </div>
+
+            <div className="flex-1 text-center sm:text-left">
+              <h3 className="mb-1" style={{ fontFamily: 'var(--font-serif)', fontWeight: 700, fontSize: '1.2rem', color: 'var(--ivory-on-ink)' }}>
+                Learn Economics by playing
+              </h3>
+              <p className="text-xs leading-relaxed max-w-lg" style={{ color: 'var(--muted-on-ink)' }}>
+                Predict the Price (120+ questions, 3 levels) and the Money Time Machine — interactive games
+                covering Demand, Supply, Equilibrium, National Income &amp; Inflation.
+              </p>
+            </div>
+
+            <span className="inline-flex items-center gap-1.5 text-sm font-semibold flex-shrink-0 transition-transform group-hover:translate-x-1"
+              style={{ color: 'var(--gold-bright)' }}>
+              Play free <ArrowRight className="w-4 h-4" />
+            </span>
+          </Link>
+        </motion.div>
+
+        {/* Quiet links */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.55 }}
+          className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 mt-9"
+        >
+          <Link to="/study-material" className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors group" style={{ color: 'var(--gold)' }}>
+            Browse all free resources <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </Link>
           <a
             href={WA_LINK}

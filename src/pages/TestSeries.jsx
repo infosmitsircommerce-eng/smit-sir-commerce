@@ -17,49 +17,53 @@ const tests = [
 
 const testTypes = ['All', 'Chapter Test', 'Unit Test', 'Full Syllabus Test', 'Pre-Board Test', 'MCQ Test', 'Case-Study Test', 'Subject-Wise Test'];
 
+const pillStyle = (active) => active
+  ? { background: 'var(--ink)', color: 'var(--ivory-on-ink)', border: '1px solid var(--ink)' }
+  : { background: 'var(--bg-white)', color: 'var(--muted)', border: '1px solid var(--border)' };
+
 function ResultAnalysis({ test, onClose }) {
   const score = Math.floor(Math.random() * 30) + 55;
   return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ background: 'rgba(30,24,18,0.6)', backdropFilter: 'blur(4px)' }}>
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        className="bg-navy-900 border border-navy-700 rounded-2xl p-8 max-w-lg w-full max-h-[90vh] overflow-y-auto"
+        className="rounded-2xl p-8 max-w-lg w-full max-h-[90vh] overflow-y-auto"
+        style={{ background: 'var(--bg-white)', border: '1px solid var(--border)', boxShadow: '0 24px 64px rgba(30,24,18,0.25)' }}
       >
-        <h3 className="font-display font-bold text-xl text-white mb-6">Result Analysis — {test.name}</h3>
+        <h3 className="text-xl mb-6" style={{ fontFamily: 'var(--font-serif)', fontWeight: 700, color: 'var(--ink)' }}>Result Analysis — {test.name}</h3>
         <div className="grid grid-cols-3 gap-3 mb-6">
-          <div className="bg-navy-800 rounded-xl p-3 text-center">
-            <div className="text-gold-400 font-bold text-xl">{score}%</div>
-            <div className="text-navy-400 text-xs">Score</div>
-          </div>
-          <div className="bg-navy-800 rounded-xl p-3 text-center">
-            <div className="text-emerald-400 font-bold text-xl">{Math.floor(score/100 * test.questions)}</div>
-            <div className="text-navy-400 text-xs">Correct</div>
-          </div>
-          <div className="bg-navy-800 rounded-xl p-3 text-center">
-            <div className="text-blue-400 font-bold text-xl">82%</div>
-            <div className="text-navy-400 text-xs">Accuracy</div>
-          </div>
+          {[
+            { value: `${score}%`, label: 'Score',    color: 'var(--gold)'  },
+            { value: Math.floor(score / 100 * test.questions), label: 'Correct', color: 'var(--green)' },
+            { value: '82%', label: 'Accuracy', color: 'var(--charcoal)' },
+          ].map(s => (
+            <div key={s.label} className="rounded-xl p-3 text-center" style={{ background: 'var(--bg-ivory)', border: '1px solid var(--border)' }}>
+              <div className="text-xl" style={{ fontFamily: 'var(--font-serif)', fontWeight: 700, color: s.color }}>{s.value}</div>
+              <div className="text-xs" style={{ color: 'var(--subtle)' }}>{s.label}</div>
+            </div>
+          ))}
         </div>
 
         <div className="space-y-4 mb-6">
           <div>
-            <div className="flex items-center gap-2 text-emerald-400 font-medium text-sm mb-2">
+            <div className="flex items-center gap-2 font-medium text-sm mb-2" style={{ color: 'var(--green)' }}>
               <TrendingUp className="w-4 h-4" /> Strong Topics
             </div>
             <div className="flex flex-wrap gap-2">
               {['Journal Entries', 'Ledger Posting', 'Trial Balance'].map(t => (
-                <span key={t} className="bg-emerald-500/10 text-emerald-400 text-xs px-2 py-1 rounded-full border border-emerald-500/30">{t}</span>
+                <span key={t} className="text-xs px-2 py-1 rounded-full" style={{ background: 'rgba(77,124,15,0.07)', color: 'var(--green)', border: '1px solid rgba(77,124,15,0.25)' }}>{t}</span>
               ))}
             </div>
           </div>
           <div>
-            <div className="flex items-center gap-2 text-red-400 font-medium text-sm mb-2">
+            <div className="flex items-center gap-2 font-medium text-sm mb-2" style={{ color: '#B4533C' }}>
               <AlertTriangle className="w-4 h-4" /> Weak Topics — Needs Revision
             </div>
             <div className="flex flex-wrap gap-2">
               {['Partnership Dissolution', 'Goodwill Valuation'].map(t => (
-                <span key={t} className="bg-red-500/10 text-red-400 text-xs px-2 py-1 rounded-full border border-red-500/30">{t}</span>
+                <span key={t} className="text-xs px-2 py-1 rounded-full" style={{ background: 'rgba(180,83,60,0.07)', color: '#B4533C', border: '1px solid rgba(180,83,60,0.25)' }}>{t}</span>
               ))}
             </div>
           </div>
@@ -73,41 +77,49 @@ function ResultAnalysis({ test, onClose }) {
 
 function TestCard({ test, onComingSoon }) {
   const [showAnalysis, setShowAnalysis] = useState(false);
-  const diffColors = { Easy: 'text-emerald-400', Medium: 'text-gold-400', Hard: 'text-red-400' };
+  const diffColors = { Easy: 'var(--green)', Medium: 'var(--gold)', Hard: '#B4533C' };
 
   return (
     <>
       {showAnalysis && <ResultAnalysis test={test} onClose={() => setShowAnalysis(false)} />}
-      <motion.div whileHover={{ y: -3 }} className="card-premium flex flex-col">
+      <motion.div whileHover={{ y: -3 }} className="card-paper flex flex-col p-5">
         <div className="flex items-start justify-between gap-2 mb-3">
           <div>
-            <div className="text-xs text-navy-400 mb-1">{test.type}</div>
-            <h3 className="font-semibold text-white text-sm leading-tight">{test.name}</h3>
+            <div className="text-xs mb-1" style={{ color: 'var(--subtle)' }}>{test.type}</div>
+            <h3 className="text-sm leading-tight" style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, color: 'var(--ink)' }}>{test.name}</h3>
           </div>
-          {test.isFree ? <span className="tag-free flex-shrink-0">Free</span> : <span className="tag-premium flex-shrink-0">Pro</span>}
+          {test.isFree
+            ? <span className="text-xs font-semibold px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: 'rgba(77,124,15,0.08)', border: '1px solid rgba(77,124,15,0.25)', color: 'var(--green)' }}>Free</span>
+            : <span className="text-xs font-semibold px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.25)', color: 'var(--gold)' }}>Pro</span>}
         </div>
 
-        <div className="flex flex-wrap gap-3 text-xs text-navy-400 mb-4">
-          <span className="flex items-center gap-1"><Award className="w-3 h-3 text-gold-400" /> {test.marks} marks</span>
+        <div className="flex flex-wrap gap-3 text-xs mb-4" style={{ color: 'var(--muted)' }}>
+          <span className="flex items-center gap-1"><Award className="w-3 h-3" style={{ color: 'var(--gold)' }} /> {test.marks} marks</span>
           <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {test.time}</span>
           <span className="flex items-center gap-1"><FileText className="w-3 h-3" /> {test.questions} Qs</span>
-          <span className={`font-medium ${diffColors[test.difficulty]}`}>{test.difficulty}</span>
+          <span className="font-medium" style={{ color: diffColors[test.difficulty] }}>{test.difficulty}</span>
         </div>
 
         <div className="mt-auto flex gap-2">
           <button
             onClick={() => setShowAnalysis(true)}
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-navy-700 hover:bg-navy-600 text-navy-300 hover:text-white text-xs border border-navy-600 transition-colors"
+            className="tile-paper flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-medium"
+            style={{ color: 'var(--charcoal)' }}
           >
             <BarChart2 className="w-3.5 h-3.5" /> Analysis
           </button>
           <button
             onClick={onComingSoon}
-            className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-medium transition-colors ${
-              test.isFree
-                ? 'bg-gold-500/20 hover:bg-gold-500 text-gold-400 hover:text-navy-950 border border-gold-500/30'
-                : 'bg-navy-700 text-navy-400 border border-navy-600'
-            }`}>
+            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold transition-all"
+            style={test.isFree
+              ? { background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.3)', color: 'var(--gold)' }
+              : { background: 'var(--bg-ivory)', border: '1px solid var(--border)', color: 'var(--subtle)' }}
+            onMouseEnter={e => {
+              if (test.isFree) { e.currentTarget.style.background = 'var(--gold)'; e.currentTarget.style.color = '#fff'; }
+            }}
+            onMouseLeave={e => {
+              if (test.isFree) { e.currentTarget.style.background = 'var(--gold-bg)'; e.currentTarget.style.color = 'var(--gold)'; }
+            }}>
             {test.isFree ? <><Play className="w-3.5 h-3.5" /> Attempt</> : <><Lock className="w-3.5 h-3.5" /> Unlock</>}
           </button>
         </div>
@@ -128,28 +140,30 @@ export default function TestSeries() {
   });
 
   return (
-    <div className="min-h-screen bg-navy-950">
-      <div className="hero-bg py-16 border-b border-navy-800/50">
+    <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
+      <div className="page-hero">
         <div className="page-container text-center">
-          <div className="section-subheading">Assess &amp; Improve</div>
-          <h1 className="section-heading text-4xl md:text-5xl">Test <span className="gradient-text">Series</span></h1>
-          <p className="text-navy-400 max-w-xl mx-auto">Chapter tests, unit tests, pre-board tests, and full syllabus tests — with detailed performance analysis.</p>
+          <span className="eyebrow">Assess &amp; Improve</span>
+          <h1 className="mt-5">Test <em>series.</em></h1>
+          <p className="mx-auto">Chapter tests, unit tests, pre-board tests, and full syllabus tests — with detailed performance analysis.</p>
         </div>
       </div>
 
       <div className="page-container section-padding">
         <div className="flex flex-wrap gap-2 mb-8">
           {testTypes.map((t) => (
-            <button key={t} onClick={() => setFilterType(t)} className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${filterType === t ? 'bg-gold-500 text-navy-950' : 'bg-navy-800 text-navy-400 hover:bg-navy-700'}`}>{t}</button>
+            <button key={t} onClick={() => setFilterType(t)} className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors" style={pillStyle(filterType === t)}>{t}</button>
           ))}
         </div>
 
-        <div className="flex gap-3 mb-8">
-          {['All', '11', '12'].map((c) => (
-            <button key={c} onClick={() => setFilterClass(c)} className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${filterClass === c ? 'bg-gold-500 text-navy-950' : 'bg-navy-800 text-navy-300 hover:bg-navy-700'}`}>
-              {c === 'All' ? 'All Classes' : `Class ${c}`}
-            </button>
-          ))}
+        <div className="flex justify-start mb-8">
+          <div className="toggle-paper">
+            {['All', '12', '11'].map((c) => (
+              <button key={c} onClick={() => setFilterClass(c)} className={filterClass === c ? 'active' : ''}>
+                {c === 'All' ? 'All Classes' : `Class ${c}`}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">

@@ -1,17 +1,11 @@
 import SEO from '../components/ui/SEO';
 import HeroSection from '../components/home/HeroSection';
 import StatsSection from '../components/home/StatsSection';
-import WhyChooseUs from '../components/home/WhyChooseUs';
 import CoursesPreview from '../components/home/CoursesPreview';
-import WhatYouGet from '../components/home/WhatYouGet';
-import FreeResources from '../components/home/FreeResources';
-import GamesPromo from '../components/home/GamesPromo';
-import BatchCTA from '../components/home/BatchCTA';
-import Toppers from '../components/home/Toppers';
-import ResultsBanner from '../components/home/ResultsBanner';
-import Testimonials from '../components/home/Testimonials';
-import PremiumUnlock from '../components/home/PremiumUnlock';
 import AboutSection from '../components/home/AboutSection';
+import FreeResources from '../components/home/FreeResources';
+import BatchCTA from '../components/home/BatchCTA';
+import ResultsBanner from '../components/home/ResultsBanner';
 import FAQSection from '../components/home/FAQSection';
 import ContactCTA from '../components/home/ContactCTA';
 import SectionDivider from '../components/ui/SectionDivider';
@@ -25,33 +19,15 @@ export default function Home() {
         path="/"
       />
       <HeroSection />
-      <SectionDivider />
       <StatsSection />
-      <SectionDivider />
-      <WhyChooseUs />
-      <SectionDivider />
       <CoursesPreview />
       <SectionDivider />
-      <WhatYouGet />
-      <SectionDivider />
+      <AboutSection />
       <FreeResources />
-      <SectionDivider />
-      <GamesPromo />
-      <SectionDivider />
       <BatchCTA />
-      <SectionDivider />
-      <Toppers />
-      <SectionDivider />
       <ResultsBanner />
       <SectionDivider />
-      <Testimonials />
-      <SectionDivider />
-      <PremiumUnlock />
-      <SectionDivider />
-      <AboutSection />
-      <SectionDivider />
       <FAQSection />
-      <SectionDivider />
       <ContactCTA />
     </>
   );
