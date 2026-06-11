@@ -10,7 +10,7 @@ const stats = [
   { end: 5,   suffix: '★', label: 'Student Rating',     desc: 'Google & personal reviews'},
 ];
 
-const roman = ['I', 'II', 'III', 'IV', 'V', 'VI'];
+const index = ['01', '02', '03', '04', '05', '06'];
 
 function CountUp({ end, suffix, inView, duration = 1800 }) {
   const [count, setCount] = useState(0);
@@ -59,7 +59,7 @@ export default function StatsSection() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="text-center mb-16"
         >
-          <span className="eyebrow eyebrow-on-ink mb-6">The Account So Far</span>
+          <span className="eyebrow eyebrow-on-ink mb-6">By the Numbers</span>
           <h2 className="headline headline-on-ink mt-6">
             Everything you need to <em>score better.</em>
           </h2>
@@ -81,12 +81,12 @@ export default function StatsSection() {
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                 style={{ background: 'radial-gradient(ellipse at 50% 100%, rgba(201,160,80,0.09) 0%, transparent 70%)' }} />
 
-              {/* Roman numeral index */}
+              {/* Index */}
               <div style={{
-                fontFamily: 'var(--font-accent)', fontStyle: 'italic',
-                fontSize: '13px', color: 'rgba(201,160,80,0.55)',
-                letterSpacing: '0.1em', marginBottom: '12px',
-              }}>{roman[i]}</div>
+                fontFamily: 'var(--font-sans)', fontWeight: 700,
+                fontSize: '11px', color: 'rgba(201,160,80,0.55)',
+                letterSpacing: '0.18em', marginBottom: '12px',
+              }}>{index[i]}</div>
 
               {/* Big serif numeral */}
               <div style={{

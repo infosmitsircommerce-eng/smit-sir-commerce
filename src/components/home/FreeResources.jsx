@@ -18,7 +18,7 @@ export default function FreeResources() {
   const inView = useInView(ref, { once: true, margin: '100px' });
 
   return (
-    <section ref={ref} className="section-padding relative overflow-hidden" style={{ background: 'var(--bg-white)' }}>
+    <section ref={ref} className="section-padding relative overflow-hidden bg-graph-paper">
       <div className="page-container">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -27,7 +27,7 @@ export default function FreeResources() {
           className="text-center mb-12"
         >
           <span className="eyebrow">Zero Cost, High Value</span>
-          <h2 className="headline mt-6">Start learning with <em>free resources.</em></h2>
+          <h2 className="headline mt-6">Start learning with <span className="marker">free resources.</span></h2>
           <p className="max-w-xl mx-auto mt-4 text-sm" style={{ color: 'var(--muted)' }}>
             No registration needed. Access sample material and see exactly what you get before joining.
           </p>

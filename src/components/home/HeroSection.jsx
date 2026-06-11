@@ -73,9 +73,17 @@ export default function HeroSection() {
 
           {/* ── LEFT ── */}
           <div>
-            {/* Eyebrow */}
-            <motion.div {...fade(0.08)}>
+            {/* Eyebrow with a doodle star */}
+            <motion.div {...fade(0.08)} style={{ position: 'relative', display: 'inline-block' }}>
               <span className="eyebrow">CBSE Commerce · Class 11 &amp; 12 · Mehsana + Online</span>
+              <svg aria-hidden="true" viewBox="0 0 24 24" style={{
+                position: 'absolute', top: '-14px', right: '-22px',
+                width: '20px', height: '20px', color: 'var(--gold-soft)',
+                transform: 'rotate(12deg)',
+              }}>
+                <path d="M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z"
+                  fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+              </svg>
             </motion.div>
 
             {/* Headline */}
@@ -83,22 +91,19 @@ export default function HeroSection() {
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(2.5rem, 4.8vw, 3.8rem)',
               fontWeight: 700,
-              lineHeight: 1.08,
+              lineHeight: 1.12,
               letterSpacing: '-0.025em',
               color: 'var(--ink)',
               margin: '26px 0 20px',
             }}>
-              Commerce Concepts,
+              Commerce concepts,
               <br />
-              <em style={{
+              <em className="squiggle" style={{
                 fontFamily: 'var(--font-accent)',
                 fontStyle: 'italic',
                 fontWeight: 600,
                 fontSize: '1.12em',
-                background: 'linear-gradient(135deg, var(--gold), var(--gold-soft))',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
+                color: 'var(--ink)',
               }}>
                 finally made clear.
               </em>
@@ -113,20 +118,35 @@ export default function HeroSection() {
               marginBottom: '34px',
             }}>
               Economics, Accountancy, Business Studies and Entrepreneurship —
-              taught with concept clarity, board-focused notes, chapter-wise tests,
-              and premium study material.
+              taught with <span className="marker" style={{ color: 'var(--ink)', fontWeight: 600 }}>concept clarity</span>,
+              board-focused notes, chapter-wise tests, and premium study material.
             </motion.p>
 
             {/* CTA buttons */}
-            <motion.div {...fade(0.32)} style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '40px' }}>
-              <Link to="/contact" className="btn-primary" style={{ fontSize: '15px', padding: '13px 28px' }}>
-                Book Free Demo Class
-                <ArrowRight style={{ width: '15px', height: '15px' }} />
-              </Link>
-              <Link to="/study-material" className="btn-outline-ink" style={{ fontSize: '15px' }}>
-                <BookOpen style={{ width: '14px', height: '14px' }} />
-                Explore Study Material
-              </Link>
+            <motion.div {...fade(0.32)} style={{ marginBottom: '36px' }}>
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                <Link to="/contact" className="btn-primary" style={{ fontSize: '15px', padding: '13px 28px' }}>
+                  Book Free Demo Class
+                  <ArrowRight style={{ width: '15px', height: '15px' }} />
+                </Link>
+                <Link to="/study-material" className="btn-outline-ink" style={{ fontSize: '15px' }}>
+                  <BookOpen style={{ width: '14px', height: '14px' }} />
+                  Explore Study Material
+                </Link>
+              </div>
+              {/* Handwritten aside with doodle arrow */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '12px' }}>
+                <svg aria-hidden="true" viewBox="0 0 40 24" style={{ width: '32px', height: '20px', color: 'var(--gold-soft)', transform: 'scaleY(-1) rotate(-8deg)' }}>
+                  <path d="M36 4 C 26 20, 14 22, 4 14 M4 14 l7 -1 M4 14 l3 6"
+                    fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span style={{
+                  fontFamily: 'var(--font-accent)', fontStyle: 'italic',
+                  fontSize: '1.05rem', color: 'var(--muted)',
+                }}>
+                  first class is completely free — no pressure!
+                </span>
+              </div>
             </motion.div>
 
             {/* Trust row — ledger columns */}
@@ -216,13 +236,14 @@ export default function HeroSection() {
                       marginTop: '3px',
                     }}>CBSE Commerce Specialist · Class 11 &amp; 12</div>
                   </div>
-                  <div style={{
-                    padding: '4px 10px', borderRadius: '6px',
-                    background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.25)',
+                  <div className="sticker" style={{
+                    padding: '5px 11px', borderRadius: '7px',
+                    background: 'rgba(242,205,92,0.35)', border: '1px solid rgba(184,135,47,0.3)',
                     fontFamily: 'var(--font-sans)',
                     fontSize: '10px', fontWeight: 700,
-                    color: 'var(--gold)', letterSpacing: '0.05em',
+                    color: '#7A5A1E', letterSpacing: '0.05em',
                     whiteSpace: 'nowrap', flexShrink: 0,
+                    boxShadow: '0 2px 6px rgba(30,24,18,0.08)',
                   }}>
                     ADMISSIONS OPEN
                   </div>

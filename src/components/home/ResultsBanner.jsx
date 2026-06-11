@@ -148,7 +148,12 @@ export default function ResultsBanner() {
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.7 + i * 0.08 }}
                 className="relative rounded-2xl p-6 overflow-hidden"
-                style={{ background: 'var(--bg-ivory)', border: '1px solid var(--border)' }}
+                style={{
+                  background: 'var(--bg-ivory)',
+                  border: '1px solid var(--border)',
+                  transform: `rotate(${[-1, 0.8, -0.6][i]}deg)`,
+                  boxShadow: '0 3px 10px rgba(30,24,18,0.05)',
+                }}
               >
                 <div aria-hidden="true" className="absolute -top-4 right-2 pointer-events-none select-none"
                   style={{ fontSize: '100px', lineHeight: 1, fontFamily: 'var(--font-accent)', fontStyle: 'italic', color: 'rgba(184,135,47,0.1)' }}>

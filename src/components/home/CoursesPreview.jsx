@@ -296,7 +296,7 @@ export default function CoursesPreview() {
             letterSpacing: '-0.025em', lineHeight: 1.12,
             marginBottom: '14px',
           }}>
-            Choose Your <em style={{ fontStyle: 'italic', background: 'linear-gradient(135deg, var(--gold), var(--gold-soft))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Commerce Track</em>
+            Choose your <em className="squiggle" style={{ fontFamily: 'var(--font-accent)', fontStyle: 'italic', fontWeight: 600, fontSize: '1.08em', color: 'var(--ink)' }}>commerce track.</em>
           </h2>
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
