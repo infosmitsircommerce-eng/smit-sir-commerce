@@ -6,6 +6,20 @@ import { materialTypes } from '../data/studyMaterial';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
 
+const BUILT_IN_MATERIALS = [
+  {
+    id: 'economics-12-chapter-1',
+    title: 'Introduction to Macroeconomics - Chapter 1',
+    subject: 'Economics',
+    class_level: 12,
+    chapter: 'Introduction to Macroeconomics',
+    type: 'PDF Notes',
+    pages: 20,
+    is_free: true,
+    file_url: '/materials/class-12/economics/chapter-1-introduction-to-macroeconomics.pdf',
+  },
+];
+
 // Premium Lock Modal
 function PremiumLockModal({ onClose, isLoggedIn }) {
   return (
@@ -169,7 +183,7 @@ export default function StudyMaterial() {
   const [filterClass, setFilterClass] = useState('All');
   const [filterType, setFilterType] = useState('All');
   const [filterSubject, setFilterSubject] = useState('All');
-  const [uploadedMaterials, setUploadedMaterials] = useState([]);
+  const [uploadedMaterials, setUploadedMaterials] = useState(BUILT_IN_MATERIALS);
   const [loadingUploaded, setLoadingUploaded] = useState(true);
   const [loadError, setLoadError] = useState('');
   const [showPremiumModal, setShowPremiumModal] = useState(false);
@@ -193,11 +207,13 @@ export default function StudyMaterial() {
       if (cancelled) return;
 
       if (error) {
-        console.error('Unable to load study materials:', error);
-        setUploadedMaterials([]);
-        setLoadError(error.message || 'The materials database could not be read.');
+        console.error('Unable to load remote study materials:', error);
+        // Built-in PDFs remain available even if the old upload backend is offline.
+        setUploadedMaterials(BUILT_IN_MATERIALS);
+        setLoadError('');
       } else {
-        setUploadedMaterials(data || []);
+        const remoteMaterials = data || [];
+        setUploadedMaterials([...BUILT_IN_MATERIALS, ...remoteMaterials]);
       }
 
       setLoadingUploaded(false);
