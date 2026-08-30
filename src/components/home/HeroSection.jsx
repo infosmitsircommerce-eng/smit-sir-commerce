@@ -25,43 +25,23 @@ const fade = (delay = 0) => ({
 export default function HeroSection() {
   return (
     <section style={{
-      background: 'var(--bg-ivory)',
+      background: 'linear-gradient(135deg, #fffdf9 0%, #f8f3e9 52%, #f0e4d0 100%)',
       position: 'relative',
       overflow: 'hidden',
     }}>
-      {/* Ruled-paper lines — faint ledger texture */}
-      <div style={{
-        position: 'absolute', inset: 0,
-        backgroundImage: 'repeating-linear-gradient(180deg, transparent 0px, transparent 47px, rgba(184,135,47,0.055) 47px, rgba(184,135,47,0.055) 48px)',
-        pointerEvents: 'none',
-      }} />
-      {/* Ledger margin line on the left, like an account book */}
-      <div style={{
-        position: 'absolute', top: 0, bottom: 0, left: 'max(24px, calc(50vw - 660px))',
-        width: '1px', background: 'rgba(184,135,47,0.14)',
-        pointerEvents: 'none',
-      }} className="hidden lg:block" />
-      {/* Warm gradient orbs — subtle */}
-      <div style={{
-        position: 'absolute', top: '-60px', left: '-60px',
-        width: '520px', height: '520px',
-        background: 'radial-gradient(circle, rgba(184,135,47,0.07) 0%, transparent 65%)',
-        pointerEvents: 'none',
-      }} />
-      <div style={{
-        position: 'absolute', bottom: '-40px', right: '-40px',
-        width: '400px', height: '400px',
-        background: 'radial-gradient(circle, rgba(243,236,221,0.7) 0%, transparent 70%)',
-        pointerEvents: 'none',
-      }} />
-      {/* Giant watermark rupee — Cormorant, barely there */}
+      {/* Soft modern background depth */}
       <div aria-hidden="true" style={{
-        position: 'absolute', right: '-2%', top: '46%', transform: 'translateY(-50%)',
-        fontFamily: 'var(--font-accent)', fontStyle: 'italic', fontWeight: 600,
-        fontSize: 'clamp(20rem, 38vw, 34rem)', lineHeight: 1,
-        color: 'rgba(184,135,47,0.045)',
-        pointerEvents: 'none', userSelect: 'none',
-      }} className="hidden md:block">₹</div>
+        position: 'absolute', top: '-170px', right: '8%',
+        width: '440px', height: '440px', borderRadius: '50%',
+        background: 'rgba(218,178,101,0.22)', filter: 'blur(40px)',
+        pointerEvents: 'none',
+      }} />
+      <div aria-hidden="true" style={{
+        position: 'absolute', bottom: '-220px', left: '4%',
+        width: '520px', height: '520px', borderRadius: '50%',
+        background: 'rgba(211,222,235,0.42)', filter: 'blur(55px)',
+        pointerEvents: 'none',
+      }} />
 
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '58px 32px 64px', width: '100%', position: 'relative' }} className="hero-inner-pad">
         <div style={{
@@ -73,17 +53,20 @@ export default function HeroSection() {
 
           {/* ── LEFT ── */}
           <div>
-            {/* Eyebrow with a doodle star */}
-            <motion.div {...fade(0.08)} style={{ position: 'relative', display: 'inline-block' }}>
-              <span className="eyebrow">CBSE Commerce · Class 11 &amp; 12 · Mehsana + Online</span>
-              <svg aria-hidden="true" viewBox="0 0 24 24" style={{
-                position: 'absolute', top: '-14px', right: '-22px',
-                width: '20px', height: '20px', color: 'var(--gold-soft)',
-                transform: 'rotate(12deg)',
+            {/* Modern eyebrow pill */}
+            <motion.div {...fade(0.08)}>
+              <span style={{
+                display: 'inline-flex', alignItems: 'center', gap: '8px',
+                padding: '8px 13px', borderRadius: '999px',
+                background: 'rgba(255,255,255,0.72)',
+                border: '1px solid rgba(184,135,47,0.22)',
+                boxShadow: '0 8px 24px rgba(82,58,24,0.06)',
+                fontFamily: 'var(--font-sans)', fontSize: '11px', fontWeight: 700,
+                letterSpacing: '0.09em', textTransform: 'uppercase', color: '#8a621f',
               }}>
-                <path d="M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z"
-                  fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
-              </svg>
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--gold)' }} />
+                CBSE Commerce · Class 11 &amp; 12 · Mehsana + Online
+              </span>
             </motion.div>
 
             {/* Headline */}
@@ -98,12 +81,12 @@ export default function HeroSection() {
             }}>
               Commerce concepts,
               <br />
-              <em className="squiggle" style={{
-                fontFamily: 'var(--font-accent)',
+              <em style={{
+                fontFamily: 'var(--font-serif)',
                 fontStyle: 'italic',
                 fontWeight: 600,
                 fontSize: '1.12em',
-                color: 'var(--ink)',
+                color: '#9a6b1f',
               }}>
                 finally made clear.
               </em>
@@ -134,44 +117,36 @@ export default function HeroSection() {
                   Explore Study Material
                 </Link>
               </div>
-              {/* Handwritten aside with doodle arrow */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '12px' }}>
-                <svg aria-hidden="true" viewBox="0 0 40 24" style={{ width: '32px', height: '20px', color: 'var(--gold-soft)', transform: 'scaleY(-1) rotate(-8deg)' }}>
-                  <path d="M36 4 C 26 20, 14 22, 4 14 M4 14 l7 -1 M4 14 l3 6"
-                    fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <span style={{
-                  fontFamily: 'var(--font-accent)', fontStyle: 'italic',
-                  fontSize: '1.05rem', color: 'var(--muted)',
-                }}>
-                  first class is completely free — no pressure!
-                </span>
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: '8px', marginTop: '14px',
+                fontFamily: 'var(--font-sans)', fontSize: '13px', color: 'var(--muted)',
+              }}>
+                <CheckCircle style={{ width: '15px', height: '15px', color: 'var(--green)' }} />
+                First demo class is free — no pressure.
               </div>
             </motion.div>
 
-            {/* Trust row — ledger columns */}
-            <motion.div {...fade(0.4)} style={{
-              display: 'flex', flexWrap: 'wrap',
-              borderTop: '1px solid var(--border)',
-              borderBottom: '1px solid var(--border-soft)',
+            {/* Trust cards */}
+            <motion.div {...fade(0.4)} className="hero-trust-grid" style={{
+              display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+              gap: '10px',
             }}>
-              {trust.map((t, i) => (
+              {trust.map((t) => (
                 <div key={t.label} style={{
-                  padding: '18px 26px 16px 0',
-                  marginRight: '26px',
-                  borderRight: i < trust.length - 1 ? '1px solid var(--border-soft)' : 'none',
+                  minHeight: '86px', padding: '15px 13px',
+                  borderRadius: '14px',
+                  background: 'rgba(255,255,255,0.74)',
+                  border: '1px solid rgba(184,135,47,0.14)',
+                  boxShadow: '0 10px 28px rgba(58,42,22,0.055)',
                 }}>
                   <div style={{
-                    fontFamily: 'var(--font-serif)',
-                    fontSize: '1.55rem', fontWeight: 700,
-                    color: 'var(--ink)', lineHeight: 1,
+                    fontFamily: 'var(--font-serif)', fontSize: '1.45rem',
+                    fontWeight: 700, color: 'var(--ink)', lineHeight: 1,
                   }}>{t.value}</div>
                   <div style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '11px', fontWeight: 600,
-                    letterSpacing: '0.04em',
-                    color: 'var(--subtle)', marginTop: '5px',
-                    textTransform: 'uppercase',
+                    fontFamily: 'var(--font-sans)', fontSize: '10px',
+                    fontWeight: 700, lineHeight: 1.35, letterSpacing: '0.045em',
+                    color: 'var(--subtle)', marginTop: '8px', textTransform: 'uppercase',
                   }}>{t.label}</div>
                 </div>
               ))}
@@ -186,22 +161,21 @@ export default function HeroSection() {
             className="hero-teacher-card"
             style={{ position: 'relative', width: '100%', maxWidth: '430px', justifySelf: 'end' }}
           >
-            {/* Offset gold hairline frame behind the card */}
+            {/* Soft glow behind the card */}
             <div aria-hidden="true" style={{
-              position: 'absolute', inset: 0,
-              transform: 'translate(10px, 10px)',
-              border: '1px solid rgba(184,135,47,0.4)',
-              borderRadius: '16px',
-              pointerEvents: 'none',
+              position: 'absolute', inset: '12% -8% -8% 10%',
+              borderRadius: '28px',
+              background: 'rgba(184,135,47,0.18)',
+              filter: 'blur(28px)', pointerEvents: 'none',
             }} />
 
             <div style={{
               position: 'relative',
               background: 'var(--bg-white)',
-              borderRadius: '16px',
+              borderRadius: '22px',
               overflow: 'hidden',
-              border: '1px solid var(--border)',
-              boxShadow: '0 24px 64px rgba(30,24,18,0.12)',
+              border: '1px solid rgba(184,135,47,0.16)',
+              boxShadow: '0 24px 60px rgba(45,32,18,0.14)',
             }}>
               {/* Gold accent top */}
               <div style={{ height: '3px', background: 'linear-gradient(90deg, var(--gold), var(--gold-soft), var(--gold))' }} />
@@ -282,6 +256,7 @@ export default function HeroSection() {
         @media (max-width: 640px) {
           .hero-inner-pad { padding: 44px 16px 56px !important; }
           .hero-teacher-card { max-width: 390px !important; }
+          .hero-trust-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
         }
       `}</style>
     </section>
