@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Download, Eye, FileText, Lock, Search, X, MessageCircle, LogIn } from 'lucide-react';
+import { Download, Eye, FileText, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { materialTypes } from '../data/studyMaterial';
 
@@ -325,9 +325,6 @@ function MaterialCard({ material }) {
   const board = (material.board || 'CBSE').toUpperCase();
   const fileUrl = material.file_url;
 
-  // Can the user access this material?
-  const canAccess = true;
-
   return (
     <motion.div whileHover={{ y: -3 }} className="card-paper group flex flex-col p-5">
       <div className="flex items-start gap-3 mb-3">
@@ -363,7 +360,7 @@ function MaterialCard({ material }) {
 
       <div className="mt-auto flex gap-2">
         {/* VIEW BUTTON */}
-        {canAccess && fileUrl ? (
+        {fileUrl && (
           <Link
             to={`/pdf-viewer?file=${encodeURIComponent(fileUrl)}&title=${encodeURIComponent(material.title)}`}
             className="tile-paper flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-medium"
@@ -371,18 +368,10 @@ function MaterialCard({ material }) {
           >
             <Eye className="w-3.5 h-3.5" /> View
           </Link>
-        ) : (
-          <button
-            onClick={onPremiumClick}
-            className="tile-paper flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-medium"
-            style={{ color: 'var(--subtle)' }}
-          >
-            <Lock className="w-3.5 h-3.5" /> View
-          </button>
         )}
 
         {/* DOWNLOAD BUTTON */}
-        {canAccess && fileUrl ? (
+        {fileUrl && (
           <a
             href={fileUrl}
             download
@@ -395,14 +384,6 @@ function MaterialCard({ material }) {
           >
             <Download className="w-3.5 h-3.5" /> Download
           </a>
-        ) : (
-          <button
-            onClick={onPremiumClick}
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold transition-colors"
-            style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.2)', color: 'rgba(168,123,42,0.6)' }}
-          >
-            <Lock className="w-3.5 h-3.5" /> Unlock
-          </button>
         )}
       </div>
     </motion.div>
@@ -456,14 +437,6 @@ export default function StudyMaterial() {
             style={{ background: 'rgba(77,124,15,0.08)', border: '1px solid rgba(77,124,15,0.25)', color: 'var(--green)' }}>
             ✓ All currently published PDFs are free
           </div>
-        </div>
-          )}
-          {!authLoading && isPremiumUser && (
-            <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium"
-              style={{ background: 'rgba(77,124,15,0.08)', border: '1px solid rgba(77,124,15,0.25)', color: 'var(--green)' }}>
-              ✓ You have full premium access
-            </div>
-          )}
         </div>
       </div>
 
