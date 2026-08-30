@@ -13,6 +13,7 @@ const Login           = lazy(() => import('./pages/Login'));
 const Courses         = lazy(() => import('./pages/Courses'));
 const Lectures        = lazy(() => import('./pages/Lectures'));
 const StudyMaterial   = lazy(() => import('./pages/StudyMaterial'));
+const PdfViewer       = lazy(() => import('./pages/PdfViewer'));
 const Quizzes         = lazy(() => import('./pages/Quizzes'));
 const TestSeries      = lazy(() => import('./pages/TestSeries'));
 const LiveClasses     = lazy(() => import('./pages/LiveClasses'));
@@ -101,6 +102,11 @@ function AnimatedRoutes() {
             <Route path="/study-material" element={
               <Suspense fallback={<PageFallback />}>
                 <PageTransition><StudyMaterial /></PageTransition>
+              </Suspense>
+            } />
+            <Route path="/pdf-viewer" element={
+              <Suspense fallback={<PageFallback />}>
+                <PageTransition><PdfViewer /></PageTransition>
               </Suspense>
             } />
             <Route path="/quizzes" element={

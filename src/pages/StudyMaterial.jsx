@@ -131,15 +131,13 @@ function MaterialCard({ material, isPremiumUser, onPremiumClick }) {
       <div className="mt-auto flex gap-2">
         {/* VIEW BUTTON */}
         {canAccess && fileUrl ? (
-          <a
-            href={fileUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to={`/pdf-viewer?file=${encodeURIComponent(fileUrl)}&title=${encodeURIComponent(material.title)}`}
             className="tile-paper flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-medium"
             style={{ color: 'var(--charcoal)' }}
           >
             <Eye className="w-3.5 h-3.5" /> View
-          </a>
+          </Link>
         ) : (
           <button
             onClick={onPremiumClick}
