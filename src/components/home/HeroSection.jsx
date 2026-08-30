@@ -63,7 +63,7 @@ export default function HeroSection() {
         pointerEvents: 'none', userSelect: 'none',
       }} className="hidden md:block">₹</div>
 
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '104px 32px 84px', width: '100%', position: 'relative' }} className="hero-inner-pad">
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '58px 32px 64px', width: '100%', position: 'relative' }} className="hero-inner-pad">
         <div style={{
           display: 'grid',
           gridTemplateColumns: '1.18fr 0.82fr',
@@ -277,10 +277,10 @@ export default function HeroSection() {
         @media (max-width: 1024px) {
           .hero-main-grid { grid-template-columns: 1fr !important; gap: 44px !important; }
           .hero-teacher-card { justify-self: center !important; max-width: 500px !important; }
-          .hero-inner-pad { padding-top: 72px !important; padding-bottom: 80px !important; }
+          .hero-inner-pad { padding-top: 52px !important; padding-bottom: 64px !important; }
         }
         @media (max-width: 640px) {
-          .hero-inner-pad { padding: 64px 16px 72px !important; }
+          .hero-inner-pad { padding: 44px 16px 56px !important; }
           .hero-teacher-card { max-width: 390px !important; }
         }
       `}</style>
