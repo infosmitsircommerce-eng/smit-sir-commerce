@@ -1,10 +1,11 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, Link, Outlet } from 'react-router-dom';
-import { AnimatePresence, LazyMotion, domAnimation } from 'framer-motion';
+import { LazyMotion, domAnimation } from 'framer-motion';
 import { HelmetProvider } from 'react-helmet-async';
 import InstallPWA from './components/ui/InstallPWA';
 import Layout from './components/layout/Layout';
 import PageTransition from './components/ui/PageTransition';
+import SEO from './components/ui/SEO';
 import { AuthProvider } from './context/AuthContext';
 
 // Code-split every page — only loads what the user visits
@@ -61,14 +62,42 @@ function PageFallback() {
   );
 }
 
+const ROUTE_SEO = {
+  '/': { title: 'Class 11 & 12 CBSE Commerce Coaching Mehsana', description: 'CBSE Commerce coaching for Class 11 and 12 in Mehsana, Gujarat, with free chapter-wise PDF notes and a free demo class.' },
+  '/courses': { title: 'CBSE Commerce Courses — Class 11 & 12', description: 'Explore CBSE Class 11 and 12 Commerce subjects.' },
+  '/lectures': { title: 'CBSE Commerce Video Lectures — Coming Soon', description: 'The video library is being prepared. Use the published PDF notes in the meantime.', noindex: true },
+  '/study-material': { title: 'Free CBSE Commerce PDF Notes — Class 11 & 12', description: 'Download and view 26 free chapter-wise CBSE Commerce PDFs.' },
+  '/quizzes': { title: 'CBSE Commerce Quizzes and Practice', description: 'Practice Commerce concepts with quizzes and revision tools.' },
+  '/test-series': { title: 'CBSE Commerce Test Series', description: 'Practice Class 11 and 12 Commerce with chapter-wise tests.' },
+  '/live-classes': { title: 'CBSE Commerce Live Classes', description: 'Learn about live CBSE Commerce classes.' },
+  '/online-batch': { title: 'Online CBSE Commerce Coaching', description: 'Online CBSE Commerce coaching for Class 11 and 12.' },
+  '/offline-batch': { title: 'Offline Commerce Coaching in Mehsana', description: 'Offline CBSE Commerce coaching in Mehsana, Gujarat.' },
+  '/about': { title: 'About Smit Sir — Commerce Teacher Mehsana', description: 'Learn about Smit Sir Commerce and the teaching approach.' },
+  '/contact': { title: 'Contact Smit Sir Commerce', description: 'Contact Smit Sir Commerce or book a free demo class.' },
+  '/faq': { title: 'CBSE Commerce Coaching FAQ', description: 'Answers about subjects, resources, batches and demo classes.' },
+  '/games': { title: 'Commerce Learning Games', description: 'Interactive Commerce learning games.' },
+  '/flashcards': { title: 'Commerce Flashcards', description: 'Review Commerce concepts with interactive flashcards.' },
+  '/ask': { title: 'Ask a Commerce Doubt', description: 'Ask questions about CBSE Commerce concepts.' },
+  '/parent-info': { title: 'Information for Parents', description: 'Information for parents about classes and support.' },
+  '/login': { title: 'Student Login', description: 'Student login.', noindex: true },
+  '/admin': { title: 'Admin', description: 'Administrative area.', noindex: true },
+  '/dashboard': { title: 'Student Dashboard', description: 'Private dashboard.', noindex: true },
+  '/pdf-viewer': { title: 'PDF Viewer', description: 'View a study material PDF.', noindex: true },
+  '/reel': { title: 'Reel Generator', description: 'Private tool.', noindex: true },
+};
+function RouteSEO() {
+  const { pathname } = useLocation();
+  const meta = ROUTE_SEO[pathname] || { title: 'Page Not Found', description: 'The requested page could not be found.', noindex: true };
+  return <SEO {...meta} path={pathname} />;
+}
+
 function AnimatedRoutes() {
   const location = useLocation();
 
   return (
     <>
       <ScrollToTopOnNav />
-      <AnimatePresence mode="wait">
-        <Routes location={location} key={location.pathname}>
+      <Routes location={location}>
           <Route path="/admin" element={
             <Suspense fallback={<PageFallback />}>
               <PageTransition><AdminDashboard /></PageTransition>
@@ -185,8 +214,7 @@ function AnimatedRoutes() {
               </Suspense>
             } />
           </Route>
-        </Routes>
-      </AnimatePresence>
+      </Routes>
     </>
   );
 }
@@ -197,6 +225,7 @@ export default function App() {
       <LazyMotion features={domAnimation}>
         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <AuthProvider>
+            <RouteSEO />
             <AnimatedRoutes />
             <InstallPWA />
           </AuthProvider>

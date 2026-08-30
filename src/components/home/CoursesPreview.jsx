@@ -194,9 +194,9 @@ function SubjectCard({ subject, index }) {
         marginBottom: '14px',
       }}>
         {[
-          { icon: BookOpen, val: subject.lectures, label: 'Lectures' },
-          { icon: FileText, val: subject.pdfs,     label: 'PDFs'     },
-          { icon: BookOpen, val: subject.chapters,  label: 'Chapters' },
+          { icon: BookOpen, val: 'Chapter-wise', label: 'Coverage' },
+          { icon: FileText, val: 'PDF', label: 'Notes' },
+          { icon: BookOpen, val: 'CBSE', label: 'Board' },
         ].map(s => {
           const SIcon = s.icon;
           return (
@@ -210,7 +210,7 @@ function SubjectCard({ subject, index }) {
 
       {/* Badges */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '16px' }}>
-        {['Board Focused', 'PDF Notes', 'Tests Included'].map(b => (
+        {['Board Focused', 'Published PDFs', 'Practice Tools'].map(b => (
           <span key={b} style={{
             fontFamily: "'DM Sans', sans-serif",
             fontSize: '10px', fontWeight: 600,
@@ -304,7 +304,7 @@ export default function CoursesPreview() {
             maxWidth: '520px', margin: '0 auto 32px',
             lineHeight: 1.7,
           }}>
-            Explore complete Class 11 and Class 12 Commerce subjects — lectures, premium PDFs, chapter tests, and board-focused preparation.
+            Explore Class 11 and Class 12 Commerce subjects with chapter-wise guidance, published PDF notes, practice tools, and board-focused preparation.
           </p>
 
           {/* Segmented tab switcher */}

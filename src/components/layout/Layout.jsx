@@ -5,7 +5,6 @@ import WhatsAppButton from '../ui/WhatsAppButton';
 import MobileBottomBar from '../ui/MobileBottomBar';
 import MobileHeader from '../ui/MobileHeader';
 import ScrollToTop from '../ui/ScrollToTop';
-import PageLoader from '../ui/PageLoader';
 import CursorSpotlight from '../ui/CursorSpotlight';
 import ScrollProgressBar from '../ui/ScrollProgressBar';
 import { isLightRoute } from '../../lib/theme';
@@ -18,7 +17,6 @@ export default function Layout({ children }) {
     <div className="min-h-screen flex flex-col"
       style={{ background: light ? 'var(--bg-ivory)' : '#0f0d2e' }}>
       <ScrollProgressBar />
-      <PageLoader />
       <CursorSpotlight />
       <Navbar />
       <MobileHeader />

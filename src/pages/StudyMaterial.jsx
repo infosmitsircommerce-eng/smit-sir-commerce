@@ -1,10 +1,8 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Download, Eye, FileText, Lock, Search, Loader, X, MessageCircle, LogIn } from 'lucide-react';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Download, Eye, FileText, Lock, Search, X, MessageCircle, LogIn } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { materialTypes } from '../data/studyMaterial';
-import { supabase } from '../lib/supabase';
-import { useAuth } from '../context/AuthContext';
 
 const BUILT_IN_MATERIALS = [
   {
@@ -321,85 +319,14 @@ const BUILT_IN_MATERIALS = [
   },
 ];
 
-// Premium Lock Modal
-function PremiumLockModal({ onClose, isLoggedIn }) {
-  return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 flex items-center justify-center p-4"
-        style={{ background: 'rgba(30,24,18,0.6)', backdropFilter: 'blur(4px)' }}
-        onClick={onClose}
-      >
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0, y: 20 }}
-          animate={{ scale: 1, opacity: 1, y: 0 }}
-          exit={{ scale: 0.9, opacity: 0, y: 20 }}
-          transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className="rounded-2xl p-8 max-w-md w-full relative"
-          style={{ background: 'var(--bg-white)', border: '1px solid var(--border)', boxShadow: '0 24px 64px rgba(30,24,18,0.25)' }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <button onClick={onClose} className="absolute top-4 right-4 transition-colors" style={{ color: 'var(--subtle)' }}>
-            <X className="w-5 h-5" />
-          </button>
-
-          {/* Lock icon */}
-          <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5"
-            style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.3)' }}>
-            <Lock className="w-8 h-8" style={{ color: 'var(--gold)' }} />
-          </div>
-
-          <h3 className="text-xl text-center mb-2" style={{ fontFamily: 'var(--font-serif)', fontWeight: 700, color: 'var(--ink)' }}>Premium Content</h3>
-          <p className="text-sm text-center leading-relaxed mb-6" style={{ color: 'var(--muted)' }}>
-            This PDF is exclusive to enrolled students. Join Smit Sir Commerce to get full access to all premium notes, tests, and lectures.
-          </p>
-
-          <div className="space-y-3">
-            {!isLoggedIn && (
-              <Link
-                to="/login"
-                onClick={onClose}
-                className="btn-primary flex items-center justify-center gap-2 w-full py-3 text-sm"
-              >
-                <LogIn className="w-4 h-4" />
-                Login to Your Account
-              </Link>
-            )}
-            <a
-              href="https://wa.me/917990083625?text=Hi%20Smit%20Sir%2C%20I%20want%20to%20access%20the%20premium%20study%20material.%20Please%20help%20me%20enroll."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full py-3 rounded-xl font-semibold text-sm transition-all"
-              style={{ background: 'rgba(77,124,15,0.08)', border: '1px solid rgba(77,124,15,0.3)', color: 'var(--green)' }}
-            >
-              <MessageCircle className="w-4 h-4" />
-              Contact Smit Sir on WhatsApp
-            </a>
-            <button
-              onClick={onClose}
-              className="w-full py-3 rounded-xl text-sm transition-colors"
-              style={{ color: 'var(--subtle)' }}
-            >
-              Maybe Later
-            </button>
-          </div>
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
-  );
-}
-
-function MaterialCard({ material, isPremiumUser, onPremiumClick }) {
+function MaterialCard({ material }) {
   const isFree = material.isFree ?? material.is_free;
   const classLevel = material.class ?? material.class_level;
   const board = (material.board || 'CBSE').toUpperCase();
   const fileUrl = material.file_url;
 
   // Can the user access this material?
-  const canAccess = isFree || isPremiumUser;
+  const canAccess = true;
 
   return (
     <motion.div whileHover={{ y: -3 }} className="card-paper group flex flex-col p-5">
@@ -488,49 +415,7 @@ export default function StudyMaterial() {
   const [filterClass, setFilterClass] = useState('All');
   const [filterType, setFilterType] = useState('All');
   const [filterSubject, setFilterSubject] = useState('All');
-  const [uploadedMaterials, setUploadedMaterials] = useState(BUILT_IN_MATERIALS);
-  const [loadingUploaded, setLoadingUploaded] = useState(true);
-  const [loadError, setLoadError] = useState('');
-  const [showPremiumModal, setShowPremiumModal] = useState(false);
-
-  // Use global AuthContext
-  const { user: currentUser, isPremium: isPremiumUser, loading: authLoading } = useAuth();
-
-  // Load uploaded materials and surface backend problems instead of silently showing zero.
-  useEffect(() => {
-    let cancelled = false;
-
-    async function loadMaterials() {
-      setLoadingUploaded(true);
-      setLoadError('');
-
-      const { data, error } = await supabase
-        .from('study_materials')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (cancelled) return;
-
-      if (error) {
-        console.error('Unable to load remote study materials:', error);
-        // Built-in PDFs remain available even if the old upload backend is offline.
-        setUploadedMaterials(BUILT_IN_MATERIALS);
-        setLoadError('');
-      } else {
-        const remoteMaterials = data || [];
-        setUploadedMaterials([...BUILT_IN_MATERIALS, ...remoteMaterials]);
-      }
-
-      setLoadingUploaded(false);
-    }
-
-    loadMaterials();
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
+  const uploadedMaterials = BUILT_IN_MATERIALS;
   const subjects = ['All', 'Accountancy', 'Business Studies', 'Economics', 'Entrepreneurship', 'Physical Education', 'All Subjects'];
 
   const filtered = uploadedMaterials.filter((m) => {
@@ -561,27 +446,17 @@ export default function StudyMaterial() {
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
-      {/* Premium Modal */}
-      {showPremiumModal && (
-        <PremiumLockModal
-          onClose={() => setShowPremiumModal(false)}
-          isLoggedIn={!!currentUser}
-        />
-      )}
-
       <div className="page-hero">
         <div className="page-container text-center">
           <span className="eyebrow">All Study Resources</span>
           <h1 className="mt-5">Study <em>material.</em></h1>
           <p className="mx-auto">Notes, mind maps, formula sheets, sample papers, PYQs and more — all chapter-wise.</p>
 
-          {/* Premium access banner */}
-          {!authLoading && !isPremiumUser && (
-            <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium"
-              style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.25)', color: 'var(--gold)' }}>
-              <Lock className="w-3.5 h-3.5" />
-              {currentUser ? 'Your account doesn\'t have premium access yet' : 'Login or enroll to access premium materials'}
-            </div>
+          <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium"
+            style={{ background: 'rgba(77,124,15,0.08)', border: '1px solid rgba(77,124,15,0.25)', color: 'var(--green)' }}>
+            ✓ All currently published PDFs are free
+          </div>
+        </div>
           )}
           {!authLoading && isPremiumUser && (
             <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium"
@@ -597,15 +472,8 @@ export default function StudyMaterial() {
         <div className="text-center mb-10">
           <div className="text-sm font-semibold mb-3" style={{ color: 'var(--ink)' }}>Choose your board</div>
           <div className="toggle-paper inline-flex">
-            {['CBSE', 'GSEB'].map((board) => (
-              <button
-                key={board}
-                onClick={() => setFilterBoard(board)}
-                className={filterBoard === board ? 'active' : ''}
-              >
-                {board} Board
-              </button>
-            ))}
+            <button onClick={() => setFilterBoard('CBSE')} className="active">CBSE Board</button>
+            <button disabled aria-disabled="true" title="GSEB notes are coming soon" className="opacity-55 cursor-not-allowed">GSEB — Coming soon</button>
           </div>
         </div>
 
@@ -648,34 +516,14 @@ export default function StudyMaterial() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {filtered.map((material) => (
-            <MaterialCard
-              key={material.id}
-              material={material}
-              isPremiumUser={isPremiumUser}
-              onPremiumClick={() => setShowPremiumModal(true)}
-            />
+            <MaterialCard key={material.id} material={material} />
           ))}
         </div>
 
-        {loadingUploaded && (
-          <div className="flex items-center justify-center py-16">
-            <Loader className="w-6 h-6 animate-spin" style={{ color: 'var(--gold)' }} />
-          </div>
-        )}
-        {!loadingUploaded && loadError && (
-          <div
-            className="rounded-2xl p-6 text-center mb-6"
-            style={{ background: '#fff4f2', border: '1px solid #efb6ad', color: '#8a2f24' }}
-          >
-            <FileText className="w-10 h-10 mx-auto mb-3" strokeWidth={1.5} />
-            <div className="font-semibold mb-2">Uploaded materials could not be loaded.</div>
-            <div className="text-sm break-words">{loadError}</div>
-          </div>
-        )}
-        {!loadingUploaded && !loadError && filtered.length === 0 && (
+        {filtered.length === 0 && (
           <div className="text-center py-16">
             <FileText className="w-10 h-10 mx-auto mb-3" style={{ color: 'var(--subtle)' }} strokeWidth={1.5} />
-            <div style={{ color: 'var(--muted)' }}>No {filterBoard} materials found for the selected filters.</div>
+            <div style={{ color: 'var(--muted)' }}>No CBSE materials found for the selected filters.</div>
           </div>
         )}
       </div>

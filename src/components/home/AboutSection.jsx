@@ -37,7 +37,7 @@ export default function AboutSection() {
             <h2 className="headline mt-6 mb-5">Commerce education that <span className="marker">actually works.</span></h2>
 
             <p className="leading-relaxed mb-4 text-base" style={{ color: 'var(--charcoal)' }}>
-              Smit Sir is a dedicated CBSE Commerce educator based in Mehsana, Gujarat — specialising in Class 11 and Class 12 Accountancy, Economics, Business Studies, and Entrepreneurship. With 200+ students trained and a 5★ average rating, he is known for making complex subjects genuinely simple.
+              Smit Sir is a dedicated CBSE Commerce educator based in Mehsana, Gujarat — specialising in Class 11 and Class 12 Accountancy, Economics, Business Studies, and Entrepreneurship. His teaching focuses on making complex subjects genuinely simple.
             </p>
             <p className="leading-relaxed mb-4 text-sm" style={{ color: 'var(--muted)' }}>
               His teaching style focuses on <strong style={{ color: 'var(--ink)' }}>concept clarity first, exam application second</strong> — using real-life business examples, structured CBSE-pattern notes, regular testing, and personal attention for every student.

@@ -17,12 +17,12 @@ const values = [
 ];
 
 const credentials = [
-  { icon: GraduationCap, label: 'Specialisation',  value: 'CBSE Commerce — Class 11 & 12' },
-  { icon: BookOpen,      label: 'Subjects Taught', value: 'Economics · Accountancy · Business Studies · Entrepreneurship' },
-  { icon: Users,         label: 'Students Taught', value: '200+ Students — Online & Offline' },
-  { icon: TrendingUp,    label: 'Top Result',      value: '95% — Heer Patel, Economics Class 12' },
-  { icon: Award,         label: 'Teaching Mode',   value: 'Online (Pan India) + Offline (Mehsana, Gujarat)' },
-  { icon: Star,          label: 'Student Rating',  value: '5★ Average from 200+ Students' },
+  { icon: GraduationCap, label: 'Specialisation', value: 'CBSE Commerce — Class 11 & 12' },
+  { icon: BookOpen, label: 'Subjects Taught', value: 'Economics · Accountancy · Business Studies · Entrepreneurship' },
+  { icon: Users, label: 'Published Resources', value: '26 free chapter-wise PDFs' },
+  { icon: TrendingUp, label: 'Teaching Focus', value: 'Concept clarity and board preparation' },
+  { icon: Award, label: 'Teaching Mode', value: 'Online + Offline in Mehsana, Gujarat' },
+  { icon: Star, label: 'Free Demo', value: 'Try the teaching approach before enrolling' },
 ];
 
 const serifH2 = { fontFamily: 'var(--font-serif)', fontWeight: 700, color: 'var(--ink)', letterSpacing: '-0.02em' };
@@ -32,7 +32,7 @@ export default function About() {
     <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
       <SEO
         title="About Smit Sir — Commerce Teacher Mehsana"
-        description="Meet Smit Sir — expert CBSE Commerce teacher in Mehsana, Gujarat. 200+ students trained, 91% score above 80%. Learn about our teaching approach and results."
+        description="Meet Smit Sir, a CBSE Commerce teacher in Mehsana, Gujarat. Learn about the teaching approach, subjects, batches, and free demo class."
         path="/about"
       />
       {/* Hero */}
@@ -100,7 +100,7 @@ export default function About() {
               viewport={{ once: true }}
             >
               <p className="leading-relaxed mb-6 text-base" style={{ color: 'var(--charcoal)' }}>
-                Smit Sir is a dedicated CBSE Commerce educator based in Mehsana, Gujarat, specialising in Class 11 and 12. With a passion for making complex subjects like Accountancy and Economics genuinely understandable, he has helped 200+ students achieve outstanding results in CBSE board exams.
+                Smit Sir is a dedicated CBSE Commerce educator based in Mehsana, Gujarat, specialising in Class 11 and 12. His approach makes subjects like Accountancy and Economics easier to understand through clear explanations, structured notes, practice, and doubt support.
               </p>
               <p className="leading-relaxed mb-8 text-sm" style={{ color: 'var(--muted)' }}>
                 His teaching approach focuses on concept clarity first, then exam application — using real-life business examples, structured notes, regular testing, and personal attention for every student. Both online and offline batches are available to ensure no student is left behind regardless of location.
@@ -149,7 +149,7 @@ export default function About() {
               { icon: Target,        title: 'CBSE Focused',     desc: 'Every resource is built around CBSE board exam patterns and NCERT curriculum.' },
               { icon: BookOpen,      title: 'Complete Content', desc: 'Lectures, notes, quizzes, tests, mind maps — everything in one platform.' },
               { icon: Users,         title: 'Online + Offline', desc: 'Flexible batches for students in the city and across India.' },
-              { icon: GraduationCap, title: 'Expert Teaching',  desc: '200+ students successfully prepared for CBSE board exams.' },
+              { icon: GraduationCap, title: 'Focused Teaching', desc: 'CBSE Class 11 and 12 Commerce with concept clarity and board preparation.' },
             ].map((item) => {
               const Icon = item.icon;
               return (

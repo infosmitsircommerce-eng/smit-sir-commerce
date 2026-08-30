@@ -71,7 +71,7 @@ export default function ContactCTA() {
           style={{ color: 'var(--muted-on-ink)' }}
         >
           See how Smit Sir teaches before you decide. One free class — no fees, no pressure.
-          Join 200+ students already learning Commerce the right way.
+          Ask questions, understand the teaching approach, and decide without pressure.
         </motion.p>
 
         {/* CTA Buttons */}

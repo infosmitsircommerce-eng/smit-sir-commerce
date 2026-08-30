@@ -4,10 +4,10 @@ import { ArrowRight, BookOpen, CheckCircle } from 'lucide-react';
 import teacherPhoto from '../../assets/teacher-photo-opt.jpg';
 
 const trust = [
-  { value: '200+', label: 'Students Taught'   },
-  { value: '91%',  label: 'Avg. Board Score'  },
-  { value: '234+', label: 'Premium PDFs'      },
-  { value: '5★',   label: 'Student Rating'    },
+  { value: '26', label: 'Free PDFs Published' },
+  { value: '11 & 12', label: 'CBSE Classes' },
+  { value: '4', label: 'Commerce Subjects' },
+  { value: '2', label: 'Learning Modes' },
 ];
 
 const badges = [
@@ -119,7 +119,7 @@ export default function HeroSection() {
             }}>
               Economics, Accountancy, Business Studies and Entrepreneurship —
               taught with <span className="marker" style={{ color: 'var(--ink)', fontWeight: 600 }}>concept clarity</span>,
-              board-focused notes, chapter-wise tests, and premium study material.
+              board-focused notes, chapter-wise practice, and published study material.
             </motion.p>
 
             {/* CTA buttons */}
