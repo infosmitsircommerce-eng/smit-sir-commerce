@@ -11,6 +11,7 @@ const BUILT_IN_MATERIALS = [
     id: 'economics-12-chapter-1',
     title: 'Introduction to Macroeconomics - Chapter 1',
     subject: 'Economics',
+    board: 'CBSE',
     class_level: 12,
     chapter: 'Introduction to Macroeconomics',
     type: 'PDF Notes',
@@ -94,6 +95,7 @@ function PremiumLockModal({ onClose, isLoggedIn }) {
 function MaterialCard({ material, isPremiumUser, onPremiumClick }) {
   const isFree = material.isFree ?? material.is_free;
   const classLevel = material.class ?? material.class_level;
+  const board = (material.board || 'CBSE').toUpperCase();
   const fileUrl = material.file_url;
 
   // Can the user access this material?
@@ -108,6 +110,10 @@ function MaterialCard({ material, isPremiumUser, onPremiumClick }) {
         </div>
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-1 flex-wrap">
+            <span className="text-xs font-semibold px-2 py-0.5 rounded-full"
+              style={{ background: board === 'CBSE' ? '#eef4ff' : '#fff4e6', border: board === 'CBSE' ? '1px solid #bfd3ff' : '1px solid #ffd29a', color: board === 'CBSE' ? '#2457a7' : '#9a4f00' }}>
+              {board}
+            </span>
             <span className="text-xs font-semibold px-2 py-0.5 rounded-full"
               style={{ background: 'var(--bg-ivory)', border: '1px solid var(--border)', color: 'var(--charcoal)' }}>
               {material.type}
@@ -178,6 +184,7 @@ function MaterialCard({ material, isPremiumUser, onPremiumClick }) {
 
 export default function StudyMaterial() {
   const [search, setSearch] = useState('');
+  const [filterBoard, setFilterBoard] = useState('CBSE');
   const [filterClass, setFilterClass] = useState('All');
   const [filterType, setFilterType] = useState('All');
   const [filterSubject, setFilterSubject] = useState('All');
@@ -228,11 +235,13 @@ export default function StudyMaterial() {
 
   const filtered = uploadedMaterials.filter((m) => {
     const classLevel = m.class ?? m.class_level;
+    const board = (m.board || 'CBSE').toUpperCase();
+    const matchBoard = board === filterBoard;
     const matchSearch = m.title.toLowerCase().includes(search.toLowerCase()) || m.subject.toLowerCase().includes(search.toLowerCase());
     const matchClass = filterClass === 'All' || classLevel === Number(filterClass);
     const matchType = filterType === 'All' || m.type === filterType;
     const matchSubject = filterSubject === 'All' || m.subject === filterSubject;
-    return matchSearch && matchClass && matchType && matchSubject;
+    return matchBoard && matchSearch && matchClass && matchType && matchSubject;
   });
 
   const pillStyle = (active) => active
@@ -284,6 +293,22 @@ export default function StudyMaterial() {
       </div>
 
       <div className="page-container section-padding">
+        {/* Board selector */}
+        <div className="text-center mb-10">
+          <div className="text-sm font-semibold mb-3" style={{ color: 'var(--ink)' }}>Choose your board</div>
+          <div className="toggle-paper inline-flex">
+            {['CBSE', 'GSEB'].map((board) => (
+              <button
+                key={board}
+                onClick={() => setFilterBoard(board)}
+                className={filterBoard === board ? 'active' : ''}
+              >
+                {board} Board
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Material type pills */}
         <div className="flex flex-wrap gap-2 mb-8">
           <button onClick={() => setFilterType('All')} className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors" style={pillStyle(filterType === 'All')}>
@@ -350,7 +375,7 @@ export default function StudyMaterial() {
         {!loadingUploaded && !loadError && filtered.length === 0 && (
           <div className="text-center py-16">
             <FileText className="w-10 h-10 mx-auto mb-3" style={{ color: 'var(--subtle)' }} strokeWidth={1.5} />
-            <div style={{ color: 'var(--muted)' }}>No uploaded materials are visible yet.</div>
+            <div style={{ color: 'var(--muted)' }}>No {filterBoard} materials found for the selected filters.</div>
           </div>
         )}
       </div>
