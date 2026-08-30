@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 
-const BASE = 'https://smitsircommerce.vercel.app';
+const BASE = 'https://www.smitsircommerce.in';
 const DEFAULT_IMG = `${BASE}/og-image.jpg`;
 const SITE = 'Smit Sir Commerce';
 
