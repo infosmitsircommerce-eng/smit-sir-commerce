@@ -171,15 +171,43 @@ export default function StudyMaterial() {
   const [filterSubject, setFilterSubject] = useState('All');
   const [uploadedMaterials, setUploadedMaterials] = useState([]);
   const [loadingUploaded, setLoadingUploaded] = useState(true);
+  const [loadError, setLoadError] = useState('');
   const [showPremiumModal, setShowPremiumModal] = useState(false);
 
   // Use global AuthContext
   const { user: currentUser, isPremium: isPremiumUser, loading: authLoading } = useAuth();
 
-  // Load materials
+  // Load uploaded materials and surface backend problems instead of silently showing zero.
   useEffect(() => {
-    supabase.from('study_materials').select('*').order('created_at', { ascending: false })
-      .then(({ data }) => { setUploadedMaterials(data || []); setLoadingUploaded(false); });
+    let cancelled = false;
+
+    async function loadMaterials() {
+      setLoadingUploaded(true);
+      setLoadError('');
+
+      const { data, error } = await supabase
+        .from('study_materials')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (cancelled) return;
+
+      if (error) {
+        console.error('Unable to load study materials:', error);
+        setUploadedMaterials([]);
+        setLoadError(error.message || 'The materials database could not be read.');
+      } else {
+        setUploadedMaterials(data || []);
+      }
+
+      setLoadingUploaded(false);
+    }
+
+    loadMaterials();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const subjects = ['All', 'Accountancy', 'Business Studies', 'Economics', 'Entrepreneurship', 'Physical Education', 'All Subjects'];
@@ -295,10 +323,20 @@ export default function StudyMaterial() {
             <Loader className="w-6 h-6 animate-spin" style={{ color: 'var(--gold)' }} />
           </div>
         )}
-        {!loadingUploaded && filtered.length === 0 && (
+        {!loadingUploaded && loadError && (
+          <div
+            className="rounded-2xl p-6 text-center mb-6"
+            style={{ background: '#fff4f2', border: '1px solid #efb6ad', color: '#8a2f24' }}
+          >
+            <FileText className="w-10 h-10 mx-auto mb-3" strokeWidth={1.5} />
+            <div className="font-semibold mb-2">Uploaded materials could not be loaded.</div>
+            <div className="text-sm break-words">{loadError}</div>
+          </div>
+        )}
+        {!loadingUploaded && !loadError && filtered.length === 0 && (
           <div className="text-center py-16">
             <FileText className="w-10 h-10 mx-auto mb-3" style={{ color: 'var(--subtle)' }} strokeWidth={1.5} />
-            <div style={{ color: 'var(--muted)' }}>No materials found.</div>
+            <div style={{ color: 'var(--muted)' }}>No uploaded materials are visible yet.</div>
           </div>
         )}
       </div>
