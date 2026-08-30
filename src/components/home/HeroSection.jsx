@@ -66,8 +66,8 @@ export default function HeroSection() {
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '104px 32px 84px', width: '100%', position: 'relative' }} className="hero-inner-pad">
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '1.05fr 0.95fr',
-          gap: '72px',
+          gridTemplateColumns: '1.18fr 0.82fr',
+          gap: '56px',
           alignItems: 'center',
         }} className="hero-main-grid">
 
@@ -183,21 +183,22 @@ export default function HeroSection() {
             initial={{ opacity: 0, x: 28 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.75, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-            style={{ position: 'relative' }}
+            className="hero-teacher-card"
+            style={{ position: 'relative', width: '100%', maxWidth: '430px', justifySelf: 'end' }}
           >
             {/* Offset gold hairline frame behind the card */}
             <div aria-hidden="true" style={{
               position: 'absolute', inset: 0,
-              transform: 'translate(14px, 14px)',
+              transform: 'translate(10px, 10px)',
               border: '1px solid rgba(184,135,47,0.4)',
-              borderRadius: '20px',
+              borderRadius: '16px',
               pointerEvents: 'none',
             }} />
 
             <div style={{
               position: 'relative',
               background: 'var(--bg-white)',
-              borderRadius: '20px',
+              borderRadius: '16px',
               overflow: 'hidden',
               border: '1px solid var(--border)',
               boxShadow: '0 24px 64px rgba(30,24,18,0.12)',
@@ -209,17 +210,19 @@ export default function HeroSection() {
               <img
                 src={teacherPhoto}
                 alt="Smit Sir — CBSE Commerce Teacher"
+                className="hero-teacher-photo"
                 style={{
                   width: '100%',
-                  height: '440px',
+                  aspectRatio: '4 / 3',
+                  height: 'auto',
                   objectFit: 'cover',
-                  objectPosition: 'center 8%',
+                  objectPosition: 'center 12%',
                   display: 'block',
                 }}
               />
 
               {/* Info strip */}
-              <div style={{ padding: '18px 22px 20px', background: 'var(--bg-white)' }}>
+              <div style={{ padding: '15px 18px 17px', background: 'var(--bg-white)' }}>
                 <div style={{
                   display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '12px',
                   marginBottom: '14px',
@@ -273,10 +276,12 @@ export default function HeroSection() {
       <style>{`
         @media (max-width: 1024px) {
           .hero-main-grid { grid-template-columns: 1fr !important; gap: 44px !important; }
+          .hero-teacher-card { justify-self: center !important; max-width: 500px !important; }
           .hero-inner-pad { padding-top: 72px !important; padding-bottom: 80px !important; }
         }
         @media (max-width: 640px) {
           .hero-inner-pad { padding: 64px 16px 72px !important; }
+          .hero-teacher-card { max-width: 390px !important; }
         }
       `}</style>
     </section>
