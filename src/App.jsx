@@ -31,6 +31,7 @@ const DataCenter      = lazy(() => import('./pages/DataCenter'));
 const LiveClasses     = lazy(() => import('./pages/LiveClasses'));
 const BatchPage       = lazy(() => import('./pages/BatchPage'));
 const StudentDashboard = lazy(() => import('./pages/StudentDashboard'));
+const OwnerHome       = lazy(() => import('./pages/OwnerHome'));
 const AdminDashboard  = lazy(() => import('./pages/AdminDashboard'));
 const AdminStudio     = lazy(() => import('./pages/AdminStudio'));
 const LeadCRM         = lazy(() => import('./pages/LeadCRM'));
@@ -106,7 +107,8 @@ const ROUTE_SEO = {
   '/parent-info': { title: 'Information for Parents', description: 'Information for parents about classes and support.' },
   '/login': { title: 'Student Login', description: 'Student login.', noindex: true },
   '/onboarding': { title: 'Student Study Setup', description: 'Private student study preferences.', noindex: true },
-  '/admin': { title: 'Admin', description: 'Administrative area.', noindex: true },
+  '/admin': { title: 'Owner Hub', description: 'Restricted owner administration area.', noindex: true },
+  '/admin/students': { title: 'Student Control', description: 'Restricted student administration area.', noindex: true },
   '/admin/leads': { title: 'Admissions CRM', description: 'Restricted admissions CRM.', noindex: true },
   '/admin-studio': { title: 'Admin Content Studio', description: 'Restricted administrative area.', noindex: true },
   '/dashboard': { title: 'Student Dashboard', description: 'Private dashboard.', noindex: true },
@@ -129,7 +131,8 @@ function AnimatedRoutes() {
     <>
       <ScrollToTopOnNav />
       <Routes location={location}>
-        <Route path="/admin" element={withPage(<AdminDashboard />)} />
+        <Route path="/admin" element={withPage(<OwnerHome />)} />
+        <Route path="/admin/students" element={withPage(<AdminDashboard />)} />
         <Route path="/admin/leads" element={withPage(<LeadCRM />)} />
         <Route path="/admin-studio" element={withPage(<AdminStudio />)} />
         <Route path="/login" element={withPage(<Login />)} />
