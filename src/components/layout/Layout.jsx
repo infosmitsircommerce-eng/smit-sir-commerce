@@ -7,6 +7,7 @@ import ScrollToTop from '../ui/ScrollToTop';
 import CursorSpotlight from '../ui/CursorSpotlight';
 import ScrollProgressBar from '../ui/ScrollProgressBar';
 import GlobalStudySearch from '../ui/GlobalStudySearch';
+import CloudSyncBridge from '../ui/CloudSyncBridge';
 import { isLightRoute } from '../../lib/theme';
 
 export default function Layout({ children }) {
@@ -27,6 +28,7 @@ export default function Layout({ children }) {
       <Navbar />
       <MobileHeader />
       <GlobalStudySearch />
+      <CloudSyncBridge />
       <main id="main-content" tabIndex="-1" className="flex-1 pt-0 lg:pt-20 pb-20 lg:pb-0">
         {children}
       </main>
