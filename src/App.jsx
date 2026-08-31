@@ -5,6 +5,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import InstallPWA from './components/ui/InstallPWA';
 import Layout from './components/layout/Layout';
 import PageTransition from './components/ui/PageTransition';
+import AppErrorBoundary from './components/ui/AppErrorBoundary';
 import SEO from './components/ui/SEO';
 import { AuthProvider } from './context/AuthContext';
 
@@ -19,13 +20,18 @@ const SeoMaterialChapter = lazy(() => import('./pages/SeoMaterialChapter'));
 const CbseNotes       = lazy(() => import('./pages/CbseNotes'));
 const Quizzes         = lazy(() => import('./pages/Quizzes'));
 const TestSeries      = lazy(() => import('./pages/TestSeriesPro'));
+const ExamMode        = lazy(() => import('./pages/ExamMode'));
+const ExamTestLanding = lazy(() => import('./pages/ExamTestLanding'));
 const DailyPractice   = lazy(() => import('./pages/DailyPractice'));
 const StudyCoach      = lazy(() => import('./pages/StudyCoach'));
 const StudyTools      = lazy(() => import('./pages/StudyTools'));
+const LearningInsights = lazy(() => import('./pages/LearningInsights'));
+const DataCenter      = lazy(() => import('./pages/DataCenter'));
 const LiveClasses     = lazy(() => import('./pages/LiveClasses'));
 const BatchPage       = lazy(() => import('./pages/BatchPage'));
 const StudentDashboard = lazy(() => import('./pages/StudentDashboard'));
 const AdminDashboard  = lazy(() => import('./pages/AdminDashboard'));
+const AdminStudio     = lazy(() => import('./pages/AdminStudio'));
 const Games           = lazy(() => import('./pages/Games'));
 const Flashcards      = lazy(() => import('./pages/Flashcards'));
 const AskDoubt        = lazy(() => import('./pages/AskDoubt'));
@@ -34,6 +40,7 @@ const ParentInfo      = lazy(() => import('./pages/ParentInfo'));
 const About           = lazy(() => import('./pages/About'));
 const Contact         = lazy(() => import('./pages/Contact'));
 const FAQ             = lazy(() => import('./pages/FAQ'));
+const Legal           = lazy(() => import('./pages/Legal'));
 
 function ScrollToTopOnNav() {
   const { pathname } = useLocation();
@@ -72,21 +79,28 @@ const ROUTE_SEO = {
   '/study-material': { title: 'Free CBSE Commerce PDF Notes — Class 11 & 12', description: 'Download and view 26 free chapter-wise CBSE Commerce PDFs.' },
   '/quizzes': { title: 'CBSE Commerce Quizzes and Practice', description: 'Practice Commerce concepts with quizzes and revision tools.' },
   '/test-series': { title: 'CBSE Commerce Test Series', description: 'Practice Class 11 and 12 Commerce with chapter-wise tests, saved progress and Pro access.' },
+  '/exam-mode': { title: 'Advanced CBSE Commerce Exam Mode', description: 'Take timed Class 11 and 12 Commerce tests with a question palette, mark-for-review, auto-submit, refresh recovery and weak-topic analysis.' },
   '/daily-practice': { title: 'Daily 10 Commerce Practice', description: 'Daily CBSE Commerce questions with a streak, Mistake Book and Weak Topic Radar.' },
   '/study-coach': { title: 'Commerce Study Coach & Chapter Mastery', description: 'See your chapter mastery, weakest areas and a personalized study mission based on your Commerce practice history.' },
   '/study-tools': { title: 'Commerce Study Toolkit — Search, Bookmarks & Revision Planner', description: 'Search Commerce resources, save bookmarks, continue recent learning and build a simple exam revision plan.' },
+  '/learning-insights': { title: 'My Commerce Learning Insights', description: 'Private weak-topic analysis based on your tests, Daily 10, mistakes and chapter progress.', noindex: true },
+  '/my-data': { title: 'My Study Data & Backup', description: 'Private controls for study-progress backup, restore and cloud sync.', noindex: true },
   '/live-classes': { title: 'CBSE Commerce Live Classes', description: 'Learn about live CBSE Commerce classes.' },
   '/online-batch': { title: 'Online CBSE Commerce Coaching', description: 'Online CBSE Commerce coaching for Class 11 and 12.' },
   '/offline-batch': { title: 'Offline Commerce Coaching in Mehsana', description: 'Offline CBSE Commerce coaching in Mehsana, Gujarat.' },
   '/about': { title: 'About Smit Sir — Commerce Teacher Mehsana', description: 'Learn about Smit Sir Commerce and the teaching approach.' },
   '/contact': { title: 'Contact Smit Sir Commerce', description: 'Contact Smit Sir Commerce or book a free demo class.' },
   '/faq': { title: 'CBSE Commerce Coaching FAQ', description: 'Answers about subjects, resources, batches and demo classes.' },
+  '/privacy': { title: 'Privacy Policy — Smit Sir Commerce', description: 'How account, enquiry and learning-progress data is handled.' },
+  '/terms': { title: 'Terms of Use — Smit Sir Commerce', description: 'Terms for using Smit Sir Commerce learning resources and tools.' },
+  '/access-policy': { title: 'Access & Learning Policy — Smit Sir Commerce', description: 'How free resources, Pro-labelled access and learning-progress storage work.' },
   '/games': { title: 'Commerce Learning Games', description: 'Interactive Commerce learning games.' },
   '/flashcards': { title: 'Commerce Flashcards', description: 'Review Commerce concepts with interactive flashcards.' },
   '/ask': { title: 'Ask a Commerce Doubt', description: 'Ask questions about CBSE Commerce concepts.' },
   '/parent-info': { title: 'Information for Parents', description: 'Information for parents about classes and support.' },
   '/login': { title: 'Student Login', description: 'Student login.', noindex: true },
   '/admin': { title: 'Admin', description: 'Administrative area.', noindex: true },
+  '/admin-studio': { title: 'Admin Content Studio', description: 'Restricted administrative area.', noindex: true },
   '/dashboard': { title: 'Student Dashboard', description: 'Private dashboard.', noindex: true },
   '/pdf-viewer': { title: 'PDF Viewer', description: 'View a study material PDF.', noindex: true },
   '/reel': { title: 'Reel Generator', description: 'Private tool.', noindex: true },
@@ -94,10 +108,12 @@ const ROUTE_SEO = {
 
 function RouteSEO() {
   const { pathname } = useLocation();
-  if (pathname === '/cbse-notes' || pathname.startsWith('/cbse/')) return null;
+  if (pathname === '/cbse-notes' || pathname.startsWith('/cbse/') || pathname.startsWith('/tests/')) return null;
   const meta = ROUTE_SEO[pathname] || { title: 'Page Not Found', description: 'The requested page could not be found.', noindex: true };
   return <SEO {...meta} path={pathname} />;
 }
+
+const withPage = (node) => <Suspense fallback={<PageFallback />}><PageTransition>{node}</PageTransition></Suspense>;
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -105,35 +121,43 @@ function AnimatedRoutes() {
     <>
       <ScrollToTopOnNav />
       <Routes location={location}>
-        <Route path="/admin" element={<Suspense fallback={<PageFallback />}><PageTransition><AdminDashboard /></PageTransition></Suspense>} />
-        <Route path="/login" element={<Suspense fallback={<PageFallback />}><PageTransition><Login /></PageTransition></Suspense>} />
+        <Route path="/admin" element={withPage(<AdminDashboard />)} />
+        <Route path="/admin-studio" element={withPage(<AdminStudio />)} />
+        <Route path="/login" element={withPage(<Login />)} />
         <Route element={<Layout><Outlet /></Layout>}>
-          <Route path="/" element={<Suspense fallback={<PageFallback />}><PageTransition><Home /></PageTransition></Suspense>} />
-          <Route path="/courses" element={<Suspense fallback={<PageFallback />}><PageTransition><Courses /></PageTransition></Suspense>} />
-          <Route path="/lectures" element={<Suspense fallback={<PageFallback />}><PageTransition><Lectures /></PageTransition></Suspense>} />
-          <Route path="/study-material" element={<Suspense fallback={<PageFallback />}><PageTransition><StudyMaterial /></PageTransition></Suspense>} />
-          <Route path="/pdf-viewer" element={<Suspense fallback={<PageFallback />}><PageTransition><PdfViewer /></PageTransition></Suspense>} />
-          <Route path="/cbse-notes" element={<Suspense fallback={<PageFallback />}><PageTransition><CbseNotes /></PageTransition></Suspense>} />
-          <Route path="/cbse/:classSlug/:hubSlug" element={<Suspense fallback={<PageFallback />}><PageTransition><SeoMaterialHub /></PageTransition></Suspense>} />
-          <Route path="/cbse/:classSlug/:subjectSlug/:chapterSlug" element={<Suspense fallback={<PageFallback />}><PageTransition><SeoMaterialChapter /></PageTransition></Suspense>} />
-          <Route path="/quizzes" element={<Suspense fallback={<PageFallback />}><PageTransition><Quizzes /></PageTransition></Suspense>} />
-          <Route path="/test-series" element={<Suspense fallback={<PageFallback />}><PageTransition><TestSeries /></PageTransition></Suspense>} />
-          <Route path="/daily-practice" element={<Suspense fallback={<PageFallback />}><PageTransition><DailyPractice /></PageTransition></Suspense>} />
-          <Route path="/study-coach" element={<Suspense fallback={<PageFallback />}><PageTransition><StudyCoach /></PageTransition></Suspense>} />
-          <Route path="/study-tools" element={<Suspense fallback={<PageFallback />}><PageTransition><StudyTools /></PageTransition></Suspense>} />
-          <Route path="/live-classes" element={<Suspense fallback={<PageFallback />}><PageTransition><LiveClasses /></PageTransition></Suspense>} />
-          <Route path="/online-batch" element={<Suspense fallback={<PageFallback />}><PageTransition><BatchPage type="online" /></PageTransition></Suspense>} />
-          <Route path="/offline-batch" element={<Suspense fallback={<PageFallback />}><PageTransition><BatchPage type="offline" /></PageTransition></Suspense>} />
-          <Route path="/dashboard" element={<Suspense fallback={<PageFallback />}><PageTransition><StudentDashboard /></PageTransition></Suspense>} />
-          <Route path="/parent-info" element={<Suspense fallback={<PageFallback />}><PageTransition><ParentInfo /></PageTransition></Suspense>} />
-          <Route path="/about" element={<Suspense fallback={<PageFallback />}><PageTransition><About /></PageTransition></Suspense>} />
-          <Route path="/contact" element={<Suspense fallback={<PageFallback />}><PageTransition><Contact /></PageTransition></Suspense>} />
-          <Route path="/faq" element={<Suspense fallback={<PageFallback />}><PageTransition><FAQ /></PageTransition></Suspense>} />
-          <Route path="/games" element={<Suspense fallback={<PageFallback />}><PageTransition><Games /></PageTransition></Suspense>} />
-          <Route path="/flashcards" element={<Suspense fallback={<PageFallback />}><PageTransition><Flashcards /></PageTransition></Suspense>} />
-          <Route path="/ask" element={<Suspense fallback={<PageFallback />}><PageTransition><AskDoubt /></PageTransition></Suspense>} />
-          <Route path="/reel" element={<Suspense fallback={<PageFallback />}><PageTransition><ReelGenerator /></PageTransition></Suspense>} />
-          <Route path="*" element={<Suspense fallback={<PageFallback />}><PageTransition><NotFound /></PageTransition></Suspense>} />
+          <Route path="/" element={withPage(<Home />)} />
+          <Route path="/courses" element={withPage(<Courses />)} />
+          <Route path="/lectures" element={withPage(<Lectures />)} />
+          <Route path="/study-material" element={withPage(<StudyMaterial />)} />
+          <Route path="/pdf-viewer" element={withPage(<PdfViewer />)} />
+          <Route path="/cbse-notes" element={withPage(<CbseNotes />)} />
+          <Route path="/cbse/:classSlug/:hubSlug" element={withPage(<SeoMaterialHub />)} />
+          <Route path="/cbse/:classSlug/:subjectSlug/:chapterSlug" element={withPage(<SeoMaterialChapter />)} />
+          <Route path="/quizzes" element={withPage(<Quizzes />)} />
+          <Route path="/test-series" element={withPage(<TestSeries />)} />
+          <Route path="/exam-mode" element={withPage(<ExamMode />)} />
+          <Route path="/tests/:testSlug" element={withPage(<ExamTestLanding />)} />
+          <Route path="/daily-practice" element={withPage(<DailyPractice />)} />
+          <Route path="/study-coach" element={withPage(<StudyCoach />)} />
+          <Route path="/study-tools" element={withPage(<StudyTools />)} />
+          <Route path="/learning-insights" element={withPage(<LearningInsights />)} />
+          <Route path="/my-data" element={withPage(<DataCenter />)} />
+          <Route path="/live-classes" element={withPage(<LiveClasses />)} />
+          <Route path="/online-batch" element={withPage(<BatchPage type="online" />)} />
+          <Route path="/offline-batch" element={withPage(<BatchPage type="offline" />)} />
+          <Route path="/dashboard" element={withPage(<StudentDashboard />)} />
+          <Route path="/parent-info" element={withPage(<ParentInfo />)} />
+          <Route path="/about" element={withPage(<About />)} />
+          <Route path="/contact" element={withPage(<Contact />)} />
+          <Route path="/faq" element={withPage(<FAQ />)} />
+          <Route path="/privacy" element={withPage(<Legal />)} />
+          <Route path="/terms" element={withPage(<Legal />)} />
+          <Route path="/access-policy" element={withPage(<Legal />)} />
+          <Route path="/games" element={withPage(<Games />)} />
+          <Route path="/flashcards" element={withPage(<Flashcards />)} />
+          <Route path="/ask" element={withPage(<AskDoubt />)} />
+          <Route path="/reel" element={withPage(<ReelGenerator />)} />
+          <Route path="*" element={withPage(<NotFound />)} />
         </Route>
       </Routes>
     </>
@@ -146,9 +170,11 @@ export default function App() {
       <LazyMotion features={domAnimation}>
         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <AuthProvider>
-            <RouteSEO />
-            <AnimatedRoutes />
-            <InstallPWA />
+            <AppErrorBoundary>
+              <RouteSEO />
+              <AnimatedRoutes />
+              <InstallPWA />
+            </AppErrorBoundary>
           </AuthProvider>
         </BrowserRouter>
       </LazyMotion>
