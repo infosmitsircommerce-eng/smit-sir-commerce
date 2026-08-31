@@ -10,6 +10,7 @@ import GlobalStudySearch from '../ui/GlobalStudySearch';
 import CloudSyncBridge from '../ui/CloudSyncBridge';
 import AnalyticsTracker from '../ui/AnalyticsTracker';
 import ChapterProgressTracker from '../ui/ChapterProgressTracker';
+import DemoNudge from '../leads/DemoNudge';
 import { isLightRoute } from '../../lib/theme';
 
 export default function Layout({ children }) {
@@ -38,6 +39,7 @@ export default function Layout({ children }) {
       </main>
       <Footer />
       <MobileBottomBar />
+      <DemoNudge />
       <ScrollToTop />
     </div>
   );
