@@ -4,6 +4,7 @@ import StatsSection from '../components/home/StatsSection';
 import CoursesPreview from '../components/home/CoursesPreview';
 import AboutSection from '../components/home/AboutSection';
 import FreeResources from '../components/home/FreeResources';
+import DailyPracticeCTA from '../components/home/DailyPracticeCTA';
 import BatchCTA from '../components/home/BatchCTA';
 import FAQSection from '../components/home/FAQSection';
 import ContactCTA from '../components/home/ContactCTA';
@@ -19,6 +20,7 @@ export default function Home() {
       />
       <HeroSection />
       <StatsSection />
+      <DailyPracticeCTA />
       <CoursesPreview />
       <SectionDivider />
       <AboutSection />
