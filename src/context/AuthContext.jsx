@@ -66,7 +66,10 @@ export function AuthProvider({ children }) {
     });
   }
 
-  const isPremium = profile?.is_premium === true;
+  const premiumUntil = profile?.premium_until ? new Date(profile.premium_until) : null;
+  const premiumHasTime = premiumUntil && !Number.isNaN(premiumUntil.getTime());
+  const premiumExpired = profile?.is_premium === true && premiumHasTime && premiumUntil.getTime() <= Date.now();
+  const isPremium = profile?.is_premium === true && !premiumExpired;
   const isAdmin = profile?.is_admin === true || profile?.role === 'admin';
   const displayName = profile?.full_name ?? user?.user_metadata?.full_name ?? user?.email?.split('@')[0] ?? 'Student';
   const initials = displayName.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
@@ -74,7 +77,8 @@ export function AuthProvider({ children }) {
   return (
     <AuthContext.Provider value={{
       user, profile, loading,
-      isPremium, isAdmin, displayName, initials,
+      isPremium, premiumUntil, premiumExpired,
+      isAdmin, displayName, initials,
       signIn, signUp, signOut, resetPassword, fetchProfile,
     }}>
       {children}
