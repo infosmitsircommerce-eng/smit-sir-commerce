@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BarChart3, Crown, Lock, LogIn, Trophy, X } from 'lucide-react';
 import BaseTestSeries from './TestSeries';
+import TestSeriesSalesFunnel from '../components/test-series/TestSeriesSalesFunnel';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 
@@ -214,6 +215,7 @@ export default function TestSeriesPro() {
   return (
     <>
       <div ref={rootRef} onClickCapture={handleCapture}><BaseTestSeries /></div>
+      <TestSeriesSalesFunnel />
 
       <button onClick={() => setShowProgress(true)} className="fixed right-4 bottom-24 lg:bottom-6 z-40 rounded-full px-4 py-3 font-semibold shadow-xl inline-flex items-center gap-2" style={{ background: 'var(--ink)', color: '#fff', border: '1px solid rgba(184,135,47,.35)' }}><BarChart3 className="w-4 h-4" /> My Progress</button>
 
