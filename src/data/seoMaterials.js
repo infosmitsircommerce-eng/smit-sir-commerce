@@ -51,6 +51,11 @@ function makeMaterial({
   examFocus,
 }) {
   const hub = hubById[hubId];
+  const subjectKeyword = hub.subjectSlug === 'business-studies'
+    ? 'Business Studies'
+    : hub.subjectSlug === 'microeconomics'
+      ? 'Microeconomics'
+      : 'Macroeconomics';
   const seoPath = `/cbse/class-${hub.classLevel}/${hub.subjectSlug}/${slug}-notes`;
   return {
     id: `${hubId}-chapter-${String(chapterNumber).padStart(2, '0')}`,
@@ -68,8 +73,10 @@ function makeMaterial({
     seo_path: seoPath,
     hub_path: hub.path,
     hubId,
-    seoTitle: seoTitle || `${chapter} Notes PDF — CBSE Class ${hub.classLevel}`,
-    description: `Free CBSE Class ${hub.classLevel} ${hub.subjectSlug === 'business-studies' ? 'Business Studies' : hub.subjectSlug === 'microeconomics' ? 'Microeconomics' : 'Macroeconomics'} Chapter ${chapterNumber} ${chapter} notes PDF with key concepts and exam-focused revision.`,
+    seoTitle: seoTitle
+      ? `CBSE ${seoTitle}`
+      : `CBSE Class ${hub.classLevel} ${subjectKeyword} Chapter ${chapterNumber} ${chapter} Notes PDF`,
+    description: `Free CBSE Class ${hub.classLevel} ${subjectKeyword} Chapter ${chapterNumber} ${chapter} notes PDF. View online or download chapter-wise notes with key concepts, questions, MCQs and exam revision.`,
     summary,
     keyTopics,
     examFocus,
@@ -334,9 +341,26 @@ export function getChapterMcqs(material) {
   });
 }
 
+export function getMaterialFaqs(material) {
+  return [
+    {
+      question: `Are these ${material.chapter} notes free?`,
+      answer: `Yes. The complete CBSE Class ${material.class_level} chapter PDF can be viewed online or downloaded without payment or registration.`,
+    },
+    {
+      question: `What is covered in Chapter ${material.chapterNumber}?`,
+      answer: `The notes cover ${material.keyTopics.slice(0, 3).join(', ')} and the other important concepts listed on this page.`,
+    },
+    {
+      question: 'How should I use these notes for CBSE exam revision?',
+      answer: 'Start with the overview, revise each key topic, read the complete PDF and finish with the exam checklist, important questions and MCQs. Also practise NCERT questions and the latest official CBSE sample papers.',
+    },
+  ];
+}
+
 export function getMaterialStructuredData(material) {
   const hub = hubById[material.hubId];
-  const importantQuestions = getImportantQuestions(material);
+  const faqs = getMaterialFaqs(material);
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -350,6 +374,14 @@ export function getMaterialStructuredData(material) {
         learningResourceType: 'Revision notes',
         isAccessibleForFree: true,
         inLanguage: 'en-IN',
+        datePublished: material.updated,
+        dateModified: material.updated,
+        about: material.keyTopics,
+        teaches: material.keyTopics,
+        audience: {
+          '@type': 'EducationalAudience',
+          educationalRole: 'student',
+        },
         author: { '@id': `${SITE_URL}/#teacher` },
         provider: { '@id': `${SITE_URL}/#organization` },
         associatedMedia: {
@@ -369,7 +401,7 @@ export function getMaterialStructuredData(material) {
       },
       {
         '@type': 'FAQPage',
-        mainEntity: importantQuestions.map((item) => ({
+        mainEntity: faqs.map((item) => ({
           '@type': 'Question',
           name: item.question,
           acceptedAnswer: { '@type': 'Answer', text: item.answer },
@@ -383,16 +415,35 @@ export function getHubStructuredData(hub) {
   const items = getHubMaterials(hub.id);
   return {
     '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    name: hub.seoTitle,
-    description: hub.description,
-    url: `${SITE_URL}${hub.path}`,
-    numberOfItems: items.length,
-    itemListElement: items.map((material, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      name: material.chapter,
-      url: `${SITE_URL}${material.seo_path}`,
-    })),
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': `${SITE_URL}${hub.path}#page`,
+        name: hub.seoTitle,
+        description: hub.description,
+        url: `${SITE_URL}${hub.path}`,
+        isAccessibleForFree: true,
+        inLanguage: 'en-IN',
+        provider: { '@id': `${SITE_URL}/#organization` },
+        mainEntity: {
+          '@type': 'ItemList',
+          numberOfItems: items.length,
+          itemListElement: items.map((material, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: material.chapter,
+            url: `${SITE_URL}${material.seo_path}`,
+          })),
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+          { '@type': 'ListItem', position: 2, name: 'Free CBSE Notes', item: `${SITE_URL}/cbse-notes` },
+          { '@type': 'ListItem', position: 3, name: hub.label, item: `${SITE_URL}${hub.path}` },
+        ],
+      },
+    ],
   };
 }

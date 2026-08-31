@@ -42,6 +42,7 @@ const structuredData = {
 
 export default function CbseNotes() {
   const totalChapters = seoHubs.reduce((total, hub) => total + getHubMaterials(hub.id).length, 0);
+  const popularNotes = seoHubs.flatMap((hub) => getHubMaterials(hub.id).slice(0, 2));
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
@@ -103,6 +104,14 @@ export default function CbseNotes() {
             <p><strong style={{ color: 'var(--ink)' }}>Learn clearly:</strong> begin with concise chapter summaries and important concepts before opening the complete notes.</p>
             <p><strong style={{ color: 'var(--ink)' }}>Revise faster:</strong> use chapter-wise PDFs and exam-focus checklists instead of searching through one large book.</p>
             <p><strong style={{ color: 'var(--ink)' }}>Study anywhere:</strong> view every PDF in the browser or download it free for offline revision.</p>
+          </div>
+        </section>
+
+        <section className="mt-12" aria-labelledby="popular-notes-heading">
+          <span className="eyebrow">Start with a chapter</span>
+          <h2 id="popular-notes-heading" className="text-3xl mt-3 mb-7" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Popular free CBSE Commerce notes</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {popularNotes.map((material) => <Link key={material.id} to={material.seo_path} className="card-paper p-5 flex items-center justify-between gap-4"><div><div className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--gold)' }}>Class {material.class_level} · Chapter {material.chapterNumber}</div><span className="font-semibold" style={{ color: 'var(--ink)' }}>{material.chapter} notes PDF</span></div><ArrowRight className="w-5 h-5 flex-shrink-0" style={{ color: 'var(--gold)' }} /></Link>)}
           </div>
         </section>
 

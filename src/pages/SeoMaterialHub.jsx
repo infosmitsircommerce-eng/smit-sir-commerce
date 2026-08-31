@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { ArrowRight, BookOpen, Download, FileText } from 'lucide-react';
 import SEO from '../components/ui/SEO';
-import { getHubMaterials, getHubStructuredData, hubByPath } from '../data/seoMaterials';
+import { getHubMaterials, getHubStructuredData, hubByPath, seoHubs } from '../data/seoMaterials';
 
 export default function SeoMaterialHub() {
   const { pathname } = useLocation();
@@ -20,6 +20,7 @@ export default function SeoMaterialHub() {
   }
 
   const materials = getHubMaterials(hub.id);
+  const relatedHubs = seoHubs.filter((item) => item.id !== hub.id);
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
@@ -97,8 +98,16 @@ export default function SeoMaterialHub() {
             </div>
           </div>
         </section>
+
+        <section className="mt-12">
+          <span className="eyebrow">More free Commerce resources</span>
+          <h2 className="text-3xl mt-3 mb-6" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Explore notes for other CBSE subjects</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {relatedHubs.map((related) => <Link key={related.id} to={related.path} className="card-paper p-5 flex items-center justify-between gap-4"><span className="font-semibold" style={{ color: 'var(--ink)' }}>Free {related.label} notes PDF</span><ArrowRight className="w-5 h-5 flex-shrink-0" style={{ color: 'var(--gold)' }} /></Link>)}
+          </div>
+          <Link to="/cbse-notes" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold" style={{ color: 'var(--gold)' }}>Browse all free CBSE Commerce notes <ArrowRight className="w-4 h-4" /></Link>
+        </section>
       </main>
     </div>
   );
 }
-

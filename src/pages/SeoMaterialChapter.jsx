@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, CircleHelp, Download, Eye, FileQuestion, FileText, UserRound } from 'lucide-react';
 import SEO from '../components/ui/SEO';
-import { getChapterMcqs, getHubMaterials, getImportantQuestions, getMaterialStructuredData, materialByPath, hubByPath } from '../data/seoMaterials';
+import { getChapterMcqs, getHubMaterials, getImportantQuestions, getMaterialFaqs, getMaterialStructuredData, materialByPath, hubByPath, seoHubs } from '../data/seoMaterials';
 
 function ChapterNotFound({ pathname }) {
   return (
@@ -31,21 +31,9 @@ export default function SeoMaterialChapter() {
   const viewerUrl = `/pdf-viewer?file=${encodeURIComponent(material.file_url)}&title=${encodeURIComponent(material.title)}`;
   const importantQuestions = getImportantQuestions(material);
   const chapterMcqs = getChapterMcqs(material);
-
-  const faqs = [
-    {
-      question: `Are these ${material.chapter} notes free?`,
-      answer: `Yes. The complete CBSE Class ${material.class_level} chapter PDF can be viewed online or downloaded without payment.`,
-    },
-    {
-      question: `What is covered in Chapter ${material.chapterNumber}?`,
-      answer: `The notes cover ${material.keyTopics.slice(0, 3).join(', ')} and the other important concepts listed on this page.`,
-    },
-    {
-      question: 'How should I use these notes for exam revision?',
-      answer: 'Start with the overview, revise each key topic, read the complete PDF and finish by checking the exam-focus points. Practise textbook and case-based questions after revision.',
-    },
-  ];
+  const faqs = getMaterialFaqs(material);
+  const relatedHubs = seoHubs.filter((item) => item.id !== material.hubId);
+  const formattedUpdated = new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(`${material.updated}T00:00:00`));
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
@@ -54,6 +42,8 @@ export default function SeoMaterialChapter() {
         description={material.description}
         path={material.seo_path}
         type="article"
+        publishedTime={material.updated}
+        modifiedTime={material.updated}
         structuredData={getMaterialStructuredData(material)}
       />
 
@@ -87,6 +77,7 @@ export default function SeoMaterialChapter() {
                 <div className="flex justify-between gap-3"><dt style={{ color: 'var(--muted)' }}>Class</dt><dd className="font-semibold" style={{ color: 'var(--ink)' }}>{material.class_level}</dd></div>
                 <div className="flex justify-between gap-3"><dt style={{ color: 'var(--muted)' }}>Subject</dt><dd className="font-semibold text-right" style={{ color: 'var(--ink)' }}>{hub.label.replace(`Class ${material.class_level} `, '')}</dd></div>
                 <div className="flex justify-between gap-3"><dt style={{ color: 'var(--muted)' }}>Length</dt><dd className="font-semibold" style={{ color: 'var(--ink)' }}>{material.pages} pages</dd></div>
+                <div className="flex justify-between gap-3"><dt style={{ color: 'var(--muted)' }}>Updated</dt><dd className="font-semibold" style={{ color: 'var(--ink)' }}>{formattedUpdated}</dd></div>
                 <div className="flex justify-between gap-3"><dt style={{ color: 'var(--muted)' }}>Price</dt><dd className="font-semibold" style={{ color: 'var(--green)' }}>Free</dd></div>
               </dl>
             </aside>
@@ -102,6 +93,15 @@ export default function SeoMaterialChapter() {
               <p className="leading-8" style={{ color: 'var(--muted)' }}>
                 {material.summary} The material is organised for students who want a clear first reading as well as quick revision before school tests and CBSE examinations. Definitions, relationships and application points should be learned with their supporting examples rather than memorised in isolation.
               </p>
+            </section>
+
+            <section className="card-paper p-5 sm:p-7 md:p-9">
+              <h2 className="text-3xl mb-5" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Why you can trust this study resource</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="tile-paper p-4"><strong className="block mb-2" style={{ color: 'var(--ink)' }}>Teacher prepared</strong><p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>Organised by Smit Sir for Class {material.class_level} Commerce students.</p></div>
+                <div className="tile-paper p-4"><strong className="block mb-2" style={{ color: 'var(--ink)' }}>Chapter specific</strong><p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>Topics, questions and MCQs focus only on {material.chapter}.</p></div>
+                <div className="tile-paper p-4"><strong className="block mb-2" style={{ color: 'var(--ink)' }}>Transparent access</strong><p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>Free to view and download with no account required.</p></div>
+              </div>
             </section>
 
             <section className="card-paper p-5 sm:p-7 md:p-9">
@@ -197,6 +197,14 @@ export default function SeoMaterialChapter() {
                 {previous && <Link to={previous.seo_path} className="tile-paper p-3 flex items-center gap-3 text-sm"><ArrowLeft className="w-4 h-4" style={{ color: 'var(--gold)' }} /><span>Chapter {previous.chapterNumber}: {previous.chapter}</span></Link>}
                 {next && <Link to={next.seo_path} className="tile-paper p-3 flex items-center justify-between gap-3 text-sm"><span>Chapter {next.chapterNumber}: {next.chapter}</span><ArrowRight className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--gold)' }} /></Link>}
                 <Link to={hub.path} className="tile-paper p-3 flex items-center gap-3 text-sm"><BookOpen className="w-4 h-4" style={{ color: 'var(--gold)' }} />All {hub.label} notes</Link>
+                <Link to="/cbse-notes" className="tile-paper p-3 flex items-center gap-3 text-sm"><BookOpen className="w-4 h-4" style={{ color: 'var(--gold)' }} />All free CBSE Commerce notes</Link>
+              </div>
+            </div>
+
+            <div className="card-paper p-6">
+              <h2 className="text-xl mb-4" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Explore other subjects</h2>
+              <div className="space-y-3">
+                {relatedHubs.map((related) => <Link key={related.id} to={related.path} className="tile-paper p-3 flex items-center justify-between gap-3 text-sm"><span>Free {related.label} notes</span><ArrowRight className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--gold)' }} /></Link>)}
               </div>
             </div>
           </aside>
