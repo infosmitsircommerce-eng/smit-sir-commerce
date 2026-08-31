@@ -82,7 +82,7 @@ export default function ContactCTA() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10"
         >
           <Link
-            to="/contact"
+            to="/book-demo"
             className="btn-gold flex items-center gap-2 text-base px-8 py-4 w-full sm:w-auto justify-center"
           >
             Book Free Demo Class
