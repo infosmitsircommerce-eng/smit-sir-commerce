@@ -11,6 +11,7 @@ import { AuthProvider } from './context/AuthContext';
 
 const Home            = lazy(() => import('./pages/Home'));
 const Login           = lazy(() => import('./pages/Login'));
+const Onboarding      = lazy(() => import('./pages/Onboarding'));
 const Courses         = lazy(() => import('./pages/Courses'));
 const Lectures        = lazy(() => import('./pages/Lectures'));
 const StudyMaterial   = lazy(() => import('./pages/StudyMaterial'));
@@ -99,6 +100,7 @@ const ROUTE_SEO = {
   '/ask': { title: 'Ask a Commerce Doubt', description: 'Ask questions about CBSE Commerce concepts.' },
   '/parent-info': { title: 'Information for Parents', description: 'Information for parents about classes and support.' },
   '/login': { title: 'Student Login', description: 'Student login.', noindex: true },
+  '/onboarding': { title: 'Student Study Setup', description: 'Private student study preferences.', noindex: true },
   '/admin': { title: 'Admin', description: 'Administrative area.', noindex: true },
   '/admin-studio': { title: 'Admin Content Studio', description: 'Restricted administrative area.', noindex: true },
   '/dashboard': { title: 'Student Dashboard', description: 'Private dashboard.', noindex: true },
@@ -126,6 +128,7 @@ function AnimatedRoutes() {
         <Route path="/login" element={withPage(<Login />)} />
         <Route element={<Layout><Outlet /></Layout>}>
           <Route path="/" element={withPage(<Home />)} />
+          <Route path="/onboarding" element={withPage(<Onboarding />)} />
           <Route path="/courses" element={withPage(<Courses />)} />
           <Route path="/lectures" element={withPage(<Lectures />)} />
           <Route path="/study-material" element={withPage(<StudyMaterial />)} />
