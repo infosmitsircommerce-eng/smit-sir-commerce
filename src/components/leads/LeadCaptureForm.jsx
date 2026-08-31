@@ -7,9 +7,10 @@ import { captureAcquisition } from '../../lib/acquisition';
 import { useAuth } from '../../context/AuthContext';
 
 const SUBJECTS = ['Accountancy', 'Economics', 'Business Studies', 'Entrepreneurship', 'Physical Education'];
+const DEMO_SUBJECTS = [...SUBJECTS, 'Any Commerce Subject'];
 const SOURCES = ['Google', 'Instagram', 'WhatsApp', 'Referral', 'Direct', 'Other'];
 
-export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book your free demo', compact = false }) {
+export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book your free demo', compact = false, demoSlot = null }) {
   const { user } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
@@ -22,19 +23,28 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
   const [error, setError] = useState('');
   const [honeypot, setHoneypot] = useState('');
   const [form, setForm] = useState({
-    fullName: '', mobile: '', classLevel: '12', board: 'CBSE', subjects: ['Economics'],
-    studyMode: 'Either', preferredTime: 'Any time', source: initialSource,
+    fullName: '', mobile: '', parentMobile: '', classLevel: '12', board: 'CBSE', subjects: ['Economics'],
+    studyMode: 'Either', preferredTime: 'Any time', source: initialSource, demoSubject: 'Economics',
     message: '', consent: false,
   });
 
   useEffect(() => {
-    trackEvent('lead_form_view', { intent, source: initialSource }, user?.id || null);
-  }, [intent, initialSource, user?.id]);
+    trackEvent('lead_form_view', { intent, source: initialSource, hasSlot: Boolean(demoSlot?.id) }, user?.id || null);
+  }, [intent, initialSource, user?.id, demoSlot?.id]);
+
+  useEffect(() => {
+    if (!demoSlot) return;
+    setForm((previous) => ({
+      ...previous,
+      studyMode: demoSlot.mode || previous.studyMode,
+      demoSubject: demoSlot.subject_focus && demoSlot.subject_focus !== 'Any Commerce Subject' ? demoSlot.subject_focus : previous.demoSubject,
+    }));
+  }, [demoSlot?.id]);
 
   const startTracking = () => {
     if (trackedStart.current) return;
     trackedStart.current = true;
-    trackEvent('lead_form_start', { intent, source: form.source }, user?.id || null);
+    trackEvent('lead_form_start', { intent, source: form.source, hasSlot: Boolean(demoSlot?.id) }, user?.id || null);
   };
 
   const set = (key) => (event) => {
@@ -69,6 +79,11 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
       setError('Please enter a valid mobile number.');
       return;
     }
+    const parentDigits = form.parentMobile.replace(/\D/g, '');
+    if (form.parentMobile.trim() && (parentDigits.length < 10 || parentDigits.length > 15)) {
+      setError('Please enter a valid parent or guardian mobile number.');
+      return;
+    }
     if (!form.subjects.length) {
       setError('Choose at least one subject.');
       return;
@@ -79,18 +94,21 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
     }
 
     setBusy(true);
-    trackEvent('lead_submit_attempt', { intent, source: form.source, classLevel: Number(form.classLevel), board: form.board, mode: form.studyMode }, user?.id || null);
+    trackEvent('lead_submit_attempt', { intent, source: form.source, classLevel: Number(form.classLevel), board: form.board, mode: form.studyMode, hasSlot: Boolean(demoSlot?.id) }, user?.id || null);
 
     const payload = {
       full_name: form.fullName.trim(),
       mobile: form.mobile.trim(),
+      parent_mobile: form.parentMobile.trim() || null,
       class_level: Number(form.classLevel),
       board: form.board,
       subjects: form.subjects,
-      study_mode: form.studyMode,
+      study_mode: demoSlot?.mode || form.studyMode,
       preferred_contact_time: form.preferredTime,
       source: form.source,
       intent,
+      demo_slot_id: demoSlot?.id || null,
+      demo_subject: intent === 'Free Demo' ? form.demoSubject : null,
       message: form.message.trim() || null,
       consent: true,
       first_path: firstTouch.path || location.pathname,
@@ -103,13 +121,14 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
     setBusy(false);
 
     if (submitError) {
-      setError('We could not save the enquiry right now. You can still contact us on WhatsApp below.');
-      trackEvent('lead_submit_error', { intent, source: form.source }, user?.id || null);
+      const slotProblem = /slot|full|available/i.test(submitError.message || '');
+      setError(slotProblem ? 'That slot is no longer available. Refresh the slots and choose another time.' : 'We could not save the enquiry right now. You can still contact us on WhatsApp below.');
+      trackEvent('lead_submit_error', { intent, source: form.source, hasSlot: Boolean(demoSlot?.id) }, user?.id || null);
       return;
     }
 
-    trackEvent('lead_submit_success', { intent, source: form.source, classLevel: Number(form.classLevel), board: form.board, mode: form.studyMode }, user?.id || null);
-    navigate('/demo-success', { replace: true, state: { intent } });
+    trackEvent('lead_submit_success', { intent, source: form.source, classLevel: Number(form.classLevel), board: form.board, mode: demoSlot?.mode || form.studyMode, bookedSlot: Boolean(demoSlot?.id) }, user?.id || null);
+    navigate('/demo-success', { replace: true, state: { intent, booked: Boolean(demoSlot?.id), slot: demoSlot || null, demoSubject: form.demoSubject } });
   };
 
   return (
@@ -117,15 +136,19 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
       <div>
         <span className="eyebrow">Admission enquiry</span>
         <h2 className="text-3xl mt-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{heading}</h2>
-        <p className="text-sm mt-2 leading-relaxed" style={{ color: 'var(--muted)' }}>Tell us what you are studying. We will use these details only to respond to this enquiry and help you choose the right learning option.</p>
+        <p className="text-sm mt-2 leading-relaxed" style={{ color: 'var(--muted)' }}>{demoSlot ? 'Complete your details to reserve the selected slot. Capacity is re-checked when you submit.' : 'Tell us what you are studying. We will use these details only to respond to this enquiry and help you choose the right learning option.'}</p>
       </div>
+
+      {demoSlot && <div className="rounded-xl p-3 text-sm" style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,.28)', color: 'var(--charcoal)' }}><strong>Selected:</strong> {new Intl.DateTimeFormat('en-IN', { timeZone: 'Asia/Kolkata', weekday: 'short', day: '2-digit', month: 'short', hour: 'numeric', minute: '2-digit', hour12: true }).format(new Date(demoSlot.starts_at))} IST · {demoSlot.mode} · {demoSlot.duration_minutes} min</div>}
 
       <div className="grid sm:grid-cols-2 gap-4">
         <label className="block sm:col-span-2"><span className="text-xs font-semibold" style={{ color: 'var(--muted)' }}>Student name *</span><input required maxLength={80} value={form.fullName} onChange={set('fullName')} className="input-field w-full mt-1.5" placeholder="Your name" autoComplete="name" /></label>
         <label className="block"><span className="text-xs font-semibold" style={{ color: 'var(--muted)' }}>Mobile number *</span><input required value={form.mobile} onChange={set('mobile')} className="input-field w-full mt-1.5" placeholder="+91 XXXXX XXXXX" inputMode="tel" autoComplete="tel" /></label>
+        <label className="block"><span className="text-xs font-semibold" style={{ color: 'var(--muted)' }}>Parent / guardian mobile <span className="font-normal">(optional)</span></span><input value={form.parentMobile} onChange={set('parentMobile')} className="input-field w-full mt-1.5" placeholder="+91 XXXXX XXXXX" inputMode="tel" /></label>
         <label className="block"><span className="text-xs font-semibold" style={{ color: 'var(--muted)' }}>Class *</span><select value={form.classLevel} onChange={set('classLevel')} className="input-field w-full mt-1.5"><option value="11">Class 11</option><option value="12">Class 12</option></select></label>
         <label className="block"><span className="text-xs font-semibold" style={{ color: 'var(--muted)' }}>Board *</span><select value={form.board} onChange={set('board')} className="input-field w-full mt-1.5"><option>CBSE</option><option>GSEB</option><option>Other</option></select></label>
-        <label className="block"><span className="text-xs font-semibold" style={{ color: 'var(--muted)' }}>Learning mode</span><select value={form.studyMode} onChange={set('studyMode')} className="input-field w-full mt-1.5"><option>Either</option><option>Online</option><option>Offline</option></select></label>
+        <label className="block"><span className="text-xs font-semibold" style={{ color: 'var(--muted)' }}>Learning mode</span><select disabled={Boolean(demoSlot)} value={demoSlot?.mode || form.studyMode} onChange={set('studyMode')} className="input-field w-full mt-1.5"><option>Either</option><option>Online</option><option>Offline</option></select></label>
+        {intent === 'Free Demo' && <label className="block"><span className="text-xs font-semibold" style={{ color: 'var(--muted)' }}>Demo subject</span><select value={form.demoSubject} onChange={set('demoSubject')} className="input-field w-full mt-1.5">{DEMO_SUBJECTS.map((subject) => <option key={subject}>{subject}</option>)}</select></label>}
       </div>
 
       <div>
@@ -154,7 +177,7 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
 
       {error && <div className="rounded-xl p-3 text-sm" style={{ background: 'rgba(180,83,60,.08)', border: '1px solid rgba(180,83,60,.2)', color: '#B4533C' }}>{error}</div>}
 
-      <button disabled={busy} className="btn-primary w-full inline-flex items-center justify-center gap-2 py-3.5">{busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}{busy ? 'Saving enquiry…' : intent === 'Free Demo' ? 'Request Free Demo' : 'Send Enquiry'}</button>
+      <button disabled={busy} className="btn-primary w-full inline-flex items-center justify-center gap-2 py-3.5">{busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}{busy ? 'Checking availability…' : demoSlot ? 'Reserve This Demo Slot' : intent === 'Free Demo' ? 'Request Free Demo' : 'Send Enquiry'}</button>
       <div className="flex items-center justify-center gap-2 text-xs" style={{ color: 'var(--subtle)' }}><ShieldCheck className="w-3.5 h-3.5" /> Your contact details are not shown publicly.</div>
     </form>
   );
