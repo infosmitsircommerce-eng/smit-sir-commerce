@@ -71,14 +71,15 @@ export function AuthProvider({ children }) {
   }
 
   const isPremium = profile?.is_premium === true;
+  const isAdmin = profile?.is_admin === true || profile?.role === 'admin';
   const displayName = profile?.full_name ?? user?.user_metadata?.full_name ?? user?.email?.split('@')[0] ?? 'Student';
   const initials = displayName.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
 
   return (
     <AuthContext.Provider value={{
       user, profile, loading,
-      isPremium, displayName, initials,
-      signIn, signUp, signOut, resetPassword,
+      isPremium, isAdmin, displayName, initials,
+      signIn, signUp, signOut, resetPassword, fetchProfile,
     }}>
       {children}
     </AuthContext.Provider>
