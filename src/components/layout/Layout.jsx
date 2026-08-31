@@ -1,7 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import WhatsAppButton from '../ui/WhatsAppButton';
 import MobileBottomBar from '../ui/MobileBottomBar';
 import MobileHeader from '../ui/MobileHeader';
 import ScrollToTop from '../ui/ScrollToTop';
@@ -24,7 +23,6 @@ export default function Layout({ children }) {
         {children}
       </main>
       <Footer />
-      <WhatsAppButton />
       <MobileBottomBar />
       <ScrollToTop />
     </div>

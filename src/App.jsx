@@ -55,11 +55,11 @@ function NotFound() {
 // Minimal fallback while a lazy page chunk loads
 function PageFallback() {
   return (
-    <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--bg-ivory)' }}>
+    <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--bg-ivory)' }} role="status" aria-live="polite">
       <div className="flex flex-col items-center gap-4">
         <div className="w-10 h-10 rounded-full border-2 animate-spin"
           style={{ borderColor: 'rgba(184,135,47,0.25)', borderTopColor: 'var(--gold)' }} />
-        <p className="text-sm" style={{ color: 'var(--subtle)' }}>Loading…</p>
+        <p className="text-sm" style={{ color: 'var(--subtle)' }}>Loading this page…</p>
       </div>
     </div>
   );

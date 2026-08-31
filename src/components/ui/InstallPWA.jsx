@@ -14,18 +14,40 @@ export default function InstallPWA() {
       return;
     }
 
+    let timer;
     const handler = (e) => {
       e.preventDefault();
       setPrompt(e);
-      // Show banner after 10 seconds
-      setTimeout(() => setShow(true), 10000);
+      const visits = Number(localStorage.getItem('ssc-visit-count') || '0') + 1;
+      localStorage.setItem('ssc-visit-count', String(visits));
+      const dismissedUntil = Number(localStorage.getItem('ssc-install-dismissed-until') || '0');
+
+      // Avoid interrupting a new visitor while they are still understanding the site.
+      if (Date.now() >= dismissedUntil) {
+        timer = window.setTimeout(() => setShow(true), visits > 1 ? 20000 : 30000);
+      }
+    };
+
+    const installedHandler = () => {
+      setInstalled(true);
+      setShow(false);
     };
 
     window.addEventListener('beforeinstallprompt', handler);
-    window.addEventListener('appinstalled', () => setInstalled(true));
+    window.addEventListener('appinstalled', installedHandler);
 
-    return () => window.removeEventListener('beforeinstallprompt', handler);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener('beforeinstallprompt', handler);
+      window.removeEventListener('appinstalled', installedHandler);
+    };
   }, []);
+
+  function dismissInstall() {
+    // A dismissal stays respected for one week.
+    localStorage.setItem('ssc-install-dismissed-until', String(Date.now() + 7 * 24 * 60 * 60 * 1000));
+    setShow(false);
+  }
 
   async function handleInstall() {
     if (!prompt) return;
@@ -67,13 +89,15 @@ export default function InstallPWA() {
           <div className="flex items-center gap-2 flex-shrink-0">
             <button
               onClick={handleInstall}
+              aria-label="Install Smit Sir Commerce app"
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-navy-950 transition-all"
               style={{ background: 'linear-gradient(135deg, #D4AF37, #F0C040)' }}
             >
               <Download className="w-3 h-3" /> Install
             </button>
             <button
-              onClick={() => setShow(false)}
+              onClick={dismissInstall}
+              aria-label="Dismiss install app suggestion"
               className="w-7 h-7 rounded-lg flex items-center justify-center text-navy-400 hover:text-white transition-colors"
               style={{ background: 'rgba(255,255,255,0.05)' }}
             >

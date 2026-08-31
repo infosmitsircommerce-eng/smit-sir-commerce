@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Download, ExternalLink, FileWarning } from 'lucide-react';
 
@@ -6,6 +6,7 @@ export default function PdfViewer() {
   const [searchParams] = useSearchParams();
   const requestedFile = searchParams.get('file') || '';
   const title = searchParams.get('title') || 'Study Material';
+  const [online, setOnline] = useState(() => navigator.onLine);
 
   const fileUrl = useMemo(() => {
     const cleanPath = requestedFile.split('#')[0].split('?')[0];
@@ -13,6 +14,16 @@ export default function PdfViewer() {
       ? cleanPath
       : '';
   }, [requestedFile]);
+
+  useEffect(() => {
+    const updateConnection = () => setOnline(navigator.onLine);
+    window.addEventListener('online', updateConnection);
+    window.addEventListener('offline', updateConnection);
+    return () => {
+      window.removeEventListener('online', updateConnection);
+      window.removeEventListener('offline', updateConnection);
+    };
+  }, []);
 
   if (!fileUrl) {
     return (
@@ -60,8 +71,11 @@ export default function PdfViewer() {
         <div className="md:hidden card-paper p-6 text-center">
           <FileWarning className="w-10 h-10 mx-auto mb-3" style={{ color: 'var(--gold)' }} />
           <h2 className="text-xl mb-2" style={{ color: 'var(--ink)' }}>Open the mobile PDF reader</h2>
-          <p className="text-sm mb-5" style={{ color: 'var(--muted)' }}>For clear text and pinch-to-zoom controls, open this PDF in your phone's built-in viewer.</p>
-          <a href={fileUrl} target="_blank" rel="noopener noreferrer" className="btn-primary w-full min-h-12 inline-flex items-center justify-center gap-2">
+          <p className="text-sm mb-2" style={{ color: 'var(--muted)' }}>For clear text and pinch-to-zoom controls, open this PDF in your phone's built-in viewer.</p>
+          <p className="text-xs mb-5" style={{ color: online ? 'var(--subtle)' : '#b42318' }} role="status" aria-live="polite">
+            {online ? 'Mobile-friendly file · usually under 600 KB' : 'You are offline. Reconnect to open this PDF.'}
+          </p>
+          <a href={fileUrl} target="_blank" rel="noopener noreferrer" aria-disabled={!online} onClick={(event) => { if (!online) event.preventDefault(); }} className={`btn-primary w-full min-h-12 inline-flex items-center justify-center gap-2 ${online ? '' : 'opacity-50 cursor-not-allowed'}`}>
             <ExternalLink className="w-4 h-4" /> Read PDF now
           </a>
         </div>
