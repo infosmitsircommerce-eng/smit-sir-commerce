@@ -48,7 +48,7 @@ function QuizPlayer({ quiz, onClose }) {
         <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white border border-gray-200 rounded-2xl p-8 max-w-md w-full">
           <div className="text-center mb-6">
             <div className="text-5xl mb-3">{score >= 80 ? '🏆' : score >= 60 ? '🎯' : '📚'}</div>
-            <h3 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, fontSize: '1.5rem', color: 'var(--ink)' }}>Quiz Complete!</h3>
+            <h3 style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: '1.5rem', color: 'var(--ink)' }}>Quiz Complete!</h3>
             <div className={`font-bold text-5xl mt-2 ${score >= 80 ? 'text-emerald-400' : score >= 60 ? 'text-amber-600' : 'text-red-400'}`}>{score}%</div>
           </div>
           <div className="grid grid-cols-2 gap-4 mb-6">
@@ -198,7 +198,7 @@ export default function Quizzes() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.08 }}
-            style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700, color: 'var(--ink)', letterSpacing: '-0.025em', lineHeight: 1.12, marginBottom: '14px' }}
+            style={{ fontFamily: 'var(--font-sans)', fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 750, color: 'var(--ink)', letterSpacing: '-0.045em', lineHeight: 1.12, marginBottom: '14px' }}
           >
             Quizzes &amp; <em style={{ fontStyle: 'italic', background: 'linear-gradient(135deg, var(--gold), var(--gold-soft))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Practice</em>
           </motion.h1>

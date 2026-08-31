@@ -24,8 +24,8 @@ const fade = (delay = 0) => ({
 
 export default function HeroSection() {
   return (
-    <section style={{
-      background: 'linear-gradient(135deg, #fffdf9 0%, #f8f3e9 52%, #f0e4d0 100%)',
+    <section className="home-hero" style={{
+      background: 'linear-gradient(135deg, #ffffff 0%, #f2f4ff 52%, #f8fafc 100%)',
       position: 'relative',
       overflow: 'hidden',
     }}>
@@ -33,13 +33,13 @@ export default function HeroSection() {
       <div aria-hidden="true" style={{
         position: 'absolute', top: '-170px', right: '8%',
         width: '440px', height: '440px', borderRadius: '50%',
-        background: 'rgba(218,178,101,0.22)', filter: 'blur(40px)',
+        background: 'rgba(99,102,241,0.20)', filter: 'blur(48px)',
         pointerEvents: 'none',
       }} />
       <div aria-hidden="true" style={{
         position: 'absolute', bottom: '-220px', left: '4%',
         width: '520px', height: '520px', borderRadius: '50%',
-        background: 'rgba(211,222,235,0.42)', filter: 'blur(55px)',
+        background: 'rgba(14,165,233,0.14)', filter: 'blur(58px)',
         pointerEvents: 'none',
       }} />
 
@@ -59,12 +59,12 @@ export default function HeroSection() {
                 display: 'inline-flex', alignItems: 'center', gap: '8px',
                 padding: '8px 13px', borderRadius: '999px',
                 background: 'rgba(255,255,255,0.72)',
-                border: '1px solid rgba(184,135,47,0.22)',
-                boxShadow: '0 8px 24px rgba(82,58,24,0.06)',
+                border: '1px solid #D9DEFF',
+                boxShadow: '0 8px 24px rgba(67,56,202,0.08)',
                 fontFamily: 'var(--font-sans)', fontSize: '11px', fontWeight: 700,
-                letterSpacing: '0.09em', textTransform: 'uppercase', color: '#8a621f',
+                letterSpacing: '0.09em', textTransform: 'uppercase', color: '#4338CA',
               }}>
-                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--gold)' }} />
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#4F46E5' }} />
                 CBSE Commerce · Class 11 &amp; 12 · Mehsana + Online
               </span>
             </motion.div>
@@ -83,10 +83,11 @@ export default function HeroSection() {
               <br />
               <em style={{
                 fontFamily: 'var(--font-serif)',
-                fontStyle: 'italic',
-                fontWeight: 600,
-                fontSize: '1.12em',
-                color: '#9a6b1f',
+                fontStyle: 'normal',
+                fontWeight: 750,
+                fontSize: '1em',
+                background: 'linear-gradient(135deg, #4F46E5, #7C3AED)',
+                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
               }}>
                 finally made clear.
               </em>
@@ -136,8 +137,8 @@ export default function HeroSection() {
                   minHeight: '86px', padding: '15px 13px',
                   borderRadius: '14px',
                   background: 'rgba(255,255,255,0.74)',
-                  border: '1px solid rgba(184,135,47,0.14)',
-                  boxShadow: '0 10px 28px rgba(58,42,22,0.055)',
+                  border: '1px solid #E2E7F0',
+                  boxShadow: '0 12px 30px rgba(16,24,40,0.06)',
                 }}>
                   <div style={{
                     fontFamily: 'var(--font-serif)', fontSize: '1.45rem',
@@ -165,7 +166,7 @@ export default function HeroSection() {
             <div aria-hidden="true" style={{
               position: 'absolute', inset: '12% -8% -8% 10%',
               borderRadius: '28px',
-              background: 'rgba(184,135,47,0.18)',
+              background: 'rgba(79,70,229,0.18)',
               filter: 'blur(28px)', pointerEvents: 'none',
             }} />
 
@@ -174,11 +175,11 @@ export default function HeroSection() {
               background: 'var(--bg-white)',
               borderRadius: '22px',
               overflow: 'hidden',
-              border: '1px solid rgba(184,135,47,0.16)',
-              boxShadow: '0 24px 60px rgba(45,32,18,0.14)',
+              border: '1px solid #E0E5EE',
+              boxShadow: '0 28px 70px rgba(16,24,40,0.16)',
             }}>
               {/* Gold accent top */}
-              <div style={{ height: '3px', background: 'linear-gradient(90deg, var(--gold), var(--gold-soft), var(--gold))' }} />
+              <div style={{ height: '4px', background: 'linear-gradient(90deg, #4F46E5, #7C3AED, #F59E0B)' }} />
 
               {/* Photo */}
               <img

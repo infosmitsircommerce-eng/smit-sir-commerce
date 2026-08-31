@@ -68,11 +68,11 @@ export default function Navbar() {
   // Theme palette for the two nav variants
   const T = light ? {
     scrolledBg: {
-      background: 'rgba(250,246,238,0.88)',
+      background: 'rgba(247,248,252,0.92)',
       backdropFilter: 'blur(20px)',
       WebkitBackdropFilter: 'blur(20px)',
-      borderBottom: '1px solid rgba(184,135,47,0.18)',
-      boxShadow: '0 4px 24px rgba(30,24,18,0.06)',
+      borderBottom: '1px solid rgba(225,230,239,0.95)',
+      boxShadow: '0 8px 28px rgba(16,24,40,0.07)',
     },
     linkColor: 'var(--charcoal)',
     linkActive: 'var(--gold)',
@@ -272,7 +272,7 @@ export default function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             className="lg:hidden backdrop-blur-xl"
             style={light
-              ? { background: 'rgba(250,246,238,0.98)', borderTop: '1px solid var(--border)' }
+              ? { background: 'rgba(247,248,252,0.98)', borderTop: '1px solid var(--border)' }
               : { background: 'rgba(15,13,46,0.98)', borderTop: '1px solid #3730a3' }}
           >
             <div className="page-container py-4 space-y-1">

@@ -20,9 +20,9 @@ export default function PageLoader() {
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
           style={{ background: 'var(--bg-ivory)' }}
         >
-          {/* Faint ruled-paper lines */}
+          {/* Soft platform glow */}
           <div className="absolute inset-0 pointer-events-none"
-            style={{ backgroundImage: 'repeating-linear-gradient(180deg, transparent 0px, transparent 47px, rgba(184,135,47,0.05) 47px, rgba(184,135,47,0.05) 48px)' }} />
+            style={{ background: 'radial-gradient(circle at 50% 35%, rgba(79,70,229,0.12), transparent 34%)' }} />
 
           <div className="relative flex flex-col items-center gap-6">
             {/* Logo icon */}

@@ -34,13 +34,13 @@ export default function MobileHeader() {
     return () => { document.body.style.overflow = previous; };
   }, [open]);
 
-  const surface = light ? '#fffdf9' : '#181310';
+  const surface = light ? '#F7F8FC' : '#101828';
   const text = light ? 'var(--ink)' : 'var(--ivory-on-ink)';
   const muted = light ? 'var(--muted)' : 'var(--muted-on-ink)';
 
   return <>
     <header className="mobile-site-header lg:hidden sticky top-0 z-[60] flex items-center justify-between px-4 h-16"
-      style={{ background: light ? 'rgba(255,253,249,0.96)' : 'rgba(24,19,16,0.96)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', borderBottom: light ? '1px solid var(--border)' : '1px solid rgba(255,255,255,0.08)' }}>
+      style={{ background: light ? 'rgba(247,248,252,0.96)' : 'rgba(16,24,40,0.96)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', borderBottom: light ? '1px solid var(--border)' : '1px solid rgba(255,255,255,0.08)' }}>
       <Link to="/" className="flex items-center gap-2.5 min-w-0" aria-label="Smit Sir Commerce home">
         <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg, #C9A050, #B8872F)' }}>
           <GraduationCap className="w-5 h-5" style={{ color: '#1E1812' }} strokeWidth={2.3} />

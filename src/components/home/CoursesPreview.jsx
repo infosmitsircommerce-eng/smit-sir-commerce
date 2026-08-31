@@ -173,7 +173,7 @@ function SubjectCard({ subject, index }) {
 
       {/* Name */}
       <div style={{
-        fontFamily: "'Playfair Display', serif",
+        fontFamily: 'var(--font-sans)',
         fontSize: '1.1rem', fontWeight: 700,
         color: 'var(--ink)', marginBottom: '6px', lineHeight: 1.2,
       }}>{subject.name}</div>
@@ -290,7 +290,7 @@ export default function CoursesPreview() {
             <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '11px', fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--gold)' }}>CBSE Commerce Curriculum</span>
           </div>
           <h2 style={{
-            fontFamily: "'Playfair Display', serif",
+            fontFamily: 'var(--font-sans)',
             fontSize: 'clamp(2rem, 3.5vw, 2.8rem)',
             fontWeight: 700, color: 'var(--ink)',
             letterSpacing: '-0.025em', lineHeight: 1.12,

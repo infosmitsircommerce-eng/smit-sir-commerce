@@ -2,50 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ===================== THE LEDGER — EDITORIAL TOKENS =====================
-   Warm ivory paper, ink text, old-gold rules. Single source of truth for
-   the editorial theme used across the homepage and light pages. */
+/* ===================== MODERN LEARNING PLATFORM TOKENS ===================== */
 :root {
-  /* Paper */
-  --bg-ivory:    #FAF6EE;
-  --bg-cream:    #F3ECDD;
-  --bg-soft:     #F1EAD9;
+  /* Surfaces */
+  --bg-ivory:    #F7F8FC;
+  --bg-cream:    #EEF2FF;
+  --bg-soft:     #EEF1F7;
   --bg-white:    #FFFFFF;
 
-  /* Ink */
-  --ink:         #1E1812;
-  --espresso:    #2E2418;
-  --charcoal:    #4A4036;
-  --muted:       #6E6354;
-  --subtle:      #9A8E7C;
+  /* Text */
+  --ink:         #172033;
+  --espresso:    #202A44;
+  --charcoal:    #374151;
+  --muted:       #667085;
+  --subtle:      #98A2B3;
 
-  /* Rules & hairlines */
-  --border:      #E6DCC8;
-  --border-soft: #EFE8D8;
+  /* Borders */
+  --border:      #E1E6EF;
+  --border-soft: #EDF0F5;
 
-  /* Old gold */
-  --gold:        #A87B2A;
-  --gold-soft:   #C9A050;
-  --gold-bright: #D9AC5C;
-  --gold-bg:     rgba(168,123,42,0.09);
+  /* Brand accents */
+  --gold:        #B7791F;
+  --gold-soft:   #E0A72B;
+  --gold-bright: #F6C453;
+  --gold-bg:     rgba(245,158,11,0.10);
+  --brand:       #4338CA;
+  --brand-soft:  #EEF2FF;
 
-  /* Dark "ink" sections (warm, not navy) */
-  --ink-bg:      #181310;
-  --ink-bg-2:    #221B15;
-  --ivory-on-ink:#F3ECDD;
-  --muted-on-ink:#A6988A;
+  /* Dark sections */
+  --ink-bg:      #101828;
+  --ink-bg-2:    #182230;
+  --ivory-on-ink:#F8FAFC;
+  --muted-on-ink:#A8B3C5;
 
   /* Semantic */
   --green:       #4D7C0F;
 
   /* Elevation */
-  --shadow-sm:   0 1px 2px rgba(30,24,18,0.06), 0 2px 8px rgba(30,24,18,0.05);
-  --shadow-md:   0 4px 12px rgba(30,24,18,0.07), 0 12px 32px rgba(30,24,18,0.08);
-  --shadow-gold: 0 8px 28px rgba(168,123,42,0.28);
+  --shadow-sm:   0 1px 2px rgba(16,24,40,0.04), 0 6px 18px rgba(16,24,40,0.05);
+  --shadow-md:   0 18px 45px rgba(16,24,40,0.10);
+  --shadow-gold: 0 12px 30px rgba(180,121,31,0.22);
 
   /* Type */
-  --font-serif:  'Playfair Display', Georgia, serif;
-  --font-accent: 'Cormorant Garamond', Georgia, serif;
+  --font-serif:  'DM Sans', system-ui, sans-serif;
+  --font-accent: 'DM Sans', system-ui, sans-serif;
   --font-sans:   'DM Sans', system-ui, sans-serif;
 }
 
@@ -76,7 +76,7 @@
 
   h1 {
     font-family: var(--font-serif);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.045em;
     line-height: 1.1;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -84,7 +84,7 @@
 
   h2, h3 {
     font-family: var(--font-serif);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.035em;
     line-height: 1.1;
   }
 
@@ -141,15 +141,15 @@
   .btn-primary {
     @apply relative font-bold px-6 py-3 overflow-hidden inline-flex items-center justify-center gap-2;
     font-family: var(--font-sans);
-    color: var(--ivory-on-ink);
-    background: linear-gradient(135deg, #2A2118 0%, #1E1812 55%, #2A2118 100%);
+    color: #fff;
+    background: linear-gradient(135deg, #4F46E5 0%, #3730A3 100%);
     background-size: 200% 200%;
-    border: 1px solid rgba(217,172,92,0.35);
-    border-radius: 10px;
-    box-shadow: 0 4px 18px rgba(30,24,18,0.25), inset 0 1px 0 rgba(217,172,92,0.18);
+    border: 1px solid rgba(67,56,202,0.35);
+    border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(67,56,202,0.24), inset 0 1px 0 rgba(255,255,255,0.18);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .btn-primary:hover  { background-position: right center; border-color: rgba(217,172,92,0.7); box-shadow: 0 8px 28px rgba(30,24,18,0.32), inset 0 1px 0 rgba(217,172,92,0.3); transform: translateY(-2px); color: var(--gold-bright); }
+  .btn-primary:hover  { background-position: right center; border-color: #6366F1; box-shadow: 0 14px 32px rgba(67,56,202,0.3); transform: translateY(-2px); color: #fff; }
   .btn-primary:active { transform: translateY(0px) scale(0.97); transition-duration: 0.08s; }
 
   .btn-primary::after {
@@ -159,7 +159,7 @@
     left: -75%;
     width: 50%;
     height: 200%;
-    background: linear-gradient(120deg, transparent, rgba(217,172,92,0.22), transparent);
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.24), transparent);
     transform: skewX(-20deg);
     animation: btn-shimmer 4s infinite;
   }
@@ -184,11 +184,11 @@
     font-family: var(--font-sans);
     color: var(--ink);
     background: transparent;
-    border: 1px solid var(--ink);
-    border-radius: 10px;
+    border: 1px solid #CBD5E1;
+    border-radius: 12px;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .btn-outline-ink:hover  { background: var(--ink); color: var(--ivory-on-ink); transform: translateY(-2px); }
+  .btn-outline-ink:hover  { background: var(--brand-soft); border-color: #A5B4FC; color: var(--brand); transform: translateY(-2px); }
   .btn-outline-ink:active { transform: translateY(0) scale(0.97); }
 
   .btn-secondary {
@@ -228,7 +228,7 @@
 
   .section-heading {
     @apply text-3xl md:text-4xl lg:text-5xl font-black;
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: var(--font-sans);
     letter-spacing: -0.02em;
     line-height: 1.1;
     color: inherit;
@@ -281,8 +281,8 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: var(--gold-bg);
-    border: 1px solid rgba(184,135,47,0.22);
+    background: var(--brand-soft);
+    border: 1px solid #D9DEFF;
     border-radius: 999px;
     padding: 5px 14px;
     font-family: var(--font-sans);
@@ -290,14 +290,14 @@
     font-weight: 700;
     letter-spacing: 0.09em;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--brand);
   }
   .eyebrow::before {
     content: '';
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: var(--gold);
+    background: var(--brand);
     flex-shrink: 0;
   }
   .eyebrow-on-ink {
@@ -312,16 +312,16 @@
     font-family: var(--font-serif);
     font-weight: 700;
     font-size: clamp(2rem, 3.6vw, 2.9rem);
-    letter-spacing: -0.025em;
+    letter-spacing: -0.045em;
     line-height: 1.12;
     color: var(--ink);
   }
   .headline em {
     font-family: var(--font-accent);
-    font-style: italic;
-    font-weight: 600;
-    font-size: 1.08em;
-    background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+    font-style: normal;
+    font-weight: 750;
+    font-size: 1em;
+    background: linear-gradient(135deg, #4F46E5, #7C3AED);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -344,38 +344,27 @@
 
   /* ===== Notebook touches — keeps the site friendly, not stuffy ===== */
 
-  /* Highlighter swipe behind a word, like a student's marker */
+  /* Accent text without notebook/highlighter styling */
   .marker {
     display: inline;
-    background: linear-gradient(104deg,
-      rgba(242,205,92,0) 0.9%,
-      rgba(242,205,92,0.6) 2.4%,
-      rgba(242,205,92,0.45) 50%,
-      rgba(242,205,92,0.6) 97%,
-      rgba(242,205,92,0) 98.5%);
-    border-radius: 6px 2px 8px 3px;
-    padding: 0.08em 0.22em;
-    margin: 0 -0.08em;
-    -webkit-box-decoration-break: clone;
-    box-decoration-break: clone;
+    color: var(--brand);
+    background: none;
+    padding: 0;
+    margin: 0;
   }
 
   /* Hand-drawn squiggle underline */
   .squiggle {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8 C 15 2, 28 11, 42 7 S 70 2, 84 7 S 110 10, 118 5' fill='none' stroke='%23C9A050' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: bottom left;
-    background-size: 100% 0.3em;
-    padding-bottom: 0.32em;
+    background: linear-gradient(135deg, #4F46E5, #7C3AED);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 0;
   }
 
   /* Graph-paper background, like a maths notebook page */
   .bg-graph-paper {
-    background-color: var(--bg-white);
-    background-image:
-      linear-gradient(rgba(184,135,47,0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(184,135,47,0.06) 1px, transparent 1px);
-    background-size: 28px 28px;
+    background: linear-gradient(180deg, #FFFFFF 0%, #F7F8FC 100%);
   }
 
   /* Sticky-note tilt for playful badges */
@@ -387,29 +376,33 @@
 
   /* ===== Editorial page primitives (interior pages) ===== */
 
-  /* Page header band — ruled ivory paper */
+  /* Modern page header band */
   .page-hero {
-    background: var(--bg-ivory);
-    background-image: repeating-linear-gradient(180deg, transparent 0px, transparent 47px, rgba(184,135,47,0.05) 47px, rgba(184,135,47,0.05) 48px);
-    border-bottom: 1px solid var(--border);
-    padding-top: 64px;
-    padding-bottom: 56px;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 88% 12%, rgba(99,102,241,0.15), transparent 28%),
+      radial-gradient(circle at 12% 85%, rgba(245,158,11,0.10), transparent 28%),
+      linear-gradient(135deg, #FFFFFF 0%, #F4F6FF 55%, #F7F8FC 100%);
+    border-bottom: 1px solid #E6E9F2;
+    padding-top: 72px;
+    padding-bottom: 64px;
   }
   .page-hero h1 {
     font-family: var(--font-serif);
     font-weight: 700;
     font-size: clamp(2.1rem, 4vw, 3rem);
-    letter-spacing: -0.025em;
+    letter-spacing: -0.05em;
     line-height: 1.1;
     color: var(--ink);
     margin-bottom: 14px;
   }
   .page-hero h1 em {
     font-family: var(--font-accent);
-    font-style: italic;
-    font-weight: 600;
-    font-size: 1.1em;
-    background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+    font-style: normal;
+    font-weight: 750;
+    font-size: 1em;
+    background: linear-gradient(135deg, #4F46E5, #7C3AED);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -420,33 +413,33 @@
   }
   .page-hero .section-subheading { color: var(--gold); }
 
-  /* White paper card with hairline */
+  /* Modern elevated content card */
   .card-paper {
-    background: var(--bg-white);
-    border: 1px solid var(--border);
-    border-radius: 1rem;
-    box-shadow: var(--shadow-sm);
+    background: rgba(255,255,255,0.96);
+    border: 1px solid #E4E8F0;
+    border-radius: 20px;
+    box-shadow: 0 8px 28px rgba(16,24,40,0.065);
     transition: transform 0.25s cubic-bezier(0.4,0,0.2,1),
                 box-shadow 0.25s cubic-bezier(0.4,0,0.2,1),
                 border-color 0.25s cubic-bezier(0.4,0,0.2,1);
   }
   .card-paper:hover {
-    border-color: rgba(184,135,47,0.35);
-    box-shadow: var(--shadow-md);
-    transform: translateY(-3px);
+    border-color: #C7D2FE;
+    box-shadow: 0 20px 48px rgba(16,24,40,0.11);
+    transform: translateY(-4px);
   }
 
   /* Small interactive tile on paper */
   .tile-paper {
-    background: var(--bg-ivory);
-    border: 1px solid var(--border);
-    border-radius: 0.65rem;
+    background: #F8FAFC;
+    border: 1px solid #E5EAF2;
+    border-radius: 12px;
     color: var(--charcoal);
     transition: background 0.18s ease, border-color 0.18s ease;
   }
   .tile-paper:hover {
-    background: var(--gold-bg);
-    border-color: rgba(184,135,47,0.35);
+    background: var(--brand-soft);
+    border-color: #C7D2FE;
   }
 
   /* Segmented pill toggle on paper */
@@ -800,7 +793,7 @@ body::before {
   inset: 0;
   z-index: 9997;
   pointer-events: none;
-  opacity: 0.035;
+  display: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 200px 200px;
 }
@@ -922,7 +915,7 @@ body::before {
 
   input, select, textarea { font-size: 16px !important; }
 
-  .card-paper { border-radius: 14px; }
+  .card-paper { border-radius: 16px; }
   .card-paper:hover { transform: none; box-shadow: var(--shadow-sm); }
   .toggle-paper { width: 100%; }
   .toggle-paper button { flex: 1; min-width: 0; min-height: 46px; padding-left: 10px; padding-right: 10px; }

@@ -17,5 +17,8 @@ export const LIGHT_ROUTES = [
 ];
 
 export function isLightRoute(pathname) {
-  return LIGHT_ROUTES.includes(pathname);
+  return LIGHT_ROUTES.includes(pathname)
+    || pathname === '/cbse-notes'
+    || pathname.startsWith('/cbse/')
+    || pathname === '/pdf-viewer';
 }
