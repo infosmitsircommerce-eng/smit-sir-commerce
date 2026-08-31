@@ -1,0 +1,33 @@
+-- Smit Sir Commerce — real demo scheduling and follow-up workflow
+-- Applied to the connected production Supabase project.
+--
+-- This migration creates admin-managed demo slots and bookings, exposes only
+-- aggregate available-slot data to public visitors, capacity-locks bookings
+-- inside Postgres, links booked slots to admission leads, and moves completed
+-- or no-show demos into the follow-up pipeline.
+--
+-- The live migration was applied through Supabase migration tooling. Keep this
+-- file as the repository record for future environments. See the database
+-- migration named: demo_scheduling_and_followups.
+
+-- Core objects created/extended by the migration:
+--   public.demo_slots
+--   public.demo_bookings
+--   public.list_available_demo_slots()
+--   private.ensure_demo_booking_capacity()
+--   private.prepare_lead_submission()
+--   private.process_lead_submission()
+--   private.log_demo_booking_change()
+--
+-- Extended fields:
+--   public.leads.parent_mobile
+--   public.lead_submissions.demo_slot_id
+--   public.lead_submissions.demo_subject
+--   public.lead_submissions.parent_mobile
+--
+-- Security model:
+--   * visitors cannot read demo bookings, leads, parent numbers or owner notes
+--   * visitors can only call list_available_demo_slots() for non-sensitive availability
+--   * only platform admins can create/update demo_slots or demo_bookings
+--   * selected-slot capacity is rechecked under a row lock at booking time
+--   * public lead submission remains consent-gated and RLS-protected
