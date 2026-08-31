@@ -14,6 +14,16 @@ begin
   end if;
 end $$;
 
+drop policy if exists "students update own preferences" on public.profiles;
+create policy "students update own preferences" on public.profiles
+for update to authenticated
+using ((select auth.uid()) = id)
+with check ((select auth.uid()) = id);
+
+-- Students may update study-preference columns only. Premium/admin fields remain protected.
+revoke update on public.profiles from authenticated;
+grant update (class_level, board, subjects, study_goal, exam_date, onboarding_completed, updated_at) on public.profiles to authenticated;
+
 create or replace function public.update_student_preferences(
   p_class_level integer,
   p_board text,
@@ -23,7 +33,7 @@ create or replace function public.update_student_preferences(
 )
 returns void
 language plpgsql
-security definer
+security invoker
 set search_path = public
 as $$
 declare
