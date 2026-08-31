@@ -42,8 +42,8 @@ export default defineConfig({
         ],
       },
       workbox: {
-        // Let PDF navigation reach the real files instead of the SPA fallback.
-        navigateFallbackDenylist: [/^\/materials\//, /^\/cbse\//, /\.pdf$/i],
+        // Let crawlable SEO documents and PDFs reach their real files instead of the SPA fallback.
+        navigateFallbackDenylist: [/^\/materials\//, /^\/cbse\//, /^\/sitemap\.xml$/, /^\/robots\.txt$/, /\.pdf$/i],
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         runtimeCaching: [
           {
