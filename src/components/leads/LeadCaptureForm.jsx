@@ -1,31 +1,21 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Check, Loader2, Send, ShieldCheck } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { trackEvent } from '../../lib/analytics';
+import { captureAcquisition } from '../../lib/acquisition';
 import { useAuth } from '../../context/AuthContext';
 
 const SUBJECTS = ['Accountancy', 'Economics', 'Business Studies', 'Entrepreneurship', 'Physical Education'];
 const SOURCES = ['Google', 'Instagram', 'WhatsApp', 'Referral', 'Direct', 'Other'];
 
-function inferSource(search) {
-  const params = new URLSearchParams(search);
-  const explicit = params.get('source');
-  const utm = (params.get('utm_source') || '').toLowerCase();
-  const ref = (typeof document !== 'undefined' ? document.referrer : '').toLowerCase();
-  const combined = `${explicit || ''} ${utm} ${ref}`.toLowerCase();
-  if (combined.includes('google')) return 'Google';
-  if (combined.includes('instagram') || combined.includes('ig')) return 'Instagram';
-  if (combined.includes('whatsapp') || combined.includes('wa.me')) return 'WhatsApp';
-  if (combined.includes('referral') || combined.includes('refer')) return 'Referral';
-  return explicit && SOURCES.includes(explicit) ? explicit : 'Direct';
-}
-
 export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book your free demo', compact = false }) {
   const { user } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-  const initialSource = useMemo(() => inferSource(location.search), [location.search]);
+  const attribution = captureAcquisition(location.pathname, location.search);
+  const firstTouch = attribution?.first || {};
+  const initialSource = firstTouch.source || 'Direct';
   const startedAt = useRef(Date.now());
   const trackedStart = useRef(false);
   const [busy, setBusy] = useState(false);
@@ -91,7 +81,6 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
     setBusy(true);
     trackEvent('lead_submit_attempt', { intent, source: form.source, classLevel: Number(form.classLevel), board: form.board, mode: form.studyMode }, user?.id || null);
 
-    const params = new URLSearchParams(location.search);
     const payload = {
       full_name: form.fullName.trim(),
       mobile: form.mobile.trim(),
@@ -104,10 +93,10 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
       intent,
       message: form.message.trim() || null,
       consent: true,
-      first_path: location.pathname,
-      utm_source: params.get('utm_source') || null,
-      utm_medium: params.get('utm_medium') || null,
-      utm_campaign: params.get('utm_campaign') || null,
+      first_path: firstTouch.path || location.pathname,
+      utm_source: firstTouch.utmSource || null,
+      utm_medium: firstTouch.utmMedium || null,
+      utm_campaign: firstTouch.utmCampaign || null,
     };
 
     const { error: submitError } = await supabase.from('lead_submissions').insert(payload);
