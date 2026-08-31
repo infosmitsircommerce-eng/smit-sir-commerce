@@ -19,7 +19,8 @@ const SeoMaterialHub  = lazy(() => import('./pages/SeoMaterialHub'));
 const SeoMaterialChapter = lazy(() => import('./pages/SeoMaterialChapter'));
 const CbseNotes       = lazy(() => import('./pages/CbseNotes'));
 const Quizzes         = lazy(() => import('./pages/Quizzes'));
-const TestSeries      = lazy(() => import('./pages/TestSeries'));
+const TestSeries      = lazy(() => import('./pages/TestSeriesPro'));
+const DailyPractice   = lazy(() => import('./pages/DailyPractice'));
 const LiveClasses     = lazy(() => import('./pages/LiveClasses'));
 const BatchPage       = lazy(() => import('./pages/BatchPage'));
 const StudentDashboard = lazy(() => import('./pages/StudentDashboard'));
@@ -71,7 +72,8 @@ const ROUTE_SEO = {
   '/lectures': { title: 'CBSE Commerce Video Lectures — Coming Soon', description: 'The video library is being prepared. Use the published PDF notes in the meantime.', noindex: true },
   '/study-material': { title: 'Free CBSE Commerce PDF Notes — Class 11 & 12', description: 'Download and view 26 free chapter-wise CBSE Commerce PDFs.' },
   '/quizzes': { title: 'CBSE Commerce Quizzes and Practice', description: 'Practice Commerce concepts with quizzes and revision tools.' },
-  '/test-series': { title: 'CBSE Commerce Test Series', description: 'Practice Class 11 and 12 Commerce with chapter-wise tests.' },
+  '/test-series': { title: 'CBSE Commerce Test Series', description: 'Practice Class 11 and 12 Commerce with chapter-wise tests, saved progress and Pro access.' },
+  '/daily-practice': { title: 'Daily 10 Commerce Practice', description: 'Daily CBSE Commerce questions with a streak, Mistake Book and Weak Topic Radar.' },
   '/live-classes': { title: 'CBSE Commerce Live Classes', description: 'Learn about live CBSE Commerce classes.' },
   '/online-batch': { title: 'Online CBSE Commerce Coaching', description: 'Online CBSE Commerce coaching for Class 11 and 12.' },
   '/offline-batch': { title: 'Offline Commerce Coaching in Mehsana', description: 'Offline CBSE Commerce coaching in Mehsana, Gujarat.' },
@@ -166,6 +168,11 @@ function AnimatedRoutes() {
             <Route path="/test-series" element={
               <Suspense fallback={<PageFallback />}>
                 <PageTransition><TestSeries /></PageTransition>
+              </Suspense>
+            } />
+            <Route path="/daily-practice" element={
+              <Suspense fallback={<PageFallback />}>
+                <PageTransition><DailyPractice /></PageTransition>
               </Suspense>
             } />
             <Route path="/live-classes" element={
