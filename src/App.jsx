@@ -33,6 +33,9 @@ const BatchPage       = lazy(() => import('./pages/BatchPage'));
 const StudentDashboard = lazy(() => import('./pages/StudentDashboard'));
 const AdminDashboard  = lazy(() => import('./pages/AdminDashboard'));
 const AdminStudio     = lazy(() => import('./pages/AdminStudio'));
+const LeadCRM         = lazy(() => import('./pages/LeadCRM'));
+const BookDemo        = lazy(() => import('./pages/BookDemo'));
+const DemoSuccess     = lazy(() => import('./pages/DemoSuccess'));
 const Games           = lazy(() => import('./pages/Games'));
 const Flashcards      = lazy(() => import('./pages/Flashcards'));
 const AskDoubt        = lazy(() => import('./pages/AskDoubt'));
@@ -89,8 +92,10 @@ const ROUTE_SEO = {
   '/live-classes': { title: 'CBSE Commerce Live Classes', description: 'Learn about live CBSE Commerce classes.' },
   '/online-batch': { title: 'Online CBSE Commerce Coaching', description: 'Online CBSE Commerce coaching for Class 11 and 12.' },
   '/offline-batch': { title: 'Offline Commerce Coaching in Mehsana', description: 'Offline CBSE Commerce coaching in Mehsana, Gujarat.' },
+  '/book-demo': { title: 'Book a Free Commerce Demo Class', description: 'Request a free Class 11 or 12 Commerce demo and tell us your board, subjects and preferred learning mode.' },
+  '/demo-success': { title: 'Enquiry Received', description: 'Your enquiry has been received.', noindex: true },
   '/about': { title: 'About Smit Sir — Commerce Teacher Mehsana', description: 'Learn about Smit Sir Commerce and the teaching approach.' },
-  '/contact': { title: 'Contact Smit Sir Commerce', description: 'Contact Smit Sir Commerce or book a free demo class.' },
+  '/contact': { title: 'Contact Smit Sir Commerce', description: 'Contact Smit Sir Commerce or send an admission enquiry.' },
   '/faq': { title: 'CBSE Commerce Coaching FAQ', description: 'Answers about subjects, resources, batches and demo classes.' },
   '/privacy': { title: 'Privacy Policy — Smit Sir Commerce', description: 'How account, enquiry and learning-progress data is handled.' },
   '/terms': { title: 'Terms of Use — Smit Sir Commerce', description: 'Terms for using Smit Sir Commerce learning resources and tools.' },
@@ -102,6 +107,7 @@ const ROUTE_SEO = {
   '/login': { title: 'Student Login', description: 'Student login.', noindex: true },
   '/onboarding': { title: 'Student Study Setup', description: 'Private student study preferences.', noindex: true },
   '/admin': { title: 'Admin', description: 'Administrative area.', noindex: true },
+  '/admin/leads': { title: 'Admissions CRM', description: 'Restricted admissions CRM.', noindex: true },
   '/admin-studio': { title: 'Admin Content Studio', description: 'Restricted administrative area.', noindex: true },
   '/dashboard': { title: 'Student Dashboard', description: 'Private dashboard.', noindex: true },
   '/pdf-viewer': { title: 'PDF Viewer', description: 'View a study material PDF.', noindex: true },
@@ -124,6 +130,7 @@ function AnimatedRoutes() {
       <ScrollToTopOnNav />
       <Routes location={location}>
         <Route path="/admin" element={withPage(<AdminDashboard />)} />
+        <Route path="/admin/leads" element={withPage(<LeadCRM />)} />
         <Route path="/admin-studio" element={withPage(<AdminStudio />)} />
         <Route path="/login" element={withPage(<Login />)} />
         <Route element={<Layout><Outlet /></Layout>}>
@@ -149,6 +156,8 @@ function AnimatedRoutes() {
           <Route path="/online-batch" element={withPage(<BatchPage type="online" />)} />
           <Route path="/offline-batch" element={withPage(<BatchPage type="offline" />)} />
           <Route path="/dashboard" element={withPage(<StudentDashboard />)} />
+          <Route path="/book-demo" element={withPage(<BookDemo />)} />
+          <Route path="/demo-success" element={withPage(<DemoSuccess />)} />
           <Route path="/parent-info" element={withPage(<ParentInfo />)} />
           <Route path="/about" element={withPage(<About />)} />
           <Route path="/contact" element={withPage(<Contact />)} />
