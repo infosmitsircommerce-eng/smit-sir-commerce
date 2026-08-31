@@ -305,8 +305,38 @@ export function getHubMaterials(hubId) {
     .sort((a, b) => a.chapterNumber - b.chapterNumber);
 }
 
+export function getImportantQuestions(material) {
+  return material.keyTopics.slice(0, 4).map((topic, index) => ({
+    question: `What should students explain about ${topic}?`,
+    answer: `${topic} is an important part of ${material.chapter}. Begin with its meaning, explain the main elements or relationship clearly, and support the answer with an example, schedule or diagram wherever the chapter requires it. ${material.examFocus[index % material.examFocus.length]}`,
+  }));
+}
+
+export function getChapterMcqs(material) {
+  const sameSubjectSiblings = getHubMaterials(material.hubId).filter((item) => item.id !== material.id);
+  const distractorPool = sameSubjectSiblings.length >= 3
+    ? sameSubjectSiblings
+    : seoMaterials.filter((item) => item.id !== material.id);
+  return material.keyTopics.slice(0, 4).map((topic, index) => {
+    const distractors = [1, 2, 3].map((offset) => {
+      const sibling = distractorPool[(index + offset - 1) % distractorPool.length];
+      return sibling.keyTopics[index % sibling.keyTopics.length];
+    });
+    const insertAt = (material.chapterNumber + index) % 4;
+    const options = [...distractors];
+    options.splice(insertAt, 0, topic);
+    return {
+      question: `Which of the following is directly covered in Chapter ${material.chapterNumber}: ${material.chapter}?`,
+      options,
+      answer: insertAt,
+      explanation: `${topic} is one of the core topics covered in this chapter.`,
+    };
+  });
+}
+
 export function getMaterialStructuredData(material) {
   const hub = hubById[material.hubId];
+  const importantQuestions = getImportantQuestions(material);
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -336,6 +366,14 @@ export function getMaterialStructuredData(material) {
           { '@type': 'ListItem', position: 3, name: hub.label, item: `${SITE_URL}${hub.path}` },
           { '@type': 'ListItem', position: 4, name: material.chapter, item: `${SITE_URL}${material.seo_path}` },
         ],
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: importantQuestions.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: { '@type': 'Answer', text: item.answer },
+        })),
       },
     ],
   };

@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, Download, Eye, FileText, UserRound } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, CircleHelp, Download, Eye, FileQuestion, FileText, UserRound } from 'lucide-react';
 import SEO from '../components/ui/SEO';
-import { getHubMaterials, getMaterialStructuredData, materialByPath, hubByPath } from '../data/seoMaterials';
+import { getChapterMcqs, getHubMaterials, getImportantQuestions, getMaterialStructuredData, materialByPath, hubByPath } from '../data/seoMaterials';
 
 function ChapterNotFound({ pathname }) {
   return (
@@ -29,6 +29,8 @@ export default function SeoMaterialChapter() {
   const previous = currentIndex > 0 ? siblings[currentIndex - 1] : null;
   const next = currentIndex < siblings.length - 1 ? siblings[currentIndex + 1] : null;
   const viewerUrl = `/pdf-viewer?file=${encodeURIComponent(material.file_url)}&title=${encodeURIComponent(material.title)}`;
+  const importantQuestions = getImportantQuestions(material);
+  const chapterMcqs = getChapterMcqs(material);
 
   const faqs = [
     {
@@ -124,6 +126,44 @@ export default function SeoMaterialChapter() {
                   </li>
                 ))}
               </ol>
+            </section>
+
+            <section className="card-paper p-5 sm:p-7 md:p-9">
+              <div className="flex items-center gap-3 mb-6">
+                <FileQuestion className="w-7 h-7 flex-shrink-0" style={{ color: 'var(--gold)' }} />
+                <h2 className="text-3xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Important questions with answer guidance</h2>
+              </div>
+              <div className="divide-y" style={{ borderColor: 'var(--border-soft)' }}>
+                {importantQuestions.map((item, index) => (
+                  <details key={item.question} className="py-4 group" open={index === 0}>
+                    <summary className="cursor-pointer font-semibold list-none flex justify-between gap-4" style={{ color: 'var(--ink)' }}>
+                      <span>Q{index + 1}. {item.question}</span><span aria-hidden="true" style={{ color: 'var(--gold)' }}>+</span>
+                    </summary>
+                    <p className="mt-3 leading-relaxed pr-3 sm:pr-8" style={{ color: 'var(--muted)' }}>{item.answer}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
+
+            <section className="card-paper p-5 sm:p-7 md:p-9">
+              <div className="flex items-center gap-3 mb-6">
+                <CircleHelp className="w-7 h-7 flex-shrink-0" style={{ color: 'var(--gold)' }} />
+                <h2 className="text-3xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Chapter MCQs with answers</h2>
+              </div>
+              <div className="space-y-6">
+                {chapterMcqs.map((mcq, index) => (
+                  <article key={`${mcq.question}-${index}`} className="tile-paper p-4 sm:p-5">
+                    <h3 className="font-semibold leading-relaxed mb-3" style={{ color: 'var(--ink)' }}>Q{index + 1}. {mcq.question}</h3>
+                    <ol className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm" type="A">
+                      {mcq.options.map((option, optionIndex) => <li key={`${option}-${optionIndex}`} className="rounded-xl px-3 py-2.5" style={{ background: 'var(--bg-ivory)', color: 'var(--charcoal)' }}>{String.fromCharCode(65 + optionIndex)}. {option}</li>)}
+                    </ol>
+                    <details className="mt-4">
+                      <summary className="cursor-pointer font-semibold text-sm" style={{ color: 'var(--gold)' }}>Show answer</summary>
+                      <p className="mt-2 text-sm leading-relaxed" style={{ color: 'var(--muted)' }}><strong style={{ color: 'var(--ink)' }}>Answer: {String.fromCharCode(65 + mcq.answer)}.</strong> {mcq.explanation}</p>
+                    </details>
+                  </article>
+                ))}
+              </div>
             </section>
 
             <section className="card-paper p-5 sm:p-7 md:p-9">

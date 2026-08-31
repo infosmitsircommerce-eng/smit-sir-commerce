@@ -1,6 +1,6 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
-import { seoHubs, seoMaterials, getHubMaterials, getHubStructuredData, getMaterialStructuredData } from '../src/data/seoMaterials.js';
+import { seoHubs, seoMaterials, getChapterMcqs, getHubMaterials, getImportantQuestions, getHubStructuredData, getMaterialStructuredData } from '../src/data/seoMaterials.js';
 
 const BASE = 'https://www.smitsircommerce.in';
 const SITE = 'Smit Sir Commerce';
@@ -69,6 +69,8 @@ function getCbseNotesStructuredData() {
 
 function renderMaterial(material) {
   const hub = seoHubs.find((item) => item.id === material.hubId);
+  const importantQuestions = getImportantQuestions(material);
+  const chapterMcqs = getChapterMcqs(material);
   return `<main class="page-container section-padding" data-prerendered="seo-chapter">
     <nav aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/study-material">Study Material</a> / <a href="${escapeHtml(hub.path)}">${escapeHtml(hub.label)}</a> / Chapter ${material.chapterNumber}</nav>
     <article>
@@ -78,6 +80,10 @@ function renderMaterial(material) {
       <ul>${material.keyTopics.map((topic) => `<li>${escapeHtml(topic)}</li>`).join('')}</ul>
       <h2>Exam-focused revision checklist</h2>
       <ol>${material.examFocus.map((point) => `<li>${escapeHtml(point)}</li>`).join('')}</ol>
+      <h2>Important questions with answer guidance</h2>
+      ${importantQuestions.map((item) => `<h3>${escapeHtml(item.question)}</h3><p>${escapeHtml(item.answer)}</p>`).join('')}
+      <h2>Chapter MCQs with answers</h2>
+      ${chapterMcqs.map((mcq, index) => `<section><h3>MCQ ${index + 1}: ${escapeHtml(mcq.question)}</h3><ol type="A">${mcq.options.map((option) => `<li>${escapeHtml(option)}</li>`).join('')}</ol><p><strong>Answer: ${String.fromCharCode(65 + mcq.answer)}.</strong> ${escapeHtml(mcq.explanation)}</p></section>`).join('')}
       <p><a href="${escapeHtml(material.file_url)}">View or download the free ${escapeHtml(material.chapter)} PDF</a>.</p>
       <h2>Frequently asked questions</h2>
       <h3>Are these notes free?</h3><p>Yes. The complete PDF is free to view online and download.</p>
