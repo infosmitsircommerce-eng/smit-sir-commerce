@@ -17,6 +17,7 @@ const StudyMaterial   = lazy(() => import('./pages/StudyMaterial'));
 const PdfViewer       = lazy(() => import('./pages/PdfViewer'));
 const SeoMaterialHub  = lazy(() => import('./pages/SeoMaterialHub'));
 const SeoMaterialChapter = lazy(() => import('./pages/SeoMaterialChapter'));
+const CbseNotes       = lazy(() => import('./pages/CbseNotes'));
 const Quizzes         = lazy(() => import('./pages/Quizzes'));
 const TestSeries      = lazy(() => import('./pages/TestSeries'));
 const LiveClasses     = lazy(() => import('./pages/LiveClasses'));
@@ -90,7 +91,7 @@ const ROUTE_SEO = {
 function RouteSEO() {
   const { pathname } = useLocation();
   // Search landing pages provide their own unique metadata and structured data.
-  if (pathname.startsWith('/cbse/')) return null;
+  if (pathname === '/cbse-notes' || pathname.startsWith('/cbse/')) return null;
   const meta = ROUTE_SEO[pathname] || { title: 'Page Not Found', description: 'The requested page could not be found.', noindex: true };
   return <SEO {...meta} path={pathname} />;
 }
@@ -140,6 +141,11 @@ function AnimatedRoutes() {
             <Route path="/pdf-viewer" element={
               <Suspense fallback={<PageFallback />}>
                 <PageTransition><PdfViewer /></PageTransition>
+              </Suspense>
+            } />
+            <Route path="/cbse-notes" element={
+              <Suspense fallback={<PageFallback />}>
+                <PageTransition><CbseNotes /></PageTransition>
               </Suspense>
             } />
             <Route path="/cbse/:classSlug/:hubSlug" element={

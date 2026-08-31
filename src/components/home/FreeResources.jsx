@@ -5,7 +5,7 @@ import { PlayCircle, FileText, HelpCircle, FileDown, PenTool, ArrowRight, Gamepa
 
 const resources = [
   { icon: PlayCircle, title: 'Free Demo Lecture',   desc: 'Watch a complete class for free before enrolling.',       link: '/lectures'       },
-  { icon: FileText,   title: 'Free PDF Notes',       desc: 'Chapter-wise notes for quick revision and exam prep.',    link: '/study-material' },
+  { icon: FileText,   title: 'Free CBSE Notes',      desc: 'Class 11 & 12 chapter-wise PDF notes for revision.',       link: '/cbse-notes'     },
   { icon: HelpCircle, title: 'Free Quiz',            desc: 'Test your knowledge with chapter-wise MCQs.',            link: '/quizzes'        },
   { icon: FileDown,   title: 'Free Sample Paper',    desc: 'Practice with board-pattern question papers.',           link: '/study-material' },
   { icon: PenTool,    title: 'Answer Writing Guide', desc: 'Learn how to write board answers and score full marks.',  link: '/study-material' },
@@ -128,8 +128,8 @@ export default function FreeResources() {
           transition={{ delay: 0.55 }}
           className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 mt-9"
         >
-          <Link to="/study-material" className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors group" style={{ color: 'var(--gold)' }}>
-            Browse all free resources <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          <Link to="/cbse-notes" className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors group" style={{ color: 'var(--gold)' }}>
+            Browse free CBSE notes <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </Link>
           <a
             href={WA_LINK}

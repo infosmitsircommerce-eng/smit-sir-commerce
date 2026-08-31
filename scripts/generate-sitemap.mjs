@@ -6,6 +6,7 @@ const basePages = [
   ['/', 'weekly', '1.0'],
   ['/courses', 'weekly', '0.9'],
   ['/study-material', 'weekly', '0.9'],
+  ['/cbse-notes', 'weekly', '1.0'],
   ['/quizzes', 'weekly', '0.7'],
   ['/test-series', 'weekly', '0.7'],
   ['/live-classes', 'weekly', '0.7'],
@@ -41,4 +42,3 @@ ${entries.join('\n')}
 
 await writeFile(new URL('../public/sitemap.xml', import.meta.url), xml, 'utf8');
 console.log(`Generated sitemap with ${entries.length} indexable URLs.`);
-

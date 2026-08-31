@@ -6,6 +6,9 @@ const BASE = 'https://www.smitsircommerce.in';
 const SITE = 'Smit Sir Commerce';
 const source = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
 const distRoot = new URL('../dist/', import.meta.url);
+const cbseNotesPath = '/cbse-notes';
+const cbseNotesTitle = 'Free CBSE Notes for Class 11 & 12 Commerce';
+const cbseNotesDescription = 'Free CBSE Commerce notes for Class 11 and 12. View and download chapter-wise PDF notes for Business Studies, Microeconomics and Macroeconomics.';
 
 function escapeHtml(value) {
   return String(value)
@@ -28,6 +31,40 @@ function renderHub(hub) {
       <p>All published resources are free to view online and download. Prepared by Smit Sir for clear CBSE Commerce revision.</p>
     </article>
   </main>`;
+}
+
+function renderCbseNotes() {
+  const totalChapters = seoMaterials.length;
+  return `<main class="page-container section-padding" data-prerendered="cbse-notes">
+    <nav aria-label="Breadcrumb"><a href="/">Home</a> / Free CBSE Notes</nav>
+    <article>
+      <h1>${escapeHtml(cbseNotesTitle)}</h1>
+      <p>Study chapter by chapter with free CBSE Commerce notes prepared for concept clarity and board-exam revision. Every published PDF can be viewed online or downloaded without registration.</p>
+      <p>${totalChapters} chapter-wise PDFs are currently available.</p>
+      <h2>CBSE Commerce notes by class and subject</h2>
+      <ul>${seoHubs.map((hub) => `<li><a href="${escapeHtml(hub.path)}">Free ${escapeHtml(hub.label)} notes PDF</a> — ${getHubMaterials(hub.id).length} chapters</li>`).join('')}</ul>
+      <h2>How to use these notes</h2>
+      <p>Read the chapter summary, revise the important topics, open the complete PDF and then practise NCERT questions and current CBSE sample papers.</p>
+    </article>
+  </main>`;
+}
+
+function getCbseNotesStructuredData() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: cbseNotesTitle,
+    description: cbseNotesDescription,
+    url: `${BASE}${cbseNotesPath}`,
+    isAccessibleForFree: true,
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: seoHubs.length,
+      itemListElement: seoHubs.map((hub, index) => ({
+        '@type': 'ListItem', position: index + 1, name: hub.label, url: `${BASE}${hub.path}`,
+      })),
+    },
+  };
 }
 
 function renderMaterial(material) {
@@ -81,6 +118,14 @@ async function writeRoute(path, html) {
   await writeFile(directoryFile, html, 'utf8');
 }
 
+await writeRoute(cbseNotesPath, buildHtml({
+  path: cbseNotesPath,
+  title: cbseNotesTitle,
+  description: cbseNotesDescription,
+  body: renderCbseNotes(),
+  schema: getCbseNotesStructuredData(),
+}));
+
 for (const hub of seoHubs) {
   await writeRoute(hub.path, buildHtml({
     path: hub.path,
@@ -102,5 +147,4 @@ for (const material of seoMaterials) {
   }));
 }
 
-console.log(`Pre-rendered ${seoHubs.length + seoMaterials.length} SEO landing pages.`);
-
+console.log(`Pre-rendered ${1 + seoHubs.length + seoMaterials.length} SEO landing pages.`);
