@@ -17,6 +17,7 @@ const basePages = [
   ['/live-classes', 'weekly', '0.7'],
   ['/online-batch', 'monthly', '0.8'],
   ['/offline-batch', 'monthly', '0.8'],
+  ['/book-demo', 'monthly', '0.9'],
   ['/about', 'monthly', '0.6'],
   ['/contact', 'monthly', '0.7'],
   ['/faq', 'monthly', '0.6'],
