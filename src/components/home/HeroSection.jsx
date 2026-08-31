@@ -102,7 +102,7 @@ export default function HeroSection() {
 
             <motion.div {...fade(0.32)} style={{ marginBottom: '36px' }}>
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                <Link to="/contact" className="btn-primary hero-primary-cta" style={{ fontSize: '15px', padding: '13px 28px' }}>
+                <Link to="/book-demo" className="btn-primary hero-primary-cta" style={{ fontSize: '15px', padding: '13px 28px' }}>
                   Book Free Demo Class
                   <ArrowRight style={{ width: '15px', height: '15px' }} />
                 </Link>
