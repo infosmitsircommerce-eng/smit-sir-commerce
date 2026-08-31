@@ -35,6 +35,7 @@ const OwnerHome       = lazy(() => import('./pages/OwnerHome'));
 const AdminDashboard  = lazy(() => import('./pages/AdminDashboard'));
 const AdminStudio     = lazy(() => import('./pages/AdminStudio'));
 const LeadCRM         = lazy(() => import('./pages/LeadCRM'));
+const DemoScheduler   = lazy(() => import('./pages/DemoScheduler'));
 const BookDemo        = lazy(() => import('./pages/BookDemo'));
 const DemoSuccess     = lazy(() => import('./pages/DemoSuccess'));
 const Games           = lazy(() => import('./pages/Games'));
@@ -93,7 +94,7 @@ const ROUTE_SEO = {
   '/live-classes': { title: 'CBSE Commerce Live Classes', description: 'Learn about live CBSE Commerce classes.' },
   '/online-batch': { title: 'Online CBSE Commerce Coaching', description: 'Online CBSE Commerce coaching for Class 11 and 12.' },
   '/offline-batch': { title: 'Offline Commerce Coaching in Mehsana', description: 'Offline CBSE Commerce coaching in Mehsana, Gujarat.' },
-  '/book-demo': { title: 'Book a Free Commerce Demo Class', description: 'Request a free Class 11 or 12 Commerce demo and tell us your board, subjects and preferred learning mode.' },
+  '/book-demo': { title: 'Book a Free Commerce Demo Class', description: 'Choose a real available Class 11 or 12 Commerce demo slot and reserve it with your study details.' },
   '/demo-success': { title: 'Enquiry Received', description: 'Your enquiry has been received.', noindex: true },
   '/about': { title: 'About Smit Sir — Commerce Teacher Mehsana', description: 'Learn about Smit Sir Commerce and the teaching approach.' },
   '/contact': { title: 'Contact Smit Sir Commerce', description: 'Contact Smit Sir Commerce or send an admission enquiry.' },
@@ -110,6 +111,7 @@ const ROUTE_SEO = {
   '/admin': { title: 'Owner Hub', description: 'Restricted owner administration area.', noindex: true },
   '/admin/students': { title: 'Student Control', description: 'Restricted student administration area.', noindex: true },
   '/admin/leads': { title: 'Admissions CRM', description: 'Restricted admissions CRM.', noindex: true },
+  '/admin/demos': { title: 'Demo Scheduling Center', description: 'Restricted demo scheduling, attendance and follow-up area.', noindex: true },
   '/admin-studio': { title: 'Admin Content Studio', description: 'Restricted administrative area.', noindex: true },
   '/dashboard': { title: 'Student Dashboard', description: 'Private dashboard.', noindex: true },
   '/pdf-viewer': { title: 'PDF Viewer', description: 'View a study material PDF.', noindex: true },
@@ -134,6 +136,7 @@ function AnimatedRoutes() {
         <Route path="/admin" element={withPage(<OwnerHome />)} />
         <Route path="/admin/students" element={withPage(<AdminDashboard />)} />
         <Route path="/admin/leads" element={withPage(<LeadCRM />)} />
+        <Route path="/admin/demos" element={withPage(<DemoScheduler />)} />
         <Route path="/admin-studio" element={withPage(<AdminStudio />)} />
         <Route path="/login" element={withPage(<Login />)} />
         <Route element={<Layout><Outlet /></Layout>}>
