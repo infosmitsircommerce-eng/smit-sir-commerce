@@ -6,10 +6,16 @@ export const CLOUD_KEYS = [
   'ssc-study-bookmarks-v1',
   'ssc-recent-learning-v1',
   'ssc-revision-plan-v1',
+  'ssc-exam-attempts-v1',
+  'ssc-chapter-progress-v1',
 ];
 
 function safeParse(value, fallback) {
   try { return value ? JSON.parse(value) : fallback; } catch { return fallback; }
+}
+
+function itemFingerprint(item) {
+  return item?.id || item?.path || item?.date || item?.createdAt || item?.created_at || JSON.stringify(item);
 }
 
 export function collectLocalLearningState(userId) {
@@ -44,11 +50,11 @@ export async function syncLearningState(userId) {
     if (Array.isArray(localValue) && Array.isArray(cloudValue)) {
       const seen = new Set();
       merged[key] = [...localValue, ...cloudValue].filter((item) => {
-        const fingerprint = item?.id || item?.date || item?.createdAt || item?.created_at || JSON.stringify(item);
+        const fingerprint = itemFingerprint(item);
         if (seen.has(fingerprint)) return false;
         seen.add(fingerprint);
         return true;
-      }).slice(0, 250);
+      }).slice(0, 500);
     } else if (localValue && (Array.isArray(localValue) ? localValue.length : Object.keys(localValue || {}).length)) {
       merged[key] = localValue;
     }
