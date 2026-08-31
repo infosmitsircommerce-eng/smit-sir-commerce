@@ -8,7 +8,6 @@ import PageTransition from './components/ui/PageTransition';
 import SEO from './components/ui/SEO';
 import { AuthProvider } from './context/AuthContext';
 
-// Code-split every page — only loads what the user visits
 const Home            = lazy(() => import('./pages/Home'));
 const Login           = lazy(() => import('./pages/Login'));
 const Courses         = lazy(() => import('./pages/Courses'));
@@ -22,6 +21,7 @@ const Quizzes         = lazy(() => import('./pages/Quizzes'));
 const TestSeries      = lazy(() => import('./pages/TestSeriesPro'));
 const DailyPractice   = lazy(() => import('./pages/DailyPractice'));
 const StudyCoach      = lazy(() => import('./pages/StudyCoach'));
+const StudyTools      = lazy(() => import('./pages/StudyTools'));
 const LiveClasses     = lazy(() => import('./pages/LiveClasses'));
 const BatchPage       = lazy(() => import('./pages/BatchPage'));
 const StudentDashboard = lazy(() => import('./pages/StudentDashboard'));
@@ -58,8 +58,7 @@ function PageFallback() {
   return (
     <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--bg-ivory)' }} role="status" aria-live="polite">
       <div className="flex flex-col items-center gap-4">
-        <div className="w-10 h-10 rounded-full border-2 animate-spin"
-          style={{ borderColor: 'rgba(184,135,47,0.25)', borderTopColor: 'var(--gold)' }} />
+        <div className="w-10 h-10 rounded-full border-2 animate-spin" style={{ borderColor: 'rgba(184,135,47,0.25)', borderTopColor: 'var(--gold)' }} />
         <p className="text-sm" style={{ color: 'var(--subtle)' }}>Loading this page…</p>
       </div>
     </div>
@@ -75,6 +74,7 @@ const ROUTE_SEO = {
   '/test-series': { title: 'CBSE Commerce Test Series', description: 'Practice Class 11 and 12 Commerce with chapter-wise tests, saved progress and Pro access.' },
   '/daily-practice': { title: 'Daily 10 Commerce Practice', description: 'Daily CBSE Commerce questions with a streak, Mistake Book and Weak Topic Radar.' },
   '/study-coach': { title: 'Commerce Study Coach & Chapter Mastery', description: 'See your chapter mastery, weakest areas and a personalized study mission based on your Commerce practice history.' },
+  '/study-tools': { title: 'Commerce Study Toolkit — Search, Bookmarks & Revision Planner', description: 'Search Commerce resources, save bookmarks, continue recent learning and build a simple exam revision plan.' },
   '/live-classes': { title: 'CBSE Commerce Live Classes', description: 'Learn about live CBSE Commerce classes.' },
   '/online-batch': { title: 'Online CBSE Commerce Coaching', description: 'Online CBSE Commerce coaching for Class 11 and 12.' },
   '/offline-batch': { title: 'Offline Commerce Coaching in Mehsana', description: 'Offline CBSE Commerce coaching in Mehsana, Gujarat.' },
@@ -91,6 +91,7 @@ const ROUTE_SEO = {
   '/pdf-viewer': { title: 'PDF Viewer', description: 'View a study material PDF.', noindex: true },
   '/reel': { title: 'Reel Generator', description: 'Private tool.', noindex: true },
 };
+
 function RouteSEO() {
   const { pathname } = useLocation();
   if (pathname === '/cbse-notes' || pathname.startsWith('/cbse/')) return null;
@@ -100,40 +101,40 @@ function RouteSEO() {
 
 function AnimatedRoutes() {
   const location = useLocation();
-
   return (
     <>
       <ScrollToTopOnNav />
       <Routes location={location}>
-          <Route path="/admin" element={<Suspense fallback={<PageFallback />}><PageTransition><AdminDashboard /></PageTransition></Suspense>} />
-          <Route path="/login" element={<Suspense fallback={<PageFallback />}><PageTransition><Login /></PageTransition></Suspense>} />
-          <Route element={<Layout><Outlet /></Layout>}>
-            <Route path="/" element={<Suspense fallback={<PageFallback />}><PageTransition><Home /></PageTransition></Suspense>} />
-            <Route path="/courses" element={<Suspense fallback={<PageFallback />}><PageTransition><Courses /></PageTransition></Suspense>} />
-            <Route path="/lectures" element={<Suspense fallback={<PageFallback />}><PageTransition><Lectures /></PageTransition></Suspense>} />
-            <Route path="/study-material" element={<Suspense fallback={<PageFallback />}><PageTransition><StudyMaterial /></PageTransition></Suspense>} />
-            <Route path="/pdf-viewer" element={<Suspense fallback={<PageFallback />}><PageTransition><PdfViewer /></PageTransition></Suspense>} />
-            <Route path="/cbse-notes" element={<Suspense fallback={<PageFallback />}><PageTransition><CbseNotes /></PageTransition></Suspense>} />
-            <Route path="/cbse/:classSlug/:hubSlug" element={<Suspense fallback={<PageFallback />}><PageTransition><SeoMaterialHub /></PageTransition></Suspense>} />
-            <Route path="/cbse/:classSlug/:subjectSlug/:chapterSlug" element={<Suspense fallback={<PageFallback />}><PageTransition><SeoMaterialChapter /></PageTransition></Suspense>} />
-            <Route path="/quizzes" element={<Suspense fallback={<PageFallback />}><PageTransition><Quizzes /></PageTransition></Suspense>} />
-            <Route path="/test-series" element={<Suspense fallback={<PageFallback />}><PageTransition><TestSeries /></PageTransition></Suspense>} />
-            <Route path="/daily-practice" element={<Suspense fallback={<PageFallback />}><PageTransition><DailyPractice /></PageTransition></Suspense>} />
-            <Route path="/study-coach" element={<Suspense fallback={<PageFallback />}><PageTransition><StudyCoach /></PageTransition></Suspense>} />
-            <Route path="/live-classes" element={<Suspense fallback={<PageFallback />}><PageTransition><LiveClasses /></PageTransition></Suspense>} />
-            <Route path="/online-batch" element={<Suspense fallback={<PageFallback />}><PageTransition><BatchPage type="online" /></PageTransition></Suspense>} />
-            <Route path="/offline-batch" element={<Suspense fallback={<PageFallback />}><PageTransition><BatchPage type="offline" /></PageTransition></Suspense>} />
-            <Route path="/dashboard" element={<Suspense fallback={<PageFallback />}><PageTransition><StudentDashboard /></PageTransition></Suspense>} />
-            <Route path="/parent-info" element={<Suspense fallback={<PageFallback />}><PageTransition><ParentInfo /></PageTransition></Suspense>} />
-            <Route path="/about" element={<Suspense fallback={<PageFallback />}><PageTransition><About /></PageTransition></Suspense>} />
-            <Route path="/contact" element={<Suspense fallback={<PageFallback />}><PageTransition><Contact /></PageTransition></Suspense>} />
-            <Route path="/faq" element={<Suspense fallback={<PageFallback />}><PageTransition><FAQ /></PageTransition></Suspense>} />
-            <Route path="/games" element={<Suspense fallback={<PageFallback />}><PageTransition><Games /></PageTransition></Suspense>} />
-            <Route path="/flashcards" element={<Suspense fallback={<PageFallback />}><PageTransition><Flashcards /></PageTransition></Suspense>} />
-            <Route path="/ask" element={<Suspense fallback={<PageFallback />}><PageTransition><AskDoubt /></PageTransition></Suspense>} />
-            <Route path="/reel" element={<Suspense fallback={<PageFallback />}><PageTransition><ReelGenerator /></PageTransition></Suspense>} />
-            <Route path="*" element={<Suspense fallback={<PageFallback />}><PageTransition><NotFound /></PageTransition></Suspense>} />
-          </Route>
+        <Route path="/admin" element={<Suspense fallback={<PageFallback />}><PageTransition><AdminDashboard /></PageTransition></Suspense>} />
+        <Route path="/login" element={<Suspense fallback={<PageFallback />}><PageTransition><Login /></PageTransition></Suspense>} />
+        <Route element={<Layout><Outlet /></Layout>}>
+          <Route path="/" element={<Suspense fallback={<PageFallback />}><PageTransition><Home /></PageTransition></Suspense>} />
+          <Route path="/courses" element={<Suspense fallback={<PageFallback />}><PageTransition><Courses /></PageTransition></Suspense>} />
+          <Route path="/lectures" element={<Suspense fallback={<PageFallback />}><PageTransition><Lectures /></PageTransition></Suspense>} />
+          <Route path="/study-material" element={<Suspense fallback={<PageFallback />}><PageTransition><StudyMaterial /></PageTransition></Suspense>} />
+          <Route path="/pdf-viewer" element={<Suspense fallback={<PageFallback />}><PageTransition><PdfViewer /></PageTransition></Suspense>} />
+          <Route path="/cbse-notes" element={<Suspense fallback={<PageFallback />}><PageTransition><CbseNotes /></PageTransition></Suspense>} />
+          <Route path="/cbse/:classSlug/:hubSlug" element={<Suspense fallback={<PageFallback />}><PageTransition><SeoMaterialHub /></PageTransition></Suspense>} />
+          <Route path="/cbse/:classSlug/:subjectSlug/:chapterSlug" element={<Suspense fallback={<PageFallback />}><PageTransition><SeoMaterialChapter /></PageTransition></Suspense>} />
+          <Route path="/quizzes" element={<Suspense fallback={<PageFallback />}><PageTransition><Quizzes /></PageTransition></Suspense>} />
+          <Route path="/test-series" element={<Suspense fallback={<PageFallback />}><PageTransition><TestSeries /></PageTransition></Suspense>} />
+          <Route path="/daily-practice" element={<Suspense fallback={<PageFallback />}><PageTransition><DailyPractice /></PageTransition></Suspense>} />
+          <Route path="/study-coach" element={<Suspense fallback={<PageFallback />}><PageTransition><StudyCoach /></PageTransition></Suspense>} />
+          <Route path="/study-tools" element={<Suspense fallback={<PageFallback />}><PageTransition><StudyTools /></PageTransition></Suspense>} />
+          <Route path="/live-classes" element={<Suspense fallback={<PageFallback />}><PageTransition><LiveClasses /></PageTransition></Suspense>} />
+          <Route path="/online-batch" element={<Suspense fallback={<PageFallback />}><PageTransition><BatchPage type="online" /></PageTransition></Suspense>} />
+          <Route path="/offline-batch" element={<Suspense fallback={<PageFallback />}><PageTransition><BatchPage type="offline" /></PageTransition></Suspense>} />
+          <Route path="/dashboard" element={<Suspense fallback={<PageFallback />}><PageTransition><StudentDashboard /></PageTransition></Suspense>} />
+          <Route path="/parent-info" element={<Suspense fallback={<PageFallback />}><PageTransition><ParentInfo /></PageTransition></Suspense>} />
+          <Route path="/about" element={<Suspense fallback={<PageFallback />}><PageTransition><About /></PageTransition></Suspense>} />
+          <Route path="/contact" element={<Suspense fallback={<PageFallback />}><PageTransition><Contact /></PageTransition></Suspense>} />
+          <Route path="/faq" element={<Suspense fallback={<PageFallback />}><PageTransition><FAQ /></PageTransition></Suspense>} />
+          <Route path="/games" element={<Suspense fallback={<PageFallback />}><PageTransition><Games /></PageTransition></Suspense>} />
+          <Route path="/flashcards" element={<Suspense fallback={<PageFallback />}><PageTransition><Flashcards /></PageTransition></Suspense>} />
+          <Route path="/ask" element={<Suspense fallback={<PageFallback />}><PageTransition><AskDoubt /></PageTransition></Suspense>} />
+          <Route path="/reel" element={<Suspense fallback={<PageFallback />}><PageTransition><ReelGenerator /></PageTransition></Suspense>} />
+          <Route path="*" element={<Suspense fallback={<PageFallback />}><PageTransition><NotFound /></PageTransition></Suspense>} />
+        </Route>
       </Routes>
     </>
   );
