@@ -20,10 +20,12 @@ const navLinks = [
     label: 'Practice',
     children: [
       { label: 'Daily 10', path: '/daily-practice' },
+      { label: 'Advanced Exam Mode', path: '/exam-mode' },
+      { label: 'Test Series', path: '/test-series' },
+      { label: 'Learning Insights', path: '/learning-insights' },
       { label: 'Study Coach', path: '/study-coach' },
       { label: 'Ask AI Doubt', path: '/ask' },
       { label: 'Quizzes', path: '/quizzes' },
-      { label: 'Test Series', path: '/test-series' },
       { label: 'Games', path: '/games' },
       { label: 'Flashcards', path: '/flashcards' },
     ],
@@ -46,7 +48,7 @@ export default function Navbar() {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, displayName, initials, isPremium, signOut } = useAuth();
+  const { user, displayName, initials, isPremium, isAdmin, signOut } = useAuth();
 
   const light = isLightRoute(location.pathname);
 
@@ -94,7 +96,7 @@ export default function Navbar() {
                 <button className="flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors" style={linkStyle(false)} onMouseEnter={(e) => { setOpenDropdown(link.label); e.currentTarget.style.background = T.linkHoverBg; e.currentTarget.style.color = T.linkActive; }} onMouseLeave={(e) => { setOpenDropdown(null); e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = T.linkColor; }}>
                   {link.label}<ChevronDown className="w-3 h-3" />
                 </button>
-                <AnimatePresence>{openDropdown === link.label && <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} className="absolute top-full left-0 mt-1 rounded-xl py-2 min-w-[200px]" style={T.dropdownBg} onMouseEnter={() => setOpenDropdown(link.label)} onMouseLeave={() => setOpenDropdown(null)}>
+                <AnimatePresence>{openDropdown === link.label && <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} className="absolute top-full left-0 mt-1 rounded-xl py-2 min-w-[220px] max-h-[70vh] overflow-y-auto" style={T.dropdownBg} onMouseEnter={() => setOpenDropdown(link.label)} onMouseLeave={() => setOpenDropdown(null)}>
                   {link.children.map((child) => <Link key={child.path} to={child.path} className="block px-4 py-2 text-sm transition-colors" style={{ color: T.dropdownItem }} onMouseEnter={e => { e.currentTarget.style.background = T.dropdownItemHoverBg; e.currentTarget.style.color = T.linkActive; }} onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = T.dropdownItem; }}>{child.label}</Link>)}
                 </motion.div>}</AnimatePresence>
               </div>
@@ -110,8 +112,11 @@ export default function Navbar() {
                 {isPremium && <span className="text-xs px-1.5 py-0.5 rounded-full font-bold" style={{ background: 'rgba(184,135,47,0.12)', color: 'var(--gold)', border: '1px solid rgba(184,135,47,0.3)' }}>PRO</span>}
                 <ChevronDown className="w-3.5 h-3.5" style={{ color: light ? 'var(--subtle)' : '#8193f1' }} />
               </button>
-              <AnimatePresence>{userMenuOpen && <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} className="absolute right-0 top-full mt-2 rounded-xl py-2 min-w-[180px] z-50" style={T.dropdownBg}>
+              <AnimatePresence>{userMenuOpen && <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} className="absolute right-0 top-full mt-2 rounded-xl py-2 min-w-[200px] z-50" style={T.dropdownBg}>
                 <Link to="/dashboard" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm" style={{ color: T.dropdownItem }}><User className="w-4 h-4" /> My Dashboard</Link>
+                <Link to="/learning-insights" onClick={() => setUserMenuOpen(false)} className="block px-4 py-2 text-sm" style={{ color: T.dropdownItem }}>Learning Insights</Link>
+                <Link to="/my-data" onClick={() => setUserMenuOpen(false)} className="block px-4 py-2 text-sm" style={{ color: T.dropdownItem }}>My Study Data</Link>
+                {isAdmin && <Link to="/admin-studio" onClick={() => setUserMenuOpen(false)} className="block px-4 py-2 text-sm" style={{ color: 'var(--gold)' }}>Admin Studio</Link>}
                 <button onClick={handleLogout} className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-400"><LogOut className="w-4 h-4" /> Logout</button>
               </motion.div>}</AnimatePresence>
             </div> : <Link to="/login" className="text-sm py-2 px-4 rounded-xl font-semibold" style={light ? { color: 'var(--ink)', border: '1px solid var(--border)', background: 'var(--bg-white)' } : { color: '#fff', border: '1px solid #4338c2', background: '#3730a3' }}>Login</Link>}
