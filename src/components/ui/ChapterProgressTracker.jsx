@@ -13,6 +13,7 @@ function read() {
 
 function write(items) {
   try { localStorage.setItem(KEY, JSON.stringify(items.slice(0, 250))); } catch { /* ignore */ }
+  window.dispatchEvent(new CustomEvent('ssc-study-state-changed'));
 }
 
 export default function ChapterProgressTracker() {
@@ -66,7 +67,7 @@ export default function ChapterProgressTracker() {
     <button
       type="button"
       onClick={toggle}
-      className="fixed left-3 bottom-[6.8rem] lg:bottom-16 z-35 rounded-full px-3.5 py-2.5 shadow-lg flex items-center gap-2 text-xs font-bold transition-transform active:scale-95"
+      className="fixed left-3 bottom-[6.8rem] lg:bottom-16 z-[35] rounded-full px-3.5 py-2.5 shadow-lg flex items-center gap-2 text-xs font-bold transition-transform active:scale-95"
       style={{ background: current?.completed ? 'rgba(237,247,231,.97)' : 'rgba(255,255,255,.96)', color: current?.completed ? 'var(--green)' : 'var(--ink)', border: `1px solid ${current?.completed ? 'rgba(77,124,15,.25)' : 'var(--border)'}` }}
       aria-pressed={current?.completed === true}
       title={current?.completed ? 'Mark chapter as not completed' : 'Mark this chapter complete'}
