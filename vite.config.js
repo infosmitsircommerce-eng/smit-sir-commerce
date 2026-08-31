@@ -1,9 +1,20 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
   plugins: [
+    {
+      name: 'enhanced-test-series-entry',
+      enforce: 'pre',
+      resolveId(source, importer) {
+        if (source === './pages/TestSeries' && importer?.endsWith('/src/App.jsx')) {
+          return fileURLToPath(new URL('./src/pages/TestSeriesPro.jsx', import.meta.url))
+        }
+        return null
+      },
+    },
     react(),
     VitePWA({
       registerType: 'autoUpdate',
@@ -42,7 +53,6 @@ export default defineConfig({
         ],
       },
       workbox: {
-        // Let crawlable SEO documents and PDFs reach their real files instead of the SPA fallback.
         navigateFallbackDenylist: [/^\/materials\//, /^\/cbse\//, /^\/sitemap\.xml$/, /^\/robots\.txt$/, /\.pdf$/i],
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         runtimeCaching: [
