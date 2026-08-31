@@ -114,18 +114,30 @@ function renderMaterial(material) {
 function buildHtml({ path, title, description, body, schema, type = 'website', modifiedTime = null }) {
   const fullTitle = `${title} | ${SITE}`;
   const url = `${BASE}${path}`;
+  const robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+  const image = `${BASE}/og-image.jpg`;
   const tags = `
     <meta name="description" content="${escapeHtml(description)}" />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="robots" content="${robots}" />
+    <meta name="googlebot" content="${robots}" />
+    <meta name="bingbot" content="${robots}" />
     <link rel="canonical" href="${escapeHtml(url)}" />
     <meta property="og:type" content="${type}" />
     <meta property="og:site_name" content="${SITE}" />
+    <meta property="og:locale" content="en_IN" />
     <meta property="og:title" content="${escapeHtml(fullTitle)}" />
     <meta property="og:description" content="${escapeHtml(description)}" />
     <meta property="og:url" content="${escapeHtml(url)}" />
-    <meta property="og:image" content="${BASE}/og-image.jpg" />
+    <meta property="og:image" content="${image}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="${escapeHtml(fullTitle)}" />
     ${type === 'article' && modifiedTime ? `<meta property="article:published_time" content="${escapeHtml(modifiedTime)}" /><meta property="article:modified_time" content="${escapeHtml(modifiedTime)}" />` : ''}
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${escapeHtml(fullTitle)}" />
+    <meta name="twitter:description" content="${escapeHtml(description)}" />
+    <meta name="twitter:image" content="${image}" />
+    <meta name="twitter:image:alt" content="${escapeHtml(fullTitle)}" />
     <script type="application/ld+json">${JSON.stringify(schema).replaceAll('<', '\\u003c')}</script>`;
 
   return source
