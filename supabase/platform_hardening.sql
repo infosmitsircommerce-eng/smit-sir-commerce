@@ -1,18 +1,67 @@
--- Smit Sir Commerce platform hardening migration
--- Apply in the Supabase SQL editor for the project used by the website.
--- Safe to run more than once where PostgreSQL supports IF NOT EXISTS.
+-- Smit Sir Commerce — complete Supabase platform bootstrap
+-- Creates secure student profiles, cloud progress, tests, leaderboard,
+-- admin-managed content and privacy-conscious learning analytics.
 
--- 1) Admin role flags on profiles
-alter table if exists public.profiles add column if not exists role text default 'student';
-alter table if exists public.profiles add column if not exists is_admin boolean default false;
+create table if not exists public.profiles (
+  id uuid primary key references auth.users(id) on delete cascade,
+  full_name text,
+  class_level integer check (class_level in (11,12) or class_level is null),
+  is_premium boolean not null default false,
+  role text not null default 'student' check (role in ('student','admin')),
+  is_admin boolean not null default false,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+alter table public.profiles enable row level security;
 
--- Helper: true only for authenticated admin profiles.
-create or replace function public.is_platform_admin()
+create schema if not exists private;
+revoke all on schema private from public, anon;
+grant usage on schema private to authenticated;
+
+create or replace function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  insert into public.profiles (id, full_name, class_level, created_at, updated_at)
+  values (
+    new.id,
+    nullif(new.raw_user_meta_data ->> 'full_name', ''),
+    case when (new.raw_user_meta_data ->> 'class_level') in ('11','12') then (new.raw_user_meta_data ->> 'class_level')::integer else null end,
+    now(),
+    now()
+  )
+  on conflict (id) do update set
+    full_name = coalesce(excluded.full_name, public.profiles.full_name),
+    class_level = coalesce(excluded.class_level, public.profiles.class_level),
+    updated_at = now();
+  return new;
+end;
+$$;
+revoke execute on function public.handle_new_user() from public, anon, authenticated;
+
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created after insert on auth.users
+for each row execute function public.handle_new_user();
+
+insert into public.profiles (id, full_name, class_level, created_at, updated_at)
+select
+  u.id,
+  nullif(u.raw_user_meta_data ->> 'full_name', ''),
+  case when (u.raw_user_meta_data ->> 'class_level') in ('11','12') then (u.raw_user_meta_data ->> 'class_level')::integer else null end,
+  coalesce(u.created_at, now()),
+  now()
+from auth.users u
+on conflict (id) do nothing;
+
+create or replace function private.is_platform_admin()
 returns boolean
 language sql
 stable
 security definer
-set search_path = public
+set search_path = public, private
 as $$
   select exists (
     select 1 from public.profiles p
@@ -20,8 +69,17 @@ as $$
       and (p.is_admin = true or p.role = 'admin')
   );
 $$;
+revoke all on function private.is_platform_admin() from public, anon;
+grant execute on function private.is_platform_admin() to authenticated;
 
--- 2) Cross-device learning state
+drop policy if exists "students read own profile" on public.profiles;
+drop policy if exists "admins read profiles" on public.profiles;
+drop policy if exists "profile read own or admin" on public.profiles;
+create policy "profile read own or admin" on public.profiles
+for select to authenticated using ((select auth.uid()) = id or (select private.is_platform_admin()));
+revoke insert, update, delete on public.profiles from anon, authenticated;
+grant select on public.profiles to authenticated;
+
 create table if not exists public.student_learning_state (
   user_id uuid primary key references auth.users(id) on delete cascade,
   state jsonb not null default '{}'::jsonb,
@@ -29,41 +87,77 @@ create table if not exists public.student_learning_state (
 );
 alter table public.student_learning_state enable row level security;
 drop policy if exists "students read own learning state" on public.student_learning_state;
-create policy "students read own learning state" on public.student_learning_state for select to authenticated using (auth.uid() = user_id);
+create policy "students read own learning state" on public.student_learning_state for select to authenticated using ((select auth.uid()) = user_id);
 drop policy if exists "students insert own learning state" on public.student_learning_state;
-create policy "students insert own learning state" on public.student_learning_state for insert to authenticated with check (auth.uid() = user_id);
+create policy "students insert own learning state" on public.student_learning_state for insert to authenticated with check ((select auth.uid()) = user_id);
 drop policy if exists "students update own learning state" on public.student_learning_state;
-create policy "students update own learning state" on public.student_learning_state for update to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "students update own learning state" on public.student_learning_state for update to authenticated using ((select auth.uid()) = user_id) with check ((select auth.uid()) = user_id);
+drop policy if exists "students delete own learning state" on public.student_learning_state;
+create policy "students delete own learning state" on public.student_learning_state for delete to authenticated using ((select auth.uid()) = user_id);
+grant select, insert, update, delete on public.student_learning_state to authenticated;
 
--- 3) Test attempts. Existing projects may already have this table.
 create table if not exists public.test_attempts (
   id bigint generated by default as identity primary key,
-  user_id uuid references auth.users(id) on delete cascade,
+  user_id uuid not null references auth.users(id) on delete cascade,
   student_label text,
   test_name text not null,
   subject text,
-  score integer not null default 0,
-  total_questions integer not null default 0,
-  percentage numeric(5,2) not null default 0,
+  score integer not null default 0 check (score >= 0),
+  total_questions integer not null default 0 check (total_questions >= 0),
+  percentage numeric(5,2) not null default 0 check (percentage >= 0 and percentage <= 100),
   created_at timestamptz not null default now()
 );
 create index if not exists test_attempts_user_created_idx on public.test_attempts(user_id, created_at desc);
 create index if not exists test_attempts_percentage_idx on public.test_attempts(percentage desc);
 alter table public.test_attempts enable row level security;
 drop policy if exists "students insert own test attempts" on public.test_attempts;
-create policy "students insert own test attempts" on public.test_attempts for insert to authenticated with check (auth.uid() = user_id);
+create policy "students insert own test attempts" on public.test_attempts for insert to authenticated with check ((select auth.uid()) = user_id);
 drop policy if exists "students read own test attempts" on public.test_attempts;
-create policy "students read own test attempts" on public.test_attempts for select to authenticated using (auth.uid() = user_id or public.is_platform_admin());
+create policy "students read own test attempts" on public.test_attempts for select to authenticated using ((select auth.uid()) = user_id or (select private.is_platform_admin()));
+grant select, insert on public.test_attempts to authenticated;
 
--- A privacy-preserving leaderboard view can be read by authenticated users without exposing email or profile data.
-create or replace view public.test_leaderboard as
-select student_label, max(percentage) as percentage, max(created_at) as latest_attempt
-from public.test_attempts
-where student_label is not null
-group by student_label;
-grant select on public.test_leaderboard to authenticated;
+create table if not exists public.test_leaderboard (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  student_label text,
+  percentage numeric(5,2) not null default 0 check (percentage >= 0 and percentage <= 100),
+  latest_attempt timestamptz not null default now()
+);
+alter table public.test_leaderboard enable row level security;
+drop policy if exists "authenticated read leaderboard" on public.test_leaderboard;
+create policy "authenticated read leaderboard" on public.test_leaderboard for select to authenticated using (true);
+revoke all on public.test_leaderboard from anon, authenticated;
+grant select (student_label, percentage, latest_attempt) on public.test_leaderboard to authenticated;
 
--- 4) Admin-created learning content such as additional exam tests.
+create or replace function private.refresh_test_leaderboard()
+returns trigger
+language plpgsql
+security definer
+set search_path = public, private
+as $$
+begin
+  insert into public.test_leaderboard (user_id, student_label, percentage, latest_attempt)
+  values (new.user_id, new.student_label, new.percentage, new.created_at)
+  on conflict (user_id) do update set
+    student_label = coalesce(excluded.student_label, public.test_leaderboard.student_label),
+    percentage = greatest(public.test_leaderboard.percentage, excluded.percentage),
+    latest_attempt = greatest(public.test_leaderboard.latest_attempt, excluded.latest_attempt);
+  return new;
+end;
+$$;
+revoke all on function private.refresh_test_leaderboard() from public, anon, authenticated;
+drop trigger if exists refresh_test_leaderboard_after_attempt on public.test_attempts;
+create trigger refresh_test_leaderboard_after_attempt after insert or update on public.test_attempts
+for each row execute function private.refresh_test_leaderboard();
+
+insert into public.test_leaderboard (user_id, student_label, percentage, latest_attempt)
+select t.user_id, max(t.student_label), max(t.percentage), max(t.created_at)
+from public.test_attempts t
+group by t.user_id
+on conflict (user_id) do update set
+  student_label = coalesce(excluded.student_label, public.test_leaderboard.student_label),
+  percentage = greatest(public.test_leaderboard.percentage, excluded.percentage),
+  latest_attempt = greatest(public.test_leaderboard.latest_attempt, excluded.latest_attempt);
+
 create table if not exists public.content_items (
   id bigint generated by default as identity primary key,
   slug text not null unique,
@@ -75,17 +169,19 @@ create table if not exists public.content_items (
   updated_at timestamptz not null default now()
 );
 create index if not exists content_items_type_status_idx on public.content_items(type, status);
+create index if not exists content_items_created_by_idx on public.content_items(created_by);
 alter table public.content_items enable row level security;
 drop policy if exists "public read published content" on public.content_items;
-create policy "public read published content" on public.content_items for select to anon, authenticated using (status = 'published' or public.is_platform_admin());
+create policy "public read published content" on public.content_items for select to anon, authenticated using (status = 'published' or ((select auth.role()) = 'authenticated' and (select private.is_platform_admin())));
 drop policy if exists "admins insert content" on public.content_items;
-create policy "admins insert content" on public.content_items for insert to authenticated with check (public.is_platform_admin());
+create policy "admins insert content" on public.content_items for insert to authenticated with check ((select private.is_platform_admin()) and created_by = (select auth.uid()));
 drop policy if exists "admins update content" on public.content_items;
-create policy "admins update content" on public.content_items for update to authenticated using (public.is_platform_admin()) with check (public.is_platform_admin());
+create policy "admins update content" on public.content_items for update to authenticated using ((select private.is_platform_admin())) with check ((select private.is_platform_admin()));
 drop policy if exists "admins delete content" on public.content_items;
-create policy "admins delete content" on public.content_items for delete to authenticated using (public.is_platform_admin());
+create policy "admins delete content" on public.content_items for delete to authenticated using ((select private.is_platform_admin()));
+grant select on public.content_items to anon, authenticated;
+grant insert, update, delete on public.content_items to authenticated;
 
--- 5) Product / learning analytics. No emails or free-text answers should be inserted by the app.
 create table if not exists public.learning_events (
   id bigint generated by default as identity primary key,
   user_id uuid references auth.users(id) on delete set null,
@@ -96,12 +192,15 @@ create table if not exists public.learning_events (
 );
 create index if not exists learning_events_created_idx on public.learning_events(created_at desc);
 create index if not exists learning_events_name_idx on public.learning_events(event_name, created_at desc);
+create index if not exists learning_events_user_id_idx on public.learning_events(user_id);
 alter table public.learning_events enable row level security;
 drop policy if exists "clients insert learning events" on public.learning_events;
-create policy "clients insert learning events" on public.learning_events for insert to anon, authenticated with check (user_id is null or user_id = auth.uid());
+create policy "clients insert learning events" on public.learning_events for insert to anon, authenticated with check (user_id is null or user_id = (select auth.uid()));
 drop policy if exists "admins read learning events" on public.learning_events;
-create policy "admins read learning events" on public.learning_events for select to authenticated using (public.is_platform_admin());
+create policy "admins read learning events" on public.learning_events for select to authenticated using ((select private.is_platform_admin()));
+grant insert on public.learning_events to anon, authenticated;
+grant select on public.learning_events to authenticated;
 
--- Optional: once your own profile is known, set it as admin manually in the SQL editor.
--- Example only; replace the UUID with your authenticated profile id:
--- update public.profiles set role = 'admin', is_admin = true where id = 'YOUR-USER-UUID';
+-- Make the intended owner account an admin only after that user exists.
+-- Example (replace UUID with the authenticated owner profile id):
+-- update public.profiles set role='admin', is_admin=true where id='OWNER-USER-UUID';
