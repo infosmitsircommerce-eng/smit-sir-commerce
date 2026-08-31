@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import { BookOpenCheck, Check, GraduationCap, Loader2, Sparkles, Target } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { useAuth } from '../context/AuthContext';
@@ -16,6 +16,8 @@ const GOALS = [
 export default function Onboarding() {
   const { user, profile, loading, fetchProfile } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const editing = searchParams.get('edit') === '1';
   const [classLevel, setClassLevel] = useState(String(profile?.class_level || 12));
   const [board, setBoard] = useState(profile?.board || 'CBSE');
   const [subjects, setSubjects] = useState(profile?.subjects?.length ? profile.subjects : ['Accountancy', 'Economics', 'Business Studies']);
@@ -34,7 +36,7 @@ export default function Onboarding() {
 
   if (loading) return <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--bg-ivory)' }}><Loader2 className="w-7 h-7 animate-spin" style={{ color: 'var(--gold)' }} /></div>;
   if (!user) return <Navigate to="/login" replace />;
-  if (profile?.onboarding_completed) return <Navigate to="/dashboard" replace />;
+  if (profile?.onboarding_completed && !editing) return <Navigate to="/dashboard" replace />;
 
   const toggleSubject = (subject) => {
     setSubjects((current) => current.includes(subject) ? current.filter((item) => item !== subject) : [...current, subject]);
@@ -64,11 +66,11 @@ export default function Onboarding() {
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
-      <SEO title="Set Up Your Study Plan" description="Private student onboarding for Smit Sir Commerce." path="/onboarding" noindex />
+      <SEO title={editing ? 'Edit Your Study Setup' : 'Set Up Your Study Plan'} description="Private student onboarding for Smit Sir Commerce." path="/onboarding" noindex />
       <section className="page-hero">
         <div className="page-container max-w-4xl text-center">
           <div className="w-14 h-14 rounded-2xl mx-auto flex items-center justify-center" style={{ background: 'var(--gold-bg)', color: 'var(--gold)' }}><Sparkles className="w-7 h-7" /></div>
-          <span className="eyebrow mt-5 inline-block">60-second setup</span>
+          <span className="eyebrow mt-5 inline-block">{editing ? 'Update your setup' : '60-second setup'}</span>
           <h1 className="mt-4">Make the platform work <em>for your study goal.</em></h1>
           <p className="mt-4 max-w-2xl mx-auto" style={{ color: 'var(--muted)' }}>Choose what you study and what you are preparing for. Your dashboard will use these preferences to prioritise the right tools instead of showing generic cards.</p>
         </div>
@@ -102,7 +104,7 @@ export default function Onboarding() {
 
           <section className="rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-5" style={{ background: 'var(--ink)', color: '#fff' }}>
             <div><div className="text-xs font-bold uppercase tracking-wider" style={{ color: '#e7c66c' }}>Your recommended path</div><div className="font-semibold mt-2">{recommendation}</div><div className="text-xs mt-1" style={{ color: 'var(--muted-on-ink)' }}>This is a study recommendation, not an official academic assessment.</div></div>
-            <button disabled={saving} className="btn-gold inline-flex items-center justify-center gap-2 min-w-[180px]">{saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}{saving ? 'Saving…' : 'Build my dashboard'}</button>
+            <button disabled={saving} className="btn-gold inline-flex items-center justify-center gap-2 min-w-[180px]">{saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}{saving ? 'Saving…' : editing ? 'Save changes' : 'Build my dashboard'}</button>
           </section>
 
           {error && <div className="rounded-xl p-4 text-sm" style={{ background: 'rgba(180,83,60,.08)', color: '#B4533C', border: '1px solid rgba(180,83,60,.2)' }}>{error}</div>}
