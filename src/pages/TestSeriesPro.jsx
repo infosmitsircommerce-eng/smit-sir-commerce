@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AlarmClock, ArrowRight, BarChart3, Crown, LogIn, ShieldCheck, Trophy, X } from 'lucide-react';
+import { AlarmClock, ArrowRight, BarChart3, Crown, LogIn, Trophy, X } from 'lucide-react';
 import BaseTestSeries from './TestSeries';
 import TestSeriesSalesFunnel from '../components/test-series/TestSeriesSalesFunnel';
 import ExtendedTests from '../components/test-series/ExtendedTests';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
+import { addTestMistakes } from '../lib/mistakeBook';
 
 const STORAGE_PREFIX = 'ssc-test-attempts-v1';
 
@@ -18,6 +19,7 @@ function writeLocalAttempt(userId, attempt) {
   return next;
 }
 function initialsFrom(name = 'Student') { return name.trim().split(/\s+/).map((part) => part[0]).join('').toUpperCase().slice(0, 2) || 'ST'; }
+function cleanQuestion(value = '') { return value.replace(/^\d+\.\s*/, '').trim(); }
 
 function AccessGate({ mode, onClose }) {
   if (!mode) return null;
@@ -38,12 +40,8 @@ function ProgressModal({ open, onClose, user, displayName, isPremium, refreshTok
     (async () => {
       const attemptsResult = await supabase.from('test_attempts').select('id,test_name,subject,score,total_questions,percentage,created_at').eq('user_id', user.id).order('created_at', { ascending: false }).limit(100);
       if (cancelled) return;
-      if (attemptsResult.error) {
-        setCloudAvailable(false); setCloudAttempts([]);
-      } else {
-        setCloudAvailable(true); setCloudAttempts(attemptsResult.data || []);
-      }
-
+      if (attemptsResult.error) { setCloudAvailable(false); setCloudAttempts([]); }
+      else { setCloudAvailable(true); setCloudAttempts(attemptsResult.data || []); }
       const boardResult = await supabase.from('test_leaderboard').select('student_label,percentage,latest_attempt').order('percentage', { ascending: false }).limit(10);
       if (cancelled) return;
       if (boardResult.error) { setLeaderboardAvailable(false); setLeaderboard([]); }
@@ -69,7 +67,7 @@ function ExamModeBanner() {
 export default function TestSeriesPro() {
   const { user, isPremium, displayName } = useAuth();
   const rootRef = useRef(null);
-  const activeRef = useRef({ name: '', subject: '' });
+  const activeRef = useRef({ name: '', subject: '', source: 'base', answers: {} });
   const savedFingerprint = useRef('');
   const [gate, setGate] = useState(null);
   const [showProgress, setShowProgress] = useState(false);
@@ -77,16 +75,33 @@ export default function TestSeriesPro() {
 
   const handleCapture = (event) => {
     const button = event.target.closest?.('button');
-    if (!button || !button.textContent?.includes('Start Test')) return;
-    const card = button.closest('article');
-    if (!card) return;
-    const isPro = /\bPRO\b/.test(card.textContent || '');
-    const heading = card.querySelector('h3')?.textContent?.trim() || 'Commerce Test';
-    const meta = card.querySelector('.text-xs')?.textContent || '';
-    const subject = meta.split('·')[0]?.trim() || 'Commerce';
-    if (isPro && !user) { event.preventDefault(); event.stopPropagation(); setGate('login'); return; }
-    if (isPro && !isPremium) { event.preventDefault(); event.stopPropagation(); setGate('premium'); return; }
-    activeRef.current = { name: heading, subject };
+    if (!button) return;
+    const label = button.textContent?.trim() || '';
+    if (label.includes('Start Test')) {
+      const card = button.closest('article');
+      if (!card) return;
+      const isPro = /\bPRO\b/.test(card.textContent || '');
+      const heading = card.querySelector('h3')?.textContent?.trim() || 'Commerce Test';
+      const meta = card.querySelector('.text-xs')?.textContent || '';
+      const subject = meta.split('·')[0]?.trim() || 'Commerce';
+      if (isPro && !user) { event.preventDefault(); event.stopPropagation(); setGate('login'); return; }
+      if (isPro && !isPremium) { event.preventDefault(); event.stopPropagation(); setGate('premium'); return; }
+      const surface = button.closest('[data-test-surface]')?.getAttribute('data-test-surface') || 'base';
+      activeRef.current = { name: heading, subject, source: surface, answers: {} };
+      savedFingerprint.current = '';
+      return;
+    }
+
+    const optionMatch = label.match(/^([A-D])\.\s*(.*)$/s);
+    if (!optionMatch || !activeRef.current.name) return;
+    const box = button.closest('.tile-paper');
+    const modal = button.closest('.card-paper');
+    const questionText = cleanQuestion(box?.querySelector('.font-semibold')?.textContent || [...(modal?.querySelectorAll('h3') || [])].at(-1)?.textContent || '');
+    if (!questionText) return;
+    const scope = box || modal;
+    const optionButtons = [...(scope?.querySelectorAll('button') || [])].filter((node) => /^[A-D]\.\s*/s.test(node.textContent?.trim() || ''));
+    const options = optionButtons.map((node) => (node.textContent?.trim() || '').replace(/^[A-D]\.\s*/, ''));
+    activeRef.current.answers[questionText] = { question: questionText, options, selected: optionMatch[0].charCodeAt(0) - 65 };
   };
 
   useEffect(() => {
@@ -96,23 +111,54 @@ export default function TestSeriesPro() {
       const completed = [...root.querySelectorAll('.eyebrow')].find((node) => node.textContent?.trim() === 'Test completed');
       if (!completed) return;
       const modal = completed.closest('.card-paper');
-      const scoreText = [...(modal?.querySelectorAll('h2') || [])].map((node) => node.textContent?.trim()).find((text) => /^\d+\/\d+$/.test(text || ''));
-      if (!scoreText) return;
-      const [score, total] = scoreText.split('/').map(Number);
+      if (!modal) return;
+      const scoreText = [...modal.querySelectorAll('h2')].map((node) => node.textContent?.trim()).find((text) => /^\d+\/\d+$/.test(text || ''));
+      const extendedScore = [...modal.querySelectorAll('div')].map((node) => node.textContent?.trim()).find((text) => /^\d+\/\d+$/.test(text || ''));
+      const resolvedScore = scoreText || extendedScore;
+      if (!resolvedScore) return;
+      const [score, total] = resolvedScore.split('/').map(Number);
       const fingerprint = `${activeRef.current.name}:${score}:${total}`;
       if (!activeRef.current.name || fingerprint === savedFingerprint.current) return;
       savedFingerprint.current = fingerprint;
-      const percentage = Math.round((score / total) * 100);
-      const attempt = { id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, userId: user?.id || null, testName: activeRef.current.name, subject: activeRef.current.subject, score, total, pct: percentage, createdAt: new Date().toISOString() };
-      writeLocalAttempt(user?.id, attempt);
-      setRefreshToken((value) => value + 1);
-      if (user) {
-        supabase.from('test_attempts').insert({ user_id: user.id, student_label: initialsFrom(displayName), test_name: attempt.testName, subject: attempt.subject, score, total_questions: total, percentage, created_at: attempt.createdAt }).then(() => {});
+
+      const capturedQuestions = [];
+      const capturedAnswers = [];
+      const resultHeadings = [...modal.querySelectorAll('.font-semibold')].filter((node) => /^\d+\.\s*/.test(node.textContent?.trim() || ''));
+      resultHeadings.forEach((heading) => {
+        const questionText = cleanQuestion(heading.textContent || '');
+        const stored = activeRef.current.answers[questionText];
+        if (!stored?.options?.length) return;
+        const container = heading.closest('.tile-paper') || heading.parentElement;
+        const statusLines = [...(container?.querySelectorAll('.text-sm') || [])].map((node) => node.textContent?.trim() || '');
+        const correctLine = statusLines.find((text) => /^Correct answer:|^Correct:/.test(text));
+        if (!correctLine) return;
+        let answerIndex = -1;
+        const letter = correctLine.match(/^Correct answer:\s*([A-D])\./);
+        if (letter) answerIndex = letter[1].charCodeAt(0) - 65;
+        if (answerIndex < 0) {
+          const correctText = correctLine.replace(/^Correct:\s*/, '').split(' · ')[0].trim();
+          answerIndex = stored.options.findIndex((option) => option.trim() === correctText);
+        }
+        if (answerIndex < 0) return;
+        const explanation = statusLines.length > 1 ? statusLines.at(-1).replace(/^Correct:\s*.*? · /, '') : 'Review this concept and try again.';
+        capturedQuestions.push({ question: questionText, options: stored.options, answer: answerIndex, explanation, topic: activeRef.current.name });
+        capturedAnswers.push(stored.selected);
+      });
+      if (capturedQuestions.length) {
+        addTestMistakes({ testId: activeRef.current.name, testName: activeRef.current.name, subject: activeRef.current.subject, questions: capturedQuestions, answers: capturedAnswers, source: 'Test Series' });
+      }
+
+      if (activeRef.current.source !== 'extended') {
+        const percentage = Math.round((score / total) * 100);
+        const attempt = { id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, userId: user?.id || null, testName: activeRef.current.name, subject: activeRef.current.subject, score, total, pct: percentage, createdAt: new Date().toISOString() };
+        writeLocalAttempt(user?.id, attempt);
+        setRefreshToken((value) => value + 1);
+        if (user) supabase.from('test_attempts').insert({ user_id: user.id, student_label: initialsFrom(displayName), test_name: attempt.testName, subject: attempt.subject, score, total_questions: total, percentage, created_at: attempt.createdAt }).then(() => {});
       }
     });
     observer.observe(root, { childList: true, subtree: true, characterData: true });
     return () => observer.disconnect();
   }, [user, displayName]);
 
-  return <><ExamModeBanner /><div ref={rootRef} onClickCapture={handleCapture}><BaseTestSeries /></div><ExtendedTests /><TestSeriesSalesFunnel /><button onClick={() => setShowProgress(true)} className="fixed right-4 bottom-24 lg:bottom-6 z-40 rounded-full px-4 py-3 font-semibold shadow-xl inline-flex items-center gap-2" style={{ background: 'var(--ink)', color: '#fff', border: '1px solid rgba(184,135,47,.35)' }}><BarChart3 className="w-4 h-4" /> My Progress</button><AccessGate mode={gate} onClose={() => setGate(null)} /><ProgressModal open={showProgress} onClose={() => setShowProgress(false)} user={user} displayName={displayName} isPremium={isPremium} refreshToken={refreshToken} /></>;
+  return <><ExamModeBanner /><div ref={rootRef} onClickCapture={handleCapture}><div data-test-surface="base"><BaseTestSeries /></div><div data-test-surface="extended"><ExtendedTests /></div></div><TestSeriesSalesFunnel /><button onClick={() => setShowProgress(true)} className="fixed right-4 bottom-24 lg:bottom-6 z-40 rounded-full px-4 py-3 font-semibold shadow-xl inline-flex items-center gap-2" style={{ background: 'var(--ink)', color: '#fff', border: '1px solid rgba(184,135,47,.35)' }}><BarChart3 className="w-4 h-4" /> My Progress</button><AccessGate mode={gate} onClose={() => setGate(null)} /><ProgressModal open={showProgress} onClose={() => setShowProgress(false)} user={user} displayName={displayName} isPremium={isPremium} refreshToken={refreshToken} /></>;
 }
