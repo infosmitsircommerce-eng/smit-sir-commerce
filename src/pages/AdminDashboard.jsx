@@ -1,437 +1,237 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { Users, BookOpen, FileText, BarChart2, Bell, Settings, Upload, Plus, Eye, Trash2, Edit, Video, Calendar, CreditCard, MessageCircle, CheckCircle, AlertCircle, Loader } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import {
+  Activity, BarChart3, BookOpenCheck, CheckCircle2, Clock3, Crown,
+  Database, Download, ExternalLink, Loader2, RefreshCw, Search,
+  ShieldCheck, Sparkles, UserRoundCog, Users, XCircle
+} from 'lucide-react';
+import SEO from '../components/ui/SEO';
+import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 
-const adminSections = [
-  { id: 'overview', label: 'Overview', icon: BarChart2 },
-  { id: 'students', label: 'Students', icon: Users },
-  { id: 'enquiries', label: 'Enquiries', icon: MessageCircle },
-  { id: 'lectures', label: 'Lectures', icon: Video },
-  { id: 'material', label: 'Study Material', icon: FileText },
-  { id: 'quizzes', label: 'Quizzes', icon: BookOpen },
-  { id: 'tests', label: 'Test Series', icon: BarChart2 },
-  { id: 'live', label: 'Live Classes', icon: Calendar },
-  { id: 'batches', label: 'Batches', icon: Users },
-  { id: 'announcements', label: 'Announcements', icon: Bell },
-  { id: 'payments', label: 'Payments', icon: CreditCard },
-  { id: 'settings', label: 'Settings', icon: Settings },
-];
+const DAY = 24 * 60 * 60 * 1000;
 
-const overviewStats = [
-  { label: 'Total Students', value: '248', change: '+12 this month', color: 'text-blue-400', bg: 'bg-blue-400/10' },
-  { label: 'New Enquiries', value: '18', change: 'This week', color: 'text-gold-400', bg: 'bg-gold-400/10' },
-  { label: 'Active Lectures', value: '94', change: '+6 added', color: 'text-emerald-400', bg: 'bg-emerald-400/10' },
-  { label: 'Quizzes Attempted', value: '1,240', change: 'This month', color: 'text-purple-400', bg: 'bg-purple-400/10' },
-];
+function isActivePro(profile) {
+  if (!profile?.is_premium) return false;
+  if (!profile.premium_until) return true;
+  const expiry = new Date(profile.premium_until).getTime();
+  return Number.isFinite(expiry) && expiry > Date.now();
+}
 
-const mockEnquiries = [
-  { id: 1, name: 'Arjun Patel', class: 12, city: 'Ahmedabad', batch: 'Offline', date: '19 May 2026', status: 'New' },
-  { id: 2, name: 'Priya Shah', class: 11, city: 'Surat', batch: 'Online', date: '18 May 2026', status: 'Contacted' },
-  { id: 3, name: 'Rohit Desai', class: 12, city: 'Vadodara', batch: 'Offline', date: '17 May 2026', status: 'Enrolled' },
-];
+function formatDate(value) {
+  if (!value) return 'No expiry';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return '—';
+  return date.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+}
 
-const mockStudents = [
-  { id: 1, name: 'Rahul Sharma', class: 12, batch: 'Online', score: '76%', attendance: '87%' },
-  { id: 2, name: 'Priya Mehta', class: 12, batch: 'Offline', score: '88%', attendance: '92%' },
-  { id: 3, name: 'Ankit Joshi', class: 11, batch: 'Online', score: '71%', attendance: '78%' },
-];
+function csvCell(value) {
+  const text = Array.isArray(value) ? value.join(' | ') : String(value ?? '');
+  return `"${text.replace(/"/g, '""')}"`;
+}
 
-function OverviewSection() {
+function Restricted({ loggedIn }) {
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {overviewStats.map((stat) => (
-          <div key={stat.label} className="card-premium">
-            <div className={`text-3xl font-bold ${stat.color} mb-1`}>{stat.value}</div>
-            <div className="text-white font-medium text-sm mb-1">{stat.label}</div>
-            <div className="text-navy-500 text-xs">{stat.change}</div>
-          </div>
-        ))}
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-4">
-        <div className="card-premium">
-          <h4 className="font-semibold text-white mb-3">Quick Upload</h4>
-          <div className="grid grid-cols-2 gap-2">
-            {[
-              { label: 'Upload Lecture', icon: Video, color: 'text-blue-400' },
-              { label: 'Upload Notes', icon: FileText, color: 'text-emerald-400' },
-              { label: 'Add Quiz', icon: BookOpen, color: 'text-purple-400' },
-              { label: 'Add Announcement', icon: Bell, color: 'text-gold-400' },
-            ].map((action) => {
-              const Icon = action.icon;
-              return (
-                <button key={action.label} className="flex items-center gap-2 p-3 bg-navy-800/50 hover:bg-navy-700 rounded-xl text-sm transition-colors">
-                  <Icon className={`w-4 h-4 ${action.color}`} />
-                  <span className="text-navy-300 text-xs">{action.label}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-        <div className="card-premium">
-          <h4 className="font-semibold text-white mb-3">Platform Stats</h4>
-          {[
-            { label: 'Total Lectures', value: '94' },
-            { label: 'Study Materials', value: '56' },
-            { label: 'Active Quizzes', value: '28' },
-            { label: 'Test Series', value: '12' },
-          ].map((s) => (
-            <div key={s.label} className="flex items-center justify-between py-1.5 border-b border-navy-800/50 last:border-0">
-              <span className="text-navy-400 text-sm">{s.label}</span>
-              <span className="text-white font-semibold text-sm">{s.value}</span>
-            </div>
-          ))}
-        </div>
+    <div className="min-h-screen flex items-center justify-center px-4" style={{ background: 'var(--bg-ivory)' }}>
+      <SEO title="Owner Control Panel" description="Restricted owner administration area." path="/admin" noindex />
+      <div className="card-paper max-w-lg w-full p-8 text-center">
+        <ShieldCheck className="w-11 h-11 mx-auto" style={{ color: 'var(--gold)' }} />
+        <h1 className="text-3xl mt-4" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{loggedIn ? 'Owner access required' : 'Owner login required'}</h1>
+        <p className="text-sm mt-3 leading-relaxed" style={{ color: 'var(--muted)' }}>
+          {loggedIn
+            ? 'This page can read student records and change Pro access, so ordinary student accounts are blocked.'
+            : 'Sign in with the account that has been designated as the platform owner/admin.'}
+        </p>
+        <Link to={loggedIn ? '/dashboard' : '/login'} className="btn-primary inline-flex mt-6">{loggedIn ? 'Back to dashboard' : 'Login'}</Link>
       </div>
     </div>
   );
 }
-
-function StudentsSection() {
-  return (
-    <div className="card-premium">
-      <div className="flex items-center justify-between mb-5">
-        <h3 className="font-semibold text-white">Enrolled Students</h3>
-        <button className="btn-primary text-sm py-2 px-4 flex items-center gap-2"><Plus className="w-4 h-4" /> Add Student</button>
-      </div>
-      <div className="overflow-x-auto">
-        <table className="w-full">
-          <thead>
-            <tr className="text-navy-400 text-xs border-b border-navy-700/50">
-              <th className="text-left py-2 pr-4">Name</th>
-              <th className="text-left py-2 pr-4">Class</th>
-              <th className="text-left py-2 pr-4">Batch</th>
-              <th className="text-left py-2 pr-4">Avg Score</th>
-              <th className="text-left py-2 pr-4">Attendance</th>
-              <th className="text-left py-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {mockStudents.map((s) => (
-              <tr key={s.id} className="border-b border-navy-800/30 hover:bg-navy-800/30">
-                <td className="py-3 pr-4 text-white text-sm">{s.name}</td>
-                <td className="py-3 pr-4 text-navy-400 text-sm">Class {s.class}</td>
-                <td className="py-3 pr-4 text-navy-400 text-sm">{s.batch}</td>
-                <td className="py-3 pr-4 text-emerald-400 font-medium text-sm">{s.score}</td>
-                <td className="py-3 pr-4 text-gold-400 font-medium text-sm">{s.attendance}</td>
-                <td className="py-3">
-                  <div className="flex items-center gap-2">
-                    <button className="p-1.5 bg-navy-700 hover:bg-navy-600 rounded-lg"><Eye className="w-3.5 h-3.5 text-navy-400" /></button>
-                    <button className="p-1.5 bg-navy-700 hover:bg-navy-600 rounded-lg"><Edit className="w-3.5 h-3.5 text-navy-400" /></button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-}
-
-function EnquiriesSection() {
-  return (
-    <div className="card-premium">
-      <h3 className="font-semibold text-white mb-5">Admission Enquiries</h3>
-      <div className="space-y-3">
-        {mockEnquiries.map((e) => (
-          <div key={e.id} className="flex items-center justify-between p-4 bg-navy-800/50 rounded-xl">
-            <div>
-              <div className="text-white font-medium text-sm">{e.name}</div>
-              <div className="text-navy-400 text-xs mt-0.5">Class {e.class} · {e.city} · {e.batch} Batch</div>
-            </div>
-            <div className="text-right">
-              <span className={`text-xs px-2 py-1 rounded-full font-medium ${
-                e.status === 'New' ? 'bg-gold-500/20 text-gold-400' :
-                e.status === 'Contacted' ? 'bg-blue-500/20 text-blue-400' :
-                'bg-emerald-500/20 text-emerald-400'
-              }`}>{e.status}</span>
-              <div className="text-navy-500 text-xs mt-1">{e.date}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function MaterialSection() {
-  const [materials, setMaterials] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [uploading, setUploading] = useState(false);
-  const [status, setStatus] = useState(null);
-  const [form, setForm] = useState({ title: '', subject: 'Accountancy', class_level: '12', type: 'PDF Notes', is_free: true });
-  const fileRef = useRef();
-
-  const subjects = ['Accountancy', 'Business Studies', 'Economics', 'Entrepreneurship', 'Physical Education', 'All Subjects'];
-  const types = ['PDF Notes', 'Revision Sheet', 'Mind Map', 'Formula Sheet', 'One-Shot Notes', 'Important Questions', 'Sample Paper', 'PYQ', 'Practice Sheet', 'NCERT Solutions'];
-
-  useEffect(() => { fetchMaterials(); }, []);
-
-  async function fetchMaterials() {
-    setLoading(true);
-    const { data } = await supabase.from('study_materials').select('*').order('created_at', { ascending: false });
-    setMaterials(data || []);
-    setLoading(false);
-  }
-
-  async function handleUpload(e) {
-    e.preventDefault();
-    const file = fileRef.current?.files[0];
-    if (!file) { setStatus({ type: 'error', msg: 'Please select a PDF file.' }); return; }
-    if (!file.name.endsWith('.pdf')) { setStatus({ type: 'error', msg: 'Only PDF files allowed.' }); return; }
-
-    setUploading(true);
-    setStatus(null);
-
-    const fileName = `${Date.now()}_${file.name.replace(/\s+/g, '_')}`;
-    const { error: uploadError } = await supabase.storage.from('study-materials').upload(fileName, file);
-
-    if (uploadError) { setStatus({ type: 'error', msg: 'Upload failed: ' + uploadError.message }); setUploading(false); return; }
-
-    const { data: { publicUrl } } = supabase.storage.from('study-materials').getPublicUrl(fileName);
-
-    const { error: dbError } = await supabase.from('study_materials').insert({
-      title: form.title,
-      subject: form.subject,
-      class_level: parseInt(form.class_level),
-      type: form.type,
-      is_free: form.is_free,
-      file_url: publicUrl,
-      file_name: fileName,
-    });
-
-    if (dbError) { setStatus({ type: 'error', msg: 'Saved file but DB failed: ' + dbError.message }); }
-    else {
-      setStatus({ type: 'success', msg: 'PDF uploaded successfully!' });
-      setForm({ title: '', subject: 'Accountancy', class_level: '12', type: 'PDF Notes', is_free: true });
-      fileRef.current.value = '';
-      fetchMaterials();
-    }
-    setUploading(false);
-  }
-
-  async function handleDelete(material) {
-    await supabase.storage.from('study-materials').remove([material.file_name]);
-    await supabase.from('study_materials').delete().eq('id', material.id);
-    fetchMaterials();
-  }
-
-  return (
-    <div className="space-y-6">
-      {/* Upload Form */}
-      <div className="card-premium">
-        <h3 className="font-semibold text-white mb-5 flex items-center gap-2"><Upload className="w-4 h-4 text-gold-400" /> Upload New PDF</h3>
-        <form onSubmit={handleUpload} className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="md:col-span-2">
-              <label className="block text-navy-400 text-xs mb-1.5">Title *</label>
-              <input required className="input-field" placeholder="e.g. Partnership Accounts - Complete Notes" value={form.title} onChange={e => setForm({...form, title: e.target.value})} />
-            </div>
-            <div>
-              <label className="block text-navy-400 text-xs mb-1.5">Subject *</label>
-              <select className="input-field" value={form.subject} onChange={e => setForm({...form, subject: e.target.value})}>
-                {subjects.map(s => <option key={s}>{s}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className="block text-navy-400 text-xs mb-1.5">Class *</label>
-              <select className="input-field" value={form.class_level} onChange={e => setForm({...form, class_level: e.target.value})}>
-                <option value="11">Class 11</option>
-                <option value="12">Class 12</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-navy-400 text-xs mb-1.5">Material Type *</label>
-              <select className="input-field" value={form.type} onChange={e => setForm({...form, type: e.target.value})}>
-                {types.map(t => <option key={t}>{t}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className="block text-navy-400 text-xs mb-1.5">Access</label>
-              <select className="input-field" value={form.is_free ? 'free' : 'premium'} onChange={e => setForm({...form, is_free: e.target.value === 'free'})}>
-                <option value="free">Free</option>
-                <option value="premium">Premium</option>
-              </select>
-            </div>
-            <div className="md:col-span-2">
-              <label className="block text-navy-400 text-xs mb-1.5">PDF File *</label>
-              <input ref={fileRef} type="file" accept=".pdf" className="input-field file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:bg-gold-500/20 file:text-gold-400 cursor-pointer" />
-            </div>
-          </div>
-          {status && (
-            <div className={`flex items-center gap-2 p-3 rounded-xl text-sm ${status.type === 'success' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-red-500/10 text-red-400'}`}>
-              {status.type === 'success' ? <CheckCircle className="w-4 h-4 flex-shrink-0" /> : <AlertCircle className="w-4 h-4 flex-shrink-0" />}
-              {status.msg}
-            </div>
-          )}
-          <button type="submit" disabled={uploading} className="btn-primary flex items-center gap-2 disabled:opacity-50">
-            {uploading ? <><Loader className="w-4 h-4 animate-spin" /> Uploading...</> : <><Upload className="w-4 h-4" /> Upload PDF</>}
-          </button>
-        </form>
-      </div>
-
-      {/* Uploaded Files */}
-      <div className="card-premium">
-        <h3 className="font-semibold text-white mb-5">Uploaded Materials ({materials.length})</h3>
-        {loading ? (
-          <div className="flex items-center justify-center py-8"><Loader className="w-6 h-6 text-gold-400 animate-spin" /></div>
-        ) : materials.length === 0 ? (
-          <div className="text-center py-8 border-2 border-dashed border-navy-700/50 rounded-xl">
-            <FileText className="w-8 h-8 text-navy-600 mx-auto mb-2" />
-            <div className="text-navy-500 text-sm">No PDFs uploaded yet</div>
-          </div>
-        ) : (
-          <div className="space-y-3">
-            {materials.map(m => (
-              <div key={m.id} className="flex items-center justify-between p-4 bg-navy-800/50 rounded-xl gap-3">
-                <div className="flex items-center gap-3 flex-1 min-w-0">
-                  <div className="w-9 h-9 bg-gold-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <FileText className="w-4 h-4 text-gold-400" />
-                  </div>
-                  <div className="min-w-0">
-                    <div className="text-white text-sm font-medium truncate">{m.title}</div>
-                    <div className="text-navy-400 text-xs mt-0.5">{m.subject} · Class {m.class_level} · {m.type} · {m.is_free ? 'Free' : 'Premium'}</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 flex-shrink-0">
-                  <a href={m.file_url} target="_blank" rel="noopener noreferrer" className="p-1.5 bg-navy-700 hover:bg-blue-600 rounded-lg transition-colors">
-                    <Eye className="w-3.5 h-3.5 text-navy-400 hover:text-white" />
-                  </a>
-                  <button onClick={() => handleDelete(m)} className="p-1.5 bg-navy-700 hover:bg-red-600 rounded-lg transition-colors">
-                    <Trash2 className="w-3.5 h-3.5 text-navy-400" />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function PlaceholderSection({ title, description, actions }) {
-  return (
-    <div className="card-premium">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h3 className="font-semibold text-white">{title}</h3>
-          <p className="text-navy-400 text-sm mt-1">{description}</p>
-        </div>
-        {actions && (
-          <div className="flex gap-2">
-            {actions.map((a) => (
-              <button key={a} className="btn-primary text-sm py-2 px-4 flex items-center gap-2">
-                <Plus className="w-4 h-4" /> {a}
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-      <div className="text-center py-8 border-2 border-dashed border-navy-700/50 rounded-xl">
-        <Upload className="w-8 h-8 text-navy-600 mx-auto mb-2" />
-        <div className="text-navy-500 text-sm">Content will appear here — connect backend to manage</div>
-      </div>
-    </div>
-  );
-}
-
-const sectionContent = {
-  overview: { component: OverviewSection },
-  students: { component: StudentsSection },
-  enquiries: { component: EnquiriesSection },
-  lectures: { title: 'Manage Lectures', desc: 'Upload and manage video lectures', actions: ['Upload Lecture'] },
-  material: { component: MaterialSection },
-  quizzes: { title: 'Quizzes', desc: 'Create and manage quizzes', actions: ['Add Quiz'] },
-  tests: { title: 'Test Series', desc: 'Create and manage test series', actions: ['Create Test'] },
-  live: { title: 'Live Classes', desc: 'Schedule and manage live classes', actions: ['Schedule Class'] },
-  batches: { title: 'Batches', desc: 'Manage online and offline batches', actions: ['Add Batch'] },
-  announcements: { title: 'Announcements', desc: 'Post announcements for students', actions: ['Add Announcement'] },
-  payments: { title: 'Payments', desc: 'View payment status — connect payment gateway', actions: [] },
-  settings: { title: 'Settings', desc: 'Manage platform settings', actions: ['Save Settings'] },
-};
 
 export default function AdminDashboard() {
-  const [activeSection, setActiveSection] = useState('overview');
-  const [isAdmin, setIsAdmin] = useState(false);
+  const { user, isAdmin, loading, fetchProfile } = useAuth();
+  const [students, setStudents] = useState([]);
+  const [attempts, setAttempts] = useState([]);
+  const [events, setEvents] = useState([]);
+  const [logs, setLogs] = useState([]);
+  const [contentCount, setContentCount] = useState(0);
+  const [cloudCount, setCloudCount] = useState(0);
+  const [busy, setBusy] = useState(true);
+  const [actionId, setActionId] = useState(null);
+  const [message, setMessage] = useState('');
+  const [query, setQuery] = useState('');
+  const [filter, setFilter] = useState('all');
 
-  if (!isAdmin) {
-    return (
-      <div className="min-h-screen bg-navy-950 flex items-center justify-center p-4">
-        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="w-full max-w-md">
-          <div className="card-premium">
-            <div className="text-center mb-6">
-              <div className="w-16 h-16 bg-gradient-to-br from-navy-600 to-navy-800 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-navy-600">
-                <Settings className="w-8 h-8 text-gold-400" />
-              </div>
-              <h2 className="font-display font-bold text-2xl text-white">Admin Login</h2>
-              <p className="text-navy-400 text-sm mt-1">Smit Sir Commerce Admin Panel</p>
-            </div>
-            <form onSubmit={(e) => {
-              e.preventDefault();
-              const pwd = e.target.password.value;
-              if (pwd === 'Iambatman@4755') { setIsAdmin(true); }
-              else { alert('Wrong password. Try again.'); }
-            }} className="space-y-4">
-              <input name="password" className="input-field" placeholder="Enter admin password" type="password" required />
-              <button type="submit" className="btn-primary w-full">Access Admin Panel</button>
-            </form>
-          </div>
-        </motion.div>
-      </div>
-    );
-  }
+  const refresh = async () => {
+    if (!isAdmin) return;
+    setBusy(true);
+    setMessage('');
+    const since = new Date(Date.now() - 7 * DAY).toISOString();
+    const [profilesRes, attemptsRes, eventsRes, logsRes, contentRes, cloudRes] = await Promise.all([
+      supabase.from('profiles').select('id,email,full_name,class_level,board,subjects,study_goal,onboarding_completed,is_premium,premium_until,created_at').order('created_at', { ascending: false }).limit(2000),
+      supabase.from('test_attempts').select('id,user_id,test_name,subject,percentage,created_at').order('created_at', { ascending: false }).limit(5000),
+      supabase.from('learning_events').select('id,user_id,event_name,path,created_at').gte('created_at', since).order('created_at', { ascending: false }).limit(5000),
+      supabase.from('premium_access_log').select('id,actor_user_id,target_user_id,old_is_premium,new_is_premium,old_premium_until,new_premium_until,changed_at').order('changed_at', { ascending: false }).limit(100),
+      supabase.from('content_items').select('id', { count: 'exact', head: true }).eq('status', 'published'),
+      supabase.from('student_learning_state').select('user_id', { count: 'exact', head: true }),
+    ]);
 
-  const current = sectionContent[activeSection];
-  const Content = current.component;
+    const errors = [profilesRes.error, attemptsRes.error, eventsRes.error, logsRes.error, contentRes.error, cloudRes.error].filter(Boolean);
+    if (errors.length) setMessage(`Some owner data could not be loaded: ${errors[0].message}`);
+    setStudents(profilesRes.data || []);
+    setAttempts(attemptsRes.data || []);
+    setEvents(eventsRes.data || []);
+    setLogs(logsRes.data || []);
+    setContentCount(contentRes.count || 0);
+    setCloudCount(cloudRes.count || 0);
+    setBusy(false);
+  };
+
+  useEffect(() => { refresh(); }, [isAdmin]);
+
+  const perStudent = useMemo(() => {
+    const map = new Map();
+    attempts.forEach((attempt) => {
+      if (!attempt.user_id) return;
+      const row = map.get(attempt.user_id) || { count: 0, total: 0, best: 0, last: null };
+      const pct = Number(attempt.percentage || 0);
+      row.count += 1;
+      row.total += pct;
+      row.best = Math.max(row.best, pct);
+      if (!row.last || new Date(attempt.created_at) > new Date(row.last)) row.last = attempt.created_at;
+      map.set(attempt.user_id, row);
+    });
+    return map;
+  }, [attempts]);
+
+  const lastActivity = useMemo(() => {
+    const map = new Map();
+    events.forEach((event) => {
+      if (!event.user_id) return;
+      const previous = map.get(event.user_id);
+      if (!previous || new Date(event.created_at) > new Date(previous)) map.set(event.user_id, event.created_at);
+    });
+    return map;
+  }, [events]);
+
+  const activeProCount = students.filter(isActivePro).length;
+  const averageScore = attempts.length ? Math.round(attempts.reduce((sum, item) => sum + Number(item.percentage || 0), 0) / attempts.length) : 0;
+  const guestEvents = events.filter((item) => !item.user_id).length;
+
+  const visibleStudents = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return students.filter((student) => {
+      const activePro = isActivePro(student);
+      if (filter === 'pro' && !activePro) return false;
+      if (filter === 'free' && activePro) return false;
+      if (filter === '11' && Number(student.class_level) !== 11) return false;
+      if (filter === '12' && Number(student.class_level) !== 12) return false;
+      if (!q) return true;
+      return `${student.full_name || ''} ${student.email || ''} ${student.board || ''} ${(student.subjects || []).join(' ')}`.toLowerCase().includes(q);
+    });
+  }, [students, query, filter]);
+
+  const setPro = async (student, durationDays) => {
+    const label = student.full_name || student.email || 'this student';
+    const revoke = durationDays === 0;
+    const permanent = durationDays === null;
+    const until = revoke || permanent ? null : new Date(Date.now() + durationDays * DAY).toISOString();
+    if (!window.confirm(revoke ? `Remove Pro access from ${label}?` : `Give ${label} ${permanent ? 'Pro access with no expiry' : `${durationDays} days of Pro access`}?`)) return;
+
+    setActionId(student.id);
+    setMessage('');
+    const { error } = await supabase.from('profiles').update({ is_premium: !revoke, premium_until: until }).eq('id', student.id);
+    if (error) setMessage(`Could not change Pro access: ${error.message}`);
+    else {
+      setMessage(revoke ? `Pro access removed from ${label}.` : `Pro access updated for ${label}.`);
+      if (student.id === user?.id) await fetchProfile(user.id);
+      await refresh();
+    }
+    setActionId(null);
+  };
+
+  const exportStudents = () => {
+    const header = ['Name','Email','Class','Board','Subjects','Goal','Pro','Pro expiry','Tests','Average score','Best score','Created'];
+    const rows = students.map((student) => {
+      const stat = perStudent.get(student.id) || { count: 0, total: 0, best: 0 };
+      const avg = stat.count ? Math.round(stat.total / stat.count) : '';
+      return [student.full_name, student.email, student.class_level, student.board, student.subjects, student.study_goal, isActivePro(student) ? 'Yes' : 'No', student.premium_until, stat.count, avg, stat.best || '', student.created_at];
+    });
+    const csv = [header, ...rows].map((row) => row.map(csvCell).join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `smit-sir-students-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  };
+
+  if (loading) return <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--bg-ivory)' }}><Loader2 className="w-8 h-8 animate-spin" style={{ color: 'var(--gold)' }} /></div>;
+  if (!user) return <Restricted loggedIn={false} />;
+  if (!isAdmin) return <Restricted loggedIn />;
 
   return (
-    <div className="min-h-screen bg-navy-950 flex">
-      {/* Sidebar */}
-      <div className="w-56 flex-shrink-0 bg-navy-900 border-r border-navy-800/50 flex flex-col">
-        <div className="p-5 border-b border-navy-800/50">
-          <div className="font-display font-bold text-white text-sm">Admin Panel</div>
-          <div className="text-gold-400 text-xs">Smit Sir Commerce</div>
-        </div>
-        <nav className="flex-1 p-3 space-y-1">
-          {adminSections.map((section) => {
-            const Icon = section.icon;
-            return (
-              <button
-                key={section.id}
-                onClick={() => setActiveSection(section.id)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-colors ${
-                  activeSection === section.id
-                    ? 'bg-gold-500/20 text-gold-400 border border-gold-500/20'
-                    : 'text-navy-400 hover:bg-navy-800 hover:text-white'
-                }`}
-              >
-                <Icon className="w-4 h-4 flex-shrink-0" />
-                {section.label}
-              </button>
-            );
-          })}
-        </nav>
-      </div>
+    <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
+      <SEO title="Owner Control Panel" description="Restricted owner administration area." path="/admin" noindex />
 
-      {/* Main content */}
-      <div className="flex-1 overflow-auto">
-        <div className="p-6">
-          <div className="mb-6">
-            <h2 className="font-display font-bold text-xl text-white">
-              {adminSections.find(s => s.id === activeSection)?.label}
-            </h2>
+      <header className="sticky top-0 z-40 border-b" style={{ background: 'rgba(250,246,238,.96)', borderColor: 'var(--border)', backdropFilter: 'blur(16px)' }}>
+        <div className="page-container py-4 flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <div className="text-xs font-black tracking-[.18em]" style={{ color: 'var(--gold)' }}>OWNER CONTROL</div>
+            <h1 className="text-2xl mt-1" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Smit Sir Commerce</h1>
           </div>
-          {Content ? (
-            <Content />
-          ) : (
-            <PlaceholderSection title={current.title} description={current.desc} actions={current.actions} />
-          )}
+          <div className="flex flex-wrap gap-2">
+            <button onClick={refresh} disabled={busy} className="btn-secondary inline-flex items-center gap-2"><RefreshCw className={`w-4 h-4 ${busy ? 'animate-spin' : ''}`} /> Refresh</button>
+            <button onClick={exportStudents} disabled={!students.length} className="btn-secondary inline-flex items-center gap-2"><Download className="w-4 h-4" /> Export students</button>
+            <Link to="/admin-studio" className="btn-primary inline-flex items-center gap-2"><UserRoundCog className="w-4 h-4" /> Content Studio</Link>
+            <Link to="/" className="btn-secondary inline-flex items-center gap-2"><ExternalLink className="w-4 h-4" /> View site</Link>
+          </div>
         </div>
-      </div>
+      </header>
+
+      <main className="page-container py-8 space-y-7">
+        {message && <div className="rounded-xl p-4 text-sm" style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,.25)', color: 'var(--charcoal)' }}>{message}</div>}
+
+        <section className="grid grid-cols-2 lg:grid-cols-6 gap-3">
+          {[
+            { icon: Users, label: 'Students', value: busy ? '…' : students.length },
+            { icon: Crown, label: 'Active Pro', value: busy ? '…' : activeProCount },
+            { icon: BarChart3, label: 'Test attempts', value: busy ? '…' : attempts.length },
+            { icon: Sparkles, label: 'Average score', value: attempts.length ? `${averageScore}%` : '—' },
+            { icon: Database, label: 'Cloud profiles', value: busy ? '…' : cloudCount },
+            { icon: BookOpenCheck, label: 'Published admin content', value: busy ? '…' : contentCount },
+          ].map(({ icon: Icon, label, value }) => <div key={label} className="card-paper p-4"><Icon className="w-5 h-5" style={{ color: 'var(--gold)' }} /><div className="text-2xl font-bold mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{value}</div><div className="text-xs mt-1" style={{ color: 'var(--muted)' }}>{label}</div></div>)}
+        </section>
+
+        <section className="grid lg:grid-cols-[1.35fr_.65fr] gap-5">
+          <div className="card-paper p-5 sm:p-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div><span className="eyebrow">Real accounts only</span><h2 className="text-3xl mt-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Student access</h2></div>
+              <div className="flex flex-wrap gap-2">
+                <label className="relative"><Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--muted)' }} /><input value={query} onChange={(e) => setQuery(e.target.value)} className="input-field pl-10 min-w-[240px]" placeholder="Search student…" /></label>
+                <select className="input-field w-auto" value={filter} onChange={(e) => setFilter(e.target.value)}><option value="all">All</option><option value="pro">Pro</option><option value="free">Free</option><option value="11">Class 11</option><option value="12">Class 12</option></select>
+              </div>
+            </div>
+
+            {busy ? <div className="py-16 flex justify-center"><Loader2 className="w-7 h-7 animate-spin" style={{ color: 'var(--gold)' }} /></div> : visibleStudents.length === 0 ? <div className="tile-paper p-8 text-center mt-5"><Users className="w-8 h-8 mx-auto" style={{ color: 'var(--gold)' }} /><div className="font-semibold mt-3" style={{ color: 'var(--ink)' }}>No matching student accounts</div><p className="text-sm mt-1" style={{ color: 'var(--muted)' }}>This panel does not generate demo students. Real sign-ups will appear here.</p></div> : <div className="overflow-x-auto mt-5"><table className="w-full min-w-[980px]"><thead><tr className="text-xs text-left border-b" style={{ color: 'var(--muted)', borderColor: 'var(--border)' }}><th className="py-3 pr-4">Student</th><th className="py-3 pr-4">Study setup</th><th className="py-3 pr-4">Tests</th><th className="py-3 pr-4">Last activity</th><th className="py-3 pr-4">Access</th><th className="py-3">Owner actions</th></tr></thead><tbody>{visibleStudents.map((student) => {
+              const stat = perStudent.get(student.id) || { count: 0, total: 0, best: 0, last: null };
+              const avg = stat.count ? Math.round(stat.total / stat.count) : null;
+              const activePro = isActivePro(student);
+              const activity = lastActivity.get(student.id) || stat.last;
+              return <tr key={student.id} className="border-b align-top" style={{ borderColor: 'var(--border)' }}><td className="py-4 pr-4"><div className="font-semibold" style={{ color: 'var(--ink)' }}>{student.full_name || 'Unnamed student'}</div><div className="text-xs mt-1" style={{ color: 'var(--muted)' }}>{student.email || student.id.slice(0, 8)}</div></td><td className="py-4 pr-4 text-sm"><div style={{ color: 'var(--charcoal)' }}>{student.class_level ? `Class ${student.class_level}` : 'Class not set'} · {student.board || 'Board not set'}</div><div className="text-xs mt-1 max-w-[260px]" style={{ color: 'var(--muted)' }}>{student.subjects?.length ? student.subjects.join(', ') : 'No subjects selected'}{student.onboarding_completed ? '' : ' · Setup incomplete'}</div></td><td className="py-4 pr-4"><div className="font-semibold" style={{ color: 'var(--ink)' }}>{stat.count}</div><div className="text-xs mt-1" style={{ color: 'var(--muted)' }}>{avg === null ? 'No measured score yet' : `Avg ${avg}% · Best ${Math.round(stat.best)}%`}</div></td><td className="py-4 pr-4 text-sm" style={{ color: 'var(--muted)' }}>{activity ? formatDate(activity) : 'No recorded activity'}</td><td className="py-4 pr-4"><span className="inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1.5 rounded-full" style={{ background: activePro ? 'rgba(77,124,15,.09)' : 'var(--bg-ivory)', color: activePro ? 'var(--green)' : 'var(--muted)', border: '1px solid var(--border)' }}>{activePro ? <CheckCircle2 className="w-3.5 h-3.5" /> : <XCircle className="w-3.5 h-3.5" />}{activePro ? 'PRO' : 'FREE'}</span><div className="text-xs mt-2" style={{ color: 'var(--muted)' }}>{activePro ? formatDate(student.premium_until) : student.is_premium && student.premium_until ? `Expired ${formatDate(student.premium_until)}` : 'No Pro access'}</div></td><td className="py-4"><div className="flex flex-wrap gap-1.5"><button disabled={actionId === student.id} onClick={() => setPro(student, 30)} className="text-xs font-semibold px-2.5 py-2 rounded-lg" style={{ background: 'var(--gold-bg)', color: 'var(--gold)' }}>+30d</button><button disabled={actionId === student.id} onClick={() => setPro(student, 90)} className="text-xs font-semibold px-2.5 py-2 rounded-lg" style={{ background: 'var(--gold-bg)', color: 'var(--gold)' }}>+90d</button><button disabled={actionId === student.id} onClick={() => setPro(student, null)} className="text-xs font-semibold px-2.5 py-2 rounded-lg" style={{ background: 'var(--ink)', color: '#fff' }}>No expiry</button>{(student.is_premium || activePro) && <button disabled={actionId === student.id} onClick={() => setPro(student, 0)} className="text-xs font-semibold px-2.5 py-2 rounded-lg" style={{ background: 'rgba(180,83,60,.08)', color: '#B4533C' }}>Revoke</button>}</div></td></tr>;
+            })}</tbody></table></div>}
+          </div>
+
+          <div className="space-y-5">
+            <div className="card-paper p-6"><div className="flex items-center justify-between"><div><span className="eyebrow">Last 7 days</span><h2 className="text-2xl mt-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Platform activity</h2></div><Activity className="w-6 h-6" style={{ color: 'var(--gold)' }} /></div><div className="grid grid-cols-2 gap-3 mt-5"><div className="tile-paper p-4"><div className="text-2xl font-bold" style={{ color: 'var(--ink)' }}>{events.length}</div><div className="text-xs mt-1" style={{ color: 'var(--muted)' }}>tracked events</div></div><div className="tile-paper p-4"><div className="text-2xl font-bold" style={{ color: 'var(--ink)' }}>{guestEvents}</div><div className="text-xs mt-1" style={{ color: 'var(--muted)' }}>guest events</div></div></div><p className="text-xs mt-4 leading-relaxed" style={{ color: 'var(--muted)' }}>These are product-learning events such as page views and exam activity. They are not fabricated attendance figures.</p></div>
+
+            <div className="card-paper p-6"><div className="flex items-center justify-between"><div><span className="eyebrow">Audit trail</span><h2 className="text-2xl mt-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Recent Pro changes</h2></div><Clock3 className="w-6 h-6" style={{ color: 'var(--gold)' }} /></div>{logs.length === 0 ? <p className="text-sm mt-4" style={{ color: 'var(--muted)' }}>No Pro-access changes yet.</p> : <div className="space-y-3 mt-4 max-h-[420px] overflow-y-auto">{logs.slice(0, 12).map((log) => { const target = students.find((student) => student.id === log.target_user_id); return <div key={log.id} className="tile-paper p-3"><div className="text-sm font-semibold" style={{ color: 'var(--ink)' }}>{target?.full_name || target?.email || log.target_user_id.slice(0, 8)}</div><div className="text-xs mt-1" style={{ color: 'var(--muted)' }}>{log.new_is_premium ? `Pro enabled · ${formatDate(log.new_premium_until)}` : 'Pro revoked'} · {formatDate(log.changed_at)}</div></div>; })}</div>}</div>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }
