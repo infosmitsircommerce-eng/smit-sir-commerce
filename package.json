@@ -4,8 +4,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "prebuild": "node scripts/generate-sitemap.mjs",
     "dev": "vite",
     "build": "vite build",
+    "postbuild": "node scripts/prerender-seo.mjs",
     "preview": "vite preview",
     "studio": "remotion studio remotion/index.jsx",
     "render": "remotion render remotion/index.jsx CosmicAd out/SmitSirAd.mp4",

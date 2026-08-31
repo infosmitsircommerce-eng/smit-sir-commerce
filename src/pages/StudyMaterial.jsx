@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Download, Eye, FileText, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { materialTypes } from '../data/studyMaterial';
+import { seoHubs, seoMaterials } from '../data/seoMaterials';
 
 const BUILT_IN_MATERIALS = [
   {
@@ -347,7 +348,9 @@ function MaterialCard({ material }) {
               : <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.25)', color: 'var(--gold)' }}>Premium</span>
             }
           </div>
-          <h3 className="text-sm leading-tight" style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, color: 'var(--ink)' }}>{material.title}</h3>
+          <h3 className="text-sm leading-tight" style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, color: 'var(--ink)' }}>
+            <Link to={material.seo_path}>{material.title}</Link>
+          </h3>
         </div>
       </div>
 
@@ -362,11 +365,11 @@ function MaterialCard({ material }) {
         {/* VIEW BUTTON */}
         {fileUrl && (
           <Link
-            to={`/pdf-viewer?file=${encodeURIComponent(fileUrl)}&title=${encodeURIComponent(material.title)}`}
+            to={material.seo_path}
             className="tile-paper flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-medium"
             style={{ color: 'var(--charcoal)' }}
           >
-            <Eye className="w-3.5 h-3.5" /> View
+            <Eye className="w-3.5 h-3.5" /> View notes
           </Link>
         )}
 
@@ -396,7 +399,7 @@ export default function StudyMaterial() {
   const [filterClass, setFilterClass] = useState('All');
   const [filterType, setFilterType] = useState('All');
   const [filterSubject, setFilterSubject] = useState('All');
-  const uploadedMaterials = BUILT_IN_MATERIALS;
+  const uploadedMaterials = seoMaterials;
   const subjects = ['All', 'Accountancy', 'Business Studies', 'Economics', 'Entrepreneurship', 'Physical Education', 'All Subjects'];
 
   const filtered = uploadedMaterials.filter((m) => {
@@ -441,6 +444,27 @@ export default function StudyMaterial() {
       </div>
 
       <div className="page-container section-padding">
+        <section className="mb-12" aria-labelledby="seo-collections-title">
+          <div className="text-center max-w-3xl mx-auto mb-7">
+            <span className="eyebrow">Start with your subject</span>
+            <h2 id="seo-collections-title" className="text-3xl mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Free chapter-wise CBSE notes</h2>
+            <p className="mt-3" style={{ color: 'var(--muted)' }}>Open a complete subject collection or choose an individual chapter below.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {seoHubs.map((hub) => {
+              const count = seoMaterials.filter((material) => material.hubId === hub.id).length;
+              return (
+                <Link key={hub.id} to={hub.path} className="card-paper p-6 group">
+                  <div className="text-xs font-semibold mb-2" style={{ color: 'var(--gold)' }}>CBSE • CLASS {hub.classLevel}</div>
+                  <h3 className="text-xl mb-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{hub.label} Notes</h3>
+                  <p className="text-sm mb-4" style={{ color: 'var(--muted)' }}>{count} free chapter PDF{count === 1 ? '' : 's'} available</p>
+                  <span className="text-sm font-semibold" style={{ color: 'var(--gold)' }}>Browse collection →</span>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+
         {/* Board selector */}
         <div className="text-center mb-10">
           <div className="text-sm font-semibold mb-3" style={{ color: 'var(--ink)' }}>Choose your board</div>

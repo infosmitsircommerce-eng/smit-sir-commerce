@@ -43,7 +43,7 @@ export default defineConfig({
       },
       workbox: {
         // Let PDF navigation reach the real files instead of the SPA fallback.
-        navigateFallbackDenylist: [/^\/materials\//, /\.pdf$/i],
+        navigateFallbackDenylist: [/^\/materials\//, /^\/cbse\//, /\.pdf$/i],
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         runtimeCaching: [
           {
