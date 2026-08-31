@@ -18,9 +18,9 @@ export default function DemoSlotPicker({ selectedId, onSelect }) {
   const load = async () => {
     setBusy(true);
     setError('');
-    const { data, error: loadError } = await supabase.rpc('list_available_demo_slots');
+    const { data, error: loadError } = await supabase.from('demo_slot_availability').select('slot_id,starts_at,duration_minutes,mode,subject_focus,capacity,remaining').order('starts_at', { ascending: true }).limit(60);
     if (loadError) setError('Live slots could not be loaded right now. You can still send a demo request below.');
-    setSlots(data || []);
+    setSlots((data || []).map((slot) => ({ ...slot, id: slot.slot_id })));
     setBusy(false);
   };
 
