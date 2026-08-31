@@ -11,18 +11,18 @@
     },
     {
       "source": "/assets/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
-      ]
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
     },
     {
       "source": "/materials/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=86400" }
-      ]
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=86400" }]
     },
     {
       "source": "/admin",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, nosnippet" }]
+    },
+    {
+      "source": "/admin-studio",
       "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, nosnippet" }]
     },
     {
@@ -31,6 +31,14 @@
     },
     {
       "source": "/dashboard",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, nosnippet" }]
+    },
+    {
+      "source": "/learning-insights",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, nosnippet" }]
+    },
+    {
+      "source": "/my-data",
       "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, nosnippet" }]
     },
     {
@@ -53,6 +61,12 @@
     { "source": "/pdf-viewer", "destination": "/" },
     { "source": "/quizzes", "destination": "/" },
     { "source": "/test-series", "destination": "/" },
+    { "source": "/exam-mode", "destination": "/" },
+    { "source": "/daily-practice", "destination": "/" },
+    { "source": "/study-coach", "destination": "/" },
+    { "source": "/study-tools", "destination": "/" },
+    { "source": "/learning-insights", "destination": "/" },
+    { "source": "/my-data", "destination": "/" },
     { "source": "/live-classes", "destination": "/" },
     { "source": "/online-batch", "destination": "/" },
     { "source": "/offline-batch", "destination": "/" },
@@ -61,11 +75,15 @@
     { "source": "/about", "destination": "/" },
     { "source": "/contact", "destination": "/" },
     { "source": "/faq", "destination": "/" },
+    { "source": "/privacy", "destination": "/" },
+    { "source": "/terms", "destination": "/" },
+    { "source": "/access-policy", "destination": "/" },
     { "source": "/games", "destination": "/" },
     { "source": "/flashcards", "destination": "/" },
     { "source": "/ask", "destination": "/" },
     { "source": "/reel", "destination": "/" },
     { "source": "/login", "destination": "/" },
-    { "source": "/admin", "destination": "/" }
+    { "source": "/admin", "destination": "/" },
+    { "source": "/admin-studio", "destination": "/" }
   ]
 }
