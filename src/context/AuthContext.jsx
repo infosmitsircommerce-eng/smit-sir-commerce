@@ -40,20 +40,16 @@ export function AuthProvider({ children }) {
   }
 
   async function signUp(email, password, name, classLevel) {
-    const { data, error } = await supabase.auth.signUp({
-      email, password,
-      options: { data: { full_name: name } },
+    return supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: name,
+          class_level: Number(classLevel),
+        },
+      },
     });
-    if (!error && data.user) {
-      await supabase.from('profiles').upsert({
-        id: data.user.id,
-        full_name: name,
-        class_level: Number(classLevel),
-        is_premium: false,
-        created_at: new Date().toISOString(),
-      });
-    }
-    return { data, error };
   }
 
   function signIn(email, password) {
