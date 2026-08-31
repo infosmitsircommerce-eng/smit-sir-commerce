@@ -30,6 +30,10 @@
       "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, nosnippet" }]
     },
     {
+      "source": "/onboarding",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, nosnippet" }]
+    },
+    {
       "source": "/dashboard",
       "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, nosnippet" }]
     },
@@ -71,6 +75,7 @@
     { "source": "/online-batch", "destination": "/" },
     { "source": "/offline-batch", "destination": "/" },
     { "source": "/dashboard", "destination": "/" },
+    { "source": "/onboarding", "destination": "/" },
     { "source": "/parent-info", "destination": "/" },
     { "source": "/about", "destination": "/" },
     { "source": "/contact", "destination": "/" },
