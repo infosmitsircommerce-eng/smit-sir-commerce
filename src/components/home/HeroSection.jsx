@@ -108,13 +108,13 @@ export default function HeroSection() {
             {/* CTA buttons */}
             <motion.div {...fade(0.32)} style={{ marginBottom: '36px' }}>
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                <Link to="/contact" className="btn-primary" style={{ fontSize: '15px', padding: '13px 28px' }}>
+                <Link to="/contact" className="btn-primary hero-primary-cta" style={{ fontSize: '15px', padding: '13px 28px' }}>
                   Book Free Demo Class
                   <ArrowRight style={{ width: '15px', height: '15px' }} />
                 </Link>
-                <Link to="/study-material" className="btn-outline-ink" style={{ fontSize: '15px' }}>
+                <Link to="/cbse-notes" className="btn-outline-ink hero-secondary-cta" style={{ fontSize: '15px' }}>
                   <BookOpen style={{ width: '14px', height: '14px' }} />
-                  Explore Study Material
+                  Explore Free Notes
                 </Link>
               </div>
               <div style={{
@@ -254,9 +254,12 @@ export default function HeroSection() {
           .hero-inner-pad { padding-top: 52px !important; padding-bottom: 64px !important; }
         }
         @media (max-width: 640px) {
-          .hero-inner-pad { padding: 44px 16px 56px !important; }
+          .hero-inner-pad { padding: 34px 16px 48px !important; }
           .hero-teacher-card { max-width: 390px !important; }
           .hero-trust-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+          .hero-main-grid h1 { font-size: clamp(2.15rem, 11vw, 2.7rem) !important; margin-top: 22px !important; }
+          .hero-primary-cta, .hero-secondary-cta { width: 100% !important; }
+          .hero-teacher-photo { aspect-ratio: 16 / 10 !important; }
         }
       `}</style>
     </section>

@@ -1,13 +1,13 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, BookOpen, Brain, LayoutDashboard, GraduationCap } from 'lucide-react';
+import { Home, BookOpen, Brain, LayoutDashboard, ClipboardCheck } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 const TABS = [
   { path: '/',          icon: Home,            label: 'Home'      },
-  { path: '/courses',   icon: GraduationCap,   label: 'Courses'   },
+  { path: '/cbse-notes', icon: BookOpen,        label: 'Notes'     },
   { path: '/ask',       icon: Brain,           label: 'Ask AI',   highlight: true },
-  { path: '/quizzes',   icon: BookOpen,        label: 'Quiz'      },
+  { path: '/quizzes',   icon: ClipboardCheck,  label: 'Quiz'      },
   { path: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
 ];
 
@@ -38,7 +38,7 @@ export default function MobileBottomBar() {
           boxShadow: '0 -8px 32px rgba(0,0,0,0.5)',
         }}>
 
-        <div className="flex items-center justify-around px-2 py-2">
+        <div className="flex items-center justify-around px-1.5 py-2 min-h-[64px]">
           {TABS.map((tab) => {
             const active = isActive(tab.path);
             const Icon = tab.icon;
@@ -48,7 +48,7 @@ export default function MobileBottomBar() {
               <Link
                 key={tab.path}
                 to={tab.path}
-                className="relative flex flex-col items-center justify-center gap-0.5 flex-1 py-1 transition-all active:scale-90"
+                className="relative flex flex-col items-center justify-center gap-0.5 flex-1 min-h-12 py-1 transition-all active:scale-95"
               >
                 {/* Highlight pill for "Ask AI" */}
                 {tab.highlight ? (

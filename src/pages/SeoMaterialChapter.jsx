@@ -69,13 +69,13 @@ export default function SeoMaterialChapter() {
               <span className="eyebrow">Free CBSE Class {material.class_level} notes</span>
               <h1 className="mt-5">{material.chapter} <em>Notes PDF</em></h1>
               <p className="mt-5 text-lg leading-relaxed max-w-3xl" style={{ color: 'var(--muted)' }}>{material.summary}</p>
-              <div className="flex flex-wrap gap-3 mt-7">
-                <Link to={viewerUrl} className="btn-primary inline-flex items-center gap-2"><Eye className="w-4 h-4" /> View PDF online</Link>
-                <a href={material.file_url} download target="_blank" rel="noopener noreferrer" className="btn-secondary inline-flex items-center gap-2"><Download className="w-4 h-4" /> Download PDF</a>
+              <div className="grid grid-cols-1 sm:flex gap-3 mt-7">
+                <Link to={viewerUrl} className="btn-primary w-full sm:w-auto inline-flex items-center justify-center gap-2"><Eye className="w-4 h-4" /> View PDF online</Link>
+                <a href={material.file_url} download target="_blank" rel="noopener noreferrer" className="btn-secondary w-full sm:w-auto inline-flex items-center justify-center gap-2"><Download className="w-4 h-4" /> Download PDF</a>
               </div>
             </div>
 
-            <aside className="card-paper p-6">
+            <aside className="card-paper p-5 sm:p-6">
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: 'var(--gold-bg)', color: 'var(--gold)' }}><BookOpen className="w-5 h-5" /></div>
                 <div><div className="text-xs" style={{ color: 'var(--subtle)' }}>RESOURCE DETAILS</div><div className="font-semibold" style={{ color: 'var(--ink)' }}>Chapter {material.chapterNumber}</div></div>
@@ -95,14 +95,14 @@ export default function SeoMaterialChapter() {
       <main className="page-container section-padding">
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px] gap-8 items-start">
           <div className="space-y-7">
-            <section className="card-paper p-7 md:p-9">
+            <section className="card-paper p-5 sm:p-7 md:p-9">
               <h2 className="text-3xl mb-5" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Chapter overview</h2>
               <p className="leading-8" style={{ color: 'var(--muted)' }}>
                 {material.summary} The material is organised for students who want a clear first reading as well as quick revision before school tests and CBSE examinations. Definitions, relationships and application points should be learned with their supporting examples rather than memorised in isolation.
               </p>
             </section>
 
-            <section className="card-paper p-7 md:p-9">
+            <section className="card-paper p-5 sm:p-7 md:p-9">
               <h2 className="text-3xl mb-6" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Important topics covered</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {material.keyTopics.map((topic) => (
@@ -114,7 +114,7 @@ export default function SeoMaterialChapter() {
               </div>
             </section>
 
-            <section className="card-paper p-7 md:p-9">
+            <section className="card-paper p-5 sm:p-7 md:p-9">
               <h2 className="text-3xl mb-6" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Exam-focused revision checklist</h2>
               <ol className="space-y-4">
                 {material.examFocus.map((point, index) => (
@@ -126,7 +126,7 @@ export default function SeoMaterialChapter() {
               </ol>
             </section>
 
-            <section className="card-paper p-7 md:p-9">
+            <section className="card-paper p-5 sm:p-7 md:p-9">
               <h2 className="text-3xl mb-5" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Frequently asked questions</h2>
               <div className="divide-y" style={{ borderColor: 'var(--border-soft)' }}>
                 {faqs.map((faq) => (
@@ -165,4 +165,3 @@ export default function SeoMaterialChapter() {
     </div>
   );
 }
-

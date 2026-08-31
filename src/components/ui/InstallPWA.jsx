@@ -44,13 +44,13 @@ export default function InstallPWA() {
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 100, opacity: 0 }}
         transition={{ type: 'spring', stiffness: 300, damping: 28 }}
-        className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:w-80 z-50"
+        className="install-pwa-banner fixed left-3 right-3 sm:left-auto sm:right-6 sm:w-80 z-[70]"
       >
-        <div className="rounded-2xl p-4 shadow-2xl shadow-black/50 flex items-center gap-3"
+        <div className="rounded-2xl p-3.5 sm:p-4 shadow-2xl shadow-black/50 flex items-center gap-3"
           style={{ background: 'linear-gradient(135deg, #0d1f3c, #0a1628)', border: '1px solid rgba(212,175,55,0.3)' }}>
 
           {/* Icon */}
-          <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center flex-shrink-0"
             style={{ background: 'linear-gradient(135deg, #D4AF37, #F0C040)' }}>
             <Smartphone className="w-6 h-6 text-navy-950" />
           </div>

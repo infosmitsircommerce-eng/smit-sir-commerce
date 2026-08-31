@@ -916,15 +916,36 @@ body::before {
   /* Better mobile hero spacing */
   .page-container { padding-left: 16px; padding-right: 16px; }
 
+  .page-hero { padding-top: 38px; padding-bottom: 36px; }
+  .page-hero h1 { font-size: clamp(2rem, 10vw, 2.65rem); overflow-wrap: anywhere; }
+  .page-hero p { font-size: 0.95rem; line-height: 1.65; }
+
+  input, select, textarea { font-size: 16px !important; }
+
+  .card-paper { border-radius: 14px; }
+  .card-paper:hover { transform: none; box-shadow: var(--shadow-sm); }
+  .toggle-paper { width: 100%; }
+  .toggle-paper button { flex: 1; min-width: 0; min-height: 46px; padding-left: 10px; padding-right: 10px; }
+  .material-type-pills > button { flex: 0 0 auto; min-height: 40px; padding-left: 14px; padding-right: 14px; }
+  .install-pwa-banner { bottom: calc(78px + env(safe-area-inset-bottom)); }
+
   /* Lighter card hover on mobile (tap) */
   .card-light:hover   { transform: translateY(-2px) scale(1.005); }
   .card-premium:hover { transform: translateY(-2px); }
 
   /* Better mobile section padding */
-  .section-padding { padding-top: 64px; padding-bottom: 64px; }
+  .section-padding { padding-top: 52px; padding-bottom: 52px; }
 
   /* Reduce hero dot complexity */
   .hero-dot { animation-duration: 8s; }
+}
+
+@media (min-width: 769px) {
+  .install-pwa-banner { bottom: 24px; }
+}
+
+@media (max-width: 380px) {
+  .mobile-demo-button { display: none; }
 }
 
 /* Smooth tap on all interactive elements */

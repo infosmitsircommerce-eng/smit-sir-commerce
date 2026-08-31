@@ -468,14 +468,14 @@ export default function StudyMaterial() {
         {/* Board selector */}
         <div className="text-center mb-10">
           <div className="text-sm font-semibold mb-3" style={{ color: 'var(--ink)' }}>Choose your board</div>
-          <div className="toggle-paper inline-flex">
+          <div className="toggle-paper inline-flex max-w-full">
             <button onClick={() => setFilterBoard('CBSE')} className="active">CBSE Board</button>
             <button disabled aria-disabled="true" title="GSEB notes are coming soon" className="opacity-55 cursor-not-allowed">GSEB — Coming soon</button>
           </div>
         </div>
 
         {/* Material type pills */}
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="material-type-pills flex flex-nowrap sm:flex-wrap gap-2 mb-8 overflow-x-auto scrollbar-hide pb-2" aria-label="Material types">
           <button onClick={() => setFilterType('All')} className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors" style={pillStyle(filterType === 'All')}>
             All Types
           </button>
@@ -492,17 +492,17 @@ export default function StudyMaterial() {
         </div>
 
         {/* Filters */}
-        <div className="card-paper p-5 mb-8 flex flex-wrap gap-4">
-          <div className="flex-1 min-w-[200px] relative">
+        <div className="card-paper p-4 sm:p-5 mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[minmax(260px,1fr)_auto_auto] gap-3 sm:gap-4">
+          <div className="relative sm:col-span-2 lg:col-span-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: 'var(--subtle)' }} />
             <input style={{ ...inputStyle, paddingLeft: '40px' }} placeholder="Search material..." value={search} onChange={(e) => setSearch(e.target.value)} />
           </div>
-          <select value={filterClass} onChange={(e) => setFilterClass(e.target.value)} style={{ ...inputStyle, width: 'auto', minWidth: '140px' }}>
+          <select value={filterClass} onChange={(e) => setFilterClass(e.target.value)} style={inputStyle}>
             <option value="All">All Classes</option>
             <option value="11">Class 11</option>
             <option value="12">Class 12</option>
           </select>
-          <select value={filterSubject} onChange={(e) => setFilterSubject(e.target.value)} style={{ ...inputStyle, width: 'auto', minWidth: '160px' }}>
+          <select value={filterSubject} onChange={(e) => setFilterSubject(e.target.value)} style={inputStyle}>
             {subjects.map((s) => <option key={s} value={s}>{s}</option>)}
           </select>
         </div>

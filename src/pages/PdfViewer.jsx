@@ -34,9 +34,9 @@ export default function PdfViewer() {
   const embeddedFile = `${fileUrl}#toolbar=1&navpanes=0&view=FitH`;
 
   return (
-    <div className="min-h-screen py-6" style={{ background: 'var(--bg-ivory)' }}>
+    <div className="min-h-screen py-3 sm:py-6" style={{ background: 'var(--bg-ivory)' }}>
       <div className="page-container">
-        <div className="card-paper p-4 mb-4 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
+        <div className="card-paper p-3 sm:p-4 mb-3 sm:mb-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 justify-between">
           <div className="flex items-center gap-3 min-w-0">
             <Link to="/study-material" className="tile-paper p-2.5 flex-shrink-0" aria-label="Back to study material">
               <ArrowLeft className="w-5 h-5" style={{ color: 'var(--charcoal)' }} />
@@ -47,17 +47,26 @@ export default function PdfViewer() {
             </div>
           </div>
 
-          <div className="flex gap-2">
-            <a href={fileUrl} target="_blank" rel="noopener noreferrer" className="tile-paper px-4 py-2.5 text-sm font-medium inline-flex items-center gap-2" style={{ color: 'var(--charcoal)' }}>
+          <div className="grid grid-cols-2 sm:flex gap-2 w-full sm:w-auto">
+            <a href={fileUrl} target="_blank" rel="noopener noreferrer" className="tile-paper min-h-11 px-3 sm:px-4 py-2.5 text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2" style={{ color: 'var(--charcoal)' }}>
               <ExternalLink className="w-4 h-4" /> Open directly
             </a>
-            <a href={fileUrl} download className="btn-primary px-4 py-2.5 text-sm inline-flex items-center gap-2">
+            <a href={fileUrl} download className="btn-primary min-h-11 px-3 sm:px-4 py-2.5 text-xs sm:text-sm inline-flex items-center justify-center gap-2">
               <Download className="w-4 h-4" /> Download
             </a>
           </div>
         </div>
 
-        <div className="card-paper overflow-hidden" style={{ height: 'calc(100vh - 190px)', minHeight: '650px' }}>
+        <div className="md:hidden card-paper p-6 text-center">
+          <FileWarning className="w-10 h-10 mx-auto mb-3" style={{ color: 'var(--gold)' }} />
+          <h2 className="text-xl mb-2" style={{ color: 'var(--ink)' }}>Open the mobile PDF reader</h2>
+          <p className="text-sm mb-5" style={{ color: 'var(--muted)' }}>For clear text and pinch-to-zoom controls, open this PDF in your phone's built-in viewer.</p>
+          <a href={fileUrl} target="_blank" rel="noopener noreferrer" className="btn-primary w-full min-h-12 inline-flex items-center justify-center gap-2">
+            <ExternalLink className="w-4 h-4" /> Read PDF now
+          </a>
+        </div>
+
+        <div className="hidden md:block card-paper overflow-hidden" style={{ height: 'calc(100vh - 190px)', minHeight: '650px' }}>
           <object data={embeddedFile} type="application/pdf" className="w-full h-full" aria-label={title}>
             <div className="h-full flex flex-col items-center justify-center text-center p-8">
               <FileWarning className="w-12 h-12 mb-4" style={{ color: 'var(--gold)' }} />
