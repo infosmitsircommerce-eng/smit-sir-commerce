@@ -1,5 +1,6 @@
 import { writeFile } from 'node:fs/promises';
 import { seoHubs, seoMaterials } from '../src/data/seoMaterials.js';
+import { examTests } from '../src/data/examBank.js';
 
 const BASE = 'https://www.smitsircommerce.in';
 const basePages = [
@@ -8,13 +9,20 @@ const basePages = [
   ['/study-material', 'weekly', '0.9'],
   ['/cbse-notes', 'weekly', '1.0'],
   ['/quizzes', 'weekly', '0.7'],
-  ['/test-series', 'weekly', '0.7'],
+  ['/test-series', 'weekly', '0.8'],
+  ['/exam-mode', 'weekly', '0.9'],
+  ['/daily-practice', 'weekly', '0.7'],
+  ['/study-coach', 'weekly', '0.7'],
+  ['/study-tools', 'weekly', '0.7'],
   ['/live-classes', 'weekly', '0.7'],
   ['/online-batch', 'monthly', '0.8'],
   ['/offline-batch', 'monthly', '0.8'],
   ['/about', 'monthly', '0.6'],
   ['/contact', 'monthly', '0.7'],
   ['/faq', 'monthly', '0.6'],
+  ['/privacy', 'yearly', '0.3'],
+  ['/terms', 'yearly', '0.3'],
+  ['/access-policy', 'yearly', '0.4'],
 ];
 
 function urlEntry(path, changefreq, priority, lastmod = '') {
@@ -32,6 +40,7 @@ const entries = [
   ...basePages.map(([path, frequency, priority]) => urlEntry(path, frequency, priority)),
   ...seoHubs.map((hub) => urlEntry(hub.path, 'weekly', '0.9', '2026-08-31')),
   ...seoMaterials.map((material) => urlEntry(material.seo_path, 'monthly', '0.8', material.updated)),
+  ...examTests.map((test) => urlEntry(`/tests/${test.slug}`, 'monthly', '0.75', '2026-09-01')),
 ];
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
