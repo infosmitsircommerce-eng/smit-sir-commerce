@@ -8,6 +8,8 @@ import CursorSpotlight from '../ui/CursorSpotlight';
 import ScrollProgressBar from '../ui/ScrollProgressBar';
 import GlobalStudySearch from '../ui/GlobalStudySearch';
 import CloudSyncBridge from '../ui/CloudSyncBridge';
+import AnalyticsTracker from '../ui/AnalyticsTracker';
+import ChapterProgressTracker from '../ui/ChapterProgressTracker';
 import { isLightRoute } from '../../lib/theme';
 
 export default function Layout({ children }) {
@@ -23,12 +25,14 @@ export default function Layout({ children }) {
       >
         Skip to main content
       </a>
+      <AnalyticsTracker />
       <ScrollProgressBar />
       <CursorSpotlight />
       <Navbar />
       <MobileHeader />
       <GlobalStudySearch />
       <CloudSyncBridge />
+      <ChapterProgressTracker />
       <main id="main-content" tabIndex="-1" className="flex-1 pt-0 lg:pt-20 pb-20 lg:pb-0">
         {children}
       </main>
