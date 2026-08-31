@@ -25,7 +25,7 @@ const fade = (delay = 0) => ({
 export default function HeroSection() {
   return (
     <section className="home-hero" style={{
-      background: 'linear-gradient(135deg, #ffffff 0%, #f2f4ff 52%, #f8fafc 100%)',
+      background: 'linear-gradient(135deg, #ffffff 0%, #fff8e8 52%, #f8fafc 100%)',
       position: 'relative',
       overflow: 'hidden',
     }}>
@@ -33,13 +33,13 @@ export default function HeroSection() {
       <div aria-hidden="true" style={{
         position: 'absolute', top: '-170px', right: '8%',
         width: '440px', height: '440px', borderRadius: '50%',
-        background: 'rgba(99,102,241,0.20)', filter: 'blur(48px)',
+        background: 'rgba(224,167,43,0.22)', filter: 'blur(48px)',
         pointerEvents: 'none',
       }} />
       <div aria-hidden="true" style={{
         position: 'absolute', bottom: '-220px', left: '4%',
         width: '520px', height: '520px', borderRadius: '50%',
-        background: 'rgba(14,165,233,0.14)', filter: 'blur(58px)',
+        background: 'rgba(183,121,31,0.12)', filter: 'blur(58px)',
         pointerEvents: 'none',
       }} />
 
@@ -59,12 +59,12 @@ export default function HeroSection() {
                 display: 'inline-flex', alignItems: 'center', gap: '8px',
                 padding: '8px 13px', borderRadius: '999px',
                 background: 'rgba(255,255,255,0.72)',
-                border: '1px solid #D9DEFF',
-                boxShadow: '0 8px 24px rgba(67,56,202,0.08)',
+                border: '1px solid #EAD7A7',
+                boxShadow: '0 8px 24px rgba(166,111,23,0.10)',
                 fontFamily: 'var(--font-sans)', fontSize: '11px', fontWeight: 700,
-                letterSpacing: '0.09em', textTransform: 'uppercase', color: '#4338CA',
+                letterSpacing: '0.09em', textTransform: 'uppercase', color: '#966313',
               }}>
-                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#4F46E5' }} />
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D5A438' }} />
                 CBSE Commerce · Class 11 &amp; 12 · Mehsana + Online
               </span>
             </motion.div>
@@ -86,7 +86,7 @@ export default function HeroSection() {
                 fontStyle: 'normal',
                 fontWeight: 750,
                 fontSize: '1em',
-                background: 'linear-gradient(135deg, #4F46E5, #7C3AED)',
+                background: 'linear-gradient(135deg, #A66F17, #E0A72B)',
                 WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
               }}>
                 finally made clear.
@@ -166,7 +166,7 @@ export default function HeroSection() {
             <div aria-hidden="true" style={{
               position: 'absolute', inset: '12% -8% -8% 10%',
               borderRadius: '28px',
-              background: 'rgba(79,70,229,0.18)',
+              background: 'rgba(213,164,56,0.22)',
               filter: 'blur(28px)', pointerEvents: 'none',
             }} />
 
@@ -179,7 +179,7 @@ export default function HeroSection() {
               boxShadow: '0 28px 70px rgba(16,24,40,0.16)',
             }}>
               {/* Gold accent top */}
-              <div style={{ height: '4px', background: 'linear-gradient(90deg, #4F46E5, #7C3AED, #F59E0B)' }} />
+              <div style={{ height: '4px', background: 'linear-gradient(90deg, #8F5C10, #D5A438, #F3CA69)' }} />
 
               {/* Photo */}
               <img

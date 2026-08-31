@@ -22,7 +22,7 @@ export default function PageLoader() {
         >
           {/* Soft platform glow */}
           <div className="absolute inset-0 pointer-events-none"
-            style={{ background: 'radial-gradient(circle at 50% 35%, rgba(79,70,229,0.12), transparent 34%)' }} />
+            style={{ background: 'radial-gradient(circle at 50% 35%, rgba(213,164,56,0.16), transparent 34%)' }} />
 
           <div className="relative flex flex-col items-center gap-6">
             {/* Logo icon */}

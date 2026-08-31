@@ -91,11 +91,11 @@ export default function Navbar() {
     },
     linkColor: '#c7d7fe',
     linkActive: '#D9AC5C',
-    linkHoverBg: 'rgba(55,48,163,0.4)',
+    linkHoverBg: 'rgba(184,135,47,0.14)',
     brandTop: '#fff',
-    dropdownBg: { background: '#1e1b5e', border: '1px solid #4338c2', boxShadow: '0 4px 24px rgba(30,27,94,0.4)' },
+    dropdownBg: { background: '#121B32', border: '1px solid rgba(212,175,55,0.22)', boxShadow: '0 16px 36px rgba(0,0,0,0.35)' },
     dropdownItem: '#c7d7fe',
-    dropdownItemHoverBg: '#3730a3',
+    dropdownItemHoverBg: 'rgba(184,135,47,0.12)',
   };
 
   const linkStyle = (active) => ({
