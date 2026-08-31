@@ -441,6 +441,7 @@
     background: var(--bg-ivory);
     border: 1px solid var(--border);
     border-radius: 0.65rem;
+    color: var(--charcoal);
     transition: background 0.18s ease, border-color 0.18s ease;
   }
   .tile-paper:hover {
