@@ -18,6 +18,7 @@
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=86400" }]
     },
     { "source": "/admin", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, nosnippet" }] },
+    { "source": "/admin/students", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, nosnippet" }] },
     { "source": "/admin/leads", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, nosnippet" }] },
     { "source": "/admin-studio", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, nosnippet" }] },
     { "source": "/login", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, nosnippet" }] },
@@ -63,6 +64,7 @@
     { "source": "/reel", "destination": "/" },
     { "source": "/login", "destination": "/" },
     { "source": "/admin", "destination": "/" },
+    { "source": "/admin/students", "destination": "/" },
     { "source": "/admin/leads", "destination": "/" },
     { "source": "/admin-studio", "destination": "/" }
   ]
