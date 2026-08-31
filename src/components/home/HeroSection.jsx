@@ -29,7 +29,6 @@ export default function HeroSection() {
       position: 'relative',
       overflow: 'hidden',
     }}>
-      {/* Soft modern background depth */}
       <div aria-hidden="true" style={{
         position: 'absolute', top: '-170px', right: '8%',
         width: '440px', height: '440px', borderRadius: '50%',
@@ -50,10 +49,7 @@ export default function HeroSection() {
           gap: '56px',
           alignItems: 'center',
         }} className="hero-main-grid">
-
-          {/* ── LEFT ── */}
           <div>
-            {/* Modern eyebrow pill */}
             <motion.div {...fade(0.08)}>
               <span style={{
                 display: 'inline-flex', alignItems: 'center', gap: '8px',
@@ -69,7 +65,6 @@ export default function HeroSection() {
               </span>
             </motion.div>
 
-            {/* Headline */}
             <motion.h1 {...fade(0.16)} style={{
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(2.5rem, 4.8vw, 3.8rem)',
@@ -93,7 +88,6 @@ export default function HeroSection() {
               </em>
             </motion.h1>
 
-            {/* Subheadline */}
             <motion.p {...fade(0.24)} style={{
               fontFamily: 'var(--font-sans)',
               fontSize: '16px', lineHeight: 1.72,
@@ -106,7 +100,6 @@ export default function HeroSection() {
               board-focused notes, chapter-wise practice, and published study material.
             </motion.p>
 
-            {/* CTA buttons */}
             <motion.div {...fade(0.32)} style={{ marginBottom: '36px' }}>
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                 <Link to="/contact" className="btn-primary hero-primary-cta" style={{ fontSize: '15px', padding: '13px 28px' }}>
@@ -127,7 +120,6 @@ export default function HeroSection() {
               </div>
             </motion.div>
 
-            {/* Trust cards */}
             <motion.div {...fade(0.4)} className="hero-trust-grid" style={{
               display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
               gap: '10px',
@@ -154,7 +146,6 @@ export default function HeroSection() {
             </motion.div>
           </div>
 
-          {/* ── RIGHT — Teacher card ── */}
           <motion.div
             initial={{ opacity: 0, x: 28 }}
             animate={{ opacity: 1, x: 0 }}
@@ -162,7 +153,6 @@ export default function HeroSection() {
             className="hero-teacher-card"
             style={{ position: 'relative', width: '100%', maxWidth: '430px', justifySelf: 'end' }}
           >
-            {/* Soft glow behind the card */}
             <div aria-hidden="true" style={{
               position: 'absolute', inset: '12% -8% -8% 10%',
               borderRadius: '28px',
@@ -178,25 +168,30 @@ export default function HeroSection() {
               border: '1px solid #E0E5EE',
               boxShadow: '0 28px 70px rgba(16,24,40,0.16)',
             }}>
-              {/* Gold accent top */}
               <div style={{ height: '4px', background: 'linear-gradient(90deg, #8F5C10, #D5A438, #F3CA69)' }} />
 
-              {/* Photo */}
-              <img
-                src={teacherPhoto}
-                alt="Smit Sir — CBSE Commerce Teacher"
-                className="hero-teacher-photo"
-                style={{
-                  width: '100%',
-                  aspectRatio: '4 / 3',
-                  height: 'auto',
-                  objectFit: 'cover',
-                  objectPosition: 'center 12%',
-                  display: 'block',
-                }}
-              />
+              <div className="hero-teacher-photo-frame" style={{
+                width: '100%',
+                aspectRatio: '4 / 5',
+                overflow: 'hidden',
+                background: '#eef1f5',
+              }}>
+                <img
+                  src={teacherPhoto}
+                  alt="Smit Sir — CBSE Commerce Teacher"
+                  className="hero-teacher-photo"
+                  loading="eager"
+                  fetchPriority="high"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'center 8%',
+                    display: 'block',
+                  }}
+                />
+              </div>
 
-              {/* Info strip */}
               <div style={{ padding: '15px 18px 17px', background: 'var(--bg-white)' }}>
                 <div style={{
                   display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '12px',
@@ -227,7 +222,6 @@ export default function HeroSection() {
                   </div>
                 </div>
 
-                {/* Mini badges row */}
                 <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                   {badges.map(b => (
                     <div key={b.text} style={{
@@ -251,16 +245,17 @@ export default function HeroSection() {
       <style>{`
         @media (max-width: 1024px) {
           .hero-main-grid { grid-template-columns: 1fr !important; gap: 44px !important; }
-          .hero-teacher-card { justify-self: center !important; max-width: 500px !important; }
+          .hero-teacher-card { justify-self: center !important; max-width: 460px !important; }
           .hero-inner-pad { padding-top: 52px !important; padding-bottom: 64px !important; }
         }
         @media (max-width: 640px) {
           .hero-inner-pad { padding: 34px 16px 48px !important; }
-          .hero-teacher-card { max-width: 390px !important; }
+          .hero-teacher-card { max-width: 360px !important; }
           .hero-trust-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
           .hero-main-grid h1 { font-size: clamp(2.15rem, 11vw, 2.7rem) !important; margin-top: 22px !important; }
           .hero-primary-cta, .hero-secondary-cta { width: 100% !important; }
-          .hero-teacher-photo { aspect-ratio: 16 / 10 !important; }
+          .hero-teacher-photo-frame { aspect-ratio: 4 / 5 !important; }
+          .hero-teacher-photo { object-position: center 6% !important; }
         }
       `}</style>
     </section>
