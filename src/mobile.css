@@ -1,0 +1,314 @@
+/* Mobile-first experience layer. Desktop remains governed by index.css. */
+@media (max-width: 1023px) {
+  html {
+    scroll-padding-top: 72px;
+  }
+
+  body {
+    min-width: 320px;
+    overflow-x: clip;
+  }
+
+  main {
+    width: 100%;
+  }
+
+  /* Keep content clear of the fixed bottom navigation and phone safe areas. */
+  #main-content {
+    padding-bottom: calc(92px + env(safe-area-inset-bottom));
+  }
+
+  /* Mobile header: tighter, cleaner and easier to tap. */
+  .mobile-site-header {
+    min-height: 64px;
+    padding-left: max(14px, env(safe-area-inset-left));
+    padding-right: max(14px, env(safe-area-inset-right));
+    box-shadow: 0 8px 30px rgba(16, 24, 40, 0.08);
+  }
+
+  .mobile-header-demo {
+    color: #2c2114;
+    background: linear-gradient(135deg, #f2d488 0%, #d5a438 100%);
+    border: 1px solid rgba(166, 111, 23, 0.28);
+    box-shadow: 0 8px 18px rgba(166, 111, 23, 0.15);
+  }
+
+  .mobile-menu-demo-cta {
+    color: #241c12;
+    background: linear-gradient(135deg, #fff8e8 0%, #f4d991 100%);
+    border: 1px solid rgba(166, 111, 23, 0.28);
+    box-shadow: 0 14px 34px rgba(166, 111, 23, 0.16);
+  }
+
+  .mobile-menu-demo-icon {
+    color: #2a2115;
+    background: rgba(255,255,255,0.62);
+    border: 1px solid rgba(166,111,23,0.2);
+  }
+
+  /* Bottom navigation behaves like a polished app dock. */
+  .mobile-bottom-shell {
+    padding-left: max(8px, env(safe-area-inset-left));
+    padding-right: max(8px, env(safe-area-inset-right));
+    pointer-events: none;
+  }
+
+  .mobile-bottom-surface {
+    pointer-events: auto;
+    margin: 0 8px 8px;
+    border-radius: 22px;
+    background: rgba(16, 24, 40, 0.96);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 -2px 8px rgba(16,24,40,0.06), 0 14px 42px rgba(16,24,40,0.28);
+    overflow: visible;
+  }
+
+  .mobile-bottom-item {
+    min-width: 0;
+    text-decoration: none;
+  }
+
+  .mobile-tab-active {
+    background: rgba(217, 172, 92, 0.13);
+  }
+
+  .mobile-demo-orb {
+    background: linear-gradient(135deg, #f1d27f 0%, #c99b3e 100%);
+    border: 2px solid #101828;
+    box-shadow: 0 7px 24px rgba(201,160,80,0.45);
+  }
+
+  .mobile-bottom-label {
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+
+  /* Global mobile typography and rhythm. */
+  .section-padding {
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+  }
+
+  .section-heading,
+  .headline {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Make every primary action comfortable for thumbs. */
+  a.btn-primary,
+  a.btn-secondary,
+  a.btn-outline-ink,
+  button.btn-primary,
+  button.btn-secondary,
+  button.btn-outline-ink,
+  .btn-primary,
+  .btn-secondary,
+  .btn-navy {
+    min-height: 48px;
+    border-radius: 13px;
+  }
+
+  /* Homepage hero is the most important mobile viewport. */
+  .home-hero .hero-inner-pad {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .home-hero .hero-main-grid {
+    gap: 34px !important;
+  }
+
+  .home-hero h1 {
+    text-wrap: balance;
+  }
+
+  .home-hero .hero-primary-cta,
+  .home-hero .hero-secondary-cta {
+    min-height: 52px;
+    font-size: 15px !important;
+  }
+
+  .home-hero .hero-primary-cta {
+    box-shadow: 0 14px 30px rgba(166,111,23,0.24);
+  }
+
+  .home-hero .hero-trust-grid > div {
+    min-width: 0;
+  }
+
+  .home-hero .hero-teacher-card {
+    width: min(100%, 360px) !important;
+  }
+
+  .home-hero .hero-teacher-card > div:last-child {
+    border-radius: 20px !important;
+  }
+
+  /* Prevent oversized inline grids/cards from causing sideways scroll. */
+  section,
+  section > div,
+  .page-container,
+  .card-paper,
+  .card-premium,
+  .glass-card {
+    max-width: 100%;
+  }
+
+  img,
+  video,
+  iframe,
+  canvas,
+  svg {
+    max-width: 100%;
+  }
+
+  iframe,
+  video {
+    border-radius: 14px;
+  }
+
+  /* Horizontal chips should scroll rather than squeeze into unreadable rows. */
+  .material-type-pills,
+  .mobile-scroll-row {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .material-type-pills::-webkit-scrollbar,
+  .mobile-scroll-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Forms: no iOS zoom, stronger touch ergonomics. */
+  input,
+  select,
+  textarea {
+    min-height: 46px;
+    font-size: 16px !important;
+    border-radius: 12px;
+  }
+
+  textarea {
+    min-height: 112px;
+  }
+
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    touch-action: manipulation;
+  }
+
+  /* Avoid hover-only transforms and expensive effects on touch screens. */
+  .card-premium:hover,
+  .card-light:hover,
+  .sticker:hover,
+  .btn-primary:hover,
+  .btn-secondary:hover,
+  .btn-outline-ink:hover,
+  .btn-navy:hover {
+    transform: none !important;
+  }
+
+  .hero-dot,
+  .orb-1,
+  .orb-2,
+  .orb-3,
+  .float-animate,
+  .glow-animate {
+    animation: none !important;
+  }
+
+  /* Dialogs and sheets fit small phone screens. */
+  [role='dialog'] {
+    max-width: calc(100vw - 24px) !important;
+    max-height: calc(100dvh - 32px) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .section-padding {
+    padding-top: 42px !important;
+    padding-bottom: 42px !important;
+  }
+
+  .section-heading {
+    font-size: clamp(1.85rem, 8.5vw, 2.35rem) !important;
+    padding-bottom: 17px;
+  }
+
+  .headline {
+    font-size: clamp(1.9rem, 8.6vw, 2.4rem) !important;
+  }
+
+  .home-hero .hero-inner-pad {
+    padding-top: 26px !important;
+    padding-bottom: 38px !important;
+  }
+
+  .home-hero .hero-main-grid h1 {
+    font-size: clamp(2.05rem, 10.6vw, 2.55rem) !important;
+    line-height: 1.08 !important;
+    margin: 20px 0 16px !important;
+  }
+
+  .home-hero .hero-trust-grid {
+    gap: 8px !important;
+  }
+
+  .home-hero .hero-trust-grid > div {
+    min-height: 78px !important;
+    padding: 13px 11px !important;
+  }
+
+  .page-hero {
+    padding-top: 30px !important;
+    padding-bottom: 30px !important;
+  }
+
+  .page-container {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  footer {
+    padding-bottom: 90px;
+  }
+}
+
+@media (max-width: 380px) {
+  .mobile-site-header {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .mobile-bottom-surface {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
+
+  .mobile-bottom-label {
+    font-size: 9px !important;
+  }
+
+  .home-hero .hero-inner-pad {
+    padding-left: 13px !important;
+    padding-right: 13px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
