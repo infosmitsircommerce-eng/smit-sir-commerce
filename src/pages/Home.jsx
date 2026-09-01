@@ -9,6 +9,7 @@ import StudyCoachCTA from '../components/home/StudyCoachCTA';
 import BatchCTA from '../components/home/BatchCTA';
 import FAQSection from '../components/home/FAQSection';
 import ContactCTA from '../components/home/ContactCTA';
+import StudentJourney from '../components/home/StudentJourney';
 import SectionDivider from '../components/ui/SectionDivider';
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
       />
       <HeroSection />
       <StatsSection />
+      <StudentJourney />
       <DailyPracticeCTA />
       <StudyCoachCTA />
       <CoursesPreview />
