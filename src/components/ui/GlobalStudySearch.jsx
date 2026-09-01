@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Bookmark, BookmarkCheck, Clock3, Search, X } from 'lucide-react';
 import { seoHubs, seoMaterials } from '../../data/seoMaterials';
+import { growthPages } from '../../data/contentGrowth';
 import { getExamSearchItems } from '../../data/examBank';
 
 const BOOKMARKS_KEY = 'ssc-study-bookmarks-v1';
@@ -9,6 +10,7 @@ const RECENT_KEY = 'ssc-recent-learning-v1';
 
 const coreItems = [
   { title: 'Free CBSE Notes', subtitle: 'Class 11 & 12 Commerce', path: '/cbse-notes', type: 'Notes' },
+  { title: 'Free CBSE Practice', subtitle: 'MCQs, important questions, case studies, numericals and revision', path: '/cbse-practice', type: 'Practice Library' },
   { title: 'Study Material', subtitle: 'Chapter-wise PDFs', path: '/study-material', type: 'Resource' },
   { title: 'Daily 10', subtitle: 'Daily Commerce practice', path: '/daily-practice', type: 'Practice' },
   { title: 'Test Series', subtitle: 'Chapter and full syllabus tests', path: '/test-series', type: 'Tests' },
@@ -57,6 +59,7 @@ export default function GlobalStudySearch() {
     ...coreItems,
     ...seoHubs.map((hub) => ({ title: hub.label, subtitle: hub.description, path: hub.path, type: 'Subject', keywords: `${hub.subject} class ${hub.classLevel}` })),
     ...seoMaterials.map((m) => ({ title: m.chapter, subtitle: `Class ${m.class_level} · ${m.subjectLabel}`, path: m.seo_path, type: 'Chapter', keywords: `${m.subject} ${m.keyTopics?.join(' ') || ''}` })),
+    ...growthPages.map((page) => ({ id: page.id, title: `${page.chapter} ${page.label}`, subtitle: `Class ${page.classLevel} · ${page.subject}`, path: page.path, type: 'Chapter Practice', keywords: `${page.chapter} ${page.subject} ${page.label} ${page.type}` })),
     ...getExamSearchItems(),
   ], []);
 
