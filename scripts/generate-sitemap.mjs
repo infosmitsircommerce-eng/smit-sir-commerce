@@ -1,5 +1,6 @@
 import { writeFile } from 'node:fs/promises';
 import { seoHubs, seoMaterials } from '../src/data/seoMaterials.js';
+import { growthPages } from '../src/data/contentGrowth.js';
 import { examTests } from '../src/data/examBank.js';
 
 const BASE = 'https://www.smitsircommerce.in';
@@ -8,6 +9,7 @@ const basePages = [
   ['/courses', 'weekly', '0.9'],
   ['/study-material', 'weekly', '0.9'],
   ['/cbse-notes', 'weekly', '1.0'],
+  ['/cbse-practice', 'weekly', '1.0'],
   ['/quizzes', 'weekly', '0.7'],
   ['/test-series', 'weekly', '0.8'],
   ['/exam-mode', 'weekly', '0.9'],
@@ -41,6 +43,7 @@ const entries = [
   ...basePages.map(([path, frequency, priority]) => urlEntry(path, frequency, priority)),
   ...seoHubs.map((hub) => urlEntry(hub.path, 'weekly', '0.9', '2026-08-31')),
   ...seoMaterials.map((material) => urlEntry(material.seo_path, 'monthly', '0.8', material.updated)),
+  ...growthPages.map((page) => urlEntry(page.path, 'monthly', page.type === 'mcqs' || page.type === 'important-questions' ? '0.82' : '0.76', page.updated)),
   ...examTests.map((test) => urlEntry(`/tests/${test.slug}`, 'monthly', '0.75', '2026-09-01')),
 ];
 
@@ -51,4 +54,4 @@ ${entries.join('\n')}
 `;
 
 await writeFile(new URL('../public/sitemap.xml', import.meta.url), xml, 'utf8');
-console.log(`Generated sitemap with ${entries.length} indexable URLs.`);
+console.log(`Generated sitemap with ${entries.length} indexable URLs (${growthPages.length} chapter-practice pages).`);
