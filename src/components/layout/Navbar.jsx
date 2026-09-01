@@ -11,14 +11,17 @@ const navLinks = [
     label: 'Learn',
     children: [
       { label: 'Courses', path: '/courses' },
-      { label: 'Lectures', path: '/lectures' },
+      { label: 'Free CBSE Notes', path: '/cbse-notes' },
       { label: 'Study Material', path: '/study-material' },
+      { label: 'CBSE PYQ & Sample Papers', path: '/cbse-pyq' },
+      { label: 'Lectures', path: '/lectures' },
       { label: 'Study Toolkit', path: '/study-tools' },
     ],
   },
   {
     label: 'Practice',
     children: [
+      { label: 'Chapter Practice', path: '/cbse-practice' },
       { label: 'Daily 10', path: '/daily-practice' },
       { label: 'Advanced Exam Mode', path: '/exam-mode' },
       { label: 'Test Series', path: '/test-series' },
@@ -120,7 +123,7 @@ export default function Navbar() {
                 <button onClick={handleLogout} className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-400"><LogOut className="w-4 h-4" /> Logout</button>
               </motion.div>}</AnimatePresence>
             </div> : <Link to="/login" className="text-sm py-2 px-4 rounded-xl font-semibold" style={light ? { color: 'var(--ink)', border: '1px solid var(--border)', background: 'var(--bg-white)' } : { color: '#fff', border: '1px solid #4338c2', background: '#3730a3' }}>Login</Link>}
-            <Link to="/contact" className="btn-primary text-sm py-2 px-5">Book Free Demo</Link>
+            <Link to="/book-demo" className="btn-primary text-sm py-2 px-5">Book Free Demo</Link>
           </div>
         </div>
       </div>
