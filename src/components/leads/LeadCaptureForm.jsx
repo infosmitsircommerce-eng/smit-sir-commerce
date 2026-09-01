@@ -127,7 +127,12 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
       return;
     }
 
-    trackEvent('lead_submit_success', { intent, source: form.source, classLevel: Number(form.classLevel), board: form.board, mode: demoSlot?.mode || form.studyMode, bookedSlot: Boolean(demoSlot?.id) }, user?.id || null);
+    const successMetadata = { intent, source: form.source, classLevel: Number(form.classLevel), board: form.board, mode: demoSlot?.mode || form.studyMode, bookedSlot: Boolean(demoSlot?.id) };
+    trackEvent('lead_submit_success', successMetadata, user?.id || null);
+    if (intent === 'Free Demo') {
+      trackEvent('funnel_demo_submit', successMetadata, user?.id || null);
+      if (typeof window.gtag === 'function') window.gtag('event', 'funnel_demo_submit', successMetadata);
+    }
     navigate('/demo-success', { replace: true, state: { intent, booked: Boolean(demoSlot?.id), slot: demoSlot || null, demoSubject: form.demoSubject } });
   };
 
