@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { ArrowRight, BrainCircuit } from 'lucide-react';
+import { ArrowRight, BrainCircuit, GraduationCap } from 'lucide-react';
 import { materialByPath } from '../../data/seoMaterials';
 import { getGrowthPagesForMaterial } from '../../data/contentGrowth';
 
@@ -18,6 +18,14 @@ export default function ChapterPracticeStrip() {
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-6">
         {pages.map((page) => <Link key={page.path} to={page.path} className="tile-paper p-4 flex items-center justify-between gap-3 group"><div className="flex items-center gap-3 min-w-0"><div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'var(--gold-bg)', color: 'var(--gold)' }}><BrainCircuit className="w-4 h-4" /></div><div className="min-w-0"><div className="font-semibold text-sm" style={{ color: 'var(--ink)' }}>{page.label}</div><div className="text-xs mt-1 truncate" style={{ color: 'var(--muted)' }}>Class {page.classLevel} · {page.subject}</div></div></div><ArrowRight className="w-4 h-4 flex-shrink-0 transition-transform group-hover:translate-x-1" style={{ color: 'var(--gold)' }} /></Link>)}
+      </div>
+
+      <div className="mt-5 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4" style={{ background: 'linear-gradient(135deg, #101828, #182230)', border: '1px solid rgba(255,255,255,0.08)' }}>
+        <div className="flex items-start gap-3">
+          <GraduationCap className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: 'var(--gold-bright)' }} />
+          <div><strong className="text-sm block" style={{ color: '#fff' }}>Practice exposed a weak concept?</strong><span className="text-xs sm:text-sm" style={{ color: 'var(--muted-on-ink)' }}>Use the free demo class for guided explanation instead of leaving the chapter unfinished.</span></div>
+        </div>
+        <Link to="/book-demo" className="btn-primary min-h-12 flex-shrink-0">Book Free Demo <ArrowRight className="w-4 h-4" /></Link>
       </div>
     </div>
   </section>;
