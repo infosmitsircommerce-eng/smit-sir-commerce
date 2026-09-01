@@ -7,14 +7,15 @@ import { isLightRoute } from '../../lib/theme';
 
 const groups = [
   { title: 'Learn', icon: BookOpen, links: [
-    { label: 'Free CBSE Notes', path: '/cbse-notes' }, { label: 'All Study Material', path: '/study-material' },
-    { label: 'Study Toolkit', path: '/study-tools' }, { label: 'Courses', path: '/courses' },
+    { label: 'Free CBSE Notes', path: '/cbse-notes' }, { label: 'CBSE PYQ & Sample Papers', path: '/cbse-pyq' },
+    { label: 'All Study Material', path: '/study-material' }, { label: 'Study Toolkit', path: '/study-tools' },
+    { label: 'Courses', path: '/courses' },
   ]},
   { title: 'Practice', icon: Brain, links: [
-    { label: 'Daily 10', path: '/daily-practice' }, { label: 'Advanced Exam Mode', path: '/exam-mode' },
-    { label: 'Test Series', path: '/test-series' }, { label: 'Learning Insights', path: '/learning-insights' },
-    { label: 'Study Coach', path: '/study-coach' }, { label: 'Ask AI Doubt', path: '/ask' },
-    { label: 'Quizzes', path: '/quizzes' }, { label: 'Flashcards', path: '/flashcards' },
+    { label: 'Chapter Practice', path: '/cbse-practice' }, { label: 'Daily 10', path: '/daily-practice' },
+    { label: 'Advanced Exam Mode', path: '/exam-mode' }, { label: 'Test Series', path: '/test-series' },
+    { label: 'Learning Insights', path: '/learning-insights' }, { label: 'Study Coach', path: '/study-coach' },
+    { label: 'Ask AI Doubt', path: '/ask' }, { label: 'Quizzes', path: '/quizzes' }, { label: 'Flashcards', path: '/flashcards' },
   ]},
   { title: 'Classes', icon: GraduationCap, links: [
     { label: 'Online Batch', path: '/online-batch' }, { label: 'Offline Batch', path: '/offline-batch' },
