@@ -12,6 +12,7 @@ const navLinks = [
     children: [
       { label: 'Courses', path: '/courses' },
       { label: 'Free CBSE Notes', path: '/cbse-notes' },
+      { label: 'GSEB Class 12 Economics', path: '/gseb-class-12-economics.html' },
       { label: 'Study Material', path: '/study-material' },
       { label: 'CBSE PYQ & Sample Papers', path: '/cbse-pyq' },
       { label: 'Lectures', path: '/lectures' },
@@ -21,7 +22,8 @@ const navLinks = [
   {
     label: 'Practice',
     children: [
-      { label: 'Chapter Practice', path: '/cbse-practice' },
+      { label: 'CBSE Chapter Practice', path: '/cbse-practice' },
+      { label: 'GSEB Economics Practice', path: '/gseb-class-12-economics-practice.html' },
       { label: 'Daily 10', path: '/daily-practice' },
       { label: 'Advanced Exam Mode', path: '/exam-mode' },
       { label: 'Test Series', path: '/test-series' },
@@ -99,7 +101,7 @@ export default function Navbar() {
                 <button className="flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors" style={linkStyle(false)} onMouseEnter={(e) => { setOpenDropdown(link.label); e.currentTarget.style.background = T.linkHoverBg; e.currentTarget.style.color = T.linkActive; }} onMouseLeave={(e) => { setOpenDropdown(null); e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = T.linkColor; }}>
                   {link.label}<ChevronDown className="w-3 h-3" />
                 </button>
-                <AnimatePresence>{openDropdown === link.label && <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} className="absolute top-full left-0 mt-1 rounded-xl py-2 min-w-[220px] max-h-[70vh] overflow-y-auto" style={T.dropdownBg} onMouseEnter={() => setOpenDropdown(link.label)} onMouseLeave={() => setOpenDropdown(null)}>
+                <AnimatePresence>{openDropdown === link.label && <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} className="absolute top-full left-0 mt-1 rounded-xl py-2 min-w-[240px] max-h-[70vh] overflow-y-auto" style={T.dropdownBg} onMouseEnter={() => setOpenDropdown(link.label)} onMouseLeave={() => setOpenDropdown(null)}>
                   {link.children.map((child) => <Link key={child.path} to={child.path} className="block px-4 py-2 text-sm transition-colors" style={{ color: T.dropdownItem }} onMouseEnter={e => { e.currentTarget.style.background = T.dropdownItemHoverBg; e.currentTarget.style.color = T.linkActive; }} onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = T.dropdownItem; }}>{child.label}</Link>)}
                 </motion.div>}</AnimatePresence>
               </div>
