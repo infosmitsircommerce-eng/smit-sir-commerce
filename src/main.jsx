@@ -1,12 +1,26 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import AOS from 'aos'
-import 'aos/dist/aos.css'
 import './index.css'
 import './mobile.css'
 import App from './App.jsx'
 
-AOS.init({ duration: 600, easing: 'ease-out-cubic', once: true, offset: 60 });
+// Keep the mobile startup path lean. AOS is decorative, so load it only on
+// larger screens and only after the first render has had time to settle.
+if (window.matchMedia('(min-width: 769px)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const loadAos = async () => {
+    try {
+      const [{ default: AOS }] = await Promise.all([
+        import('aos'),
+        import('aos/dist/aos.css'),
+      ]);
+      AOS.init({ duration: 600, easing: 'ease-out-cubic', once: true, offset: 60 });
+    } catch {
+      // Decorative animation failure must never block the learning experience.
+    }
+  };
+  if ('requestIdleCallback' in window) window.requestIdleCallback(loadAos, { timeout: 1600 });
+  else window.setTimeout(loadAos, 700);
+}
 
 // Promptly activate fresh app code after a deployment instead of leaving an
 // already-open PWA tab on an older cached route table.
