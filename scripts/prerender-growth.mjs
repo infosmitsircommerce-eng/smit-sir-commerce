@@ -1,6 +1,6 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
-import { growthPages, growthStats, getGrowthStructuredData } from '../src/data/contentGrowth.js';
+import { growthManifest } from './growth-manifest.mjs';
 
 const BASE = 'https://www.smitsircommerce.in';
 const SITE = 'Smit Sir Commerce';
@@ -11,44 +11,28 @@ function escapeHtml(value) {
   return String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
 }
 
-function renderMcqs(page) {
-  return `<h2>${escapeHtml(page.chapter)} MCQs with answers</h2>${page.mcqs.map((mcq, index) => `<section><h3>Q${index + 1}. ${escapeHtml(mcq.question)}</h3><ol type="A">${mcq.options.map((option) => `<li>${escapeHtml(option)}</li>`).join('')}</ol><p><strong>Answer: ${String.fromCharCode(65 + mcq.answer)}.</strong> ${escapeHtml(mcq.explanation)}</p></section>`).join('')}`;
-}
-
-function renderQuestions(page) {
-  return `<h2>Important ${escapeHtml(page.chapter)} questions</h2><p>These are original board-style practice questions and are not represented as official previous-year CBSE questions.</p>${page.questions.map((item, index) => `<section><h3>Q${index + 1}. ${escapeHtml(item.question)}</h3><p>${escapeHtml(item.answer)}</p></section>`).join('')}`;
-}
-
-function renderRevision(page) {
-  return `<h2>One-shot revision checklist</h2><ul>${page.revision.quickRecall.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul><h2>Exam traps to avoid</h2><ol>${page.revision.traps.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ol><h2>Final self-check</h2><ul>${page.revision.finalCheck.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`;
-}
-
-function renderAssertionReason(page) {
-  return `<h2>Assertion–Reason practice</h2><p>Use the standard choices: A = both true and Reason correctly explains Assertion; B = both true but Reason does not correctly explain Assertion; C = Assertion true and Reason false; D = Assertion false and Reason true.</p>${page.assertionReason.map((item, index) => `<section><h3>Question ${index + 1}</h3><p><strong>Assertion:</strong> ${escapeHtml(item.assertion)}</p><p><strong>Reason:</strong> ${escapeHtml(item.reason)}</p><p><strong>Answer: ${escapeHtml(item.answer)}</strong></p></section>`).join('')}`;
-}
-
-function renderCaseStudy(page) {
-  return `<h2>Original case study</h2><p>${escapeHtml(page.caseStudy.scenario)}</p>${page.caseStudy.questions.map((item, index) => `<section><h3>Q${index + 1}. ${escapeHtml(item.question)}</h3><p>${escapeHtml(item.answer)}</p></section>`).join('')}<p>This case study is original learning material and is not represented as an official CBSE case.</p>`;
-}
-
-function renderNumericals(page) {
-  return `<h2>Worked numericals</h2>${page.numericals.map((item, index) => `<section><h3>Q${index + 1}. ${escapeHtml(item.question)}</h3><ol>${item.steps.map((step) => `<li>${escapeHtml(step)}</li>`).join('')}</ol><p><strong>Answer:</strong> ${escapeHtml(item.answer)}</p></section>`).join('')}`;
+function genericPractice(page) {
+  if (page.type === 'mcqs') return `<h2>${escapeHtml(page.chapter)} MCQ practice</h2><p>Use the interactive page for the full answerable MCQ set. Before attempting it, revise these chapter areas:</p><ul>${page.keyTopics.map((topic) => `<li>${escapeHtml(topic)}</li>`).join('')}</ul><h2>How to use the MCQs</h2><ol><li>Attempt every question without opening the answer first.</li><li>Write down the concept behind every incorrect answer.</li><li>Return to the chapter notes for weak topics and retry the set.</li></ol>`;
+  if (page.type === 'important-questions') return `<h2>Important board-style questions</h2>${page.keyTopics.map((topic, index) => `<section><h3>Q${index + 1}. Explain or apply ${escapeHtml(topic)}.</h3><p>Begin with the meaning, write the key points in order and connect the answer to ${escapeHtml(page.chapter)}. ${escapeHtml(page.examFocus[index % page.examFocus.length] || '')}</p></section>`).join('')}<p>These are original revision prompts and are not claimed previous-year CBSE questions.</p>`;
+  if (page.type === 'revision') return `<h2>One-shot revision checklist</h2><ul>${page.keyTopics.map((topic) => `<li>Explain ${escapeHtml(topic)} without opening the notes.</li>`).join('')}</ul><h2>Exam-focus checklist</h2><ol>${page.examFocus.map((point) => `<li>${escapeHtml(point)}</li>`).join('')}</ol>`;
+  if (page.type === 'assertion-reason') return `<h2>Assertion–Reason preparation</h2><p>The interactive page contains original assertion–reason items with answers. Revise the relationships behind these topics before attempting them:</p><ul>${page.keyTopics.map((topic) => `<li>${escapeHtml(topic)}</li>`).join('')}</ul><p>For every item, separately test whether the Assertion is true, whether the Reason is true, and whether the Reason actually explains the Assertion.</p>`;
+  if (page.type === 'case-study') return `<h2>Case-study preparation</h2><p>${escapeHtml(page.summary)}</p><p>The interactive page presents an original application case. Focus on identifying the concept from facts rather than copying a definition.</p><ul>${page.keyTopics.map((topic) => `<li>Be ready to apply ${escapeHtml(topic)} to a short business situation.</li>`).join('')}</ul><h2>Answering strategy</h2><ol>${page.examFocus.map((point) => `<li>${escapeHtml(point)}</li>`).join('')}</ol>`;
+  return `<h2>Numerical practice</h2><p>The interactive page contains worked original numericals for ${escapeHtml(page.chapter)}. Revise the formula or relationship first, show each step, keep units clear and interpret the final answer.</p><ul>${page.keyTopics.map((topic) => `<li>${escapeHtml(topic)}</li>`).join('')}</ul><h2>Numerical checklist</h2><ol><li>Write the relevant formula or condition.</li><li>Substitute the given values carefully.</li><li>Show the calculation in steps.</li><li>State the final answer with units or interpretation.</li></ol>`;
 }
 
 function pageBody(page) {
-  const main = page.type === 'mcqs' ? renderMcqs(page)
-    : page.type === 'important-questions' ? renderQuestions(page)
-      : page.type === 'revision' ? renderRevision(page)
-        : page.type === 'assertion-reason' ? renderAssertionReason(page)
-          : page.type === 'case-study' ? renderCaseStudy(page)
-            : renderNumericals(page);
-  return `<main class="page-container section-padding" data-prerendered="growth-practice"><nav aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/cbse-practice">CBSE Practice</a> / <a href="${escapeHtml(page.notesPath)}">${escapeHtml(page.chapter)}</a> / ${escapeHtml(page.label)}</nav><article><h1>${escapeHtml(page.title)}</h1><p>${escapeHtml(page.description)}</p><p><strong>Board:</strong> CBSE · <strong>Class:</strong> ${page.classLevel} · <strong>Subject:</strong> ${escapeHtml(page.subject)} · <strong>Access:</strong> Free</p>${main}<h2>Continue learning</h2><ul><li><a href="${escapeHtml(page.notesPath)}">Read ${escapeHtml(page.chapter)} notes</a></li><li><a href="/cbse-practice">Browse all free CBSE Commerce practice</a></li><li><a href="/test-series">Open the Commerce test series</a></li></ul></article></main>`;
+  return `<main class="page-container section-padding" data-prerendered="growth-practice"><nav aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/cbse-practice">CBSE Practice</a> / <a href="${escapeHtml(page.notesPath)}">${escapeHtml(page.chapter)}</a> / ${escapeHtml(page.label)}</nav><article><h1>${escapeHtml(page.title)}</h1><p>${escapeHtml(page.description)}</p><p><strong>Board:</strong> CBSE · <strong>Class:</strong> ${page.classLevel} · <strong>Subject:</strong> ${escapeHtml(page.subject)} · <strong>Access:</strong> Free</p>${genericPractice(page)}<h2>Continue learning</h2><ul><li><a href="${escapeHtml(page.notesPath)}">Read ${escapeHtml(page.chapter)} notes</a></li><li><a href="/cbse-practice">Browse all free CBSE Commerce practice</a></li><li><a href="/test-series">Open the Commerce test series</a></li></ul><p>Practice material is original unless a source is explicitly identified. Original questions are not represented as official CBSE or previous-year questions.</p></article></main>`;
 }
 
 function hubBody() {
-  const byType = Object.entries(growthPages.reduce((acc, page) => { acc[page.label] = (acc[page.label] || 0) + 1; return acc; }, {}));
-  const featured = growthPages.filter((page) => ['mcqs', 'numericals', 'case-study', 'assertion-reason'].includes(page.type)).slice(0, 30);
-  return `<main class="page-container section-padding" data-prerendered="growth-hub"><nav aria-label="Breadcrumb"><a href="/">Home</a> / CBSE Practice</nav><article><h1>Free CBSE Commerce Practice — MCQs, Numericals & Case Studies</h1><p>Free chapter-wise Class 11 and 12 Commerce practice from Smit Sir Commerce. Use MCQs, important questions, original assertion–reason sets, case studies, worked numericals and revision checklists alongside the published chapter notes.</p><p>${growthStats.pages} practice pages currently cover ${growthStats.chapters} published chapters.</p><h2>Practice formats</h2><ul>${byType.map(([label, count]) => `<li>${escapeHtml(label)} — ${count} pages</li>`).join('')}</ul><h2>Featured chapter practice</h2><ul>${featured.map((page) => `<li><a href="${escapeHtml(page.path)}">Class ${page.classLevel} ${escapeHtml(page.chapter)} — ${escapeHtml(page.label)}</a></li>`).join('')}</ul><p>All practice is original learning material unless a source is explicitly identified. The site does not label original questions as official previous-year CBSE questions.</p></article></main>`;
+  const chapters = new Set(growthManifest.map((page) => page.materialId)).size;
+  const byType = Object.entries(growthManifest.reduce((acc, page) => { acc[page.label] = (acc[page.label] || 0) + 1; return acc; }, {}));
+  const featured = growthManifest.filter((page) => ['mcqs', 'numericals', 'case-study', 'assertion-reason'].includes(page.type)).slice(0, 30);
+  return `<main class="page-container section-padding" data-prerendered="growth-hub"><nav aria-label="Breadcrumb"><a href="/">Home</a> / CBSE Practice</nav><article><h1>Free CBSE Commerce Practice — MCQs, Numericals & Case Studies</h1><p>Free chapter-wise Class 11 and 12 Commerce practice from Smit Sir Commerce. Use MCQs, important questions, original assertion–reason sets, case studies, worked numericals and revision checklists alongside the published chapter notes.</p><p>${growthManifest.length} practice pages currently cover ${chapters} published chapters.</p><h2>Practice formats</h2><ul>${byType.map(([label, count]) => `<li>${escapeHtml(label)} — ${count} pages</li>`).join('')}</ul><h2>Featured chapter practice</h2><ul>${featured.map((page) => `<li><a href="${escapeHtml(page.path)}">Class ${page.classLevel} ${escapeHtml(page.chapter)} — ${escapeHtml(page.label)}</a></li>`).join('')}</ul><p>All practice is original learning material unless a source is explicitly identified. The site does not label original questions as official previous-year CBSE questions.</p></article></main>`;
+}
+
+function structuredData(page) {
+  return { '@context': 'https://schema.org', '@type': 'LearningResource', name: page.title, description: page.description, url: `${BASE}${page.path}`, educationalLevel: `CBSE Class ${page.classLevel}`, learningResourceType: page.label, isAccessibleForFree: true, inLanguage: 'en-IN', dateModified: page.updated, about: [page.chapter, page.subject], provider: { '@type': 'EducationalOrganization', name: SITE, url: BASE } };
 }
 
 function buildHtml({ path, title, description, body, schema, modifiedTime = '2026-09-01' }) {
@@ -79,8 +63,8 @@ await writeRoute(hubPath, buildHtml({
   schema: { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Free CBSE Commerce Practice', url: `${BASE}${hubPath}`, isAccessibleForFree: true },
 }));
 
-for (const page of growthPages) {
-  await writeRoute(page.path, buildHtml({ path: page.path, title: page.title, description: page.description, body: pageBody(page), schema: getGrowthStructuredData(page), modifiedTime: page.updated }));
+for (const page of growthManifest) {
+  await writeRoute(page.path, buildHtml({ path: page.path, title: page.title, description: page.description, body: pageBody(page), schema: structuredData(page), modifiedTime: page.updated }));
 }
 
-console.log(`Pre-rendered ${1 + growthPages.length} content-growth SEO pages.`);
+console.log(`Pre-rendered ${1 + growthManifest.length} content-growth SEO pages.`);
