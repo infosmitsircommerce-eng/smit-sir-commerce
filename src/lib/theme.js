@@ -5,11 +5,16 @@ export const LIGHT_ROUTES = [
   '/courses',
   '/lectures',
   '/study-material',
+  '/cbse-notes',
+  '/cbse-practice',
+  '/cbse-pyq',
   '/quizzes',
   '/test-series',
   '/live-classes',
   '/online-batch',
   '/offline-batch',
+  '/book-demo',
+  '/demo-success',
   '/about',
   '/contact',
   '/faq',
@@ -18,7 +23,7 @@ export const LIGHT_ROUTES = [
 
 export function isLightRoute(pathname) {
   return LIGHT_ROUTES.includes(pathname)
-    || pathname === '/cbse-notes'
     || pathname.startsWith('/cbse/')
+    || pathname.startsWith('/practice/cbse/')
     || pathname === '/pdf-viewer';
 }
