@@ -53,7 +53,18 @@ export default defineConfig({
         ],
       },
       workbox: {
-        navigateFallbackDenylist: [/^\/materials\//, /^\/cbse\//, /^\/sitemap\.xml$/, /^\/robots\.txt$/, /\.pdf$/i],
+        cleanupOutdatedCaches: true,
+        navigateFallbackDenylist: [
+          /^\/materials\//,
+          /^\/cbse\//,
+          /^\/cbse-notes\/?$/,
+          /^\/cbse-practice\/?$/,
+          /^\/practice\//,
+          /^\/tests\//,
+          /^\/sitemap\.xml$/,
+          /^\/robots\.txt$/,
+          /\.pdf$/i,
+        ],
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         runtimeCaching: [
           {
