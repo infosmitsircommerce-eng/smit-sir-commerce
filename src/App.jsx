@@ -19,6 +19,8 @@ const PdfViewer       = lazy(() => import('./pages/PdfViewer'));
 const SeoMaterialHub  = lazy(() => import('./pages/SeoMaterialHub'));
 const SeoMaterialChapter = lazy(() => import('./pages/SeoMaterialChapter'));
 const CbseNotes       = lazy(() => import('./pages/CbseNotes'));
+const ContentGrowthHub = lazy(() => import('./pages/ContentGrowthHub'));
+const ContentGrowthPage = lazy(() => import('./pages/ContentGrowthPage'));
 const Quizzes         = lazy(() => import('./pages/Quizzes'));
 const TestSeries      = lazy(() => import('./pages/TestSeriesPro'));
 const ExamMode        = lazy(() => import('./pages/ExamMode'));
@@ -120,7 +122,7 @@ const ROUTE_SEO = {
 
 function RouteSEO() {
   const { pathname } = useLocation();
-  if (pathname === '/cbse-notes' || pathname.startsWith('/cbse/') || pathname.startsWith('/tests/')) return null;
+  if (pathname === '/cbse-notes' || pathname === '/cbse-practice' || pathname.startsWith('/cbse/') || pathname.startsWith('/practice/cbse/') || pathname.startsWith('/tests/')) return null;
   const meta = ROUTE_SEO[pathname] || { title: 'Page Not Found', description: 'The requested page could not be found.', noindex: true };
   return <SEO {...meta} path={pathname} />;
 }
@@ -147,6 +149,8 @@ function AnimatedRoutes() {
           <Route path="/study-material" element={withPage(<StudyMaterial />)} />
           <Route path="/pdf-viewer" element={withPage(<PdfViewer />)} />
           <Route path="/cbse-notes" element={withPage(<CbseNotes />)} />
+          <Route path="/cbse-practice" element={withPage(<ContentGrowthHub />)} />
+          <Route path="/practice/cbse/:classSlug/:subjectSlug/:practiceSlug" element={withPage(<ContentGrowthPage />)} />
           <Route path="/cbse/:classSlug/:hubSlug" element={withPage(<SeoMaterialHub />)} />
           <Route path="/cbse/:classSlug/:subjectSlug/:chapterSlug" element={withPage(<SeoMaterialChapter />)} />
           <Route path="/quizzes" element={withPage(<Quizzes />)} />
