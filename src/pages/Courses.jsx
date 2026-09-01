@@ -2,7 +2,7 @@ import SEO from '../components/ui/SEO';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { PlayCircle, FileText, HelpCircle, BookOpen, List, ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
+import { PlayCircle, FileText, HelpCircle, BookOpen, List, ArrowRight, ChevronDown, ChevronUp, Clock3, GraduationCap, BadgeCheck } from 'lucide-react';
 import { class11Subjects, class12Subjects } from '../data/courses';
 
 function ChapterList({ chapters }) {
@@ -23,11 +23,7 @@ function ChapterList({ chapters }) {
         </div>
       ))}
       {chapters.length > 5 && (
-        <button
-          onClick={() => setShowAll(!showAll)}
-          className="text-sm flex items-center gap-1 mt-2 font-medium"
-          style={{ color: 'var(--gold)' }}
-        >
+        <button onClick={() => setShowAll(!showAll)} className="text-sm flex items-center gap-1 mt-2 font-medium" style={{ color: 'var(--gold)' }}>
           {showAll ? <><ChevronUp className="w-4 h-4" /> Show Less</> : <><ChevronDown className="w-4 h-4" /> +{chapters.length - 5} more chapters</>}
         </button>
       )}
@@ -43,19 +39,28 @@ const ACTIONS = [
   { to: '/study-material', icon: FileText,   label: 'Important Q' },
 ];
 
+const professionalCourses = [
+  {
+    name: 'CA',
+    fullName: 'Chartered Accountancy',
+    levels: ['Foundation', 'Intermediate', 'Final'],
+    note: 'Structured CA learning resources, revision material and exam-focused practice are planned for all three levels.',
+  },
+  {
+    name: 'CMA',
+    fullName: 'Cost & Management Accountancy',
+    levels: ['Foundation', 'Intermediate', 'Final'],
+    note: 'CMA courses will be added level by level with concept teaching, notes, practice and exam preparation.',
+  },
+];
+
 function SubjectDetailCard({ subject }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="card-paper p-6"
-    >
-      {/* Header */}
+    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="card-paper p-6">
       <div className="flex items-start gap-4 mb-5">
-        <div className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
-          style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.22)' }}>
+        <div className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl flex-shrink-0" style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.22)' }}>
           {subject.icon}
         </div>
         <div className="flex-1">
@@ -68,7 +73,6 @@ function SubjectDetailCard({ subject }) {
         </div>
       </div>
 
-      {/* Action Grid */}
       <div className="grid grid-cols-3 gap-2 mb-4">
         {ACTIONS.map((a) => {
           const Icon = a.icon;
@@ -79,23 +83,14 @@ function SubjectDetailCard({ subject }) {
             </Link>
           );
         })}
-        <button
-          onClick={() => setExpanded(!expanded)}
-          className="tile-paper flex flex-col items-center gap-1 p-3 group"
-        >
+        <button onClick={() => setExpanded(!expanded)} className="tile-paper flex flex-col items-center gap-1 p-3 group">
           <List className="w-5 h-5 group-hover:scale-110 transition-transform" style={{ color: 'var(--gold)' }} strokeWidth={1.8} />
           <span className="text-xs" style={{ color: 'var(--charcoal)' }}>Chapters</span>
         </button>
       </div>
 
-      {/* Chapters (expandable) */}
       {expanded && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          className="pt-4"
-          style={{ borderTop: '1px solid var(--border-soft)' }}
-        >
+        <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="pt-4" style={{ borderTop: '1px solid var(--border-soft)' }}>
           <h4 className="text-sm font-semibold mb-3" style={{ color: 'var(--ink)' }}>Chapter Plan</h4>
           <ChapterList chapters={subject.chapters} />
         </motion.div>
@@ -104,57 +99,107 @@ function SubjectDetailCard({ subject }) {
   );
 }
 
+function ProfessionalCourseCard({ course }) {
+  return (
+    <article className="card-paper p-5 sm:p-6 relative overflow-hidden">
+      <div className="absolute top-0 right-0 px-3 py-1.5 text-[11px] font-bold tracking-wider uppercase rounded-bl-xl" style={{ background: 'var(--gold-bg)', color: 'var(--gold)' }}>
+        Coming Soon
+      </div>
+
+      <div className="flex items-start gap-4 mb-5 pr-20">
+        <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'var(--gold-bg)', color: 'var(--gold)' }}>
+          <GraduationCap className="w-6 h-6" />
+        </div>
+        <div>
+          <div className="text-xs font-bold tracking-[0.18em] uppercase mb-1" style={{ color: 'var(--gold)' }}>{course.name}</div>
+          <h3 className="text-xl sm:text-2xl leading-tight" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{course.fullName}</h3>
+        </div>
+      </div>
+
+      <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--muted)' }}>{course.note}</p>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        {course.levels.map((level) => (
+          <div key={level} className="tile-paper p-4 flex sm:flex-col items-center sm:items-start justify-between sm:justify-start gap-3">
+            <div className="flex items-center gap-3">
+              <BadgeCheck className="w-5 h-5 flex-shrink-0" style={{ color: 'var(--gold)' }} />
+              <div>
+                <div className="text-xs uppercase tracking-wider" style={{ color: 'var(--subtle)' }}>{course.name}</div>
+                <div className="font-semibold text-sm" style={{ color: 'var(--ink)' }}>{level}</div>
+              </div>
+            </div>
+            <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full sm:mt-1" style={{ background: 'var(--gold-bg)', color: 'var(--gold)' }}>Soon</span>
+          </div>
+        ))}
+      </div>
+    </article>
+  );
+}
+
 export default function Courses() {
   const [activeClass, setActiveClass] = useState('12');
-
   const subjects = activeClass === '12' ? class12Subjects : class11Subjects;
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
       <SEO
-        title="CBSE Commerce Courses — Class 11 & 12"
-        description="Complete CBSE Commerce courses in Mehsana — Economics, Accountancy, Business Studies, Entrepreneurship. Chapter-wise lectures, notes, quizzes & test series."
+        title="Commerce Courses — Class 11, 12, CA & CMA"
+        description="CBSE Class 11 and 12 Commerce courses by Smit Sir Commerce. CA Foundation, Intermediate, Final and CMA Foundation, Intermediate, Final courses are coming soon."
         path="/courses"
       />
-      {/* Header */}
+
       <div className="page-hero">
         <div className="page-container text-center">
-          <span className="eyebrow">Complete CBSE Curriculum</span>
+          <span className="eyebrow">School Commerce Now · Professional Courses Next</span>
           <h1 className="mt-5">Our <em>courses.</em></h1>
           <p className="mx-auto">
-            Chapter-wise structured courses for Class 11 and 12 Commerce — lectures, notes, quizzes, and tests all in one place.
+            Learn Class 11 and 12 Commerce today. CA and CMA learning paths are being built for the next stage of your Commerce journey.
           </p>
         </div>
       </div>
 
       <div className="page-container section-padding">
-        {/* Class Toggle */}
         <div className="flex items-center justify-center mb-10">
           <div className="toggle-paper">
             {['12', '11'].map((cls) => (
-              <button
-                key={cls}
-                onClick={() => setActiveClass(cls)}
-                className={activeClass === cls ? 'active' : ''}
-              >
+              <button key={cls} onClick={() => setActiveClass(cls)} className={activeClass === cls ? 'active' : ''}>
                 Class {cls} Commerce
               </button>
             ))}
           </div>
         </div>
 
-        {/* Subjects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {subjects.map((subject) => (
-            <SubjectDetailCard key={subject.id} subject={subject} />
-          ))}
+          {subjects.map((subject) => <SubjectDetailCard key={subject.id} subject={subject} />)}
         </div>
 
-        {/* Bottom CTA */}
+        <section className="mt-16 sm:mt-20" aria-labelledby="professional-courses-heading">
+          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
+            <span className="eyebrow">Next Expansion</span>
+            <div className="inline-flex items-center gap-2 mt-4 mb-3 text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--gold)' }}>
+              <Clock3 className="w-4 h-4" /> Professional Courses Coming Soon
+            </div>
+            <h2 id="professional-courses-heading" className="text-3xl sm:text-4xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>
+              CA &amp; CMA — from <em>Foundation to Final.</em>
+            </h2>
+            <p className="mt-4 text-sm sm:text-base leading-relaxed" style={{ color: 'var(--muted)' }}>
+              Smit Sir Commerce is expanding beyond school Commerce. Dedicated CA and CMA course sections will launch progressively, with clear separation by level so students can continue learning on the same platform after Class 12.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 sm:gap-6">
+            {professionalCourses.map((course) => <ProfessionalCourseCard key={course.name} course={course} />)}
+          </div>
+
+          <div className="mt-5 text-center text-xs sm:text-sm" style={{ color: 'var(--subtle)' }}>
+            No launch date is being promised yet — each level will be marked available only when the content is actually ready.
+          </div>
+        </section>
+
         <div className="mt-14 text-center card-paper p-8">
           <h3 className="text-2xl mb-3" style={{ fontFamily: 'var(--font-serif)', fontWeight: 700, color: 'var(--ink)' }}>Ready to start learning?</h3>
           <p className="mb-6" style={{ color: 'var(--muted)' }}>Book a free demo class and see how Smit Sir Commerce makes Commerce easy and exam-ready.</p>
-          <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
+          <Link to="/book-demo" className="btn-primary inline-flex items-center gap-2">
             Book Free Demo Class <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
