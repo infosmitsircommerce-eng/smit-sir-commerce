@@ -17,6 +17,14 @@
       "source": "/materials/(.*)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=86400" }]
     },
+    {
+      "source": "/sw.js",
+      "headers": [{ "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }]
+    },
+    {
+      "source": "/registerSW.js",
+      "headers": [{ "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }]
+    },
     { "source": "/admin", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, nosnippet" }] },
     { "source": "/admin/students", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, nosnippet" }] },
     { "source": "/admin/leads", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, nosnippet" }] },
