@@ -7,13 +7,13 @@ import { captureAcquisition } from '../../lib/acquisition';
 function funnelEventForPath(pathname) {
   if (pathname === '/') return 'funnel_home_view';
   if (pathname === '/cbse-notes' || pathname === '/study-material') return 'funnel_notes_library_view';
+  if (pathname === '/cbse-pyq') return 'funnel_exam_prep_view';
   if (/\/cbse\/class-\d+\/.+-notes$/.test(pathname)) return 'funnel_subject_notes_view';
   if (/\/cbse\/class-\d+\/.+\/.+-notes$/.test(pathname)) return 'funnel_chapter_open';
   if (pathname === '/pdf-viewer') return 'funnel_pdf_open';
   if (pathname === '/cbse-practice' || pathname.includes('/practice/')) return 'funnel_practice_start';
   if (pathname === '/daily-practice' || pathname === '/exam-mode') return 'funnel_practice_start';
   if (pathname === '/book-demo') return 'funnel_demo_open';
-  if (pathname.includes('demo-success')) return 'funnel_demo_submit';
   return null;
 }
 
@@ -47,6 +47,7 @@ export default function AnalyticsTracker() {
 
       if (href.includes('/pdf-viewer') || href.toLowerCase().endsWith('.pdf')) eventName = 'funnel_pdf_click';
       else if (href === '/book-demo' || href.startsWith('/book-demo?')) eventName = 'funnel_demo_click';
+      else if (href === '/cbse-pyq' || href.startsWith('/cbse-pyq?')) eventName = 'funnel_exam_prep_click';
       else if (href === '/cbse-notes' || href.includes('-notes')) eventName = 'funnel_notes_click';
       else if (href === '/daily-practice' || href === '/exam-mode' || href === '/cbse-practice' || href.includes('/practice/')) eventName = 'funnel_practice_click';
 
