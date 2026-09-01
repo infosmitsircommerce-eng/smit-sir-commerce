@@ -7,6 +7,7 @@ const BASE = 'https://www.smitsircommerce.in';
 const basePages = [
   ['/', 'weekly', '1.0'], ['/courses', 'weekly', '0.9'], ['/study-material', 'weekly', '0.9'],
   ['/cbse-notes', 'weekly', '1.0'], ['/cbse-practice', 'weekly', '1.0'], ['/cbse-pyq', 'weekly', '0.9'],
+  ['/gseb-class-12-economics.html', 'weekly', '0.9'],
   ['/quizzes', 'weekly', '0.7'], ['/test-series', 'weekly', '0.8'], ['/exam-mode', 'weekly', '0.9'],
   ['/daily-practice', 'weekly', '0.7'], ['/study-coach', 'weekly', '0.7'], ['/study-tools', 'weekly', '0.7'],
   ['/live-classes', 'weekly', '0.7'], ['/online-batch', 'monthly', '0.8'], ['/offline-batch', 'monthly', '0.8'],
