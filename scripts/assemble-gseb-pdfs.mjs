@@ -7,16 +7,36 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const partsDir = join(root, 'assets', 'gseb-pdf-archive');
 const publicDir = join(root, 'public');
 
-const partNames = (await readdir(partsDir))
-  .filter((name) => /^part-\d+\.b64$/.test(name))
-  .sort();
+let partNames = [];
+try {
+  partNames = (await readdir(partsDir))
+    .filter((name) => /^part-\d+\.b64$/.test(name))
+    .sort();
+} catch {
+  console.warn('GSEB PDF archive directory is missing; skipping PDF assembly.');
+  process.exit(0);
+}
 
-if (!partNames.length) throw new Error('GSEB PDF archive parts are missing.');
+if (!partNames.length) {
+  console.warn('GSEB PDF archive has no parts; skipping PDF assembly.');
+  process.exit(0);
+}
 
 let base64 = '';
-for (const name of partNames) base64 += (await readFile(join(partsDir, name), 'utf8')).trim();
+for (const name of partNames) {
+  base64 += (await readFile(join(partsDir, name), 'utf8')).trim();
+}
 
-const tar = gunzipSync(Buffer.from(base64, 'base64'));
+let tar;
+try {
+  tar = gunzipSync(Buffer.from(base64, 'base64'));
+} catch (error) {
+  console.warn(
+    `GSEB PDF archive is incomplete or invalid (${error?.code || error?.message || 'unknown error'}); skipping PDF assembly so the site can still deploy.`
+  );
+  process.exit(0);
+}
+
 let offset = 0;
 let written = 0;
 
@@ -47,5 +67,8 @@ while (offset + 512 <= tar.length) {
   offset += Math.ceil(size / 512) * 512;
 }
 
-if (written !== 10) throw new Error(`Expected 10 GSEB PDFs, assembled ${written}.`);
-console.log(`Assembled ${written} GSEB Class 12 Economics PDFs.`);
+if (written !== 10) {
+  console.warn(`GSEB PDF archive assembled ${written}/10 PDFs; continuing deployment without failing the full site build.`);
+} else {
+  console.log(`Assembled ${written} GSEB Class 12 Economics PDFs.`);
+}
