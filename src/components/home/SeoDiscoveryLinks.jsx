@@ -60,7 +60,7 @@ export default function SeoDiscoveryLinks() {
             CBSE PYQ &amp; exam prep
           </Link>
           <Link to="/commerce-coaching-mehsana" className="btn-outline-ink inline-flex items-center gap-2">
-            <MapPin className="w-4 h-4" /> Commerce coaching in Mehsana
+            <MapPin className="w-4 h-4" /> Commerce tuition in Mehsana
           </Link>
         </div>
 
