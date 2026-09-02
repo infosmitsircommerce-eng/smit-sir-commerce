@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, FileQuestion, GraduationCap, MapPin } from 'lucide-react';
+import { localSeoPages } from '../../data/localSeoPages';
 
 const noteHubs = [
   {
@@ -61,6 +62,21 @@ export default function SeoDiscoveryLinks() {
           <Link to="/commerce-coaching-mehsana" className="btn-outline-ink inline-flex items-center gap-2">
             <MapPin className="w-4 h-4" /> Commerce coaching in Mehsana
           </Link>
+        </div>
+
+        <div className="mt-10 pt-8" style={{ borderTop: '1px solid var(--border-soft)' }}>
+          <div className="max-w-3xl mb-5">
+            <span className="eyebrow">Commerce tuition in Mehsana</span>
+            <h2 className="text-3xl mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Find the local Commerce support you need</h2>
+            <p className="text-sm leading-7 mt-3" style={{ color: 'var(--muted)' }}>Choose by class or subject. Each page explains the learning focus and connects to the demo-class and free-resource system.</p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {localSeoPages.map((page) => (
+              <Link key={page.path} to={page.path} className="tile-paper p-4 flex items-center justify-between gap-3 text-sm font-semibold">
+                <span>{page.h1}</span><ArrowRight className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--gold)' }} />
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </section>
