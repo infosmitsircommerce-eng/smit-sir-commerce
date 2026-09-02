@@ -17,6 +17,14 @@ function getChapterSearchMeta(path) {
   };
 }
 
+function getLocalSearchMeta(path) {
+  if (path !== '/commerce-coaching-mehsana') return null;
+  return {
+    title: 'Commerce Tuition in Mehsana — Class 11 & 12 CBSE',
+    description: 'Commerce tuition in Mehsana for CBSE Class 11 and 12. Learn Economics, Business Studies and Accountancy with concept-focused teaching, tests, revision resources and demo-class booking by Smit Sir Commerce.',
+  };
+}
+
 export default function SEO({
   title,
   description = DEFAULT_DESCRIPTION,
@@ -30,8 +38,10 @@ export default function SEO({
 }) {
   const normalizedPath = path === '/' ? '/' : path.replace(/\/$/, '');
   const chapterMeta = getChapterSearchMeta(normalizedPath);
-  const effectiveTitle = chapterMeta?.title || title;
-  const effectiveDescription = chapterMeta?.description || description;
+  const localMeta = getLocalSearchMeta(normalizedPath);
+  const searchMeta = chapterMeta || localMeta;
+  const effectiveTitle = searchMeta?.title || title;
+  const effectiveDescription = searchMeta?.description || description;
   const fullTitle = effectiveTitle ? `${effectiveTitle} | ${SITE}` : `${SITE} | Free CBSE Commerce Notes Class 11 & 12`;
   const url = BASE + normalizedPath;
   const robots = noindex
