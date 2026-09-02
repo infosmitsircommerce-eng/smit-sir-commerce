@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, FileQuestion, GraduationCap } from 'lucide-react';
+import { ArrowRight, BookOpen, FileQuestion, GraduationCap, MapPin } from 'lucide-react';
 
 const noteHubs = [
   {
@@ -57,6 +57,9 @@ export default function SeoDiscoveryLinks() {
           </Link>
           <Link to="/cbse-pyq" className="btn-outline-ink inline-flex items-center gap-2">
             CBSE PYQ &amp; exam prep
+          </Link>
+          <Link to="/commerce-coaching-mehsana" className="btn-outline-ink inline-flex items-center gap-2">
+            <MapPin className="w-4 h-4" /> Commerce coaching in Mehsana
           </Link>
         </div>
       </div>
