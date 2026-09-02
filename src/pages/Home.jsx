@@ -13,12 +13,36 @@ import StudentJourney from '../components/home/StudentJourney';
 import SectionDivider from '../components/ui/SectionDivider';
 
 export default function Home() {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': 'https://www.smitsircommerce.in/#website',
+        url: 'https://www.smitsircommerce.in/',
+        name: 'Smit Sir Commerce',
+        description: 'Free CBSE Commerce notes, chapter-wise study material, practice resources and Commerce coaching for Class 11 and 12 students.',
+        inLanguage: 'en-IN',
+      },
+      {
+        '@type': 'EducationalOrganization',
+        '@id': 'https://www.smitsircommerce.in/#organization',
+        name: 'Smit Sir Commerce',
+        url: 'https://www.smitsircommerce.in/',
+        areaServed: ['India', 'Mehsana, Gujarat'],
+        educationalCredentialAwarded: 'Class 11 and Class 12 Commerce learning support',
+        description: 'Commerce learning platform offering free CBSE notes and study resources plus online and offline coaching.',
+      },
+    ],
+  };
+
   return (
     <>
       <SEO
-        title="Class 11 & 12 CBSE Commerce Coaching Mehsana"
-        description="CBSE Commerce coaching for Class 11 and 12 in Mehsana, Gujarat, with free chapter-wise PDF notes and a free demo class."
+        title="Free CBSE Commerce Notes Class 11 & 12"
+        description="Free CBSE Commerce notes for Class 11 and 12: chapter-wise Economics, Business Studies and Accountancy study material, practice resources, tests and Commerce coaching by Smit Sir."
         path="/"
+        structuredData={structuredData}
       />
       <HeroSection />
       <StatsSection />
