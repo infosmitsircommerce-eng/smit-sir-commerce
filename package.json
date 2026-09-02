@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "prebuild": "node scripts/generate-sitemap.mjs",
+    "prebuild": "node scripts/assemble-gseb-pdfs.mjs && node scripts/generate-sitemap.mjs",
     "dev": "vite",
     "build": "vite build",
     "postbuild": "node scripts/prerender-seo.mjs && node scripts/prerender-growth.mjs && node scripts/prerender-pyq.mjs",
