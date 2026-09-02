@@ -1,5 +1,6 @@
 import SEO from '../components/ui/SEO';
 import HeroSection from '../components/home/HeroSection';
+import SeoDiscoveryLinks from '../components/home/SeoDiscoveryLinks';
 import StatsSection from '../components/home/StatsSection';
 import CoursesPreview from '../components/home/CoursesPreview';
 import AboutSection from '../components/home/AboutSection';
@@ -23,6 +24,7 @@ export default function Home() {
         name: 'Smit Sir Commerce',
         description: 'Free CBSE Commerce notes, chapter-wise study material, practice resources and Commerce coaching for Class 11 and 12 students.',
         inLanguage: 'en-IN',
+        publisher: { '@id': 'https://www.smitsircommerce.in/#organization' },
       },
       {
         '@type': 'EducationalOrganization',
@@ -30,8 +32,18 @@ export default function Home() {
         name: 'Smit Sir Commerce',
         url: 'https://www.smitsircommerce.in/',
         areaServed: ['India', 'Mehsana, Gujarat'],
-        educationalCredentialAwarded: 'Class 11 and Class 12 Commerce learning support',
-        description: 'Commerce learning platform offering free CBSE notes and study resources plus online and offline coaching.',
+        description: 'Commerce learning platform offering free CBSE notes and study resources plus online and offline coaching for Class 11 and 12.',
+        knowsAbout: ['CBSE Commerce', 'Economics', 'Business Studies', 'Microeconomics', 'Macroeconomics'],
+      },
+      {
+        '@type': 'WebPage',
+        '@id': 'https://www.smitsircommerce.in/#home',
+        url: 'https://www.smitsircommerce.in/',
+        name: 'Free CBSE Commerce Notes Class 11 & 12',
+        description: 'Free chapter-wise CBSE Commerce notes, PDFs, practice resources and exam preparation for Class 11 and 12 students.',
+        isPartOf: { '@id': 'https://www.smitsircommerce.in/#website' },
+        about: { '@id': 'https://www.smitsircommerce.in/#organization' },
+        inLanguage: 'en-IN',
       },
     ],
   };
@@ -40,11 +52,12 @@ export default function Home() {
     <>
       <SEO
         title="Free CBSE Commerce Notes Class 11 & 12"
-        description="Free CBSE Commerce notes for Class 11 and 12: chapter-wise Economics, Business Studies and Accountancy study material, practice resources, tests and Commerce coaching by Smit Sir."
+        description="Free CBSE Commerce notes for Class 11 and 12 with chapter-wise Economics and Business Studies PDFs, practice resources, tests and Commerce coaching by Smit Sir."
         path="/"
         structuredData={structuredData}
       />
       <HeroSection />
+      <SeoDiscoveryLinks />
       <StatsSection />
       <StudentJourney />
       <DailyPracticeCTA />
