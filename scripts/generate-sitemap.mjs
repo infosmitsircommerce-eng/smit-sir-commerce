@@ -2,6 +2,7 @@ import { writeFile } from 'node:fs/promises';
 import { seoHubs, seoMaterials } from '../src/data/seoMaterials.js';
 import { gsebMaterials } from '../src/data/gsebMaterials.js';
 import { authorityGuides } from '../src/data/authorityGuides.js';
+import { localSeoPages } from '../src/data/localSeoPages.js';
 import { growthManifest } from './growth-manifest.mjs';
 import { examTests } from '../src/data/examBank.js';
 
@@ -20,6 +21,7 @@ const basePages = [
 function urlEntry(path, changefreq, priority, lastmod=''){return ['  <url>',`    <loc>${BASE}${path}</loc>`,lastmod?`    <lastmod>${lastmod}</lastmod>`:'',`    <changefreq>${changefreq}</changefreq>`,`    <priority>${priority}</priority>`,'  </url>'].filter(Boolean).join('\n')}
 const entries=[
   ...basePages.map(([p,f,pr])=>urlEntry(p,f,pr)),
+  ...localSeoPages.map(page=>urlEntry(page.path,'weekly','0.95','2026-09-03')),
   ...seoHubs.map(h=>urlEntry(h.path,'weekly','0.9','2026-08-31')),
   ...seoMaterials.map(m=>urlEntry(m.seo_path,'monthly','0.8',m.updated)),
   ...gsebMaterials.map(m=>urlEntry(m.seo_path,'monthly','0.86',m.updated || '2026-09-02')),
@@ -29,4 +31,4 @@ const entries=[
 ];
 const xml=`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries.join('\n')}\n</urlset>\n`;
 await writeFile(new URL('../public/sitemap.xml',import.meta.url),xml,'utf8');
-console.log(`Generated sitemap with ${entries.length} indexable URLs (${gsebMaterials.length} GSEB chapter pages, ${authorityGuides.length} evergreen guides, ${growthManifest.length} CBSE chapter-practice pages).`);
+console.log(`Generated sitemap with ${entries.length} indexable URLs (${localSeoPages.length} Mehsana local pages, ${gsebMaterials.length} GSEB chapter pages, ${authorityGuides.length} evergreen guides, ${growthManifest.length} CBSE chapter-practice pages).`);
