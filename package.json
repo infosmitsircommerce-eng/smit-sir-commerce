@@ -7,7 +7,7 @@
     "prebuild": "node scripts/assemble-gseb-pdfs.mjs && node scripts/generate-sitemap.mjs",
     "dev": "vite",
     "build": "vite build",
-    "postbuild": "node scripts/prerender-seo.mjs && node scripts/prerender-growth.mjs && node scripts/prerender-pyq.mjs && node scripts/prerender-authority.mjs",
+    "postbuild": "node scripts/prerender-seo.mjs && node scripts/inject-practice-links.mjs && node scripts/prerender-growth.mjs && node scripts/prerender-pyq.mjs && node scripts/prerender-authority.mjs",
     "preview": "vite preview",
     "studio": "remotion studio remotion/index.jsx",
     "render": "remotion render remotion/index.jsx CosmicAd out/SmitSirAd.mp4",
