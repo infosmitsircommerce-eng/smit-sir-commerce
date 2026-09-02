@@ -2,25 +2,15 @@ import { Link, useLocation } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, CircleHelp, Download, Eye, FileQuestion, FileText, UserRound } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { getChapterMcqs, getHubMaterials, getImportantQuestions, getMaterialFaqs, getMaterialStructuredData, materialByPath, hubByPath, seoHubs } from '../data/seoMaterials';
+import { getGrowthPagesForMaterial } from '../data/contentGrowth';
 
 function ChapterNotFound({ pathname }) {
-  return (
-    <div className="min-h-screen flex items-center justify-center px-4" style={{ background: 'var(--bg-ivory)' }}>
-      <SEO title="Chapter Notes Not Found" description="The requested chapter notes could not be found." path={pathname} noindex />
-      <div className="card-paper max-w-lg w-full p-8 text-center">
-        <FileText className="w-10 h-10 mx-auto mb-4" style={{ color: 'var(--gold)' }} />
-        <h1 className="text-2xl mb-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Chapter notes not found</h1>
-        <Link to="/study-material" className="btn-primary inline-flex items-center gap-2">Browse study material</Link>
-      </div>
-    </div>
-  );
+  return <div className="min-h-screen flex items-center justify-center px-4" style={{ background: 'var(--bg-ivory)' }}><SEO title="Chapter Notes Not Found" description="The requested chapter notes could not be found." path={pathname} noindex /><div className="card-paper max-w-lg w-full p-8 text-center"><FileText className="w-10 h-10 mx-auto mb-4" style={{ color: 'var(--gold)' }} /><h1 className="text-2xl mb-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Chapter notes not found</h1><Link to="/study-material" className="btn-primary inline-flex items-center gap-2">Browse study material</Link></div></div>;
 }
 
 export default function SeoMaterialChapter() {
   const { pathname } = useLocation();
-  const cleanPath = pathname.replace(/\/$/, '');
-  const material = materialByPath[cleanPath];
-
+  const material = materialByPath[pathname.replace(/\/$/, '')];
   if (!material) return <ChapterNotFound pathname={pathname} />;
 
   const hub = hubByPath[material.hub_path];
@@ -32,184 +22,42 @@ export default function SeoMaterialChapter() {
   const importantQuestions = getImportantQuestions(material);
   const chapterMcqs = getChapterMcqs(material);
   const faqs = getMaterialFaqs(material);
+  const chapterPractice = getGrowthPagesForMaterial(material.id);
   const relatedHubs = seoHubs.filter((item) => item.id !== material.hubId);
   const formattedUpdated = new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(`${material.updated}T00:00:00`));
 
-  return (
-    <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
-      <SEO
-        title={material.seoTitle}
-        description={material.description}
-        path={material.seo_path}
-        type="article"
-        publishedTime={material.updated}
-        modifiedTime={material.updated}
-        structuredData={getMaterialStructuredData(material)}
-      />
+  return <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
+    <SEO title={material.seoTitle} description={material.description} path={material.seo_path} type="article" publishedTime={material.updated} modifiedTime={material.updated} structuredData={getMaterialStructuredData(material)} />
 
-      <section className="page-hero">
-        <div className="page-container">
-          <nav aria-label="Breadcrumb" className="text-sm mb-7 flex flex-wrap items-center gap-2" style={{ color: 'var(--muted)' }}>
-            <Link to="/">Home</Link><span>/</span>
-            <Link to="/study-material">Study Material</Link><span>/</span>
-            <Link to={hub.path}>{hub.label}</Link><span>/</span>
-            <span style={{ color: 'var(--gold)' }}>Chapter {material.chapterNumber}</span>
-          </nav>
+    <section className="page-hero"><div className="page-container">
+      <nav aria-label="Breadcrumb" className="text-sm mb-7 flex flex-wrap items-center gap-2" style={{ color: 'var(--muted)' }}><Link to="/">Home</Link><span>/</span><Link to="/study-material">Study Material</Link><span>/</span><Link to={hub.path}>{hub.label}</Link><span>/</span><span style={{ color: 'var(--gold)' }}>Chapter {material.chapterNumber}</span></nav>
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-9 items-start"><div><span className="eyebrow">Free CBSE Class {material.class_level} notes</span><h1 className="mt-5">{material.chapter} <em>Notes PDF</em></h1><p className="mt-5 text-lg leading-relaxed max-w-3xl" style={{ color: 'var(--muted)' }}>{material.summary}</p><div className="grid grid-cols-1 sm:flex gap-3 mt-7"><Link to={viewerUrl} className="btn-primary w-full sm:w-auto inline-flex items-center justify-center gap-2"><Eye className="w-4 h-4" /> View PDF online</Link><a href={material.file_url} download target="_blank" rel="noopener noreferrer" className="btn-secondary w-full sm:w-auto inline-flex items-center justify-center gap-2"><Download className="w-4 h-4" /> Download PDF</a></div></div>
+        <aside className="card-paper p-5 sm:p-6"><div className="flex items-center gap-3 mb-5"><div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: 'var(--gold-bg)', color: 'var(--gold)' }}><BookOpen className="w-5 h-5" /></div><div><div className="text-xs" style={{ color: 'var(--subtle)' }}>RESOURCE DETAILS</div><div className="font-semibold" style={{ color: 'var(--ink)' }}>Chapter {material.chapterNumber}</div></div></div><dl className="space-y-3 text-sm"><div className="flex justify-between gap-3"><dt style={{ color: 'var(--muted)' }}>Board</dt><dd className="font-semibold" style={{ color: 'var(--ink)' }}>CBSE</dd></div><div className="flex justify-between gap-3"><dt style={{ color: 'var(--muted)' }}>Class</dt><dd className="font-semibold" style={{ color: 'var(--ink)' }}>{material.class_level}</dd></div><div className="flex justify-between gap-3"><dt style={{ color: 'var(--muted)' }}>Subject</dt><dd className="font-semibold text-right" style={{ color: 'var(--ink)' }}>{hub.label.replace(`Class ${material.class_level} `, '')}</dd></div><div className="flex justify-between gap-3"><dt style={{ color: 'var(--muted)' }}>Length</dt><dd className="font-semibold" style={{ color: 'var(--ink)' }}>{material.pages} pages</dd></div><div className="flex justify-between gap-3"><dt style={{ color: 'var(--muted)' }}>Updated</dt><dd className="font-semibold" style={{ color: 'var(--ink)' }}>{formattedUpdated}</dd></div><div className="flex justify-between gap-3"><dt style={{ color: 'var(--muted)' }}>Price</dt><dd className="font-semibold" style={{ color: 'var(--green)' }}>Free</dd></div></dl></aside>
+      </div>
+    </div></section>
 
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-9 items-start">
-            <div>
-              <span className="eyebrow">Free CBSE Class {material.class_level} notes</span>
-              <h1 className="mt-5">{material.chapter} <em>Notes PDF</em></h1>
-              <p className="mt-5 text-lg leading-relaxed max-w-3xl" style={{ color: 'var(--muted)' }}>{material.summary}</p>
-              <div className="grid grid-cols-1 sm:flex gap-3 mt-7">
-                <Link to={viewerUrl} className="btn-primary w-full sm:w-auto inline-flex items-center justify-center gap-2"><Eye className="w-4 h-4" /> View PDF online</Link>
-                <a href={material.file_url} download target="_blank" rel="noopener noreferrer" className="btn-secondary w-full sm:w-auto inline-flex items-center justify-center gap-2"><Download className="w-4 h-4" /> Download PDF</a>
-              </div>
-            </div>
+    <main className="page-container section-padding"><div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px] gap-8 items-start"><div className="space-y-7">
+      <section className="card-paper p-5 sm:p-7 md:p-9"><h2 className="text-3xl mb-5" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Chapter overview</h2><p className="leading-8" style={{ color: 'var(--muted)' }}>{material.summary} The material is organised for students who want a clear first reading as well as quick revision before school tests and CBSE examinations. Definitions, relationships and application points should be learned with their supporting examples rather than memorised in isolation.</p></section>
 
-            <aside className="card-paper p-5 sm:p-6">
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: 'var(--gold-bg)', color: 'var(--gold)' }}><BookOpen className="w-5 h-5" /></div>
-                <div><div className="text-xs" style={{ color: 'var(--subtle)' }}>RESOURCE DETAILS</div><div className="font-semibold" style={{ color: 'var(--ink)' }}>Chapter {material.chapterNumber}</div></div>
-              </div>
-              <dl className="space-y-3 text-sm">
-                <div className="flex justify-between gap-3"><dt style={{ color: 'var(--muted)' }}>Board</dt><dd className="font-semibold" style={{ color: 'var(--ink)' }}>CBSE</dd></div>
-                <div className="flex justify-between gap-3"><dt style={{ color: 'var(--muted)' }}>Class</dt><dd className="font-semibold" style={{ color: 'var(--ink)' }}>{material.class_level}</dd></div>
-                <div className="flex justify-between gap-3"><dt style={{ color: 'var(--muted)' }}>Subject</dt><dd className="font-semibold text-right" style={{ color: 'var(--ink)' }}>{hub.label.replace(`Class ${material.class_level} `, '')}</dd></div>
-                <div className="flex justify-between gap-3"><dt style={{ color: 'var(--muted)' }}>Length</dt><dd className="font-semibold" style={{ color: 'var(--ink)' }}>{material.pages} pages</dd></div>
-                <div className="flex justify-between gap-3"><dt style={{ color: 'var(--muted)' }}>Updated</dt><dd className="font-semibold" style={{ color: 'var(--ink)' }}>{formattedUpdated}</dd></div>
-                <div className="flex justify-between gap-3"><dt style={{ color: 'var(--muted)' }}>Price</dt><dd className="font-semibold" style={{ color: 'var(--green)' }}>Free</dd></div>
-              </dl>
-            </aside>
-          </div>
-        </div>
-      </section>
+      <section className="card-paper p-5 sm:p-7 md:p-9"><h2 className="text-3xl mb-5" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Why you can trust this study resource</h2><div className="grid grid-cols-1 sm:grid-cols-3 gap-4"><div className="tile-paper p-4"><strong className="block mb-2" style={{ color: 'var(--ink)' }}>Teacher prepared</strong><p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>Organised by Smit Sir for Class {material.class_level} Commerce students.</p></div><div className="tile-paper p-4"><strong className="block mb-2" style={{ color: 'var(--ink)' }}>Chapter specific</strong><p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>Topics, questions and MCQs focus only on {material.chapter}.</p></div><div className="tile-paper p-4"><strong className="block mb-2" style={{ color: 'var(--ink)' }}>Transparent access</strong><p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>Free to view and download with no account required.</p></div></div></section>
 
-      <main className="page-container section-padding">
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px] gap-8 items-start">
-          <div className="space-y-7">
-            <section className="card-paper p-5 sm:p-7 md:p-9">
-              <h2 className="text-3xl mb-5" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Chapter overview</h2>
-              <p className="leading-8" style={{ color: 'var(--muted)' }}>
-                {material.summary} The material is organised for students who want a clear first reading as well as quick revision before school tests and CBSE examinations. Definitions, relationships and application points should be learned with their supporting examples rather than memorised in isolation.
-              </p>
-            </section>
+      <section className="card-paper p-5 sm:p-7 md:p-9"><h2 className="text-3xl mb-6" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Important topics covered</h2><div className="grid grid-cols-1 sm:grid-cols-2 gap-3">{material.keyTopics.map((topic) => <div key={topic} className="tile-paper p-4 flex items-start gap-3"><CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: 'var(--green)' }} /><span className="text-sm leading-relaxed" style={{ color: 'var(--charcoal)' }}>{topic}</span></div>)}</div></section>
 
-            <section className="card-paper p-5 sm:p-7 md:p-9">
-              <h2 className="text-3xl mb-5" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Why you can trust this study resource</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="tile-paper p-4"><strong className="block mb-2" style={{ color: 'var(--ink)' }}>Teacher prepared</strong><p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>Organised by Smit Sir for Class {material.class_level} Commerce students.</p></div>
-                <div className="tile-paper p-4"><strong className="block mb-2" style={{ color: 'var(--ink)' }}>Chapter specific</strong><p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>Topics, questions and MCQs focus only on {material.chapter}.</p></div>
-                <div className="tile-paper p-4"><strong className="block mb-2" style={{ color: 'var(--ink)' }}>Transparent access</strong><p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>Free to view and download with no account required.</p></div>
-              </div>
-            </section>
+      <section className="card-paper p-5 sm:p-7 md:p-9"><h2 className="text-3xl mb-6" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Exam-focused revision checklist</h2><ol className="space-y-4">{material.examFocus.map((point, index) => <li key={point} className="flex items-start gap-4"><span className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0" style={{ background: 'var(--gold-bg)', color: 'var(--gold)' }}>{index + 1}</span><span className="leading-relaxed pt-1" style={{ color: 'var(--muted)' }}>{point}</span></li>)}</ol></section>
 
-            <section className="card-paper p-5 sm:p-7 md:p-9">
-              <h2 className="text-3xl mb-6" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Important topics covered</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {material.keyTopics.map((topic) => (
-                  <div key={topic} className="tile-paper p-4 flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: 'var(--green)' }} />
-                    <span className="text-sm leading-relaxed" style={{ color: 'var(--charcoal)' }}>{topic}</span>
-                  </div>
-                ))}
-              </div>
-            </section>
+      {chapterPractice.length > 0 && <section className="card-paper p-5 sm:p-7 md:p-9" aria-labelledby="chapter-practice-heading"><span className="eyebrow">Next step</span><h2 id="chapter-practice-heading" className="text-3xl mt-3 mb-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Now practise {material.chapter}</h2><p className="leading-7 mb-6" style={{ color: 'var(--muted)' }}>Reading is step one. Use these chapter-specific pages to retrieve the concepts, apply them and find what still needs revision.</p><div className="grid sm:grid-cols-2 gap-3">{chapterPractice.map((item) => <Link key={item.path} to={item.path} className="tile-paper p-4 flex items-center justify-between gap-3 font-semibold text-sm"><span>{item.label}</span><ArrowRight className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--gold)' }} /></Link>)}</div></section>}
 
-            <section className="card-paper p-5 sm:p-7 md:p-9">
-              <h2 className="text-3xl mb-6" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Exam-focused revision checklist</h2>
-              <ol className="space-y-4">
-                {material.examFocus.map((point, index) => (
-                  <li key={point} className="flex items-start gap-4">
-                    <span className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0" style={{ background: 'var(--gold-bg)', color: 'var(--gold)' }}>{index + 1}</span>
-                    <span className="leading-relaxed pt-1" style={{ color: 'var(--muted)' }}>{point}</span>
-                  </li>
-                ))}
-              </ol>
-            </section>
+      <section className="card-paper p-5 sm:p-7 md:p-9"><div className="flex items-center gap-3 mb-6"><FileQuestion className="w-7 h-7 flex-shrink-0" style={{ color: 'var(--gold)' }} /><h2 className="text-3xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Important questions with answer guidance</h2></div><div className="divide-y" style={{ borderColor: 'var(--border-soft)' }}>{importantQuestions.map((item, index) => <details key={item.question} className="py-4 group" open={index === 0}><summary className="cursor-pointer font-semibold list-none flex justify-between gap-4" style={{ color: 'var(--ink)' }}><span>Q{index + 1}. {item.question}</span><span aria-hidden="true" style={{ color: 'var(--gold)' }}>+</span></summary><p className="mt-3 leading-relaxed pr-3 sm:pr-8" style={{ color: 'var(--muted)' }}>{item.answer}</p></details>)}</div></section>
 
-            <section className="card-paper p-5 sm:p-7 md:p-9">
-              <div className="flex items-center gap-3 mb-6">
-                <FileQuestion className="w-7 h-7 flex-shrink-0" style={{ color: 'var(--gold)' }} />
-                <h2 className="text-3xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Important questions with answer guidance</h2>
-              </div>
-              <div className="divide-y" style={{ borderColor: 'var(--border-soft)' }}>
-                {importantQuestions.map((item, index) => (
-                  <details key={item.question} className="py-4 group" open={index === 0}>
-                    <summary className="cursor-pointer font-semibold list-none flex justify-between gap-4" style={{ color: 'var(--ink)' }}>
-                      <span>Q{index + 1}. {item.question}</span><span aria-hidden="true" style={{ color: 'var(--gold)' }}>+</span>
-                    </summary>
-                    <p className="mt-3 leading-relaxed pr-3 sm:pr-8" style={{ color: 'var(--muted)' }}>{item.answer}</p>
-                  </details>
-                ))}
-              </div>
-            </section>
+      <section className="card-paper p-5 sm:p-7 md:p-9"><div className="flex items-center gap-3 mb-6"><CircleHelp className="w-7 h-7 flex-shrink-0" style={{ color: 'var(--gold)' }} /><h2 className="text-3xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Chapter MCQs with answers</h2></div><div className="space-y-6">{chapterMcqs.map((mcq, index) => <article key={`${mcq.question}-${index}`} className="tile-paper p-4 sm:p-5"><h3 className="font-semibold leading-relaxed mb-3" style={{ color: 'var(--ink)' }}>Q{index + 1}. {mcq.question}</h3><ol className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm" type="A">{mcq.options.map((option, optionIndex) => <li key={`${option}-${optionIndex}`} className="rounded-xl px-3 py-2.5" style={{ background: 'var(--bg-ivory)', color: 'var(--charcoal)' }}>{String.fromCharCode(65 + optionIndex)}. {option}</li>)}</ol><details className="mt-4"><summary className="cursor-pointer font-semibold text-sm" style={{ color: 'var(--gold)' }}>Show answer</summary><p className="mt-2 text-sm leading-relaxed" style={{ color: 'var(--muted)' }}><strong style={{ color: 'var(--ink)' }}>Answer: {String.fromCharCode(65 + mcq.answer)}.</strong> {mcq.explanation}</p></details></article>)}</div></section>
 
-            <section className="card-paper p-5 sm:p-7 md:p-9">
-              <div className="flex items-center gap-3 mb-6">
-                <CircleHelp className="w-7 h-7 flex-shrink-0" style={{ color: 'var(--gold)' }} />
-                <h2 className="text-3xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Chapter MCQs with answers</h2>
-              </div>
-              <div className="space-y-6">
-                {chapterMcqs.map((mcq, index) => (
-                  <article key={`${mcq.question}-${index}`} className="tile-paper p-4 sm:p-5">
-                    <h3 className="font-semibold leading-relaxed mb-3" style={{ color: 'var(--ink)' }}>Q{index + 1}. {mcq.question}</h3>
-                    <ol className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm" type="A">
-                      {mcq.options.map((option, optionIndex) => <li key={`${option}-${optionIndex}`} className="rounded-xl px-3 py-2.5" style={{ background: 'var(--bg-ivory)', color: 'var(--charcoal)' }}>{String.fromCharCode(65 + optionIndex)}. {option}</li>)}
-                    </ol>
-                    <details className="mt-4">
-                      <summary className="cursor-pointer font-semibold text-sm" style={{ color: 'var(--gold)' }}>Show answer</summary>
-                      <p className="mt-2 text-sm leading-relaxed" style={{ color: 'var(--muted)' }}><strong style={{ color: 'var(--ink)' }}>Answer: {String.fromCharCode(65 + mcq.answer)}.</strong> {mcq.explanation}</p>
-                    </details>
-                  </article>
-                ))}
-              </div>
-            </section>
-
-            <section className="card-paper p-5 sm:p-7 md:p-9">
-              <h2 className="text-3xl mb-5" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Frequently asked questions</h2>
-              <div className="divide-y" style={{ borderColor: 'var(--border-soft)' }}>
-                {faqs.map((faq) => (
-                  <details key={faq.question} className="py-4 group">
-                    <summary className="cursor-pointer font-semibold list-none flex justify-between gap-4" style={{ color: 'var(--ink)' }}>
-                      {faq.question}<span style={{ color: 'var(--gold)' }}>+</span>
-                    </summary>
-                    <p className="mt-3 leading-relaxed pr-8" style={{ color: 'var(--muted)' }}>{faq.answer}</p>
-                  </details>
-                ))}
-              </div>
-            </section>
-          </div>
-
-          <aside className="space-y-5 lg:sticky lg:top-24">
-            <div className="card-paper p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <UserRound className="w-6 h-6" style={{ color: 'var(--gold)' }} />
-                <h2 className="text-xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Prepared by Smit Sir</h2>
-              </div>
-              <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>Commerce teacher specialising in Economics, Business Studies, Accountancy and Entrepreneurship for Classes 11 and 12.</p>
-              <Link to="/about" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold" style={{ color: 'var(--gold)' }}>About the teacher <ArrowRight className="w-4 h-4" /></Link>
-            </div>
-
-            <div className="card-paper p-6">
-              <h2 className="text-xl mb-4" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Continue learning</h2>
-              <div className="space-y-3">
-                {previous && <Link to={previous.seo_path} className="tile-paper p-3 flex items-center gap-3 text-sm"><ArrowLeft className="w-4 h-4" style={{ color: 'var(--gold)' }} /><span>Chapter {previous.chapterNumber}: {previous.chapter}</span></Link>}
-                {next && <Link to={next.seo_path} className="tile-paper p-3 flex items-center justify-between gap-3 text-sm"><span>Chapter {next.chapterNumber}: {next.chapter}</span><ArrowRight className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--gold)' }} /></Link>}
-                <Link to={hub.path} className="tile-paper p-3 flex items-center gap-3 text-sm"><BookOpen className="w-4 h-4" style={{ color: 'var(--gold)' }} />All {hub.label} notes</Link>
-                <Link to="/cbse-notes" className="tile-paper p-3 flex items-center gap-3 text-sm"><BookOpen className="w-4 h-4" style={{ color: 'var(--gold)' }} />All free CBSE Commerce notes</Link>
-              </div>
-            </div>
-
-            <div className="card-paper p-6">
-              <h2 className="text-xl mb-4" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Explore other subjects</h2>
-              <div className="space-y-3">
-                {relatedHubs.map((related) => <Link key={related.id} to={related.path} className="tile-paper p-3 flex items-center justify-between gap-3 text-sm"><span>Free {related.label} notes</span><ArrowRight className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--gold)' }} /></Link>)}
-              </div>
-            </div>
-          </aside>
-        </div>
-      </main>
+      <section className="card-paper p-5 sm:p-7 md:p-9"><h2 className="text-3xl mb-5" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Frequently asked questions</h2><div className="divide-y" style={{ borderColor: 'var(--border-soft)' }}>{faqs.map((faq) => <details key={faq.question} className="py-4 group"><summary className="cursor-pointer font-semibold list-none flex justify-between gap-4" style={{ color: 'var(--ink)' }}>{faq.question}<span style={{ color: 'var(--gold)' }}>+</span></summary><p className="mt-3 leading-relaxed pr-8" style={{ color: 'var(--muted)' }}>{faq.answer}</p></details>)}</div></section>
     </div>
-  );
+
+    <aside className="space-y-5 lg:sticky lg:top-24"><div className="card-paper p-6"><div className="flex items-center gap-3 mb-4"><UserRound className="w-6 h-6" style={{ color: 'var(--gold)' }} /><h2 className="text-xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Prepared by Smit Sir</h2></div><p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>Commerce teacher specialising in Economics, Business Studies, Accountancy and Entrepreneurship for Classes 11 and 12.</p><Link to="/about" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold" style={{ color: 'var(--gold)' }}>About the teacher <ArrowRight className="w-4 h-4" /></Link></div>
+      {chapterPractice.length > 0 && <div className="card-paper p-6"><h2 className="text-xl mb-4" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Practise this chapter</h2><div className="space-y-3">{chapterPractice.slice(0, 5).map((item) => <Link key={item.path} to={item.path} className="tile-paper p-3 flex items-center justify-between gap-3 text-sm"><span>{item.label}</span><ArrowRight className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--gold)' }} /></Link>)}</div></div>}
+      <div className="card-paper p-6"><h2 className="text-xl mb-4" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Continue learning</h2><div className="space-y-3">{previous && <Link to={previous.seo_path} className="tile-paper p-3 flex items-center gap-3 text-sm"><ArrowLeft className="w-4 h-4" style={{ color: 'var(--gold)' }} /><span>Chapter {previous.chapterNumber}: {previous.chapter}</span></Link>}{next && <Link to={next.seo_path} className="tile-paper p-3 flex items-center justify-between gap-3 text-sm"><span>Chapter {next.chapterNumber}: {next.chapter}</span><ArrowRight className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--gold)' }} /></Link>}<Link to={hub.path} className="tile-paper p-3 flex items-center gap-3 text-sm"><BookOpen className="w-4 h-4" style={{ color: 'var(--gold)' }} />All {hub.label} notes</Link><Link to="/cbse-notes" className="tile-paper p-3 flex items-center gap-3 text-sm"><BookOpen className="w-4 h-4" style={{ color: 'var(--gold)' }} />All free CBSE Commerce notes</Link></div></div>
+      <div className="card-paper p-6"><h2 className="text-xl mb-4" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Explore other subjects</h2><div className="space-y-3">{relatedHubs.map((related) => <Link key={related.id} to={related.path} className="tile-paper p-3 flex items-center justify-between gap-3 text-sm"><span>Free {related.label} notes</span><ArrowRight className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--gold)' }} /></Link>)}</div></div>
+    </aside></div></main>
+  </div>;
 }
