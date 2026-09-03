@@ -102,7 +102,7 @@ function html(page) {
     .replace(/<html([^>]*)lang="[^"]*"([^>]*)>/i, `<html$1lang="${page.lang}"$2>`)
     .replace(/<title>.*?<\/title>/s,`<title>${esc(fullTitle)}</title>`)
     .replace('</head>',`${tags}\n</head>`)
-    .replace('<div id="root"></div>',`<div id="root">${body(page)}</div>`);
+    .replace(/<body\b[^>]*>[\s\S]*?<\/body>/i, `<body><div id="root">${body(page)}</div></body>`);
   return clean;
 }
 
