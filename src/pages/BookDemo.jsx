@@ -11,7 +11,7 @@ export default function BookDemo() {
     <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
       <SEO
         title="Free Commerce Paper Analysis & Demo in Mehsana"
-        description="Class 11 and 12 Commerce students in Mehsana can get a free test-paper analysis, weak-topic plan and demo class with Smit Sir Commerce. Economics, Business Studies, Accountancy, Entrepreneurship and Physical Education."
+        description="Class 11 and 12 Commerce students in Mehsana can get a free test-paper analysis, weak-topic plan and demo class with Smit Sir Commerce. Economics, Business Studies, Entrepreneurship and Physical Education."
         path="/book-demo"
       />
 
@@ -23,7 +23,7 @@ export default function BookDemo() {
             Already enrolled in another tuition? That is completely fine. Start with a free academic analysis and demo. The goal is to understand your weak areas first — not to pressure you into changing classes.
           </p>
           <div className="flex flex-wrap justify-center gap-2 mt-6 text-sm" style={{ color: 'var(--muted)' }}>
-            {['Economics', 'Business Studies', 'Accountancy', 'Entrepreneurship', 'Physical Education'].map((subject) => (
+            {['Economics', 'Business Studies', 'Entrepreneurship', 'Physical Education'].map((subject) => (
               <span key={subject} className="tile-paper px-3 py-2">{subject}</span>
             ))}
           </div>
