@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
-import { Calculator, ArrowRight, BarChart3, Landmark, GraduationCap, Sparkles } from 'lucide-react';
+import { Calculator, ArrowRight, BarChart3, Landmark, GraduationCap, Sparkles, Layers3 } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { commerceTools, commerceToolCategories } from '../data/allCommerceTools';
+import { toolClusters } from '../data/toolClusters';
 
 const BASE = 'https://www.smitsircommerce.in';
 
@@ -66,6 +67,13 @@ export default function CommerceToolsHub() {
           <div className="card-paper p-5"><Calculator className="w-6 h-6 mb-3" style={{ color: 'var(--gold)' }} /><div className="text-2xl font-semibold" style={{ color: 'var(--ink)' }}>{commerceTools.length}</div><p className="text-sm mt-1" style={{ color: 'var(--muted)' }}>free calculators live in one Commerce toolkit</p></div>
           <div className="card-paper p-5"><GraduationCap className="w-6 h-6 mb-3" style={{ color: 'var(--gold)' }} /><div className="text-2xl font-semibold" style={{ color: 'var(--ink)' }}>Class 11 + 12</div><p className="text-sm mt-1" style={{ color: 'var(--muted)' }}>exam-relevant Economics and Accountancy problems</p></div>
           <div className="card-paper p-5"><Sparkles className="w-6 h-6 mb-3" style={{ color: 'var(--gold)' }} /><div className="text-2xl font-semibold" style={{ color: 'var(--ink)' }}>₹0</div><p className="text-sm mt-1" style={{ color: 'var(--muted)' }}>no login, no payment and no hidden answer</p></div>
+        </div>
+      </section>
+
+      <section className="page-container section-padding pt-8" aria-labelledby="topic-toolkits-heading">
+        <div className="max-w-3xl mb-7"><span className="eyebrow">Study by topic</span><h2 id="topic-toolkits-heading" className="headline mt-4">Three high-value Commerce toolkits</h2><p className="mt-3 text-sm leading-7" style={{ color: 'var(--muted)' }}>Instead of searching one formula at a time, open a complete topic cluster and move between related calculators.</p></div>
+        <div className="grid md:grid-cols-3 gap-4">
+          {toolClusters.map((cluster) => <Link key={cluster.slug} to={`/tools/topics/${cluster.slug}`} className="card-paper p-6 group"><Layers3 className="w-6 h-6" style={{ color: 'var(--gold)' }} /><h3 className="text-2xl mt-4 leading-snug" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{cluster.title}</h3><p className="text-sm leading-6 mt-3" style={{ color: 'var(--muted)' }}>{cluster.description}</p><span className="inline-flex items-center gap-1.5 mt-5 text-sm font-semibold" style={{ color: 'var(--gold)' }}>Open toolkit <ArrowRight className="w-4 h-4" /></span></Link>)}
         </div>
       </section>
 
