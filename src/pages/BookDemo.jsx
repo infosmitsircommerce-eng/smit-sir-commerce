@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CalendarCheck2, CheckCircle2, FileSearch, Phone, ShieldCheck, Sparkles, Target } from 'lucide-react';
+import { CalendarCheck2, CheckCircle2, FileSearch, ShieldCheck, Sparkles, Target } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import LeadCaptureForm from '../components/leads/LeadCaptureForm';
 import DemoSlotPicker from '../components/leads/DemoSlotPicker';
@@ -51,7 +51,7 @@ export default function BookDemo() {
                   [CheckCircle2, 'Class 11 & 12'],
                   [CalendarCheck2, 'Online + Offline'],
                   [ShieldCheck, 'No payment to book'],
-                  [Phone, 'Direct teacher contact'],
+                  [Target, 'Focused follow-up'],
                 ].map(([Icon, text]) => <div key={text} className="tile-paper p-3"><Icon className="w-4 h-4" style={{ color: 'var(--gold)' }} /><div className="mt-2 font-semibold" style={{ color: 'var(--charcoal)' }}>{text}</div></div>)}
               </div>
             </div>
@@ -67,10 +67,6 @@ export default function BookDemo() {
                 This is not a marks guarantee. It is a commitment for students who sincerely follow the complete academic system.
               </div>
             </div>
-
-            <a href="tel:+916353709585" className="btn-outline-ink w-full inline-flex items-center justify-center gap-2">
-              <Phone className="w-4 h-4" /> Call Smit Sir: 63537 09585
-            </a>
           </aside>
 
           <div className="space-y-5">

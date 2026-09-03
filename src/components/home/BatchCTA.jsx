@@ -3,8 +3,6 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowRight, Users, Wifi, MapPin, Globe, CheckCircle } from 'lucide-react';
 
-const WA_LINK = 'https://wa.me/916353709585?text=Hello%20Smit%20Sir%2C%20I%20want%20to%20book%20a%20free%20demo%20class%20for%20Class%2011%2F12%20Commerce.';
-
 export default function BatchCTA() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '100px' });
@@ -14,7 +12,6 @@ export default function BatchCTA() {
       style={{ background: 'var(--bg-cream)' }}>
 
       <div className="page-container relative z-10">
-        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -30,10 +27,7 @@ export default function BatchCTA() {
           </p>
         </motion.div>
 
-        {/* Cards */}
         <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-
-          {/* ── Offline Batch — flagship ink card ── */}
           <motion.div
             initial={{ opacity: 0, x: -32 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -49,7 +43,6 @@ export default function BatchCTA() {
             onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(217,172,92,0.6)'; }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(201,160,80,0.35)'; }}
           >
-            {/* Gold hairline top */}
             <div className="absolute top-0 inset-x-0 h-px"
               style={{ background: 'linear-gradient(90deg, transparent, rgba(217,172,92,0.7), transparent)' }} />
             <div className="absolute top-0 left-0 w-64 h-64 rounded-full pointer-events-none opacity-60"
@@ -69,12 +62,12 @@ export default function BatchCTA() {
               </div>
 
               <h3 style={{ fontFamily: 'var(--font-serif)', fontWeight: 700, fontSize: '1.5rem', color: 'var(--ivory-on-ink)', marginBottom: '4px' }}>Offline Batch</h3>
-              <p className="text-sm mb-7" style={{ color: 'var(--muted-on-ink)' }}>In-person classroom · Limited seats</p>
+              <p className="text-sm mb-7" style={{ color: 'var(--muted-on-ink)' }}>In-person classroom · Individual attention</p>
 
               <ul className="space-y-3.5 mb-8">
                 {[
                   'Face-to-face learning with Smit Sir',
-                  'Personal attention for every student',
+                  'Personal attention for students',
                   'Regular in-class tests & quizzes',
                   'Interactive doubt-solving sessions',
                   'Study notes & materials provided',
@@ -92,7 +85,6 @@ export default function BatchCTA() {
             </div>
           </motion.div>
 
-          {/* ── Online Batch — white card ── */}
           <motion.div
             initial={{ opacity: 0, x: 32 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -136,7 +128,7 @@ export default function BatchCTA() {
                   'Digital notes & PDF materials',
                   'Flexible learning hours',
                   'Online test series & quizzes',
-                  'WhatsApp doubt support included',
+                  'Doubt support through the learning system',
                 ].map((f) => (
                   <li key={f} className="flex items-center gap-3 text-sm" style={{ color: 'var(--charcoal)' }}>
                     <CheckCircle className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--gold)' }} />
@@ -152,7 +144,6 @@ export default function BatchCTA() {
           </motion.div>
         </div>
 
-        {/* WhatsApp nudge */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
@@ -161,10 +152,9 @@ export default function BatchCTA() {
           style={{ color: 'var(--muted)' }}
         >
           Still not sure?{' '}
-          <a href={WA_LINK} target="_blank" rel="noopener noreferrer"
-            className="font-semibold transition-colors" style={{ color: 'var(--green)' }}>
-            Chat on WhatsApp →
-          </a>
+          <Link to="/contact" className="font-semibold transition-colors" style={{ color: 'var(--gold)' }}>
+            Send an enquiry →
+          </Link>
         </motion.p>
       </div>
     </section>

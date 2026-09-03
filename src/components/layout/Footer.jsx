@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { GraduationCap, Phone, Mail, MapPin, ShieldCheck, CircleHelp, FileText, LockKeyhole } from 'lucide-react';
+import { GraduationCap, Mail, MapPin, ShieldCheck, CircleHelp, FileText, LockKeyhole } from 'lucide-react';
 
 const quickLinks = [
   { label: 'Home', path: '/' },
@@ -56,7 +56,7 @@ export default function Footer() {
               <div><div className="text-lg leading-tight" style={headingStyle}>Smit Sir</div><div className="text-sm leading-tight" style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, letterSpacing: '0.16em', color: 'var(--gold-bright)' }}>COMMERCE</div></div>
             </Link>
             <p className="text-sm leading-relaxed mb-3" style={mutedLink}>Class 11 &amp; 12 Commerce learning in Mehsana for Economics, Business Studies and Entrepreneurship, with supporting study resources, calculators, practice and tests.</p>
-            <a href="tel:+916353709585" className="text-sm font-semibold transition-colors inline-block" style={{ color: 'var(--gold-bright)' }}>📞 +91 63537 09585</a>
+            <a href="mailto:infosmitsircommerce@gmail.com" className="text-sm font-semibold transition-colors inline-block" style={{ color: 'var(--gold-bright)' }}>Email support</a>
           </div>
 
           <div>
@@ -91,7 +91,6 @@ export default function Footer() {
           <div>
             <h4 className="mb-5" style={headingStyle}>Contact &amp; Local Area</h4>
             <ul className="space-y-4">
-              <li className="flex items-start gap-3"><Phone className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--gold-bright)' }} /><div><a href="tel:+916353709585" className="text-sm font-medium" style={{ color: 'var(--ivory-on-ink)' }}>+91 63537 09585</a><div className="text-xs" style={mutedLink}>Call for demo and batch enquiries</div></div></li>
               <li className="flex items-start gap-3"><Mail className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--gold-bright)' }} /><a href="mailto:infosmitsircommerce@gmail.com" className="text-sm break-all" style={mutedLink}>infosmitsircommerce@gmail.com</a></li>
               <li className="flex items-start gap-3"><MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--gold-bright)' }} /><div className="text-sm" style={mutedLink}>Mehsana, Gujarat, India</div></li>
             </ul>

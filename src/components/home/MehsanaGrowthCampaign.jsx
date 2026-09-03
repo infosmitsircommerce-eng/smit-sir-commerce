@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, FileSearch, Phone, ShieldCheck, Target, Users } from 'lucide-react';
+import { ArrowRight, FileSearch, Mail, ShieldCheck, Target, Users } from 'lucide-react';
 
 const steps = [
   {
     icon: FileSearch,
     title: 'Free paper analysis',
-    text: 'Bring your latest Economics, Business Studies, Accountancy, Entrepreneurship or Physical Education test paper. We identify where marks were lost and what needs to change.',
+    text: 'Bring your latest Economics, Business Studies, Entrepreneurship or Physical Education test paper. We identify where marks were lost and what needs to change.',
   },
   {
     icon: Target,
@@ -48,9 +48,9 @@ export default function MehsanaGrowthCampaign() {
                 <Link to="/book-demo" className="btn-primary inline-flex items-center gap-2">
                   Get Free Paper Analysis <ArrowRight className="w-4 h-4" />
                 </Link>
-                <a href="tel:+916353709585" className="btn-outline-ink inline-flex items-center gap-2">
-                  <Phone className="w-4 h-4" /> Call Smit Sir
-                </a>
+                <Link to="/contact" className="btn-outline-ink inline-flex items-center gap-2">
+                  <Mail className="w-4 h-4" /> Send an enquiry
+                </Link>
               </div>
               <p className="text-xs mt-3" style={{ color: 'var(--subtle)' }}>No admission required for the first analysis or demo.</p>
             </div>

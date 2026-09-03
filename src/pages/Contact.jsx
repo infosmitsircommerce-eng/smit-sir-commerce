@@ -1,5 +1,5 @@
 import SEO from '../components/ui/SEO';
-import { Phone, Mail, MapPin, ArrowRight, ShieldCheck, CheckCircle2, BookOpenCheck } from 'lucide-react';
+import { Mail, MapPin, ArrowRight, ShieldCheck, CheckCircle2, BookOpenCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import LeadCaptureForm from '../components/leads/LeadCaptureForm';
 
@@ -24,12 +24,11 @@ const structuredData = {
       name: 'Smit Sir Commerce',
       alternateName: 'Smit Sir Commerce Classes',
       url: `${BASE}/`,
-      telephone: '+916353709585',
       email: 'infosmitsircommerce@gmail.com',
       contactPoint: {
         '@type': 'ContactPoint',
-        telephone: '+916353709585',
-        contactType: 'admissions and student enquiries',
+        email: 'infosmitsircommerce@gmail.com',
+        contactType: 'student support and enquiries',
         areaServed: 'IN-GJ',
       },
       areaServed: {
@@ -60,7 +59,7 @@ export default function Contact() {
 
       <div className="page-hero">
         <div className="page-container text-center">
-          <span className="eyebrow">Talk directly</span>
+          <span className="eyebrow">Send an enquiry</span>
           <h1 className="mt-5">Start with your <em>actual learning problem.</em></h1>
           <p className="mx-auto max-w-3xl">
             You do not need a sales pitch first. Tell us the subject, chapter, test result or confusion you are facing. Start with a question, a free paper analysis or a demo.
@@ -85,11 +84,6 @@ export default function Contact() {
                 ))}
               </div>
             </div>
-
-            <a href="tel:+916353709585" className="card-paper flex items-start gap-4 p-4 group">
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.18)' }}><Phone className="w-5 h-5" style={{ color: 'var(--gold)' }} /></div>
-              <div><div className="font-semibold" style={{ color: 'var(--ink)' }}>Call Smit Sir Commerce</div><div style={{ color: 'var(--gold)' }}>+91 63537 09585</div><div className="text-xs mt-0.5" style={{ color: 'var(--subtle)' }}>Demo, subject, batch and paper-analysis enquiries</div></div>
-            </a>
 
             <a href="mailto:infosmitsircommerce@gmail.com" className="card-paper flex items-start gap-4 p-4">
               <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'var(--gold-bg)' }}><Mail className="w-5 h-5" style={{ color: 'var(--gold)' }} /></div>
