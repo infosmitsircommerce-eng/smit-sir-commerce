@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Feather, Music2, Share2, Sparkles, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
-const FESTIVAL_DATE = '2026-09-04';
+const FESTIVAL_DATES = new Set(['2026-09-03', '2026-09-04']);
 const DISMISS_KEY = 'ssc-janmashtami-2026-dismissed';
 
 function getIndiaDateStamp() {
@@ -30,7 +30,7 @@ export default function JanmashtamiWelcome() {
   useEffect(() => {
     if (typeof window === 'undefined') return undefined;
 
-    const activeToday = getIndiaDateStamp() === FESTIVAL_DATE;
+    const activeToday = FESTIVAL_DATES.has(getIndiaDateStamp());
     const dismissed = window.localStorage.getItem(DISMISS_KEY) === 'yes';
     if ((!activeToday && !preview) || (dismissed && !preview)) return undefined;
 
