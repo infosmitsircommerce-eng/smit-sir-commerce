@@ -12,7 +12,7 @@
 
     <!-- Crawlable fallback SEO. React Helmet replaces these with route-specific tags. -->
     <title>Free CBSE Commerce Notes Class 11 & 12 | Smit Sir Commerce</title>
-    <meta name="description" content="Free CBSE Commerce notes for Class 11 and 12 with chapter-wise Economics and Business Studies PDFs, practice resources, tests and Commerce coaching by Smit Sir." />
+    <meta name="description" content="Free CBSE Commerce notes for Class 11 and 12 with chapter-wise Economics and Business Studies PDFs, practice resources, tests and Commerce coaching by Smit Sir Commerce." />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="author" content="Smit Sir Commerce" />
@@ -33,14 +33,13 @@
     <meta name="twitter:description" content="Free chapter-wise CBSE Commerce notes, PDFs and practice resources for Class 11 and 12 students." />
     <meta name="twitter:image" content="https://www.smitsircommerce.in/og-image.jpg" />
 
-    <!-- Broad regional signal only; no invented exact business coordinates. -->
+    <!-- Broad regional signal only; no invented exact business coordinates or storefront address. -->
     <meta name="geo.region" content="IN-GJ" />
     <meta name="geo.placename" content="Mehsana, Gujarat, India" />
 
-    <!-- Sitemap reference -->
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
-    <!-- JSON-LD: Educational Organization + Teacher + WebSite -->
+    <!-- First-party entity facts for search engines and AI systems. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -49,40 +48,38 @@
           "@type": "EducationalOrganization",
           "@id": "https://www.smitsircommerce.in/#organization",
           "name": "Smit Sir Commerce",
-          "description": "CBSE Class 11 and 12 Commerce learning platform with free chapter-wise notes, practice resources and coaching in Mehsana and online.",
+          "alternateName": "Smit Sir Commerce Classes",
+          "description": "Class 11 and 12 Commerce teaching and study resources for students in Mehsana, Gujarat, with Economics, Business Studies, Accountancy, Entrepreneurship and related exam preparation.",
           "url": "https://www.smitsircommerce.in/",
-          "logo": "https://www.smitsircommerce.in/og-image.jpg",
           "telephone": "+916353709585",
           "email": "infosmitsircommerce@gmail.com",
-          "sameAs": ["https://www.instagram.com/smitthker/"],
           "contactPoint": {
             "@type": "ContactPoint",
             "telephone": "+916353709585",
-            "contactType": "admissions",
-            "areaServed": "IN",
-            "availableLanguage": ["English", "Hindi", "Gujarati"]
+            "contactType": "admissions and student enquiries",
+            "areaServed": "IN-GJ"
           },
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Mehsana",
-            "addressRegion": "Gujarat",
-            "addressCountry": "IN"
+          "areaServed": {
+            "@type": "City",
+            "name": "Mehsana",
+            "containedInPlace": {
+              "@type": "State",
+              "name": "Gujarat",
+              "containedInPlace": { "@type": "Country", "name": "India" }
+            }
           },
-          "areaServed": [
-            { "@type": "City", "name": "Mehsana" },
-            { "@type": "Country", "name": "India" }
-          ],
-          "knowsAbout": ["CBSE Commerce", "Economics", "Business Studies", "Accountancy", "Entrepreneurship", "Microeconomics", "Macroeconomics"]
+          "knowsAbout": ["Class 11 Commerce", "Class 12 Commerce", "CBSE Commerce", "Economics", "Business Studies", "Accountancy", "Entrepreneurship", "Physical Education", "Commerce exam preparation"],
+          "founder": { "@id": "https://www.smitsircommerce.in/about#smit-thaker" }
         },
         {
           "@type": "Person",
-          "@id": "https://www.smitsircommerce.in/#teacher",
-          "name": "Smit Sir",
-          "jobTitle": "Commerce Teacher",
+          "@id": "https://www.smitsircommerce.in/about#smit-thaker",
+          "name": "Smit Thaker",
+          "alternateName": "Smit Sir",
+          "url": "https://www.smitsircommerce.in/about",
+          "jobTitle": "Commerce Educator",
           "worksFor": { "@id": "https://www.smitsircommerce.in/#organization" },
-          "sameAs": ["https://www.instagram.com/smitthker/"],
-          "knowsAbout": ["Economics", "Business Studies", "Accountancy", "Entrepreneurship", "CBSE Commerce"],
-          "description": "Commerce teacher for Class 11 and 12 in Mehsana, Gujarat, offering concept-focused teaching and published study resources."
+          "knowsAbout": ["Economics", "Business Studies", "Entrepreneurship", "Physical Education", "Commerce education"]
         },
         {
           "@type": "WebSite",
@@ -106,11 +103,9 @@
       gtag('config', 'G-6ZVG9CJEG8');
     </script>
 
-    <!-- Resource hints for speed -->
     <link rel="dns-prefetch" href="https://abpruwygnsmeqisaehip.supabase.co" />
     <link rel="preconnect" href="https://abpruwygnsmeqisaehip.supabase.co" crossorigin />
 
-    <!-- Fonts — display=swap prevents invisible text during load -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
