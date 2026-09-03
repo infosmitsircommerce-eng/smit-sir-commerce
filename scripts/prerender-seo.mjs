@@ -8,8 +8,30 @@ const SITE = 'Smit Sir Commerce';
 const source = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
 const distRoot = new URL('../dist/', import.meta.url);
 const cbseNotesPath = '/cbse-notes';
-const cbseNotesTitle = 'Free CBSE Notes for Class 11 & 12 Commerce';
-const cbseNotesDescription = 'Free CBSE Commerce notes for Class 11 and 12. View and download chapter-wise PDF notes for Business Studies, Microeconomics and Macroeconomics.';
+const cbseNotesTitle = 'Free CBSE Commerce Notes Class 11 & 12 PDF';
+const cbseNotesDescription = 'Free CBSE Commerce notes for Class 11 and 12 with chapter-wise PDF notes for Economics, Business Studies, Microeconomics and Macroeconomics. View online or download free.';
+const cbseNotesFaqs = [
+  {
+    question: 'Are these CBSE Commerce notes free?',
+    answer: 'Yes. The notes available through this library can be viewed online or downloaded free. No registration is required to open the public study material.',
+  },
+  {
+    question: 'Which Class 11 Commerce notes are available?',
+    answer: 'The Class 11 collection currently includes chapter-wise Microeconomics notes. Each available chapter has its own page with a PDF, key topics and exam-focused revision guidance.',
+  },
+  {
+    question: 'Which Class 12 Commerce notes are available?',
+    answer: 'The Class 12 collection includes Business Studies notes and Macroeconomics notes. The library is organised by subject and chapter so students can open the exact topic they need.',
+  },
+  {
+    question: 'Can I download the CBSE notes PDF?',
+    answer: 'Yes. Where a chapter PDF is available, students can view it online and use the download option from the chapter page.',
+  },
+  {
+    question: 'How should I use these notes for exam preparation?',
+    answer: 'Read one chapter, revise its key concepts and definitions, then practise questions from the same chapter. After that, use sample-paper and exam-preparation resources to test recall and application.',
+  },
+];
 
 function escapeHtml(value) {
   return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
@@ -23,12 +45,57 @@ function renderHub(hub) {
 
 function renderCbseNotes() {
   const totalChapters = seoMaterials.length;
-  const popularNotes = seoHubs.flatMap((hub) => getHubMaterials(hub.id).slice(0, 2));
-  return `<main class="page-container section-padding" data-prerendered="cbse-notes"><nav aria-label="Breadcrumb"><a href="/">Home</a> / Free CBSE Notes</nav><article><h1>${escapeHtml(cbseNotesTitle)}</h1><p>Study chapter by chapter with free CBSE Commerce notes prepared for concept clarity and board-exam revision. Every published PDF can be viewed online or downloaded without registration.</p><p>${totalChapters} chapter-wise PDFs are currently available.</p><h2>CBSE Commerce notes by class and subject</h2><ul>${seoHubs.map((hub) => `<li><a href="${escapeHtml(hub.path)}">Free ${escapeHtml(hub.label)} notes PDF</a> — ${getHubMaterials(hub.id).length} chapters</li>`).join('')}</ul><h2>Popular free CBSE Commerce notes</h2><ul>${popularNotes.map((item) => `<li><a href="${escapeHtml(item.seo_path)}">Class ${item.class_level} Chapter ${item.chapterNumber}: ${escapeHtml(item.chapter)} notes PDF</a></li>`).join('')}</ul><h2>How to use these notes</h2><p>Read the chapter summary, revise the important topics, open the complete PDF and then practise NCERT questions and current CBSE sample papers.</p></article></main>`;
+  const popularNotes = seoHubs.flatMap((hub) => getHubMaterials(hub.id).slice(0, 3));
+  const class11Hub = seoHubs.find((hub) => hub.classLevel === 11);
+  const class12Hubs = seoHubs.filter((hub) => hub.classLevel === 12);
+
+  return `<main class="page-container section-padding" data-prerendered="cbse-notes"><nav aria-label="Breadcrumb"><a href="/">Home</a> / Free CBSE Commerce Notes</nav><article><h1>${escapeHtml(cbseNotesTitle)}</h1><p>Find free CBSE Commerce notes for Class 11 and Class 12 in one organised library. Open chapter-wise PDF notes for Economics and Business Studies, revise the important concepts, and move directly into practice for the same topic.</p><p>Instead of searching for scattered PDFs, students can choose a class, subject and chapter, study the notes online or download the PDF, then continue with practice and exam-preparation resources on the same website.</p><p><strong>${totalChapters} chapter-wise PDFs are currently available.</strong> Public notes can be opened without registration.</p><h2>CBSE Commerce notes by class and subject</h2><ul>${seoHubs.map((hub) => `<li><a href="${escapeHtml(hub.path)}">Free ${escapeHtml(hub.label)} notes PDF</a> — ${getHubMaterials(hub.id).length} ${getHubMaterials(hub.id).length === 1 ? 'chapter' : 'chapters'} currently available</li>`).join('')}</ul><h2>Free Class 11 Commerce notes</h2>${class11Hub ? `<p>Class 11 students can use the Microeconomics collection to build their foundation chapter by chapter. The available material covers core concepts such as scarcity and choice, demand, production, cost, revenue and market-related topics as the collection develops.</p><p><a href="${escapeHtml(class11Hub.path)}">Open Class 11 Microeconomics notes PDF</a>.</p>` : ''}<h2>Free Class 12 Commerce notes</h2><p>Class 12 students can revise Business Studies chapter by chapter and use the available Macroeconomics notes for concept clarity. Each subject hub keeps the PDFs connected to the exact chapter they belong to.</p><ul>${class12Hubs.map((hub) => `<li><a href="${escapeHtml(hub.path)}">${escapeHtml(hub.label)} notes PDF</a></li>`).join('')}</ul><h2>Popular free CBSE Commerce notes PDFs</h2><ul>${popularNotes.map((item) => `<li><a href="${escapeHtml(item.seo_path)}">CBSE Class ${item.class_level} Chapter ${item.chapterNumber}: ${escapeHtml(item.chapter)} notes PDF</a></li>`).join('')}</ul><h2>How to use these Commerce notes effectively</h2><ol><li>Read the chapter PDF and understand each concept before trying to memorise it.</li><li>Mark definitions, formulas, diagrams, differences and important headings for revision.</li><li>Practise questions from the same chapter while the concepts are fresh.</li><li>Use sample-paper and exam-preparation resources to test recall and application.</li></ol><p><a href="/cbse-practice">Open the CBSE Commerce practice library</a> after revision, or continue to the <a href="/cbse-pyq">exam-preparation hub</a>.</p><h2>CBSE Commerce notes FAQ</h2>${cbseNotesFaqs.map((faq) => `<h3>${escapeHtml(faq.question)}</h3><p>${escapeHtml(faq.answer)}</p>`).join('')}</article></main>`;
 }
 
 function getCbseNotesStructuredData() {
-  return { '@context': 'https://schema.org', '@type': 'CollectionPage', name: cbseNotesTitle, description: cbseNotesDescription, url: `${BASE}${cbseNotesPath}`, isAccessibleForFree: true, mainEntity: { '@type': 'ItemList', numberOfItems: seoHubs.length, itemListElement: seoHubs.map((hub, index) => ({ '@type': 'ListItem', position: index + 1, name: hub.label, url: `${BASE}${hub.path}` })) } };
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': `${BASE}${cbseNotesPath}#collection`,
+        name: cbseNotesTitle,
+        description: cbseNotesDescription,
+        url: `${BASE}${cbseNotesPath}`,
+        isAccessibleForFree: true,
+        inLanguage: 'en-IN',
+        about: [
+          'CBSE Class 11 Commerce notes',
+          'CBSE Class 12 Commerce notes',
+          'Economics notes',
+          'Business Studies notes',
+          'Microeconomics notes',
+          'Macroeconomics notes',
+        ],
+        mainEntity: {
+          '@type': 'ItemList',
+          numberOfItems: seoHubs.length,
+          itemListElement: seoHubs.map((hub, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: hub.label,
+            url: `${BASE}${hub.path}`,
+          })),
+        },
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: cbseNotesFaqs.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+          },
+        })),
+      },
+    ],
+  };
 }
 
 function renderMaterial(material) {
