@@ -6,6 +6,100 @@ const DEFAULT_IMG = BASE + '/og-image.jpg';
 const SITE = 'Smit Sir Commerce';
 const DEFAULT_DESCRIPTION = 'CBSE Commerce coaching for Class 11 and 12 in Mehsana, Gujarat, with chapter-wise notes, practice resources, online and offline batches, and a free demo class.';
 
+const SITEWIDE_ENTITY = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${BASE}/#website`,
+      url: `${BASE}/`,
+      name: SITE,
+      inLanguage: 'en-IN',
+      publisher: { '@id': `${BASE}/#organization` },
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: `${BASE}/search?q={search_term_string}`,
+        'query-input': 'required name=search_term_string',
+      },
+    },
+    {
+      '@type': 'EducationalOrganization',
+      '@id': `${BASE}/#organization`,
+      name: SITE,
+      alternateName: 'Smit Sir Commerce Classes',
+      url: `${BASE}/`,
+      telephone: '+916353709585',
+      email: 'infosmitsircommerce@gmail.com',
+      description: 'Class 11 and 12 Commerce teaching and study resources for students in Mehsana, Gujarat, with support for Economics, Business Studies, Accountancy, Entrepreneurship and related exam preparation.',
+      areaServed: {
+        '@type': 'City',
+        name: 'Mehsana',
+        containedInPlace: {
+          '@type': 'State',
+          name: 'Gujarat',
+          containedInPlace: { '@type': 'Country', name: 'India' },
+        },
+      },
+      knowsAbout: [
+        'Class 11 Commerce',
+        'Class 12 Commerce',
+        'CBSE Commerce',
+        'Economics',
+        'Business Studies',
+        'Accountancy',
+        'Entrepreneurship',
+        'Physical Education',
+        'Commerce exam preparation',
+      ],
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: '+916353709585',
+        contactType: 'admissions and student enquiries',
+        areaServed: 'IN-GJ',
+      },
+      founder: {
+        '@type': 'Person',
+        '@id': `${BASE}/about#smit-thaker`,
+        name: 'Smit Thaker',
+        url: `${BASE}/about`,
+        worksFor: { '@id': `${BASE}/#organization` },
+        knowsAbout: ['Economics', 'Business Studies', 'Entrepreneurship', 'Physical Education', 'Commerce education'],
+      },
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Commerce tuition and academic support in Mehsana',
+        itemListElement: [
+          'Class 11 Commerce Tuition',
+          'Class 12 Commerce Tuition',
+          'Economics Tuition',
+          'Business Studies Tuition',
+          'Accountancy Tuition',
+          'Entrepreneurship Tuition',
+          'Physical Education Tuition',
+          'Free Test-Paper Analysis',
+          'Free Demo Class',
+        ].map((name) => ({
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name,
+            areaServed: { '@type': 'City', name: 'Mehsana' },
+            provider: { '@id': `${BASE}/#organization` },
+          },
+        })),
+      },
+    },
+    {
+      '@type': 'Person',
+      '@id': `${BASE}/about#smit-thaker`,
+      name: 'Smit Thaker',
+      url: `${BASE}/about`,
+      worksFor: { '@id': `${BASE}/#organization` },
+      knowsAbout: ['Economics', 'Business Studies', 'Entrepreneurship', 'Physical Education', 'Commerce education'],
+    },
+  ],
+};
+
 function getChapterSearchMeta(path) {
   const material = materialByPath[path];
   if (!material) return null;
@@ -77,6 +171,7 @@ export default function SEO({
       <meta name="twitter:image" content={image} />
       <meta name="twitter:image:alt" content={`${effectiveTitle || SITE} — ${SITE}`} />
 
+      <script type="application/ld+json">{JSON.stringify(SITEWIDE_ENTITY)}</script>
       {structuredData && <script type="application/ld+json">{JSON.stringify(structuredData)}</script>}
     </Helmet>
   );
