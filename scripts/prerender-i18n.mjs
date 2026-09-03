@@ -11,6 +11,34 @@ function esc(value) {
   return String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;');
 }
 
+function stripDefaultSeo(html) {
+  const patterns = [
+    /<meta\s+name=["']description["'][^>]*>\s*/gi,
+    /<meta\s+name=["']robots["'][^>]*>\s*/gi,
+    /<meta\s+name=["']googlebot["'][^>]*>\s*/gi,
+    /<meta\s+name=["']bingbot["'][^>]*>\s*/gi,
+    /<link\s+rel=["']canonical["'][^>]*>\s*/gi,
+    /<link\s+rel=["']alternate["'][^>]*>\s*/gi,
+    /<meta\s+property=["']og:type["'][^>]*>\s*/gi,
+    /<meta\s+property=["']og:site_name["'][^>]*>\s*/gi,
+    /<meta\s+property=["']og:locale["'][^>]*>\s*/gi,
+    /<meta\s+property=["']og:locale:alternate["'][^>]*>\s*/gi,
+    /<meta\s+property=["']og:title["'][^>]*>\s*/gi,
+    /<meta\s+property=["']og:description["'][^>]*>\s*/gi,
+    /<meta\s+property=["']og:url["'][^>]*>\s*/gi,
+    /<meta\s+property=["']og:image["'][^>]*>\s*/gi,
+    /<meta\s+property=["']og:image:width["'][^>]*>\s*/gi,
+    /<meta\s+property=["']og:image:height["'][^>]*>\s*/gi,
+    /<meta\s+property=["']og:image:alt["'][^>]*>\s*/gi,
+    /<meta\s+name=["']twitter:card["'][^>]*>\s*/gi,
+    /<meta\s+name=["']twitter:title["'][^>]*>\s*/gi,
+    /<meta\s+name=["']twitter:description["'][^>]*>\s*/gi,
+    /<meta\s+name=["']twitter:image["'][^>]*>\s*/gi,
+    /<meta\s+name=["']twitter:image:alt["'][^>]*>\s*/gi,
+  ];
+  return patterns.reduce((result, pattern) => result.replace(pattern, ''), html);
+}
+
 function schema(page) {
   return {
     '@context':'https://schema.org',
@@ -60,17 +88,22 @@ function body(page) {
 }
 
 function html(page) {
+  let clean = stripDefaultSeo(source);
   const fullTitle = `${page.title} | ${SITE}`;
   const url = `${BASE}${page.path}`;
   const alternates = localizedAlternatesByPath[page.path] || [];
   const robots='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
   const hreflang = alternates.map((item)=>`<link rel="alternate" hreflang="${item.hreflang}" href="${esc(item.href)}">`).join('');
-  const tags=`\n<meta name="description" content="${esc(page.description)}"><meta name="robots" content="${robots}"><meta name="googlebot" content="${robots}"><link rel="canonical" href="${esc(url)}">${hreflang}<meta property="og:type" content="article"><meta property="og:site_name" content="${SITE}"><meta property="og:locale" content="${page.lang === 'hi' ? 'hi_IN' : 'gu_IN'}"><meta property="og:title" content="${esc(fullTitle)}"><meta property="og:description" content="${esc(page.description)}"><meta property="og:url" content="${esc(url)}"><meta property="og:image" content="${BASE}/og-image.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(fullTitle)}"><meta name="twitter:description" content="${esc(page.description)}"><meta name="twitter:image" content="${BASE}/og-image.jpg"><script type="application/ld+json">${JSON.stringify(schema(page)).replaceAll('<','\\u003c')}</script>`;
-  return source
+  const otherLocales = page.lang === 'hi'
+    ? '<meta property="og:locale:alternate" content="en_IN"><meta property="og:locale:alternate" content="gu_IN">'
+    : '<meta property="og:locale:alternate" content="en_IN"><meta property="og:locale:alternate" content="hi_IN">';
+  const tags=`\n<meta name="description" content="${esc(page.description)}"><meta name="robots" content="${robots}"><meta name="googlebot" content="${robots}"><meta name="bingbot" content="${robots}"><link rel="canonical" href="${esc(url)}">${hreflang}<meta property="og:type" content="article"><meta property="og:site_name" content="${SITE}"><meta property="og:locale" content="${page.lang === 'hi' ? 'hi_IN' : 'gu_IN'}">${otherLocales}<meta property="og:title" content="${esc(fullTitle)}"><meta property="og:description" content="${esc(page.description)}"><meta property="og:url" content="${esc(url)}"><meta property="og:image" content="${BASE}/og-image.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="${esc(page.title)}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(fullTitle)}"><meta name="twitter:description" content="${esc(page.description)}"><meta name="twitter:image" content="${BASE}/og-image.jpg"><meta name="twitter:image:alt" content="${esc(page.title)}"><script type="application/ld+json">${JSON.stringify(schema(page)).replaceAll('<','\\u003c')}</script>`;
+  clean = clean
     .replace(/<html([^>]*)lang="[^"]*"([^>]*)>/i, `<html$1lang="${page.lang}"$2>`)
     .replace(/<title>.*?<\/title>/s,`<title>${esc(fullTitle)}</title>`)
     .replace('</head>',`${tags}\n</head>`)
     .replace('<div id="root"></div>',`<div id="root">${body(page)}</div>`);
+  return clean;
 }
 
 async function writeRoute(path, content) {
