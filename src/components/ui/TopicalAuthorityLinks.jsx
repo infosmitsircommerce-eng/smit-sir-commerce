@@ -17,12 +17,12 @@ const CLUSTERS = {
   microeconomics: {
     eyebrow: 'Class 11 Economics learning path',
     title: 'Connect Microeconomics notes, numericals and practice',
-    description: 'Use the subject hub for theory, then move into important questions, numerical practice and calculators for the same concepts.',
+    description: 'Use the subject hub for theory, then move into important questions, numerical practice and the Price Elasticity solved-numerical toolkit for the same concepts.',
     links: [
       ['/cbse/class-11/microeconomics-notes', 'Class 11 Microeconomics notes', BookOpen],
       ['/cbse/class-11/microeconomics-important-questions', 'Microeconomics important questions', BrainCircuit],
       ['/cbse/class-11/economics-numericals', 'Class 11 Economics numericals', BrainCircuit],
-      ['/tools/price-elasticity-demand-calculator', 'Price elasticity calculator', Calculator],
+      ['/tools/topics/price-elasticity-demand', 'Price elasticity numericals + calculator', Calculator],
       ['/economics-tuition-mehsana', 'Economics tuition in Mehsana', MapPin],
     ],
   },
@@ -33,8 +33,8 @@ const CLUSTERS = {
     links: [
       ['/cbse/class-12/macroeconomics-notes', 'Class 12 Macroeconomics notes', BookOpen],
       ['/cbse/class-12/economics-revision-guide', 'Class 12 Economics revision guide', BrainCircuit],
-      ['/tools/topics/national-income-gdp', 'National Income & GDP toolkit', Calculator],
-      ['/tools/topics/income-determination', 'Income Determination toolkit', Calculator],
+      ['/tools/topics/national-income-gdp', 'National Income solved numericals', Calculator],
+      ['/tools/topics/income-determination', 'MPC, MPS & Multiplier numericals', Calculator],
       ['/economics-tuition-mehsana', 'Economics tuition in Mehsana', MapPin],
     ],
   },

@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { authorityGuides } from '../src/data/authorityGuides.js';
+import { authorityEnhancements } from '../src/data/highIntentEnhancements.js';
 
 const BASE = 'https://www.smitsircommerce.in';
 const SITE = 'Smit Sir Commerce';
@@ -22,8 +23,19 @@ function schema(guide) {
   };
 }
 
+function enhancementBody(guide) {
+  const enhancement = authorityEnhancements[guide.path] || {};
+  const answerFramework = enhancement.answerFramework?.length ? `<section><h2>Board-ready answer framework</h2><p>Match the depth of the answer to what the question asks. These are practice presentation guidelines, not a marks guarantee.</p><ul>${enhancement.answerFramework.map(([label,text])=>`<li><strong>${esc(label)}:</strong> ${esc(text)}</li>`).join('')}</ul></section>` : '';
+  const chapterStrategy = enhancement.chapterStrategy?.length ? `<section><h2>Chapter-by-chapter question focus</h2><ul>${enhancement.chapterStrategy.map(([chapter,focus])=>`<li><strong>${esc(chapter)}:</strong> ${esc(focus)}</li>`).join('')}</ul></section>` : '';
+  const caseMethod = enhancement.caseMethod?.length ? `<section><h2>5-step case-study method</h2><ol>${enhancement.caseMethod.map(step=>`<li>${esc(step)}</li>`).join('')}</ol></section>` : '';
+  const caselets = enhancement.caselets?.length ? `<section><h2>${enhancement.caselets.length} original caselets with answer guidance</h2><p>These caselets are original concept-application practice and are not presented as official CBSE questions.</p>${enhancement.caselets.map((item,index)=>`<article><h3>Case ${index+1}: ${esc(item.chapter)}</h3><p>${esc(item.prompt)}</p><p><strong>${esc(item.question)}</strong></p><p><strong>Answer guidance:</strong> ${esc(item.answer)}</p></article>`).join('')}</section>` : '';
+  const related = enhancement.relatedLearning?.length ? `<section><h2>Continue your Business Studies revision</h2><ul>${enhancement.relatedLearning.map(([path,label])=>`<li><a href="${esc(path)}">${esc(label)}</a></li>`).join('')}</ul></section>` : '';
+  return `${answerFramework}${caseMethod}${chapterStrategy}${caselets}${related}`;
+}
+
 function body(guide) {
-  return `<main class="page-container section-padding" data-prerendered="authority-guide"><nav aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/cbse-practice">CBSE Practice</a> / ${esc(guide.shortTitle)}</nav><article><h1>${esc(guide.title)}</h1><p>${esc(guide.intro)}</p><p><strong>Prepared by Smit Sir</strong> · Updated ${esc(guide.updated)} · Free revision resource</p>${guide.sections.map(section=>`<section><h2>${esc(section.title)}</h2><p>${esc(section.text)}</p><ul>${section.links.map(([path,label])=>`<li><a href="${esc(path)}">${esc(label)}</a></li>`).join('')}</ul></section>`).join('')}<h2>Frequently asked questions</h2>${guide.faqs.map(([q,a])=>`<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}<h2>Editorial transparency</h2><p>This guide links to material actually published on Smit Sir Commerce. Original practice is not presented as an official CBSE paper. Students should check the latest official CBSE curriculum and sample papers for current requirements.</p><p><a href="/about">About Smit Sir</a> · <a href="/cbse-practice">CBSE Practice Library</a> · <a href="/cbse-notes">Free CBSE Notes</a></p></article></main>`;
+  const enhancement = authorityEnhancements[guide.path] || {};
+  return `<main class="page-container section-padding" data-prerendered="authority-guide"><nav aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/cbse-practice">CBSE Practice</a> / ${esc(guide.shortTitle)}</nav><article><h1>${esc(guide.title)}</h1><p>${esc(guide.intro)}</p><p><strong>Prepared by Smit Sir</strong> · Updated ${esc(guide.updated)} · Free revision resource${enhancement.yearLabel ? ` · ${esc(enhancement.yearLabel)}` : ''}</p>${enhancementBody(guide)}${guide.sections.map(section=>`<section><h2>${esc(section.title)}</h2><p>${esc(section.text)}</p><ul>${section.links.map(([path,label])=>`<li><a href="${esc(path)}">${esc(label)}</a></li>`).join('')}</ul></section>`).join('')}<h2>Frequently asked questions</h2>${guide.faqs.map(([q,a])=>`<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}<h2>Editorial transparency</h2><p>This guide links to material actually published on Smit Sir Commerce. Original practice is not presented as an official CBSE paper. Students should check the latest official CBSE curriculum and sample papers for current requirements.</p><p><a href="/about">About Smit Sir</a> · <a href="/cbse-practice">CBSE Practice Library</a> · <a href="/cbse-notes">Free CBSE Notes</a> · <a href="/book-demo">Free Paper Analysis</a></p></article></main>`;
 }
 
 function html(guide) {
