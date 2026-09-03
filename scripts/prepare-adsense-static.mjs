@@ -51,4 +51,20 @@ for (const material of gsebMaterials) {
   }
 }
 
-console.log('Prepared internal creative previews for noindex and strengthened GSEB chapter pages for content quality.');
+// The Class 12 Macroeconomics hub currently has fewer published chapters than
+// the older subject hubs. Give the hub enough useful context to stand on its
+// own while it continues to expand instead of leaving it as a thin link page.
+for (const relative of ['cbse/class-12/macroeconomics-notes.html', 'cbse/class-12/macroeconomics-notes/index.html']) {
+  const path = join(distRoot, relative);
+  try {
+    let html = await readFile(path, 'utf8');
+    if (html.includes('data-adsense-enrichment="macro-hub"')) continue;
+    const enrichment = `<section data-adsense-enrichment="macro-hub"><h2>How to use the Class 12 Macroeconomics notes</h2><p>Macroeconomics becomes easier when students connect the chapters instead of memorising formulas separately. Begin with the meaning of economy-wide variables, then move into national-income aggregates, money and banking, income determination, government budget and external-sector concepts as the relevant chapter resources are published. For numerical chapters, first write the formula and identify what the question gives you before entering values into a calculator.</p><p>After reading a chapter, use the linked practice resources to test whether you can explain the concept without looking at the PDF. For National Income and Income Determination topics, the free calculator toolkits can help verify your working step by step. If a school test shows repeated errors, use the Marks Recovery diagnostic to classify whether the problem is concept understanding, formula selection, interpretation, answer structure or revision.</p><p><a href="/tools/topics/national-income-gdp">National Income &amp; GDP toolkit</a> · <a href="/tools/topics/income-determination">Income Determination toolkit</a> · <a href="/marks-recovery">Marks Recovery diagnostic</a></p></section>`;
+    html = html.replace('</article>', `${enrichment}</article>`);
+    await writeFile(path, html, 'utf8');
+  } catch {
+    // A missing alias should not block build.
+  }
+}
+
+console.log('Prepared internal creative previews for noindex and strengthened thin public learning pages for content quality.');
