@@ -14,6 +14,7 @@ function funnelEventForPath(pathname) {
   if (pathname === '/cbse-practice' || pathname.includes('/practice/')) return 'funnel_practice_start';
   if (pathname === '/daily-practice' || pathname === '/exam-mode') return 'funnel_practice_start';
   if (pathname === '/book-demo') return 'funnel_demo_open';
+  if (pathname === '/marks-recovery') return 'marks_recovery_view';
   if (pathname.startsWith('/tools/topics/')) return 'calculator_cluster_view';
   if (/^\/tools\/[^/]+$/.test(pathname)) return 'calculator_view';
   return null;
@@ -65,11 +66,13 @@ export default function AnalyticsTracker() {
         if (href === '/cbse-notes' || href.includes('-notes')) emit('notes_clicked_from_tool', metadata);
         else if (href === '/test-series' || href.startsWith('/test-series?')) emit('test_clicked_from_tool', metadata);
         else if (href === '/book-demo' || href.startsWith('/book-demo?')) emit('demo_clicked_from_tool', metadata);
+        else if (href === '/marks-recovery' || href.startsWith('/marks-recovery?')) emit('marks_recovery_clicked_from_tool', metadata);
       }
 
       let eventName = '';
       if (href.includes('/pdf-viewer') || href.toLowerCase().endsWith('.pdf')) eventName = 'funnel_pdf_click';
       else if (href === '/book-demo' || href.startsWith('/book-demo?')) eventName = 'funnel_demo_click';
+      else if (href === '/marks-recovery' || href.startsWith('/marks-recovery?')) eventName = 'marks_recovery_click';
       else if (href === '/cbse-pyq' || href.startsWith('/cbse-pyq?')) eventName = 'funnel_exam_prep_click';
       else if (href === '/cbse-notes' || href.includes('-notes')) eventName = 'funnel_notes_click';
       else if (href === '/daily-practice' || href === '/exam-mode' || href === '/cbse-practice' || href.includes('/practice/')) eventName = 'funnel_practice_click';
