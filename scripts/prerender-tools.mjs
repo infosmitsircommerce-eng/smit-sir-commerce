@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { commerceTools } from '../src/data/allCommerceTools.js';
+import { toolClusters, getClusterTools } from '../src/data/toolClusters.js';
 
 const BASE = 'https://www.smitsircommerce.in';
 const SITE = 'Smit Sir Commerce';
@@ -48,8 +49,25 @@ const hubStructuredData = {
   ],
 };
 const byCategory = (category) => commerceTools.filter((tool) => tool.category === category).map((tool) => `<li><a href="/tools/${esc(tool.slug)}">${esc(tool.h1)}</a> — ${esc(tool.formula)}</li>`).join('');
-const hubBody = `<main class="page-container section-padding" data-prerendered="commerce-tools"><nav aria-label="Breadcrumb"><a href="/">Home</a> / Commerce Tools</nav><article><p>Free Class 11 &amp; 12 Commerce problem solvers</p><h1>Free Commerce Calculators for Economics &amp; Accountancy</h1><p>${esc(hubDescription)}</p><section><h2>Economics calculators</h2><ul>${byCategory('Economics')}</ul></section><section><h2>Accountancy ratio calculators</h2><ul>${byCategory('Accountancy')}</ul></section><p><a href="/cbse-notes">Free CBSE notes</a> · <a href="/test-series">Practice tests</a> · <a href="/book-demo">Free paper analysis / demo</a></p></article></main>`;
+const clusterLinks = toolClusters.map((cluster) => `<li><a href="/tools/topics/${esc(cluster.slug)}">${esc(cluster.title)}</a></li>`).join('');
+const hubBody = `<main class="page-container section-padding" data-prerendered="commerce-tools"><nav aria-label="Breadcrumb"><a href="/">Home</a> / Commerce Tools</nav><article><p>Free Class 11 &amp; 12 Commerce problem solvers</p><h1>Free Commerce Calculators for Economics &amp; Accountancy</h1><p>${esc(hubDescription)}</p><section><h2>Study by topic</h2><ul>${clusterLinks}</ul></section><section><h2>Economics calculators</h2><ul>${byCategory('Economics')}</ul></section><section><h2>Accountancy ratio calculators</h2><ul>${byCategory('Accountancy')}</ul></section><p><a href="/cbse-notes">Free CBSE notes</a> · <a href="/test-series">Practice tests</a> · <a href="/book-demo">Free paper analysis / demo</a></p></article></main>`;
 await writeRoute(hubPath, makeHtml({ path: hubPath, title: hubTitle, description: hubDescription, body: hubBody, structuredData: hubStructuredData }));
+
+for (const cluster of toolClusters) {
+  const path = `/tools/topics/${cluster.slug}`;
+  const tools = getClusterTools(cluster);
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      { '@type': 'CollectionPage', '@id': `${BASE}${path}#webpage`, url: `${BASE}${path}`, name: cluster.h1, description: cluster.description, inLanguage: 'en-IN', isPartOf: { '@id': `${BASE}/#website` } },
+      { '@type': 'ItemList', name: cluster.title, itemListElement: tools.map((tool, index) => ({ '@type': 'ListItem', position: index + 1, name: tool.h1, url: `${BASE}/tools/${tool.slug}` })) },
+      { '@type': 'FAQPage', mainEntity: cluster.faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
+      { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: `${BASE}/` }, { '@type': 'ListItem', position: 2, name: 'Commerce Tools', item: `${BASE}/tools` }, { '@type': 'ListItem', position: 3, name: cluster.title, item: `${BASE}${path}` }] },
+    ],
+  };
+  const body = `<main class="page-container section-padding" data-prerendered="commerce-tool-cluster"><nav aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/tools">Commerce Tools</a> / ${esc(cluster.title)}</nav><article><p>Free Commerce topic toolkit</p><h1>${esc(cluster.h1)}</h1><p>${esc(cluster.intro)}</p><section><h2>Topics covered</h2><ul>${cluster.concepts.map((concept) => `<li>${esc(concept)}</li>`).join('')}</ul></section><section><h2>Calculators in this toolkit</h2><ul>${tools.map((tool) => `<li><a href="/tools/${esc(tool.slug)}">${esc(tool.h1)}</a> — ${esc(tool.formula)}</li>`).join('')}</ul></section><section><h2>Frequently asked questions</h2>${cluster.faq.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}</section><p><a href="/cbse-notes">Free CBSE notes</a> · <a href="/test-series">Practice tests</a> · <a href="/book-demo">Free paper analysis / demo</a></p></article></main>`;
+  await writeRoute(path, makeHtml({ path, title: cluster.title, description: cluster.description, body, structuredData }));
+}
 
 for (const tool of commerceTools) {
   const path = `/tools/${tool.slug}`;
@@ -73,4 +91,4 @@ for (const tool of commerceTools) {
   await writeRoute(path, makeHtml({ path, title, description: tool.description, body, structuredData }));
 }
 
-console.log(`Pre-rendered Commerce tools hub plus ${commerceTools.length} calculator pages.`);
+console.log(`Pre-rendered Commerce tools hub, ${toolClusters.length} topic clusters and ${commerceTools.length} calculator pages.`);
