@@ -1,19 +1,25 @@
 import { Link } from 'react-router-dom';
-import { GraduationCap, Phone, Mail, MapPin, Instagram, MessageCircle } from 'lucide-react';
+import { GraduationCap, Phone, Mail, MapPin } from 'lucide-react';
 
 const quickLinks = [
   { label: 'Home', path: '/' },
-  { label: 'Courses', path: '/courses' },
+  { label: 'Commerce Tuition Mehsana', path: '/commerce-coaching-mehsana' },
+  { label: 'Class 11 Commerce Mehsana', path: '/class-11-commerce-tuition-mehsana' },
+  { label: 'Class 12 Commerce Mehsana', path: '/class-12-commerce-tuition-mehsana' },
+  { label: 'Free Paper Analysis', path: '/book-demo' },
   { label: 'Study Material', path: '/study-material' },
-  { label: 'Advanced Exam Mode', path: '/exam-mode' },
   { label: 'Test Series', path: '/test-series' },
-  { label: 'Daily 10', path: '/daily-practice' },
-  { label: 'Study Coach', path: '/study-coach' },
   { label: 'Contact', path: '/contact' },
 ];
 
 const class11Links = ['Accountancy', 'Business Studies', 'Economics', 'Entrepreneurship', 'Physical Education'];
 const class12Links = ['Accountancy', 'Business Studies', 'Economics', 'Entrepreneurship', 'Physical Education'];
+
+const localSubjectLinks = [
+  { label: 'Economics Tuition in Mehsana', path: '/economics-tuition-mehsana' },
+  { label: 'Business Studies Tuition in Mehsana', path: '/business-studies-tuition-mehsana' },
+  { label: 'Accountancy Tuition in Mehsana', path: '/accountancy-tuition-mehsana' },
+];
 
 const mutedLink = { color: 'var(--muted-on-ink)' };
 const headingStyle = { fontFamily: 'var(--font-serif)', fontWeight: 700, color: 'var(--ivory-on-ink)' };
@@ -42,35 +48,31 @@ export default function Footer() {
               <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #C9A050, #B8872F)', boxShadow: '0 4px 18px rgba(184,135,47,0.3)' }}><GraduationCap className="w-6 h-6" style={{ color: '#1E1812' }} /></div>
               <div><div className="text-lg leading-tight" style={headingStyle}>Smit Sir</div><div className="text-sm leading-tight" style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, letterSpacing: '0.16em', color: 'var(--gold-bright)' }}>COMMERCE</div></div>
             </Link>
-            <p className="text-sm leading-relaxed mb-3" style={mutedLink}>Class 11 &amp; 12 Commerce learning for Economics, Business Studies, Accountancy and Entrepreneurship — notes, practice, exam mode and coaching support.</p>
-            <a href="tel:+916353709585" className="text-sm font-semibold transition-colors mb-5 inline-block" style={{ color: 'var(--gold-bright)' }}>📞 +91 63537 09585</a>
-            <div className="flex items-center gap-3">
-              <a href="https://instagram.com/smitthker" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-9 h-9 rounded-lg flex items-center justify-center transition-all group" style={{ background: 'rgba(243,236,221,0.06)', border: '1px solid rgba(243,236,221,0.1)' }}><Instagram className="w-4 h-4" style={{ color: 'var(--gold-bright)' }} /></a>
-              <a href="https://wa.me/916353709585?text=Hello%20Smit%20Sir%2C%20I%20want%20to%20know%20about%20Class%2011%2F12%20Commerce%20batch%20admission." target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="w-9 h-9 rounded-lg flex items-center justify-center transition-all group" style={{ background: 'rgba(243,236,221,0.06)', border: '1px solid rgba(243,236,221,0.1)' }}><MessageCircle className="w-4 h-4" style={{ color: '#8FBF6B' }} /></a>
-            </div>
+            <p className="text-sm leading-relaxed mb-3" style={mutedLink}>Class 11 &amp; 12 Commerce learning in Mehsana for Economics, Business Studies, Accountancy and Entrepreneurship — with notes, practice, tests and coaching support.</p>
+            <a href="tel:+916353709585" className="text-sm font-semibold transition-colors inline-block" style={{ color: 'var(--gold-bright)' }}>📞 +91 63537 09585</a>
           </div>
 
           <div>
-            <h4 className="mb-5" style={headingStyle}>Quick Links</h4>
+            <h4 className="mb-5" style={headingStyle}>Mehsana Commerce</h4>
             <ul className="space-y-2">{quickLinks.map((link) => <li key={link.path}><FooterLink to={link.path}>{link.label}</FooterLink></li>)}</ul>
           </div>
 
           <div>
             <h4 className="mb-5" style={headingStyle}>Subjects</h4>
             <div className="space-y-4">
-              <div><div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--gold-bright)' }}>Class 11</div><ul className="space-y-1">{class11Links.map((s) => <li key={s}><FooterLink to="/courses">{s}</FooterLink></li>)}</ul></div>
-              <div><div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--gold-bright)' }}>Class 12</div><ul className="space-y-1">{class12Links.map((s) => <li key={s}><FooterLink to="/courses">{s}</FooterLink></li>)}</ul></div>
+              <div><div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--gold-bright)' }}>Local subject pages</div><ul className="space-y-1">{localSubjectLinks.map((s) => <li key={s.path}><FooterLink to={s.path}>{s.label}</FooterLink></li>)}</ul></div>
+              <div><div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--gold-bright)' }}>Class 11 &amp; 12</div><ul className="space-y-1">{[...new Set([...class11Links, ...class12Links])].map((s) => <li key={s}><FooterLink to="/courses">{s}</FooterLink></li>)}</ul></div>
             </div>
           </div>
 
           <div>
-            <h4 className="mb-5" style={headingStyle}>Contact &amp; Support</h4>
+            <h4 className="mb-5" style={headingStyle}>Contact &amp; Local Area</h4>
             <ul className="space-y-4">
-              <li className="flex items-start gap-3"><Phone className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--gold-bright)' }} /><div><div className="text-sm font-medium" style={{ color: 'var(--ivory-on-ink)' }}>+91 63537 09585</div><div className="text-xs" style={mutedLink}>Mon–Sat, 9am–8pm</div></div></li>
-              <li className="flex items-start gap-3"><Mail className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--gold-bright)' }} /><div className="text-sm break-all" style={mutedLink}>infosmitsircommerce@gmail.com</div></li>
+              <li className="flex items-start gap-3"><Phone className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--gold-bright)' }} /><div><a href="tel:+916353709585" className="text-sm font-medium" style={{ color: 'var(--ivory-on-ink)' }}>+91 63537 09585</a><div className="text-xs" style={mutedLink}>Call for demo and batch enquiries</div></div></li>
+              <li className="flex items-start gap-3"><Mail className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--gold-bright)' }} /><a href="mailto:infosmitsircommerce@gmail.com" className="text-sm break-all" style={mutedLink}>infosmitsircommerce@gmail.com</a></li>
               <li className="flex items-start gap-3"><MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--gold-bright)' }} /><div className="text-sm" style={mutedLink}>Mehsana, Gujarat, India</div></li>
             </ul>
-            <div className="mt-5 flex flex-col gap-2 items-start"><Link to="/contact" className="btn-gold text-sm py-2 px-4 inline-flex">Book Free Demo</Link><FooterLink to="/my-data">Study data &amp; backup</FooterLink></div>
+            <div className="mt-5 flex flex-col gap-2 items-start"><Link to="/book-demo" className="btn-gold text-sm py-2 px-4 inline-flex">Free Paper Analysis / Demo</Link><FooterLink to="/commerce-coaching-mehsana">Commerce tuition in Mehsana</FooterLink></div>
           </div>
         </div>
       </div>
