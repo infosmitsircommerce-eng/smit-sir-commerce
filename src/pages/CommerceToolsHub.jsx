@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Calculator, ArrowRight, BarChart3, Landmark, GraduationCap, Sparkles } from 'lucide-react';
 import SEO from '../components/ui/SEO';
-import { commerceTools, commerceToolCategories } from '../data/commerceTools';
+import { commerceTools, commerceToolCategories } from '../data/allCommerceTools';
 
 const BASE = 'https://www.smitsircommerce.in';
 
@@ -42,7 +42,7 @@ export default function CommerceToolsHub() {
     <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
       <SEO
         title="Free Commerce Calculators — Economics & Accountancy Class 11 & 12"
-        description="Free Class 11 and 12 Commerce calculators for MPC, MPS, GDP, national income methods, money multiplier, elasticity and Accountancy ratios with step-by-step working."
+        description="Free Class 11 and 12 Commerce calculators for MPC, MPS, GDP, national income conversions, cost and revenue, money, elasticity and Accountancy ratios with step-by-step working."
         path="/tools"
         structuredData={structuredData}
       />
@@ -79,8 +79,8 @@ export default function CommerceToolsHub() {
               <h2 className="headline mt-4">{isEconomics ? 'Economics numerical calculators' : 'Accountancy ratio calculators'}</h2>
               <p className="mt-3 text-sm leading-7" style={{ color: 'var(--muted)' }}>
                 {isEconomics
-                  ? 'Solve consumption-saving, GDP, national income, money and elasticity numericals without guessing which formula comes next.'
-                  : 'Calculate the major Class 12 accounting ratios from the figures given in the question and see the working clearly.'}
+                  ? 'Solve consumption-saving, equilibrium income, GDP and national-income conversions, revenue, costs, money and elasticity numericals without guessing which formula comes next.'
+                  : 'Calculate the major Class 12 accounting ratios, periods and common-size percentages from the figures given in the question and see the working clearly.'}
               </p>
             </div>
 
