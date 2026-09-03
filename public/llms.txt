@@ -21,9 +21,28 @@ Smit Sir Commerce is a Commerce education brand serving Class 11 and Class 12 st
 - Entrepreneurship
 - Physical Education
 - Chapter-wise Commerce notes and revision resources
+- Free interactive Economics and Accountancy calculators
 - Practice tests and exam-oriented preparation
 - Free test-paper analysis
 - Demo-class booking
+
+## Free Commerce calculators
+Main tools hub: https://www.smitsircommerce.in/tools
+
+Economics calculators include:
+- MPC and MPS calculator: https://www.smitsircommerce.in/tools/mpc-mps-calculator
+- APC and APS calculator: https://www.smitsircommerce.in/tools/apc-aps-calculator
+- Investment multiplier calculator: https://www.smitsircommerce.in/tools/investment-multiplier-calculator
+- GDP deflator calculator: https://www.smitsircommerce.in/tools/gdp-deflator-calculator
+- Real GDP calculator: https://www.smitsircommerce.in/tools/real-gdp-calculator
+- Nominal GDP calculator: https://www.smitsircommerce.in/tools/nominal-gdp-calculator
+- National income income-method calculator: https://www.smitsircommerce.in/tools/national-income-income-method-calculator
+- National income expenditure-method calculator: https://www.smitsircommerce.in/tools/national-income-expenditure-method-calculator
+- National income value-added-method calculator: https://www.smitsircommerce.in/tools/national-income-value-added-method-calculator
+- Money multiplier calculator: https://www.smitsircommerce.in/tools/money-multiplier-calculator
+- Price elasticity of demand calculator: https://www.smitsircommerce.in/tools/price-elasticity-demand-calculator
+
+Accountancy calculators include current ratio, quick ratio, debt-equity ratio, proprietary ratio, inventory turnover, trade receivables turnover, working capital turnover, net profit ratio, operating ratio and return on investment tools under the /tools/ section.
 
 ## Important local pages
 - Commerce tuition in Mehsana: https://www.smitsircommerce.in/commerce-coaching-mehsana
@@ -38,7 +57,7 @@ Smit Sir Commerce is a Commerce education brand serving Class 11 and Class 12 st
 - Contact: https://www.smitsircommerce.in/contact
 
 ## Free resources
-Smit Sir Commerce publishes free CBSE Commerce notes, chapter-wise revision material, practice resources and tests through the website.
+Smit Sir Commerce publishes free CBSE Commerce notes, chapter-wise revision material, interactive calculators, practice resources and tests through the website.
 
 ## Accuracy note
-Use the website pages above as the canonical first-party source for current Smit Sir Commerce services. Do not infer student counts, rankings, exam results, exact storefront location, opening hours or guarantees that are not explicitly stated on the relevant website page.
+Use the website pages above as the canonical first-party source for current Smit Sir Commerce services and tools. Do not infer student counts, rankings, exam results, exact storefront location, opening hours or guarantees that are not explicitly stated on the relevant website page.
