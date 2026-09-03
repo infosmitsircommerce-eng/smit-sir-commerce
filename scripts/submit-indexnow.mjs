@@ -1,42 +1,61 @@
-import { readFile } from 'node:fs/promises';
-
 const HOST = 'www.smitsircommerce.in';
 const KEY = '6489ed9080c4bf19fb1b88dc0d6ef6fc';
-const KEY_LOCATION = `https://${HOST}/${KEY}.txt`;
-const ENDPOINT = 'https://api.indexnow.org/indexnow';
+const BING_ENDPOINT = 'https://www.bing.com/indexnow';
+const changedPaths = [
+  '/',
+  '/commerce-coaching-mehsana',
+  '/cbse-commerce-classes-mehsana',
+  '/class-11-commerce-tuition-mehsana',
+  '/class-12-commerce-tuition-mehsana',
+  '/economics-tuition-mehsana',
+  '/business-studies-tuition-mehsana',
+  '/accountancy-tuition-mehsana',
+  '/book-demo',
+];
 
-function extractUrls(xml) {
-  return [...xml.matchAll(/<loc>(.*?)<\/loc>/g)]
-    .map((match) => match[1].trim())
-    .filter((url) => url.startsWith(`https://${HOST}/`));
-}
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-try {
-  const xml = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8');
-  const urlList = [...new Set(extractUrls(xml))];
+async function submit(url) {
+  const requestUrl = `${BING_ENDPOINT}?url=${encodeURIComponent(url)}&key=${encodeURIComponent(KEY)}`;
+  let lastStatus = 0;
 
-  if (!urlList.length) {
-    console.warn('IndexNow: no canonical sitemap URLs found; skipping submission.');
-    process.exit(0);
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    try {
+      const response = await fetch(requestUrl, {
+        method: 'GET',
+        headers: { 'user-agent': 'SmitSirCommerce-IndexNow/1.0' },
+      });
+      lastStatus = response.status;
+
+      if (response.ok || response.status === 202) return { ok: true, status: response.status };
+
+      const body = await response.text().catch(() => '');
+      if (response.status !== 403 || attempt === 3) {
+        return { ok: false, status: response.status, body: body.slice(0, 240) };
+      }
+    } catch (error) {
+      if (attempt === 3) return { ok: false, status: lastStatus, body: error?.message || String(error) };
+    }
+
+    await sleep(8000 * attempt);
   }
 
-  const response = await fetch(ENDPOINT, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json; charset=utf-8' },
-    body: JSON.stringify({
-      host: HOST,
-      key: KEY,
-      keyLocation: KEY_LOCATION,
-      urlList,
-    }),
-  });
+  return { ok: false, status: lastStatus };
+}
 
-  if (response.ok || response.status === 202) {
-    console.log(`IndexNow: submitted ${urlList.length} sitemap URLs successfully (HTTP ${response.status}).`);
+let accepted = 0;
+let failed = 0;
+
+for (const path of changedPaths) {
+  const url = `https://${HOST}${path}`;
+  const result = await submit(url);
+  if (result.ok) {
+    accepted += 1;
+    console.log(`IndexNow: accepted ${url} (HTTP ${result.status}).`);
   } else {
-    const body = await response.text().catch(() => '');
-    console.warn(`IndexNow: submission returned HTTP ${response.status}${body ? ` — ${body.slice(0, 300)}` : ''}. Deployment will continue.`);
+    failed += 1;
+    console.warn(`IndexNow: could not confirm ${url} (HTTP ${result.status || 'network'})${result.body ? ` — ${result.body}` : ''}.`);
   }
-} catch (error) {
-  console.warn(`IndexNow: submission skipped because of a non-fatal error: ${error?.message || error}`);
 }
+
+console.log(`IndexNow summary: ${accepted}/${changedPaths.length} changed URLs accepted; ${failed} not confirmed. Deployment continues either way.`);
