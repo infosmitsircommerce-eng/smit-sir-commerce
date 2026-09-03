@@ -8,7 +8,7 @@ import { useAuth } from '../../context/AuthContext';
 
 const SUBJECTS = ['Accountancy', 'Economics', 'Business Studies', 'Entrepreneurship', 'Physical Education'];
 const DEMO_SUBJECTS = [...SUBJECTS, 'Any Commerce Subject'];
-const SOURCES = ['Google', 'Instagram', 'WhatsApp', 'Referral', 'Direct', 'Other'];
+const SOURCES = ['Google Search', 'Google Maps', 'UrbanPro', 'Referral', 'School / Teacher', 'Book / Stationery Store', 'Direct', 'Other'];
 
 export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book your free demo', compact = false, demoSlot = null }) {
   const { user } = useAuth();
@@ -122,7 +122,7 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
 
     if (submitError) {
       const slotProblem = /slot|full|available/i.test(submitError.message || '');
-      setError(slotProblem ? 'That slot is no longer available. Refresh the slots and choose another time.' : 'We could not save the enquiry right now. You can still contact us on WhatsApp below.');
+      setError(slotProblem ? 'That slot is no longer available. Refresh the slots and choose another time.' : 'We could not save the enquiry right now. Please try again or call Smit Sir on 63537 09585.');
       trackEvent('lead_submit_error', { intent, source: form.source, hasSlot: Boolean(demoSlot?.id) }, user?.id || null);
       return;
     }
@@ -171,7 +171,7 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
         <label className="block"><span className="text-xs font-semibold" style={{ color: 'var(--muted)' }}>How did you find us?</span><select value={form.source} onChange={set('source')} className="input-field w-full mt-1.5">{SOURCES.map((source) => <option key={source}>{source}</option>)}</select></label>
       </div>
 
-      <label className="block"><span className="text-xs font-semibold" style={{ color: 'var(--muted)' }}>Anything you want help with? <span className="font-normal">(optional)</span></span><textarea maxLength={1000} rows={3} value={form.message} onChange={set('message')} className="input-field w-full mt-1.5 resize-none" placeholder="Example: I struggle with National Income numericals." /></label>
+      <label className="block"><span className="text-xs font-semibold" style={{ color: 'var(--muted)' }}>Anything you want help with? <span className="font-normal">(optional)</span></span><textarea maxLength={1000} rows={3} value={form.message} onChange={set('message')} className="input-field w-full mt-1.5 resize-none" placeholder="Example: I scored 38/80 in Economics and struggle with National Income numericals." /></label>
 
       <div className="absolute -left-[9999px]" aria-hidden="true"><label>Website<input tabIndex="-1" autoComplete="off" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} /></label></div>
 
