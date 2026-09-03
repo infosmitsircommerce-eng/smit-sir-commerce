@@ -18,8 +18,8 @@ const values = [
 
 const credentials = [
   { icon: GraduationCap, label: 'Specialisation', value: 'CBSE Commerce — Class 11 & 12' },
-  { icon: BookOpen, label: 'Subjects Taught', value: 'Economics · Accountancy · Business Studies · Entrepreneurship' },
-  { icon: Users, label: 'Published Resources', value: '26 free chapter-wise PDFs' },
+  { icon: BookOpen, label: 'Subjects Taught', value: 'Economics · Business Studies · Entrepreneurship · Physical Education' },
+  { icon: Users, label: 'Published Resources', value: 'Free chapter-wise Commerce notes and interactive tools' },
   { icon: TrendingUp, label: 'Teaching Focus', value: 'Concept clarity and board preparation' },
   { icon: Award, label: 'Teaching Mode', value: 'Online + Offline in Mehsana, Gujarat' },
   { icon: Star, label: 'Free Demo', value: 'Try the teaching approach before enrolling' },
@@ -78,7 +78,7 @@ export default function About() {
                   <div className="flex items-center justify-between gap-3 p-4" style={{ background: 'var(--bg-white)' }}>
                     <div>
                       <div className="text-sm" style={{ fontFamily: 'var(--font-serif)', fontWeight: 700, color: 'var(--ink)' }}>Smit Sir</div>
-                      <div className="text-xs" style={{ color: 'var(--gold)' }}>Commerce Expert · Class 11 &amp; 12 CBSE</div>
+                      <div className="text-xs" style={{ color: 'var(--gold)' }}>Commerce Educator · Class 11 &amp; 12 CBSE</div>
                       <div className="text-xs flex items-center gap-1 mt-0.5" style={{ color: 'var(--subtle)' }}>
                         <MapPin className="w-3 h-3" /> Mehsana, Gujarat
                       </div>
@@ -100,10 +100,10 @@ export default function About() {
               viewport={{ once: true }}
             >
               <p className="leading-relaxed mb-6 text-base" style={{ color: 'var(--charcoal)' }}>
-                Smit Sir is a dedicated CBSE Commerce educator based in Mehsana, Gujarat, specialising in Class 11 and 12. His approach makes subjects like Accountancy and Economics easier to understand through clear explanations, structured notes, practice, and doubt support.
+                Smit Sir is a dedicated CBSE Commerce educator based in Mehsana, Gujarat, focused on Class 11 and 12 students. His approach makes subjects like Economics and Business Studies easier to understand through clear explanations, structured notes, practice, and doubt support.
               </p>
               <p className="leading-relaxed mb-8 text-sm" style={{ color: 'var(--muted)' }}>
-                His teaching approach focuses on concept clarity first, then exam application — using real-life business examples, structured notes, regular testing, and personal attention for every student. Both online and offline batches are available to ensure no student is left behind regardless of location.
+                His teaching approach focuses on concept clarity first, then exam application — using real-life business examples, structured notes, regular testing, and personal attention for every student. Both online and offline batches are available to support students in Mehsana and beyond.
               </p>
 
               <div className="space-y-3">
@@ -134,22 +134,22 @@ export default function About() {
               Smit Sir Commerce was created with one clear goal — to make Class 11 and 12 CBSE Commerce education genuinely effective, accessible, and result-oriented.
             </p>
             <p className="leading-relaxed mb-4" style={{ color: 'var(--muted)' }}>
-              Too many students fear Commerce subjects like Accountancy and Economics because they never got proper conceptual clarity. This platform exists to change that — through chapter-wise lectures, smart study material, regular testing, and personal guidance.
+              Students often struggle because they never get proper conceptual clarity or enough focused practice. This platform exists to change that through chapter-wise resources, smart study material, testing, problem-solving tools and personal guidance.
             </p>
             <p className="leading-relaxed mb-6" style={{ color: 'var(--muted)' }}>
-              Whether you prefer classroom learning or online study from home, Smit Sir Commerce is designed to give every student the best possible preparation for CBSE board exams.
+              Whether you prefer classroom learning or online study from home, Smit Sir Commerce is designed to give students a clear, practical route toward stronger Commerce preparation.
             </p>
             <Link to="/contact" className="btn-primary flex items-center gap-2 w-fit">
               Join Smit Sir Commerce <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="space-y-4">
+          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="space-y-4">
             {[
-              { icon: Target,        title: 'CBSE Focused',     desc: 'Every resource is built around CBSE board exam patterns and NCERT curriculum.' },
-              { icon: BookOpen,      title: 'Complete Content', desc: 'Lectures, notes, quizzes, tests, mind maps — everything in one platform.' },
-              { icon: Users,         title: 'Online + Offline', desc: 'Flexible batches for students in the city and across India.' },
-              { icon: GraduationCap, title: 'Focused Teaching', desc: 'CBSE Class 11 and 12 Commerce with concept clarity and board preparation.' },
+              { icon: Target,        title: 'CBSE Focused',     desc: 'Resources are organised around Class 11 and 12 Commerce concepts, revision and exam preparation.' },
+              { icon: BookOpen,      title: 'Complete Content', desc: 'Notes, calculators, practice, tests and diagnostics are connected in one platform.' },
+              { icon: Users,         title: 'Online + Offline', desc: 'Flexible learning support for students in Mehsana and online.' },
+              { icon: GraduationCap, title: 'Focused Teaching', desc: 'Economics, Business Studies, Entrepreneurship and Physical Education with concept clarity and exam preparation.' },
             ].map((item) => {
               const Icon = item.icon;
               return (
@@ -197,17 +197,18 @@ export default function About() {
         {/* ── Subjects ── */}
         <div className="card-paper p-8">
           <div className="text-center mb-8">
-            <h2 className="text-2xl mb-2" style={serifH2}>Subjects we teach</h2>
-            <p style={{ color: 'var(--muted)' }}>Complete CBSE Commerce curriculum for Class 11 and 12</p>
+            <h2 className="text-2xl mb-2" style={serifH2}>Subjects taught by Smit Sir</h2>
+            <p style={{ color: 'var(--muted)' }}>Focused support for Class 11 and 12 Commerce students</p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            {['Accountancy', 'Business Studies', 'Economics', 'Entrepreneurship', 'Physical Education'].map((subject) => (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {['Economics', 'Business Studies', 'Entrepreneurship', 'Physical Education'].map((subject) => (
               <div key={subject} className="tile-paper text-center p-4">
                 <div className="font-semibold text-sm" style={{ color: 'var(--gold)' }}>{subject}</div>
-                <div className="text-xs mt-1" style={{ color: 'var(--subtle)' }}>Class 11 &amp; 12</div>
+                <div className="text-xs mt-1" style={{ color: 'var(--subtle)' }}>Class 11 &amp; 12 support</div>
               </div>
             ))}
           </div>
+          <p className="text-xs text-center mt-5 leading-6" style={{ color: 'var(--subtle)' }}>The website also provides free Accountancy learning tools and calculators as student resources; those resources are separate from this personal teaching-subject list.</p>
         </div>
 
       </div>
