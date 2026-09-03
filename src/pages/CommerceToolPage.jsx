@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Calculator, ArrowLeft, ArrowRight, BookOpen, RotateCcw, Lightbulb, CheckCircle2 } from 'lucide-react';
 import SEO from '../components/ui/SEO';
-import { commerceToolBySlug, commerceTools } from '../data/commerceTools';
+import { commerceToolBySlug, commerceTools } from '../data/allCommerceTools';
 
 const BASE = 'https://www.smitsircommerce.in';
 
