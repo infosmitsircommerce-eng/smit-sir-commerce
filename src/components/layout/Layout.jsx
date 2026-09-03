@@ -15,6 +15,7 @@ import ContextualToolLinks from '../ui/ContextualToolLinks';
 import TopicalAuthorityLinks from '../ui/TopicalAuthorityLinks';
 import MarksRecoveryNudge from '../ui/MarksRecoveryNudge';
 import StudentReferralNudge from '../ui/StudentReferralNudge';
+import PilotHreflang from '../ui/PilotHreflang';
 import DemoNudge from '../leads/DemoNudge';
 import { isLightRoute } from '../../lib/theme';
 import { isAdEligiblePath } from '../../lib/adPolicy';
@@ -37,6 +38,7 @@ export default function Layout({ children }) {
         Skip to main content
       </a>
       <AnalyticsTracker />
+      <PilotHreflang />
       <ScrollProgressBar />
       <CursorSpotlight />
       <Navbar />

@@ -5,6 +5,7 @@ import { authorityGuides } from '../src/data/authorityGuides.js';
 import { localSeoPages } from '../src/data/localSeoPages.js';
 import { commerceTools } from '../src/data/allCommerceTools.js';
 import { toolClusters } from '../src/data/toolClusters.js';
+import { localizedPilotPages, localizedAlternatesByPath } from '../src/data/localizedPilot.js';
 import { growthManifest } from './growth-manifest.mjs';
 import { examTests } from '../src/data/examBank.js';
 
@@ -20,7 +21,20 @@ const basePages = [
   ['/book-demo', 'monthly', '0.9'], ['/about', 'monthly', '0.6'], ['/contact', 'monthly', '0.7'],
   ['/faq', 'monthly', '0.6'], ['/privacy', 'yearly', '0.3'], ['/terms', 'yearly', '0.3'], ['/access-policy', 'yearly', '0.4'],
 ];
-function urlEntry(path, changefreq, priority, lastmod=''){return ['  <url>',`    <loc>${BASE}${path}</loc>`,lastmod?`    <lastmod>${lastmod}</lastmod>`:'',`    <changefreq>${changefreq}</changefreq>`,`    <priority>${priority}</priority>`,'  </url>'].filter(Boolean).join('\n')}
+
+function urlEntry(path, changefreq, priority, lastmod='') {
+  const alternates = localizedAlternatesByPath[path] || [];
+  return [
+    '  <url>',
+    `    <loc>${BASE}${path}</loc>`,
+    lastmod ? `    <lastmod>${lastmod}</lastmod>` : '',
+    ...alternates.map((item) => `    <xhtml:link rel="alternate" hreflang="${item.hreflang}" href="${item.href}" />`),
+    `    <changefreq>${changefreq}</changefreq>`,
+    `    <priority>${priority}</priority>`,
+    '  </url>',
+  ].filter(Boolean).join('\n');
+}
+
 const entries=[
   ...basePages.map(([p,f,pr])=>urlEntry(p,f,pr)),
   ...toolClusters.map(cluster=>urlEntry(`/tools/topics/${cluster.slug}`,'weekly','0.96','2026-09-03')),
@@ -31,8 +45,10 @@ const entries=[
   ...gsebMaterials.map(m=>urlEntry(m.seo_path,'monthly','0.86',m.updated || '2026-09-02')),
   ...authorityGuides.map(g=>urlEntry(g.path,'weekly','0.9',g.updated)),
   ...growthManifest.map(p=>urlEntry(p.path,'monthly',p.type==='mcqs'||p.type==='important-questions'?'0.82':'0.76',p.updated)),
-  ...examTests.map(t=>urlEntry(`/tests/${t.slug}`,'monthly','0.75','2026-09-01'))
+  ...examTests.map(t=>urlEntry(`/tests/${t.slug}`,'monthly','0.75','2026-09-01')),
+  ...localizedPilotPages.map((page)=>urlEntry(page.path,'weekly','0.86',page.updated)),
 ];
-const xml=`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries.join('\n')}\n</urlset>\n`;
+
+const xml=`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${entries.join('\n')}\n</urlset>\n`;
 await writeFile(new URL('../public/sitemap.xml',import.meta.url),xml,'utf8');
-console.log(`Generated sitemap with ${entries.length} indexable URLs (${commerceTools.length} Commerce calculator pages, ${toolClusters.length} Commerce topic clusters, 1 Marks Recovery diagnostic, 1 free Commerce study pack, ${localSeoPages.length} Mehsana local pages, ${gsebMaterials.length} GSEB chapter pages, ${authorityGuides.length} evergreen guides, ${growthManifest.length} CBSE chapter-practice pages).`);
+console.log(`Generated sitemap with ${entries.length} indexable URLs (${commerceTools.length} Commerce calculator pages, ${toolClusters.length} Commerce topic clusters, ${localizedPilotPages.length} Hindi/Gujarati pilot pages, 1 Marks Recovery diagnostic, 1 free Commerce study pack, ${localSeoPages.length} Mehsana local pages, ${gsebMaterials.length} GSEB chapter pages, ${authorityGuides.length} evergreen guides, ${growthManifest.length} CBSE chapter-practice pages).`);
