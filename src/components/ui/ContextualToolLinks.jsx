@@ -4,9 +4,9 @@ import { getContextualTools, toolClusters } from '../../data/toolClusters';
 
 function clusterForPath(pathname) {
   const path = pathname.toLowerCase();
-  if (/(national-income|gdp|macroeconomics)/.test(path)) return toolClusters.find((item) => item.slug === 'national-income-gdp');
-  if (/(income-determination|employment|aggregate-demand|consumption|saving|multiplier)/.test(path)) return toolClusters.find((item) => item.slug === 'income-determination');
-  if (/(accounting-ratio|ratio-analysis|accountancy-ratio)/.test(path)) return toolClusters.find((item) => item.slug === 'accounting-ratios');
+  if (/(national-income|gdp|gross-domestic|net-domestic|gross-national|net-national|domestic-product|national-product|real-gdp|nominal-gdp)/.test(path)) return toolClusters.find((item) => item.slug === 'national-income-gdp');
+  if (/(income-determination|determination-of-income|employment|aggregate-demand|consumption-function|saving-function|investment-multiplier|multiplier)/.test(path)) return toolClusters.find((item) => item.slug === 'income-determination');
+  if (/(accounting-ratios|accounting-ratio|ratio-analysis|accountancy-ratio)/.test(path)) return toolClusters.find((item) => item.slug === 'accounting-ratios');
   return null;
 }
 
