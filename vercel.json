@@ -12,6 +12,11 @@
       "has": [{"type":"header","key":"host","value":"smitsircommerce.vercel.app"}],
       "destination": "https://www.smitsircommerce.in/:path*",
       "permanent": true
+    },
+    {
+      "source": "/accountancy-tuition-mehsana",
+      "destination": "/tools",
+      "permanent": true
     }
   ],
   "headers": [
