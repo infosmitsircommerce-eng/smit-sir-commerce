@@ -189,8 +189,11 @@ export default function HeroSection() {
                   src={teacherPhoto}
                   alt="Smit Sir — Commerce Teacher"
                   className="hero-teacher-photo"
+                  width="800"
+                  height="1000"
                   loading="eager"
                   fetchPriority="high"
+                  decoding="async"
                   style={{
                     width: '100%',
                     height: '100%',
