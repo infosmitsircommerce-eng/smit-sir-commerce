@@ -11,6 +11,7 @@ import CloudSyncBridge from '../ui/CloudSyncBridge';
 import AnalyticsTracker from '../ui/AnalyticsTracker';
 import ChapterProgressTracker from '../ui/ChapterProgressTracker';
 import ChapterPracticeStrip from '../ui/ChapterPracticeStrip';
+import ContextualToolLinks from '../ui/ContextualToolLinks';
 import DemoNudge from '../leads/DemoNudge';
 import { isLightRoute } from '../../lib/theme';
 
@@ -38,6 +39,7 @@ export default function Layout({ children }) {
       <main id="main-content" tabIndex="-1" className="flex-1 pt-0 lg:pt-20 pb-20 lg:pb-0">
         {children}
       </main>
+      <ContextualToolLinks />
       <ChapterPracticeStrip />
       <Footer />
       <MobileBottomBar />
