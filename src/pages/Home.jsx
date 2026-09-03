@@ -1,5 +1,6 @@
 import SEO from '../components/ui/SEO';
 import HeroSection from '../components/home/HeroSection';
+import MehsanaGrowthCampaign from '../components/home/MehsanaGrowthCampaign';
 import SeoDiscoveryLinks from '../components/home/SeoDiscoveryLinks';
 import StatsSection from '../components/home/StatsSection';
 import CoursesPreview from '../components/home/CoursesPreview';
@@ -57,6 +58,7 @@ export default function Home() {
         structuredData={structuredData}
       />
       <HeroSection />
+      <MehsanaGrowthCampaign />
       <SeoDiscoveryLinks />
       <StatsSection />
       <StudentJourney />
