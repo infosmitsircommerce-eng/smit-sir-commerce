@@ -1,6 +1,6 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
-import { commerceTools } from '../src/data/commerceTools.js';
+import { commerceTools } from '../src/data/allCommerceTools.js';
 
 const BASE = 'https://www.smitsircommerce.in';
 const SITE = 'Smit Sir Commerce';
@@ -38,7 +38,7 @@ async function writeRoute(path, content) {
 
 const hubPath = '/tools';
 const hubTitle = 'Free Commerce Calculators — Economics & Accountancy Class 11 & 12';
-const hubDescription = 'Free Class 11 and 12 Commerce calculators for MPC, MPS, GDP, national income methods, money multiplier, elasticity and Accountancy ratios with step-by-step working.';
+const hubDescription = 'Free Class 11 and 12 Commerce calculators for MPC, MPS, consumption and saving functions, GDP and national income conversions, revenue, costs, money, elasticity and Accountancy ratios with step-by-step working.';
 const hubStructuredData = {
   '@context': 'https://schema.org',
   '@graph': [
