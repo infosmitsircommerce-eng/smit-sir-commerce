@@ -12,6 +12,7 @@ import AnalyticsTracker from '../ui/AnalyticsTracker';
 import ChapterProgressTracker from '../ui/ChapterProgressTracker';
 import ChapterPracticeStrip from '../ui/ChapterPracticeStrip';
 import ContextualToolLinks from '../ui/ContextualToolLinks';
+import TopicalAuthorityLinks from '../ui/TopicalAuthorityLinks';
 import MarksRecoveryNudge from '../ui/MarksRecoveryNudge';
 import DemoNudge from '../leads/DemoNudge';
 import { isLightRoute } from '../../lib/theme';
@@ -46,8 +47,9 @@ export default function Layout({ children }) {
         {children}
       </main>
       <ContextualToolLinks />
-      <MarksRecoveryNudge />
       <ChapterPracticeStrip />
+      <TopicalAuthorityLinks />
+      <MarksRecoveryNudge />
       <Footer />
       <MobileBottomBar />
       <DemoNudge />
