@@ -1,4 +1,4 @@
-const UPDATED = '2026-09-02';
+const UPDATED = '2026-09-03';
 
 export const authorityGuides = [
   {
@@ -33,6 +33,108 @@ export const authorityGuides = [
       ['Are these official CBSE previous-year questions?','No. Unless a source is explicitly identified, the questions on this website are original revision practice and are not labelled as official previous-year CBSE questions.'],
       ['How should I revise Business Studies before an exam?','Read the chapter notes, recall headings without looking, practise important questions, then attempt case studies and timed tests. Use the latest official CBSE sample paper separately for current board-format practice.'],
       ['Should I memorise complete answers?','Focus first on concepts, keywords, headings and application. Then practise presenting answers in a clear point-wise structure appropriate to the marks asked.'],
+    ],
+  },
+  {
+    path: '/cbse/class-12/business-studies-case-study-questions',
+    title: 'CBSE Class 12 Business Studies Case Study Questions with Answers',
+    shortTitle: 'Class 12 BST Case Studies',
+    description: 'Practice CBSE Class 12 Business Studies case study questions chapter by chapter with answer guidance for management, finance, marketing and consumer protection.',
+    eyebrow: 'Class 12 · Business Studies · Case Study Practice',
+    intro: 'Case-study questions test whether you can identify a Business Studies concept inside a situation and justify the answer using the correct principle, function or keyword. This hub organises original chapter-wise practice already published on Smit Sir Commerce.',
+    updated: UPDATED,
+    sections: [
+      { title: 'Management foundations case studies', text: 'Practise identifying management concepts, Fayol and Taylor principles, and dimensions of business environment from short business situations.', links: [
+        ['/practice/cbse/class-12/business-studies/nature-and-significance-of-management-case-study-questions','Nature and Significance - Case Studies'],
+        ['/practice/cbse/class-12/business-studies/principles-of-management-case-study-questions','Principles of Management - Case Studies'],
+        ['/practice/cbse/class-12/business-studies/business-environment-case-study-questions','Business Environment - Case Studies'],
+      ]},
+      { title: 'Management functions case studies', text: 'Use these chapters to practise recognising planning decisions, organisation structures, staffing steps, directing elements and control situations.', links: [
+        ['/practice/cbse/class-12/business-studies/planning-case-study-questions','Planning - Case Studies'],
+        ['/practice/cbse/class-12/business-studies/organising-case-study-questions','Organising - Case Studies'],
+        ['/practice/cbse/class-12/business-studies/staffing-case-study-questions','Staffing - Case Studies'],
+        ['/practice/cbse/class-12/business-studies/directing-case-study-questions','Directing - Case Studies'],
+        ['/practice/cbse/class-12/business-studies/controlling-case-study-questions','Controlling - Case Studies'],
+      ]},
+      { title: 'Finance, marketing and consumer case studies', text: 'Apply financial-decision concepts, market functions, marketing-mix ideas and consumer rights to practical situations.', links: [
+        ['/practice/cbse/class-12/business-studies/financial-management-case-study-questions','Financial Management - Case Studies'],
+        ['/practice/cbse/class-12/business-studies/financial-markets-case-study-questions','Financial Markets - Case Studies'],
+        ['/practice/cbse/class-12/business-studies/marketing-management-case-study-questions','Marketing Management - Case Studies'],
+        ['/practice/cbse/class-12/business-studies/consumer-protection-case-study-questions','Consumer Protection - Case Studies'],
+      ]},
+    ],
+    faqs: [
+      ['How do I solve Business Studies case-study questions?','Read the situation once for the story, then again for clues. Identify the chapter concept, write the exact term or principle, and support it with the relevant fact from the case.'],
+      ['Are these official CBSE case-study questions?','No. The linked questions are original practice material unless an external source is explicitly identified. They are designed for concept application and revision.'],
+      ['Which chapters should I practise first?','Start with chapters where identification is common, such as Principles of Management, Business Environment, Planning, Directing, Marketing Management and Consumer Protection, then cover the remaining chapters.'],
+    ],
+  },
+  {
+    path: '/cbse/class-12/business-studies-mcq',
+    title: 'CBSE Class 12 Business Studies MCQs with Answers Chapter Wise',
+    shortTitle: 'Class 12 BST MCQs',
+    description: 'Practice chapter-wise CBSE Class 12 Business Studies MCQs with answers and explanations across all published chapters from management to consumer protection.',
+    eyebrow: 'Class 12 · Business Studies · MCQ Practice',
+    intro: 'Use this page as a chapter-wise MCQ revision hub. Attempt the questions before checking the answer, note the concept behind each mistake and return to the matching chapter notes only when you need to repair a weak area.',
+    updated: UPDATED,
+    sections: [
+      { title: 'Management foundations MCQs', text: 'Test definitions, features, principles and business-environment concepts before moving into application-heavy chapters.', links: [
+        ['/practice/cbse/class-12/business-studies/nature-and-significance-of-management-mcqs','Nature and Significance - MCQs'],
+        ['/practice/cbse/class-12/business-studies/principles-of-management-mcqs','Principles of Management - MCQs'],
+        ['/practice/cbse/class-12/business-studies/business-environment-mcqs','Business Environment - MCQs'],
+      ]},
+      { title: 'Management functions MCQs', text: 'Revise steps, processes, differences and key terms from Planning, Organising, Staffing, Directing and Controlling.', links: [
+        ['/practice/cbse/class-12/business-studies/planning-mcqs','Planning - MCQs'],
+        ['/practice/cbse/class-12/business-studies/organising-mcqs','Organising - MCQs'],
+        ['/practice/cbse/class-12/business-studies/staffing-mcqs','Staffing - MCQs'],
+        ['/practice/cbse/class-12/business-studies/directing-mcqs','Directing - MCQs'],
+        ['/practice/cbse/class-12/business-studies/controlling-mcqs','Controlling - MCQs'],
+      ]},
+      { title: 'Finance, marketing and consumer MCQs', text: 'Finish with financial decisions, markets, marketing and consumer protection so your revision covers the full published Business Studies collection.', links: [
+        ['/practice/cbse/class-12/business-studies/financial-management-mcqs','Financial Management - MCQs'],
+        ['/practice/cbse/class-12/business-studies/financial-markets-mcqs','Financial Markets - MCQs'],
+        ['/practice/cbse/class-12/business-studies/marketing-management-mcqs','Marketing Management - MCQs'],
+        ['/practice/cbse/class-12/business-studies/consumer-protection-mcqs','Consumer Protection - MCQs'],
+      ]},
+    ],
+    faqs: [
+      ['Are the Class 12 Business Studies MCQs free?','Yes. The public chapter-wise MCQ practice linked from this hub is free to open on Smit Sir Commerce.'],
+      ['How should I use MCQs for revision?','Attempt a chapter set without looking at the notes, review every wrong answer, write down the concept you missed and then retry after revision.'],
+      ['Are these official CBSE MCQs?','No. They are original practice questions unless an official external source is explicitly identified. Use the latest official CBSE sample paper separately for current exam-format reference.'],
+    ],
+  },
+  {
+    path: '/cbse/class-11/microeconomics-important-questions',
+    title: 'CBSE Class 11 Microeconomics Important Questions Chapter Wise',
+    shortTitle: 'Class 11 Micro Important Questions',
+    description: 'Practice CBSE Class 11 Microeconomics important questions chapter by chapter with answer guidance from basic economic problems through demand, cost, revenue and equilibrium.',
+    eyebrow: 'Class 11 · Microeconomics · Important Questions',
+    intro: 'This hub brings together chapter-wise important-question practice for the Class 11 Microeconomics material already published on Smit Sir Commerce. Use it after reading the notes so revision becomes active recall instead of repeated reading.',
+    updated: UPDATED,
+    sections: [
+      { title: 'Economic problem, consumer and demand', text: 'Start with the basic economic problem, consumer behaviour and demand. Focus on definitions, diagrams, relationships and numerical interpretation where relevant.', links: [
+        ['/practice/cbse/class-11/microeconomics/economics-and-economy-important-questions','Economics and Economy - Important Questions'],
+        ['/practice/cbse/class-11/microeconomics/central-problems-of-economy-important-questions','Central Problems - Important Questions'],
+        ['/practice/cbse/class-11/microeconomics/consumers-equilibrium-utility-analysis-important-questions','Consumer Equilibrium - Important Questions'],
+        ['/practice/cbse/class-11/microeconomics/demand-important-questions','Demand - Important Questions'],
+        ['/practice/cbse/class-11/microeconomics/price-elasticity-of-demand-important-questions','Price Elasticity of Demand - Important Questions'],
+      ]},
+      { title: 'Production, cost and revenue', text: 'Revise production relationships, cost concepts and revenue measures with clear tables, curves and formula-based reasoning.', links: [
+        ['/practice/cbse/class-11/microeconomics/production-function-and-returns-to-a-factor-important-questions','Production Function - Important Questions'],
+        ['/practice/cbse/class-11/microeconomics/concepts-of-cost-important-questions','Cost - Important Questions'],
+        ['/practice/cbse/class-11/microeconomics/concept-of-revenue-important-questions','Revenue - Important Questions'],
+      ]},
+      { title: 'Producer, supply and market', text: 'Finish by connecting producer equilibrium, supply and market equilibrium with the conditions and diagrams used in the chapter.', links: [
+        ['/practice/cbse/class-11/microeconomics/producers-equilibrium-important-questions','Producer Equilibrium - Important Questions'],
+        ['/practice/cbse/class-11/microeconomics/supply-important-questions','Supply - Important Questions'],
+        ['/practice/cbse/class-11/microeconomics/forms-of-market-important-questions','Forms of Market - Important Questions'],
+        ['/practice/cbse/class-11/microeconomics/market-equilibrium-important-questions','Market Equilibrium - Important Questions'],
+      ]},
+    ],
+    faqs: [
+      ['How should I prepare important questions in Class 11 Microeconomics?','Read the concept first, then answer without looking at the notes. Check whether you included the correct definition, relationship, diagram or calculation step before moving on.'],
+      ['Are these previous-year CBSE questions?','No. They are original revision questions unless an external source is explicitly identified. They are organised around the chapters already published on the website.'],
+      ['Should I practise numericals separately?','Yes. For chapters involving elasticity, production, cost, revenue or equilibrium, combine important-question revision with numerical practice so you can apply the relationships as well as explain them.'],
     ],
   },
   {
