@@ -3,7 +3,7 @@ import { seoHubs, seoMaterials } from '../src/data/seoMaterials.js';
 import { gsebMaterials } from '../src/data/gsebMaterials.js';
 import { authorityGuides } from '../src/data/authorityGuides.js';
 import { localSeoPages } from '../src/data/localSeoPages.js';
-import { commerceTools } from '../src/data/commerceTools.js';
+import { commerceTools } from '../src/data/allCommerceTools.js';
 import { growthManifest } from './growth-manifest.mjs';
 import { examTests } from '../src/data/examBank.js';
 
