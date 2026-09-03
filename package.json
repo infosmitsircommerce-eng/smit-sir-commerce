@@ -7,13 +7,13 @@
     "prebuild": "node scripts/assemble-gseb-pdfs.mjs && node scripts/generate-sitemap.mjs",
     "dev": "vite",
     "build": "vite build",
-    "postbuild": "node scripts/prerender-seo.mjs && node scripts/inject-practice-links.mjs && node scripts/prerender-growth.mjs && node scripts/prerender-pyq.mjs && node scripts/prerender-authority.mjs && node scripts/prerender-local-seo.mjs && node scripts/prerender-conversion.mjs && node scripts/prerender-tools.mjs && node scripts/finalize-seo-html.mjs",
+    "postbuild": "node scripts/prerender-seo.mjs && node scripts/inject-practice-links.mjs && node scripts/prerender-growth.mjs && node scripts/prerender-pyq.mjs && node scripts/prerender-authority.mjs && node scripts/prerender-local-seo.mjs && node scripts/prerender-conversion.mjs && node scripts/prerender-marks-recovery.mjs && node scripts/prerender-tools.mjs && node scripts/finalize-seo-html.mjs",
     "indexnow": "node scripts/submit-indexnow.mjs",
     "preview": "vite preview",
     "studio": "remotion studio remotion/index.jsx",
     "render": "remotion render remotion/index.jsx CosmicAd out/SmitSirAd.mp4",
     "render:manga": "remotion render remotion/index.jsx MangaAd out/MangaAd.mp4",
-    "render:premium": "remotion render remotion/index.jsx PremiumAd out/PremiumAd.mp4"
+    "render:premium": "remotion render remotion/index.jsx PremiumAd out/SmitSirAd.mp4"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.468",
