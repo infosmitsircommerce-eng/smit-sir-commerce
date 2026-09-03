@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Feather, Music2, Share2, Sparkles, X } from 'lucide-react';
-import { AnimatePresence, motion } from 'framer-motion';
 
 const FESTIVAL_DATES = new Set(['2026-09-03', '2026-09-04']);
 const DISMISS_KEY = 'ssc-janmashtami-2026-dismissed';
@@ -12,7 +11,6 @@ function getIndiaDateStamp() {
     month: '2-digit',
     day: '2-digit',
   }).formatToParts(new Date());
-
   const byType = Object.fromEntries(parts.map((part) => [part.type, part.value]));
   return `${byType.year}-${byType.month}-${byType.day}`;
 }
@@ -29,25 +27,20 @@ export default function JanmashtamiWelcome() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined;
-
     const activeToday = FESTIVAL_DATES.has(getIndiaDateStamp());
     const dismissed = window.localStorage.getItem(DISMISS_KEY) === 'yes';
     if ((!activeToday && !preview) || (dismissed && !preview)) return undefined;
-
-    const timer = window.setTimeout(() => setOpen(true), 450);
+    const timer = window.setTimeout(() => setOpen(true), 250);
     return () => window.clearTimeout(timer);
   }, [preview]);
 
   useEffect(() => {
     if (!open) return undefined;
-
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-
     const onKeyDown = (event) => {
       if (event.key === 'Escape') closeGreeting();
     };
-
     window.addEventListener('keydown', onKeyDown);
     return () => {
       document.body.style.overflow = previousOverflow;
@@ -57,10 +50,7 @@ export default function JanmashtamiWelcome() {
 
   function track(action) {
     if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-      window.gtag('event', action, {
-        festival: 'janmashtami_2026',
-        page_path: window.location.pathname,
-      });
+      window.gtag('event', action, { festival: 'janmashtami_2026', page_path: window.location.pathname });
     }
   }
 
@@ -75,13 +65,11 @@ export default function JanmashtamiWelcome() {
     url.searchParams.set('utm_source', 'janmashtami_share');
     url.searchParams.set('utm_medium', 'share');
     url.searchParams.set('utm_campaign', 'janmashtami_2026');
-
     const shareData = {
       title: 'Happy Janmashtami — Smit Sir Commerce',
       text: 'Wishing you a joyful Janmashtami. Celebrate learning, curiosity and wisdom with Smit Sir Commerce.',
       url: url.toString(),
     };
-
     try {
       if (navigator.share) {
         await navigator.share(shareData);
@@ -97,109 +85,105 @@ export default function JanmashtamiWelcome() {
     }
   }
 
+  if (!open) return null;
+
   return (
-    <AnimatePresence>
-      {open && (
-        <motion.div
-          className="fixed inset-0 z-[120] flex items-center justify-center p-4 sm:p-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="janmashtami-title"
-          aria-describedby="janmashtami-message"
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="janmashtami-title"
+      aria-describedby="janmashtami-message"
+      style={{
+        position: 'fixed', inset: 0, zIndex: 2147483000, display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: '16px', isolation: 'isolate'
+      }}
+    >
+      <button
+        aria-label="Close Janmashtami greeting"
+        onClick={closeGreeting}
+        style={{
+          position: 'absolute', inset: 0, zIndex: 1, width: '100%', height: '100%', border: 0, margin: 0,
+          background: 'rgba(3,12,35,.82)', backdropFilter: 'blur(9px)', WebkitBackdropFilter: 'blur(9px)', cursor: 'default'
+        }}
+      />
+
+      <section
+        style={{
+          position: 'relative', zIndex: 2, width: 'min(620px, 100%)', maxHeight: 'calc(100vh - 32px)', overflowY: 'auto',
+          borderRadius: '28px', border: '1px solid rgba(234,194,92,.72)',
+          background: 'linear-gradient(145deg,#061a46 0%,#0a2862 52%,#071631 100%)',
+          boxShadow: '0 30px 90px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.04)', color: '#fff8df'
+        }}
+      >
+        <div aria-hidden="true" style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none', borderRadius: '28px' }}>
+          <div style={{ position: 'absolute', width: 260, height: 260, borderRadius: '50%', top: -110, left: -90, background: 'radial-gradient(circle,rgba(240,195,76,.25),transparent 68%)' }} />
+          <div style={{ position: 'absolute', width: 300, height: 300, borderRadius: '50%', right: -120, bottom: -130, background: 'radial-gradient(circle,rgba(22,115,172,.38),transparent 68%)' }} />
+          <Sparkles style={{ position: 'absolute', left: '10%', top: '15%', width: 20, color: '#f3cf6c', opacity: .75 }} />
+          <Sparkles style={{ position: 'absolute', right: '12%', top: '30%', width: 16, color: '#f3cf6c', opacity: .55 }} />
+          <Feather style={{ position: 'absolute', right: -10, bottom: 26, width: 122, height: 122, color: '#f4d477', opacity: .10, transform: 'rotate(-18deg)' }} />
+          <Music2 style={{ position: 'absolute', left: -5, bottom: 38, width: 90, height: 90, color: '#f4d477', opacity: .07, transform: 'rotate(12deg)' }} />
+        </div>
+
+        <button
+          onClick={closeGreeting}
+          aria-label="Continue to website"
+          style={{
+            position: 'absolute', right: 16, top: 16, zIndex: 5, width: 40, height: 40, borderRadius: '50%',
+            border: '1px solid rgba(255,255,255,.2)', background: 'rgba(255,255,255,.09)', color: '#fff',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
+          }}
         >
-          <motion.button
-            aria-label="Close Janmashtami greeting"
-            className="absolute inset-0 w-full h-full cursor-default"
-            style={{ background: 'rgba(3, 12, 35, 0.78)', backdropFilter: 'blur(10px)' }}
-            onClick={closeGreeting}
-          />
+          <X style={{ width: 17, height: 17 }} />
+        </button>
 
-          <motion.section
-            initial={{ opacity: 0, y: 26, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 16, scale: 0.98 }}
-            transition={{ type: 'spring', stiffness: 180, damping: 20 }}
-            className="relative w-full max-w-[620px] overflow-hidden rounded-[30px] border shadow-2xl"
-            style={{
-              borderColor: 'rgba(234, 194, 92, 0.7)',
-              background: 'linear-gradient(145deg, #061a46 0%, #0a2862 52%, #071631 100%)',
-              boxShadow: '0 30px 90px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.04)',
-            }}
-          >
-            <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-              <div className="absolute -top-24 -left-20 h-64 w-64 rounded-full" style={{ background: 'radial-gradient(circle, rgba(240,195,76,.22), transparent 67%)' }} />
-              <div className="absolute -bottom-28 -right-16 h-72 w-72 rounded-full" style={{ background: 'radial-gradient(circle, rgba(22,115,172,.34), transparent 68%)' }} />
-              <Sparkles className="absolute left-[9%] top-[16%] h-5 w-5 opacity-70" style={{ color: '#f3cf6c' }} />
-              <Sparkles className="absolute right-[11%] top-[31%] h-4 w-4 opacity-55" style={{ color: '#f3cf6c' }} />
-              <Feather className="absolute -right-3 bottom-8 h-32 w-32 rotate-[-18deg] opacity-[0.10]" style={{ color: '#f4d477' }} />
-              <Music2 className="absolute -left-1 bottom-12 h-24 w-24 rotate-12 opacity-[0.07]" style={{ color: '#f4d477' }} />
-            </div>
+        <div style={{ position: 'relative', zIndex: 3, textAlign: 'center', padding: '42px 28px 32px' }}>
+          <div style={{ margin: '0 auto 22px', width: 68, height: 68, borderRadius: '50%', border: '1px solid rgba(240,198,91,.66)', background: 'rgba(240,198,91,.11)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Feather style={{ width: 34, height: 34, color: '#f2cc68' }} />
+          </div>
 
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.26em', textTransform: 'uppercase', color: '#e7c66c' }}>
+            Smit Sir Commerce wishes you
+          </div>
+
+          <h2 id="janmashtami-title" style={{ margin: '16px 0 0', fontSize: 'clamp(38px,7vw,58px)', lineHeight: 1.05, fontWeight: 700, color: '#fff8df', fontFamily: 'var(--font-serif)' }}>
+            Happy Janmashtami
+          </h2>
+
+          <div aria-hidden="true" style={{ display: 'flex', alignItems: 'center', gap: 12, maxWidth: 330, margin: '18px auto 0' }}>
+            <span style={{ height: 1, flex: 1, background: 'linear-gradient(90deg,transparent,#d9b65b)' }} />
+            <span style={{ color: '#efcb6d', fontSize: 18 }}>✦</span>
+            <span style={{ height: 1, flex: 1, background: 'linear-gradient(90deg,#d9b65b,transparent)' }} />
+          </div>
+
+          <p id="janmashtami-message" style={{ maxWidth: 470, margin: '20px auto 0', fontSize: 17, lineHeight: 1.7, color: 'rgba(255,248,223,.86)' }}>
+            May Shri Krishna's wisdom inspire curiosity, courage and clarity in every learner.
+          </p>
+
+          <p style={{ margin: '10px 0 0', fontSize: 14, color: 'rgba(255,255,255,.6)' }}>
+            Celebrate the day with learning that feels meaningful.
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: 12, marginTop: 28 }}>
             <button
               onClick={closeGreeting}
-              className="absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-full border transition hover:scale-105"
-              style={{ borderColor: 'rgba(255,255,255,.18)', background: 'rgba(255,255,255,.08)', color: '#fff' }}
-              aria-label="Continue to website"
+              style={{ minHeight: 50, border: 0, borderRadius: 16, padding: '13px 18px', fontSize: 14, fontWeight: 800, background: 'linear-gradient(135deg,#f4d477,#d6a63e)', color: '#071631', boxShadow: '0 12px 26px rgba(211,166,63,.22)', cursor: 'pointer' }}
             >
-              <X className="h-4 w-4" />
+              Continue Learning
             </button>
+            <button
+              onClick={shareGreeting}
+              style={{ minHeight: 50, borderRadius: 16, padding: '13px 18px', fontSize: 14, fontWeight: 700, border: '1px solid rgba(239,203,109,.48)', color: '#fff7da', background: 'rgba(255,255,255,.05)', cursor: 'pointer', display: 'flex', gap: 8, alignItems: 'center', justifyContent: 'center' }}
+            >
+              <Share2 style={{ width: 17, height: 17 }} />
+              {shareStatus || 'Share Janmashtami Wishes'}
+            </button>
+          </div>
 
-            <div className="relative z-10 px-6 py-8 text-center sm:px-10 sm:py-11">
-              <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border" style={{ borderColor: 'rgba(240,198,91,.65)', background: 'rgba(240,198,91,.10)' }}>
-                <Feather className="h-8 w-8" style={{ color: '#f2cc68' }} />
-              </div>
-
-              <div className="text-[11px] font-semibold uppercase tracking-[0.28em]" style={{ color: '#e7c66c' }}>
-                Smit Sir Commerce wishes you
-              </div>
-
-              <h2 id="janmashtami-title" className="mt-4 text-4xl font-semibold leading-tight sm:text-5xl" style={{ color: '#fff8df', fontFamily: 'var(--font-serif)' }}>
-                Happy Janmashtami
-              </h2>
-
-              <div className="mx-auto mt-4 flex max-w-xs items-center justify-center gap-3" aria-hidden="true">
-                <span className="h-px flex-1" style={{ background: 'linear-gradient(90deg, transparent, #d9b65b)' }} />
-                <span className="text-lg" style={{ color: '#efcb6d' }}>✦</span>
-                <span className="h-px flex-1" style={{ background: 'linear-gradient(90deg, #d9b65b, transparent)' }} />
-              </div>
-
-              <p id="janmashtami-message" className="mx-auto mt-5 max-w-md text-base leading-7 sm:text-lg" style={{ color: 'rgba(255,248,223,.83)' }}>
-                May Shri Krishna's wisdom inspire curiosity, courage and clarity in every learner.
-              </p>
-
-              <p className="mt-4 text-sm" style={{ color: 'rgba(255,255,255,.58)' }}>
-                Celebrate the day with learning that feels meaningful.
-              </p>
-
-              <div className="mt-8 grid gap-3 sm:grid-cols-2">
-                <button
-                  onClick={closeGreeting}
-                  className="inline-flex min-h-12 items-center justify-center rounded-2xl px-5 py-3 text-sm font-bold transition hover:-translate-y-0.5"
-                  style={{ background: 'linear-gradient(135deg, #f4d477, #d6a63e)', color: '#071631', boxShadow: '0 12px 26px rgba(211,166,63,.22)' }}
-                >
-                  Continue Learning
-                </button>
-
-                <button
-                  onClick={shareGreeting}
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl border px-5 py-3 text-sm font-semibold transition hover:bg-white/10"
-                  style={{ borderColor: 'rgba(239,203,109,.45)', color: '#fff7da', background: 'rgba(255,255,255,.045)' }}
-                >
-                  <Share2 className="h-4 w-4" />
-                  {shareStatus || 'Share Janmashtami Wishes'}
-                </button>
-              </div>
-
-              <div className="mt-7 text-[11px] uppercase tracking-[0.2em]" style={{ color: 'rgba(255,255,255,.42)' }}>
-                Learning with fun • Marks as a result
-              </div>
-            </div>
-          </motion.section>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          <div style={{ marginTop: 24, fontSize: 11, letterSpacing: '.18em', textTransform: 'uppercase', color: 'rgba(255,255,255,.45)' }}>
+            Learning with fun • Marks as a result
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
