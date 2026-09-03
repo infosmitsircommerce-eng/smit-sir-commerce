@@ -4,6 +4,7 @@ import { gsebMaterials } from '../src/data/gsebMaterials.js';
 import { authorityGuides } from '../src/data/authorityGuides.js';
 import { localSeoPages } from '../src/data/localSeoPages.js';
 import { commerceTools } from '../src/data/allCommerceTools.js';
+import { toolClusters } from '../src/data/toolClusters.js';
 import { growthManifest } from './growth-manifest.mjs';
 import { examTests } from '../src/data/examBank.js';
 
@@ -22,6 +23,7 @@ const basePages = [
 function urlEntry(path, changefreq, priority, lastmod=''){return ['  <url>',`    <loc>${BASE}${path}</loc>`,lastmod?`    <lastmod>${lastmod}</lastmod>`:'',`    <changefreq>${changefreq}</changefreq>`,`    <priority>${priority}</priority>`,'  </url>'].filter(Boolean).join('\n')}
 const entries=[
   ...basePages.map(([p,f,pr])=>urlEntry(p,f,pr)),
+  ...toolClusters.map(cluster=>urlEntry(`/tools/topics/${cluster.slug}`,'weekly','0.96','2026-09-03')),
   ...commerceTools.map(tool=>urlEntry(`/tools/${tool.slug}`,'monthly','0.92','2026-09-03')),
   ...localSeoPages.map(page=>urlEntry(page.path,'weekly','0.95','2026-09-03')),
   ...seoHubs.map(h=>urlEntry(h.path,'weekly','0.9','2026-08-31')),
@@ -33,4 +35,4 @@ const entries=[
 ];
 const xml=`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries.join('\n')}\n</urlset>\n`;
 await writeFile(new URL('../public/sitemap.xml',import.meta.url),xml,'utf8');
-console.log(`Generated sitemap with ${entries.length} indexable URLs (${commerceTools.length} Commerce calculator pages, ${localSeoPages.length} Mehsana local pages, ${gsebMaterials.length} GSEB chapter pages, ${authorityGuides.length} evergreen guides, ${growthManifest.length} CBSE chapter-practice pages).`);
+console.log(`Generated sitemap with ${entries.length} indexable URLs (${commerceTools.length} Commerce calculator pages, ${toolClusters.length} Commerce topic clusters, ${localSeoPages.length} Mehsana local pages, ${gsebMaterials.length} GSEB chapter pages, ${authorityGuides.length} evergreen guides, ${growthManifest.length} CBSE chapter-practice pages).`);
