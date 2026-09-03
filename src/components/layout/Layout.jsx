@@ -14,6 +14,7 @@ import ChapterPracticeStrip from '../ui/ChapterPracticeStrip';
 import ContextualToolLinks from '../ui/ContextualToolLinks';
 import TopicalAuthorityLinks from '../ui/TopicalAuthorityLinks';
 import MarksRecoveryNudge from '../ui/MarksRecoveryNudge';
+import StudentReferralNudge from '../ui/StudentReferralNudge';
 import DemoNudge from '../leads/DemoNudge';
 import { isLightRoute } from '../../lib/theme';
 import { isAdEligiblePath } from '../../lib/adPolicy';
@@ -50,6 +51,7 @@ export default function Layout({ children }) {
       <ChapterPracticeStrip />
       <TopicalAuthorityLinks />
       <MarksRecoveryNudge />
+      <StudentReferralNudge />
       <Footer />
       <MobileBottomBar />
       <DemoNudge />
