@@ -14,6 +14,7 @@ function funnelEventForPath(pathname) {
   if (pathname === '/cbse-practice' || pathname.includes('/practice/')) return 'funnel_practice_start';
   if (pathname === '/daily-practice' || pathname === '/exam-mode') return 'funnel_practice_start';
   if (pathname === '/book-demo') return 'funnel_demo_open';
+  if (pathname === '/demo-success') return 'funnel_demo_success';
   if (pathname === '/marks-recovery') return 'marks_recovery_view';
   if (pathname.startsWith('/tools/topics/')) return 'calculator_cluster_view';
   if (/^\/tools\/[^/]+$/.test(pathname)) return 'calculator_view';
@@ -30,9 +31,18 @@ export default function AnalyticsTracker() {
 
   useEffect(() => {
     const attribution = captureAcquisition(pathname, search);
-    const baseMetadata = { route: pathname, source: attribution?.first?.source || 'Direct' };
-    trackEvent('page_view', baseMetadata, user?.id || null);
-    sendGoogleEvent('page_view_spa', baseMetadata);
+    const source = attribution?.first?.source || 'Direct';
+    const pagePath = `${pathname}${search || ''}`;
+    const baseMetadata = { route: pathname, source };
+
+    trackEvent('page_view', { ...baseMetadata, page_path: pagePath }, user?.id || null);
+    sendGoogleEvent('page_view', {
+      page_path: pagePath,
+      page_location: window.location.href,
+      page_title: document.title,
+      route: pathname,
+      source,
+    });
 
     const funnelEvent = funnelEventForPath(pathname);
     if (funnelEvent) {
@@ -60,6 +70,16 @@ export default function AnalyticsTracker() {
       if (!link) return;
       const href = link.getAttribute('href') || '';
       const from = window.location.pathname;
+
+      if (href.startsWith('tel:')) {
+        emit('contact_click', { channel: 'phone', from });
+        return;
+      }
+      if (href.startsWith('mailto:')) {
+        emit('contact_click', { channel: 'email', from });
+        return;
+      }
+
       const metadata = { destination: href.slice(0, 160), from };
 
       if (/^\/tools\/[^/]+$/.test(from)) {
