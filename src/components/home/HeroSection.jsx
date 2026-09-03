@@ -5,15 +5,15 @@ import teacherPhoto from '../../assets/teacher-photo-opt.jpg';
 
 const trust = [
   { value: '26', label: 'Free PDFs Published' },
+  { value: '41', label: 'Commerce Tools' },
   { value: '11 & 12', label: 'CBSE Classes' },
-  { value: '4', label: 'Commerce Subjects' },
-  { value: '2', label: 'Learning Modes' },
+  { value: 'Free', label: 'First Demo Class' },
 ];
 
 const badges = [
-  { text: 'CBSE Board Focused' },
-  { text: 'Chapter-wise Notes' },
-  { text: 'Doubt Support'      },
+  { text: 'Concept Clarity' },
+  { text: 'Learning with Fun' },
+  { text: 'Questions Welcome' },
 ];
 
 const fade = (delay = 0) => ({
@@ -61,7 +61,7 @@ export default function HeroSection() {
                 letterSpacing: '0.09em', textTransform: 'uppercase', color: '#966313',
               }}>
                 <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D5A438' }} />
-                CBSE Commerce · Class 11 &amp; 12 · Mehsana + Online
+                A different way to learn Commerce
               </span>
             </motion.div>
 
@@ -69,12 +69,12 @@ export default function HeroSection() {
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(2.5rem, 4.8vw, 3.8rem)',
               fontWeight: 700,
-              lineHeight: 1.12,
+              lineHeight: 1.1,
               letterSpacing: '-0.025em',
               color: 'var(--ink)',
               margin: '26px 0 20px',
             }}>
-              Commerce concepts,
+              In a world chasing marks,
               <br />
               <em style={{
                 fontFamily: 'var(--font-serif)',
@@ -84,31 +84,40 @@ export default function HeroSection() {
                 background: 'linear-gradient(135deg, #A66F17, #E0A72B)',
                 WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
               }}>
-                finally made clear.
+                choose understanding.
               </em>
             </motion.h1>
 
             <motion.p {...fade(0.24)} style={{
               fontFamily: 'var(--font-sans)',
-              fontSize: '16px', lineHeight: 1.72,
+              fontSize: '16px', lineHeight: 1.75,
               color: 'var(--muted)',
-              maxWidth: '470px',
-              marginBottom: '34px',
+              maxWidth: '560px',
+              marginBottom: '18px',
             }}>
-              Economics, Accountancy, Business Studies and Entrepreneurship —
-              taught with <span className="marker" style={{ color: 'var(--ink)', fontWeight: 600 }}>concept clarity</span>,
-              board-focused notes, chapter-wise practice, and published study material.
+              Marks matter — but they are the result, not the entire purpose of education. Learn Commerce with
+              <span className="marker" style={{ color: 'var(--ink)', fontWeight: 600 }}> clarity, curiosity and fun</span>,
+              so you understand the “why” behind every concept instead of only memorising the answer.
+            </motion.p>
+
+            <motion.p {...fade(0.28)} style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: '1.18rem', lineHeight: 1.5,
+              color: 'var(--ink)', fontWeight: 650,
+              maxWidth: '560px', marginBottom: '30px',
+            }}>
+              Learning with Fun. Marks as a Result.
             </motion.p>
 
             <motion.div {...fade(0.32)} style={{ marginBottom: '36px' }}>
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                <Link to="/book-demo" className="btn-primary hero-primary-cta" style={{ fontSize: '15px', padding: '13px 28px' }}>
-                  Book Free Demo Class
+                <Link to="/cbse-notes" className="btn-primary hero-primary-cta" style={{ fontSize: '15px', padding: '13px 28px' }}>
+                  Start Learning Free
                   <ArrowRight style={{ width: '15px', height: '15px' }} />
                 </Link>
-                <Link to="/cbse-notes" className="btn-outline-ink hero-secondary-cta" style={{ fontSize: '15px' }}>
+                <Link to="/book-demo" className="btn-outline-ink hero-secondary-cta" style={{ fontSize: '15px' }}>
                   <BookOpen style={{ width: '14px', height: '14px' }} />
-                  Explore Free Notes
+                  Book Free Demo
                 </Link>
               </div>
               <div style={{
@@ -116,7 +125,7 @@ export default function HeroSection() {
                 fontFamily: 'var(--font-sans)', fontSize: '13px', color: 'var(--muted)',
               }}>
                 <CheckCircle style={{ width: '15px', height: '15px', color: 'var(--green)' }} />
-                First demo class is free — no pressure.
+                Understand first. Practise confidently. Let better marks follow.
               </div>
             </motion.div>
 
@@ -178,7 +187,7 @@ export default function HeroSection() {
               }}>
                 <img
                   src={teacherPhoto}
-                  alt="Smit Sir — CBSE Commerce Teacher"
+                  alt="Smit Sir — Commerce Teacher"
                   className="hero-teacher-photo"
                   loading="eager"
                   fetchPriority="high"
@@ -207,7 +216,7 @@ export default function HeroSection() {
                       fontFamily: 'var(--font-sans)',
                       fontSize: '12.5px', color: 'var(--muted)',
                       marginTop: '3px',
-                    }}>CBSE Commerce Specialist · Class 11 &amp; 12</div>
+                    }}>Economics · Business Studies · Entrepreneurship</div>
                   </div>
                   <div className="sticker" style={{
                     padding: '5px 11px', borderRadius: '7px',
@@ -218,7 +227,7 @@ export default function HeroSection() {
                     whiteSpace: 'nowrap', flexShrink: 0,
                     boxShadow: '0 2px 6px rgba(30,24,18,0.08)',
                   }}>
-                    ADMISSIONS OPEN
+                    FREE DEMO
                   </div>
                 </div>
 
