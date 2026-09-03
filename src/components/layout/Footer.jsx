@@ -3,6 +3,7 @@ import { GraduationCap, Phone, Mail, MapPin } from 'lucide-react';
 
 const quickLinks = [
   { label: 'Home', path: '/' },
+  { label: 'Free Commerce Calculators', path: '/tools' },
   { label: 'Commerce Tuition Mehsana', path: '/commerce-coaching-mehsana' },
   { label: 'Class 11 Commerce Mehsana', path: '/class-11-commerce-tuition-mehsana' },
   { label: 'Class 12 Commerce Mehsana', path: '/class-12-commerce-tuition-mehsana' },
@@ -48,7 +49,7 @@ export default function Footer() {
               <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #C9A050, #B8872F)', boxShadow: '0 4px 18px rgba(184,135,47,0.3)' }}><GraduationCap className="w-6 h-6" style={{ color: '#1E1812' }} /></div>
               <div><div className="text-lg leading-tight" style={headingStyle}>Smit Sir</div><div className="text-sm leading-tight" style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, letterSpacing: '0.16em', color: 'var(--gold-bright)' }}>COMMERCE</div></div>
             </Link>
-            <p className="text-sm leading-relaxed mb-3" style={mutedLink}>Class 11 &amp; 12 Commerce learning in Mehsana for Economics, Business Studies, Accountancy and Entrepreneurship — with notes, practice, tests and coaching support.</p>
+            <p className="text-sm leading-relaxed mb-3" style={mutedLink}>Class 11 &amp; 12 Commerce learning in Mehsana for Economics, Business Studies, Accountancy and Entrepreneurship — with free calculators, notes, practice, tests and coaching support.</p>
             <a href="tel:+916353709585" className="text-sm font-semibold transition-colors inline-block" style={{ color: 'var(--gold-bright)' }}>📞 +91 63537 09585</a>
           </div>
 
@@ -72,7 +73,7 @@ export default function Footer() {
               <li className="flex items-start gap-3"><Mail className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--gold-bright)' }} /><a href="mailto:infosmitsircommerce@gmail.com" className="text-sm break-all" style={mutedLink}>infosmitsircommerce@gmail.com</a></li>
               <li className="flex items-start gap-3"><MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--gold-bright)' }} /><div className="text-sm" style={mutedLink}>Mehsana, Gujarat, India</div></li>
             </ul>
-            <div className="mt-5 flex flex-col gap-2 items-start"><Link to="/book-demo" className="btn-gold text-sm py-2 px-4 inline-flex">Free Paper Analysis / Demo</Link><FooterLink to="/commerce-coaching-mehsana">Commerce tuition in Mehsana</FooterLink></div>
+            <div className="mt-5 flex flex-col gap-2 items-start"><Link to="/book-demo" className="btn-gold text-sm py-2 px-4 inline-flex">Free Paper Analysis / Demo</Link><FooterLink to="/tools">Free Commerce calculators</FooterLink><FooterLink to="/commerce-coaching-mehsana">Commerce tuition in Mehsana</FooterLink></div>
           </div>
         </div>
       </div>
@@ -81,6 +82,7 @@ export default function Footer() {
         <div className="page-container py-5 flex flex-col lg:flex-row items-center justify-between gap-4">
           <p className="text-sm text-center lg:text-left" style={{ color: 'rgba(166,152,138,0.7)' }}>© 2026 Smit Sir Commerce · <span style={{ fontFamily: 'var(--font-accent)', fontStyle: 'italic' }}>All accounts balanced.</span></p>
           <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-2">
+            <FooterLink to="/tools">Calculators</FooterLink>
             <FooterLink to="/faq">FAQ</FooterLink>
             <FooterLink to="/privacy">Privacy</FooterLink>
             <FooterLink to="/terms">Terms</FooterLink>
