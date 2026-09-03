@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 import { Calculator, ArrowRight, TrendingUp } from 'lucide-react';
-import { commerceTools } from '../../data/commerceTools';
+import { commerceTools } from '../../data/allCommerceTools';
 
 const featuredSlugs = [
   'mpc-mps-calculator',
-  'investment-multiplier-calculator',
-  'gdp-deflator-calculator',
-  'national-income-income-method-calculator',
+  'consumption-function-calculator',
+  'domestic-national-aggregate-converter',
+  'tr-ar-mr-calculator',
   'current-ratio-calculator',
-  'quick-ratio-calculator',
+  'gross-profit-ratio-calculator',
 ];
 
 export default function CommerceToolsPreview() {
@@ -17,9 +17,9 @@ export default function CommerceToolsPreview() {
     <section className="section-padding" style={{ background: 'var(--bg-ivory)' }} aria-labelledby="commerce-calculators-home">
       <div className="page-container">
         <div className="max-w-3xl mb-8">
-          <span className="eyebrow">New · Free problem solvers</span>
+          <span className="eyebrow">New · 41 free problem solvers</span>
           <h2 id="commerce-calculators-home" className="headline mt-5">Confused by the formula? Calculate it and see every step.</h2>
-          <p className="mt-4 text-sm leading-7" style={{ color: 'var(--muted)' }}>MPC, MPS, multiplier, real and nominal GDP, national income methods and Class 12 Accountancy ratios — built as free interactive tools for Commerce students.</p>
+          <p className="mt-4 text-sm leading-7" style={{ color: 'var(--muted)' }}>MPC, MPS, consumption and saving functions, GDP conversions, national income, TR-AR-MR, costs and Class 12 Accountancy ratios — built as free interactive tools for Commerce students.</p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -37,7 +37,7 @@ export default function CommerceToolsPreview() {
         </div>
 
         <div className="mt-6 flex flex-wrap gap-3">
-          <Link to="/tools" className="btn-primary inline-flex items-center gap-2"><TrendingUp className="w-4 h-4" /> Open all free Commerce calculators</Link>
+          <Link to="/tools" className="btn-primary inline-flex items-center gap-2"><TrendingUp className="w-4 h-4" /> Open all 41 free Commerce calculators</Link>
           <Link to="/cbse-notes" className="btn-outline-ink">Free CBSE notes</Link>
         </div>
       </div>
