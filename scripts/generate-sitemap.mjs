@@ -12,7 +12,7 @@ const BASE = 'https://www.smitsircommerce.in';
 const basePages = [
   ['/', 'weekly', '1.0'], ['/courses', 'weekly', '0.9'], ['/study-material', 'weekly', '0.9'],
   ['/cbse-notes', 'weekly', '1.0'], ['/cbse-practice', 'weekly', '1.0'], ['/cbse-pyq', 'weekly', '0.9'],
-  ['/marks-recovery', 'weekly', '1.0'], ['/tools', 'weekly', '1.0'], ['/commerce-coaching-mehsana', 'weekly', '1.0'],
+  ['/free-commerce-study-pack', 'weekly', '1.0'], ['/marks-recovery', 'weekly', '1.0'], ['/tools', 'weekly', '1.0'], ['/commerce-coaching-mehsana', 'weekly', '1.0'],
   ['/gseb-class-12-economics.html', 'weekly', '0.95'], ['/gseb-class-12-economics-practice.html', 'weekly', '0.9'],
   ['/quizzes', 'weekly', '0.7'], ['/test-series', 'weekly', '0.8'], ['/exam-mode', 'weekly', '0.9'],
   ['/daily-practice', 'weekly', '0.7'], ['/study-coach', 'weekly', '0.7'], ['/study-tools', 'weekly', '0.7'],
@@ -35,4 +35,4 @@ const entries=[
 ];
 const xml=`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries.join('\n')}\n</urlset>\n`;
 await writeFile(new URL('../public/sitemap.xml',import.meta.url),xml,'utf8');
-console.log(`Generated sitemap with ${entries.length} indexable URLs (${commerceTools.length} Commerce calculator pages, ${toolClusters.length} Commerce topic clusters, 1 Marks Recovery diagnostic, ${localSeoPages.length} Mehsana local pages, ${gsebMaterials.length} GSEB chapter pages, ${authorityGuides.length} evergreen guides, ${growthManifest.length} CBSE chapter-practice pages).`);
+console.log(`Generated sitemap with ${entries.length} indexable URLs (${commerceTools.length} Commerce calculator pages, ${toolClusters.length} Commerce topic clusters, 1 Marks Recovery diagnostic, 1 free Commerce study pack, ${localSeoPages.length} Mehsana local pages, ${gsebMaterials.length} GSEB chapter pages, ${authorityGuides.length} evergreen guides, ${growthManifest.length} CBSE chapter-practice pages).`);
