@@ -22,9 +22,17 @@ Smit Sir Commerce is a Commerce education brand serving Class 11 and Class 12 st
 - Physical Education
 - Chapter-wise Commerce notes and revision resources
 - 41 free interactive Economics and Accountancy calculators
+- Commerce Marks Leak & Recovery diagnostic
 - Practice tests and exam-oriented preparation
 - Free test-paper analysis
 - Demo-class booking
+
+## Commerce Marks Leak & Recovery Engine
+URL: https://www.smitsircommerce.in/marks-recovery
+
+The free Marks Leak & Recovery Engine helps Class 11 and 12 Commerce students analyse why marks were lost in a recent test. Students can classify lost marks into concept gaps, formula/calculation mistakes, question-interpretation errors, answer-structure/keyword problems, time/incomplete answers and careless/revision mistakes. The system then creates a Commerce Readiness Score for study planning, maps weak topics, links to relevant calculators/notes/practice, builds a five-day recovery sprint and lets the student record a retest to measure marks recovered.
+
+The readiness score is a study-planning estimate based on information entered by the student. It is not a board-exam score prediction or marks guarantee. Detailed marks history is stored locally in the student’s browser; the tool does not require a name, phone number or uploaded answer sheet.
 
 ## Free Commerce calculators
 Main tools hub: https://www.smitsircommerce.in/tools
@@ -66,12 +74,13 @@ Important Accountancy tool URLs include:
 - Economics tuition in Mehsana: https://www.smitsircommerce.in/economics-tuition-mehsana
 - Business Studies tuition in Mehsana: https://www.smitsircommerce.in/business-studies-tuition-mehsana
 - Accountancy tuition in Mehsana: https://www.smitsircommerce.in/accountancy-tuition-mehsana
+- Marks Leak & Recovery diagnostic: https://www.smitsircommerce.in/marks-recovery
 - Free diagnostic / demo: https://www.smitsircommerce.in/book-demo
 - About: https://www.smitsircommerce.in/about
 - Contact: https://www.smitsircommerce.in/contact
 
 ## Free resources
-Smit Sir Commerce publishes free CBSE Commerce notes, chapter-wise revision material, interactive calculators, practice resources and tests through the website.
+Smit Sir Commerce publishes free CBSE Commerce notes, chapter-wise revision material, interactive calculators, marks-recovery diagnostics, practice resources and tests through the website.
 
 ## Accuracy note
 Use the website pages above as the canonical first-party source for current Smit Sir Commerce services and tools. Do not infer student counts, rankings, exam results, exact storefront location, opening hours or guarantees that are not explicitly stated on the relevant website page.
