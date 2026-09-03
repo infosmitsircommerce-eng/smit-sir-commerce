@@ -7,7 +7,7 @@
     "prebuild": "node scripts/assemble-gseb-pdfs.mjs && node scripts/generate-sitemap.mjs",
     "dev": "vite",
     "build": "vite build",
-    "postbuild": "node scripts/prerender-seo.mjs && node scripts/inject-practice-links.mjs && node scripts/prerender-growth.mjs && node scripts/prerender-pyq.mjs && node scripts/prerender-authority.mjs && node scripts/prerender-local-seo.mjs && node scripts/prerender-conversion.mjs && node scripts/finalize-seo-html.mjs",
+    "postbuild": "node scripts/prerender-seo.mjs && node scripts/inject-practice-links.mjs && node scripts/prerender-growth.mjs && node scripts/prerender-pyq.mjs && node scripts/prerender-authority.mjs && node scripts/prerender-local-seo.mjs && node scripts/prerender-conversion.mjs && node scripts/finalize-seo-html.mjs && node scripts/submit-indexnow.mjs",
     "preview": "vite preview",
     "studio": "remotion studio remotion/index.jsx",
     "render": "remotion render remotion/index.jsx CosmicAd out/SmitSirAd.mp4",
@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
+    "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
