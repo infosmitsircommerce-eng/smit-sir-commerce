@@ -6,41 +6,41 @@ const BASE = 'https://www.smitsircommerce.in';
 const PATH = '/commerce-coaching-mehsana';
 
 const subjects = [
-  ['Economics', 'Concept clarity, diagrams, numericals, application questions and board-focused revision.'],
+  ['Economics', 'Concept clarity, diagrams, numericals, application questions and exam-focused revision.'],
   ['Business Studies', 'Chapter-wise explanation, case studies, important questions and answer-writing practice.'],
-  ['Accountancy', 'Step-by-step problem solving, formats, working notes and regular numerical practice.'],
-  ['Entrepreneurship', 'Clear concepts, application-based questions and exam-oriented revision support.'],
+  ['Entrepreneurship', 'Clear concepts, practical examples, application-based questions and revision support.'],
+  ['Physical Education', 'Simple explanations, structured theory revision and exam-oriented preparation.'],
 ];
 
 const advantages = [
-  'Class 11 and Class 12 Commerce-focused teaching',
+  'Class 11 and Class 12 learning support',
+  'Learning-first teaching with exam application',
   'Chapter-wise notes and revision resources',
-  'Regular tests and exam-oriented practice',
-  'Doubt solving and concept reinforcement',
+  'Regular tests and weak-topic correction',
   'Offline learning in Mehsana with online support available',
-  'Free study resources students can use between classes',
+  'Free Commerce resources students can use between classes',
 ];
 
 const faqs = [
   {
     question: 'Where is Smit Sir Commerce coaching available?',
-    answer: 'Smit Sir Commerce serves students in Mehsana, Gujarat, with offline Commerce coaching and also provides online learning options for students who cannot attend locally.',
+    answer: 'Smit Sir Commerce serves students in Mehsana, Gujarat, with offline learning support and also provides online learning options for students who cannot attend locally.',
   },
   {
-    question: 'Which classes are covered for Commerce coaching in Mehsana?',
-    answer: 'The coaching is focused on Class 11 and Class 12 Commerce students, with subject support for Economics, Business Studies, Accountancy and related Commerce preparation.',
+    question: 'Which subjects does Smit Sir personally teach?',
+    answer: 'Smit Sir personally teaches Economics, Business Studies, Entrepreneurship and Physical Education for Class 11 and 12 students.',
+  },
+  {
+    question: 'Are Accountancy resources available?',
+    answer: 'Yes. The website provides free Accountancy calculators and learning resources as separate study support. Accountancy is not presented as a personal tuition subject.',
   },
   {
     question: 'Can I take a demo class before joining?',
-    answer: 'Yes. Students and parents can use the website to request a demo class before deciding on a batch.',
+    answer: 'Yes. Students and parents can request a free paper analysis or demo before deciding on a batch. There is no admission commitment just to try the teaching approach.',
   },
   {
-    question: 'Are free CBSE Commerce notes available?',
-    answer: 'Yes. Smit Sir Commerce publishes free chapter-wise CBSE Commerce notes and practice resources that can be viewed from the website.',
-  },
-  {
-    question: 'Is online Commerce coaching also available?',
-    answer: 'Yes. Students outside Mehsana or those who prefer remote learning can explore the online batch option on the website.',
+    question: 'Are free Commerce notes and tools available?',
+    answer: 'Yes. Smit Sir Commerce publishes free chapter-wise notes, practice resources and Commerce calculators that students can use independently of tuition.',
   },
 ];
 
@@ -52,46 +52,34 @@ const structuredData = {
       '@id': `${BASE}${PATH}#webpage`,
       url: `${BASE}${PATH}`,
       name: 'Commerce Coaching in Mehsana for Class 11 & 12',
-      description: 'CBSE Class 11 and 12 Commerce coaching in Mehsana, Gujarat, with Economics, Business Studies and Accountancy support, tests, notes and demo-class booking.',
+      description: 'Class 11 and 12 Commerce coaching in Mehsana with Economics, Business Studies and Entrepreneurship teaching, plus free Commerce notes, Accountancy learning tools, practice and demo support.',
       inLanguage: 'en-IN',
       about: { '@id': `${BASE}${PATH}#service` },
       isPartOf: { '@id': `${BASE}/#website` },
     },
     {
-      '@type': 'EducationalOrganization',
-      '@id': `${BASE}/#organization`,
-      name: 'Smit Sir Commerce',
-      url: `${BASE}/`,
-      areaServed: {
-        '@type': 'City',
-        name: 'Mehsana',
-        containedInPlace: { '@type': 'State', name: 'Gujarat' },
-      },
-      knowsAbout: ['CBSE Commerce', 'Economics', 'Business Studies', 'Accountancy', 'Entrepreneurship'],
-    },
-    {
       '@type': 'Service',
       '@id': `${BASE}${PATH}#service`,
       name: 'Class 11 & 12 Commerce Coaching in Mehsana',
-      serviceType: 'CBSE Class 11 and Class 12 Commerce coaching',
+      serviceType: 'Class 11 and Class 12 Commerce learning support',
       provider: { '@id': `${BASE}/#organization` },
       areaServed: { '@type': 'City', name: 'Mehsana' },
       availableChannel: [
         {
           '@type': 'ServiceChannel',
-          name: 'Offline Commerce coaching in Mehsana',
+          name: 'Offline learning in Mehsana',
           serviceLocation: { '@type': 'City', name: 'Mehsana' },
         },
         {
           '@type': 'ServiceChannel',
-          name: 'Online Commerce coaching',
+          name: 'Online learning support',
           serviceUrl: `${BASE}/online-batch`,
         },
       ],
       offers: {
         '@type': 'Offer',
         url: `${BASE}/book-demo`,
-        description: 'Request a demo class before joining a Commerce batch.',
+        description: 'Request a free paper analysis and demo before choosing a batch.',
       },
     },
     {
@@ -116,8 +104,8 @@ export default function CommerceCoachingMehsana() {
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
       <SEO
-        title="Commerce Coaching in Mehsana — Class 11 & 12 CBSE"
-        description="Commerce coaching in Mehsana for CBSE Class 11 and 12. Learn Economics, Business Studies and Accountancy with chapter-wise notes, tests, doubt solving and demo-class booking by Smit Sir Commerce."
+        title="Commerce Coaching in Mehsana — Class 11 & 12"
+        description="Commerce coaching in Mehsana for Class 11 and 12 with Economics, Business Studies and Entrepreneurship teaching, plus free notes, practice tools, paper analysis and demo support."
         path={PATH}
         structuredData={structuredData}
       />
@@ -133,20 +121,20 @@ export default function CommerceCoachingMehsana() {
               <span className="eyebrow inline-flex items-center gap-2"><MapPin className="w-4 h-4" /> Mehsana, Gujarat</span>
               <h1 className="mt-5">Commerce Coaching in Mehsana for <em>Class 11 &amp; 12</em></h1>
               <p className="mt-5 text-lg leading-relaxed max-w-3xl" style={{ color: 'var(--muted)' }}>
-                CBSE Commerce learning focused on understanding concepts, practising exam-style questions and revising every chapter properly. Study Economics, Business Studies, Accountancy and related Commerce subjects with structured support from Smit Sir Commerce.
+                Learn with concept clarity first, then practise for exams. Smit Sir personally teaches Economics, Business Studies, Entrepreneurship and Physical Education, with structured revision and weak-topic support.
               </p>
 
               <div className="flex flex-wrap gap-3 mt-7">
                 <Link to="/book-demo" className="btn-primary inline-flex items-center gap-2">
-                  Book a demo class <ArrowRight className="w-4 h-4" />
+                  Free paper analysis + demo <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link to="/cbse-notes" className="btn-outline-ink inline-flex items-center gap-2">
-                  <BookOpen className="w-4 h-4" /> Free CBSE notes
+                  <BookOpen className="w-4 h-4" /> Free Commerce notes
                 </Link>
               </div>
 
               <div className="flex flex-wrap gap-2 mt-6 text-sm" style={{ color: 'var(--muted)' }}>
-                {['CBSE Class 11', 'CBSE Class 12', 'Economics', 'Business Studies', 'Accountancy'].map((item) => (
+                {['Class 11', 'Class 12', 'Economics', 'Business Studies', 'Entrepreneurship'].map((item) => (
                   <span key={item} className="tile-paper px-3 py-2">{item}</span>
                 ))}
               </div>
@@ -156,16 +144,16 @@ export default function CommerceCoachingMehsana() {
               <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style={{ background: 'var(--gold-bg)', color: 'var(--gold)' }}>
                 <GraduationCap className="w-6 h-6" />
               </div>
-              <h2 className="text-2xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Looking for Commerce classes in Mehsana?</h2>
+              <h2 className="text-2xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Try the learning approach first</h2>
               <p className="text-sm leading-7 mt-3" style={{ color: 'var(--muted)' }}>
-                Explore the teaching approach first, use the free notes, and request a demo class before choosing a batch.
+                Bring a recent test paper, identify where marks were lost and experience the teaching approach before making an admission decision.
               </p>
               <div className="space-y-3 mt-5">
                 <Link to="/offline-batch" className="tile-paper p-3 flex items-center justify-between gap-3 text-sm font-semibold">
-                  <span className="inline-flex items-center gap-2"><Users className="w-4 h-4" /> Offline batch in Mehsana</span><ArrowRight className="w-4 h-4" style={{ color: 'var(--gold)' }} />
+                  <span className="inline-flex items-center gap-2"><Users className="w-4 h-4" /> Offline in Mehsana</span><ArrowRight className="w-4 h-4" style={{ color: 'var(--gold)' }} />
                 </Link>
                 <Link to="/online-batch" className="tile-paper p-3 flex items-center justify-between gap-3 text-sm font-semibold">
-                  <span className="inline-flex items-center gap-2"><Monitor className="w-4 h-4" /> Online Commerce batch</span><ArrowRight className="w-4 h-4" style={{ color: 'var(--gold)' }} />
+                  <span className="inline-flex items-center gap-2"><Monitor className="w-4 h-4" /> Online support</span><ArrowRight className="w-4 h-4" style={{ color: 'var(--gold)' }} />
                 </Link>
               </div>
             </aside>
@@ -175,10 +163,10 @@ export default function CommerceCoachingMehsana() {
 
       <main className="page-container section-padding space-y-8">
         <section className="card-paper p-5 sm:p-7 md:p-9" aria-labelledby="subjects-heading">
-          <span className="eyebrow">Class 11 &amp; 12 Commerce</span>
-          <h2 id="subjects-heading" className="text-3xl mt-3 mb-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Commerce subjects taught with exam-focused practice</h2>
+          <span className="eyebrow">What Smit Sir personally teaches</span>
+          <h2 id="subjects-heading" className="text-3xl mt-3 mb-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Understanding first. Exam application next.</h2>
           <p className="max-w-3xl leading-7 mb-7" style={{ color: 'var(--muted)' }}>
-            The focus is not only on finishing chapters. Students should understand the logic behind each topic, practise the questions that expose weak areas and revise repeatedly before examinations.
+            The aim is not only to finish chapters. Students should understand why a concept works, practise the questions that expose weak areas and then revise until they can apply the idea confidently in an examination.
           </p>
           <div className="grid sm:grid-cols-2 gap-4">
             {subjects.map(([title, description]) => (
@@ -189,12 +177,15 @@ export default function CommerceCoachingMehsana() {
               </article>
             ))}
           </div>
+          <div className="tile-paper p-4 mt-5 text-sm leading-7" style={{ color: 'var(--muted)' }}>
+            <strong style={{ color: 'var(--ink)' }}>Accountancy resources:</strong> the website includes free Accountancy calculators and learning tools for students. These are separate from Smit Sir&apos;s personal teaching-subject list.
+          </div>
         </section>
 
         <section className="grid lg:grid-cols-2 gap-6">
           <div className="card-paper p-5 sm:p-7 md:p-9">
             <span className="eyebrow">Why this learning system</span>
-            <h2 className="text-3xl mt-3 mb-6" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>A complete Commerce learning path</h2>
+            <h2 className="text-3xl mt-3 mb-6" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>A complete path from clarity to practice</h2>
             <ul className="space-y-4">
               {advantages.map((item) => (
                 <li key={item} className="flex items-start gap-3">
@@ -207,13 +198,13 @@ export default function CommerceCoachingMehsana() {
 
           <div className="card-paper p-5 sm:p-7 md:p-9">
             <span className="eyebrow">Mehsana + online</span>
-            <h2 className="text-3xl mt-3 mb-4" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Local classroom support without losing digital resources</h2>
+            <h2 className="text-3xl mt-3 mb-4" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Local teaching connected to free digital resources</h2>
             <p className="leading-8" style={{ color: 'var(--muted)' }}>
-              Students searching for Class 11 or Class 12 Commerce coaching in Mehsana can choose offline learning, while the website remains available for chapter-wise notes, practice pages, tests and revision support. Students outside Mehsana can use the online batch instead.
+              Students in Mehsana can explore offline learning while using the same website for chapter notes, practice pages, calculators, tests and revision support. Students elsewhere can continue with the public learning resources and enquire about online options.
             </p>
             <div className="grid sm:grid-cols-2 gap-3 mt-6">
               <Link to="/study-material" className="tile-paper p-4 flex items-center justify-between gap-3 font-semibold text-sm"><span>Study material</span><ArrowRight className="w-4 h-4" style={{ color: 'var(--gold)' }} /></Link>
-              <Link to="/test-series" className="tile-paper p-4 flex items-center justify-between gap-3 font-semibold text-sm"><span>Practice tests</span><ArrowRight className="w-4 h-4" style={{ color: 'var(--gold)' }} /></Link>
+              <Link to="/tools" className="tile-paper p-4 flex items-center justify-between gap-3 font-semibold text-sm"><span>Commerce calculators</span><ArrowRight className="w-4 h-4" style={{ color: 'var(--gold)' }} /></Link>
               <Link to="/about" className="tile-paper p-4 flex items-center justify-between gap-3 font-semibold text-sm"><span>About Smit Sir</span><ArrowRight className="w-4 h-4" style={{ color: 'var(--gold)' }} /></Link>
               <Link to="/contact" className="tile-paper p-4 flex items-center justify-between gap-3 font-semibold text-sm"><span>Contact</span><ArrowRight className="w-4 h-4" style={{ color: 'var(--gold)' }} /></Link>
             </div>
@@ -222,12 +213,12 @@ export default function CommerceCoachingMehsana() {
 
         <section className="card-paper p-5 sm:p-7 md:p-9" aria-labelledby="process-heading">
           <span className="eyebrow">How students can start</span>
-          <h2 id="process-heading" className="text-3xl mt-3 mb-7" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>From free resources to a structured Commerce batch</h2>
+          <h2 id="process-heading" className="text-3xl mt-3 mb-7" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Try before you decide</h2>
           <div className="grid md:grid-cols-3 gap-4">
             {[
-              ['1', 'Explore free notes', 'Use the chapter-wise CBSE notes to understand the quality and structure of the learning resources.'],
-              ['2', 'Book a demo class', 'Request a demo so the student and parent can understand the teaching approach before joining.'],
-              ['3', 'Choose online or offline', 'Students in Mehsana can explore the offline batch, while online coaching remains available for remote learners.'],
+              ['1', 'Explore free resources', 'Use the notes, calculators and practice pages to see how concepts are explained.'],
+              ['2', 'Bring a test paper', 'Request a free paper analysis so the weak topic or mistake pattern is identified first.'],
+              ['3', 'Choose what fits', 'Experience the demo and then decide whether online or offline support is useful for you.'],
             ].map(([number, title, text]) => (
               <article key={number} className="tile-paper p-5">
                 <span className="w-9 h-9 rounded-full inline-flex items-center justify-center font-bold" style={{ background: 'var(--gold-bg)', color: 'var(--gold)' }}>{number}</span>
@@ -240,12 +231,12 @@ export default function CommerceCoachingMehsana() {
 
         <section className="card-paper p-5 sm:p-7 md:p-9" aria-labelledby="faq-heading">
           <span className="eyebrow">Local coaching FAQ</span>
-          <h2 id="faq-heading" className="text-3xl mt-3 mb-5" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Frequently asked questions about Commerce coaching in Mehsana</h2>
+          <h2 id="faq-heading" className="text-3xl mt-3 mb-5" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Questions students and parents ask</h2>
           <div className="divide-y" style={{ borderColor: 'var(--border-soft)' }}>
             {faqs.map((faq, index) => (
               <details key={faq.question} className="py-4" open={index === 0}>
                 <summary className="cursor-pointer list-none font-semibold flex justify-between gap-4" style={{ color: 'var(--ink)' }}>
-                  {faq.question}<span style={{ color: 'var(--gold)' }}>+</span>
+                  {faq.question}<span aria-hidden="true" style={{ color: 'var(--gold)' }}>+</span>
                 </summary>
                 <p className="mt-3 leading-7 max-w-4xl" style={{ color: 'var(--muted)' }}>{faq.answer}</p>
               </details>
@@ -255,15 +246,9 @@ export default function CommerceCoachingMehsana() {
 
         <section className="card-paper p-6 sm:p-8 md:p-10 text-center">
           <Sparkles className="w-8 h-8 mx-auto mb-4" style={{ color: 'var(--gold)' }} />
-          <span className="eyebrow">Start before you commit</span>
-          <h2 className="text-3xl md:text-4xl mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Book a Commerce demo class in Mehsana</h2>
-          <p className="max-w-2xl mx-auto mt-4 leading-7" style={{ color: 'var(--muted)' }}>
-            See the teaching approach, ask your questions and choose the learning mode that fits you best.
-          </p>
-          <div className="flex flex-wrap justify-center gap-3 mt-7">
-            <Link to="/book-demo" className="btn-primary inline-flex items-center gap-2">Book free demo <ArrowRight className="w-4 h-4" /></Link>
-            <Link to="/offline-batch" className="btn-outline-ink">View offline batch</Link>
-          </div>
+          <h2 className="text-3xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>In a world chasing marks, choose understanding.</h2>
+          <p className="mt-4 max-w-2xl mx-auto leading-7" style={{ color: 'var(--muted)' }}>Start with a free paper analysis or demo. No admission is required just to understand the teaching approach.</p>
+          <Link to="/book-demo" className="btn-primary inline-flex items-center gap-2 mt-6">Request free analysis + demo <ArrowRight className="w-4 h-4" /></Link>
         </section>
       </main>
     </div>
