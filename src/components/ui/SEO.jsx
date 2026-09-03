@@ -25,7 +25,7 @@ const SITEWIDE_ENTITY = {
       url: `${BASE}/`,
       telephone: '+916353709585',
       email: 'infosmitsircommerce@gmail.com',
-      description: 'Class 11 and 12 Commerce teaching and study resources for students in Mehsana, Gujarat, with support for Economics, Business Studies, Accountancy, Entrepreneurship and related exam preparation.',
+      description: 'Class 11 and 12 teaching in Economics, Business Studies, Entrepreneurship and Physical Education, plus free Commerce study resources including Accountancy calculators, for students in Mehsana, Gujarat and online.',
       areaServed: {
         '@type': 'City',
         name: 'Mehsana',
@@ -41,7 +41,7 @@ const SITEWIDE_ENTITY = {
         'CBSE Commerce',
         'Economics',
         'Business Studies',
-        'Accountancy',
+        'Accountancy learning resources',
         'Entrepreneurship',
         'Physical Education',
         'Commerce exam preparation',
@@ -62,13 +62,12 @@ const SITEWIDE_ENTITY = {
       },
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
-        name: 'Commerce tuition and academic support in Mehsana',
+        name: 'Class 11 and 12 tuition and academic support in Mehsana',
         itemListElement: [
           'Class 11 Commerce Tuition',
           'Class 12 Commerce Tuition',
           'Economics Tuition',
           'Business Studies Tuition',
-          'Accountancy Tuition',
           'Entrepreneurship Tuition',
           'Physical Education Tuition',
           'Free Test-Paper Analysis',
@@ -110,7 +109,7 @@ function getLocalSearchMeta(path) {
   if (path !== '/commerce-coaching-mehsana') return null;
   return {
     title: 'Commerce Tuition in Mehsana — Class 11 & 12 CBSE',
-    description: 'Commerce tuition in Mehsana for CBSE Class 11 and 12. Learn Economics, Business Studies and Accountancy with concept-focused teaching, tests, revision resources and demo-class booking by Smit Sir Commerce.',
+    description: 'Commerce tuition in Mehsana for CBSE Class 11 and 12 with Economics, Business Studies and Entrepreneurship teaching, tests, revision resources and demo-class booking by Smit Sir Commerce.',
   };
 }
 
