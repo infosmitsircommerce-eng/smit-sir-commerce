@@ -14,6 +14,8 @@ function funnelEventForPath(pathname) {
   if (pathname === '/cbse-practice' || pathname.includes('/practice/')) return 'funnel_practice_start';
   if (pathname === '/daily-practice' || pathname === '/exam-mode') return 'funnel_practice_start';
   if (pathname === '/book-demo') return 'funnel_demo_open';
+  if (pathname.startsWith('/tools/topics/')) return 'calculator_cluster_view';
+  if (/^\/tools\/[^/]+$/.test(pathname)) return 'calculator_view';
   return null;
 }
 
@@ -39,26 +41,56 @@ export default function AnalyticsTracker() {
   }, [pathname, search, user?.id]);
 
   useEffect(() => {
+    const emit = (name, metadata = {}) => {
+      trackEvent(name, metadata, user?.id || null);
+      sendGoogleEvent(name, metadata);
+    };
+
     const onClick = (event) => {
+      const button = event.target.closest('button');
+      if (button && /^\/tools\/[^/]+$/.test(window.location.pathname)) {
+        const label = (button.textContent || '').trim().toLowerCase();
+        if (label.includes('try example') || label.includes('load this example')) {
+          emit('example_loaded', { tool_path: window.location.pathname });
+        }
+      }
+
       const link = event.target.closest('a[href]');
       if (!link) return;
       const href = link.getAttribute('href') || '';
-      let eventName = '';
+      const from = window.location.pathname;
+      const metadata = { destination: href.slice(0, 160), from };
 
+      if (/^\/tools\/[^/]+$/.test(from)) {
+        if (href === '/cbse-notes' || href.includes('-notes')) emit('notes_clicked_from_tool', metadata);
+        else if (href === '/test-series' || href.startsWith('/test-series?')) emit('test_clicked_from_tool', metadata);
+        else if (href === '/book-demo' || href.startsWith('/book-demo?')) emit('demo_clicked_from_tool', metadata);
+      }
+
+      let eventName = '';
       if (href.includes('/pdf-viewer') || href.toLowerCase().endsWith('.pdf')) eventName = 'funnel_pdf_click';
       else if (href === '/book-demo' || href.startsWith('/book-demo?')) eventName = 'funnel_demo_click';
       else if (href === '/cbse-pyq' || href.startsWith('/cbse-pyq?')) eventName = 'funnel_exam_prep_click';
       else if (href === '/cbse-notes' || href.includes('-notes')) eventName = 'funnel_notes_click';
       else if (href === '/daily-practice' || href === '/exam-mode' || href === '/cbse-practice' || href.includes('/practice/')) eventName = 'funnel_practice_click';
+      else if (href.startsWith('/tools/')) eventName = 'calculator_link_click';
 
-      if (!eventName) return;
-      const metadata = { destination: href.slice(0, 160), from: window.location.pathname };
-      trackEvent(eventName, metadata, user?.id || null);
-      sendGoogleEvent(eventName, metadata);
+      if (eventName) emit(eventName, metadata);
+    };
+
+    const onSubmit = (event) => {
+      if (!/^\/tools\/[^/]+$/.test(window.location.pathname)) return;
+      const form = event.target.closest('form');
+      if (!form) return;
+      emit('calculator_used', { tool_path: window.location.pathname });
     };
 
     document.addEventListener('click', onClick, { capture: true });
-    return () => document.removeEventListener('click', onClick, { capture: true });
+    document.addEventListener('submit', onSubmit, { capture: true });
+    return () => {
+      document.removeEventListener('click', onClick, { capture: true });
+      document.removeEventListener('submit', onSubmit, { capture: true });
+    };
   }, [user?.id]);
 
   return null;
