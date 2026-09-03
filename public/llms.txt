@@ -21,7 +21,7 @@ Smit Sir Commerce is a Commerce education brand serving Class 11 and Class 12 st
 - Entrepreneurship
 - Physical Education
 - Chapter-wise Commerce notes and revision resources
-- Free interactive Economics and Accountancy calculators
+- 41 free interactive Economics and Accountancy calculators
 - Practice tests and exam-oriented preparation
 - Free test-paper analysis
 - Demo-class booking
@@ -29,20 +29,34 @@ Smit Sir Commerce is a Commerce education brand serving Class 11 and Class 12 st
 ## Free Commerce calculators
 Main tools hub: https://www.smitsircommerce.in/tools
 
-Economics calculators include:
+The site currently publishes 41 free problem-solving calculators for Class 11 and Class 12 Commerce students.
+
+Economics tools cover MPC, MPS, APC, APS, consumption function, saving function, investment multiplier, change in income through the multiplier, equilibrium income, GDP deflator, real GDP, nominal GDP, GDP-to-NDP conversion, GDP/GNP/NDP/NNP/National Income conversion, market-price and factor-cost conversion, NFIA, net indirect taxes, national income through income/expenditure/value-added methods, money multiplier, price elasticity of demand, TR/AR/MR and cost curves including TC/AFC/AVC/AC/MC.
+
+Important Economics tool URLs include:
 - MPC and MPS calculator: https://www.smitsircommerce.in/tools/mpc-mps-calculator
-- APC and APS calculator: https://www.smitsircommerce.in/tools/apc-aps-calculator
+- Consumption function calculator: https://www.smitsircommerce.in/tools/consumption-function-calculator
+- Saving function calculator: https://www.smitsircommerce.in/tools/saving-function-calculator
+- Equilibrium income calculator: https://www.smitsircommerce.in/tools/equilibrium-income-calculator
 - Investment multiplier calculator: https://www.smitsircommerce.in/tools/investment-multiplier-calculator
 - GDP deflator calculator: https://www.smitsircommerce.in/tools/gdp-deflator-calculator
-- Real GDP calculator: https://www.smitsircommerce.in/tools/real-gdp-calculator
-- Nominal GDP calculator: https://www.smitsircommerce.in/tools/nominal-gdp-calculator
+- GDP/GNP/NDP/NNP/National Income converter: https://www.smitsircommerce.in/tools/domestic-national-aggregate-converter
 - National income income-method calculator: https://www.smitsircommerce.in/tools/national-income-income-method-calculator
 - National income expenditure-method calculator: https://www.smitsircommerce.in/tools/national-income-expenditure-method-calculator
 - National income value-added-method calculator: https://www.smitsircommerce.in/tools/national-income-value-added-method-calculator
-- Money multiplier calculator: https://www.smitsircommerce.in/tools/money-multiplier-calculator
-- Price elasticity of demand calculator: https://www.smitsircommerce.in/tools/price-elasticity-demand-calculator
+- TR, AR and MR calculator: https://www.smitsircommerce.in/tools/tr-ar-mr-calculator
+- Cost curves calculator: https://www.smitsircommerce.in/tools/cost-curves-calculator
 
-Accountancy calculators include current ratio, quick ratio, debt-equity ratio, proprietary ratio, inventory turnover, trade receivables turnover, working capital turnover, net profit ratio, operating ratio and return on investment tools under the /tools/ section.
+Accountancy tools cover current ratio, quick ratio, debt-equity ratio, proprietary ratio, total-assets-to-debt ratio, interest coverage, inventory turnover, trade receivables turnover, trade payables turnover, working capital turnover, average collection period, average payment period, gross profit ratio, net profit ratio, operating ratio, operating profit ratio, return on investment and common-size statement percentages.
+
+Important Accountancy tool URLs include:
+- Current ratio: https://www.smitsircommerce.in/tools/current-ratio-calculator
+- Quick ratio: https://www.smitsircommerce.in/tools/quick-ratio-calculator
+- Debt-equity ratio: https://www.smitsircommerce.in/tools/debt-equity-ratio-calculator
+- Trade payables turnover ratio: https://www.smitsircommerce.in/tools/trade-payables-turnover-ratio-calculator
+- Gross profit ratio: https://www.smitsircommerce.in/tools/gross-profit-ratio-calculator
+- Interest coverage ratio: https://www.smitsircommerce.in/tools/interest-coverage-ratio-calculator
+- Common-size statement percentage: https://www.smitsircommerce.in/tools/common-size-statement-calculator
 
 ## Important local pages
 - Commerce tuition in Mehsana: https://www.smitsircommerce.in/commerce-coaching-mehsana
