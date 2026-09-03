@@ -95,16 +95,17 @@ export function getContextualToolSlugs(pathname = '') {
   const path = String(pathname).toLowerCase();
   if (!(path.startsWith('/cbse/') || path.startsWith('/practice/cbse/'))) return [];
 
-  if (/(national-income|gdp|domestic-product|national-product|macroeconomics)/.test(path)) {
+  if (/(national-income|gdp|gross-domestic|net-domestic|gross-national|net-national|domestic-product|national-product|real-gdp|nominal-gdp)/.test(path)) {
     return ['domestic-national-aggregate-converter', 'national-income-income-method-calculator', 'national-income-expenditure-method-calculator', 'gdp-deflator-calculator'];
   }
-  if (/(income-determination|determination-of-income|employment|aggregate-demand|consumption|saving|multiplier)/.test(path)) {
+  if (/(income-determination|determination-of-income|employment|aggregate-demand|consumption-function|saving-function|investment-multiplier|multiplier)/.test(path)) {
     return ['mpc-mps-calculator', 'consumption-function-calculator', 'investment-multiplier-calculator', 'equilibrium-income-calculator'];
   }
-  if (/(elasticity|demand)/.test(path)) return ['price-elasticity-demand-calculator'];
-  if (/(revenue|tr-ar-mr)/.test(path)) return ['tr-ar-mr-calculator'];
-  if (/(cost|producer-equilibrium|production)/.test(path)) return ['cost-curves-calculator', 'tr-ar-mr-calculator'];
-  if (/(accounting-ratio|ratio-analysis|accountancy-ratio)/.test(path)) return ['current-ratio-calculator', 'quick-ratio-calculator', 'debt-equity-ratio-calculator', 'gross-profit-ratio-calculator'];
+  if (/(price-elasticity-of-demand|elasticity-of-demand)/.test(path)) return ['price-elasticity-demand-calculator'];
+  if (/(concept-of-revenue|revenue-curves|tr-ar-mr)/.test(path)) return ['tr-ar-mr-calculator'];
+  if (/(concepts-of-cost|cost-curves)/.test(path)) return ['cost-curves-calculator'];
+  if (/(producers-equilibrium|producer-equilibrium)/.test(path)) return ['cost-curves-calculator', 'tr-ar-mr-calculator'];
+  if (/(accounting-ratios|accounting-ratio|ratio-analysis|accountancy-ratio)/.test(path)) return ['current-ratio-calculator', 'quick-ratio-calculator', 'debt-equity-ratio-calculator', 'gross-profit-ratio-calculator'];
   return [];
 }
 
