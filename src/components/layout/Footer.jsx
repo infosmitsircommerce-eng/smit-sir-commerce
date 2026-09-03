@@ -3,6 +3,7 @@ import { GraduationCap, Phone, Mail, MapPin, ShieldCheck, CircleHelp, FileText, 
 
 const quickLinks = [
   { label: 'Home', path: '/' },
+  { label: 'Free Commerce Study Pack', path: '/free-commerce-study-pack' },
   { label: 'Free Commerce Calculators', path: '/tools' },
   { label: 'Commerce Tuition Mehsana', path: '/commerce-coaching-mehsana' },
   { label: 'Class 11 Commerce Mehsana', path: '/class-11-commerce-tuition-mehsana' },
@@ -94,7 +95,7 @@ export default function Footer() {
               <li className="flex items-start gap-3"><Mail className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--gold-bright)' }} /><a href="mailto:infosmitsircommerce@gmail.com" className="text-sm break-all" style={mutedLink}>infosmitsircommerce@gmail.com</a></li>
               <li className="flex items-start gap-3"><MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--gold-bright)' }} /><div className="text-sm" style={mutedLink}>Mehsana, Gujarat, India</div></li>
             </ul>
-            <div className="mt-5 flex flex-col gap-2 items-start"><Link to="/book-demo" className="btn-gold text-sm py-2 px-4 inline-flex">Free Paper Analysis / Demo</Link><FooterLink to="/tools">Free Commerce calculators</FooterLink><FooterLink to="/commerce-coaching-mehsana">Commerce tuition in Mehsana</FooterLink></div>
+            <div className="mt-5 flex flex-col gap-2 items-start"><Link to="/free-commerce-study-pack" className="btn-gold text-sm py-2 px-4 inline-flex">Free Commerce Study Pack</Link><FooterLink to="/book-demo">Free Paper Analysis / Demo</FooterLink><FooterLink to="/tools">Free Commerce calculators</FooterLink><FooterLink to="/commerce-coaching-mehsana">Commerce tuition in Mehsana</FooterLink></div>
           </div>
         </div>
       </div>
