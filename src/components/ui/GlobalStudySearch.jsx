@@ -6,6 +6,8 @@ import { gsebMaterials } from '../../data/gsebMaterials';
 import { authorityGuides } from '../../data/authorityGuides';
 import { growthPages } from '../../data/contentGrowth';
 import { getExamSearchItems } from '../../data/examBank';
+import { getPublishedCommerceResources } from '../../lib/commerceResourceStore';
+import { commerceResourceContext } from '../../lib/commerceResourceModel';
 
 const BOOKMARKS_KEY = 'ssc-bookmarks-v1';
 const RECENT_KEY = 'ssc-recent-learning-v1';
@@ -63,6 +65,7 @@ export default function GlobalStudySearch() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [bookmarks, setBookmarks] = useState(() => getBookmarks());
+  const [commerceResources, setCommerceResources] = useState([]);
 
   const index = useMemo(() => [
     ...coreItems,
@@ -72,7 +75,33 @@ export default function GlobalStudySearch() {
     ...gsebMaterials.map((m) => ({ title: m.chapter, subtitle: `GSEB Class ${m.class_level} · Economics · ${m.pages} pages`, path: m.seo_path, type: 'GSEB Chapter', keywords: `gseb gujarat board economics class 12 chapter ${m.chapterNumber} ${m.chapter}` })),
     ...growthPages.map((page) => ({ id: page.id, title: `${page.chapter} ${page.label}`, subtitle: `Class ${page.classLevel} · ${page.subject}`, path: page.path, type: 'Chapter Practice', keywords: `${page.chapter} ${page.subject} ${page.label} ${page.type}` })),
     ...getExamSearchItems(),
-  ], []);
+    ...commerceResources.map((resource) => ({
+      title: resource.title,
+      subtitle: commerceResourceContext(resource),
+      path: resource.path,
+      type: resource.resourceType || 'Commerce Resource',
+      keywords: [
+        resource.stage,
+        resource.university,
+        resource.degree,
+        resource.semester,
+        resource.exam,
+        resource.unit,
+        resource.subject,
+        resource.subjectCode,
+        resource.academicYear,
+        ...(resource.keyTopics || []),
+      ].filter(Boolean).join(' '),
+    })),
+  ], [commerceResources]);
+
+  useEffect(() => {
+    let active = true;
+    getPublishedCommerceResources()
+      .then((items) => { if (active) setCommerceResources(items); })
+      .catch(() => { if (active) setCommerceResources([]); });
+    return () => { active = false; };
+  }, []);
 
   useEffect(() => {
     const onKey = (event) => {
@@ -113,7 +142,7 @@ export default function GlobalStudySearch() {
       <div className="max-w-3xl mx-auto mt-10 sm:mt-20 card-paper overflow-hidden">
         <div className="flex items-center gap-3 p-4 border-b" style={{ borderColor: 'var(--border)' }}>
           <Search className="w-5 h-5" style={{ color: 'var(--gold)' }} />
-          <input autoFocus value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search chapters, questions, notes, tests…" className="flex-1 bg-transparent outline-none text-base" style={{ color: 'var(--ink)' }} />
+          <input autoFocus value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search school, B.Com, M.Com, NET, GSET, notes, tests…" className="flex-1 bg-transparent outline-none text-base" style={{ color: 'var(--ink)' }} />
           <button onClick={() => setOpen(false)} aria-label="Close search" className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: 'var(--bg-ivory)' }}><X className="w-4 h-4" /></button>
         </div>
         <div className="p-3 sm:p-4 max-h-[65vh] overflow-y-auto">
