@@ -35,10 +35,12 @@ function structuredData(page) {
   return { '@context': 'https://schema.org', '@type': 'LearningResource', name: page.title, description: page.description, url: `${BASE}${page.path}`, educationalLevel: `CBSE Class ${page.classLevel}`, learningResourceType: page.label, isAccessibleForFree: true, inLanguage: 'en-IN', dateModified: page.updated, about: [page.chapter, page.subject], provider: { '@type': 'EducationalOrganization', name: SITE, url: BASE } };
 }
 
-function buildHtml({ path, title, description, body, schema, modifiedTime = '2026-09-01' }) {
+function buildHtml({ path, title, description, body, schema, modifiedTime = '2026-09-01', indexable = true }) {
   const fullTitle = `${title} | ${SITE}`;
   const url = `${BASE}${path}`;
-  const robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+  const robots = indexable
+    ? 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+    : 'noindex, follow, noarchive';
   const image = `${BASE}/og-image.jpg`;
   const tags = `\n    <meta name="description" content="${escapeHtml(description)}" />\n    <meta name="robots" content="${robots}" />\n    <meta name="googlebot" content="${robots}" />\n    <meta name="bingbot" content="${robots}" />\n    <link rel="canonical" href="${escapeHtml(url)}" />\n    <meta property="og:type" content="article" />\n    <meta property="og:site_name" content="${SITE}" />\n    <meta property="og:locale" content="en_IN" />\n    <meta property="og:title" content="${escapeHtml(fullTitle)}" />\n    <meta property="og:description" content="${escapeHtml(description)}" />\n    <meta property="og:url" content="${escapeHtml(url)}" />\n    <meta property="og:image" content="${image}" />\n    <meta property="article:modified_time" content="${modifiedTime}" />\n    <meta name="twitter:card" content="summary_large_image" />\n    <meta name="twitter:title" content="${escapeHtml(fullTitle)}" />\n    <meta name="twitter:description" content="${escapeHtml(description)}" />\n    <meta name="twitter:image" content="${image}" />\n    <script type="application/ld+json">${JSON.stringify(schema).replaceAll('<', '\\u003c')}</script>`;
   return source.replace(/<title>.*?<\/title>/s, `<title>${escapeHtml(fullTitle)}</title>`).replace('</head>', `${tags}\n  </head>`).replace('<div id="root"></div>', `<div id="root">${body}</div>`);
@@ -64,7 +66,7 @@ await writeRoute(hubPath, buildHtml({
 }));
 
 for (const page of growthManifest) {
-  await writeRoute(page.path, buildHtml({ path: page.path, title: page.title, description: page.description, body: pageBody(page), schema: structuredData(page), modifiedTime: page.updated }));
+  await writeRoute(page.path, buildHtml({ path: page.path, title: page.title, description: page.description, body: pageBody(page), schema: structuredData(page), modifiedTime: page.updated, indexable: page.indexable }));
 }
 
 console.log(`Pre-rendered ${1 + growthManifest.length} content-growth SEO pages.`);
