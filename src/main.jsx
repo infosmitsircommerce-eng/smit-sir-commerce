@@ -22,24 +22,8 @@ if (window.matchMedia('(min-width: 769px)').matches && !window.matchMedia('(pref
   else window.setTimeout(loadAos, 700);
 }
 
-// Promptly activate fresh app code after a deployment instead of leaving an
-// already-open PWA tab on an older cached route table.
-if ('serviceWorker' in navigator) {
-  const hadController = Boolean(navigator.serviceWorker.controller);
-  let refreshing = false;
-
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (!hadController || refreshing) return;
-    refreshing = true;
-    window.location.reload();
-  });
-
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.getRegistration()
-      .then((registration) => registration?.update())
-      .catch(() => {});
-  });
-}
+// Service-worker updates are allowed to wait until the next normal visit.
+// Never force-refresh an active study session in the middle of a page.
 
 const root = createRoot(document.getElementById('root'));
 root.render(
