@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, CheckCircle, Sparkles, GraduationCap, Calculator, FileText } from 'lucide-react';
+import { ArrowRight, BookOpen, CheckCircle, Sparkles, GraduationCap, FileText, University } from 'lucide-react';
 
 const trust = [
   { value: '26', label: 'Free PDFs Published' },
   { value: '41', label: 'Commerce Tools' },
-  { value: '11 & 12', label: 'CBSE Classes' },
-  { value: 'Free', label: 'First Demo Class' },
+  { value: 'School → College', label: 'Growing Commerce Hub' },
+  { value: 'NET + GSET', label: 'Exam Expansion' },
 ];
 
 function indiaDate() {
@@ -21,9 +21,9 @@ function indiaDate() {
 
 function LearningCard() {
   const items = [
-    [FileText, 'Free chapter-wise notes', 'CBSE + GSEB learning resources'],
-    [Calculator, '41 Commerce calculators', 'Economics + Accountancy tools'],
-    [GraduationCap, 'Practice with purpose', 'Concept clarity before memorising'],
+    [FileText, 'School Commerce resources', 'Class 11 & 12 remain the strongest library'],
+    [University, 'College Commerce', 'B.Com + M.Com semester roadmaps'],
+    [GraduationCap, 'Competitive Commerce', 'UGC NET + GSET expansion'],
   ];
 
   return (
@@ -45,9 +45,9 @@ function LearningCard() {
       <h2 style={{
         fontFamily: 'var(--font-serif)', fontSize: '2rem', color: 'var(--ink)',
         margin: '12px 0 8px', lineHeight: 1.12,
-      }}>A quieter way to learn Commerce.</h2>
+      }}>One place for the Commerce journey.</h2>
       <p style={{ color: 'var(--muted)', lineHeight: 1.7, marginBottom: 20 }}>
-        Useful resources first. No personal-photo hero, no noise — just notes, tools, practice and learning support.
+        School, college and competitive-exam Commerce resources in one growing platform — with specialist Class 11 & 12 teaching by Smit Sir.
       </p>
       <div style={{ display: 'grid', gap: 10 }}>
         {items.map(([Icon, title, text]) => (
@@ -149,7 +149,7 @@ export default function HeroSection() {
                 letterSpacing: '.09em', textTransform: 'uppercase', color: '#966313',
               }}>
                 {festival ? <Sparkles size={13} /> : <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#D5A438' }} />}
-                {festival ? 'Janmashtami 2026' : 'A different way to learn Commerce'}
+                {festival ? 'Janmashtami 2026' : 'School • College • Competitive Commerce'}
               </span>
             </div>
 
@@ -170,12 +170,12 @@ export default function HeroSection() {
                 </>
               ) : (
                 <>
-                  In a world chasing marks,
+                  Commerce, from school
                   <br />
                   <em style={{
                     fontStyle: 'normal', background: 'linear-gradient(135deg,#A66F17,#E0A72B)',
                     WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-                  }}>choose understanding.</em>
+                  }}>to college & beyond.</em>
                 </>
               )}
             </h1>
@@ -186,20 +186,20 @@ export default function HeroSection() {
             }}>
               {festival
                 ? 'May Shri Krishna bless you with wisdom, peace, curiosity and the courage to keep learning. Wishing students and families a joyful and meaningful Janmashtami.'
-                : 'Marks matter — but they are the result, not the entire purpose of education. Learn Commerce with clarity, curiosity and fun, so you understand the “why” behind every concept.'}
+                : 'A growing Commerce learning platform for Class 11 & 12, B.Com, M.Com, UGC NET and GSET — with notes, practice, tools and exam resources organised around the learner’s stage.'}
             </p>
 
             <p style={{
               fontFamily: 'var(--font-serif)', fontSize: '1.15rem', lineHeight: 1.5,
               color: 'var(--ink)', fontWeight: 650, maxWidth: 580, marginBottom: 30,
             }}>
-              {festival ? 'A small wish from Smit Sir Commerce — learning should carry both knowledge and joy.' : 'Learning with Fun. Marks as a Result.'}
+              {festival ? 'A small wish from Smit Sir Commerce — learning should carry both knowledge and joy.' : 'Specialist Class 11 & 12 teaching. Broader Commerce resources for everyone.'}
             </p>
 
             <div style={{ marginBottom: 36 }}>
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                <Link to="/cbse-notes" className="btn-primary hero-primary-cta" style={{ fontSize: 15, padding: '13px 28px' }}>
-                  {festival ? 'Explore Free Commerce Notes' : 'Start Learning Free'}
+                <Link to="/commerce-learning" className="btn-primary hero-primary-cta" style={{ fontSize: 15, padding: '13px 28px' }}>
+                  {festival ? 'Explore Commerce Learning Hub' : 'Explore All Commerce'}
                   <ArrowRight style={{ width: 15, height: 15 }} />
                 </Link>
                 <Link to="/tools" className="btn-outline-ink hero-secondary-cta" style={{ fontSize: 15 }}>
