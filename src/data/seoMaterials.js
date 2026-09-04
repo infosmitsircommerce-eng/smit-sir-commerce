@@ -382,7 +382,7 @@ export function getMaterialStructuredData(material) {
           '@type': 'EducationalAudience',
           educationalRole: 'student',
         },
-        author: { '@id': `${SITE_URL}/#teacher` },
+        author: { '@id': `${SITE_URL}/about#smit-thaker` },
         provider: { '@id': `${SITE_URL}/#organization` },
         associatedMedia: {
           '@type': 'MediaObject',
