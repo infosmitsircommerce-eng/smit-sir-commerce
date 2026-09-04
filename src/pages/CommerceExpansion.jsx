@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   ArrowRight, BookOpen, BriefcaseBusiness, CheckCircle2, FileText,
@@ -5,6 +6,8 @@ import {
 } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { bcomSemesters, mcomSemesters, commerceExamUnits, collegeResourceTypes, examResourceTypes } from '../data/commerceExpansion';
+import { getPublishedCommerceResources } from '../lib/commerceResourceStore';
+import { commerceResourceContext } from '../lib/commerceResourceModel';
 
 const BASE = 'https://www.smitsircommerce.in';
 
@@ -68,6 +71,58 @@ function SemesterGrid({ degree, semesters }) {
           </article>
         ))}
       </div>
+    </section>
+  );
+}
+
+function PublishedResourceList({ stage, degree, exam, onCount, heading = 'Published resources' }) {
+  const [resources, setResources] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+    setLoading(true);
+    getPublishedCommerceResources({ stage, degree, exam })
+      .then((items) => {
+        if (!active) return;
+        setResources(items);
+        onCount?.(items.length);
+      })
+      .catch(() => {
+        if (!active) return;
+        setResources([]);
+        onCount?.(0);
+      })
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, [stage, degree, exam, onCount]);
+
+  return (
+    <section className="mb-10">
+      <div className="flex items-center justify-between gap-3 mb-5">
+        <div><Badge>Live library</Badge><h2 className="text-3xl mt-3" style={{ color: 'var(--ink)' }}>{heading}</h2></div>
+        {!loading && resources.length > 0 && <span className="text-xs font-black uppercase tracking-widest" style={{ color: 'var(--green)' }}>{resources.length} available</span>}
+      </div>
+      {loading ? (
+        <div className="card-paper p-6 text-sm" style={{ color: 'var(--muted)' }}>Checking the published library…</div>
+      ) : resources.length === 0 ? (
+        <div className="card-paper p-6">
+          <ComingSoon />
+          <p className="text-sm leading-7 mt-3" style={{ color: 'var(--muted)' }}>No verified resource has been published in this section yet. The semester or unit roadmap stays visible while material is being added.</p>
+        </div>
+      ) : (
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+          {resources.map((resource) => (
+            <Link key={resource.slug} to={resource.path} className="card-paper p-5 group">
+              <div className="text-[10px] font-black uppercase tracking-widest" style={{ color: 'var(--gold)' }}>{resource.resourceType}</div>
+              <h3 className="text-lg font-semibold mt-2" style={{ color: 'var(--ink)' }}>{resource.title}</h3>
+              <p className="text-xs mt-2" style={{ color: 'var(--subtle)' }}>{commerceResourceContext(resource)}</p>
+              <p className="text-sm leading-6 mt-3 line-clamp-3" style={{ color: 'var(--muted)' }}>{resource.description}</p>
+              <span className="inline-flex items-center gap-1.5 mt-4 text-sm font-bold" style={{ color: 'var(--gold)' }}>Open resource <ArrowRight className="w-4 h-4" /></span>
+            </Link>
+          ))}
+        </div>
+      )}
     </section>
   );
 }
@@ -181,27 +236,34 @@ function DegreePage({ degree }) {
   const semesters = isBcom ? bcomSemesters : mcomSemesters;
   const path = isBcom ? '/college-commerce/bcom' : '/college-commerce/mcom';
   const semesterLabel = isBcom ? 'Semesters 1–6' : 'Semesters 1–4';
+  const [publishedCount, setPublishedCount] = useState(null);
+  const hasPublished = Number(publishedCount) > 0;
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
       <SEO
-        title={`${degree} Study Material Roadmap — ${semesterLabel}`}
-        description={`${degree} semester-wise Commerce resource roadmap. Common subject areas are shown while university-specific notes, PDFs, MCQs and PYQs are being prepared.`}
+        title={`${degree} Study Material — ${semesterLabel}`}
+        description={hasPublished
+          ? `Free and published ${degree} Commerce material organised by university, semester and subject, with notes, PDFs, MCQs and PYQs as available.`
+          : `${degree} semester-wise Commerce resource roadmap. Common subject areas are shown while university-specific notes, PDFs, MCQs and PYQs are being prepared.`}
         path={path}
-        noindex
+        noindex={publishedCount === null ? true : !hasPublished}
       />
       <PlatformHero
-        eyebrow={`${degree} resource roadmap`}
+        eyebrow={`${degree} resource library`}
         title={`${degree} Commerce material`}
-        accent="is being built properly."
-        description={`The ${degree} section is visible now so the structure is ready before files arrive. It is intentionally noindex while the library is still only a roadmap; search indexing can be enabled when genuine ${degree} material is published.`}
+        accent={hasPublished ? 'is now going live.' : 'is being built properly.'}
+        description={hasPublished
+          ? `Published ${degree} resources are organised by university, semester and exact subject. The semester map remains below so new material can be added without changing the structure.`
+          : `The ${degree} section is visible now so the structure is ready before files arrive. It stays out of search while the library is only a roadmap and becomes indexable after genuine ${degree} material is published.`}
       >
-        <div className="mt-6"><ComingSoon /></div>
+        <div className="mt-6">{hasPublished ? <span className="inline-flex items-center rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-wider" style={{ background: 'rgba(77,124,15,.09)', color: 'var(--green)', border: '1px solid rgba(77,124,15,.24)' }}>{publishedCount} published resource{publishedCount === 1 ? '' : 's'}</span> : <ComingSoon />}</div>
       </PlatformHero>
       <main className="page-container section-padding">
+        <PublishedResourceList stage="college" degree={degree} onCount={setPublishedCount} heading={`Published ${degree} resources`} />
         <SemesterGrid degree={degree} semesters={semesters} />
         <section className="mt-12 card-paper p-6 sm:p-8">
-          <h2 className="text-2xl" style={{ color: 'var(--ink)' }}>Future upload workflow</h2>
+          <h2 className="text-2xl" style={{ color: 'var(--ink)' }}>Upload workflow</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-5">
             {['Choose university', 'Choose semester', 'Choose exact subject', 'Attach notes / MCQs / PYQs'].map((item, index) => (
               <div key={item} className="tile-paper p-4">
@@ -272,6 +334,7 @@ function ExamPage({ type }) {
       </PlatformHero>
 
       <main className="page-container section-padding">
+        <PublishedResourceList stage="competitive" exam={label} heading={`${label} published resources`} />
         {isNet && (
           <section className="card-paper p-6 sm:p-8 mb-8">
             <div className="flex items-center gap-3"><LibraryBig className="w-6 h-6" style={{ color: 'var(--gold)' }} /><h2 className="text-2xl" style={{ color: 'var(--ink)' }}>Paper 1 — Teaching & Research Aptitude</h2></div>
