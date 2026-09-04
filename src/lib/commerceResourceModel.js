@@ -119,6 +119,14 @@ export function validateCommerceResource(resource, { publishing = false } = {}) 
     if (!resource.subject?.trim()) errors.push('Add the subject.');
   }
 
+  if (resource.externalUrl && !/^https?:\/\//i.test(resource.externalUrl.trim())) {
+    errors.push('External resource links must start with http:// or https://.');
+  }
+
+  if (resource.isOfficial && !resource.sourceLabel?.trim()) {
+    errors.push('Official-source material needs a clear source or publisher label.');
+  }
+
   if (publishing && !resource.fileUrl && !resource.externalUrl) {
     errors.push('Published resources need an uploaded PDF or a verified external link.');
   }
