@@ -98,6 +98,13 @@ function getChapterSearchMeta(path) {
     };
   }
 
+  if (path === '/cbse/class-11/microeconomics/economics-and-economy-notes') {
+    return {
+      title: 'Economics and Economy Class 11 Notes PDF | Microeconomics Chapter 1',
+      description: 'Free CBSE Class 11 Economics and Economy notes PDF for Microeconomics Chapter 1. Revise scarcity, choice, opportunity cost, economic activities, micro vs macro and types of economies.',
+    };
+  }
+
   const hub = hubByPath[material.hub_path];
   const subject = hub?.label?.replace(`Class ${material.class_level} `, '') || material.subject;
   return {
