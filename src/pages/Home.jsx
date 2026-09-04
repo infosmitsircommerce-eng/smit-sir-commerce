@@ -1,22 +1,37 @@
+import { lazy, Suspense, useEffect, useState } from 'react';
 import SEO from '../components/ui/SEO';
 import HeroSection from '../components/home/HeroSection';
-import LearningPhilosophy from '../components/home/LearningPhilosophy';
-import TrustLayer from '../components/home/TrustLayer';
-import MehsanaGrowthCampaign from '../components/home/MehsanaGrowthCampaign';
-import SeoDiscoveryLinks from '../components/home/SeoDiscoveryLinks';
-import CommerceToolsPreview from '../components/home/CommerceToolsPreview';
-import MarksRecoveryCTA from '../components/home/MarksRecoveryCTA';
-import StatsSection from '../components/home/StatsSection';
-import CoursesPreview from '../components/home/CoursesPreview';
-import AboutSection from '../components/home/AboutSection';
-import FreeResources from '../components/home/FreeResources';
-import DailyPracticeCTA from '../components/home/DailyPracticeCTA';
-import StudyCoachCTA from '../components/home/StudyCoachCTA';
-import BatchCTA from '../components/home/BatchCTA';
-import FAQSection from '../components/home/FAQSection';
-import ContactCTA from '../components/home/ContactCTA';
-import StudentJourney from '../components/home/StudentJourney';
-import SectionDivider from '../components/ui/SectionDivider';
+
+const HomeBelowFold = lazy(() => import('../components/home/HomeBelowFold'));
+
+function DeferredHomeContent() {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    let idleId;
+    let timerId;
+    const reveal = () => setReady(true);
+
+    if ('requestIdleCallback' in window) {
+      idleId = window.requestIdleCallback(reveal, { timeout: 1000 });
+    } else {
+      timerId = window.setTimeout(reveal, 550);
+    }
+
+    return () => {
+      if (idleId) window.cancelIdleCallback?.(idleId);
+      if (timerId) window.clearTimeout(timerId);
+    };
+  }, []);
+
+  if (!ready) return <div aria-hidden="true" style={{ minHeight: '240px' }} />;
+
+  return (
+    <Suspense fallback={<div aria-hidden="true" style={{ minHeight: '240px' }} />}>
+      <HomeBelowFold />
+    </Suspense>
+  );
+}
 
 export default function Home() {
   const structuredData = {
@@ -62,24 +77,7 @@ export default function Home() {
         structuredData={structuredData}
       />
       <HeroSection />
-      <LearningPhilosophy />
-      <TrustLayer />
-      <MehsanaGrowthCampaign />
-      <MarksRecoveryCTA />
-      <CommerceToolsPreview />
-      <SeoDiscoveryLinks />
-      <StatsSection />
-      <StudentJourney />
-      <DailyPracticeCTA />
-      <StudyCoachCTA />
-      <CoursesPreview />
-      <SectionDivider />
-      <AboutSection />
-      <FreeResources />
-      <BatchCTA />
-      <SectionDivider />
-      <FAQSection />
-      <ContactCTA />
+      <DeferredHomeContent />
     </>
   );
 }
