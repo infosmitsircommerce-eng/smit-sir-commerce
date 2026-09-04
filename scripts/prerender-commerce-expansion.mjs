@@ -1,6 +1,6 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
-import { commerceExamUnits } from '../src/data/commerceExpansion.js';
+import { bcomSemesters, mcomSemesters, commerceExamUnits } from '../src/data/commerceExpansion.js';
 
 const BASE = 'https://www.smitsircommerce.in';
 const SITE = 'Smit Sir Commerce';
@@ -19,7 +19,7 @@ function esc(value) {
 function buildHtml(page) {
   const fullTitle = page.title + ' | ' + SITE;
   const canonical = BASE + page.path;
-  const robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+  const robots = page.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
   const schema = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -83,7 +83,16 @@ const units = commerceExamUnits.map((unit, index) =>
   '<li><strong>Unit ' + (index + 1) + ':</strong> ' + esc(unit) + '</li>'
 ).join('');
 
+function semesterMarkup(degree, semesters) {
+  return semesters.map((sem) =>
+    '<section><h2>' + esc(degree) + ' Semester ' + sem.semester + '</h2><p>Common subject areas shown for planning only; exact university names and electives will be mapped when verified material is uploaded.</p><ul>' +
+    sem.subjects.map((subject) => '<li>' + esc(subject) + '</li>').join('') +
+    '</ul><p>Planned resource types: Notes & PDFs · MCQs · Important Questions · PYQs · Revision Sheets</p></section>'
+  ).join('');
+}
+
 const explore = '<nav aria-label="Commerce learning pathways"><h2>Explore the Commerce journey</h2><ul>' +
+  '<li><a href="/commerce-learning">All Commerce learning pathways</a></li>' +
   '<li><a href="/cbse-notes">Class 11 & 12 Commerce notes</a></li>' +
   '<li><a href="/college-commerce">B.Com & M.Com roadmap</a></li>' +
   '<li><a href="/commerce-exams">Commerce competitive exams</a></li>' +
@@ -104,6 +113,20 @@ const pages = [
     title: 'College Commerce Study Material — B.Com & M.Com',
     description: 'College Commerce study-material hub for B.Com semesters 1–6 and M.Com semesters 1–4, with university-specific notes, MCQs, PYQs and revision resources planned.',
     body: '<main class="page-container section-padding" data-prerendered="commerce-expansion"><article><h1>B.Com and M.Com college Commerce resource hub</h1><p>The college section is structured before the files arrive so future material can be placed correctly by degree, university, semester, subject and academic year. B.Com is organised across six semester slots and M.Com across four semester slots.</p><h2>Why university mapping matters</h2><p>Subject names and semester structures can differ across universities, electives, NEP or CBCS frameworks and academic years. For that reason, Smit Sir Commerce will not pretend that one generic subject list is an official syllabus for every college. The B.Com and M.Com roadmap pages are visible to users while individual subject pages will be activated only when genuine material is uploaded.</p><p><a href="/college-commerce/bcom">View the B.Com semester roadmap</a> · <a href="/college-commerce/mcom">View the M.Com semester roadmap</a></p>' + explore + '</article></main>',
+  },
+  {
+    path: '/college-commerce/bcom',
+    title: 'B.Com Study Material Roadmap — Semesters 1–6',
+    description: 'B.Com semester-wise Commerce resource roadmap. University-specific notes, PDFs, MCQs and PYQs will be activated as genuine material is uploaded.',
+    noindex: true,
+    body: '<main class="page-container section-padding" data-prerendered="commerce-expansion"><article><h1>B.Com Commerce material — semesters 1 to 6</h1><p>This roadmap is visible before the resource library is complete so the future upload structure is clear. It is intentionally kept out of search results until genuine B.Com material is available. Exact subject names vary by university, academic year, NEP/CBCS structure and electives.</p>' + semesterMarkup('B.Com', bcomSemesters) + '<h2>How future uploads will be organised</h2><ol><li>Choose the university and academic structure.</li><li>Choose the semester.</li><li>Match the exact subject name and subject code where available.</li><li>Attach verified notes, MCQs, PYQs or revision resources.</li></ol>' + explore + '</article></main>',
+  },
+  {
+    path: '/college-commerce/mcom',
+    title: 'M.Com Study Material Roadmap — Semesters 1–4',
+    description: 'M.Com semester-wise Commerce resource roadmap. University-specific postgraduate notes, PDFs, MCQs and PYQs will be activated as genuine material is uploaded.',
+    noindex: true,
+    body: '<main class="page-container section-padding" data-prerendered="commerce-expansion"><article><h1>M.Com Commerce material — semesters 1 to 4</h1><p>This postgraduate roadmap is visible before the resource library is complete so the future upload structure is clear. It is intentionally kept out of search results until genuine M.Com material is available. Exact subject names vary by university, specialisation, academic year and elective structure.</p>' + semesterMarkup('M.Com', mcomSemesters) + '<h2>How future uploads will be organised</h2><ol><li>Choose the university and programme structure.</li><li>Choose the semester.</li><li>Match the exact subject or specialisation.</li><li>Attach verified notes, MCQs, PYQs, research material or revision resources.</li></ol>' + explore + '</article></main>',
   },
   {
     path: '/commerce-exams',
