@@ -11,6 +11,12 @@ const BOOKMARKS_KEY = 'ssc-bookmarks-v1';
 const RECENT_KEY = 'ssc-recent-learning-v1';
 
 const coreItems = [
+  { title: 'Commerce Learning Hub', subtitle: 'School → B.Com/M.Com → UGC NET/GSET', path: '/commerce-learning', type: 'Commerce Hub', keywords: 'commerce school college bcom mcom ugc net gset' },
+  { title: 'College Commerce', subtitle: 'B.Com semesters 1–6 and M.Com semesters 1–4', path: '/college-commerce', type: 'College', keywords: 'bcom mcom bachelor master commerce semester college' },
+  { title: 'B.Com Resource Roadmap', subtitle: 'Semester 1 to 6 — university-specific material coming soon', path: '/college-commerce/bcom', type: 'B.Com', keywords: 'bcom semester 1 2 3 4 5 6 notes subjects' },
+  { title: 'M.Com Resource Roadmap', subtitle: 'Semester 1 to 4 — university-specific material coming soon', path: '/college-commerce/mcom', type: 'M.Com', keywords: 'mcom semester 1 2 3 4 notes subjects' },
+  { title: 'UGC NET Commerce', subtitle: 'Subject 08/008 — syllabus, units, MCQs, PYQs and mocks', path: '/ugc-net-commerce', type: 'NET', keywords: 'ugc net nta commerce 08 008 syllabus mcq pyq' },
+  { title: 'GSET Commerce', subtitle: 'Subject Code 17 — syllabus, units, MCQs, PYQs and mocks', path: '/gset-commerce', type: 'GSET', keywords: 'gset gujarat set commerce code 17 syllabus mcq pyq' },
   { title: 'Free CBSE Notes', subtitle: 'Class 11 & 12 Commerce', path: '/cbse-notes', type: 'Notes' },
   { title: 'Free CBSE Practice', subtitle: 'MCQs, important questions, case studies, numericals and revision', path: '/cbse-practice', type: 'Practice Library' },
   { title: 'GSEB Class 12 Economics', subtitle: 'Chapters 2–11 notes PDFs and practice', path: '/gseb-class-12-economics.html', type: 'GSEB Notes' },
