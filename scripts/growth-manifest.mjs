@@ -43,6 +43,7 @@ export const growthManifest = seoMaterials.flatMap((material) => {
       title: `CBSE Class ${material.class_level} ${material.chapter} ${label}`,
       description: `Practice CBSE Class ${material.class_level} ${material.chapter} with ${intent}. Original study material by Smit Sir Commerce; not an official CBSE paper.`,
       updated: '2026-09-01',
+      indexable: ['assertion-reason', 'numericals'].includes(type),
     };
   });
 });
