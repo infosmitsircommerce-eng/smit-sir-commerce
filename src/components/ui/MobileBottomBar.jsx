@@ -1,4 +1,3 @@
-import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, BookOpen, Brain, BarChart3, CalendarCheck2 } from 'lucide-react';
 
@@ -15,10 +14,7 @@ export default function MobileBottomBar() {
   const isActive = (path) => path === '/' ? pathname === '/' : pathname.startsWith(path);
 
   return (
-    <motion.div
-      initial={{ y: 100 }}
-      animate={{ y: 0 }}
-      transition={{ delay: 0.25, type: 'spring', stiffness: 260, damping: 28 }}
+    <div
       className="mobile-bottom-shell fixed bottom-0 left-0 right-0 z-40 lg:hidden"
       style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
     >
@@ -36,25 +32,12 @@ export default function MobileBottomBar() {
                 aria-label={tab.highlight ? 'Book your free demo class' : tab.label}
               >
                 {tab.highlight ? (
-                  <motion.div
-                    whileTap={{ scale: 0.92 }}
-                    className="mobile-demo-orb w-12 h-12 rounded-2xl flex items-center justify-center -mt-5"
-                  >
+                  <div className="mobile-demo-orb w-12 h-12 rounded-2xl flex items-center justify-center -mt-5 active:scale-95 transition-transform">
                     <Icon className="w-5 h-5 text-navy-950" strokeWidth={2.6} />
-                  </motion.div>
+                  </div>
                 ) : (
                   <div className="relative w-10 h-8 flex items-center justify-center">
-                    <AnimatePresence>
-                      {active && (
-                        <motion.div
-                          layoutId="activeMobileTab"
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.8 }}
-                          className="mobile-tab-active absolute inset-0 rounded-xl"
-                        />
-                      )}
-                    </AnimatePresence>
+                    {active && <div className="mobile-tab-active absolute inset-0 rounded-xl" />}
                     <Icon
                       className="w-5 h-5 relative z-10 transition-all"
                       style={{ color: active ? '#D9AC5C' : 'rgba(148,163,184,0.72)' }}
@@ -73,6 +56,6 @@ export default function MobileBottomBar() {
           })}
         </nav>
       </div>
-    </motion.div>
+    </div>
   );
 }
