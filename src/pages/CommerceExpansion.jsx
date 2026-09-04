@@ -36,7 +36,7 @@ function PlatformHero({ eyebrow, title, accent, description, children }) {
   );
 }
 
-function SemesterGrid({ degree, semesters }) {
+function SemesterGrid({ degree, semesters, hasPublished = false }) {
   return (
     <section>
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 mb-7">
@@ -47,7 +47,7 @@ function SemesterGrid({ degree, semesters }) {
             The subject names below are common Commerce subject areas, not a claim that every university follows the same syllabus. Exact university, CBCS/NEP, elective and academic-year mapping will be attached when the corresponding material is uploaded.
           </p>
         </div>
-        <ComingSoon />
+        {hasPublished ? <span className="inline-flex items-center rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-wider" style={{ background: 'rgba(77,124,15,.09)', color: 'var(--green)', border: '1px solid rgba(77,124,15,.24)' }}>Live + expanding</span> : <ComingSoon />}
       </div>
       <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
         {semesters.map((sem) => (
@@ -204,6 +204,7 @@ function CollegeHome() {
         </div>
       </PlatformHero>
       <main className="page-container section-padding">
+        <PublishedResourceList stage="college" heading="Published college resources" />
         <div className="grid md:grid-cols-2 gap-5">
           <Link to="/college-commerce/bcom" className="card-paper p-7">
             <University className="w-8 h-8" style={{ color: 'var(--gold)' }} />
@@ -261,7 +262,7 @@ function DegreePage({ degree }) {
       </PlatformHero>
       <main className="page-container section-padding">
         <PublishedResourceList stage="college" degree={degree} onCount={setPublishedCount} heading={`Published ${degree} resources`} />
-        <SemesterGrid degree={degree} semesters={semesters} />
+        <SemesterGrid degree={degree} semesters={semesters} hasPublished={hasPublished} />
         <section className="mt-12 card-paper p-6 sm:p-8">
           <h2 className="text-2xl" style={{ color: 'var(--ink)' }}>Upload workflow</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-5">
@@ -289,6 +290,7 @@ function ExamHome() {
         description="A dedicated exam layer is being added for Commerce aspirants. UGC NET Commerce and GSET Commerce will have separate exam hubs while sharing high-quality unit-wise Commerce learning resources where the syllabus overlaps."
       />
       <main className="page-container section-padding">
+        <PublishedResourceList stage="competitive" heading="Published competitive Commerce resources" />
         <div className="grid md:grid-cols-2 gap-5">
           <Link to="/ugc-net-commerce" className="card-paper p-7">
             <ScrollText className="w-8 h-8" style={{ color: 'var(--gold)' }} />
