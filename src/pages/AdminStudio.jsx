@@ -1,12 +1,20 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Activity, AlertCircle, BarChart3, CheckCircle2, Database, FileJson, Loader2, Plus, Save, ShieldCheck, Trash2 } from 'lucide-react';
+import { Activity, AlertCircle, BarChart3, CheckCircle2, Database, ExternalLink, FileJson, FileText, Loader2, Plus, Save, ShieldCheck, Trash2, Upload } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 import SEO from '../components/ui/SEO';
+import { buildCommerceResourcePath, COMMERCE_DEGREES, COMMERCE_EXAMS, COMMERCE_RESOURCE_STAGES, COMMERCE_RESOURCE_TYPES, slugifyResource, validateCommerceResource } from '../lib/commerceResourceModel';
 
 const emptyQuestion = () => ({ question: '', topic: '', options: ['', '', '', ''], answer: 0, explanation: '' });
 const emptyTest = () => ({ name: '', slug: '', subject: 'Economics', classLevel: 12, chapter: '', minutes: 20, difficulty: 'Medium', isFree: true, board: 'CBSE', questions: [emptyQuestion()] });
+const emptyResource = () => ({
+  title: '', slug: '', stage: 'college', university: '', degree: 'B.Com', semester: 1,
+  exam: 'UGC NET Commerce', unit: 1, board: 'CBSE', classLevel: 11, subject: '',
+  subjectCode: '', resourceType: 'Notes & PDF', description: '', academicYear: '',
+  sourceLabel: '', externalUrl: '', storagePath: '', fileUrl: '', isOfficial: false,
+  isFree: true, pages: '', keyTopicsText: '', notes: '', seoTitle: '', seoDescription: '',
+});
 
 function slugify(text) {
   return String(text || '').toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 90);
@@ -17,6 +25,9 @@ export default function AdminStudio() {
   const [tab, setTab] = useState('content');
   const [form, setForm] = useState(emptyTest);
   const [items, setItems] = useState([]);
+  const [resourceItems, setResourceItems] = useState([]);
+  const [resourceForm, setResourceForm] = useState(emptyResource);
+  const [resourceFile, setResourceFile] = useState(null);
   const [events, setEvents] = useState([]);
   const [database, setDatabase] = useState({ content_items: 'checking', learning_events: 'checking', student_learning_state: 'checking', test_attempts: 'checking' });
   const [busy, setBusy] = useState(false);
@@ -39,6 +50,8 @@ export default function AdminStudio() {
     if (!checks[0].error) {
       const rows = await supabase.from('content_items').select('id,slug,type,status,payload,updated_at').eq('type', 'test').order('updated_at', { ascending: false }).limit(100);
       setItems(rows.data || []);
+      const resourceRows = await supabase.from('content_items').select('id,slug,type,status,payload,updated_at').eq('type', 'resource').order('updated_at', { ascending: false }).limit(250);
+      setResourceItems(resourceRows.data || []);
     }
     if (!checks[1].error) {
       const rows = await supabase.from('learning_events').select('event_name,path,metadata,created_at').order('created_at', { ascending: false }).limit(1000);
