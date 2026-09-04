@@ -67,8 +67,8 @@ function escapeHtml(value) {
 function chapterMeta(material) {
   const hub = hubById[material.hubId];
   const subject = hub?.label?.replace(`Class ${material.class_level} `, '') || material.subject;
-  const title = `Free CBSE Class ${material.class_level} ${subject} Chapter ${material.chapterNumber} ${material.chapter} Notes PDF`;
-  const description = `Free CBSE Class ${material.class_level} ${subject} Chapter ${material.chapterNumber} ${material.chapter} notes PDF. View online or download chapter-wise notes with key topics, important questions, MCQs and exam-focused revision.`;
+  const title = material.gscTitle || `Free CBSE Class ${material.class_level} ${subject} Chapter ${material.chapterNumber} ${material.chapter} Notes PDF`;
+  const description = material.gscDescription || `Free CBSE Class ${material.class_level} ${subject} Chapter ${material.chapterNumber} ${material.chapter} notes PDF. View online or download chapter-wise notes with key topics, important questions, MCQs and exam-focused revision.`;
   return { title, description, subject };
 }
 
@@ -201,11 +201,15 @@ for (const file of htmlFiles) {
     html = replaceMetaContent(html, /<meta\s+name=["']twitter:title["'][^>]*>/i, fullTitle);
     html = replaceMetaContent(html, /<meta\s+name=["']twitter:description["'][^>]*>/i, description);
 
-    const exactHeading = `${title}`;
-    html = html.replace(
-      /<h1>.*?Notes PDF\s*[—-]\s*CBSE Class\s*\d+<\/h1>/is,
-      `<h1>${escapeHtml(exactHeading)}</h1>`
-    );
+    const exactHeading = material.gscH1 || `${title}`;
+    if (material.gscH1) {
+      html = html.replace(/<h1[^>]*>.*?<\/h1>/is, `<h1>${escapeHtml(exactHeading)}</h1>`);
+    } else {
+      html = html.replace(
+        /<h1>.*?Notes PDF\s*[—-]\s*CBSE Class\s*\d+<\/h1>/is,
+        `<h1>${escapeHtml(exactHeading)}</h1>`
+      );
+    }
     html = html.replace(
       '<h2>Chapter overview</h2>',
       `<h2>${escapeHtml(material.chapter)} chapter overview and revision notes</h2>`
