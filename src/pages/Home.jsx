@@ -71,7 +71,7 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Commerce Learning Hub — Notes, Tools, College & Exam Prep"
+        title="Commerce Notes, Tools & Exam Resources — School to NET"
         description="A growing Commerce learning platform for Class 11 & 12, B.Com, M.Com, UGC NET and GSET with notes, PDFs, practice and tools. Specialist Class 11 & 12 teaching by Smit Sir."
         path="/"
         structuredData={structuredData}
