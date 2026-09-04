@@ -138,7 +138,17 @@
 
           addScript('https://www.googletagmanager.com/gtag/js?id=G-6ZVG9CJEG8', 'data-ga-loader');
           window.setTimeout(function () {
-            addScript('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8111198978029240', 'data-adsense-loader');
+            var path = window.location.pathname || '/';
+            var blockedForAds =
+              /^\/(?:login|onboarding|admin(?:\/|$)|admin-studio|dashboard|learning-insights|my-data|contact|book-demo|demo-success|marks-recovery|pdf-viewer|reel|ask)(?:\/|$)/.test(path) ||
+              /^\/practice\//.test(path) ||
+              /^\/(?:daily-practice|study-coach|exam-mode)(?:\/|$)/.test(path) ||
+              /^\/tests\//.test(path) ||
+              /^\/(?:privacy|terms|access-policy)(?:\/|$)/.test(path);
+
+            if (!blockedForAds) {
+              addScript('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8111198978029240', 'data-adsense-loader');
+            }
           }, 1200);
         }
 
