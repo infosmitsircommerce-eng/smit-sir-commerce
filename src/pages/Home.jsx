@@ -42,7 +42,7 @@ export default function Home() {
         '@id': 'https://www.smitsircommerce.in/#website',
         url: 'https://www.smitsircommerce.in/',
         name: 'Smit Sir Commerce',
-        description: 'Free CBSE Commerce notes, chapter-wise study material, calculators, marks-recovery diagnostics, practice resources and Commerce coaching for Class 11 and 12 students.',
+        description: 'A growing Commerce learning platform with school, college and competitive-exam resources: Class 11 & 12, B.Com, M.Com, UGC NET Commerce, GSET Commerce, notes, tools and practice.',
         inLanguage: 'en-IN',
         publisher: { '@id': 'https://www.smitsircommerce.in/#organization' },
       },
@@ -52,15 +52,15 @@ export default function Home() {
         name: 'Smit Sir Commerce',
         url: 'https://www.smitsircommerce.in/',
         areaServed: ['India', 'Mehsana, Gujarat'],
-        description: 'Commerce learning platform focused on concept clarity, curiosity and learning with fun, with free CBSE notes, Economics and Accountancy learning calculators, a Commerce Marks Leak recovery diagnostic, study resources plus online and offline coaching for Class 11 and 12.',
-        knowsAbout: ['CBSE Commerce', 'Economics', 'Business Studies', 'Entrepreneurship', 'Physical Education', 'Accountancy learning resources', 'Microeconomics', 'Macroeconomics', 'Commerce exam mistake analysis'],
+        description: 'Commerce learning platform spanning school, college and competitive-exam resources, with specialist Class 11 and 12 teaching by Smit Sir and a growing library for B.Com, M.Com, UGC NET and GSET Commerce.',
+        knowsAbout: ['Commerce education', 'CBSE Commerce', 'Class 11 Commerce', 'Class 12 Commerce', 'B.Com learning resources', 'M.Com learning resources', 'UGC NET Commerce', 'GSET Commerce', 'Economics', 'Business Studies', 'Accountancy learning resources'],
       },
       {
         '@type': 'WebPage',
         '@id': 'https://www.smitsircommerce.in/#home',
         url: 'https://www.smitsircommerce.in/',
-        name: 'Free CBSE Commerce Notes, Calculators & Practice Class 11 & 12',
-        description: 'Free chapter-wise CBSE Commerce notes, Economics and Accountancy learning calculators, marks-recovery diagnostic, PDFs, practice resources and concept-focused exam preparation for Class 11 and 12 students.',
+        name: 'Commerce Learning Hub — School, College & Competitive Exams',
+        description: 'Commerce learning resources across Class 11 & 12, B.Com, M.Com, UGC NET Commerce and GSET Commerce, with notes, PDFs, tools, practice and exam preparation.',
         isPartOf: { '@id': 'https://www.smitsircommerce.in/#website' },
         about: { '@id': 'https://www.smitsircommerce.in/#organization' },
         inLanguage: 'en-IN',
@@ -71,8 +71,8 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Free CBSE Commerce Notes, Calculators & Practice Class 11 & 12"
-        description="Learn CBSE Commerce with concept clarity and fun. Free notes, Economics and Accountancy learning calculators, marks-recovery tools, chapter-wise PDFs, practice resources and coaching by Smit Sir."
+        title="Commerce Learning Hub — Notes, Tools, College & Exam Prep"
+        description="A growing Commerce learning platform for Class 11 & 12, B.Com, M.Com, UGC NET and GSET with notes, PDFs, practice and tools. Specialist Class 11 & 12 teaching by Smit Sir."
         path="/"
         structuredData={structuredData}
       />
