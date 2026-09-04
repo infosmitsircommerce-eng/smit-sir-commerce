@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, BookOpen, Brain, Calculator, Download, Eye, FileText, Search } from 'lucide-react';
+import { ArrowRight, BookOpen, Brain, Calculator, Download, Eye, FileText, Search, University } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/ui/SEO';
 import { materialTypes } from '../data/studyMaterial';
@@ -10,8 +10,8 @@ import { gsebMaterials } from '../data/gsebMaterials';
 const allMaterials = [...seoMaterials, ...gsebMaterials];
 const initialBoard = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('board')?.toUpperCase() === 'GSEB' ? 'GSEB' : 'CBSE';
 const PATH = '/study-material';
-const TITLE = 'Free Commerce Study Material | CBSE & GSEB Class 11 12';
-const DESCRIPTION = 'Free chapter-wise Commerce study material for CBSE and GSEB Class 11 and 12. Browse Economics, Business Studies, PDFs, practice resources and useful Commerce tools.';
+const TITLE = 'Commerce Study Material — School, College & Exam Resources';
+const DESCRIPTION = 'Browse published Class 11 & 12 Commerce material and explore the growing B.Com, M.Com, UGC NET and GSET resource roadmap on Smit Sir Commerce.';
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -87,6 +87,17 @@ export default function StudyMaterial() {
     <SEO title={TITLE} description={DESCRIPTION} path={PATH} structuredData={structuredData} />
     <div className="page-hero"><div className="page-container text-center"><span className="eyebrow">CBSE + GSEB Study Resources</span><h1 className="mt-5">Study <em>material.</em></h1><p className="mx-auto">Choose your board, subject and chapter. CBSE and GSEB resources stay clearly separated.</p><div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium" style={{ background: 'rgba(77,124,15,0.08)', border: '1px solid rgba(77,124,15,0.25)', color: 'var(--green)' }}>✓ Published study resources are free to open</div></div></div>
     <div className="page-container section-padding">
+      <section className="mb-10 rounded-2xl p-5 sm:p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-5" style={{ background: '#fff', border: '1px solid var(--border)' }}>
+        <div className="flex items-start gap-4">
+          <div className="w-11 h-11 rounded-xl grid place-items-center shrink-0" style={{ background: 'var(--gold-bg)' }}><University className="w-5 h-5" style={{ color: 'var(--gold)' }} /></div>
+          <div>
+            <div className="text-xs font-black uppercase tracking-widest" style={{ color: 'var(--gold)' }}>College Commerce is expanding</div>
+            <h2 className="text-2xl mt-1" style={{ color: 'var(--ink)' }}>B.Com &amp; M.Com semester-wise material roadmap</h2>
+            <p className="text-sm leading-6 mt-2 max-w-3xl" style={{ color: 'var(--muted)' }}>Class 11 &amp; 12 resources below are available now. The college section is already structured for B.Com semesters 1–6 and M.Com semesters 1–4, with university-specific files to be activated as they are uploaded.</p>
+          </div>
+        </div>
+        <Link to="/college-commerce" className="btn-outline-ink inline-flex items-center justify-center gap-2 shrink-0">Explore College Commerce <ArrowRight className="w-4 h-4" /></Link>
+      </section>
       <section className="mb-12" aria-labelledby="study-path-heading">
         <div className="text-center max-w-3xl mx-auto mb-7"><span className="eyebrow">Study smarter</span><h2 id="study-path-heading" className="text-3xl mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Move from notes to practice, not random pages</h2><p className="mt-3" style={{ color: 'var(--muted)' }}>Use these connected learning hubs to keep the same subject and chapter context while you revise.</p></div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
