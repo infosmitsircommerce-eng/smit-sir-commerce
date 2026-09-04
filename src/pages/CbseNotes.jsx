@@ -72,8 +72,17 @@ const structuredData = {
 };
 
 export default function CbseNotes() {
-  const totalChapters = seoHubs.reduce((total, hub) => total + getHubMaterials(hub.id).length, 0);
-  const popularNotes = seoHubs.flatMap((hub) => getHubMaterials(hub.id).slice(0, 3));
+  const allNotes = seoHubs.flatMap((hub) => getHubMaterials(hub.id));
+  const totalChapters = allNotes.length;
+  const priorityPaths = new Set([
+    '/cbse/class-12/business-studies/controlling-notes',
+    '/cbse/class-11/microeconomics/economics-and-economy-notes',
+  ]);
+  const priorityNotes = allNotes.filter((material) => priorityPaths.has(material.seo_path));
+  const popularNotes = [
+    ...priorityNotes,
+    ...allNotes.filter((material) => !priorityPaths.has(material.seo_path)).slice(0, 4),
+  ];
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
@@ -181,9 +190,9 @@ export default function CbseNotes() {
         </section>
 
         <section className="mt-12">
-          <span className="eyebrow">Start with a chapter</span>
+          <span className="eyebrow">Google is already finding these chapters</span>
           <h2 className="text-3xl mt-3 mb-7" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>
-            Popular free CBSE Commerce notes PDFs
+            High-priority free CBSE Commerce notes PDFs
           </h2>
           <div className="grid md:grid-cols-2 gap-4">
             {popularNotes.map((material) => (
