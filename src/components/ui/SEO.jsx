@@ -90,6 +90,14 @@ const SITEWIDE_ENTITY = {
 function getChapterSearchMeta(path) {
   const material = materialByPath[path];
   if (!material) return null;
+
+  if (path === '/cbse/class-12/business-studies/controlling-notes') {
+    return {
+      title: 'Controlling Class 12 Notes PDF | Business Studies Chapter 8',
+      description: 'Free CBSE Class 12 Business Studies Controlling notes PDF for Chapter 8. Revise meaning, importance, planning-controlling relationship, control process, management by exception and corrective action.',
+    };
+  }
+
   const hub = hubByPath[material.hub_path];
   const subject = hub?.label?.replace(`Class ${material.class_level} `, '') || material.subject;
   return {
