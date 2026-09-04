@@ -7,7 +7,7 @@ import { isLightRoute } from '../../lib/theme';
 const navLinks = [
   { label: 'Home', path: '/' },
   {
-    label: 'Learn',
+    label: 'School',
     children: [
       { label: 'Courses', path: '/courses' },
       { label: 'Free CBSE Notes', path: '/cbse-notes' },
@@ -16,6 +16,17 @@ const navLinks = [
       { label: 'CBSE PYQ & Sample Papers', path: '/cbse-pyq' },
       { label: 'Lectures', path: '/lectures' },
       { label: 'Study Toolkit', path: '/study-tools' },
+    ],
+  },
+  {
+    label: 'College & Exams',
+    children: [
+      { label: 'All Commerce Learning', path: '/commerce-learning' },
+      { label: 'College Commerce', path: '/college-commerce' },
+      { label: 'B.Com Sem 1–6', path: '/college-commerce/bcom' },
+      { label: 'M.Com Sem 1–4', path: '/college-commerce/mcom' },
+      { label: 'UGC NET Commerce', path: '/ugc-net-commerce' },
+      { label: 'GSET Commerce', path: '/gset-commerce' },
     ],
   },
   {
