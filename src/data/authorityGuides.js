@@ -198,8 +198,8 @@ export const authorityGuides = [
       ['How often should I take a timed test?','Use timed tests after you have revised the relevant concepts. The useful frequency depends on your exam date and current preparation; analyse mistakes after every attempt.'],
       ['What if a chapter note is not published on the website yet?','Use your prescribed textbook, school material and official resources for that chapter. The website should not be treated as complete until the relevant material is explicitly published.'],
     ],
-  },,
-{
+  },
+  {
     path: '/cbse/class-12/economics-national-income-numericals',
     title: 'CBSE Class 12 National Income Numericals with Formula Map & Practice',
     shortTitle: 'Class 12 National Income Numericals',
