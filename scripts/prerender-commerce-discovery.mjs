@@ -166,4 +166,4 @@ for (const collection of collections) {
   await writeRoute(collection.path, html);
 }
 
-console.log('Pre-rendered ' + collections.length + ' live Commerce discovery collection pages.');
+console.log('Pre-rendered ' + collections.length + ' live Commerce discovery collection pages from ' + resources.length + ' published resources.');
