@@ -41,8 +41,17 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-createRoot(document.getElementById('root')).render(
+const root = createRoot(document.getElementById('root'));
+root.render(
   <StrictMode>
     <App />
   </StrictMode>,
-)
+);
+
+// Keep the neutral startup layer in place until React and the critical CSS
+// have painted. This prevents the prerendered SEO HTML from flashing as raw text.
+window.requestAnimationFrame(() => {
+  window.requestAnimationFrame(() => {
+    document.getElementById('app-startup-mask')?.remove();
+  });
+});
