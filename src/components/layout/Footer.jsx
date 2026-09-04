@@ -3,6 +3,10 @@ import { GraduationCap, Mail, MapPin, ShieldCheck, CircleHelp, FileText, LockKey
 
 const quickLinks = [
   { label: 'Home', path: '/' },
+  { label: 'Commerce Learning Hub', path: '/commerce-learning' },
+  { label: 'B.Com & M.Com', path: '/college-commerce' },
+  { label: 'UGC NET Commerce', path: '/ugc-net-commerce' },
+  { label: 'GSET Commerce', path: '/gset-commerce' },
   { label: 'Free Commerce Study Pack', path: '/free-commerce-study-pack' },
   { label: 'Free Commerce Calculators', path: '/tools' },
   { label: 'Commerce Tuition Mehsana', path: '/commerce-coaching-mehsana' },
@@ -55,7 +59,7 @@ export default function Footer() {
               <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #C9A050, #B8872F)', boxShadow: '0 4px 18px rgba(184,135,47,0.3)' }}><GraduationCap className="w-6 h-6" style={{ color: '#1E1812' }} /></div>
               <div><div className="text-lg leading-tight" style={headingStyle}>Smit Sir</div><div className="text-sm leading-tight" style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, letterSpacing: '0.16em', color: 'var(--gold-bright)' }}>COMMERCE</div></div>
             </Link>
-            <p className="text-sm leading-relaxed mb-3" style={mutedLink}>Class 11 &amp; 12 Commerce learning in Mehsana for Economics, Business Studies and Entrepreneurship, with supporting study resources, calculators, practice and tests.</p>
+            <p className="text-sm leading-relaxed mb-3" style={mutedLink}>A growing Commerce learning platform for school, college and competitive-exam students — with Smit Sir personally specialising in Class 11 &amp; 12 Commerce teaching.</p>
             <a href="mailto:infosmitsircommerce@gmail.com" className="text-sm font-semibold transition-colors inline-block" style={{ color: 'var(--gold-bright)' }}>Email support</a>
           </div>
 
@@ -65,10 +69,11 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-5" style={headingStyle}>Subjects</h4>
+            <h4 className="mb-5" style={headingStyle}>Commerce Pathways</h4>
             <div className="space-y-4">
               <div><div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--gold-bright)' }}>Local subject pages</div><ul className="space-y-1">{localSubjectLinks.map((s) => <li key={s.path}><FooterLink to={s.path}>{s.label}</FooterLink></li>)}</ul></div>
               <div><div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--gold-bright)' }}>Class 11 &amp; 12</div><ul className="space-y-1">{classLinks.map((s) => <li key={s}><FooterLink to="/courses">{s}</FooterLink></li>)}</ul></div>
+              <div><div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--gold-bright)' }}>College & competitive exams</div><ul className="space-y-1"><li><FooterLink to="/college-commerce">B.Com &amp; M.Com</FooterLink></li><li><FooterLink to="/ugc-net-commerce">UGC NET Commerce</FooterLink></li><li><FooterLink to="/gset-commerce">GSET Commerce</FooterLink></li></ul></div>
             </div>
           </div>
 
