@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { CheckCircle2, ExternalLink, FileText, Loader2, Save, Trash2, Upload } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { supabase } from '../../lib/supabase';
 import {
   buildCommerceResourcePath,
   COMMERCE_DEGREES,
@@ -9,7 +9,7 @@ import {
   COMMERCE_RESOURCE_TYPES,
   slugifyResource,
   validateCommerceResource,
-} from '../lib/commerceResourceModel';
+} from '../../lib/commerceResourceModel';
 
 const emptyResource = () => ({
   title: '',
