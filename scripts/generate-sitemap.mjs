@@ -8,8 +8,11 @@ import { toolClusters } from '../src/data/toolClusters.js';
 import { localizedPilotPages, localizedAlternatesByPath } from '../src/data/localizedPilot.js';
 import { growthManifest } from './growth-manifest.mjs';
 import { examTests } from '../src/data/examBank.js';
+import { fetchPublishedCommerceResources, publishedDegreeState } from './commerce-resource-manifest.mjs';
 
 const BASE = 'https://www.smitsircommerce.in';
+const publishedCommerceResources = await fetchPublishedCommerceResources();
+const degreeState = publishedDegreeState(publishedCommerceResources);
 const basePages = [
   ['/', 'weekly', '1.0'], ['/commerce-learning', 'weekly', '0.98'], ['/college-commerce', 'weekly', '0.85'], ['/commerce-exams', 'weekly', '0.9'], ['/ugc-net-commerce', 'weekly', '0.9'], ['/gset-commerce', 'weekly', '0.9'], ['/courses', 'weekly', '0.9'], ['/study-material', 'weekly', '0.9'],
   ['/cbse-notes', 'weekly', '1.0'], ['/cbse-practice', 'weekly', '1.0'], ['/cbse-pyq', 'weekly', '0.9'],
@@ -20,6 +23,11 @@ const basePages = [
   ['/live-classes', 'weekly', '0.7'], ['/online-batch', 'monthly', '0.8'], ['/offline-batch', 'monthly', '0.8'],
   ['/book-demo', 'monthly', '0.9'], ['/about', 'monthly', '0.6'], ['/contact', 'monthly', '0.7'],
   ['/faq', 'monthly', '0.6'], ['/privacy', 'yearly', '0.3'], ['/terms', 'yearly', '0.3'], ['/access-policy', 'yearly', '0.4'],
+];
+
+const activeCollegePages = [
+  ...(degreeState.bcom ? [['/college-commerce/bcom', 'weekly', '0.88']] : []),
+  ...(degreeState.mcom ? [['/college-commerce/mcom', 'weekly', '0.88']] : []),
 ];
 
 function urlEntry(path, changefreq, priority, lastmod='') {
@@ -37,6 +45,8 @@ function urlEntry(path, changefreq, priority, lastmod='') {
 
 const entries=[
   ...basePages.map(([p,f,pr])=>urlEntry(p,f,pr)),
+  ...activeCollegePages.map(([p,f,pr])=>urlEntry(p,f,pr)),
+  ...publishedCommerceResources.map((resource)=>urlEntry(resource.path,'weekly','0.86',String(resource.updatedAt || '').slice(0,10))),
   ...toolClusters.map(cluster=>urlEntry(`/tools/topics/${cluster.slug}`,'weekly','0.96','2026-09-03')),
   ...commerceTools.map(tool=>urlEntry(`/tools/${tool.slug}`,'monthly','0.92','2026-09-03')),
   ...localSeoPages.map(page=>urlEntry(page.path,'weekly','0.95','2026-09-03')),
@@ -51,4 +61,4 @@ const entries=[
 
 const xml=`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${entries.join('\n')}\n</urlset>\n`;
 await writeFile(new URL('../public/sitemap.xml',import.meta.url),xml,'utf8');
-console.log(`Generated sitemap with ${entries.length} indexable URLs (${commerceTools.length} Commerce calculator pages, ${toolClusters.length} Commerce topic clusters, ${localizedPilotPages.length} Hindi/Gujarati pilot pages, 1 Marks Recovery diagnostic, 1 free Commerce study pack, ${localSeoPages.length} Mehsana local pages, ${gsebMaterials.length} GSEB chapter pages, ${authorityGuides.length} evergreen guides, ${growthManifest.length} CBSE chapter-practice pages).`);
+console.log(`Generated sitemap with ${entries.length} indexable URLs (${publishedCommerceResources.length} published college/competitive Commerce resources, ${commerceTools.length} Commerce calculator pages, ${toolClusters.length} Commerce topic clusters, ${localizedPilotPages.length} Hindi/Gujarati pilot pages, ${localSeoPages.length} Mehsana local pages, ${gsebMaterials.length} GSEB chapter pages).`);
