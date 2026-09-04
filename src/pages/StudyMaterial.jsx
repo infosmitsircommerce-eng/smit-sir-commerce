@@ -1,13 +1,35 @@
 import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Brain, Download, Eye, FileText, Search } from 'lucide-react';
+import { ArrowRight, BookOpen, Brain, Calculator, Download, Eye, FileText, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/ui/SEO';
 import { materialTypes } from '../data/studyMaterial';
 import { seoHubs, seoMaterials } from '../data/seoMaterials';
 import { gsebMaterials } from '../data/gsebMaterials';
 
 const allMaterials = [...seoMaterials, ...gsebMaterials];
 const initialBoard = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('board')?.toUpperCase() === 'GSEB' ? 'GSEB' : 'CBSE';
+const PATH = '/study-material';
+const TITLE = 'Free Commerce Study Material | CBSE & GSEB Class 11 12';
+const DESCRIPTION = 'Free chapter-wise Commerce study material for CBSE and GSEB Class 11 and 12. Browse Economics, Business Studies, PDFs, practice resources and useful Commerce tools.';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: TITLE,
+  description: DESCRIPTION,
+  url: `https://www.smitsircommerce.in${PATH}`,
+  isAccessibleForFree: true,
+  inLanguage: 'en-IN',
+  about: [
+    'CBSE Class 11 Commerce study material',
+    'CBSE Class 12 Commerce study material',
+    'GSEB Commerce study material',
+    'Economics notes',
+    'Business Studies notes',
+    'Commerce practice resources',
+  ],
+};
 
 function MaterialCard({ material }) {
   const isFree = material.isFree ?? material.is_free;
@@ -62,8 +84,18 @@ export default function StudyMaterial() {
   const inputStyle = { background: 'var(--bg-white)', border: '1px solid var(--border)', borderRadius: '12px', color: 'var(--ink)', padding: '12px 16px', fontFamily: 'var(--font-sans)', fontSize: '14px', width: '100%' };
 
   return <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
+    <SEO title={TITLE} description={DESCRIPTION} path={PATH} structuredData={structuredData} />
     <div className="page-hero"><div className="page-container text-center"><span className="eyebrow">CBSE + GSEB Study Resources</span><h1 className="mt-5">Study <em>material.</em></h1><p className="mx-auto">Choose your board, subject and chapter. CBSE and GSEB resources stay clearly separated.</p><div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium" style={{ background: 'rgba(77,124,15,0.08)', border: '1px solid rgba(77,124,15,0.25)', color: 'var(--green)' }}>✓ Published study resources are free to open</div></div></div>
     <div className="page-container section-padding">
+      <section className="mb-12" aria-labelledby="study-path-heading">
+        <div className="text-center max-w-3xl mx-auto mb-7"><span className="eyebrow">Study smarter</span><h2 id="study-path-heading" className="text-3xl mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Move from notes to practice, not random pages</h2><p className="mt-3" style={{ color: 'var(--muted)' }}>Use these connected learning hubs to keep the same subject and chapter context while you revise.</p></div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Link to="/cbse-notes" className="card-paper p-5 group"><BookOpen className="w-6 h-6 mb-4" style={{ color: 'var(--gold)' }} /><h3 className="text-lg font-semibold" style={{ color: 'var(--ink)' }}>CBSE Commerce notes</h3><p className="text-sm mt-2 leading-6" style={{ color: 'var(--muted)' }}>Browse Class 11 and 12 subject hubs and chapter-wise notes.</p><span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold" style={{ color: 'var(--gold)' }}>Open notes hub <ArrowRight className="w-4 h-4" /></span></Link>
+          <Link to="/cbse-practice" className="card-paper p-5 group"><Brain className="w-6 h-6 mb-4" style={{ color: 'var(--gold)' }} /><h3 className="text-lg font-semibold" style={{ color: 'var(--ink)' }}>Chapter practice</h3><p className="text-sm mt-2 leading-6" style={{ color: 'var(--muted)' }}>Continue with MCQs, important questions, case studies and numericals.</p><span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold" style={{ color: 'var(--gold)' }}>Start practice <ArrowRight className="w-4 h-4" /></span></Link>
+          <Link to="/tools" className="card-paper p-5 group"><Calculator className="w-6 h-6 mb-4" style={{ color: 'var(--gold)' }} /><h3 className="text-lg font-semibold" style={{ color: 'var(--ink)' }}>Commerce calculators</h3><p className="text-sm mt-2 leading-6" style={{ color: 'var(--muted)' }}>Use formula tools for numerical topics without leaving the learning flow.</p><span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold" style={{ color: 'var(--gold)' }}>Open free tools <ArrowRight className="w-4 h-4" /></span></Link>
+          <a href="/gseb-class-12-economics.html" className="card-paper p-5 group"><FileText className="w-6 h-6 mb-4" style={{ color: 'var(--gold)' }} /><h3 className="text-lg font-semibold" style={{ color: 'var(--ink)' }}>GSEB Economics</h3><p className="text-sm mt-2 leading-6" style={{ color: 'var(--muted)' }}>Jump directly to the Class 12 GSEB Economics chapter collection.</p><span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold" style={{ color: 'var(--gold)' }}>Browse GSEB notes <ArrowRight className="w-4 h-4" /></span></a>
+        </div>
+      </section>
       <section className="mb-12"><div className="text-center max-w-3xl mx-auto mb-7"><span className="eyebrow">Start with your subject</span><h2 className="text-3xl mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Free chapter-wise commerce notes</h2><p className="mt-3" style={{ color: 'var(--muted)' }}>Open a complete subject collection or choose an individual chapter below.</p></div>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">{seoHubs.map((hub) => { const count = seoMaterials.filter((m) => m.hubId === hub.id).length; return <Link key={hub.id} to={hub.path} className="card-paper p-6 group"><div className="text-xs font-semibold mb-2" style={{ color: 'var(--gold)' }}>CBSE • CLASS {hub.classLevel}</div><h3 className="text-xl mb-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{hub.label} Notes</h3><p className="text-sm mb-4" style={{ color: 'var(--muted)' }}>{count} free chapter PDF{count === 1 ? '' : 's'} available</p><span className="text-sm font-semibold" style={{ color: 'var(--gold)' }}>Browse collection →</span></Link>; })}
           <a href="/gseb-class-12-economics.html" className="card-paper p-6 group" style={{ borderColor: 'rgba(184,135,47,0.35)' }}><div className="text-xs font-semibold mb-2" style={{ color: 'var(--gold)' }}>GSEB • CLASS 12</div><h3 className="text-xl mb-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Class 12 Economics Notes</h3><p className="text-sm mb-4" style={{ color: 'var(--muted)' }}>10 chapters • Chapters 2–11</p><span className="text-sm font-semibold" style={{ color: 'var(--gold)' }}>Browse GSEB collection →</span></a>
