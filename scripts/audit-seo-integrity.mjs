@@ -72,11 +72,14 @@ async function findDedicatedHtml(pathname) {
 }
 
 function getMetaContent(html, name) {
-  const escaped = escapeRegex(name);
-  const a = html.match(new RegExp('<meta\\s+[^>]*name=["\\']' + escaped + '["\\'][^>]*content=["\\']([^"\\']*)["\\'][^>]*>', 'i'));
-  if (a) return a[1].trim();
-  const b = html.match(new RegExp('<meta\\s+[^>]*content=["\\']([^"\\']*)["\\'][^>]*name=["\\']' + escaped + '["\\'][^>]*>', 'i'));
-  return b && b[1] ? b[1].trim() : '';
+  const tags = html.match(/<meta\\s+[^>]*>/gi) || [];
+  for (const tag of tags) {
+    const nameMatch = tag.match(/\\bname=["']([^"']+)["']/i);
+    if (!nameMatch || nameMatch[1].toLowerCase() !== String(name).toLowerCase()) continue;
+    const contentMatch = tag.match(/\\bcontent=["']([^"']*)["']/i);
+    return contentMatch && contentMatch[1] ? contentMatch[1].trim() : '';
+  }
+  return '';
 }
 
 function getCanonical(html) {
