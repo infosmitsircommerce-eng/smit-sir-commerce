@@ -10,6 +10,19 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Smit Sir Commerce" />
 
+    <!-- Critical first-paint styles prevent a flash of unstyled prerendered SEO text. -->
+    <style>
+      html, body, #root { min-height: 100%; background: #FAF6EE; color: #17130f; }
+      body { margin: 0; }
+      #app-startup-mask {
+        position: fixed;
+        inset: 0;
+        z-index: 2147483647;
+        background: #FAF6EE;
+        pointer-events: none;
+      }
+    </style>
+
     <!-- Crawlable fallback SEO. React Helmet replaces these with route-specific tags. -->
     <title>Free CBSE Commerce Notes Class 11 & 12 | Smit Sir Commerce</title>
     <meta name="description" content="Free CBSE Commerce notes for Class 11 and 12 with chapter-wise Economics and Business Studies PDFs, practice resources, tests and Commerce coaching by Smit Sir Commerce." />
@@ -33,13 +46,10 @@
     <meta name="twitter:description" content="Free chapter-wise CBSE Commerce notes, PDFs and practice resources for Class 11 and 12 students." />
     <meta name="twitter:image" content="https://www.smitsircommerce.in/og-image.jpg" />
 
-    <!-- Broad regional signal only; no invented exact business coordinates or storefront address. -->
     <meta name="geo.region" content="IN-GJ" />
     <meta name="geo.placename" content="Mehsana, Gujarat, India" />
-
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
-    <!-- First-party entity facts for search engines and AI systems. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -93,27 +103,61 @@
     }
     </script>
 
-    <!-- Google Analytics: SPA route views are sent by AnalyticsTracker. -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6ZVG9CJEG8"></script>
+    <!-- Queue analytics immediately, but defer third-party downloads until the browser is idle. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-6ZVG9CJEG8', { send_page_view: false });
-    </script>
 
-    <!-- Google AdSense site ownership verification. -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8111198978029240" crossorigin="anonymous"></script>
+      (function () {
+        function loadThirdParty() {
+          if (!document.querySelector('script[data-ga-loader]')) {
+            var ga = document.createElement('script');
+            ga.async = true;
+            ga.dataset.gaLoader = '1';
+            ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-6ZVG9CJEG8';
+            document.head.appendChild(ga);
+          }
+
+          if (!document.querySelector('script[data-adsense-loader]')) {
+            var ads = document.createElement('script');
+            ads.async = true;
+            ads.crossOrigin = 'anonymous';
+            ads.dataset.adsenseLoader = '1';
+            ads.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8111198978029240';
+            document.head.appendChild(ads);
+          }
+        }
+
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(loadThirdParty, { timeout: 2500 });
+        } else {
+          window.addEventListener('load', function () {
+            window.setTimeout(loadThirdParty, 500);
+          }, { once: true });
+        }
+      })();
+    </script>
 
     <link rel="dns-prefetch" href="https://abpruwygnsmeqisaehip.supabase.co" />
     <link rel="preconnect" href="https://abpruwygnsmeqisaehip.supabase.co" crossorigin />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet" />
+
+    <!-- Font CSS is non-render-blocking; system fonts paint immediately. -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet" />
+    </noscript>
   </head>
   <body>
+    <div id="app-startup-mask" aria-hidden="true"></div>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
