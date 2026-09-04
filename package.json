@@ -14,7 +14,8 @@
     "render": "remotion render remotion/index.jsx CosmicAd out/SmitSirAd.mp4",
     "render:manga": "remotion render remotion/index.jsx MangaAd out/MangaAd.mp4",
     "render:premium": "remotion render remotion/index.jsx PremiumAd out/PremiumAd.mp4",
-    "seo:audit": "node scripts/audit-seo-integrity.mjs"
+    "seo:audit": "node scripts/audit-seo-integrity.mjs",
+    "commerce:discovery": "node scripts/prerender-commerce-discovery.mjs"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.468",
