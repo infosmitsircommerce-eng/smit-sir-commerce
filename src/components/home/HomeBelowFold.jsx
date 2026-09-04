@@ -1,3 +1,4 @@
+import CommerceJourneyPreview from './CommerceJourneyPreview';
 import LearningPhilosophy from './LearningPhilosophy';
 import TrustLayer from './TrustLayer';
 import MehsanaGrowthCampaign from './MehsanaGrowthCampaign';
@@ -19,6 +20,7 @@ import SectionDivider from '../ui/SectionDivider';
 export default function HomeBelowFold() {
   return (
     <>
+      <CommerceJourneyPreview />
       <LearningPhilosophy />
       <TrustLayer />
       <MehsanaGrowthCampaign />
