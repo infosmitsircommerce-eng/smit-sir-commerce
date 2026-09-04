@@ -5,11 +5,19 @@ import { useAuth } from '../../context/AuthContext';
 import { isLightRoute } from '../../lib/theme';
 
 const groups = [
-  { title: 'Learn', icon: BookOpen, links: [
+  { title: 'School Commerce', icon: BookOpen, links: [
     { label: 'Free CBSE Notes', path: '/cbse-notes' }, { label: 'CBSE PYQ & Sample Papers', path: '/cbse-pyq' },
     { label: 'GSEB Class 12 Economics', path: '/gseb-class-12-economics.html' },
     { label: 'All Study Material', path: '/study-material' }, { label: 'Study Toolkit', path: '/study-tools' },
     { label: 'Courses', path: '/courses' },
+  ]},
+  { title: 'College & Exams', icon: GraduationCap, links: [
+    { label: 'All Commerce Learning', path: '/commerce-learning' },
+    { label: 'College Commerce', path: '/college-commerce' },
+    { label: 'B.Com Sem 1–6', path: '/college-commerce/bcom' },
+    { label: 'M.Com Sem 1–4', path: '/college-commerce/mcom' },
+    { label: 'UGC NET Commerce', path: '/ugc-net-commerce' },
+    { label: 'GSET Commerce', path: '/gset-commerce' },
   ]},
   { title: 'Practice', icon: Brain, links: [
     { label: 'CBSE Chapter Practice', path: '/cbse-practice' },
