@@ -127,8 +127,9 @@ export function validateCommerceResource(resource, { publishing = false } = {}) 
     errors.push('Official-source material needs a clear source or publisher label.');
   }
 
-  if (publishing && !resource.fileUrl && !resource.externalUrl) {
-    errors.push('Published resources need an uploaded PDF or a verified external link.');
+  const hasInlineMaterial = String(resource.notes || '').trim().length >= 120;
+  if (publishing && !resource.fileUrl && !resource.externalUrl && !hasInlineMaterial) {
+    errors.push('Published resources need an uploaded PDF, a verified external link, or at least 120 characters of real inline study material.');
   }
 
   return errors;
