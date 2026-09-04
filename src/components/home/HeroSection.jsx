@@ -93,10 +93,10 @@ function JanmashtamiVisual() {
         boxShadow: '0 28px 72px rgba(79,55,20,.18)',
       }}>
         <img
-          src="/janmashtami-krishna.jpg"
+          src="/janmashtami-krishna.webp"
           alt="Baby Krishna with calf and lotus flowers for Janmashtami"
-          width="600"
-          height="510"
+          width="400"
+          height="340"
           loading="eager"
           fetchPriority="high"
           decoding="async"
