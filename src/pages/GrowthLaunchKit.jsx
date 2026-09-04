@@ -9,39 +9,39 @@ const STUDY_PACK = `${BASE}/free-commerce-study-pack`;
 
 const channels = [
   {
-    id: 'student',
-    title: 'Student / past-student referral',
-    audience: 'Send personally to students who already know you. Ask them to forward it only if they find it useful.',
-    url: `${STUDY_PACK}?utm_source=referral&utm_medium=student_share&utm_campaign=free_study_pack`,
-    message: `Hey! I’ve put my free Commerce notes, chapter practice and calculators into one simple page for Class 11 & 12 students. No sign-up needed. If it helps you, feel free to send it to one Commerce classmate too:\n\n${STUDY_PACK}?utm_source=referral&utm_medium=student_share&utm_campaign=free_study_pack`,
+    id: 'reddit',
+    title: 'Reddit - permission-first resource post',
+    audience: 'Use only in communities that allow self-promotion or after moderators give permission. Be transparent that it is your own site.',
+    url: `${STUDY_PACK}?utm_source=reddit&utm_medium=community&utm_campaign=free_study_pack`,
+    message: `I made this little website because Class 11 & 12 Commerce resources are scattered everywhere and finding the right notes or practice can get annoying. I am slowly putting free notes, Economics numericals, Business Studies practice and useful calculators in one place. It is still a work in progress, so feedback on what Commerce students actually need next would genuinely help.\n\n${STUDY_PACK}?utm_source=reddit&utm_medium=community&utm_campaign=free_study_pack`,
   },
   {
-    id: 'parent',
-    title: 'Parent / family referral',
-    audience: 'Use with parents or family contacts who genuinely know Commerce students.',
-    url: `${STUDY_PACK}?utm_source=referral&utm_medium=parent_share&utm_campaign=free_study_pack`,
-    message: `I’ve created a free Commerce study page for Class 11 & 12 students with notes, practice and useful calculators. If you know a student who may benefit, you can share this with them. There is no sign-up required:\n\n${STUDY_PACK}?utm_source=referral&utm_medium=parent_share&utm_campaign=free_study_pack`,
+    id: 'quora',
+    title: 'Quora - useful answer first',
+    audience: 'Answer the actual question in detail first. Mention your resource only when it directly helps the student.',
+    url: `${STUDY_PACK}?utm_source=quora&utm_medium=answer&utm_campaign=free_study_pack`,
+    message: `For Class 11/12 Commerce, I would keep the study loop simple: understand one concept, practise without looking, then review only the exact mistake. For Economics numericals, write the formula or relationship before substituting values; for Business Studies case studies, identify the concept from the situation before writing the theory. I have also organised free notes, practice and calculators here if useful: ${STUDY_PACK}?utm_source=quora&utm_medium=answer&utm_campaign=free_study_pack`,
   },
   {
-    id: 'teacher',
-    title: 'Teacher / educator contact',
-    audience: 'Send to teachers you already know; do not mass-message strangers.',
-    url: `${STUDY_PACK}?utm_source=referral&utm_medium=teacher_share&utm_campaign=free_study_pack`,
-    message: `Hi, I’ve organised my free Class 11 & 12 Commerce resources into one page — CBSE/GSEB notes, chapter practice and calculators. If any of your Commerce students would find it useful, you’re welcome to share it with them:\n\n${STUDY_PACK}?utm_source=referral&utm_medium=teacher_share&utm_campaign=free_study_pack`,
+    id: 'medium',
+    title: 'Medium / Blogger - search-friendly article',
+    audience: 'Publish a genuinely useful article, not a thin page made only to drop a link.',
+    url: `${STUDY_PACK}?utm_source=medium&utm_medium=article&utm_campaign=free_study_pack`,
+    message: `Article title: 10 Class 12 Economics Mistakes That Cost Easy Marks\n\nStructure: 1) National Income conversion signs, 2) mixing gross and net, 3) NFIA direction, 4) MPC/MPS confusion, 5) wrong multiplier formula, 6) budget receipt classification, 7) fiscal vs primary deficit, 8) BOP current vs capital/financial flows, 9) skipping units in numericals, 10) rereading instead of testing.\n\nClosing line: I have organised free Commerce notes, chapter practice and learning calculators here for students who want more practice: ${STUDY_PACK}?utm_source=medium&utm_medium=article&utm_campaign=free_study_pack`,
   },
   {
-    id: 'google-business',
-    title: 'Google Business Profile post',
-    audience: 'Use this as a GBP update with the tracked website button.',
-    url: `${STUDY_PACK}?utm_source=google&utm_medium=business_profile&utm_campaign=free_study_pack`,
-    message: `Free Commerce Study Pack for Class 11 & 12 students 📚\n\nAccess free CBSE/GSEB Commerce notes, chapter-wise practice and useful Economics/Accountancy calculators in one place. Students in Mehsana can also request a free paper analysis if they want help understanding where marks are being lost.\n\n${STUDY_PACK}?utm_source=google&utm_medium=business_profile&utm_campaign=free_study_pack`,
+    id: 'pinterest',
+    title: 'Pinterest - static study pins',
+    audience: 'Use simple non-video study graphics. Each pin should solve one tiny problem and link to the matching page.',
+    url: `${STUDY_PACK}?utm_source=pinterest&utm_medium=pin&utm_campaign=free_study_pack`,
+    message: `5 pin ideas:\n1. National Income Formula Map - GDP, NDP, GNP, NNP\n2. MPC + MPS = 1 / Multiplier Formula Cheat Sheet\n3. Business Studies Case Study: 5-Step Identification Method\n4. Demand vs Quantity Demanded - One Diagram Idea\n5. Class 12 Economics Final Revision Checklist\n\nDefault destination: ${STUDY_PACK}?utm_source=pinterest&utm_medium=pin&utm_campaign=free_study_pack`,
   },
   {
-    id: 'local-group',
-    title: 'Local study/community group',
-    audience: 'Post only where sharing educational resources is allowed by the group rules.',
-    url: `${STUDY_PACK}?utm_source=referral&utm_medium=community_group&utm_campaign=free_study_pack`,
-    message: `Free resource for Class 11 & 12 Commerce students: CBSE/GSEB notes, chapter practice and Commerce calculators collected on one page. No registration needed:\n\n${STUDY_PACK}?utm_source=referral&utm_medium=community_group&utm_campaign=free_study_pack`,
+    id: 'student-question',
+    title: 'Student Q&A threads - answer before linking',
+    audience: 'Use where a student is already asking a question and community rules permit your own resource link.',
+    url: `${STUDY_PACK}?utm_source=community&utm_medium=qa_reply&utm_campaign=free_study_pack`,
+    message: `Give the full answer directly in the comment first. If your own page genuinely adds worked examples or practice, finish with: “I made a free practice page for this topic too, if it helps: ${STUDY_PACK}?utm_source=community&utm_medium=qa_reply&utm_campaign=free_study_pack”`,
   },
 ];
 
@@ -93,7 +93,7 @@ export default function GrowthLaunchKit() {
           <span className="eyebrow mt-5 inline-block">Real-student acquisition</span>
           <h1 className="mt-4">Launch the first traffic with <em>tracked links.</em></h1>
           <p className="mt-4 max-w-3xl leading-7" style={{ color: 'var(--muted)' }}>
-            Every channel below points to the same useful free study pack but carries different campaign information. That lets your existing lead and acquisition tracking distinguish Google traffic from referrals instead of treating every visitor as the same.
+            Every channel below points to the same useful free study pack but carries different campaign information. The focus is silent, zero-budget distribution: search-friendly articles, useful Q&A answers, permission-first Reddit posts and static study pins.
           </p>
           <div className="flex flex-wrap gap-3 mt-6">
             <a href={STUDY_PACK} target="_blank" rel="noreferrer" className="btn-primary inline-flex items-center gap-2">

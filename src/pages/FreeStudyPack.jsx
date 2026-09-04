@@ -170,6 +170,9 @@ export default function FreeStudyPack() {
             <a href="#study-pack" className="btn-primary inline-flex items-center justify-center gap-2 min-h-12">
               Open the free pack <ArrowRight className="w-4 h-4" />
             </a>
+            <a href="/downloads/class-12-economics-quick-revision-pack.pdf" download className="btn-outline-ink inline-flex items-center justify-center gap-2 min-h-12">
+              Download Economics Revision PDF
+            </a>
             <button type="button" onClick={share} className="btn-outline-ink inline-flex items-center justify-center gap-2 min-h-12">
               {copied ? <Check className="w-4 h-4" /> : <Share2 className="w-4 h-4" />}
               {copied ? 'Link copied' : 'Share this pack'}

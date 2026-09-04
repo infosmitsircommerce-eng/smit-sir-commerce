@@ -73,6 +73,7 @@ const packLinks = [
   ['/gseb-class-12-economics.html', 'GSEB Class 12 Economics Notes'],
   ['/cbse-practice', 'Chapter-wise Commerce Practice'],
   ['/tools', '41 Commerce Calculators'],
+  ['/downloads/class-12-economics-quick-revision-pack.pdf', 'Class 12 Economics Quick Revision PDF'],
 ];
 await renderPage({
   path: packPath,

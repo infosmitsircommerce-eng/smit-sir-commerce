@@ -198,6 +198,92 @@ export const authorityGuides = [
       ['How often should I take a timed test?','Use timed tests after you have revised the relevant concepts. The useful frequency depends on your exam date and current preparation; analyse mistakes after every attempt.'],
       ['What if a chapter note is not published on the website yet?','Use your prescribed textbook, school material and official resources for that chapter. The website should not be treated as complete until the relevant material is explicitly published.'],
     ],
+  },,
+{
+    path: '/cbse/class-12/economics-national-income-numericals',
+    title: 'CBSE Class 12 National Income Numericals with Formula Map & Practice',
+    shortTitle: 'Class 12 National Income Numericals',
+    description: 'Revise CBSE Class 12 National Income numericals with a clear GDP, NDP, GNP and NNP conversion method, common mistake checks, practice tools and a timed test.',
+    eyebrow: 'Class 12 · Economics · National Income Numericals',
+    intro: 'National Income becomes much easier when every conversion is handled in a fixed order: domestic or national, gross or net, then market price or factor cost. This page gives students one focused route from formula recall to worked practice and a timed test.',
+    updated: '2026-09-04',
+    sections: [
+      { title: 'Use one conversion order every time', text: 'First decide whether the target is domestic or national and adjust NFIA only when required. Next handle gross versus net through depreciation. Finally handle market price versus factor cost through net indirect taxes. Keeping the order fixed prevents most sign and conversion mistakes.', links: [
+        ['/tools/topics/national-income-gdp','National Income & GDP Formula + Numerical Hub'],
+        ['/cbse/class-12/economics-revision-guide','Class 12 Economics Revision Guide'],
+      ]},
+      { title: 'Practise the numerical, not just the formula', text: 'After recalling the formula map, solve a small set without opening the answer. Show the relationship first, substitute carefully, keep units consistent and check whether your final aggregate matches what the question actually asked for.', links: [
+        ['/tools/topics/national-income-gdp','Worked National Income Practice'],
+        ['/tests/class-12-economics-national-income-exam','National Income Timed Practice Exam'],
+      ]},
+      { title: 'Common mistakes to eliminate', text: 'Watch for adding NFIA in the wrong direction, subtracting depreciation when moving from net to gross, mixing market price with factor cost, and using values expressed in different units. A 20-second final check can save an otherwise correct solution.', links: [
+        ['/marks-recovery','Find the Type of Mistake Costing Marks'],
+        ['/cbse-practice','Browse Free CBSE Commerce Practice'],
+      ]},
+    ],
+    faqs: [
+      ['What is the easiest order for National Income conversions?','Use domestic versus national first, gross versus net second, and market price versus factor cost third. Apply only the adjustment needed for the conversion in front of you.'],
+      ['Should I memorise every National Income formula separately?','It is usually more reliable to understand the three conversion relationships - NFIA, depreciation and net indirect taxes - and build the required aggregate step by step.'],
+      ['Are the practice numericals official CBSE previous-year questions?','No. Unless a source is explicitly identified, the practice on Smit Sir Commerce is original learning material. Use the latest official CBSE sample paper separately for current exam-format reference.'],
+    ],
+  },
+  {
+    path: '/cbse/class-12/business-studies-case-study-keywords',
+    title: 'Class 12 Business Studies Case Study Keywords & Identification Method',
+    shortTitle: 'BST Case Study Keywords',
+    description: 'Learn how to identify Class 12 Business Studies concepts in case studies using chapter clues, keywords, a 5-step method and chapter-wise practice.',
+    eyebrow: 'Class 12 · Business Studies · Case Study Identification',
+    intro: 'Many students know the theory but still get stuck when a case study asks which concept is being used. The fix is not to memorise a giant keyword list blindly; it is to connect each clue in the situation to the exact chapter concept and then justify it with evidence from the case.',
+    updated: '2026-09-04',
+    sections: [
+      { title: 'Step 1: identify the chapter family', text: 'Ask what the business is actually doing. Is it setting objectives, dividing work, hiring people, motivating employees, comparing actual performance with standards, making a finance decision, designing the marketing mix or protecting a consumer? That first classification removes many wrong options.', links: [
+        ['/cbse/class-12/business-studies-case-study-questions','Complete BST Case Study Practice Hub'],
+        ['/cbse/class-12/business-studies-important-questions','BST Important Questions Hub'],
+      ]},
+      { title: 'Step 2: find the clue, then name the concept', text: 'A keyword is useful only when it matches the meaning of the situation. For example, setting standards points toward planning/control depending on context; comparing actual performance with standards is a strong controlling clue; recruitment and selection belong to staffing; supervision, motivation, leadership and communication point toward directing.', links: [
+        ['/practice/cbse/class-12/business-studies/planning-case-study-questions','Planning Case Studies'],
+        ['/practice/cbse/class-12/business-studies/controlling-case-study-questions','Controlling Case Studies'],
+        ['/practice/cbse/class-12/business-studies/directing-case-study-questions','Directing Case Studies'],
+        ['/practice/cbse/class-12/business-studies/staffing-case-study-questions','Staffing Case Studies'],
+      ]},
+      { title: 'Step 3: justify with the fact from the case', text: 'Do not stop after naming the concept. Write the exact term or principle and connect it to the relevant sentence or action in the case. This makes the answer application-based instead of a copied definition.', links: [
+        ['/cbse/class-12/business-studies-mcq','BST MCQ Revision'],
+        ['/cbse-practice','All Chapter-wise Practice'],
+      ]},
+    ],
+    faqs: [
+      ['How do I know whether a case is Planning or Controlling?','Planning focuses on deciding in advance - objectives, policies, procedures and action. Controlling checks actual performance against standards, finds deviations and takes corrective action. Read the action in the case, not just one isolated word.'],
+      ['Should I memorise Business Studies case-study keywords?','Memorise the important terminology, but always connect it to the concept meaning. The same ordinary word can appear in different chapters, so context is more reliable than keyword spotting alone.'],
+      ['How should I write the final case-study answer?','Name the concept, write the required point or explanation, and support it with the relevant fact from the case when the question requires identification or justification.'],
+    ],
+  },
+  {
+    path: '/cbse/class-11/demand-vs-quantity-demanded',
+    title: 'Demand vs Quantity Demanded - Class 11 Economics Explained Simply',
+    shortTitle: 'Demand vs Quantity Demanded',
+    description: 'Understand the difference between demand and quantity demanded in Class 11 Microeconomics, including demand curve, movement versus shift and simple examples.',
+    eyebrow: 'Class 11 · Microeconomics · Demand Concept',
+    intro: 'Demand and quantity demanded sound similar but describe different things. Demand refers to the overall relationship between price and quantities a consumer is willing and able to buy during a period, while quantity demanded is one specific amount at one particular price, other things remaining the same.',
+    updated: '2026-09-04',
+    sections: [
+      { title: 'Demand is the relationship; quantity demanded is one point', text: 'Think of the demand schedule or demand curve as the full relationship. One row in the schedule - for example, the quantity bought at one given price - is the quantity demanded at that price.', links: [
+        ['/cbse/class-11/microeconomics/demand-notes','Read Class 11 Demand Notes'],
+        ['/practice/cbse/class-11/microeconomics/demand-important-questions','Demand Important Questions'],
+      ]},
+      { title: 'Price change usually causes movement along the same demand curve', text: 'When only the good\'s own price changes and other determinants stay constant, quantity demanded changes. This is represented by movement along the existing demand curve rather than a new demand curve.', links: [
+        ['/practice/cbse/class-11/microeconomics/demand-mcqs','Demand MCQ Practice'],
+        ['/tools/topics/price-elasticity-demand','Price Elasticity Learning Hub'],
+      ]},
+      { title: 'Other determinants can shift demand', text: 'Changes in income, tastes and preferences, prices of related goods, expectations or number of consumers can change demand itself, depending on the situation. That is shown as a shift of the demand curve.', links: [
+        ['/cbse/class-11/microeconomics-important-questions','Class 11 Microeconomics Important Questions'],
+        ['/cbse-practice','Browse Class 11 Practice'],
+      ]},
+    ],
+    faqs: [
+      ['Is demand the same as quantity demanded?','No. Demand is the complete price-quantity relationship, while quantity demanded is the specific amount demanded at a particular price, other things remaining constant.'],
+      ['What causes a change in quantity demanded?','In the standard demand-curve framework, a change in the good\'s own price causes movement along the same demand curve when other determinants are held constant.'],
+      ['What causes a change in demand?','A change in a determinant other than the good\'s own price - such as income, tastes, related-goods prices, expectations or number of consumers - can shift the demand curve, depending on the case.'],
+    ],
   },
 ];
 
