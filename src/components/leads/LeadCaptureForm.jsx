@@ -120,14 +120,46 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
     };
 
     const { error: submitError } = await supabase.from('lead_submissions').insert(payload);
-    setBusy(false);
 
     if (submitError) {
+      setBusy(false);
       const slotProblem = /slot|full|available/i.test(submitError.message || '');
       setError(slotProblem ? 'That slot is no longer available. Refresh the slots and choose another time.' : 'We could not save the enquiry right now. Please try again or call Smit Sir on 63537 09585.');
       trackEvent('lead_submit_error', { intent, source: form.source, hasSlot: Boolean(demoSlot?.id) }, user?.id || null);
       return;
     }
+
+    try {
+      const emailResponse = await fetch('/api/enquiry-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: form.fullName.trim(),
+          mobile: form.mobile.trim(),
+          parentMobile: form.parentMobile.trim() || null,
+          classLevel: Number(form.classLevel),
+          board: form.board,
+          subjects: form.subjects,
+          studyMode: demoSlot?.mode || form.studyMode,
+          preferredTime: form.preferredTime,
+          source: form.source,
+          intent,
+          message: form.message.trim() || null,
+          firstPath: firstTouch.path || location.pathname,
+          consent: true,
+        }),
+      });
+
+      if (emailResponse.ok) {
+        trackEvent('lead_email_notification_success', { intent, source: form.source }, user?.id || null);
+      } else {
+        trackEvent('lead_email_notification_error', { intent, source: form.source }, user?.id || null);
+      }
+    } catch {
+      trackEvent('lead_email_notification_error', { intent, source: form.source }, user?.id || null);
+    }
+
+    setBusy(false);
 
     const successMetadata = { intent, source: form.source, classLevel: Number(form.classLevel), board: form.board, mode: demoSlot?.mode || form.studyMode, bookedSlot: Boolean(demoSlot?.id) };
     trackEvent('lead_submit_success', successMetadata, user?.id || null);
