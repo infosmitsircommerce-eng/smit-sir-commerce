@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { BookOpen, Brain, CalendarCheck2, ChevronRight, GraduationCap, Menu, Search, X } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
@@ -57,9 +56,9 @@ export default function MobileHeader() {
         <button type="button" onClick={() => setOpen(value => !value)} className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ color: text, background: light ? 'var(--bg-ivory)' : 'rgba(255,255,255,0.07)', border: light ? '1px solid var(--border)' : '1px solid rgba(255,255,255,0.1)' }} aria-expanded={open} aria-controls="mobile-navigation" aria-label={open ? 'Close menu' : 'Open menu'}>{open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}</button>
       </div>
     </header>
-    <AnimatePresence>{open && <>
-      <motion.button type="button" aria-label="Close navigation" onClick={() => setOpen(false)} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="lg:hidden fixed inset-0 top-16 z-[54] bg-black/45" />
-      <motion.nav id="mobile-navigation" aria-label="Mobile navigation" initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.2 }} className="lg:hidden fixed top-16 left-0 right-0 z-[55] max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain pb-[calc(1.25rem+env(safe-area-inset-bottom))]" style={{ background: surface, borderBottom: light ? '1px solid var(--border)' : '1px solid rgba(255,255,255,0.1)', boxShadow: '0 20px 50px rgba(0,0,0,0.22)' }}>
+    {open && <>
+      <button type="button" aria-label="Close navigation" onClick={() => setOpen(false)} className="lg:hidden fixed inset-0 top-16 z-[54] bg-black/45" />
+      <nav id="mobile-navigation" aria-label="Mobile navigation" className="lg:hidden fixed top-16 left-0 right-0 z-[55] max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain pb-[calc(1.25rem+env(safe-area-inset-bottom))]" style={{ background: surface, borderBottom: light ? '1px solid var(--border)' : '1px solid rgba(255,255,255,0.1)', boxShadow: '0 20px 50px rgba(0,0,0,0.22)' }}>
         <div className="px-4 py-4 space-y-4">
           <Link to="/book-demo" className="mobile-menu-demo-cta flex items-center justify-between gap-3 rounded-2xl px-4 py-4 min-h-16">
             <div className="flex items-center gap-3 min-w-0"><div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 mobile-menu-demo-icon"><CalendarCheck2 className="w-5 h-5" /></div><div className="min-w-0"><div className="text-sm font-black">Book Your Free Demo</div><div className="text-[11px] mt-0.5 opacity-80">Try the class first. No pressure.</div></div></div><ChevronRight className="w-5 h-5 flex-shrink-0" />
@@ -70,7 +69,7 @@ export default function MobileHeader() {
           </section>; })}
           {user ? <Link to="/my-data" className="btn-outline-ink w-full min-h-12">My Study Data & Backup</Link> : <Link to="/login" className="btn-outline-ink w-full min-h-12">Student Login</Link>}
         </div>
-      </motion.nav>
-    </>}</AnimatePresence>
+      </nav>
+    </>}
   </>;
 }
