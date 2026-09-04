@@ -3,13 +3,25 @@
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{"type":"header","key":"host","value":"smitsircommerce.in"}],
+      "has": [
+        {
+          "type": "header",
+          "key": "host",
+          "value": "smitsircommerce.in"
+        }
+      ],
       "destination": "https://www.smitsircommerce.in/:path*",
       "permanent": true
     },
     {
       "source": "/:path*",
-      "has": [{"type":"header","key":"host","value":"smitsircommerce.vercel.app"}],
+      "has": [
+        {
+          "type": "header",
+          "key": "host",
+          "value": "smitsircommerce.vercel.app"
+        }
+      ],
       "destination": "https://www.smitsircommerce.in/:path*",
       "permanent": true
     },
@@ -20,14 +32,343 @@
     }
   ],
   "headers": [
-    {"source":"/(.*)","headers":[{"key":"X-Content-Type-Options","value":"nosniff"},{"key":"Referrer-Policy","value":"strict-origin-when-cross-origin"},{"key":"Permissions-Policy","value":"camera=(), microphone=(), geolocation=()"}]},
-    {"source":"/assets/(.*)","headers":[{"key":"Cache-Control","value":"public, max-age=31536000, immutable"}]},
-    {"source":"/materials/(.*)","headers":[{"key":"Cache-Control","value":"public, max-age=604800, stale-while-revalidate=86400"}]},
-    {"source":"/sw.js","headers":[{"key":"Cache-Control","value":"no-cache, no-store, must-revalidate"}]},
-    {"source":"/registerSW.js","headers":[{"key":"Cache-Control","value":"no-cache, no-store, must-revalidate"}]},
-    {"source":"/admin","headers":[{"key":"X-Robots-Tag","value":"noindex, nofollow, nosnippet"}]},{"source":"/admin/students","headers":[{"key":"X-Robots-Tag","value":"noindex, nofollow, nosnippet"}]},{"source":"/admin/leads","headers":[{"key":"X-Robots-Tag","value":"noindex, nofollow, nosnippet"}]},{"source":"/admin/demos","headers":[{"key":"X-Robots-Tag","value":"noindex, nofollow, nosnippet"}]},{"source":"/admin-studio","headers":[{"key":"X-Robots-Tag","value":"noindex, nofollow, nosnippet"}]},{"source":"/login","headers":[{"key":"X-Robots-Tag","value":"noindex, nofollow, nosnippet"}]},{"source":"/onboarding","headers":[{"key":"X-Robots-Tag","value":"noindex, nofollow, nosnippet"}]},{"source":"/dashboard","headers":[{"key":"X-Robots-Tag","value":"noindex, nofollow, nosnippet"}]},{"source":"/learning-insights","headers":[{"key":"X-Robots-Tag","value":"noindex, nofollow, nosnippet"}]},{"source":"/my-data","headers":[{"key":"X-Robots-Tag","value":"noindex, nofollow, nosnippet"}]},{"source":"/demo-success","headers":[{"key":"X-Robots-Tag","value":"noindex, nofollow, nosnippet"}]},{"source":"/pdf-viewer","headers":[{"key":"X-Robots-Tag","value":"noindex, nofollow, nosnippet"}]},{"source":"/reel","headers":[{"key":"X-Robots-Tag","value":"noindex, nofollow, nosnippet"}]},{"source":"/lectures","headers":[{"key":"X-Robots-Tag","value":"noindex, follow"}]}
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/materials/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/sw.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/registerSW.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/admin",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/admin/students",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/admin/leads",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/admin/demos",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/admin/growth",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/admin-studio",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/login",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/onboarding",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/dashboard",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/learning-insights",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/my-data",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/demo-success",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/pdf-viewer",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/reel",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/lectures",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    }
   ],
   "rewrites": [
-    {"source":"/courses","destination":"/"},{"source":"/lectures","destination":"/"},{"source":"/study-material","destination":"/"},{"source":"/pdf-viewer","destination":"/"},{"source":"/cbse-pyq","destination":"/"},{"source":"/quizzes","destination":"/"},{"source":"/test-series","destination":"/"},{"source":"/exam-mode","destination":"/"},{"source":"/daily-practice","destination":"/"},{"source":"/study-coach","destination":"/"},{"source":"/study-tools","destination":"/"},{"source":"/learning-insights","destination":"/"},{"source":"/my-data","destination":"/"},{"source":"/live-classes","destination":"/"},{"source":"/online-batch","destination":"/"},{"source":"/offline-batch","destination":"/"},{"source":"/dashboard","destination":"/"},{"source":"/onboarding","destination":"/"},{"source":"/book-demo","destination":"/"},{"source":"/demo-success","destination":"/"},{"source":"/parent-info","destination":"/"},{"source":"/about","destination":"/"},{"source":"/contact","destination":"/"},{"source":"/faq","destination":"/"},{"source":"/privacy","destination":"/"},{"source":"/terms","destination":"/"},{"source":"/access-policy","destination":"/"},{"source":"/games","destination":"/"},{"source":"/flashcards","destination":"/"},{"source":"/ask","destination":"/"},{"source":"/reel","destination":"/"},{"source":"/login","destination":"/"},{"source":"/admin","destination":"/"},{"source":"/admin/students","destination":"/"},{"source":"/admin/leads","destination":"/"},{"source":"/admin/demos","destination":"/"},{"source":"/admin-studio","destination":"/"}
+    {
+      "source": "/courses",
+      "destination": "/"
+    },
+    {
+      "source": "/lectures",
+      "destination": "/"
+    },
+    {
+      "source": "/study-material",
+      "destination": "/"
+    },
+    {
+      "source": "/pdf-viewer",
+      "destination": "/"
+    },
+    {
+      "source": "/cbse-pyq",
+      "destination": "/"
+    },
+    {
+      "source": "/quizzes",
+      "destination": "/"
+    },
+    {
+      "source": "/test-series",
+      "destination": "/"
+    },
+    {
+      "source": "/exam-mode",
+      "destination": "/"
+    },
+    {
+      "source": "/daily-practice",
+      "destination": "/"
+    },
+    {
+      "source": "/study-coach",
+      "destination": "/"
+    },
+    {
+      "source": "/study-tools",
+      "destination": "/"
+    },
+    {
+      "source": "/learning-insights",
+      "destination": "/"
+    },
+    {
+      "source": "/my-data",
+      "destination": "/"
+    },
+    {
+      "source": "/live-classes",
+      "destination": "/"
+    },
+    {
+      "source": "/online-batch",
+      "destination": "/"
+    },
+    {
+      "source": "/offline-batch",
+      "destination": "/"
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/"
+    },
+    {
+      "source": "/onboarding",
+      "destination": "/"
+    },
+    {
+      "source": "/book-demo",
+      "destination": "/"
+    },
+    {
+      "source": "/demo-success",
+      "destination": "/"
+    },
+    {
+      "source": "/parent-info",
+      "destination": "/"
+    },
+    {
+      "source": "/about",
+      "destination": "/"
+    },
+    {
+      "source": "/contact",
+      "destination": "/"
+    },
+    {
+      "source": "/faq",
+      "destination": "/"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/"
+    },
+    {
+      "source": "/terms",
+      "destination": "/"
+    },
+    {
+      "source": "/access-policy",
+      "destination": "/"
+    },
+    {
+      "source": "/games",
+      "destination": "/"
+    },
+    {
+      "source": "/flashcards",
+      "destination": "/"
+    },
+    {
+      "source": "/ask",
+      "destination": "/"
+    },
+    {
+      "source": "/reel",
+      "destination": "/"
+    },
+    {
+      "source": "/login",
+      "destination": "/"
+    },
+    {
+      "source": "/admin",
+      "destination": "/"
+    },
+    {
+      "source": "/admin/students",
+      "destination": "/"
+    },
+    {
+      "source": "/admin/leads",
+      "destination": "/"
+    },
+    {
+      "source": "/admin/demos",
+      "destination": "/"
+    },
+    {
+      "source": "/admin-studio",
+      "destination": "/"
+    }
   ]
 }
