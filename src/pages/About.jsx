@@ -28,7 +28,7 @@ const structuredData = {
       '@id': `${BASE}/about#webpage`,
       url: `${BASE}/about`,
       name: 'About Smit Sir Commerce',
-      description: 'Learn about Smit Sir, his teaching philosophy, subjects taught and the transparent learning approach behind Smit Sir Commerce.',
+      description: 'Learn about Smit Sir, his Class 11 & 12 Commerce teaching specialisation and the broader school, college and competitive-exam resource platform behind Smit Sir Commerce.',
       inLanguage: 'en-IN',
       about: { '@id': `${BASE}/about#smit-thaker` },
       isPartOf: { '@id': `${BASE}/#website` },
@@ -51,8 +51,8 @@ export default function About() {
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
       <SEO
-        title="About Smit Sir — Learning-First Commerce Teacher Mehsana"
-        description="Meet Smit Sir and learn the philosophy behind Smit Sir Commerce: concept clarity, curiosity, real examples, exam application and transparent Class 11 & 12 support."
+        title="About Smit Sir Commerce — Teacher & Commerce Learning Platform"
+        description="Smit Sir specialises in Class 11 & 12 Commerce teaching while Smit Sir Commerce is growing into a wider learning platform for school, B.Com, M.Com, UGC NET and GSET students."
         path="/about"
         structuredData={structuredData}
       />
@@ -62,7 +62,7 @@ export default function About() {
           <span className="eyebrow">Meet the teacher</span>
           <h1 className="mt-5">Not just teaching answers. <em>Teaching understanding.</em></h1>
           <p className="mx-auto max-w-3xl mt-4">
-            Smit Sir Commerce is built around a simple belief: marks matter, but they should be the result of learning — not the entire purpose of it.
+            Smit Sir Commerce is a growing Commerce learning platform for school, college and competitive-exam students. Smit Sir's personal teaching specialisation remains Class 11 &amp; 12 Commerce.
           </p>
         </div>
       </div>
@@ -77,7 +77,7 @@ export default function About() {
                 <img src={teacherPhoto} alt="Smit Sir — Commerce Educator in Mehsana" loading="lazy" decoding="async" className="w-full object-cover object-top" style={{ maxHeight: '430px' }} />
                 <div className="p-5">
                   <div className="text-xl" style={{ fontFamily: 'var(--font-serif)', fontWeight: 700, color: 'var(--ink)' }}>Smit Sir</div>
-                  <div className="text-sm mt-1" style={{ color: 'var(--gold)' }}>Commerce Educator · Class 11 &amp; 12 Support</div>
+                  <div className="text-sm mt-1" style={{ color: 'var(--gold)' }}>Commerce Educator · Class 11 &amp; 12 Teaching Specialist</div>
                   <div className="text-xs flex items-center gap-1 mt-2" style={{ color: 'var(--subtle)' }}><MapPin className="w-3 h-3" /> Mehsana, Gujarat, India</div>
                 </div>
               </div>
@@ -94,7 +94,7 @@ export default function About() {
               That does not mean ignoring marks. Exams are real, answer-writing matters and practice matters. The difference is the order: first understand, then apply, then practise, then improve the result.
             </p>
             <p className="leading-7 mb-7" style={{ color: 'var(--muted)' }}>
-              Smit Sir Commerce combines this learning-first philosophy with free notes, practice resources, calculators, diagnostics and direct support so students can learn with more clarity and less unnecessary fear.
+              Smit Sir Commerce combines this learning-first philosophy with free notes, practice resources, calculators and exam support. The platform is expanding beyond school into B.Com, M.Com, UGC NET Commerce and GSET Commerce without pretending that every listed subject is personally taught by Smit Sir.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-3 mb-7">
@@ -116,6 +116,32 @@ export default function About() {
               <Link to="/contact" className="btn-outline-ink inline-flex items-center gap-2">Contact Smit Sir</Link>
             </div>
           </motion.div>
+        </section>
+
+        <section className="card-paper p-6 sm:p-8">
+          <div className="grid lg:grid-cols-[0.78fr_1.22fr] gap-8">
+            <div>
+              <span className="eyebrow">Platform scope</span>
+              <h2 className="text-2xl sm:text-3xl mt-5" style={{ fontFamily: 'var(--font-serif)', fontWeight: 700, color: 'var(--ink)' }}>What Smit Sir Commerce is becoming</h2>
+            </div>
+            <div>
+              <p className="leading-7" style={{ color: 'var(--muted)' }}>
+                The website is designed as a wider Commerce resource platform: school Commerce today, college Commerce as material is added, and competitive Commerce preparation through UGC NET and GSET hubs.
+              </p>
+              <div className="grid sm:grid-cols-3 gap-3 mt-5">
+                {[
+                  ['School', 'Class 11 & 12', '/cbse-notes'],
+                  ['College', 'B.Com & M.Com', '/college-commerce'],
+                  ['Competitive', 'UGC NET & GSET', '/commerce-exams'],
+                ].map(([stage, label, path]) => (
+                  <Link key={stage} to={path} className="tile-paper p-4">
+                    <div className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--gold)' }}>{stage}</div>
+                    <div className="font-semibold mt-2" style={{ color: 'var(--ink)' }}>{label}</div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
         </section>
 
         <section className="card-paper p-6 sm:p-8">
