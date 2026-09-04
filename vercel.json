@@ -219,6 +219,24 @@
           "value": "noindex, follow"
         }
       ]
+    },
+    {
+      "source": "/college-commerce/bcom",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/college-commerce/mcom",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
     }
   ],
   "rewrites": [
