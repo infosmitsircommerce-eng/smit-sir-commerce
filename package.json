@@ -7,7 +7,7 @@
     "prebuild": "node scripts/assemble-gseb-pdfs.mjs && node scripts/generate-sitemap.mjs",
     "dev": "vite",
     "build": "vite build",
-    "postbuild": "node scripts/prerender-seo.mjs && node scripts/inject-practice-links.mjs && node scripts/prerender-growth.mjs && node scripts/prerender-pyq.mjs && node scripts/prerender-authority.mjs && node scripts/prerender-local-seo.mjs && node scripts/prerender-conversion.mjs && node scripts/prerender-marks-recovery.mjs && node scripts/prerender-tools.mjs && node scripts/prerender-trust.mjs && node scripts/prerender-core-pages.mjs && node scripts/prepare-adsense-static.mjs && node scripts/finalize-seo-html.mjs && node scripts/prerender-i18n.mjs && node scripts/audit-adsense-content.mjs && node scripts/audit-seo-integrity.mjs",
+    "postbuild": "node scripts/prerender-core-pages.mjs && node scripts/prerender-seo.mjs && node scripts/inject-practice-links.mjs && node scripts/prerender-growth.mjs && node scripts/prerender-pyq.mjs && node scripts/prerender-authority.mjs && node scripts/prerender-local-seo.mjs && node scripts/prerender-conversion.mjs && node scripts/prerender-marks-recovery.mjs && node scripts/prerender-tools.mjs && node scripts/prerender-trust.mjs && node scripts/prepare-adsense-static.mjs && node scripts/finalize-seo-html.mjs && node scripts/prerender-i18n.mjs && node scripts/audit-adsense-content.mjs && node scripts/audit-seo-integrity.mjs",
     "indexnow": "node scripts/submit-indexnow.mjs",
     "preview": "vite preview",
     "studio": "remotion studio remotion/index.jsx",
