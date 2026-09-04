@@ -17,7 +17,8 @@ export default defineConfig({
     },
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
+      injectRegister: 'script-defer',
       includeAssets: ['favicon.svg', 'icon-192.png', 'icon-512.png'],
       manifest: {
         name: 'Smit Sir Commerce',
@@ -54,6 +55,8 @@ export default defineConfig({
       },
       workbox: {
         cleanupOutdatedCaches: true,
+        skipWaiting: false,
+        clientsClaim: false,
         navigateFallbackDenylist: [
           /^\/materials\//,
           /^\/cbse\//,
