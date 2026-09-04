@@ -371,7 +371,23 @@
       "destination": "/"
     },
     {
+      "source": "/college/:universitySlug/:degreeSlug",
+      "destination": "/"
+    },
+    {
+      "source": "/college/:universitySlug/:degreeSlug/:semesterSlug",
+      "destination": "/"
+    },
+    {
+      "source": "/college/:universitySlug/:degreeSlug/:semesterSlug/:subjectSlug",
+      "destination": "/"
+    },
+    {
       "source": "/college/:universitySlug/:degreeSlug/:semesterSlug/:subjectSlug/:resourceSlug",
+      "destination": "/"
+    },
+    {
+      "source": "/competitive/:examSlug/:unitSlug",
       "destination": "/"
     },
     {
