@@ -49,6 +49,11 @@ function makeMaterial({
   summary,
   keyTopics,
   examFocus,
+  gscTitle,
+  gscDescription,
+  gscH1,
+  gscIntro,
+  updated = '2026-08-31',
 }) {
   const hub = hubById[hubId];
   const subjectKeyword = hub.subjectSlug === 'business-studies'
@@ -80,7 +85,11 @@ function makeMaterial({
     summary,
     keyTopics,
     examFocus,
-    updated: '2026-08-31',
+    gscTitle,
+    gscDescription,
+    gscH1,
+    gscIntro,
+    updated,
   };
 }
 
@@ -156,6 +165,11 @@ export const seoMaterials = [
     hubId: 'class-12-business-studies', chapterNumber: 8,
     slug: 'controlling', chapter: 'Controlling', pages: 46,
     fileUrl: '/materials/cbse/class-12/business-studies/chapter-08-controlling.pdf',
+    gscTitle: 'Controlling Class 12 Notes PDF — Business Studies Chapter 8',
+    gscDescription: 'Free Controlling Class 12 notes PDF for CBSE Business Studies Chapter 8. Revise meaning, importance, planning-controlling relationship, control process, management by exception and corrective action.',
+    gscH1: 'Controlling Class 12 Notes PDF — Business Studies Chapter 8',
+    gscIntro: 'Looking for Controlling Class 12 notes? This free CBSE Business Studies Chapter 8 resource covers the complete controlling process, planning and controlling relationship, management by exception, critical point control and corrective action in one revision flow.',
+    updated: '2026-09-04',
     summary: 'Controlling measures actual performance against planned standards and initiates corrective action. The notes explain the control process, its importance, limitations and its close relationship with planning.',
     keyTopics: ['Meaning, nature and importance of controlling', 'Relationship between planning and controlling', 'Steps in the controlling process', 'Critical point control and management by exception', 'Corrective action'],
     examFocus: ['Present the controlling steps in the correct order.', 'Explain planning and controlling as inseparable twins.', 'Apply management by exception to performance deviations.'],
@@ -197,6 +211,11 @@ export const seoMaterials = [
     hubId: 'class-11-microeconomics', chapterNumber: 1,
     slug: 'economics-and-economy', chapter: 'Economics and Economy', pages: 15,
     fileUrl: '/materials/cbse/class-11/microeconomics/chapter-01-economics-and-economy.pdf',
+    gscTitle: 'Economics and Economy Class 11 Notes PDF — Economics Chapter 1',
+    gscDescription: 'Free Economics and Economy Class 11 notes PDF for CBSE Economics Chapter 1. Revise scarcity, choice, opportunity cost, economic activities, micro vs macro and types of economy.',
+    gscH1: 'Economics and Economy Class 11 Notes PDF — Chapter 1',
+    gscIntro: 'This Economics and Economy Class 11 notes page is built for CBSE Economics Chapter 1 revision. Start with scarcity, choice and opportunity cost, then revise economic activities, microeconomics versus macroeconomics and market, planned and mixed economies.',
+    updated: '2026-09-04',
     summary: 'Economics and Economy introduces scarcity, choice and the allocation of limited resources. These notes establish the basic language of microeconomics and explain how economic activities and different types of economies are organised.',
     keyTopics: ['Meaning and scope of economics', 'Scarcity, choice and opportunity cost', 'Economic and non-economic activities', 'Microeconomics and macroeconomics', 'Market, planned and mixed economies'],
     examFocus: ['Use scarcity and alternative uses when explaining an economic problem.', 'Differentiate positive and normative ideas where applicable.', 'Support types of economies with simple examples.'],
