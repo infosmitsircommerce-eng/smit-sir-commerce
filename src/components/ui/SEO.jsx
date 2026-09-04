@@ -4,7 +4,7 @@ import { hubByPath, materialByPath } from '../../data/seoMaterials';
 const BASE = 'https://www.smitsircommerce.in';
 const DEFAULT_IMG = BASE + '/og-image.jpg';
 const SITE = 'Smit Sir Commerce';
-const DEFAULT_DESCRIPTION = 'CBSE Commerce coaching for Class 11 and 12 in Mehsana, Gujarat, with chapter-wise notes, practice resources, online and offline batches, and a free demo class.';
+const DEFAULT_DESCRIPTION = 'A growing Commerce learning platform with Class 11 & 12, B.Com, M.Com, UGC NET and GSET resources, plus specialist Class 11 & 12 teaching by Smit Sir.';
 
 const SITEWIDE_ENTITY = {
   '@context': 'https://schema.org',
@@ -24,7 +24,7 @@ const SITEWIDE_ENTITY = {
       alternateName: 'Smit Sir Commerce Classes',
       url: `${BASE}/`,
       email: 'infosmitsircommerce@gmail.com',
-      description: 'Class 11 and 12 teaching in Economics, Business Studies, Entrepreneurship and Physical Education, plus free Commerce study resources including Accountancy calculators, for students in Mehsana, Gujarat and online.',
+      description: 'A Commerce learning platform spanning school, college and competitive-exam resources, with specialist Class 11 and 12 teaching by Smit Sir and a growing library for B.Com, M.Com, UGC NET Commerce and GSET Commerce.',
       areaServed: {
         '@type': 'City',
         name: 'Mehsana',
@@ -44,6 +44,10 @@ const SITEWIDE_ENTITY = {
         'Entrepreneurship',
         'Physical Education',
         'Commerce exam preparation',
+        'B.Com learning resources',
+        'M.Com learning resources',
+        'UGC NET Commerce preparation resources',
+        'GSET Commerce preparation resources',
       ],
       founder: {
         '@type': 'Person',
@@ -138,7 +142,7 @@ export default function SEO({
   const searchMeta = chapterMeta || localMeta;
   const effectiveTitle = searchMeta?.title || title;
   const effectiveDescription = searchMeta?.description || description;
-  const fullTitle = effectiveTitle ? `${effectiveTitle} | ${SITE}` : `${SITE} | Free CBSE Commerce Notes Class 11 & 12`;
+  const fullTitle = effectiveTitle ? `${effectiveTitle} | ${SITE}` : `${SITE} | Commerce Learning Hub`;
   const url = BASE + normalizedPath;
   const robots = noindex
     ? 'noindex, nofollow, nosnippet'
