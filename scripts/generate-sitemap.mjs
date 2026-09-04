@@ -9,10 +9,12 @@ import { localizedPilotPages, localizedAlternatesByPath } from '../src/data/loca
 import { growthManifest } from './growth-manifest.mjs';
 import { examTests } from '../src/data/examBank.js';
 import { fetchPublishedCommerceResources, publishedDegreeState } from './commerce-resource-manifest.mjs';
+import { deriveCommerceDiscoveryCollections } from '../src/lib/commerceDiscovery.js';
 
 const BASE = 'https://www.smitsircommerce.in';
 const publishedCommerceResources = await fetchPublishedCommerceResources();
 const degreeState = publishedDegreeState(publishedCommerceResources);
+const commerceDiscoveryCollections = deriveCommerceDiscoveryCollections(publishedCommerceResources);
 const basePages = [
   ['/', 'weekly', '1.0'], ['/commerce-learning', 'weekly', '0.98'], ['/college-commerce', 'weekly', '0.85'], ['/commerce-exams', 'weekly', '0.9'], ['/ugc-net-commerce', 'weekly', '0.9'], ['/gset-commerce', 'weekly', '0.9'], ['/courses', 'weekly', '0.9'], ['/study-material', 'weekly', '0.9'],
   ['/cbse-notes', 'weekly', '1.0'], ['/cbse-practice', 'weekly', '1.0'], ['/cbse-pyq', 'weekly', '0.9'],
@@ -47,6 +49,7 @@ const entries=[
   ...basePages.map(([p,f,pr])=>urlEntry(p,f,pr)),
   ...activeCollegePages.map(([p,f,pr])=>urlEntry(p,f,pr)),
   ...publishedCommerceResources.map((resource)=>urlEntry(resource.path,'weekly','0.86',String(resource.updatedAt || '').slice(0,10))),
+  ...commerceDiscoveryCollections.map((collection)=>urlEntry(collection.path,'weekly',collection.type === 'college-subject' ? '0.84' : '0.82',String(publishedCommerceResources.find((resource)=>collection.resources?.includes(resource.slug))?.updatedAt || '').slice(0,10))),
   ...toolClusters.map(cluster=>urlEntry(`/tools/topics/${cluster.slug}`,'weekly','0.96','2026-09-03')),
   ...commerceTools.map(tool=>urlEntry(`/tools/${tool.slug}`,'monthly','0.92','2026-09-03')),
   ...localSeoPages.map(page=>urlEntry(page.path,'weekly','0.95','2026-09-03')),
@@ -61,4 +64,4 @@ const entries=[
 
 const xml=`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${entries.join('\n')}\n</urlset>\n`;
 await writeFile(new URL('../public/sitemap.xml',import.meta.url),xml,'utf8');
-console.log(`Generated sitemap with ${entries.length} indexable URLs (${publishedCommerceResources.length} published college/competitive Commerce resources, ${commerceTools.length} Commerce calculator pages, ${toolClusters.length} Commerce topic clusters, ${localizedPilotPages.length} Hindi/Gujarati pilot pages, ${localSeoPages.length} Mehsana local pages, ${gsebMaterials.length} GSEB chapter pages).`);
+console.log(`Generated sitemap with ${entries.length} indexable URLs (${publishedCommerceResources.length} published college/competitive Commerce resources, ${commerceDiscoveryCollections.length} live discovery collection pages, ${commerceTools.length} Commerce calculator pages, ${toolClusters.length} Commerce topic clusters, ${localizedPilotPages.length} Hindi/Gujarati pilot pages, ${localSeoPages.length} Mehsana local pages, ${gsebMaterials.length} GSEB chapter pages).`);
