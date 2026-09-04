@@ -369,6 +369,18 @@
     {
       "source": "/admin-studio",
       "destination": "/"
+    },
+    {
+      "source": "/college/:universitySlug/:degreeSlug/:semesterSlug/:subjectSlug/:resourceSlug",
+      "destination": "/"
+    },
+    {
+      "source": "/competitive/:examSlug/:unitSlug/:resourceSlug",
+      "destination": "/"
+    },
+    {
+      "source": "/school-resource/:boardSlug/:classSlug/:subjectSlug/:resourceSlug",
+      "destination": "/"
     }
   ]
 }
