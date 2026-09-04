@@ -72,11 +72,11 @@ async function findDedicatedHtml(pathname) {
 }
 
 function getMetaContent(html, name) {
-  const tags = html.match(/<meta\\s+[^>]*>/gi) || [];
+  const tags = html.match(/<meta\s+[^>]*>/gi) || [];
   for (const tag of tags) {
-    const nameMatch = tag.match(/\\bname=["']([^"']+)["']/i);
+    const nameMatch = tag.match(/\bname=["']([^"']+)["']/i);
     if (!nameMatch || nameMatch[1].toLowerCase() !== String(name).toLowerCase()) continue;
-    const contentMatch = tag.match(/\\bcontent=["']([^"']*)["']/i);
+    const contentMatch = tag.match(/\bcontent=["']([^"']*)["']/i);
     return contentMatch && contentMatch[1] ? contentMatch[1].trim() : '';
   }
   return '';
@@ -126,17 +126,15 @@ const noindexSources = (vercel.headers || [])
 
 function sourcePatternMatches(source, pathname) {
   if (source === pathname) return true;
-  if (!source.includes('*') && !source.includes(':') && !source.includes('(')) return false;
-  let pattern = escapeRegex(source)
-    .replace(/\\:\\w+\\\*/g, '.*')
-    .replace(/\\:\\w+/g, '[^/]+')
-    .replace(/\\\*/g, '.*')
-    .replace(/\\\(\\\.\\\*\\\)/g, '.*');
-  try {
-    return new RegExp('^' + pattern + '$').test(pathname);
-  } catch {
-    return false;
+  if (source.includes('*')) {
+    const pattern = '^' + source.split('*').map(escapeRegex).join('.*') + '$';
+    try { return new RegExp(pattern).test(pathname); } catch { return false; }
   }
+  if (source.includes(':')) {
+    const pattern = '^' + source.split('/').map((part) => part.startsWith(':') ? '[^/]+' : escapeRegex(part)).join('/') + '$';
+    try { return new RegExp(pattern).test(pathname); } catch { return false; }
+  }
+  return false;
 }
 
 function hasServerNoindex(pathname) {
