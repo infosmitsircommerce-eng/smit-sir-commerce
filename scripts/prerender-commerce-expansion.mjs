@@ -1,11 +1,14 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { bcomSemesters, mcomSemesters, commerceExamUnits } from '../src/data/commerceExpansion.js';
+import { fetchPublishedCommerceResources, publishedDegreeState } from './commerce-resource-manifest.mjs';
 
 const BASE = 'https://www.smitsircommerce.in';
 const SITE = 'Smit Sir Commerce';
 const source = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
 const distRoot = new URL('../dist/', import.meta.url);
+const publishedResources = await fetchPublishedCommerceResources();
+const degreeState = publishedDegreeState(publishedResources);
 
 function esc(value) {
   return String(value)
@@ -91,6 +94,16 @@ function semesterMarkup(degree, semesters) {
   ).join('');
 }
 
+function resourceList(filter) {
+  const matches = publishedResources.filter(filter);
+  if (!matches.length) return '<p>No published resources in this section yet. The roadmap remains visible while verified material is added.</p>';
+  return '<ul>' + matches.map((resource) =>
+    '<li><a href="' + esc(resource.path) + '">' + esc(resource.title) + '</a> — ' +
+    esc([resource.university, resource.degree, resource.semester ? 'Semester ' + resource.semester : null, resource.exam, resource.unit ? 'Unit ' + resource.unit : null, resource.subject].filter(Boolean).join(' · ')) +
+    '</li>'
+  ).join('') + '</ul>';
+}
+
 const explore = '<nav aria-label="Commerce learning pathways"><h2>Explore the Commerce journey</h2><ul>' +
   '<li><a href="/commerce-learning">All Commerce learning pathways</a></li>' +
   '<li><a href="/cbse-notes">Class 11 & 12 Commerce notes</a></li>' +
@@ -118,33 +131,33 @@ const pages = [
     path: '/college-commerce/bcom',
     title: 'B.Com Study Material Roadmap — Semesters 1–6',
     description: 'B.Com semester-wise Commerce resource roadmap. University-specific notes, PDFs, MCQs and PYQs will be activated as genuine material is uploaded.',
-    noindex: true,
-    body: '<main class="page-container section-padding" data-prerendered="commerce-expansion"><article><h1>B.Com Commerce material — semesters 1 to 6</h1><p>This roadmap is visible before the resource library is complete so the future upload structure is clear. It is intentionally kept out of search results until genuine B.Com material is available. Exact subject names vary by university, academic year, NEP/CBCS structure and electives.</p>' + semesterMarkup('B.Com', bcomSemesters) + '<h2>How future uploads will be organised</h2><ol><li>Choose the university and academic structure.</li><li>Choose the semester.</li><li>Match the exact subject name and subject code where available.</li><li>Attach verified notes, MCQs, PYQs or revision resources.</li></ol>' + explore + '</article></main>',
+    noindex: !degreeState.bcom,
+    body: '<main class="page-container section-padding" data-prerendered="commerce-expansion"><article><h1>B.Com Commerce material — semesters 1 to 6</h1><p>' + (degreeState.bcom ? 'Published B.Com material is now available below, while the semester map continues to show how future resources will be organised.' : 'This roadmap is visible before the resource library is complete so the future upload structure is clear. It remains out of search results until genuine B.Com material is available.') + ' Exact subject names vary by university, academic year, NEP/CBCS structure and electives.</p> Exact subject names vary by university, academic year, NEP/CBCS structure and electives.</p>' + '<h2>Published B.Com resources</h2>' + resourceList((item) => item.stage === 'college' && item.degree === 'B.Com') + semesterMarkup('B.Com', bcomSemesters) + '<h2>How future uploads will be organised</h2><ol><li>Choose the university and academic structure.</li><li>Choose the semester.</li><li>Match the exact subject name and subject code where available.</li><li>Attach verified notes, MCQs, PYQs or revision resources.</li></ol>' + explore + '</article></main>',
   },
   {
     path: '/college-commerce/mcom',
     title: 'M.Com Study Material Roadmap — Semesters 1–4',
     description: 'M.Com semester-wise Commerce resource roadmap. University-specific postgraduate notes, PDFs, MCQs and PYQs will be activated as genuine material is uploaded.',
-    noindex: true,
-    body: '<main class="page-container section-padding" data-prerendered="commerce-expansion"><article><h1>M.Com Commerce material — semesters 1 to 4</h1><p>This postgraduate roadmap is visible before the resource library is complete so the future upload structure is clear. It is intentionally kept out of search results until genuine M.Com material is available. Exact subject names vary by university, specialisation, academic year and elective structure.</p>' + semesterMarkup('M.Com', mcomSemesters) + '<h2>How future uploads will be organised</h2><ol><li>Choose the university and programme structure.</li><li>Choose the semester.</li><li>Match the exact subject or specialisation.</li><li>Attach verified notes, MCQs, PYQs, research material or revision resources.</li></ol>' + explore + '</article></main>',
+    noindex: !degreeState.mcom,
+    body: '<main class="page-container section-padding" data-prerendered="commerce-expansion"><article><h1>M.Com Commerce material — semesters 1 to 4</h1><p>' + (degreeState.mcom ? 'Published M.Com material is now available below, while the semester map continues to show how future resources will be organised.' : 'This postgraduate roadmap is visible before the resource library is complete so the future upload structure is clear. It remains out of search results until genuine M.Com material is available.') + ' Exact subject names vary by university, specialisation, academic year and elective structure.</p> Exact subject names vary by university, specialisation, academic year and elective structure.</p>' + '<h2>Published M.Com resources</h2>' + resourceList((item) => item.stage === 'college' && item.degree === 'M.Com') + semesterMarkup('M.Com', mcomSemesters) + '<h2>How future uploads will be organised</h2><ol><li>Choose the university and programme structure.</li><li>Choose the semester.</li><li>Match the exact subject or specialisation.</li><li>Attach verified notes, MCQs, PYQs, research material or revision resources.</li></ol>' + explore + '</article></main>',
   },
   {
     path: '/commerce-exams',
     title: 'Commerce Competitive Exams — UGC NET & GSET',
     description: 'Commerce competitive-exam hub for UGC NET Commerce and GSET Commerce with syllabus structure, unit-wise notes, MCQs, previous papers, mock tests and revision.',
-    body: '<main class="page-container section-padding" data-prerendered="commerce-expansion"><article><h1>UGC NET and GSET Commerce preparation hub</h1><p>This section separates exam-specific information while allowing overlapping Commerce concepts to share one strong learning resource. UGC NET Commerce and GSET Commerce each receive their own syllabus, previous-paper and mock-test pathways.</p><h2>Commerce unit map</h2><ol>' + units + '</ol><p>The resource library is being built for official syllabus documents, unit-wise notes, MCQs, previous papers, mock tests and revision sheets. Materials will be marked available only when they have actually been uploaded.</p>' + explore + '</article></main>',
+    body: '<main class="page-container section-padding" data-prerendered="commerce-expansion"><article><h1>UGC NET and GSET Commerce preparation hub</h1><p>This section separates exam-specific information while allowing overlapping Commerce concepts to share one strong learning resource. UGC NET Commerce and GSET Commerce each receive their own syllabus, previous-paper and mock-test pathways.</p><h2>Published competitive Commerce resources</h2>' + resourceList((item) => item.stage === 'competitive') + '<h2>Commerce unit map</h2><ol>' + units + '</ol><p>The resource library is being built for official syllabus documents, unit-wise notes, MCQs, previous papers, mock tests and revision sheets. Materials are linked only after they are published.</p>' + explore + '</article></main>',
   },
   {
     path: '/ugc-net-commerce',
     title: 'UGC NET Commerce — Syllabus, Notes, MCQs & PYQs',
     description: 'UGC NET Commerce subject 08/008 preparation hub with Paper 1, Commerce syllabus structure, unit-wise notes, MCQs, previous papers, mock tests and revision.',
-    body: '<main class="page-container section-padding" data-prerendered="commerce-expansion"><article><h1>UGC NET Commerce preparation — subject 08 / 008</h1><p>The UGC subject list identifies Commerce as subject code 08, while NTA answer-key material displays it as 008. This page is reserved for Paper 1 plus the Commerce subject preparation library.</p><h2>Commerce subject units</h2><ol>' + units + '</ol><p>Future resources will include the official syllabus PDF, unit-wise notes, MCQs, previous papers, mock tests and revision. Paper 1 material will remain clearly separated from Commerce subject material.</p>' + explore + '</article></main>',
+    body: '<main class="page-container section-padding" data-prerendered="commerce-expansion"><article><h1>UGC NET Commerce preparation — subject 08 / 008</h1><p>The UGC subject list identifies Commerce as subject code 08, while NTA answer-key material displays it as 008. This page is reserved for Paper 1 plus the Commerce subject preparation library.</p><h2>Published UGC NET Commerce resources</h2>' + resourceList((item) => item.stage === 'competitive' && item.exam === 'UGC NET Commerce') + '<h2>Commerce subject units</h2><ol>' + units + '</ol><p>Future resources will include the official syllabus PDF, unit-wise notes, MCQs, previous papers, mock tests and revision. Paper 1 material will remain clearly separated from Commerce subject material.</p>' + explore + '</article></main>',
   },
   {
     path: '/gset-commerce',
     title: 'GSET Commerce — Syllabus, Notes, MCQs & PYQs',
     description: 'GSET Commerce code 17 preparation hub with official syllabus structure, unit-wise notes, MCQs, previous papers, mock tests and revision.',
-    body: '<main class="page-container section-padding" data-prerendered="commerce-expansion"><article><h1>GSET Commerce preparation — subject code 17</h1><p>The official Gujarat State Eligibility Test Commerce syllabus identifies Commerce as code 17. This page is structured for syllabus, unit-wise notes, MCQs, previous papers, mock tests and revision material.</p><h2>GSET Commerce units</h2><ol>' + units + '</ol><p>The visible structure is ready now, while resource links will be activated progressively as verified PDFs and practice material are uploaded.</p>' + explore + '</article></main>',
+    body: '<main class="page-container section-padding" data-prerendered="commerce-expansion"><article><h1>GSET Commerce preparation — subject code 17</h1><p>The official Gujarat State Eligibility Test Commerce syllabus identifies Commerce as code 17. This page is structured for syllabus, unit-wise notes, MCQs, previous papers, mock tests and revision material.</p><h2>Published GSET Commerce resources</h2>' + resourceList((item) => item.stage === 'competitive' && item.exam === 'GSET Commerce') + '<h2>GSET Commerce units</h2><ol>' + units + '</ol><p>The visible structure is ready now, while resource links will be activated progressively as verified PDFs and practice material are uploaded.</p>' + explore + '</article></main>',
   },
 ];
 
