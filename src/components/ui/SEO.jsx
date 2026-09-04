@@ -23,7 +23,6 @@ const SITEWIDE_ENTITY = {
       name: SITE,
       alternateName: 'Smit Sir Commerce Classes',
       url: `${BASE}/`,
-      telephone: '+916353709585',
       email: 'infosmitsircommerce@gmail.com',
       description: 'Class 11 and 12 teaching in Economics, Business Studies, Entrepreneurship and Physical Education, plus free Commerce study resources including Accountancy calculators, for students in Mehsana, Gujarat and online.',
       areaServed: {
@@ -46,12 +45,6 @@ const SITEWIDE_ENTITY = {
         'Physical Education',
         'Commerce exam preparation',
       ],
-      contactPoint: {
-        '@type': 'ContactPoint',
-        telephone: '+916353709585',
-        contactType: 'admissions and student enquiries',
-        areaServed: 'IN-GJ',
-      },
       founder: {
         '@type': 'Person',
         '@id': `${BASE}/about#smit-thaker`,
