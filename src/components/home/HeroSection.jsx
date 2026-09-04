@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { ArrowRight, BookOpen, CheckCircle, Sparkles, GraduationCap, Calculator, FileText } from 'lucide-react';
 
 const trust = [
@@ -8,12 +7,6 @@ const trust = [
   { value: '11 & 12', label: 'CBSE Classes' },
   { value: 'Free', label: 'First Demo Class' },
 ];
-
-const fade = (delay = 0) => ({
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] },
-});
 
 function indiaDate() {
   const parts = new Intl.DateTimeFormat('en-GB', {
@@ -76,10 +69,7 @@ function LearningCard() {
 
 function JanmashtamiVisual() {
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 28, scale: .98 }}
-      animate={{ opacity: 1, x: 0, scale: 1 }}
-      transition={{ duration: .75, delay: .15, ease: [0.22, 1, 0.36, 1] }}
+    <div
       className="hero-janmashtami-card"
       style={{ position: 'relative', width: '100%', maxWidth: '520px', justifySelf: 'end' }}
     >
@@ -116,7 +106,7 @@ function JanmashtamiVisual() {
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -149,7 +139,7 @@ export default function HeroSection() {
           gap: 56, alignItems: 'center',
         }}>
           <div>
-            <motion.div {...fade(.06)}>
+            <div>
               <span style={{
                 display: 'inline-flex', alignItems: 'center', gap: 8,
                 padding: '8px 13px', borderRadius: 999,
@@ -161,9 +151,9 @@ export default function HeroSection() {
                 {festival ? <Sparkles size={13} /> : <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#D5A438' }} />}
                 {festival ? 'Janmashtami 2026' : 'A different way to learn Commerce'}
               </span>
-            </motion.div>
+            </div>
 
-            <motion.h1 {...fade(.14)} style={{
+            <h1 style={{
               fontFamily: 'var(--font-serif)',
               fontSize: 'clamp(2.55rem,4.8vw,4rem)', fontWeight: 700,
               lineHeight: 1.08, letterSpacing: '-.025em', color: 'var(--ink)',
@@ -188,25 +178,25 @@ export default function HeroSection() {
                   }}>choose understanding.</em>
                 </>
               )}
-            </motion.h1>
+            </h1>
 
-            <motion.p {...fade(.22)} style={{
+            <p style={{
               fontFamily: 'var(--font-sans)', fontSize: 16, lineHeight: 1.78,
               color: 'var(--muted)', maxWidth: 590, marginBottom: 18,
             }}>
               {festival
                 ? 'May Shri Krishna bless you with wisdom, peace, curiosity and the courage to keep learning. Wishing students and families a joyful and meaningful Janmashtami.'
                 : 'Marks matter — but they are the result, not the entire purpose of education. Learn Commerce with clarity, curiosity and fun, so you understand the “why” behind every concept.'}
-            </motion.p>
+            </p>
 
-            <motion.p {...fade(.28)} style={{
+            <p style={{
               fontFamily: 'var(--font-serif)', fontSize: '1.15rem', lineHeight: 1.5,
               color: 'var(--ink)', fontWeight: 650, maxWidth: 580, marginBottom: 30,
             }}>
               {festival ? 'A small wish from Smit Sir Commerce — learning should carry both knowledge and joy.' : 'Learning with Fun. Marks as a Result.'}
-            </motion.p>
+            </p>
 
-            <motion.div {...fade(.32)} style={{ marginBottom: 36 }}>
+            <div style={{ marginBottom: 36 }}>
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                 <Link to="/cbse-notes" className="btn-primary hero-primary-cta" style={{ fontSize: 15, padding: '13px 28px' }}>
                   {festival ? 'Explore Free Commerce Notes' : 'Start Learning Free'}
@@ -224,9 +214,9 @@ export default function HeroSection() {
                 <CheckCircle style={{ width: 15, height: 15, color: 'var(--green)' }} />
                 {festival ? 'Celebrate the day. Keep learning at your own pace.' : 'Understand first. Practise confidently. Let better marks follow.'}
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div {...fade(.4)} className="hero-trust-grid" style={{
+            <div className="hero-trust-grid" style={{
               display: 'grid', gridTemplateColumns: 'repeat(4,minmax(0,1fr))', gap: 10,
             }}>
               {trust.map((t) => (
@@ -239,7 +229,7 @@ export default function HeroSection() {
                   <div style={{ fontFamily: 'var(--font-sans)', fontSize: 10, fontWeight: 700, lineHeight: 1.35, letterSpacing: '.045em', color: 'var(--subtle)', marginTop: 8, textTransform: 'uppercase' }}>{t.label}</div>
                 </div>
               ))}
-            </motion.div>
+            </div>
           </div>
 
           {festival ? <JanmashtamiVisual /> : <LearningCard />}
