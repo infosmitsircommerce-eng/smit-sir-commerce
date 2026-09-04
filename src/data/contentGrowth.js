@@ -208,6 +208,9 @@ function buildGrowthPage(material, type) {
     title: `CBSE Class ${material.class_level} ${material.chapter} ${meta.label}`,
     description: `Practice CBSE Class ${material.class_level} ${material.chapter} with ${meta.intent}. Original study material by Smit Sir Commerce; not an official CBSE paper.`,
     updated: '2026-09-01',
+    // Only the manually curated practice formats are indexable. Generic generated
+    // study helpers stay available to students but are excluded from search/ads.
+    indexable: ['assertion-reason', 'numericals'].includes(type),
   };
   if (type === 'mcqs') common.mcqs = [...getChapterMcqs(material), ...buildExtraMcqs(material)].slice(0, 10);
   if (type === 'important-questions') common.questions = makeImportant(material);
