@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   ArrowRight, BookOpen, BriefcaseBusiness, CheckCircle2, FileText,
@@ -6,8 +6,7 @@ import {
 } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { bcomSemesters, mcomSemesters, commerceExamUnits, collegeResourceTypes, examResourceTypes } from '../data/commerceExpansion';
-import { getPublishedCommerceResources } from '../lib/commerceResourceStore';
-import { commerceResourceContext } from '../lib/commerceResourceModel';
+import CommerceResourceFinder from '../components/commerce/CommerceResourceFinder';
 
 const BASE = 'https://www.smitsircommerce.in';
 
@@ -71,58 +70,6 @@ function SemesterGrid({ degree, semesters, hasPublished = false }) {
           </article>
         ))}
       </div>
-    </section>
-  );
-}
-
-function PublishedResourceList({ stage, degree, exam, onCount, heading = 'Published resources' }) {
-  const [resources, setResources] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    let active = true;
-    setLoading(true);
-    getPublishedCommerceResources({ stage, degree, exam })
-      .then((items) => {
-        if (!active) return;
-        setResources(items);
-        onCount?.(items.length);
-      })
-      .catch(() => {
-        if (!active) return;
-        setResources([]);
-        onCount?.(0);
-      })
-      .finally(() => { if (active) setLoading(false); });
-    return () => { active = false; };
-  }, [stage, degree, exam, onCount]);
-
-  return (
-    <section className="mb-10">
-      <div className="flex items-center justify-between gap-3 mb-5">
-        <div><Badge>Live library</Badge><h2 className="text-3xl mt-3" style={{ color: 'var(--ink)' }}>{heading}</h2></div>
-        {!loading && resources.length > 0 && <span className="text-xs font-black uppercase tracking-widest" style={{ color: 'var(--green)' }}>{resources.length} available</span>}
-      </div>
-      {loading ? (
-        <div className="card-paper p-6 text-sm" style={{ color: 'var(--muted)' }}>Checking the published library…</div>
-      ) : resources.length === 0 ? (
-        <div className="card-paper p-6">
-          <ComingSoon />
-          <p className="text-sm leading-7 mt-3" style={{ color: 'var(--muted)' }}>No verified resource has been published in this section yet. The semester or unit roadmap stays visible while material is being added.</p>
-        </div>
-      ) : (
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-          {resources.map((resource) => (
-            <Link key={resource.slug} to={resource.path} className="card-paper p-5 group">
-              <div className="text-[10px] font-black uppercase tracking-widest" style={{ color: 'var(--gold)' }}>{resource.resourceType}</div>
-              <h3 className="text-lg font-semibold mt-2" style={{ color: 'var(--ink)' }}>{resource.title}</h3>
-              <p className="text-xs mt-2" style={{ color: 'var(--subtle)' }}>{commerceResourceContext(resource)}</p>
-              <p className="text-sm leading-6 mt-3 line-clamp-3" style={{ color: 'var(--muted)' }}>{resource.description}</p>
-              <span className="inline-flex items-center gap-1.5 mt-4 text-sm font-bold" style={{ color: 'var(--gold)' }}>Open resource <ArrowRight className="w-4 h-4" /></span>
-            </Link>
-          ))}
-        </div>
-      )}
     </section>
   );
 }
@@ -204,7 +151,7 @@ function CollegeHome() {
         </div>
       </PlatformHero>
       <main className="page-container section-padding">
-        <PublishedResourceList stage="college" heading="Published college resources" />
+        <CommerceResourceFinder stage="college" title="Find college Commerce material" />
         <div className="grid md:grid-cols-2 gap-5">
           <Link to="/college-commerce/bcom" className="card-paper p-7">
             <University className="w-8 h-8" style={{ color: 'var(--gold)' }} />
@@ -261,7 +208,7 @@ function DegreePage({ degree }) {
         <div className="mt-6">{hasPublished ? <span className="inline-flex items-center rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-wider" style={{ background: 'rgba(77,124,15,.09)', color: 'var(--green)', border: '1px solid rgba(77,124,15,.24)' }}>{publishedCount} published resource{publishedCount === 1 ? '' : 's'}</span> : <ComingSoon />}</div>
       </PlatformHero>
       <main className="page-container section-padding">
-        <PublishedResourceList stage="college" degree={degree} onCount={setPublishedCount} heading={`Published ${degree} resources`} />
+        <CommerceResourceFinder stage="college" degree={degree} onCount={setPublishedCount} title={`Find ${degree} material`} />
         <SemesterGrid degree={degree} semesters={semesters} hasPublished={hasPublished} />
         <section className="mt-12 card-paper p-6 sm:p-8">
           <h2 className="text-2xl" style={{ color: 'var(--ink)' }}>Upload workflow</h2>
@@ -290,7 +237,7 @@ function ExamHome() {
         description="A dedicated exam layer is being added for Commerce aspirants. UGC NET Commerce and GSET Commerce will have separate exam hubs while sharing high-quality unit-wise Commerce learning resources where the syllabus overlaps."
       />
       <main className="page-container section-padding">
-        <PublishedResourceList stage="competitive" heading="Published competitive Commerce resources" />
+        <CommerceResourceFinder stage="competitive" title="Find competitive Commerce material" />
         <div className="grid md:grid-cols-2 gap-5">
           <Link to="/ugc-net-commerce" className="card-paper p-7">
             <ScrollText className="w-8 h-8" style={{ color: 'var(--gold)' }} />
@@ -336,7 +283,7 @@ function ExamPage({ type }) {
       </PlatformHero>
 
       <main className="page-container section-padding">
-        <PublishedResourceList stage="competitive" exam={label} heading={`${label} published resources`} />
+        <CommerceResourceFinder stage="competitive" exam={label} title={`Find ${label} material`} />
         {isNet && (
           <section className="card-paper p-6 sm:p-8 mb-8">
             <div className="flex items-center gap-3"><LibraryBig className="w-6 h-6" style={{ color: 'var(--gold)' }} /><h2 className="text-2xl" style={{ color: 'var(--ink)' }}>Paper 1 — Teaching & Research Aptitude</h2></div>
