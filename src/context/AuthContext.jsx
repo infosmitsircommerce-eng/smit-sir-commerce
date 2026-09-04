@@ -1,7 +1,18 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
 
 const AuthContext = createContext({});
+let supabasePromise;
+
+function getSupabase() {
+  if (!supabasePromise) {
+    supabasePromise = import('../lib/supabase').then((module) => module.supabase);
+  }
+  return supabasePromise;
+}
+
+function shouldLoadAuthImmediately() {
+  return /^\/(login|onboarding|dashboard|admin(?:\/|$)|admin-studio|learning-insights|my-data)/.test(window.location.pathname);
+}
 
 export function AuthProvider({ children }) {
   const [user, setUser]       = useState(null);
@@ -9,30 +20,64 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-      if (session?.user) fetchProfile(session.user.id);
-      else setLoading(false);
-    });
+    let cancelled = false;
+    let subscription;
+    let idleId;
+    let timerId;
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-      if (session?.user) fetchProfile(session.user.id);
-      else { setProfile(null); setLoading(false); }
-    });
+    const init = async () => {
+      try {
+        const supabase = await getSupabase();
+        if (cancelled) return;
 
-    return () => subscription.unsubscribe();
+        const { data: { session } } = await supabase.auth.getSession();
+        if (cancelled) return;
+
+        setUser(session?.user ?? null);
+        if (session?.user) await fetchProfile(session.user.id);
+        else setLoading(false);
+
+        const { data } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+          if (cancelled) return;
+          setUser(nextSession?.user ?? null);
+          if (nextSession?.user) fetchProfile(nextSession.user.id);
+          else {
+            setProfile(null);
+            setLoading(false);
+          }
+        });
+        subscription = data.subscription;
+      } catch {
+        if (!cancelled) setLoading(false);
+      }
+    };
+
+    if (shouldLoadAuthImmediately()) {
+      init();
+    } else if ('requestIdleCallback' in window) {
+      idleId = window.requestIdleCallback(init, { timeout: 1400 });
+    } else {
+      timerId = window.setTimeout(init, 700);
+    }
+
+    return () => {
+      cancelled = true;
+      subscription?.unsubscribe();
+      if (idleId) window.cancelIdleCallback?.(idleId);
+      if (timerId) window.clearTimeout(timerId);
+    };
   }, []);
 
   async function fetchProfile(userId) {
     try {
+      const supabase = await getSupabase();
       const { data } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', userId)
         .single();
       setProfile(data ?? null);
-    } catch (_) {
+    } catch {
       setProfile(null);
     } finally {
       setLoading(false);
@@ -40,6 +85,7 @@ export function AuthProvider({ children }) {
   }
 
   async function signUp(email, password, name, classLevel) {
+    const supabase = await getSupabase();
     return supabase.auth.signUp({
       email,
       password,
@@ -52,15 +98,18 @@ export function AuthProvider({ children }) {
     });
   }
 
-  function signIn(email, password) {
+  async function signIn(email, password) {
+    const supabase = await getSupabase();
     return supabase.auth.signInWithPassword({ email, password });
   }
 
-  function signOut() {
+  async function signOut() {
+    const supabase = await getSupabase();
     return supabase.auth.signOut();
   }
 
   async function resetPassword(email) {
+    const supabase = await getSupabase();
     return supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${window.location.origin}/reset-password`,
     });
