@@ -57,7 +57,7 @@ const entries=[
   ...seoMaterials.map(m=>urlEntry(m.seo_path,'monthly','0.8',m.updated)),
   ...gsebMaterials.map(m=>urlEntry(m.seo_path,'monthly','0.86',m.updated || '2026-09-02')),
   ...authorityGuides.map(g=>urlEntry(g.path,'weekly','0.9',g.updated)),
-  ...growthManifest.map(p=>urlEntry(p.path,'monthly',p.type==='mcqs'||p.type==='important-questions'?'0.82':'0.76',p.updated)),
+  ...growthManifest.filter((p)=>p.indexable).map(p=>urlEntry(p.path,'monthly','0.82',p.updated)),
   ...examTests.map(t=>urlEntry(`/tests/${t.slug}`,'monthly','0.75','2026-09-01')),
   ...localizedPilotPages.map((page)=>urlEntry(page.path,'weekly','0.86',page.updated)),
 ];
