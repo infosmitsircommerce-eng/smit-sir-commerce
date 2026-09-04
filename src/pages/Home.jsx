@@ -1,5 +1,4 @@
 import SEO from '../components/ui/SEO';
-import JanmashtamiWelcome from '../components/home/JanmashtamiWelcome';
 import HeroSection from '../components/home/HeroSection';
 import LearningPhilosophy from '../components/home/LearningPhilosophy';
 import TrustLayer from '../components/home/TrustLayer';
@@ -62,7 +61,6 @@ export default function Home() {
         path="/"
         structuredData={structuredData}
       />
-      <JanmashtamiWelcome />
       <HeroSection />
       <LearningPhilosophy />
       <TrustLayer />
