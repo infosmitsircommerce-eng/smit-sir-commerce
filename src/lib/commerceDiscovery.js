@@ -1,4 +1,4 @@
-import { slugifyResource } from './commerceResourceModel';
+import { slugifyResource } from './commerceResourceModel.js';
 
 function uniqueByPath(items) {
   const seen = new Map();
