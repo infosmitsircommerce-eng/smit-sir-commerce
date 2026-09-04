@@ -1,8 +1,12 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { access, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { gsebMaterials } from '../src/data/gsebMaterials.js';
 
 const distRoot = new URL('../dist/', import.meta.url).pathname;
+
+async function fileExists(path) {
+  try { await access(path); return true; } catch { return false; }
+}
 
 // Internal creative previews are useful for production work but should never
 // compete with real learning pages in search or be considered publisher pages.
@@ -42,7 +46,15 @@ for (const material of gsebMaterials) {
     if (html.includes('data-adsense-enrichment="gseb"')) continue;
 
     const guidance = chapterGuidance[material.chapterNumber] || `Revise the key definitions, relationships and examples from ${material.chapter}, then practise explaining each point in your own words before checking the chapter practice questions.`;
-    const enrichment = `<section class="card" data-adsense-enrichment="gseb"><h2>How to revise ${material.chapter}</h2><p>${guidance}</p><p>Use this page as a chapter map, then open the complete ${material.pages}-page notes PDF for the full explanation. After reading, attempt the linked practice section without looking at the notes. Mark any concept you cannot explain in two or three clear sentences, return to that section in the PDF, and then retry the question. This active-recall cycle is more useful than repeatedly reading the same page.</p><h2>Free chapter resources</h2><div class="btns"><a class="btn" href="${material.file_url}">Open complete Chapter ${material.chapterNumber} PDF</a><a class="btn gold" href="${material.practice_path}">Practice Chapter ${material.chapterNumber}</a><a class="btn" href="/marks-recovery">Find where you are losing marks</a></div><p>This resource is organised for GSEB Class 12 Economics revision. Use your current school textbook, teacher guidance and official board material alongside these notes whenever the wording or syllabus emphasis differs.</p></section>`;
+    const pdfPath = join(distRoot, material.file_url.replace(/^\//, ''));
+    const hasPdf = await fileExists(pdfPath);
+    const pdfGuidance = hasPdf
+      ? `Use this page as a chapter map, then open the complete ${material.pages}-page notes PDF for the full explanation. After reading, attempt the linked practice section without looking at the notes. Mark any concept you cannot explain in two or three clear sentences, return to that section in the PDF, and then retry the question.`
+      : `Use this chapter page as your revision map, then attempt the linked practice section without looking at the notes. The downloadable PDF is temporarily unavailable in this build, so this page does not link students to a missing file.`;
+    const pdfLink = hasPdf
+      ? `<a class="btn" href="${material.file_url}">Open complete Chapter ${material.chapterNumber} PDF</a>`
+      : '';
+    const enrichment = `<section class="card" data-adsense-enrichment="gseb"><h2>How to revise ${material.chapter}</h2><p>${guidance}</p><p>${pdfGuidance} This active-recall cycle is more useful than repeatedly reading the same page.</p><h2>Free chapter resources</h2><div class="btns">${pdfLink}<a class="btn gold" href="${material.practice_path}">Practice Chapter ${material.chapterNumber}</a><a class="btn" href="/marks-recovery">Find where you are losing marks</a></div><p>This resource is organised for GSEB Class 12 Economics revision. Use your current school textbook, teacher guidance and official board material alongside these notes whenever the wording or syllabus emphasis differs.</p></section>`;
 
     html = html.replace('</main>', `${enrichment}</main>`);
     await writeFile(path, html, 'utf8');
