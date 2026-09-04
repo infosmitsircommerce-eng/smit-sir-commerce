@@ -11,8 +11,8 @@ import SEO from '../components/ui/SEO';
 import { getHubMaterials, seoHubs } from '../data/seoMaterials';
 
 const PATH = '/cbse-notes';
-const TITLE = 'Free CBSE Commerce Notes Class 11 & 12 PDF';
-const DESCRIPTION = 'Free CBSE Commerce notes for Class 11 and 12 with chapter-wise PDF notes for Economics, Business Studies, Microeconomics and Macroeconomics. View online or download free.';
+const TITLE = 'Free CBSE Commerce Notes Class 11 & 12 PDF Download';
+const DESCRIPTION = 'Download free CBSE Commerce notes for Class 11 and 12. Get chapter-wise PDF notes for Business Studies, Microeconomics and Macroeconomics with no registration required.';
 
 const faqItems = [
   {
