@@ -4,27 +4,46 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const partsDir = join(root, 'assets', 'gseb-pdf-archive');
+const bundleDir = join(root, 'assets', 'gseb-pdf-bundle');
+const legacyPartsDir = join(root, 'assets', 'gseb-pdf-archive');
 const publicDir = join(root, 'public');
 
-let partNames = [];
-try {
-  partNames = (await readdir(partsDir))
-    .filter((name) => /^part-\d+\.b64$/.test(name))
-    .sort();
-} catch {
-  console.warn('GSEB PDF archive directory is missing; skipping PDF assembly.');
-  process.exit(0);
+async function readEncodedArchive() {
+  try {
+    const bundleNames = (await readdir(bundleDir))
+      .filter((name) => /^bundle-\d+\.b64$/.test(name))
+      .sort();
+    if (bundleNames.length) {
+      let base64 = '';
+      for (const name of bundleNames) {
+        base64 += (await readFile(join(bundleDir, name), 'utf8')).trim();
+      }
+      console.log(`Using ${bundleNames.length} GSEB PDF bundle parts.`);
+      return base64;
+    }
+  } catch {
+    // Fall through to the legacy archive while the new bundle is not present.
+  }
+
+  try {
+    const partNames = (await readdir(legacyPartsDir))
+      .filter((name) => /^part-\d+\.b64$/.test(name))
+      .sort();
+    if (!partNames.length) return '';
+    let base64 = '';
+    for (const name of partNames) {
+      base64 += (await readFile(join(legacyPartsDir, name), 'utf8')).trim();
+    }
+    return base64;
+  } catch {
+    return '';
+  }
 }
 
-if (!partNames.length) {
-  console.warn('GSEB PDF archive has no parts; skipping PDF assembly.');
+const base64 = await readEncodedArchive();
+if (!base64) {
+  console.warn('GSEB PDF archive is missing; skipping PDF assembly.');
   process.exit(0);
-}
-
-let base64 = '';
-for (const name of partNames) {
-  base64 += (await readFile(join(partsDir, name), 'utf8')).trim();
 }
 
 let tar;
