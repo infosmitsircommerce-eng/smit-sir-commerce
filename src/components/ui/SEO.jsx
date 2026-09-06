@@ -1,10 +1,22 @@
 import { Helmet } from 'react-helmet-async';
 import { hubByPath, materialByPath } from '../../data/seoMaterials';
+import { gsebMaterials } from '../../data/gsebMaterials';
 
 const BASE = 'https://www.smitsircommerce.in';
 const DEFAULT_IMG = BASE + '/og-image.jpg';
 const SITE = 'Smit Sir Commerce';
-const DEFAULT_DESCRIPTION = 'A growing Commerce learning platform with Class 11 & 12, B.Com, M.Com, UGC NET and GSET resources, plus specialist Class 11 & 12 teaching by Smit Sir.';
+const DEFAULT_DESCRIPTION = 'Free Commerce study material, CBSE and GSEB PDF notes, chapter-wise practice, Commerce tools and optional teacher help from Smit Sir Commerce.';
+
+const gsebMaterialByPath = Object.fromEntries(gsebMaterials.map((material) => [material.seo_path, material]));
+
+const CORE_RESOURCE_LINKS = [
+  { name: 'Free Commerce Study Material', url: `${BASE}/study-material`, about: 'CBSE and GSEB chapter-wise PDF notes' },
+  { name: 'CBSE Commerce Notes', url: `${BASE}/cbse-notes`, about: 'Class 11 and Class 12 CBSE Commerce notes' },
+  { name: 'GSEB Class 12 Economics Notes', url: `${BASE}/gseb-class-12-economics.html`, about: 'GSEB Class 12 Economics chapter-wise notes and PDFs' },
+  { name: 'Commerce Practice', url: `${BASE}/daily-practice`, about: 'Chapter practice and revision questions' },
+  { name: 'Commerce Tools', url: `${BASE}/tools`, about: 'Free Economics and Accountancy calculators' },
+  { name: 'Commerce Games', url: `${BASE}/games`, about: 'Interactive learning games for Commerce students' },
+];
 
 const SITEWIDE_ENTITY = {
   '@context': 'https://schema.org',
@@ -14,30 +26,43 @@ const SITEWIDE_ENTITY = {
       '@id': `${BASE}/#website`,
       url: `${BASE}/`,
       name: SITE,
+      alternateName: ['Smit Sir Commerce Classes', 'Smit Sir Commerce Notes'],
+      description: DEFAULT_DESCRIPTION,
       inLanguage: 'en-IN',
       publisher: { '@id': `${BASE}/#organization` },
+      hasPart: CORE_RESOURCE_LINKS.map((item) => ({
+        '@type': 'WebPage',
+        name: item.name,
+        url: item.url,
+        about: item.about,
+        isAccessibleForFree: true,
+      })),
     },
     {
       '@type': 'EducationalOrganization',
       '@id': `${BASE}/#organization`,
       name: SITE,
-      alternateName: 'Smit Sir Commerce Classes',
+      alternateName: ['Smit Sir Commerce Classes', 'Smit Sir Commerce Notes'],
       url: `${BASE}/`,
       email: 'infosmitsircommerce@gmail.com',
-      description: 'A Commerce learning platform spanning school, college and competitive-exam resources, with specialist Class 11 and 12 teaching by Smit Sir and a growing library for B.Com, M.Com, UGC NET Commerce and GSET Commerce.',
-      areaServed: {
-        '@type': 'City',
-        name: 'Mehsana',
-        containedInPlace: {
-          '@type': 'State',
-          name: 'Gujarat',
-          containedInPlace: { '@type': 'Country', name: 'India' },
+      description: 'Smit Sir Commerce is a student-first Commerce learning resource library for free CBSE and GSEB notes, PDFs, practice resources, learning games and Commerce tools, with optional support from Smit Sir when students need help.',
+      areaServed: [
+        { '@type': 'Country', name: 'India' },
+        {
+          '@type': 'City',
+          name: 'Mehsana',
+          containedInPlace: {
+            '@type': 'State',
+            name: 'Gujarat',
+            containedInPlace: { '@type': 'Country', name: 'India' },
+          },
         },
-      },
+      ],
       knowsAbout: [
         'Class 11 Commerce',
         'Class 12 Commerce',
-        'CBSE Commerce',
+        'CBSE Commerce notes',
+        'GSEB Class 12 Economics notes',
         'Economics',
         'Business Studies',
         'Accountancy learning resources',
@@ -49,33 +74,29 @@ const SITEWIDE_ENTITY = {
         'UGC NET Commerce preparation resources',
         'GSET Commerce preparation resources',
       ],
-      founder: {
-        '@type': 'Person',
-        '@id': `${BASE}/about#smit-thaker`,
-        name: 'Smit Thaker',
-        url: `${BASE}/about`,
-        worksFor: { '@id': `${BASE}/#organization` },
-        knowsAbout: ['Economics', 'Business Studies', 'Entrepreneurship', 'Physical Education', 'Commerce education'],
-      },
+      founder: { '@id': `${BASE}/about#smit-thaker` },
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
-        name: 'Class 11 and 12 tuition and academic support in Mehsana',
+        name: 'Commerce learning resources and student support',
         itemListElement: [
-          'Class 11 Commerce Tuition',
-          'Class 12 Commerce Tuition',
-          'Economics Tuition',
-          'Business Studies Tuition',
-          'Entrepreneurship Tuition',
-          'Physical Education Tuition',
-          'Free Test-Paper Analysis',
-          'Free Demo Class',
+          'Free Commerce Notes PDF',
+          'CBSE Class 11 Commerce Notes',
+          'CBSE Class 12 Commerce Notes',
+          'GSEB Class 12 Economics Notes',
+          'Economics Practice Resources',
+          'Business Studies Revision Resources',
+          'Accountancy Learning Tools',
+          'Commerce Doubt Support',
         ].map((name) => ({
           '@type': 'Offer',
+          availability: 'https://schema.org/InStock',
           itemOffered: {
-            '@type': 'Service',
+            '@type': 'LearningResource',
             name,
-            areaServed: { '@type': 'City', name: 'Mehsana' },
             provider: { '@id': `${BASE}/#organization` },
+            educationalLevel: ['Class 11', 'Class 12'],
+            learningResourceType: ['Notes', 'PDF', 'Practice material'],
+            isAccessibleForFree: true,
           },
         })),
       },
@@ -84,9 +105,21 @@ const SITEWIDE_ENTITY = {
       '@type': 'Person',
       '@id': `${BASE}/about#smit-thaker`,
       name: 'Smit Thaker',
+      alternateName: 'Smit Sir',
       url: `${BASE}/about`,
       worksFor: { '@id': `${BASE}/#organization` },
       knowsAbout: ['Economics', 'Business Studies', 'Entrepreneurship', 'Physical Education', 'Commerce education'],
+    },
+    {
+      '@type': 'ItemList',
+      '@id': `${BASE}/#free-commerce-resources`,
+      name: 'Important free Commerce resources on Smit Sir Commerce',
+      itemListElement: CORE_RESOURCE_LINKS.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        url: item.url,
+      })),
     },
   ],
 };
@@ -117,11 +150,21 @@ function getChapterSearchMeta(path) {
   };
 }
 
+function getGsebChapterSearchMeta(path) {
+  const material = gsebMaterialByPath[path];
+  if (!material) return null;
+
+  return {
+    title: `GSEB Class 12 Economics Chapter ${material.chapterNumber} ${material.chapter} Notes PDF`,
+    description: `Download free GSEB Class 12 Economics Chapter ${material.chapterNumber} ${material.chapter} notes PDF from Smit Sir Commerce. Chapter-wise Gujarati board Economics notes with online view, direct PDF and practice link.`,
+  };
+}
+
 function getLocalSearchMeta(path) {
   if (path !== '/commerce-coaching-mehsana') return null;
   return {
     title: 'Commerce Tuition in Mehsana — Class 11 & 12 CBSE',
-    description: 'Commerce tuition in Mehsana for CBSE Class 11 and 12 with Economics, Business Studies and Entrepreneurship teaching, tests, revision resources and demo-class booking by Smit Sir Commerce.',
+    description: 'Commerce tuition in Mehsana for Class 11 and 12 with Economics, Business Studies and Entrepreneurship teaching, tests, revision resources and student support by Smit Sir Commerce.',
   };
 }
 
@@ -137,9 +180,10 @@ export default function SEO({
   modifiedTime = null,
 }) {
   const normalizedPath = path === '/' ? '/' : path.replace(/\/$/, '');
+  const gsebMeta = getGsebChapterSearchMeta(normalizedPath);
   const chapterMeta = getChapterSearchMeta(normalizedPath);
   const localMeta = getLocalSearchMeta(normalizedPath);
-  const searchMeta = chapterMeta || localMeta;
+  const searchMeta = gsebMeta || chapterMeta || localMeta;
   const effectiveTitle = searchMeta?.title || title;
   const effectiveDescription = searchMeta?.description || description;
   const fullTitle = effectiveTitle ? `${effectiveTitle} | ${SITE}` : `${SITE} | Commerce Learning Hub`;
