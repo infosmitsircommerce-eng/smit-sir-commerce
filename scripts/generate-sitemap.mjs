@@ -19,7 +19,6 @@ const basePages = [
   ['/', 'weekly', '1.0'], ['/commerce-learning', 'weekly', '0.98'], ['/college-commerce', 'weekly', '0.85'], ['/commerce-exams', 'weekly', '0.9'], ['/ugc-net-commerce', 'weekly', '0.9'], ['/gset-commerce', 'weekly', '0.9'], ['/courses', 'weekly', '0.9'], ['/study-material', 'weekly', '0.9'],
   ['/cbse-notes', 'weekly', '1.0'], ['/cbse-practice', 'weekly', '1.0'], ['/cbse-pyq', 'weekly', '0.9'],
   ['/free-commerce-study-pack', 'weekly', '1.0'], ['/marks-recovery', 'weekly', '1.0'], ['/tools', 'weekly', '1.0'], ['/commerce-coaching-mehsana', 'weekly', '1.0'],
-  ['/gseb-class-12-economics.html', 'weekly', '0.95'], ['/gseb-class-12-economics-practice.html', 'weekly', '0.9'],
   ['/quizzes', 'weekly', '0.7'], ['/test-series', 'weekly', '0.8'], ['/exam-mode', 'weekly', '0.9'],
   ['/daily-practice', 'weekly', '0.7'], ['/study-coach', 'weekly', '0.7'], ['/study-tools', 'weekly', '0.7'],
   ['/live-classes', 'weekly', '0.7'], ['/online-batch', 'monthly', '0.8'], ['/offline-batch', 'monthly', '0.8'],
