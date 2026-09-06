@@ -1,4 +1,12 @@
 User-agent: *
 Allow: /
+Allow: /materials/
+Disallow: /admin
+Disallow: /admin-studio
+Disallow: /dashboard
+Disallow: /login
+Disallow: /onboarding
+Disallow: /my-data
+Disallow: /api/
 
 Sitemap: https://www.smitsircommerce.in/sitemap.xml
