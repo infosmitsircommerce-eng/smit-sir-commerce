@@ -1,13 +1,14 @@
 import { Link, useLocation } from 'react-router-dom';
-import { BookOpen, Brain, Gamepad2, MessageCircleQuestion, Search, Sparkles } from 'lucide-react';
+import { BookOpen, Brain, FileText, Gamepad2, MessageCircle, Search, Wrench } from 'lucide-react';
 
 const quickLinks = [
   { label: 'Notes', path: '/study-material', icon: BookOpen, primary: true },
-  { label: 'GSEB PDFs', path: '/study-material?board=GSEB', match: '/study-material', icon: Search },
+  { label: 'GSEB PDFs', path: '/study-material?board=GSEB', match: '/study-material', icon: FileText },
+  { label: 'CBSE Notes', path: '/cbse-notes', icon: Search },
   { label: 'Practice', path: '/daily-practice', icon: Brain },
   { label: 'Games', path: '/games', icon: Gamepad2 },
-  { label: 'Ask Doubt', path: '/ask', icon: MessageCircleQuestion },
-  { label: 'Demo', path: '/book-demo', icon: Sparkles },
+  { label: 'Tools', path: '/tools', icon: Wrench },
+  { label: 'Contact', path: '/contact', icon: MessageCircle },
 ];
 
 const hiddenPrefixes = ['/admin', '/login', '/onboarding', '/pdf-viewer'];
