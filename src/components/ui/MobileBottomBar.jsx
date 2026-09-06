@@ -1,12 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, BookOpen, Brain, Gamepad2, CalendarCheck2 } from 'lucide-react';
+import { Home, BookOpen, Brain, Gamepad2, MessageCircle } from 'lucide-react';
 
 const TABS = [
-  { path: '/',                  icon: Home,           label: 'Home' },
-  { path: '/study-material',    icon: BookOpen,       label: 'Notes' },
-  { path: '/daily-practice',    icon: Brain,          label: 'Practice' },
-  { path: '/games',             icon: Gamepad2,       label: 'Games' },
-  { path: '/book-demo',         icon: CalendarCheck2, label: 'Demo', highlight: true },
+  { path: '/', icon: Home, label: 'Home' },
+  { path: '/study-material', icon: BookOpen, label: 'Notes' },
+  { path: '/daily-practice', icon: Brain, label: 'Practice' },
+  { path: '/games', icon: Gamepad2, label: 'Games' },
+  { path: '/contact', icon: MessageCircle, label: 'Contact' },
 ];
 
 export default function MobileBottomBar() {
@@ -29,25 +29,19 @@ export default function MobileBottomBar() {
                 to={tab.path}
                 className="mobile-bottom-item relative flex flex-col items-center justify-end gap-1 flex-1 min-h-12 py-1 active:scale-95"
                 aria-current={active ? 'page' : undefined}
-                aria-label={tab.highlight ? 'Book your free demo class' : tab.label}
+                aria-label={tab.label}
               >
-                {tab.highlight ? (
-                  <div className="mobile-demo-orb w-12 h-12 rounded-2xl flex items-center justify-center -mt-5 active:scale-95 transition-transform">
-                    <Icon className="w-5 h-5 text-navy-950" strokeWidth={2.6} />
-                  </div>
-                ) : (
-                  <div className="relative w-10 h-8 flex items-center justify-center">
-                    {active && <div className="mobile-tab-active absolute inset-0 rounded-xl" />}
-                    <Icon
-                      className="w-5 h-5 relative z-10 transition-all"
-                      style={{ color: active ? '#D9AC5C' : 'rgba(148,163,184,0.72)' }}
-                      strokeWidth={active ? 2.5 : 1.9}
-                    />
-                  </div>
-                )}
+                <div className="relative w-10 h-8 flex items-center justify-center">
+                  {active && <div className="mobile-tab-active absolute inset-0 rounded-xl" />}
+                  <Icon
+                    className="w-5 h-5 relative z-10 transition-all"
+                    style={{ color: active ? '#D9AC5C' : 'rgba(148,163,184,0.72)' }}
+                    strokeWidth={active ? 2.5 : 1.9}
+                  />
+                </div>
                 <span
                   className="mobile-bottom-label text-[10px] font-bold leading-none"
-                  style={{ color: tab.highlight ? '#E8C978' : active ? '#D9AC5C' : 'rgba(203,213,225,0.68)' }}
+                  style={{ color: active ? '#D9AC5C' : 'rgba(203,213,225,0.68)' }}
                 >
                   {tab.label}
                 </span>
