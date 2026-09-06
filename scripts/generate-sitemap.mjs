@@ -64,7 +64,6 @@ const entries=[
   ...seoHubs.map(h=>urlEntry(h.path,'weekly','0.92','2026-09-06')),
   ...seoMaterials.map(m=>urlEntry(m.seo_path,'monthly','0.82',m.updated)),
   ...gsebMaterials.map(m=>urlEntry(m.seo_path,'weekly','0.9',m.updated || '2026-09-06')),
-  ...gsebMaterials.filter((m)=>m.file_url).map(m=>urlEntry(m.file_url,'monthly','0.6',m.updated || '2026-09-06')),
   ...authorityGuides.map(g=>urlEntry(g.path,'weekly','0.9',g.updated)),
   ...growthManifest.filter((p)=>p.indexable).map(p=>urlEntry(p.path,'monthly','0.82',p.updated)),
   ...examTests.map(t=>urlEntry(`/tests/${t.slug}`,'monthly','0.75','2026-09-01')),
@@ -75,4 +74,4 @@ const uniqueEntries = [...new Map(entries.map((entry) => [entry.match(/<loc>(.*?
 
 const xml=`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${uniqueEntries.join('\n')}\n</urlset>\n`;
 await writeFile(new URL('../public/sitemap.xml',import.meta.url),xml,'utf8');
-console.log(`Generated sitemap with ${uniqueEntries.length} unique indexable URLs (${publishedCommerceResources.length} published college/competitive Commerce resources, ${commerceDiscoveryCollections.length} live discovery collection pages, ${commerceTools.length} Commerce calculator pages, ${toolClusters.length} Commerce topic clusters, ${localizedPilotPages.length} Hindi/Gujarati pilot pages, ${localSeoPages.length} Mehsana local pages, ${gsebMaterials.length} GSEB chapter pages and ${gsebMaterials.filter((m)=>m.file_url).length} GSEB PDF files).`);
+console.log(`Generated sitemap with ${uniqueEntries.length} unique indexable HTML URLs (${publishedCommerceResources.length} published college/competitive Commerce resources, ${commerceDiscoveryCollections.length} live discovery collection pages, ${commerceTools.length} Commerce calculator pages, ${toolClusters.length} Commerce topic clusters, ${localizedPilotPages.length} Hindi/Gujarati pilot pages, ${localSeoPages.length} Mehsana local pages and ${gsebMaterials.length} GSEB chapter pages).`);
