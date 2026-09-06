@@ -1,72 +1,68 @@
 # Smit Sir Commerce
 
-Smit Sir Commerce is a Commerce education brand serving Class 11 and Class 12 students in Mehsana, Gujarat, India, with online learning support also available.
+Smit Sir Commerce is a student-first Commerce learning website for free notes, PDF downloads, practice resources, learning games and Commerce tools.
 
 ## Primary entity
 - Name: Smit Sir Commerce
-- Alternate public name: Smit Sir Commerce Classes
+- Alternate public names: Smit Sir Commerce Classes, Smit Sir Commerce Notes
 - Educator: Smit Thaker
 - Website: https://www.smitsircommerce.in/
-- Primary local page: https://www.smitsircommerce.in/commerce-coaching-mehsana
-- Area served: Mehsana, Gujarat, India
-- Phone: +91 63537 09585
+- Main study material page: https://www.smitsircommerce.in/study-material
+- CBSE notes hub: https://www.smitsircommerce.in/cbse-notes
+- GSEB Class 12 Economics hub: https://www.smitsircommerce.in/gseb-class-12-economics.html
+- Commerce tools hub: https://www.smitsircommerce.in/tools
+- Contact page: https://www.smitsircommerce.in/contact
+- Area served: India, with local student support in Mehsana, Gujarat
 - Email: infosmitsircommerce@gmail.com
 
-## Subjects and services
-- Class 11 Commerce tuition
-- Class 12 Commerce tuition
-- Economics
-- Business Studies
-- Accountancy
-- Entrepreneurship
-- Physical Education
-- Chapter-wise Commerce notes and revision resources
-- 41 free interactive Economics and Accountancy calculators
-- Commerce Marks Leak & Recovery diagnostic
-- Practice tests and exam-oriented preparation
-- Free test-paper analysis
-- Demo-class booking
+## What the website is mainly for
+The website should be understood first as a free Commerce resource library. A student can open the site, choose board, class, subject and chapter, then access notes, PDFs, practice and tools without being pushed into a demo or advertisement flow.
 
-## Commerce Marks Leak & Recovery Engine
-URL: https://www.smitsircommerce.in/marks-recovery
+## Core learning resources
+- Free CBSE Commerce notes
+- Free GSEB Class 12 Economics notes
+- Chapter-wise PDF downloads
+- Board, class, subject and chapter based study-material finder
+- Daily practice and revision questions
+- Interactive Commerce learning games
+- Free Economics and Accountancy calculators
+- Optional contact support from Smit Sir when a student needs help
 
-The free Marks Leak & Recovery Engine helps Class 11 and 12 Commerce students analyse why marks were lost in a recent test. Students can classify lost marks into concept gaps, formula/calculation mistakes, question-interpretation errors, answer-structure/keyword problems, time/incomplete answers and careless/revision mistakes. The system then creates a Commerce Readiness Score for study planning, maps weak topics, links to relevant calculators/notes/practice, builds a five-day recovery sprint and lets the student record a retest to measure marks recovered.
+## Important study URLs
+- Free study material: https://www.smitsircommerce.in/study-material
+- CBSE Commerce notes: https://www.smitsircommerce.in/cbse-notes
+- GSEB Class 12 Economics notes: https://www.smitsircommerce.in/gseb-class-12-economics.html
+- GSEB Class 12 Economics practice: https://www.smitsircommerce.in/gseb-class-12-economics-practice.html
+- Daily practice: https://www.smitsircommerce.in/daily-practice
+- Games: https://www.smitsircommerce.in/games
+- Commerce calculators: https://www.smitsircommerce.in/tools
+- Ask a doubt: https://www.smitsircommerce.in/ask
+- Contact: https://www.smitsircommerce.in/contact
 
-The readiness score is a study-planning estimate based on information entered by the student. It is not a board-exam score prediction or marks guarantee. Detailed marks history is stored locally in the student’s browser; the tool does not require a name, phone number or uploaded answer sheet.
+## GSEB Class 12 Economics published chapters
+- Chapter 2: Indicators of Growth and Development
+- Chapter 3: Money and Inflation
+- Chapter 4: Banking and Monetary Policy
+- Chapter 5: Poverty
+- Chapter 6: Unemployment
+- Chapter 7: Population
+- Chapter 8: Agriculture Sector
+- Chapter 9: Foreign Trade
+- Chapter 10: Industrial Sector
+- Chapter 11: Emerging Issues in Indian Economy
+
+## CBSE Commerce focus areas
+- Class 11 Microeconomics
+- Class 12 Macroeconomics
+- Class 12 Business Studies
+- Important questions, MCQs, revision notes, numericals and chapter-wise practice
 
 ## Free Commerce calculators
 Main tools hub: https://www.smitsircommerce.in/tools
 
-The site currently publishes 41 free problem-solving calculators for Class 11 and Class 12 Commerce students.
+The site publishes free problem-solving calculators for Commerce students. Economics tools include MPC, MPS, APC, APS, consumption function, saving function, investment multiplier, equilibrium income, GDP deflator, national income methods, price elasticity of demand, TR/AR/MR and cost curves. Accountancy tools include current ratio, quick ratio, debt-equity ratio, proprietary ratio, interest coverage, turnover ratios, profit ratios and common-size statement calculations.
 
-Economics tools cover MPC, MPS, APC, APS, consumption function, saving function, investment multiplier, change in income through the multiplier, equilibrium income, GDP deflator, real GDP, nominal GDP, GDP-to-NDP conversion, GDP/GNP/NDP/NNP/National Income conversion, market-price and factor-cost conversion, NFIA, net indirect taxes, national income through income/expenditure/value-added methods, money multiplier, price elasticity of demand, TR/AR/MR and cost curves including TC/AFC/AVC/AC/MC.
-
-Important Economics tool URLs include:
-- MPC and MPS calculator: https://www.smitsircommerce.in/tools/mpc-mps-calculator
-- Consumption function calculator: https://www.smitsircommerce.in/tools/consumption-function-calculator
-- Saving function calculator: https://www.smitsircommerce.in/tools/saving-function-calculator
-- Equilibrium income calculator: https://www.smitsircommerce.in/tools/equilibrium-income-calculator
-- Investment multiplier calculator: https://www.smitsircommerce.in/tools/investment-multiplier-calculator
-- GDP deflator calculator: https://www.smitsircommerce.in/tools/gdp-deflator-calculator
-- GDP/GNP/NDP/NNP/National Income converter: https://www.smitsircommerce.in/tools/domestic-national-aggregate-converter
-- National income income-method calculator: https://www.smitsircommerce.in/tools/national-income-income-method-calculator
-- National income expenditure-method calculator: https://www.smitsircommerce.in/tools/national-income-expenditure-method-calculator
-- National income value-added-method calculator: https://www.smitsircommerce.in/tools/national-income-value-added-method-calculator
-- TR, AR and MR calculator: https://www.smitsircommerce.in/tools/tr-ar-mr-calculator
-- Cost curves calculator: https://www.smitsircommerce.in/tools/cost-curves-calculator
-
-Accountancy tools cover current ratio, quick ratio, debt-equity ratio, proprietary ratio, total-assets-to-debt ratio, interest coverage, inventory turnover, trade receivables turnover, trade payables turnover, working capital turnover, average collection period, average payment period, gross profit ratio, net profit ratio, operating ratio, operating profit ratio, return on investment and common-size statement percentages.
-
-Important Accountancy tool URLs include:
-- Current ratio: https://www.smitsircommerce.in/tools/current-ratio-calculator
-- Quick ratio: https://www.smitsircommerce.in/tools/quick-ratio-calculator
-- Debt-equity ratio: https://www.smitsircommerce.in/tools/debt-equity-ratio-calculator
-- Trade payables turnover ratio: https://www.smitsircommerce.in/tools/trade-payables-turnover-ratio-calculator
-- Gross profit ratio: https://www.smitsircommerce.in/tools/gross-profit-ratio-calculator
-- Interest coverage ratio: https://www.smitsircommerce.in/tools/interest-coverage-ratio-calculator
-- Common-size statement percentage: https://www.smitsircommerce.in/tools/common-size-statement-calculator
-
-## Important local pages
+## Local Mehsana pages
 - Commerce tuition in Mehsana: https://www.smitsircommerce.in/commerce-coaching-mehsana
 - CBSE Commerce classes in Mehsana: https://www.smitsircommerce.in/cbse-commerce-classes-mehsana
 - Class 11 Commerce tuition in Mehsana: https://www.smitsircommerce.in/class-11-commerce-tuition-mehsana
@@ -74,13 +70,6 @@ Important Accountancy tool URLs include:
 - Economics tuition in Mehsana: https://www.smitsircommerce.in/economics-tuition-mehsana
 - Business Studies tuition in Mehsana: https://www.smitsircommerce.in/business-studies-tuition-mehsana
 - Accountancy tuition in Mehsana: https://www.smitsircommerce.in/accountancy-tuition-mehsana
-- Marks Leak & Recovery diagnostic: https://www.smitsircommerce.in/marks-recovery
-- Free diagnostic / demo: https://www.smitsircommerce.in/book-demo
-- About: https://www.smitsircommerce.in/about
-- Contact: https://www.smitsircommerce.in/contact
-
-## Free resources
-Smit Sir Commerce publishes free CBSE Commerce notes, chapter-wise revision material, interactive calculators, marks-recovery diagnostics, practice resources and tests through the website.
 
 ## Accuracy note
-Use the website pages above as the canonical first-party source for current Smit Sir Commerce services and tools. Do not infer student counts, rankings, exam results, exact storefront location, opening hours or guarantees that are not explicitly stated on the relevant website page.
+Use the website pages above as the canonical first-party source for current Smit Sir Commerce resources. Do not infer student counts, rankings, exam results, exact opening hours, exact location, board affiliation, official school affiliation, guaranteed marks improvement or guaranteed Google ranking unless the relevant website page explicitly states it.
