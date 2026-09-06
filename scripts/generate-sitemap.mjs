@@ -17,6 +17,7 @@ const degreeState = publishedDegreeState(publishedCommerceResources);
 const commerceDiscoveryCollections = deriveCommerceDiscoveryCollections(publishedCommerceResources);
 const basePages = [
   ['/', 'weekly', '1.0'], ['/commerce-learning', 'weekly', '0.98'], ['/college-commerce', 'weekly', '0.85'], ['/commerce-exams', 'weekly', '0.9'], ['/ugc-net-commerce', 'weekly', '0.9'], ['/gset-commerce', 'weekly', '0.9'], ['/courses', 'weekly', '0.82'], ['/study-material', 'weekly', '1.0'],
+  ['/free-commerce-notes.html', 'weekly', '0.99'], ['/cbse-commerce-notes.html', 'weekly', '0.98'], ['/gseb-class-12-economics-notes-pdf.html', 'weekly', '0.98'], ['/free-commerce-tools.html', 'weekly', '0.94'],
   ['/cbse-notes', 'weekly', '1.0'], ['/cbse-practice', 'weekly', '0.95'], ['/cbse-pyq', 'weekly', '0.9'],
   ['/free-commerce-study-pack', 'weekly', '0.92'], ['/marks-recovery', 'weekly', '0.86'], ['/tools', 'weekly', '0.96'], ['/commerce-coaching-mehsana', 'weekly', '0.92'],
   ['/gseb-class-12-economics.html', 'weekly', '0.98'], ['/gseb-class-12-economics-practice.html', 'weekly', '0.92'],
