@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import './mobile.css'
+import './styles/premiumVisuals.css'
 import App from './App.jsx'
 
 // Keep the mobile startup path lean. AOS is decorative, so load it only on
