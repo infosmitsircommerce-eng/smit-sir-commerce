@@ -20,6 +20,13 @@ const quickLinks = [
   { title: 'Contact Smit Sir', text: 'Need personal help? Contact directly.', path: '/contact', icon: GraduationCap },
 ];
 
+const seoLandingLinks = [
+  { title: 'Free Commerce Notes PDF', text: 'Main search page for students looking for free Commerce study material.', href: '/free-commerce-notes.html' },
+  { title: 'CBSE Commerce Notes PDF', text: 'Dedicated CBSE Class 11 and 12 Commerce notes landing page.', href: '/cbse-commerce-notes.html' },
+  { title: 'GSEB Class 12 Economics Notes PDF', text: 'Chapter-wise Gujarati Board Economics notes and revision gateway.', href: '/gseb-class-12-economics-notes-pdf.html' },
+  { title: 'Free Commerce Tools', text: 'Economics and Accountancy calculators for numericals and formulas.', href: '/free-commerce-tools.html' },
+];
+
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -75,6 +82,17 @@ function SmallLinkCard({ item }) {
         <p className="text-xs mt-0.5 leading-relaxed" style={{ color: 'var(--muted)' }}>{item.text}</p>
       </div>
     </Link>
+  );
+}
+
+function SeoLandingCard({ item }) {
+  return (
+    <a href={item.href} className="ssc-material-card ssc-hover-lift rounded-2xl p-5 block">
+      <div className="text-[11px] font-black uppercase tracking-[0.16em]" style={{ color: 'var(--gold)' }}>SEO STUDY PAGE</div>
+      <h3 className="text-lg font-black mt-2" style={{ color: 'var(--ink)' }}>{item.title}</h3>
+      <p className="text-sm mt-2 leading-relaxed" style={{ color: 'var(--muted)' }}>{item.text}</p>
+      <span className="inline-flex items-center gap-2 mt-4 text-sm font-black" style={{ color: 'var(--gold)' }}>Open page <ArrowRight className="w-4 h-4" /></span>
+    </a>
   );
 }
 
@@ -134,6 +152,11 @@ export default function Home() {
       <section className="page-container pb-10 sm:pb-14">
         <div className="mb-5"><span className="eyebrow">START HERE</span><h2 className="text-3xl sm:text-4xl mt-3" style={{ color: 'var(--ink)' }}>What do you need today?</h2></div>
         <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4">{resourceTiles.map((item) => <ResourceTile key={item.title} item={item} />)}</div>
+      </section>
+
+      <section className="page-container pb-10 sm:pb-14">
+        <div className="mb-5"><span className="eyebrow">POPULAR SEARCH PAGES</span><h2 className="text-3xl sm:text-4xl mt-3" style={{ color: 'var(--ink)' }}>Fast pages for common searches</h2></div>
+        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4">{seoLandingLinks.map((item) => <SeoLandingCard key={item.title} item={item} />)}</div>
       </section>
 
       <section className="page-container pb-10 sm:pb-14">
