@@ -1,63 +1,45 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, ChevronDown, GraduationCap, LogOut, User, Search } from 'lucide-react';
+import { BookOpen, Brain, ChevronDown, FileText, Gamepad2, GraduationCap, LogOut, Search, User, Wrench } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { isLightRoute } from '../../lib/theme';
 
 const navLinks = [
   { label: 'Home', path: '/' },
+  { label: 'Study Material', path: '/study-material' },
   {
-    label: 'School',
+    label: 'Notes',
     children: [
-      { label: 'Courses', path: '/courses' },
-      { label: 'Free CBSE Notes', path: '/cbse-notes' },
-      { label: 'GSEB Class 12 Economics', path: '/gseb-class-12-economics.html' },
-      { label: 'Study Material', path: '/study-material' },
+      { label: 'All Study Material', path: '/study-material' },
+      { label: 'GSEB Class 12 Economics', path: '/study-material?board=GSEB' },
+      { label: 'CBSE Notes', path: '/cbse-notes' },
       { label: 'CBSE PYQ & Sample Papers', path: '/cbse-pyq' },
-      { label: 'Lectures', path: '/lectures' },
-      { label: 'Study Toolkit', path: '/study-tools' },
-    ],
-  },
-  {
-    label: 'College & Exams',
-    children: [
-      { label: 'All Commerce Learning', path: '/commerce-learning' },
-      { label: 'College Commerce', path: '/college-commerce' },
-      { label: 'B.Com Sem 1–6', path: '/college-commerce/bcom' },
-      { label: 'M.Com Sem 1–4', path: '/college-commerce/mcom' },
-      { label: 'UGC NET Commerce', path: '/ugc-net-commerce' },
-      { label: 'GSET Commerce', path: '/gset-commerce' },
     ],
   },
   {
     label: 'Practice',
     children: [
-      { label: 'CBSE Chapter Practice', path: '/cbse-practice' },
-      { label: 'GSEB Economics Practice', path: '/gseb-class-12-economics-practice.html' },
-      { label: 'Daily 10', path: '/daily-practice' },
-      { label: 'Advanced Exam Mode', path: '/exam-mode' },
+      { label: 'Daily Practice', path: '/daily-practice' },
+      { label: 'Chapter Practice', path: '/cbse-practice' },
       { label: 'Test Series', path: '/test-series' },
-      { label: 'Learning Insights', path: '/learning-insights' },
-      { label: 'Study Coach', path: '/study-coach' },
-      { label: 'Ask AI Doubt', path: '/ask' },
       { label: 'Quizzes', path: '/quizzes' },
-      { label: 'Games', path: '/games' },
       { label: 'Flashcards', path: '/flashcards' },
     ],
   },
-  {
-    label: 'Batches',
-    children: [
-      { label: 'Online Batch', path: '/online-batch' },
-      { label: 'Offline Batch', path: '/offline-batch' },
-      { label: 'Live Classes', path: '/live-classes' },
-    ],
-  },
+  { label: 'Games', path: '/games' },
+  { label: 'Tools', path: '/tools' },
   { label: 'Contact', path: '/contact' },
 ];
 
+const featureLinks = [
+  { label: 'Notes', path: '/study-material', icon: BookOpen },
+  { label: 'GSEB', path: '/study-material?board=GSEB', icon: FileText },
+  { label: 'Practice', path: '/daily-practice', icon: Brain },
+  { label: 'Games', path: '/games', icon: Gamepad2 },
+  { label: 'Tools', path: '/tools', icon: Wrench },
+];
+
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -76,50 +58,71 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
-    setIsOpen(false);
     setOpenDropdown(null);
+    setUserMenuOpen(false);
   }, [location]);
 
   const T = light ? {
-    scrolledBg: { background: 'rgba(247,248,252,0.92)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(225,230,239,0.95)', boxShadow: '0 8px 28px rgba(16,24,40,0.07)' },
+    bg: { background: scrolled ? 'rgba(247,248,252,0.94)' : 'rgba(247,248,252,0.82)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(225,230,239,0.95)', boxShadow: scrolled ? '0 8px 28px rgba(16,24,40,0.07)' : 'none' },
     linkColor: 'var(--charcoal)', linkActive: 'var(--gold)', linkHoverBg: 'rgba(184,135,47,0.07)', brandTop: 'var(--ink)',
     dropdownBg: { background: '#FFFFFF', border: '1px solid var(--border)', boxShadow: 'var(--shadow-md)' }, dropdownItem: 'var(--charcoal)', dropdownItemHoverBg: 'var(--bg-ivory)',
   } : {
-    scrolledBg: { background: 'rgba(10,15,44,0.85)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(212,175,55,0.1)', boxShadow: '0 4px 30px rgba(0,0,0,0.3)' },
+    bg: { background: scrolled ? 'rgba(10,15,44,0.86)' : 'rgba(10,15,44,0.55)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(212,175,55,0.1)', boxShadow: scrolled ? '0 4px 30px rgba(0,0,0,0.3)' : 'none' },
     linkColor: '#c7d7fe', linkActive: '#D9AC5C', linkHoverBg: 'rgba(184,135,47,0.14)', brandTop: '#fff',
     dropdownBg: { background: '#121B32', border: '1px solid rgba(212,175,55,0.22)', boxShadow: '0 16px 36px rgba(0,0,0,0.35)' }, dropdownItem: '#c7d7fe', dropdownItemHoverBg: 'rgba(184,135,47,0.12)',
   };
 
+  const isActive = (path) => path === '/' ? location.pathname === '/' : location.pathname.startsWith(path.split('?')[0]);
   const linkStyle = (active) => ({ color: active ? T.linkActive : T.linkColor, fontFamily: 'var(--font-sans)' });
 
   return (
-    <nav style={scrolled ? T.scrolledBg : { background: 'transparent' }} className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 hidden lg:block">
+    <nav style={T.bg} className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 hidden lg:block">
       <div className="page-container">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform" style={{ background: 'linear-gradient(135deg, #C9A050, #B8872F)', boxShadow: '0 4px 16px rgba(184,135,47,0.3)' }}><GraduationCap className="w-5 h-5" style={{ color: '#1E1812' }} /></div>
-            <div><div className="text-sm leading-tight" style={{ fontFamily: 'var(--font-serif)', fontWeight: 700, color: T.brandTop }}>Smit Sir</div><div className="text-xs leading-tight" style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, letterSpacing: '0.14em', color: 'var(--gold)' }}>COMMERCE</div></div>
+        <div className="flex items-center justify-between h-16 lg:h-20 gap-4">
+          <Link to="/" className="flex items-center gap-3 group shrink-0">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform" style={{ background: 'linear-gradient(135deg, #C9A050, #B8872F)', boxShadow: '0 4px 16px rgba(184,135,47,0.3)' }}>
+              <GraduationCap className="w-5 h-5" style={{ color: '#1E1812' }} />
+            </div>
+            <div>
+              <div className="text-sm leading-tight" style={{ fontFamily: 'var(--font-serif)', fontWeight: 800, color: T.brandTop }}>Smit Sir</div>
+              <div className="text-xs leading-tight" style={{ fontFamily: 'var(--font-sans)', fontWeight: 800, letterSpacing: '0.14em', color: 'var(--gold)' }}>COMMERCE</div>
+            </div>
           </Link>
 
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden xl:flex items-center gap-1">
             {navLinks.map((link) => link.children ? (
               <div key={link.label} className="relative">
-                <button className="flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors" style={linkStyle(false)} onMouseEnter={(e) => { setOpenDropdown(link.label); e.currentTarget.style.background = T.linkHoverBg; e.currentTarget.style.color = T.linkActive; }} onMouseLeave={(e) => { setOpenDropdown(null); e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = T.linkColor; }}>
+                <button className="flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-semibold transition-colors" style={linkStyle(false)} onMouseEnter={(e) => { setOpenDropdown(link.label); e.currentTarget.style.background = T.linkHoverBg; e.currentTarget.style.color = T.linkActive; }} onMouseLeave={(e) => { setOpenDropdown(null); e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = T.linkColor; }}>
                   {link.label}<ChevronDown className="w-3 h-3" />
                 </button>
                 {openDropdown === link.label && <div className="absolute top-full left-0 mt-1 rounded-xl py-2 min-w-[240px] max-h-[70vh] overflow-y-auto" style={T.dropdownBg} onMouseEnter={() => setOpenDropdown(link.label)} onMouseLeave={() => setOpenDropdown(null)}>
-                  {link.children.map((child) => <Link key={child.path} to={child.path} className="block px-4 py-2 text-sm transition-colors" style={{ color: T.dropdownItem }} onMouseEnter={e => { e.currentTarget.style.background = T.dropdownItemHoverBg; e.currentTarget.style.color = T.linkActive; }} onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = T.dropdownItem; }}>{child.label}</Link>)}
+                  {link.children.map((child) => <Link key={child.path} to={child.path} className="block px-4 py-2 text-sm font-semibold transition-colors" style={{ color: T.dropdownItem }} onMouseEnter={e => { e.currentTarget.style.background = T.dropdownItemHoverBg; e.currentTarget.style.color = T.linkActive; }} onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = T.dropdownItem; }}>{child.label}</Link>)}
                 </div>}
               </div>
-            ) : <Link key={link.path} to={link.path} className="relative px-3 py-2 rounded-lg text-sm font-medium transition-colors" style={linkStyle(location.pathname === link.path)}>{link.label}{location.pathname === link.path && <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full" style={{ background: 'var(--gold)' }} />}</Link>)}
+            ) : (
+              <Link key={link.path} to={link.path} className="relative px-3 py-2 rounded-lg text-sm font-semibold transition-colors" style={linkStyle(isActive(link.path))}>
+                {link.label}
+                {isActive(link.path) && <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full" style={{ background: 'var(--gold)' }} />}
+              </Link>
+            ))}
           </div>
 
-          <div className="hidden lg:flex items-center gap-2">
-            <button onClick={() => window.dispatchEvent(new CustomEvent('ssc-open-search'))} className="w-10 h-10 rounded-xl flex items-center justify-center" title="Search (Ctrl/⌘ K)" style={light ? { background: 'var(--bg-white)', border: '1px solid var(--border)', color: 'var(--ink)' } : { background: '#3730a3', border: '1px solid #4338c2', color: '#fff' }}><Search className="w-4 h-4" /></button>
+          <div className="hidden lg:flex xl:hidden items-center gap-2">
+            {featureLinks.map((item) => {
+              const Icon = item.icon;
+              return <Link key={item.label} to={item.path} className="ssc-dock-link" data-primary={item.path === '/study-material' ? 'true' : undefined}><Icon className="w-4 h-4" />{item.label}</Link>;
+            })}
+          </div>
+
+          <div className="hidden lg:flex items-center gap-2 shrink-0">
+            <button onClick={() => window.dispatchEvent(new CustomEvent('ssc-open-search'))} className="w-10 h-10 rounded-xl flex items-center justify-center" title="Search (Ctrl/⌘ K)" style={light ? { background: 'var(--bg-white)', border: '1px solid var(--border)', color: 'var(--ink)' } : { background: '#3730a3', border: '1px solid #4338c2', color: '#fff' }}>
+              <Search className="w-4 h-4" />
+            </button>
             {user ? <div className="relative">
               <button onClick={() => setUserMenuOpen(o => !o)} className="flex items-center gap-2 rounded-xl px-3 py-2 transition-colors" style={light ? { background: 'var(--bg-white)', border: '1px solid var(--border)' } : { background: '#3730a3', border: '1px solid #4338c2' }}>
                 <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: 'linear-gradient(135deg, #C9A050, #B8872F)', color: '#1E1812' }}>{initials}</div>
@@ -135,7 +138,6 @@ export default function Navbar() {
                 <button onClick={handleLogout} className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-400"><LogOut className="w-4 h-4" /> Logout</button>
               </div>}
             </div> : <Link to="/login" className="text-sm py-2 px-4 rounded-xl font-semibold" style={light ? { color: 'var(--ink)', border: '1px solid var(--border)', background: 'var(--bg-white)' } : { color: '#fff', border: '1px solid #4338c2', background: '#3730a3' }}>Login</Link>}
-            <Link to="/book-demo" className="btn-primary text-sm py-2 px-5">Book Free Demo</Link>
           </div>
         </div>
       </div>
