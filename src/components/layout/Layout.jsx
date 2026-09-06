@@ -12,6 +12,7 @@ const ScrollToTop = lazy(() => import('../ui/ScrollToTop'));
 const CursorSpotlight = lazy(() => import('../ui/CursorSpotlight'));
 const ScrollProgressBar = lazy(() => import('../ui/ScrollProgressBar'));
 const GlobalStudySearch = lazy(() => import('../ui/GlobalStudySearch'));
+const QuickAccessDock = lazy(() => import('../ui/QuickAccessDock'));
 const CloudSyncBridge = lazy(() => import('../ui/CloudSyncBridge'));
 const AnalyticsTracker = lazy(() => import('../ui/AnalyticsTracker'));
 const ChapterProgressTracker = lazy(() => import('../ui/ChapterProgressTracker'));
@@ -50,6 +51,7 @@ function DeferredEnhancements() {
       <ScrollProgressBar />
       <CursorSpotlight />
       <GlobalStudySearch />
+      <QuickAccessDock />
       <CloudSyncBridge />
       <ChapterProgressTracker />
       <ContextualToolLinks />
