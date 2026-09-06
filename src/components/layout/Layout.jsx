@@ -16,12 +16,6 @@ const QuickAccessDock = lazy(() => import('../ui/QuickAccessDock'));
 const CloudSyncBridge = lazy(() => import('../ui/CloudSyncBridge'));
 const AnalyticsTracker = lazy(() => import('../ui/AnalyticsTracker'));
 const ChapterProgressTracker = lazy(() => import('../ui/ChapterProgressTracker'));
-const ChapterPracticeStrip = lazy(() => import('../ui/ChapterPracticeStrip'));
-const ContextualToolLinks = lazy(() => import('../ui/ContextualToolLinks'));
-const TopicalAuthorityLinks = lazy(() => import('../ui/TopicalAuthorityLinks'));
-const MarksRecoveryNudge = lazy(() => import('../ui/MarksRecoveryNudge'));
-const StudentReferralNudge = lazy(() => import('../ui/StudentReferralNudge'));
-const DemoNudge = lazy(() => import('../leads/DemoNudge'));
 
 function DeferredEnhancements() {
   const [ready, setReady] = useState(false);
@@ -54,12 +48,6 @@ function DeferredEnhancements() {
       <QuickAccessDock />
       <CloudSyncBridge />
       <ChapterProgressTracker />
-      <ContextualToolLinks />
-      <ChapterPracticeStrip />
-      <TopicalAuthorityLinks />
-      <MarksRecoveryNudge />
-      <StudentReferralNudge />
-      <DemoNudge />
       <ScrollToTop />
     </Suspense>
   );
