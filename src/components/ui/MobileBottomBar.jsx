@@ -1,12 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, BookOpen, Brain, BarChart3, CalendarCheck2 } from 'lucide-react';
+import { Home, BookOpen, Brain, Gamepad2, CalendarCheck2 } from 'lucide-react';
 
 const TABS = [
   { path: '/',                  icon: Home,           label: 'Home' },
-  { path: '/cbse-notes',        icon: BookOpen,       label: 'Notes' },
+  { path: '/study-material',    icon: BookOpen,       label: 'Notes' },
   { path: '/daily-practice',    icon: Brain,          label: 'Practice' },
-  { path: '/book-demo',         icon: CalendarCheck2, label: 'Free Demo', highlight: true },
-  { path: '/learning-insights', icon: BarChart3,      label: 'Progress' },
+  { path: '/games',             icon: Gamepad2,       label: 'Games' },
+  { path: '/book-demo',         icon: CalendarCheck2, label: 'Demo', highlight: true },
 ];
 
 export default function MobileBottomBar() {
