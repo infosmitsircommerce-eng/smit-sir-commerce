@@ -5,6 +5,35 @@ import './mobile.css'
 import './styles/premiumVisuals.css'
 import App from './App.jsx'
 
+const CACHE_RESET_KEY = 'ssc-cache-reset-2026-09-07-v3';
+
+async function clearOldAppCaches() {
+  if (typeof window === 'undefined' || !('localStorage' in window)) return;
+  if (window.localStorage.getItem(CACHE_RESET_KEY) === 'done') return;
+
+  try {
+    if ('caches' in window) {
+      const names = await window.caches.keys();
+      await Promise.all(
+        names
+          .filter((name) => /workbox|precache|ssc-|vite|runtime|navigation/i.test(name))
+          .map((name) => window.caches.delete(name)),
+      );
+    }
+
+    if ('serviceWorker' in navigator) {
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(registrations.map((registration) => registration.update().catch(() => null)));
+    }
+
+    window.localStorage.setItem(CACHE_RESET_KEY, 'done');
+  } catch {
+    // Cache cleanup is only a freshness helper. The app must still render normally.
+  }
+}
+
+clearOldAppCaches();
+
 // Keep the mobile startup path lean. AOS is decorative, so load it only on
 // larger screens and only after the first render has had time to settle.
 if (window.matchMedia('(min-width: 769px)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -22,9 +51,6 @@ if (window.matchMedia('(min-width: 769px)').matches && !window.matchMedia('(pref
   if ('requestIdleCallback' in window) window.requestIdleCallback(loadAos, { timeout: 1600 });
   else window.setTimeout(loadAos, 700);
 }
-
-// Service-worker updates are allowed to wait until the next normal visit.
-// Never force-refresh an active study session in the middle of a page.
 
 const root = createRoot(document.getElementById('root'));
 root.render(
