@@ -16,6 +16,7 @@ const CORE_RESOURCE_LINKS = [
   { name: 'Commerce Practice', url: `${BASE}/daily-practice`, about: 'Chapter practice and revision questions' },
   { name: 'Commerce Tools', url: `${BASE}/tools`, about: 'Free Economics and Accountancy calculators' },
   { name: 'Commerce Games', url: `${BASE}/games`, about: 'Interactive learning games for Commerce students' },
+  { name: 'AI Discovery Summary', url: `${BASE}/ai-discovery.html`, about: 'AI-readable first-party summary of Smit Sir Commerce resources' },
 ];
 
 const SITEWIDE_ENTITY = {
@@ -26,10 +27,15 @@ const SITEWIDE_ENTITY = {
       '@id': `${BASE}/#website`,
       url: `${BASE}/`,
       name: SITE,
-      alternateName: ['Smit Sir Commerce Classes', 'Smit Sir Commerce Notes'],
+      alternateName: ['Smit Sir Commerce Classes', 'Smit Sir Commerce Notes', 'Smit Sir Commerce Material'],
       description: DEFAULT_DESCRIPTION,
       inLanguage: 'en-IN',
       publisher: { '@id': `${BASE}/#organization` },
+      subjectOf: [
+        { '@type': 'CreativeWork', name: 'LLMS text summary', url: `${BASE}/llms.txt` },
+        { '@type': 'Dataset', name: 'Smit Sir Commerce AI summary JSON', url: `${BASE}/ai-summary.json` },
+        { '@type': 'AboutPage', name: 'AI Discovery for Smit Sir Commerce', url: `${BASE}/ai-discovery.html` },
+      ],
       hasPart: CORE_RESOURCE_LINKS.map((item) => ({
         '@type': 'WebPage',
         name: item.name,
@@ -42,10 +48,10 @@ const SITEWIDE_ENTITY = {
       '@type': 'EducationalOrganization',
       '@id': `${BASE}/#organization`,
       name: SITE,
-      alternateName: ['Smit Sir Commerce Classes', 'Smit Sir Commerce Notes'],
+      alternateName: ['Smit Sir Commerce Classes', 'Smit Sir Commerce Notes', 'Smit Sir Commerce Material'],
       url: `${BASE}/`,
       email: 'infosmitsircommerce@gmail.com',
-      description: 'Smit Sir Commerce is a student-first Commerce learning resource library for free CBSE and GSEB notes, PDFs, practice resources, learning games and Commerce tools, with optional support from Smit Sir when students need help.',
+      description: 'Smit Sir Commerce is a student-first Commerce learning resource library for free CBSE and GSEB notes, PDFs, practice resources, realistic learning games and Commerce tools, with optional support from Smit Sir when students need help.',
       areaServed: [
         { '@type': 'Country', name: 'India' },
         {
@@ -63,6 +69,10 @@ const SITEWIDE_ENTITY = {
         'Class 12 Commerce',
         'CBSE Commerce notes',
         'GSEB Class 12 Economics notes',
+        'Free Commerce notes PDF',
+        'Commerce study material',
+        'Commerce learning games',
+        'Commerce calculators',
         'Economics',
         'Business Studies',
         'Accountancy learning resources',
@@ -75,6 +85,10 @@ const SITEWIDE_ENTITY = {
         'GSET Commerce preparation resources',
       ],
       founder: { '@id': `${BASE}/about#smit-thaker` },
+      subjectOf: [
+        { '@type': 'AboutPage', name: 'AI Discovery for Smit Sir Commerce', url: `${BASE}/ai-discovery.html` },
+        { '@type': 'CreativeWork', name: 'Smit Sir Commerce LLMS file', url: `${BASE}/llms.txt` },
+      ],
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
         name: 'Commerce learning resources and student support',
@@ -86,6 +100,7 @@ const SITEWIDE_ENTITY = {
           'Economics Practice Resources',
           'Business Studies Revision Resources',
           'Accountancy Learning Tools',
+          'Realistic Commerce Learning Games',
           'Commerce Doubt Support',
         ].map((name) => ({
           '@type': 'Offer',
@@ -95,7 +110,7 @@ const SITEWIDE_ENTITY = {
             name,
             provider: { '@id': `${BASE}/#organization` },
             educationalLevel: ['Class 11', 'Class 12'],
-            learningResourceType: ['Notes', 'PDF', 'Practice material'],
+            learningResourceType: ['Notes', 'PDF', 'Practice material', 'Interactive resource'],
             isAccessibleForFree: true,
           },
         })),
@@ -108,7 +123,7 @@ const SITEWIDE_ENTITY = {
       alternateName: 'Smit Sir',
       url: `${BASE}/about`,
       worksFor: { '@id': `${BASE}/#organization` },
-      knowsAbout: ['Economics', 'Business Studies', 'Entrepreneurship', 'Physical Education', 'Commerce education'],
+      knowsAbout: ['Economics', 'Business Studies', 'Entrepreneurship', 'Physical Education', 'Commerce education', 'Commerce notes', 'Commerce study material'],
     },
     {
       '@type': 'ItemList',
@@ -199,7 +214,12 @@ export default function SEO({
       <meta name="robots" content={robots} />
       <meta name="googlebot" content={robots} />
       <meta name="bingbot" content={robots} />
+      <meta name="application-name" content={SITE} />
+      <meta name="keywords" content="free commerce notes, commerce study material, CBSE Commerce notes, GSEB Class 12 Economics notes PDF, Economics notes, Business Studies notes, Accountancy tools, Commerce games" />
       <link rel="canonical" href={url} />
+      <link rel="alternate" type="text/plain" href={`${BASE}/llms.txt`} title="LLMS text summary for Smit Sir Commerce" />
+      <link rel="alternate" type="application/json" href={`${BASE}/ai-summary.json`} title="AI summary JSON for Smit Sir Commerce" />
+      <link rel="author" href={`${BASE}/about`} />
 
       <meta property="og:type" content={type} />
       <meta property="og:site_name" content={SITE} />
