@@ -1,6 +1,9 @@
 User-agent: *
 Allow: /
 Allow: /materials/
+Allow: /llms.txt
+Allow: /ai-discovery.html
+Allow: /ai-summary.json
 Disallow: /admin
 Disallow: /admin-studio
 Disallow: /dashboard
@@ -10,3 +13,5 @@ Disallow: /my-data
 Disallow: /api/
 
 Sitemap: https://www.smitsircommerce.in/sitemap.xml
+# AI/GEO discovery: https://www.smitsircommerce.in/llms.txt
+# AI summary JSON: https://www.smitsircommerce.in/ai-summary.json
