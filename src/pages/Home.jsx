@@ -42,7 +42,7 @@ export default function Home() {
         '@id': 'https://www.smitsircommerce.in/#website',
         url: 'https://www.smitsircommerce.in/',
         name: 'Smit Sir Commerce',
-        description: 'A growing Commerce learning platform with school, college and competitive-exam resources: Class 11 & 12, B.Com, M.Com, UGC NET Commerce, GSET Commerce, notes, tools and practice.',
+        description: 'Free Commerce learning website for Class 11 and 12 students with CBSE and GSEB notes, PDFs, practice tools and realistic Commerce games.',
         inLanguage: 'en-IN',
         publisher: { '@id': 'https://www.smitsircommerce.in/#organization' },
       },
@@ -52,15 +52,15 @@ export default function Home() {
         name: 'Smit Sir Commerce',
         url: 'https://www.smitsircommerce.in/',
         areaServed: ['India', 'Mehsana, Gujarat'],
-        description: 'Commerce learning platform spanning school, college and competitive-exam resources, with specialist Class 11 and 12 teaching by Smit Sir and a growing library for B.Com, M.Com, UGC NET and GSET Commerce.',
-        knowsAbout: ['Commerce education', 'CBSE Commerce', 'Class 11 Commerce', 'Class 12 Commerce', 'B.Com learning resources', 'M.Com learning resources', 'UGC NET Commerce', 'GSET Commerce', 'Economics', 'Business Studies', 'Accountancy learning resources'],
+        description: 'Commerce learning platform created by Smit Thaker with free study material, Economics notes, Business Studies support, Accountancy resources, practice tools and games for students.',
+        knowsAbout: ['Commerce education', 'CBSE Commerce', 'GSEB Economics', 'Class 11 Commerce', 'Class 12 Commerce', 'Economics', 'Business Studies', 'Accountancy', 'Commerce study material', 'Commerce learning games'],
       },
       {
         '@type': 'WebPage',
         '@id': 'https://www.smitsircommerce.in/#home',
         url: 'https://www.smitsircommerce.in/',
-        name: 'Commerce Learning Hub — School, College & Competitive Exams',
-        description: 'Commerce learning resources across Class 11 & 12, B.Com, M.Com, UGC NET Commerce and GSET Commerce, with notes, PDFs, tools, practice and exam preparation.',
+        name: 'Free Commerce Study Material, Notes, PDFs, Practice and Games',
+        description: 'Homepage for Smit Sir Commerce: free Commerce notes, CBSE and GSEB study material, PDFs, practice tools and realistic games for students.',
         isPartOf: { '@id': 'https://www.smitsircommerce.in/#website' },
         about: { '@id': 'https://www.smitsircommerce.in/#organization' },
         inLanguage: 'en-IN',
@@ -71,8 +71,8 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Commerce Notes, Tools & Exam Resources — School to NET"
-        description="A growing Commerce learning platform for Class 11 & 12, B.Com, M.Com, UGC NET and GSET with notes, PDFs, practice and tools. Specialist Class 11 & 12 teaching by Smit Sir."
+        title="Free Commerce Notes, PDFs, Practice & Games | Smit Sir Commerce"
+        description="Free Commerce study material for Class 11 and 12 students: CBSE and GSEB notes, Economics PDFs, Business Studies resources, Accountancy support, practice tools and realistic Commerce games."
         path="/"
         structuredData={structuredData}
       />
