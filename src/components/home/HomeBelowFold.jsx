@@ -1,4 +1,5 @@
 import CommerceJourneyPreview from './CommerceJourneyPreview';
+import GamesPromo from './GamesPromo';
 import LearningPhilosophy from './LearningPhilosophy';
 import TrustLayer from './TrustLayer';
 import MehsanaGrowthCampaign from './MehsanaGrowthCampaign';
@@ -21,6 +22,7 @@ export default function HomeBelowFold() {
   return (
     <>
       <CommerceJourneyPreview />
+      <GamesPromo />
       <LearningPhilosophy />
       <TrustLayer />
       <MehsanaGrowthCampaign />
