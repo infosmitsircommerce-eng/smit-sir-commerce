@@ -9,9 +9,9 @@ const distRoot = new URL('../dist/', import.meta.url);
 const pages = [
   {
     path: '/',
-    title: 'Commerce Material Gateway — Free Notes, PDFs, Practice & Tools',
-    description: 'Smit Sir Commerce is a free Commerce material gateway where students can find CBSE and GSEB notes, PDF material, practice, games and tools in one clean place.',
-    body: `<main class="page-container section-padding" data-prerendered="trust-home"><article><h1>Yahan Commerce ka sara material milega</h1><p>Smit Sir Commerce is a free Commerce material gateway for students. The homepage works as an entrance to notes, PDFs, practice, games and Commerce tools, so students can understand where to go before opening the full material library.</p><h2>Start with material</h2><ul><li><a href="/study-material">Open the full study material finder</a></li><li><a href="/cbse-notes">CBSE Class 11 and 12 Commerce notes</a></li><li><a href="/gseb-class-12-economics.html">GSEB Class 12 Economics notes</a></li><li><a href="/games">Learning games</a></li><li><a href="/tools">Commerce calculators and tools</a></li></ul><h2>What students can find here</h2><p>The website focuses on Commerce material first: chapter-wise notes, PDF downloads, revision support, practice questions and calculators. Contact help is available only when a student needs extra support after using the free resources.</p><h2>Simple promise</h2><p>Commerce material pehle. Help baad me. No forced demo flow, no confusing advertising-first structure, and no pressure before the student reaches the actual study resources.</p><p><a href="/study-material">Explore material</a> · <a href="/free-commerce-notes.html">Free Commerce notes</a> · <a href="/free-commerce-tools.html">Free Commerce tools</a> · <a href="/contact">Contact Smit Sir</a></p></article></main>`,
+    title: 'Learn Commerce With Understanding',
+    description: 'Smit Sir Commerce helps Class 11 and 12 Commerce students learn Economics, Business Studies, Entrepreneurship and related resources with clarity, curiosity and fun.',
+    body: `<main class="page-container section-padding" data-prerendered="trust-home"><article><section style="display:grid;grid-template-columns:1.15fr .85fr;gap:36px;align-items:center"><div><p style="font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#966313">A different way to learn Commerce</p><h1>In a world chasing marks, choose understanding.</h1><p>Marks matter — but they are the result, not the entire purpose of education. Learn Commerce with clarity, curiosity and fun, so you understand the why behind every concept instead of only memorising the answer.</p><h2>Learning with Fun. Marks as a Result.</h2><p><a href="/cbse-notes">Start learning free</a> · <a href="/book-demo">Book free demo</a> · <a href="/study-material">Open study material</a></p></div><figure><img src="/teacher.jpg" alt="Smit Sir — Commerce Teacher" style="max-width:360px;width:100%;border-radius:22px"><figcaption>Smit Sir — Economics, Business Studies and Entrepreneurship</figcaption></figure></section><section><h2>Understand first. Practise confidently. Let better marks follow.</h2><ul><li>Concept clarity before memorisation</li><li>Questions are welcome</li><li>Free notes, PDFs, practice and tools</li><li>Commerce support for students in Mehsana and beyond</li></ul></section></article></main>`,
   },
   {
     path: '/about',
@@ -72,4 +72,4 @@ for (const page of pages) {
   await writeFile(directory, html, 'utf8');
 }
 
-console.log(`Pre-rendered ${pages.length} trust and policy pages with Commerce material gateway homepage.`);
+console.log(`Pre-rendered ${pages.length} trust and policy pages with photo quote homepage.`);
