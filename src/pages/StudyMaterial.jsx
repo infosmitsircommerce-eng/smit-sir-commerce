@@ -8,8 +8,8 @@ import { gsebMaterials } from '../data/gsebMaterials';
 const allMaterials = [...seoMaterials, ...gsebMaterials];
 const initialBoard = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('board')?.toUpperCase() === 'GSEB' ? 'GSEB' : 'CBSE';
 const PATH = '/study-material';
-const TITLE = 'Free Commerce Notes PDF — CBSE & GSEB | Smit Sir Commerce';
-const DESCRIPTION = 'Find and download free CBSE and GSEB Commerce notes quickly by board, class, subject and chapter.';
+const TITLE = 'Free Commerce Notes PDF — CBSE & GSEB Class 11 and 12 | Smit Sir Commerce';
+const DESCRIPTION = 'Free Commerce study material for CBSE and GSEB students: Class 11 and 12 Economics, Business Studies, Accountancy resources, GSEB Class 12 Economics PDFs, practice and tools.';
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -18,9 +18,26 @@ const structuredData = {
   description: DESCRIPTION,
   url: `https://www.smitsircommerce.in${PATH}`,
   isAccessibleForFree: true,
+  about: ['Commerce notes', 'CBSE Commerce', 'GSEB Economics', 'Class 11 Commerce', 'Class 12 Commerce', 'Economics', 'Business Studies', 'Accountancy'],
 };
 
 const classLevelOf = (material) => material.class ?? material.class_level;
+
+const startGuide = [
+  { title: 'Choose board', text: 'Start with CBSE or GSEB so you do not waste time.' },
+  { title: 'Pick class', text: 'Select Class 11 or Class 12 and then the subject.' },
+  { title: 'Open chapter', text: 'Use direct chapter notes or download the PDF.' },
+  { title: 'Practise', text: 'After notes, revise with questions, tests and games.' },
+];
+
+const subjectBlocks = [
+  { title: 'CBSE Class 11 Commerce Notes', text: 'Microeconomics, Statistics and foundation Commerce resources.', to: '/cbse-notes' },
+  { title: 'CBSE Class 12 Commerce Notes', text: 'Economics and Business Studies revision-focused resources.', to: '/cbse-notes' },
+  { title: 'GSEB Class 12 Economics PDFs', text: 'Chapter 2 to 11 Economics notes with direct PDF access.', to: '/study-material?board=GSEB' },
+  { title: 'Tools + Practice + Games', text: 'Calculators, daily questions and real-life Commerce games.', to: '/games' },
+];
+
+const trustPoints = ['Made by Smit Thaker', 'Commerce teacher', 'Free material for students', 'CBSE + GSEB focused'];
 
 function SmartLink({ to, className, style, children, ...props }) {
   if (to.startsWith('#')) return <a href={to} className={className} style={style} {...props}>{children}</a>;
@@ -114,7 +131,7 @@ export default function StudyMaterial() {
     { icon: Download, title: 'All notes', text: 'Jump straight to chapter PDFs.', to: '#all-notes', primary: true },
     { icon: GraduationCap, title: 'GSEB Economics', text: 'Class 12 chapters 2–11.', to: '/study-material?board=GSEB' },
     { icon: Brain, title: 'Practice', text: 'Daily questions and tests.', to: '/daily-practice' },
-    { icon: Gamepad2, title: 'Games', text: 'Learn with fun activities.', to: '/games' },
+    { icon: Gamepad2, title: 'Games', text: 'Real-life Commerce revision.', to: '/games' },
   ];
 
   return (
@@ -126,12 +143,12 @@ export default function StudyMaterial() {
           <div className="ssc-hero-panel px-5 py-7 sm:p-8 lg:p-10">
             <div className="ssc-hero-content grid lg:grid-cols-[1.15fr_.85fr] gap-8 items-center">
               <div>
-                <span className="eyebrow">FREE COMMERCE NOTES</span>
+                <span className="eyebrow">FREE COMMERCE STUDY MATERIAL</span>
                 <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl leading-tight" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>
-                  Find your PDF in <span className="ssc-gold-text">seconds.</span>
+                  Everything important in <span className="ssc-gold-text">one place.</span>
                 </h1>
                 <p className="mt-4 text-base sm:text-lg max-w-2xl" style={{ color: 'var(--muted)' }}>
-                  Clean, fast and student-friendly. Choose board, class, subject or search chapter name — then download directly.
+                  CBSE and GSEB Commerce notes, Economics PDFs, Business Studies resources, Accountancy support, practice tools and realistic Commerce games — arranged so students can find material fast.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <a href="#all-notes" className="btn-primary min-h-12 px-5"><Download className="w-4 h-4" /> Download notes</a>
@@ -143,8 +160,8 @@ export default function StudyMaterial() {
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-11 h-11 rounded-2xl flex items-center justify-center" style={{ background: 'var(--brand-soft)', color: 'var(--gold)' }}><Sparkles className="w-5 h-5" /></div>
                   <div>
-                    <h2 className="text-lg font-black" style={{ color: 'var(--ink)' }}>Instant study access</h2>
-                    <p className="text-xs" style={{ color: 'var(--muted)' }}>Everything important is now one tap away.</p>
+                    <h2 className="text-lg font-black" style={{ color: 'var(--ink)' }}>Student-first library</h2>
+                    <p className="text-xs" style={{ color: 'var(--muted)' }}>Notes first. Practice next. Demo only when needed.</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
@@ -165,7 +182,37 @@ export default function StudyMaterial() {
         </div>
       </section>
 
-      <section className="page-container ssc-sticky-finder pb-7">
+      <section className="page-container pb-7">
+        <div className="grid lg:grid-cols-[1fr_.72fr] gap-4">
+          <div className="ssc-glass-card rounded-[1.8rem] p-5 sm:p-6">
+            <span className="eyebrow">START HERE ROADMAP</span>
+            <h2 className="text-2xl sm:text-3xl mt-3 mb-5" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>New student? Follow this simple path.</h2>
+            <div className="grid sm:grid-cols-4 gap-3">
+              {startGuide.map((step, index) => (
+                <div key={step.title} className="rounded-2xl p-4" style={{ background: '#fff', border: '1px solid var(--border-soft)' }}>
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-black mb-3" style={{ background: index === 0 ? 'linear-gradient(135deg, #8F5C10, #D5A438)' : 'var(--brand-soft)', color: index === 0 ? '#fff' : 'var(--gold)' }}>{index + 1}</div>
+                  <h3 className="font-black text-sm" style={{ color: 'var(--ink)' }}>{step.title}</h3>
+                  <p className="text-xs mt-2 leading-relaxed" style={{ color: 'var(--muted)' }}>{step.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="ssc-glass-card rounded-[1.8rem] p-5 sm:p-6">
+            <span className="eyebrow">TRUST</span>
+            <h2 className="text-2xl mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Built for real students.</h2>
+            <div className="grid gap-2 mt-5">
+              {trustPoints.map((point) => (
+                <div key={point} className="flex items-center gap-3 rounded-2xl p-3" style={{ background: '#fff', border: '1px solid var(--border-soft)' }}>
+                  <CheckCircle2 className="w-4 h-4 shrink-0" style={{ color: 'var(--green)' }} />
+                  <span className="text-sm font-bold" style={{ color: 'var(--charcoal)' }}>{point}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="page-container pb-7">
         <div className="ssc-finder-shell p-4 sm:p-5">
           <div className="flex items-center justify-between gap-3 mb-4">
             <div className="flex items-center gap-2 text-sm font-black" style={{ color: 'var(--ink)' }}><SlidersHorizontal className="w-4 h-4" /> Quick finder</div>
@@ -195,6 +242,16 @@ export default function StudyMaterial() {
           <div className="flex items-end justify-between gap-4 mb-4">
             <div><span className="eyebrow">DIRECT COLLECTIONS</span><h2 className="text-2xl sm:text-3xl mt-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Popular folders</h2></div>
             <Link to="/cbse-notes" className="hidden sm:inline-flex items-center gap-2 text-sm font-black" style={{ color: 'var(--gold)' }}>CBSE notes <ArrowRight className="w-4 h-4" /></Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+            {subjectBlocks.map((block) => (
+              <Link key={block.title} to={block.to} className="ssc-quick-action-card ssc-hover-lift rounded-2xl p-5">
+                <div className="w-11 h-11 rounded-2xl flex items-center justify-center mb-4" style={{ background: 'var(--brand-soft)', color: 'var(--gold)' }}><BookOpen className="w-5 h-5" /></div>
+                <h3 className="text-lg font-black" style={{ color: 'var(--ink)' }}>{block.title}</h3>
+                <p className="text-sm mt-2 leading-relaxed" style={{ color: 'var(--muted)' }}>{block.text}</p>
+                <span className="inline-flex items-center gap-1 mt-4 text-sm font-black" style={{ color: 'var(--gold)' }}>Open <ArrowRight className="w-4 h-4" /></span>
+              </Link>
+            ))}
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {seoHubs.map((hub) => {
