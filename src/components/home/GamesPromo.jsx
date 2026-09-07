@@ -1,163 +1,133 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Gamepad2, TrendingUp, Coins, ArrowRight } from 'lucide-react';
+import { ArrowRight, BarChart3, Calculator, Coins, Gamepad2, Store, TrendingUp, Wallet } from 'lucide-react';
 
 const GAMES = [
   {
     icon: TrendingUp,
-    title: 'Predict the Price!',
-    desc: '5 Chapters · 3 Levels · 120+ Questions',
-    tag: 'Quiz Game',
-    detail: 'Demand, Supply, GDP, Inflation & more',
+    title: 'Market Shock Simulator',
+    desc: 'Predict demand, supply and price after real-life news.',
+    tag: 'Economics Game',
+  },
+  {
+    icon: Wallet,
+    title: 'Family Budget Challenge',
+    desc: 'Handle income, wants, needs, savings and inflation pressure.',
+    tag: 'Money Game',
+  },
+  {
+    icon: Store,
+    title: 'Shopkeeper Price War',
+    desc: 'Choose pricing, discount and stock decisions like a real business.',
+    tag: 'Business Game',
   },
   {
     icon: Coins,
-    title: 'Money Time Machine',
-    desc: 'India CPI data 2000–2024',
+    title: 'Inflation Time Machine',
+    desc: 'See how money value changes and why prices rise over time.',
     tag: 'Visual Tool',
-    detail: 'See how inflation ate your money!',
+  },
+  {
+    icon: Calculator,
+    title: 'Business Decision Game',
+    desc: 'Compare cost, revenue, profit and break-even decisions.',
+    tag: 'Accountancy + BST',
   },
 ];
+
+const topics = ['Demand', 'Supply', 'Inflation', 'Budgeting', 'Profit', 'Break-even'];
 
 export default function GamesPromo() {
   return (
     <section className="section-padding py-16" style={{ background: 'var(--bg-ivory)' }}>
       <div className="page-container">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "50px" }}
+          viewport={{ once: true, margin: '50px' }}
           className="text-center mb-10"
         >
-          <span className="eyebrow">New — Just Added</span>
+          <span className="eyebrow">Real-life Commerce Games</span>
           <h2 className="headline mt-6 mb-3">
-            Learn Economics by <em>playing.</em>
+            Learn Commerce by making <em>decisions.</em>
           </h2>
-          <p className="text-base max-w-xl mx-auto" style={{ color: 'var(--muted)' }}>
-            Interactive games that make Micro &amp; Macro concepts click — no boring textbooks!
+          <p className="text-base max-w-2xl mx-auto" style={{ color: 'var(--muted)' }}>
+            Not random childish games — practical mini-simulations that connect Economics, Business Studies and Accountancy with real situations.
           </p>
         </motion.div>
 
-        {/* Ink feature card */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 26 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "50px" }}
-          transition={{ delay: 0.1 }}
-          className="relative rounded-3xl overflow-hidden mb-6 p-6 sm:p-10"
+          viewport={{ once: true, margin: '50px' }}
+          transition={{ delay: 0.08 }}
+          className="relative rounded-[2rem] overflow-hidden p-5 sm:p-8 lg:p-10"
           style={{
-            background: 'linear-gradient(135deg, var(--ink-bg-2) 0%, var(--ink-bg) 60%)',
-            border: '1px solid rgba(201,160,80,0.3)',
-            boxShadow: '0 24px 64px rgba(30,24,18,0.18)',
+            background: 'linear-gradient(135deg, #172033 0%, #253147 66%, #332611 100%)',
+            border: '1px solid rgba(217,172,92,0.32)',
+            boxShadow: '0 28px 76px rgba(30,24,18,0.18)',
           }}
         >
-          {/* Gold glow corners */}
-          <div className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none"
-            style={{ background: 'radial-gradient(circle, rgba(201,160,80,0.14), transparent 70%)', transform: 'translate(30%, -30%)' }} />
-          <div className="absolute bottom-0 left-0 w-52 h-52 rounded-full pointer-events-none"
-            style={{ background: 'radial-gradient(circle, rgba(201,160,80,0.1), transparent 70%)', transform: 'translate(-30%, 30%)' }} />
-          {/* Gold hairline top */}
-          <div className="absolute top-0 inset-x-0 h-px"
-            style={{ background: 'linear-gradient(90deg, transparent, rgba(217,172,92,0.6), transparent)' }} />
+          <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(243,202,105,0.75), transparent)' }} />
+          <div aria-hidden="true" className="absolute -top-32 -right-24 w-80 h-80 rounded-full" style={{ background: 'rgba(217,172,92,0.16)', filter: 'blur(48px)' }} />
 
-          <div className="relative flex flex-col lg:flex-row items-center gap-10">
-            {/* Left: text */}
-            <div className="flex-1 text-center lg:text-left">
-              <div className="inline-flex w-14 h-14 rounded-2xl items-center justify-center mb-5"
-                style={{ background: 'rgba(217,172,92,0.1)', border: '1px solid rgba(217,172,92,0.3)' }}>
-                <Gamepad2 style={{ width: '26px', height: '26px', color: 'var(--gold-bright)' }} strokeWidth={1.6} />
+          <div className="relative grid lg:grid-cols-[0.88fr_1.12fr] gap-8 items-center">
+            <div>
+              <div className="inline-flex w-14 h-14 rounded-2xl items-center justify-center mb-5" style={{ background: 'rgba(217,172,92,0.12)', border: '1px solid rgba(217,172,92,0.30)' }}>
+                <Gamepad2 style={{ width: '26px', height: '26px', color: 'var(--gold-bright)' }} strokeWidth={1.7} />
               </div>
-              <h3 style={{
-                fontFamily: 'var(--font-serif)', fontWeight: 700,
-                fontSize: 'clamp(1.5rem, 2.6vw, 2rem)',
-                color: 'var(--ivory-on-ink)', marginBottom: '12px', letterSpacing: '-0.02em',
-              }}>
-                Economics Games
+              <h3 style={{ fontFamily: 'var(--font-serif)', fontWeight: 780, fontSize: 'clamp(1.7rem, 3vw, 2.4rem)', color: 'var(--ivory-on-ink)', lineHeight: 1.12, letterSpacing: '-0.03em', marginBottom: '14px' }}>
+                Realistic games that feel connected to life.
               </h3>
-              <p className="text-sm mb-6 leading-relaxed max-w-md mx-auto lg:mx-0" style={{ color: 'var(--muted-on-ink)' }}>
-                Predict if prices go <span style={{ color: '#8FBF6B', fontWeight: 700 }}>up</span> or <span style={{ color: '#D98C7A', fontWeight: 700 }}>down</span> based on real-life news.
-                Learn Giffen goods, Veblen goods, tax incidence, multiplier effect &amp; more — by playing.
+              <p className="text-sm leading-relaxed max-w-md" style={{ color: 'var(--muted-on-ink)' }}>
+                Students understand faster when they decide what happens to price, profit, budget or demand. These games make concepts feel practical, not just theoretical.
               </p>
-
-              {/* Chapter pills */}
-              <div className="flex flex-wrap gap-2 justify-center lg:justify-start mb-7">
-                {['Demand', 'Supply', 'Equilibrium', 'National Income', 'Inflation'].map(t => (
-                  <span key={t} className="text-xs px-3 py-1 rounded-full font-medium"
-                    style={{ background: 'rgba(243,236,221,0.06)', color: 'var(--muted-on-ink)', border: '1px solid rgba(243,236,221,0.12)' }}>
-                    {t}
+              <div className="flex flex-wrap gap-2 mt-6 mb-7">
+                {topics.map((topic) => (
+                  <span key={topic} className="text-xs px-3 py-1 rounded-full font-semibold" style={{ background: 'rgba(243,236,221,0.07)', color: 'var(--muted-on-ink)', border: '1px solid rgba(243,236,221,0.12)' }}>
+                    {topic}
                   </span>
                 ))}
               </div>
-
               <Link to="/games" className="btn-gold text-base px-8 py-4">
-                Play Now — It's Free
+                Open Commerce Games
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
-            {/* Right: game cards */}
-            <div className="w-full lg:w-auto flex flex-col sm:flex-row lg:flex-col gap-3 lg:min-w-[260px]">
-              {GAMES.map((g, i) => {
-                const Icon = g.icon;
+            <div className="grid sm:grid-cols-2 gap-3">
+              {GAMES.map((game, index) => {
+                const Icon = game.icon;
                 return (
                   <motion.div
-                    key={g.title}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "50px" }}
-                    transition={{ delay: 0.2 + i * 0.1 }}
-                    className="flex-1 lg:flex-none rounded-2xl p-4"
-                    style={{
-                      background: 'rgba(243,236,221,0.05)',
-                      border: '1px solid rgba(217,172,92,0.25)',
-                    }}>
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
-                        style={{ background: 'rgba(217,172,92,0.1)', border: '1px solid rgba(217,172,92,0.25)' }}>
-                        <Icon style={{ width: '16px', height: '16px', color: 'var(--gold-bright)' }} strokeWidth={1.8} />
+                    key={game.title}
+                    initial={{ opacity: 0, y: 18 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '50px' }}
+                    transition={{ delay: 0.14 + index * 0.06 }}
+                    className="rounded-2xl p-4"
+                    style={{ background: 'rgba(243,236,221,0.06)', border: '1px solid rgba(217,172,92,0.24)', minHeight: '142px' }}
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: 'rgba(217,172,92,0.12)', color: 'var(--gold-bright)' }}>
+                        <Icon className="w-5 h-5" strokeWidth={1.8} />
                       </div>
-                      <div>
-                        <div className="text-[10px] font-bold uppercase tracking-widest" style={{ color: 'var(--gold-bright)' }}>{g.tag}</div>
-                        <div className="text-sm leading-tight" style={{ fontFamily: 'var(--font-serif)', fontWeight: 700, color: 'var(--ivory-on-ink)' }}>{g.title}</div>
-                      </div>
+                      <div className="text-[10px] font-black uppercase tracking-widest" style={{ color: 'var(--gold-bright)' }}>{game.tag}</div>
                     </div>
-                    <p className="text-xs" style={{ color: 'var(--muted-on-ink)' }}>{g.desc}</p>
-                    <p className="text-xs mt-1 font-medium" style={{ color: 'var(--gold-soft)' }}>{g.detail}</p>
+                    <h4 style={{ fontFamily: 'var(--font-serif)', color: 'var(--ivory-on-ink)', fontWeight: 780, fontSize: '1.06rem', lineHeight: 1.18 }}>{game.title}</h4>
+                    <p className="text-xs mt-2 leading-relaxed" style={{ color: 'var(--muted-on-ink)' }}>{game.desc}</p>
                   </motion.div>
                 );
               })}
+              <div className="rounded-2xl p-4 sm:col-span-2 flex items-center gap-4" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(217,172,92,0.24)' }}>
+                <BarChart3 className="w-7 h-7 shrink-0" style={{ color: 'var(--gold-bright)' }} />
+                <div>
+                  <div className="text-sm font-black" style={{ color: '#fff' }}>Best part: games support concept clarity.</div>
+                  <p className="text-xs mt-1" style={{ color: 'var(--muted-on-ink)' }}>The goal is not entertainment only — it is revision that feels practical.</p>
+                </div>
+              </div>
             </div>
           </div>
-        </motion.div>
-
-        {/* Bottom stats row */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "50px" }}
-          transition={{ delay: 0.3 }}
-          className="grid grid-cols-3 gap-3"
-        >
-          {[
-            { value: '5',    label: 'Chapters',          sub: 'Micro & Macro'    },
-            { value: '120+', label: 'Questions',         sub: 'With board tips'  },
-            { value: '3',    label: 'Difficulty Levels', sub: 'Easy → Hard'      },
-          ].map((s, i) => (
-            <motion.div
-              key={s.label}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "50px" }}
-              transition={{ delay: 0.35 + i * 0.07 }}
-              className="rounded-2xl p-4 text-center"
-              style={{ background: 'var(--bg-white)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)' }}
-            >
-              <div className="text-xl sm:text-2xl" style={{ fontFamily: 'var(--font-serif)', fontWeight: 700, color: 'var(--gold)' }}>{s.value}</div>
-              <div className="text-xs font-semibold mt-0.5" style={{ color: 'var(--ink)' }}>{s.label}</div>
-              <div className="text-[10px] mt-0.5" style={{ color: 'var(--subtle)' }}>{s.sub}</div>
-            </motion.div>
-          ))}
         </motion.div>
       </div>
     </section>
