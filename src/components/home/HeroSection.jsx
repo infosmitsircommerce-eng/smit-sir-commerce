@@ -1,206 +1,273 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, Brain, Download, FileText, MessageCircleQuestion, Search, Sparkles, Wrench } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowRight, BookOpen, CheckCircle } from 'lucide-react';
+import teacherPhoto from '../../assets/teacher-photo-opt.jpg';
 
-const quickPaths = [
-  { label: 'CBSE Notes', path: '/cbse-notes' },
-  { label: 'GSEB PDFs', path: '/study-material?board=GSEB' },
-  { label: 'Practice', path: '/daily-practice' },
-  { label: 'Tools', path: '/tools' },
+const trust = [
+  { value: '26', label: 'Free PDFs Published' },
+  { value: '41', label: 'Commerce Tools' },
+  { value: '11 & 12', label: 'CBSE Classes' },
+  { value: 'Free', label: 'First Demo Class' },
 ];
 
-const resourceRows = [
-  { icon: FileText, title: 'Chapter-wise notes', text: 'Open board → class → subject → chapter.' },
-  { icon: Download, title: 'Direct downloads', text: 'Grab PDFs without hunting across pages.' },
-  { icon: Brain, title: 'Practice after reading', text: 'Revise with questions, games and tests.' },
-  { icon: MessageCircleQuestion, title: 'Need guidance?', text: 'Contact Smit Sir only when help is needed.' },
+const badges = [
+  { text: 'Concept Clarity' },
+  { text: 'Learning with Fun' },
+  { text: 'Questions Welcome' },
 ];
 
-function ResourcePanel() {
-  return (
-    <div className="hero-resource-panel" style={{
-      position: 'relative', width: '100%', maxWidth: 470, justifySelf: 'end',
-      borderRadius: 30, padding: 22,
-      background: 'linear-gradient(160deg,#162033 0%,#253147 58%,#101827 100%)',
-      border: '1px solid rgba(244,210,123,.25)',
-      boxShadow: '0 32px 80px rgba(16,24,40,.26)',
-      overflow: 'hidden',
-    }}>
-      <Sparkles aria-hidden="true" size={120} style={{ position: 'absolute', right: -34, top: -32, color: 'rgba(244,210,123,.12)' }} />
-      <div style={{ position: 'relative' }}>
-        <div style={{
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12,
-          marginBottom: 18,
-        }}>
-          <div>
-            <div style={{ color: '#F4D27B', fontSize: 11, fontWeight: 900, letterSpacing: '.12em', textTransform: 'uppercase' }}>Resource Library</div>
-            <h2 style={{ color: '#fff', fontSize: 25, lineHeight: 1.12, fontWeight: 900, margin: '7px 0 0' }}>Study faster. Search less.</h2>
-          </div>
-          <div style={{
-            width: 52, height: 52, borderRadius: 18, display: 'grid', placeItems: 'center',
-            background: 'linear-gradient(135deg,#F6D881,#C8922F)', color: '#1E1812', flexShrink: 0,
-          }}>
-            <BookOpen size={25} strokeWidth={2.4} />
-          </div>
-        </div>
-
-        <div style={{ display: 'grid', gap: 10 }}>
-          {resourceRows.map(({ icon: Icon, title, text }) => (
-            <div key={title} style={{
-              display: 'flex', gap: 13, alignItems: 'center', padding: '13px 14px',
-              borderRadius: 18, background: 'rgba(255,255,255,.075)',
-              border: '1px solid rgba(255,255,255,.10)',
-              backdropFilter: 'blur(10px)',
-            }}>
-              <div style={{
-                width: 38, height: 38, borderRadius: 14, display: 'grid', placeItems: 'center',
-                background: 'rgba(244,210,123,.13)', color: '#F4D27B', flexShrink: 0,
-              }}>
-                <Icon size={18} strokeWidth={2.35} />
-              </div>
-              <div>
-                <div style={{ color: '#fff', fontWeight: 850, fontSize: 14 }}>{title}</div>
-                <div style={{ color: 'rgba(255,255,255,.68)', fontSize: 12, marginTop: 2 }}>{text}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <Link to="/study-material" style={{
-          marginTop: 16, minHeight: 50, borderRadius: 17,
-          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 9,
-          background: '#F4D27B', color: '#1E1812', fontWeight: 950,
-          textDecoration: 'none', boxShadow: '0 16px 36px rgba(244,210,123,.24)',
-        }}>
-          Open free study material <ArrowRight size={16} />
-        </Link>
-      </div>
-    </div>
-  );
-}
+const fade = (delay = 0) => ({
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] },
+});
 
 export default function HeroSection() {
   return (
     <section className="home-hero" style={{
-      background: 'radial-gradient(circle at 75% 5%, rgba(244,210,123,.28), transparent 34%), linear-gradient(135deg,#fffdf7 0%,#fff7e5 45%,#f7f8fc 100%)',
+      background: 'linear-gradient(135deg, #ffffff 0%, #fff8e8 52%, #f8fafc 100%)',
       position: 'relative',
       overflow: 'hidden',
-      borderBottom: '1px solid rgba(184,135,47,.14)',
     }}>
       <div aria-hidden="true" style={{
-        position: 'absolute', top: '-180px', right: '10%',
-        width: 470, height: 470, borderRadius: '50%',
-        background: 'rgba(224,167,43,.19)', filter: 'blur(52px)', pointerEvents: 'none',
+        position: 'absolute', top: '-170px', right: '8%',
+        width: '440px', height: '440px', borderRadius: '50%',
+        background: 'rgba(224,167,43,0.22)', filter: 'blur(48px)',
+        pointerEvents: 'none',
       }} />
       <div aria-hidden="true" style={{
-        position: 'absolute', bottom: '-260px', left: '-6%',
-        width: 560, height: 560, borderRadius: '50%',
-        background: 'rgba(23,32,51,.07)', filter: 'blur(58px)', pointerEvents: 'none',
+        position: 'absolute', bottom: '-220px', left: '4%',
+        width: '520px', height: '520px', borderRadius: '50%',
+        background: 'rgba(183,121,31,0.12)', filter: 'blur(58px)',
+        pointerEvents: 'none',
       }} />
 
-      <div className="hero-inner-pad" style={{ maxWidth: 1280, margin: '0 auto', padding: '54px 32px 56px', width: '100%', position: 'relative' }}>
-        <div className="hero-main-grid" style={{
-          display: 'grid', gridTemplateColumns: '1.07fr .93fr',
-          gap: 52, alignItems: 'center',
-        }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '58px 32px 64px', width: '100%', position: 'relative' }} className="hero-inner-pad">
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1.18fr 0.82fr',
+          gap: '56px',
+          alignItems: 'center',
+        }} className="hero-main-grid">
           <div>
-            <span style={{
-              display: 'inline-flex', alignItems: 'center', gap: 8,
-              padding: '8px 13px', borderRadius: 999,
-              background: 'rgba(255,255,255,.82)', border: '1px solid #EAD7A7',
-              boxShadow: '0 8px 24px rgba(166,111,23,.10)',
-              fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 850,
-              letterSpacing: '.1em', textTransform: 'uppercase', color: '#966313',
-            }}>
-              <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#D5A438', boxShadow: '0 0 0 5px rgba(213,164,56,.13)' }} />
-              Free Commerce Resource Hub
-            </span>
+            <motion.div {...fade(0.08)}>
+              <span style={{
+                display: 'inline-flex', alignItems: 'center', gap: '8px',
+                padding: '8px 13px', borderRadius: '999px',
+                background: 'rgba(255,255,255,0.72)',
+                border: '1px solid #EAD7A7',
+                boxShadow: '0 8px 24px rgba(166,111,23,0.10)',
+                fontFamily: 'var(--font-sans)', fontSize: '11px', fontWeight: 700,
+                letterSpacing: '0.09em', textTransform: 'uppercase', color: '#966313',
+              }}>
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D5A438' }} />
+                A different way to learn Commerce
+              </span>
+            </motion.div>
 
-            <h1 style={{
+            <motion.h1 {...fade(0.16)} style={{
               fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(2.55rem,4.95vw,4.25rem)', fontWeight: 800,
-              lineHeight: 1.04, letterSpacing: '-.035em', color: 'var(--ink)',
-              margin: '24px 0 18px',
+              fontSize: 'clamp(2.5rem, 4.8vw, 3.8rem)',
+              fontWeight: 700,
+              lineHeight: 1.1,
+              letterSpacing: '-0.025em',
+              color: 'var(--ink)',
+              margin: '26px 0 20px',
             }}>
-              Notes chahiye?
+              In a world chasing marks,
               <br />
               <em style={{
-                fontStyle: 'normal', background: 'linear-gradient(135deg,#A66F17,#E0A72B)',
+                fontFamily: 'var(--font-serif)',
+                fontStyle: 'normal',
+                fontWeight: 750,
+                fontSize: '1em',
+                background: 'linear-gradient(135deg, #A66F17, #E0A72B)',
                 WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-              }}>Direct yahi milega.</em>
-            </h1>
+              }}>
+                choose understanding.
+              </em>
+            </motion.h1>
 
-            <p style={{
-              fontFamily: 'var(--font-sans)', fontSize: 17, lineHeight: 1.78,
-              color: 'var(--muted)', maxWidth: 650, marginBottom: 22,
+            <motion.p {...fade(0.24)} style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: '16px', lineHeight: 1.75,
+              color: 'var(--muted)',
+              maxWidth: '560px',
+              marginBottom: '18px',
             }}>
-              Smit Sir Commerce is now built like a clean study library: free notes, PDFs, practice, games and tools first. No unnecessary demo pressure — just open, download and study.
-            </p>
+              Marks matter — but they are the result, not the entire purpose of education. Learn Commerce with
+              <span className="marker" style={{ color: 'var(--ink)', fontWeight: 600 }}> clarity, curiosity and fun</span>,
+              so you understand the “why” behind every concept instead of only memorising the answer.
+            </motion.p>
 
-            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 18 }}>
-              <Link to="/study-material" className="btn-primary hero-primary-cta" style={{ fontSize: 15, padding: '13px 26px' }}>
-                <FileText style={{ width: 15, height: 15 }} /> Open Study Material
-              </Link>
-              <button
-                type="button"
-                onClick={() => window.dispatchEvent(new CustomEvent('ssc-open-search'))}
-                className="btn-outline-ink hero-secondary-cta"
-                style={{ fontSize: 15, cursor: 'pointer' }}
-              >
-                <Search style={{ width: 14, height: 14 }} /> Search Chapter
-              </button>
-            </div>
+            <motion.p {...fade(0.28)} style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: '1.18rem', lineHeight: 1.5,
+              color: 'var(--ink)', fontWeight: 650,
+              maxWidth: '560px', marginBottom: '30px',
+            }}>
+              Learning with Fun. Marks as a Result.
+            </motion.p>
 
-            <div className="hero-chip-row" style={{ display: 'flex', gap: 9, flexWrap: 'wrap', marginBottom: 26 }}>
-              {quickPaths.map((item) => (
-                <Link key={item.label} to={item.path} style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 7,
-                  padding: '9px 12px', borderRadius: 999, background: '#fff',
-                  border: '1px solid rgba(15,23,42,.08)', color: 'var(--ink)',
-                  textDecoration: 'none', fontSize: 12, fontWeight: 850,
-                  boxShadow: '0 8px 22px rgba(16,24,40,.05)',
-                }}>
-                  {item.label} <ArrowRight size={12} style={{ color: '#A66F17' }} />
+            <motion.div {...fade(0.32)} style={{ marginBottom: '36px' }}>
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                <Link to="/cbse-notes" className="btn-primary hero-primary-cta" style={{ fontSize: '15px', padding: '13px 28px' }}>
+                  Start Learning Free
+                  <ArrowRight style={{ width: '15px', height: '15px' }} />
                 </Link>
-              ))}
-            </div>
+                <Link to="/book-demo" className="btn-outline-ink hero-secondary-cta" style={{ fontSize: '15px' }}>
+                  <BookOpen style={{ width: '14px', height: '14px' }} />
+                  Book Free Demo
+                </Link>
+              </div>
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: '8px', marginTop: '14px',
+                fontFamily: 'var(--font-sans)', fontSize: '13px', color: 'var(--muted)',
+              }}>
+                <CheckCircle style={{ width: '15px', height: '15px', color: 'var(--green)' }} />
+                Understand first. Practise confidently. Let better marks follow.
+              </div>
+            </motion.div>
 
-            <div className="hero-promise-strip" style={{
-              display: 'grid', gridTemplateColumns: 'repeat(3,minmax(0,1fr))', gap: 10,
-              maxWidth: 650,
+            <motion.div {...fade(0.4)} className="hero-trust-grid" style={{
+              display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+              gap: '10px',
             }}>
-              {[
-                ['No clutter', 'Resources first'],
-                ['Free access', 'Notes + tools'],
-                ['Need help?', 'Contact Smit Sir'],
-              ].map(([title, text]) => (
-                <div key={title} style={{
-                  padding: '14px 14px', borderRadius: 16, background: 'rgba(255,255,255,.78)',
-                  border: '1px solid rgba(15,23,42,.07)', boxShadow: '0 12px 30px rgba(16,24,40,.055)',
+              {trust.map((t) => (
+                <div key={t.label} style={{
+                  minHeight: '86px', padding: '15px 13px',
+                  borderRadius: '14px',
+                  background: 'rgba(255,255,255,0.74)',
+                  border: '1px solid #E2E7F0',
+                  boxShadow: '0 12px 30px rgba(16,24,40,0.06)',
                 }}>
-                  <div style={{ fontWeight: 950, color: 'var(--ink)', fontSize: 14 }}>{title}</div>
-                  <div style={{ color: 'var(--muted)', fontSize: 12, marginTop: 4, fontWeight: 700 }}>{text}</div>
+                  <div style={{
+                    fontFamily: 'var(--font-serif)', fontSize: '1.45rem',
+                    fontWeight: 700, color: 'var(--ink)', lineHeight: 1,
+                  }}>{t.value}</div>
+                  <div style={{
+                    fontFamily: 'var(--font-sans)', fontSize: '10px',
+                    fontWeight: 700, lineHeight: 1.35, letterSpacing: '0.045em',
+                    color: 'var(--subtle)', marginTop: '8px', textTransform: 'uppercase',
+                  }}>{t.label}</div>
                 </div>
               ))}
-            </div>
+            </motion.div>
           </div>
 
-          <ResourcePanel />
+          <motion.div
+            initial={{ opacity: 0, x: 28 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.75, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            className="hero-teacher-card"
+            style={{ position: 'relative', width: '100%', maxWidth: '430px', justifySelf: 'end' }}
+          >
+            <div aria-hidden="true" style={{
+              position: 'absolute', inset: '12% -8% -8% 10%',
+              borderRadius: '28px',
+              background: 'rgba(213,164,56,0.22)',
+              filter: 'blur(28px)', pointerEvents: 'none',
+            }} />
+
+            <div style={{
+              position: 'relative',
+              background: 'var(--bg-white)',
+              borderRadius: '22px',
+              overflow: 'hidden',
+              border: '1px solid #E0E5EE',
+              boxShadow: '0 28px 70px rgba(16,24,40,0.16)',
+            }}>
+              <div style={{ height: '4px', background: 'linear-gradient(90deg, #8F5C10, #D5A438, #F3CA69)' }} />
+
+              <div className="hero-teacher-photo-frame" style={{
+                width: '100%',
+                aspectRatio: '4 / 5',
+                overflow: 'hidden',
+                background: '#eef1f5',
+              }}>
+                <img
+                  src={teacherPhoto}
+                  alt="Smit Sir — Commerce Teacher"
+                  className="hero-teacher-photo"
+                  width="800"
+                  height="1000"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'center 8%',
+                    display: 'block',
+                  }}
+                />
+              </div>
+
+              <div style={{ padding: '15px 18px 17px', background: 'var(--bg-white)' }}>
+                <div style={{
+                  display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '12px',
+                  marginBottom: '14px',
+                }}>
+                  <div>
+                    <div style={{
+                      fontFamily: 'var(--font-serif)',
+                      fontSize: '1.15rem', fontWeight: 700,
+                      color: 'var(--ink)', lineHeight: 1.1,
+                    }}>Smit Sir</div>
+                    <div style={{
+                      fontFamily: 'var(--font-sans)',
+                      fontSize: '12.5px', color: 'var(--muted)',
+                      marginTop: '3px',
+                    }}>Economics · Business Studies · Entrepreneurship</div>
+                  </div>
+                  <div className="sticker" style={{
+                    padding: '5px 11px', borderRadius: '7px',
+                    background: 'rgba(242,205,92,0.35)', border: '1px solid rgba(184,135,47,0.3)',
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: '10px', fontWeight: 700,
+                    color: '#7A5A1E', letterSpacing: '0.05em',
+                    whiteSpace: 'nowrap', flexShrink: 0,
+                    boxShadow: '0 2px 6px rgba(30,24,18,0.08)',
+                  }}>
+                    FREE DEMO
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                  {badges.map((b) => (
+                    <div key={b.text} style={{
+                      display: 'inline-flex', alignItems: 'center', gap: '5px',
+                      padding: '4px 10px', borderRadius: '999px',
+                      background: 'var(--bg-ivory)', border: '1px solid var(--border)',
+                      fontFamily: 'var(--font-sans)',
+                      fontSize: '10.5px', fontWeight: 500, color: 'var(--charcoal)',
+                    }}>
+                      <CheckCircle style={{ width: '9px', height: '9px', color: 'var(--green)' }} />
+                      {b.text}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
 
       <style>{`
         @media (max-width: 1024px) {
-          .hero-main-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
-          .hero-resource-panel { justify-self: center !important; max-width: 560px !important; }
-          .hero-inner-pad { padding-top: 46px !important; padding-bottom: 54px !important; }
+          .hero-main-grid { grid-template-columns: 1fr !important; gap: 44px !important; }
+          .hero-teacher-card { justify-self: center !important; max-width: 460px !important; }
+          .hero-inner-pad { padding-top: 52px !important; padding-bottom: 64px !important; }
         }
         @media (max-width: 640px) {
-          .hero-inner-pad { padding: 32px 16px 42px !important; }
-          .hero-main-grid h1 { font-size: clamp(2.25rem,11vw,2.9rem) !important; margin-top: 20px !important; }
-          .hero-primary-cta, .hero-secondary-cta { width: 100% !important; justify-content: center !important; }
-          .hero-promise-strip { grid-template-columns: 1fr !important; }
-          .hero-chip-row a { flex: 1 1 calc(50% - 6px); justify-content: center; }
-          .hero-resource-panel { max-width: 100% !important; padding: 18px !important; }
+          .hero-inner-pad { padding: 34px 16px 48px !important; }
+          .hero-teacher-card { max-width: 360px !important; }
+          .hero-trust-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+          .hero-main-grid h1 { font-size: clamp(2.15rem, 11vw, 2.7rem) !important; margin-top: 22px !important; }
+          .hero-primary-cta, .hero-secondary-cta { width: 100% !important; }
+          .hero-teacher-photo-frame { aspect-ratio: 4 / 5 !important; }
+          .hero-teacher-photo { object-position: center 6% !important; }
         }
       `}</style>
     </section>
