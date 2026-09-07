@@ -6,7 +6,18 @@ import './styles/premiumVisuals.css'
 import './styles/mobileExperience.css'
 import App from './App.jsx'
 
-const CACHE_RESET_KEY = 'ssc-cache-reset-2026-09-07-v4-mobile';
+const CACHE_RESET_KEY = 'ssc-cache-reset-2026-09-07-v5-scroll';
+
+function unlockDocumentScroll() {
+  if (typeof window === 'undefined') return;
+  document.documentElement.style.overflow = '';
+  document.documentElement.style.overflowY = 'auto';
+  document.documentElement.style.height = 'auto';
+  document.body.style.overflow = '';
+  document.body.style.overflowY = 'auto';
+  document.body.style.position = '';
+  document.body.style.height = 'auto';
+}
 
 async function clearOldAppCaches() {
   if (typeof window === 'undefined' || !('localStorage' in window)) return;
@@ -33,7 +44,11 @@ async function clearOldAppCaches() {
   }
 }
 
-clearOldAppCaches();
+unlockDocumentScroll();
+clearOldAppCaches().finally(unlockDocumentScroll);
+window.addEventListener('pageshow', unlockDocumentScroll);
+window.setTimeout(unlockDocumentScroll, 600);
+window.setTimeout(unlockDocumentScroll, 1800);
 
 // Keep the mobile startup path lean. AOS is decorative, so load it only on
 // larger screens and only after the first render has had time to settle.
@@ -65,5 +80,8 @@ root.render(
 window.requestAnimationFrame(() => {
   window.requestAnimationFrame(() => {
     document.getElementById('app-startup-mask')?.remove();
+    unlockDocumentScroll();
   });
 });
+
+window.setTimeout(() => document.getElementById('app-startup-mask')?.remove(), 2400);
