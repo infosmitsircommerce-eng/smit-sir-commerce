@@ -3,9 +3,10 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import './mobile.css'
 import './styles/premiumVisuals.css'
+import './styles/mobileExperience.css'
 import App from './App.jsx'
 
-const CACHE_RESET_KEY = 'ssc-cache-reset-2026-09-07-v3';
+const CACHE_RESET_KEY = 'ssc-cache-reset-2026-09-07-v4-mobile';
 
 async function clearOldAppCaches() {
   if (typeof window === 'undefined' || !('localStorage' in window)) return;
