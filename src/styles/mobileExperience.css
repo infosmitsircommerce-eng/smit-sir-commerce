@@ -1,16 +1,33 @@
 /* Final mobile polish layer. Imported after premium visuals so phone rules win. */
 @media (max-width: 768px) {
   html,
-  body {
+  body,
+  #root {
     width: 100%;
     max-width: 100%;
+    min-height: 100%;
+    height: auto !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  html,
+  body {
     overflow-x: hidden !important;
+    overscroll-behavior-y: auto !important;
+    touch-action: pan-y pinch-zoom;
     background: #FAF6EE;
   }
 
   body {
+    position: static !important;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+  }
+
+  #app-startup-mask {
+    pointer-events: none !important;
+    touch-action: none !important;
   }
 
   .page-container {
@@ -22,6 +39,10 @@
 
   #main-content {
     overflow-x: hidden !important;
+    overflow-y: visible !important;
+    min-height: auto !important;
+    height: auto !important;
+    touch-action: pan-y pinch-zoom;
   }
 
   /* Homepage: premium phone-first hero, not squeezed desktop layout. */
@@ -228,6 +249,7 @@
   /* Study material page: make it feel like an app on mobile. */
   .ssc-premium-canvas {
     overflow-x: hidden !important;
+    overflow-y: visible !important;
   }
 
   .ssc-hero-panel {
