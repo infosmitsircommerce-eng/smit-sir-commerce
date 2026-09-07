@@ -23,10 +23,11 @@ export default defineConfig({
       manifest: {
         name: 'Smit Sir Commerce',
         short_name: 'SmitSir',
-        description: 'CBSE Class 11 & 12 Commerce Coaching — Notes, Quizzes, AI Doubt Solver | Mehsana',
-        start_url: '/',
+        description: 'CBSE and GSEB Commerce study material — notes, PDFs, practice, tools and games | Mehsana',
+        start_url: '/?v=fresh',
+        scope: '/',
         display: 'standalone',
-        background_color: '#030112',
+        background_color: '#FAF6EE',
         theme_color: '#D4AF37',
         orientation: 'portrait-primary',
         categories: ['education'],
@@ -38,17 +39,17 @@ export default defineConfig({
         ],
         shortcuts: [
           {
-            name: 'Ask a Doubt',
-            short_name: 'Ask Doubt',
-            description: 'AI Doubt Solver',
-            url: '/ask',
+            name: 'Study Material',
+            short_name: 'Notes',
+            description: 'Open free Commerce notes and PDFs',
+            url: '/study-material',
             icons: [{ src: '/icon-192.png', sizes: '192x192' }]
           },
           {
-            name: 'Take a Quiz',
-            short_name: 'Quiz',
-            description: 'Test your knowledge',
-            url: '/quizzes',
+            name: 'Commerce Games',
+            short_name: 'Games',
+            description: 'Play realistic Commerce learning games',
+            url: '/games',
             icons: [{ src: '/icon-192.png', sizes: '192x192' }]
           },
         ],
@@ -58,6 +59,10 @@ export default defineConfig({
         skipWaiting: true,
         clientsClaim: true,
         navigateFallbackDenylist: [
+          /^\/$/,
+          /^\/(?:\?|$)/,
+          /^\/study-material(?:\/|\?|$)/,
+          /^\/games(?:\/|\?|$)/,
           /^\/materials\//,
           /^\/cbse\//,
           /^\/cbse-notes(?:\/|\?|$)/,
@@ -68,8 +73,18 @@ export default defineConfig({
           /^\/robots\.txt(?:\?|$)/,
           /\.pdf(?:\?|$)/i,
         ],
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        globPatterns: ['**/*.{js,css,ico,png,svg,woff2}'],
         runtimeCaching: [
+          {
+            urlPattern: ({ request }) => request.mode === 'navigate',
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'ssc-navigation-fresh-v2',
+              networkTimeoutSeconds: 3,
+              expiration: { maxEntries: 20, maxAgeSeconds: 60 * 5 },
+              cacheableResponse: { statuses: [200] },
+            },
+          },
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
             handler: 'CacheFirst',
