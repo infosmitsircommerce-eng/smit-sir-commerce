@@ -43,17 +43,20 @@ const groups = [
 
 export default function MobileHeader() {
   const [open, setOpen] = useState(false);
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
   const { user, initials } = useAuth();
   const light = isLightRoute(pathname);
 
-  useEffect(() => setOpen(false), [pathname]);
   useEffect(() => {
-    if (!open) return undefined;
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = previous; };
-  }, [open]);
+    setOpen(false);
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
+  }, [pathname, search]);
+
+  useEffect(() => () => {
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
+  }, []);
 
   const surface = light ? '#F7F8FC' : '#101828';
   const text = light ? 'var(--ink)' : 'var(--ivory-on-ink)';
@@ -74,7 +77,7 @@ export default function MobileHeader() {
     </header>
     {open && <>
       <button type="button" aria-label="Close navigation" onClick={() => setOpen(false)} className="lg:hidden fixed inset-0 top-16 z-[54] bg-black/45" />
-      <nav id="mobile-navigation" aria-label="Mobile navigation" className="lg:hidden fixed top-16 left-0 right-0 z-[55] max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain pb-[calc(1.25rem+env(safe-area-inset-bottom))]" style={{ background: surface, borderBottom: light ? '1px solid var(--border)' : '1px solid rgba(255,255,255,0.1)', boxShadow: '0 20px 50px rgba(0,0,0,0.22)' }}>
+      <nav id="mobile-navigation" aria-label="Mobile navigation" className="lg:hidden fixed top-16 left-0 right-0 z-[55] max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain pb-[calc(1.25rem+env(safe-area-inset-bottom))]" style={{ background: surface, borderBottom: light ? '1px solid var(--border)' : '1px solid rgba(255,255,255,0.1)', boxShadow: '0 20px 50px rgba(0,0,0,0.22)', WebkitOverflowScrolling: 'touch' }}>
         <div className="px-4 py-4 space-y-4">
           <Link to="/study-material" className="mobile-menu-demo-cta flex items-center justify-between gap-3 rounded-2xl px-4 py-4 min-h-16">
             <div className="flex items-center gap-3 min-w-0"><div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 mobile-menu-demo-icon"><BookOpen className="w-5 h-5" /></div><div className="min-w-0"><div className="text-sm font-black">Open Free Study Material</div><div className="text-[11px] mt-0.5 opacity-80">Notes, PDFs, practice and tools.</div></div></div><ChevronRight className="w-5 h-5 flex-shrink-0" />
