@@ -229,6 +229,32 @@ export default function CommerceCoachingMehsana() {
           </div>
         </section>
 
+        <section className="card-paper p-5 sm:p-7 md:p-9">
+          <span className="eyebrow">Mehsana local learning routes</span>
+          <h2 className="text-3xl mt-3 mb-4" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Local Commerce routes in Mehsana</h2>
+          <p className="leading-8 max-w-4xl" style={{ color: 'var(--muted)' }}>
+            Choose the page that matches your actual need. These pages are separated by class, board or subject so students get relevant information instead of duplicate local pages.
+          </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-6">
+            {[
+              ['/cbse-commerce-classes-mehsana', 'CBSE Commerce Classes'],
+              ['/class-11-commerce-tuition-mehsana', 'Class 11 Commerce Tuition'],
+              ['/class-12-commerce-tuition-mehsana', 'Class 12 Commerce Tuition'],
+              ['/economics-tuition-mehsana', 'Economics Tuition'],
+              ['/gseb-economics-tuition-mehsana', 'GSEB Economics Tuition'],
+              ['/business-studies-tuition-mehsana', 'Business Studies Tuition'],
+              ['/mehsana-commerce-student-resources.html', 'Free Mehsana Commerce Resources'],
+            ].map(([to, label]) => (
+              <Link key={to} to={to} className="tile-paper p-4 flex items-center justify-between gap-3 text-sm font-semibold">
+                <span>{label}</span><ArrowRight className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--gold)' }} />
+              </Link>
+            ))}
+          </div>
+          <div className="tile-paper p-4 mt-5 text-sm leading-7" style={{ color: 'var(--muted)' }}>
+            <strong style={{ color: 'var(--ink)' }}>Local service area:</strong> Mehsana, Gujarat, India · <strong style={{ color: 'var(--ink)' }}>Student support:</strong> <a href="mailto:infosmitsircommerce@gmail.com" style={{ color: 'var(--gold)' }}>infosmitsircommerce@gmail.com</a>
+          </div>
+        </section>
+
         <section className="card-paper p-5 sm:p-7 md:p-9" aria-labelledby="faq-heading">
           <span className="eyebrow">Local coaching FAQ</span>
           <h2 id="faq-heading" className="text-3xl mt-3 mb-5" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Questions students and parents ask</h2>
