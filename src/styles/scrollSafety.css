@@ -1,0 +1,69 @@
+/* Emergency scroll safety layer.
+   This file is imported last so no decorative, SEO, mobile or animation layer can freeze the site. */
+
+html,
+body,
+#root {
+  min-height: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  position: static !important;
+}
+
+html {
+  scroll-behavior: auto;
+  overscroll-behavior-y: auto !important;
+}
+
+body {
+  touch-action: auto !important;
+  overscroll-behavior-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+#main-content {
+  min-height: 100vh !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* A previous performance layer used contain/content-visibility on all sections.
+   That can create broken or frozen scroll behavior in some browser states. */
+section,
+section.section-padding {
+  contain: none !important;
+  content-visibility: visible !important;
+  contain-intrinsic-size: auto !important;
+}
+
+/* Decorative fixed layers should never capture scroll/wheel/touch. */
+#app-startup-mask,
+.cursor-spotlight,
+.quick-access-dock,
+.scroll-progress-bar,
+body::before {
+  pointer-events: none !important;
+}
+
+#app-startup-mask {
+  touch-action: none !important;
+}
+
+/* Mobile UI must not appear or cover desktop scrolling. */
+@media (min-width: 1024px) {
+  .mobile-site-header,
+  .mobile-bottom-shell,
+  #mobile-navigation {
+    display: none !important;
+    pointer-events: none !important;
+  }
+}
+
+/* Menu overlay is allowed only when visible on mobile; otherwise it cannot lock the page. */
+@media (max-width: 1023px) {
+  #mobile-navigation {
+    -webkit-overflow-scrolling: touch;
+  }
+}
