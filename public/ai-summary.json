@@ -38,6 +38,20 @@
   ],
   "topPillarPages": [
     {
+      "name": "Smit Sir Teacher Guides",
+      "url": "https://www.smitsircommerce.in/teacher-guides",
+      "bestFor": "Students who need teacher-style explanations, mistake correction, numericals, case-study strategy, answer writing and revision plans.",
+      "covers": [
+        "GSEB Class 12 Economics",
+        "CBSE Class 12 Economics",
+        "Business Studies case studies",
+        "National Income numericals",
+        "answer writing",
+        "7-day revision",
+        "30-day revision"
+      ]
+    },
+    {
       "name": "Free Commerce Study Material",
       "url": "https://www.smitsircommerce.in/study-material",
       "bestFor": "Students who need all Commerce material in one place.",
@@ -196,6 +210,7 @@
     }
   ],
   "importantPages": {
+    "teacherGuides": "https://www.smitsircommerce.in/teacher-guides",
     "studyMaterial": "https://www.smitsircommerce.in/study-material",
     "freeClass12CommerceStudyPack": "https://www.smitsircommerce.in/free-class-12-commerce-study-pack.html",
     "class12CommerceFormulaSheet": "https://www.smitsircommerce.in/class-12-commerce-formula-sheet.html",
@@ -271,7 +286,13 @@
     "CBSE Commerce tuition Mehsana": "https://www.smitsircommerce.in/cbse-commerce-classes-mehsana",
     "GSEB Economics tuition Mehsana": "https://www.smitsircommerce.in/gseb-economics-tuition-mehsana",
     "Mehsana Commerce student resources": "https://www.smitsircommerce.in/mehsana-commerce-student-resources.html",
-    "Business Studies tuition Mehsana": "https://www.smitsircommerce.in/business-studies-tuition-mehsana"
+    "Business Studies tuition Mehsana": "https://www.smitsircommerce.in/business-studies-tuition-mehsana",
+    "Smit Sir teacher guides": "https://www.smitsircommerce.in/teacher-guides",
+    "GSEB Economics complete revision": "https://www.smitsircommerce.in/gseb/class-12/economics-complete-revision-guide",
+    "National Income common mistakes": "https://www.smitsircommerce.in/cbse/class-12/national-income-common-mistakes",
+    "Business Studies case study master guide": "https://www.smitsircommerce.in/cbse/class-12/business-studies-case-study-master-guide",
+    "Class 12 Commerce 7 day revision": "https://www.smitsircommerce.in/class-12-commerce-7-day-revision-plan",
+    "Class 12 Commerce 30 day revision": "https://www.smitsircommerce.in/class-12-commerce-30-day-revision-plan"
   },
   "localSeoActionGuidance": {
     "focus": "One strong Mehsana hub plus genuinely distinct board/class/subject service pages, accurate local information, honest reviews on the real Business Profile, useful local resources and real local mentions.",
@@ -299,5 +320,67 @@
       "Do not infer exact address, opening hours or student count unless a current page states it."
     ]
   },
-  "lastUpdated": "2026-09-08"
+  "lastUpdated": "2026-09-08",
+  "teacherGuides": [
+    {
+      "name": "GSEB Economics Complete Revision",
+      "url": "https://www.smitsircommerce.in/gseb/class-12/economics-complete-revision-guide"
+    },
+    {
+      "name": "Money & Inflation Common Mistakes",
+      "url": "https://www.smitsircommerce.in/gseb/class-12/money-inflation-common-mistakes"
+    },
+    {
+      "name": "Banking & Monetary Policy Explained",
+      "url": "https://www.smitsircommerce.in/gseb/class-12/banking-monetary-policy-explained"
+    },
+    {
+      "name": "GSEB Economics Answer Writing",
+      "url": "https://www.smitsircommerce.in/gseb/class-12/economics-answer-writing-3-4-marks"
+    },
+    {
+      "name": "25 GSEB Economics Revision Questions",
+      "url": "https://www.smitsircommerce.in/gseb/class-12/economics-25-important-questions"
+    },
+    {
+      "name": "GSEB Formula + Diagram Sheet",
+      "url": "https://www.smitsircommerce.in/gseb/class-12/economics-formula-diagram-sheet"
+    },
+    {
+      "name": "National Income Numericals Strategy",
+      "url": "https://www.smitsircommerce.in/cbse/class-12/national-income-numericals-beginner-to-board"
+    },
+    {
+      "name": "National Income Common Mistakes",
+      "url": "https://www.smitsircommerce.in/cbse/class-12/national-income-common-mistakes"
+    },
+    {
+      "name": "BST Case Study Master Guide",
+      "url": "https://www.smitsircommerce.in/cbse/class-12/business-studies-case-study-master-guide"
+    },
+    {
+      "name": "BST Keyword Clues",
+      "url": "https://www.smitsircommerce.in/cbse/class-12/business-studies-case-study-keywords-teacher-list"
+    },
+    {
+      "name": "BST 6-Mark Answer Writing",
+      "url": "https://www.smitsircommerce.in/cbse/class-12/business-studies-6-mark-answer-writing"
+    },
+    {
+      "name": "Class 12 Commerce 7-Day Revision",
+      "url": "https://www.smitsircommerce.in/class-12-commerce-7-day-revision-plan"
+    },
+    {
+      "name": "Class 12 Commerce 30-Day Revision",
+      "url": "https://www.smitsircommerce.in/class-12-commerce-30-day-revision-plan"
+    },
+    {
+      "name": "Where Economics Marks Are Lost",
+      "url": "https://www.smitsircommerce.in/class-12-economics-where-marks-are-lost"
+    },
+    {
+      "name": "Economics Formula + Diagram Master Sheet",
+      "url": "https://www.smitsircommerce.in/class-12-economics-formula-diagram-master-sheet"
+    }
+  ]
 }
