@@ -89,6 +89,9 @@ export default function LocalSeoLanding() {
   const related = localSeoPages.filter((item) => item.path !== page.path);
   const structuredData = buildStructuredData(page);
   const demoHref = buildDemoHref(page);
+  const isGseb = page.path.includes('gseb');
+  const freeResourceHref = isGseb ? '/gseb-class-12-economics.html' : '/cbse-notes';
+  const freeResourceLabel = isGseb ? 'Free GSEB Economics notes' : 'Free CBSE notes';
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
@@ -106,8 +109,8 @@ export default function LocalSeoLanding() {
               <h1 className="mt-5">{page.h1}</h1>
               <p className="mt-5 text-lg leading-8 max-w-3xl" style={{ color: 'var(--muted)' }}>{page.intro}</p>
               <div className="flex flex-wrap gap-3 mt-7">
-                <Link to={demoHref} className="btn-primary inline-flex items-center gap-2">Book a demo class <ArrowRight className="w-4 h-4" /></Link>
-                <Link to="/cbse-notes" className="btn-outline-ink inline-flex items-center gap-2"><BookOpen className="w-4 h-4" /> Free CBSE notes</Link>
+                <Link to={demoHref} className="btn-primary inline-flex items-center gap-2">Free paper analysis + demo <ArrowRight className="w-4 h-4" /></Link>
+                <Link to={freeResourceHref} className="btn-outline-ink inline-flex items-center gap-2"><BookOpen className="w-4 h-4" /> {freeResourceLabel}</Link>
               </div>
             </div>
 
@@ -198,7 +201,7 @@ export default function LocalSeoLanding() {
           <Sparkles className="w-8 h-8 mx-auto mb-4" style={{ color: 'var(--gold)' }} />
           <h2 className="text-3xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Want to see whether the teaching style suits you?</h2>
           <p className="mt-3 max-w-2xl mx-auto" style={{ color: 'var(--muted)' }}>Start with the free resources or request a demo class before choosing a Commerce batch.</p>
-          <Link to={demoHref} className="btn-primary inline-flex items-center gap-2 mt-6">Request a demo class <ArrowRight className="w-4 h-4" /></Link>
+          <Link to={demoHref} className="btn-primary inline-flex items-center gap-2 mt-6">Request free analysis + demo <ArrowRight className="w-4 h-4" /></Link>
         </section>
       </main>
     </div>
