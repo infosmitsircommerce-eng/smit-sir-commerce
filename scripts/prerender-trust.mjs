@@ -3,13 +3,14 @@ import { dirname, join } from 'node:path';
 import { silentSearchPages } from '../src/data/silentSearchPages.js';
 import { genuineTrafficPages } from '../src/data/genuineTrafficPages.js';
 import { localActionPages } from '../src/data/localActionPages.js';
+import { localSeoPages } from '../src/data/localSeoPages.js';
 
 const BASE = 'https://www.smitsircommerce.in';
 const SITE = 'Smit Sir Commerce';
 const source = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
 const distRoot = new URL('../dist/', import.meta.url);
 
-const trafficHomeLinks = [...silentSearchPages, ...genuineTrafficPages, ...localActionPages]
+const trafficHomeLinks = [...silentSearchPages, ...genuineTrafficPages, ...localSeoPages, ...localActionPages.filter((page) => page.indexable !== false)]
   .map((page) => `<li><a href="${page.path}">${page.h1}</a></li>`)
   .join('');
 
