@@ -29,6 +29,31 @@
       "source": "/accountancy-tuition-mehsana",
       "destination": "/tools",
       "permanent": true
+    },
+    {
+      "source": "/commerce-tuition-mehsana-student-guide.html",
+      "destination": "/commerce-coaching-mehsana",
+      "permanent": true
+    },
+    {
+      "source": "/class-12-economics-tuition-mehsana.html",
+      "destination": "/economics-tuition-mehsana",
+      "permanent": true
+    },
+    {
+      "source": "/cbse-commerce-tuition-mehsana-student-support.html",
+      "destination": "/cbse-commerce-classes-mehsana",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-economics-tuition-mehsana-student-support.html",
+      "destination": "/gseb-economics-tuition-mehsana",
+      "permanent": true
+    },
+    {
+      "source": "/commerce-tuition-mehsana-seo-action-plan.html",
+      "destination": "/commerce-coaching-mehsana",
+      "permanent": true
     }
   ],
   "headers": [
