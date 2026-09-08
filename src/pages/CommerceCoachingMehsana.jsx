@@ -52,7 +52,7 @@ const structuredData = {
       '@id': `${BASE}${PATH}#webpage`,
       url: `${BASE}${PATH}`,
       name: 'Commerce Coaching in Mehsana for Class 11 & 12',
-      description: 'Class 11 and 12 Commerce coaching in Mehsana with Economics, Business Studies and Entrepreneurship teaching, plus free Commerce notes, Accountancy learning tools, practice and demo support.',
+      description: 'Class 11 and 12 Commerce coaching in Mehsana with CBSE Commerce support, GSEB Economics revision, Economics, Business Studies and Entrepreneurship teaching, plus free notes, tools and demo support.',
       inLanguage: 'en-IN',
       about: { '@id': `${BASE}${PATH}#service` },
       isPartOf: { '@id': `${BASE}/#website` },
@@ -105,7 +105,7 @@ export default function CommerceCoachingMehsana() {
     <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
       <SEO
         title="Commerce Coaching in Mehsana — Class 11 & 12"
-        description="Commerce coaching in Mehsana for Class 11 and 12 with Economics, Business Studies and Entrepreneurship teaching, plus free notes, practice tools, paper analysis and demo support."
+        description="Commerce coaching in Mehsana for Class 11 and 12 with CBSE Commerce support, GSEB Economics revision, Economics, Business Studies and Entrepreneurship teaching, plus free notes, tools and demo support."
         path={PATH}
         structuredData={structuredData}
       />
