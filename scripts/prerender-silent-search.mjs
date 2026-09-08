@@ -25,6 +25,13 @@ function absolute(path) {
   return path.startsWith('http') ? path : `${BASE}${path}`;
 }
 
+function stripSpaRuntime(html) {
+  return html
+    .replace(/\s*<script type="module"[^>]*src="\/assets\/index-[^"]+\.js"><\/script>/g, '')
+    .replace(/\s*<link rel="modulepreload"[^>]*href="\/assets\/[^"]+">/g, '')
+    .replace(/\s*<script id="vite-plugin-pwa:register-sw"[^>]*><\/script>/g, '');
+}
+
 function renderLinks(links = []) {
   if (!links.length) return '';
   return `<section class="silent-links"><h2>Open the useful pages</h2><ul>${links.map((link) => `<li><a href="${esc(link.href)}">${esc(link.label)}</a></li>`).join('')}</ul></section>`;
@@ -42,7 +49,7 @@ function renderFaq(faq = []) {
 }
 
 function replaceRoot(html, body) {
-  const replacement = `<body>\n    <div id="app-startup-mask" aria-hidden="true"></div>\n    <div id="root">${body}</div>\n  </body>`;
+  const replacement = `<body>\n    <div id="root">${body}</div>\n  </body>`;
   if (/<body>[\s\S]*?<\/body>/i.test(html)) {
     return html.replace(/<body>[\s\S]*?<\/body>/i, replacement);
   }
@@ -93,7 +100,7 @@ function renderPage(page) {
 
   const body = `<main class="page-container section-padding" data-prerendered="silent-search"><article><p style="font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#966313">Silent Search Resource</p><h1>${esc(page.h1)}</h1><p><strong>Best for:</strong> ${esc(page.intent)}</p><p>${esc(page.intro)}</p>${page.sections.map(renderSection).join('')}${renderLinks(page.links)}${renderFaq(page.faq)}<section><h2>More free Commerce help</h2><p><a href="/study-material">Study Material</a> · <a href="/cbse-notes">CBSE Notes</a> · <a href="/gseb-class-12-economics.html">GSEB Economics PDFs</a> · <a href="/tools">Commerce Tools</a> · <a href="/games">Commerce Games</a></p></section></article></main>`;
 
-  const withHead = source
+  const withHead = stripSpaRuntime(source)
     .replace(/<title>.*?<\/title>/s, `<title>${esc(fullTitle)}</title>`)
     .replace('</head>', `${tags}\n</head>`);
 
@@ -107,4 +114,4 @@ for (const page of silentSearchPages) {
   await writeFile(htmlPath, renderPage(page), 'utf8');
 }
 
-console.log(`Pre-rendered ${silentSearchPages.length} silent search traffic pages.`);
+console.log(`Pre-rendered ${silentSearchPages.length} static silent search traffic pages.`);
