@@ -4,6 +4,7 @@ import SEO from '../components/ui/SEO';
 
 const BASE = 'https://www.smitsircommerce.in';
 const PATH = '/commerce-coaching-mehsana';
+const DEMO_PATH = '/book-demo?from=mehsana-hub&mode=Offline';
 
 const subjects = [
   ['Economics', 'Concept clarity, diagrams, numericals, application questions and exam-focused revision.'],
@@ -125,7 +126,7 @@ export default function CommerceCoachingMehsana() {
               </p>
 
               <div className="flex flex-wrap gap-3 mt-7">
-                <Link to="/book-demo" className="btn-primary inline-flex items-center gap-2">
+                <Link to={DEMO_PATH} className="btn-primary inline-flex items-center gap-2">
                   Free paper analysis + demo <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link to="/cbse-notes" className="btn-outline-ink inline-flex items-center gap-2">
@@ -274,7 +275,7 @@ export default function CommerceCoachingMehsana() {
           <Sparkles className="w-8 h-8 mx-auto mb-4" style={{ color: 'var(--gold)' }} />
           <h2 className="text-3xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>In a world chasing marks, choose understanding.</h2>
           <p className="mt-4 max-w-2xl mx-auto leading-7" style={{ color: 'var(--muted)' }}>Start with a free paper analysis or demo. No admission is required just to understand the teaching approach.</p>
-          <Link to="/book-demo" className="btn-primary inline-flex items-center gap-2 mt-6">Request free analysis + demo <ArrowRight className="w-4 h-4" /></Link>
+          <Link to={DEMO_PATH} className="btn-primary inline-flex items-center gap-2 mt-6">Request free analysis + demo <ArrowRight className="w-4 h-4" /></Link>
         </section>
       </main>
     </div>
