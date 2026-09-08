@@ -74,7 +74,7 @@ export const teacherContentGuides = [
     sections: [
       { title: 'Start with the banking system', text: 'Understand what commercial banks do with deposits and lending before memorising monetary-policy tools. Once the role of credit is clear, policy actions become easier to interpret.', links: [
         ['/gseb/class-12/economics/banking-and-monetary-policy-notes.html','Banking & Monetary Policy Notes'],
-        ['/gseb-class-12-economics-chapter-4-banking-notes.html','Chapter 4 Revision Page'],
+        ['/gseb/class-12/economics/banking-and-monetary-policy-notes.html','Chapter 4 Revision Page'],
       ]},
       { title: 'Think of monetary policy as influencing credit conditions', text: 'When the central bank changes policy instruments, the purpose is not the instrument itself. Ask what happens to borrowing, liquidity, credit creation or spending conditions and then connect that effect to inflation or activity.', links: [
         ['/gseb-class-12-economics-important-questions.html','GSEB Important Questions'],
