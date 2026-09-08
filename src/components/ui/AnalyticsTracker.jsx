@@ -4,6 +4,17 @@ import { useAuth } from '../../context/AuthContext';
 import { trackEvent } from '../../lib/analytics';
 import { captureAcquisition } from '../../lib/acquisition';
 
+function isMehsanaLanding(pathname) {
+  return pathname === '/commerce-coaching-mehsana'
+    || pathname === '/cbse-commerce-classes-mehsana'
+    || pathname === '/class-11-commerce-tuition-mehsana'
+    || pathname === '/class-12-commerce-tuition-mehsana'
+    || pathname === '/economics-tuition-mehsana'
+    || pathname === '/gseb-economics-tuition-mehsana'
+    || pathname === '/business-studies-tuition-mehsana'
+    || pathname === '/mehsana-commerce-student-resources.html';
+}
+
 function funnelEventForPath(pathname) {
   if (pathname === '/') return 'funnel_home_view';
   if (pathname === '/cbse-notes' || pathname === '/study-material') return 'funnel_notes_library_view';
@@ -13,6 +24,7 @@ function funnelEventForPath(pathname) {
   if (pathname === '/pdf-viewer') return 'funnel_pdf_open';
   if (pathname === '/cbse-practice' || pathname.includes('/practice/')) return 'funnel_practice_start';
   if (pathname === '/daily-practice' || pathname === '/exam-mode') return 'funnel_practice_start';
+  if (isMehsanaLanding(pathname)) return 'local_mehsana_landing_view';
   if (pathname === '/book-demo') return 'funnel_demo_open';
   if (pathname === '/demo-success') return 'funnel_demo_success';
   if (pathname === '/marks-recovery') return 'marks_recovery_view';
@@ -81,6 +93,10 @@ export default function AnalyticsTracker() {
       }
 
       const metadata = { destination: href.slice(0, 160), from };
+
+      if ((href === '/book-demo' || href.startsWith('/book-demo?')) && isMehsanaLanding(from)) {
+        emit('local_demo_click', metadata);
+      }
 
       if (/^\/tools\/[^/]+$/.test(from)) {
         if (href === '/cbse-notes' || href.includes('-notes')) emit('notes_clicked_from_tool', metadata);
