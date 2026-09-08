@@ -22,6 +22,7 @@ const classLinks = ['Economics', 'Business Studies', 'Entrepreneurship', 'Physic
 
 const localSubjectLinks = [
   { label: 'Economics Tuition in Mehsana', path: '/economics-tuition-mehsana' },
+  { label: 'GSEB Economics Tuition in Mehsana', path: '/gseb-economics-tuition-mehsana' },
   { label: 'Business Studies Tuition in Mehsana', path: '/business-studies-tuition-mehsana' },
 ];
 
@@ -99,7 +100,7 @@ export default function Footer() {
               <li className="flex items-start gap-3"><Mail className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--gold-bright)' }} /><a href="mailto:infosmitsircommerce@gmail.com" className="text-sm break-all" style={mutedLink}>infosmitsircommerce@gmail.com</a></li>
               <li className="flex items-start gap-3"><MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--gold-bright)' }} /><div className="text-sm" style={mutedLink}>Mehsana, Gujarat, India</div></li>
             </ul>
-            <div className="mt-5 flex flex-col gap-2 items-start"><Link to="/free-commerce-study-pack" className="btn-gold text-sm py-2 px-4 inline-flex">Free Commerce Study Pack</Link><FooterLink to="/book-demo">Free Paper Analysis / Demo</FooterLink><FooterLink to="/tools">Free Commerce calculators</FooterLink><FooterLink to="/commerce-coaching-mehsana">Commerce tuition in Mehsana</FooterLink></div>
+            <div className="mt-5 flex flex-col gap-2 items-start"><Link to="/free-commerce-study-pack" className="btn-gold text-sm py-2 px-4 inline-flex">Free Commerce Study Pack</Link><FooterLink to="/book-demo">Free Paper Analysis / Demo</FooterLink><FooterLink to="/tools">Free Commerce calculators</FooterLink><FooterLink to="/commerce-coaching-mehsana">Commerce tuition in Mehsana</FooterLink><FooterLink to="/mehsana-commerce-student-resources.html">Mehsana Student Resources</FooterLink></div>
           </div>
         </div>
       </div>
