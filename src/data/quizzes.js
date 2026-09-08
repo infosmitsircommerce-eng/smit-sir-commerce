@@ -1,3 +1,7 @@
+import { microQuizPacks } from './quizMicro.js';
+import { macroQuizPacks } from './quizMacro.js';
+import { iedQuizPacks } from './quizIED.js';
+
 export const quizLevels = ['Easy', 'Moderate', 'Hard', 'Extreme'];
 
 export const quizBoards = [
@@ -21,7 +25,7 @@ export const quizBoards = [
         subjects: [
           { id: 'cbse-12-accountancy', name: 'Accountancy', status: 'source-needed' },
           { id: 'cbse-12-business-studies', name: 'Business Studies', status: 'verified' },
-          { id: 'cbse-12-economics', name: 'Economics', status: 'source-needed' },
+          { id: 'cbse-12-economics', name: 'Economics', status: 'verified' },
         ],
       },
     ],
@@ -52,66 +56,9 @@ export const quizBoards = [
 const makeQuestion = (q, options, answer, explanation) => ({ q, options, answer, explanation });
 
 export const verifiedQuizPacks = [
-  {
-    id: 'cbse-11-economics-introduction-unit',
-    board: 'CBSE',
-    classLevel: 11,
-    subject: 'Economics',
-    title: 'Introduction to Microeconomics — Board Mastery',
-    chapter: 'CBSE Introduction Unit · Reference Chapters 1–2',
-    sourceLabel: 'T.R. Jain & V.K. Ohri — Introductory Microeconomics, Class XI, Chapters 1–2; aligned to CBSE 2026–27 Introduction syllabus',
-    sourceStatus: 'Reference-book + syllabus verified',
-    levels: {
-      Easy: [
-        makeQuestion('Microeconomics mainly studies economic problems at the level of:', ['Individual economic units', 'The economy as a whole', 'All countries together', 'Only the government'], 0, 'Microeconomics focuses on individual units such as a household, consumer, firm, industry or market.'),
-        makeQuestion('Macroeconomics mainly studies economic problems at the level of:', ['One consumer', 'One firm', 'The economy as a whole', 'One commodity only'], 2, 'Macroeconomics studies economy-wide aggregates such as total output, employment and the general price level.'),
-        makeQuestion('A positive economic statement is one that is:', ['Necessarily desirable', 'Verifiable as true or false', 'Always correct', 'Based only on opinion'], 1, 'The defining feature of a positive statement is verifiability; it may ultimately prove true or false.'),
-        makeQuestion('A normative economic statement mainly contains:', ['A value judgement or opinion', 'Only measured data', 'Only past facts', 'A national income identity'], 0, 'Normative economics deals with what ought to be and therefore involves value judgements or opinions.'),
-        makeQuestion('An economy is best defined as:', ['A list of government policies', 'A system by which people of an area earn their living', 'A stock exchange', 'A record of national income'], 1, 'The reference book defines an economy as the system by which people of an area earn their living.'),
-        makeQuestion('Which is one of the three central problems of an economy?', ['What to produce', 'How to eliminate every want', 'How to make resources unlimited', 'How to avoid all choices'], 0, 'The three central problems are what to produce, how to produce and for whom to produce.'),
-        makeQuestion('The problem “what to produce” is mainly about deciding:', ['Which goods and services, and how much of them, to produce', 'Which accounting method to use', 'How income should be taxed', 'Which bank should issue currency'], 0, 'What to produce includes both the type of goods and services and the quantities to be produced.'),
-        makeQuestion('The problem “how to produce” is mainly about choosing:', ['A technique of production', 'The consumers who will receive output', 'The quantity of money in circulation', 'The country’s exchange rate'], 0, 'How to produce concerns the choice of production technique, such as labour-intensive or capital-intensive methods.'),
-        makeQuestion('The problem “for whom to produce” is mainly related to:', ['Distribution of goods and income', 'Choice of production technique', 'Selection of raw materials only', 'Measurement of GDP'], 0, 'For whom to produce concerns how output and purchasing power are distributed among people.'),
-        makeQuestion('Opportunity cost is the value of:', ['Every alternative available', 'The next best alternative forgone', 'The chosen option itself', 'Only the money price paid'], 1, 'Opportunity cost is the value of the next best alternative that is sacrificed when a choice is made.'),
-      ],
-      Moderate: [
-        makeQuestion('The market demand for one commodity, obtained by adding the demands of all buyers, is still primarily a topic of:', ['Microeconomics', 'Macroeconomics', 'Normative economics', 'Public finance'], 0, 'Even though market demand is an aggregate of individual demands, it concerns one commodity market and remains microeconomic.'),
-        makeQuestion('Which topic is primarily macroeconomic?', ['Price of one firm’s product', 'Demand of one household', 'Total employment in the economy', 'Cost of one producer'], 2, 'Total employment is an economy-wide aggregate and is therefore macroeconomic.'),
-        makeQuestion('Which statement about positive economics is correct?', ['Every positive statement must be true', 'A positive statement may be wrong but must be verifiable', 'Positive statements always use percentages', 'Positive statements express what ought to be'], 1, 'A positive statement is classified by whether it can be checked, not by whether it turns out to be correct.'),
-        makeQuestion('“The government should increase spending on education” is mainly a:', ['Positive statement', 'Normative statement', 'Microeconomic identity', 'Definition of scarcity'], 1, 'The word “should” expresses a recommendation or value judgement, making the statement normative.'),
-        makeQuestion('The economic problem arises because human wants are unlimited, resources are scarce, and resources:', ['Have alternative uses', 'Have only one use', 'Are always free', 'Are owned only by firms'], 0, 'The reference book identifies unlimited wants, scarce means and alternative uses as the causes of the economic problem.'),
-        makeQuestion('Choosing between labour-intensive and capital-intensive production is part of:', ['What to produce', 'How to produce', 'For whom to produce', 'Positive economics'], 1, 'This is a choice of technique, which belongs to the “how to produce” problem.'),
-        makeQuestion('Choosing between more consumer goods and more capital goods, with fixed resources, is mainly a problem of:', ['What to produce', 'How to produce', 'For whom to produce', 'Normative economics'], 0, 'The economy must choose which goods and how much of each to produce.'),
-        makeQuestion('A Production Possibility Frontier shows:', ['Maximum possible combinations of two goods with given resources and technology', 'Only the market prices of two goods', 'All combinations regardless of resources', 'The distribution of income among households'], 0, 'A PPF shows alternative maximum output combinations under given resources, full and efficient use, and given technology.'),
-        makeQuestion('A point on the Production Possibility Frontier indicates:', ['Full and efficient utilisation of given resources', 'Unattainable production', 'Underutilisation of resources', 'A fall in technology'], 0, 'Points on the frontier represent attainable combinations using the given resources fully and efficiently.'),
-        makeQuestion('If four alternatives yield ₹12,000, ₹10,000, ₹8,000 and ₹7,000, and the ₹12,000 option is chosen, the opportunity cost is:', ['₹12,000', '₹10,000', '₹8,000', '₹7,000'], 1, 'The next best alternative after ₹12,000 is ₹10,000, so ₹10,000 is the opportunity cost.'),
-      ],
-      Hard: [
-        makeQuestion('An economy decides whether to allocate more resources to hospitals or to highways. This most directly illustrates:', ['The problem of choice caused by scarce resources', 'Absence of opportunity cost', 'Only a macroeconomic definition', 'Unlimited resources'], 0, 'Scarce resources with alternative uses force the economy to choose between competing uses.'),
-        makeQuestion('A factory can produce the same output either with many workers or with more machines. Choosing between the two methods is the problem of:', ['What to produce', 'How to produce', 'For whom to produce', 'What is an economy'], 1, 'The issue is the technique of production, so it is the “how to produce” problem.'),
-        makeQuestion('An economy debates whether more output should go toward basic necessities for lower-income households or luxury goods for richer households. This is mainly:', ['What to produce only', 'How to produce only', 'For whom to produce', 'A definition of macroeconomics'], 2, 'The question concerns distribution of output across sections of society, which is “for whom to produce.”'),
-        makeQuestion('If the quantity or quality of productive resources increases, the Production Possibility Frontier will generally:', ['Shift outward', 'Shift inward', 'Stay fixed by definition', 'Disappear'], 0, 'More or better resources increase the economy’s productive capacity, allowing a larger set of attainable combinations.'),
-        makeQuestion('If technology improves so that the economy can produce more output from the same resources, the Production Possibility Frontier will generally:', ['Shift outward', 'Shift inward', 'Move to the origin', 'Become a demand curve'], 0, 'Improved technology raises productive capacity and therefore expands the attainable production set.'),
-        makeQuestion('Moving from one point to another on the same Production Possibility Frontier mainly shows:', ['Reallocation of given resources between the two goods', 'An increase in total resources', 'A fall in all productivity', 'A change from micro to macro analysis'], 0, 'A movement along the same frontier reflects a different allocation of the same resources and technology.'),
-        makeQuestion('A point inside the Production Possibility Frontier represents:', ['Underutilisation or inefficient utilisation of resources', 'Maximum attainable output', 'An unattainable combination', 'A guaranteed future output'], 0, 'An interior point is attainable but below the maximum possible output because resources are not fully or efficiently used.'),
-        makeQuestion('A point outside the current Production Possibility Frontier is:', ['Attainable with current resources and technology', 'Unattainable with current resources and technology', 'Always inefficient', 'Always a normative judgement'], 1, 'A point outside the frontier exceeds the maximum currently possible production.'),
-        makeQuestion('An economy increases cricket-bat output from 3 thousand to 4 thousand while saree output falls from 50 lakh to 30 lakh. The opportunity cost of the additional 1 thousand bats is:', ['10 lakh sarees', '20 lakh sarees', '30 lakh sarees', '50 lakh sarees'], 1, 'Saree output falls by 50 − 30 = 20 lakh, so 20 lakh sarees are sacrificed for the additional bats.'),
-        makeQuestion('Why does a Production Possibility Frontier normally slope downward?', ['Because producing more of one good requires sacrificing some of the other', 'Because both goods can always increase together without limit', 'Because resources have no alternative uses', 'Because prices must fall'], 0, 'With fixed resources and technology, shifting resources toward one good generally reduces the amount available for the other.'),
-      ],
-      Extreme: [
-        makeQuestion('Consider the statement: “Unemployment is 7%, so the government should guarantee a job to every worker.” The two parts are best classified as:', ['Positive; normative', 'Normative; positive', 'Both positive', 'Both normative'], 0, 'A measurable unemployment claim is positive, while a recommendation about what the government should do is normative.'),
-        makeQuestion('Why can market demand still belong to microeconomics even though it adds the demand of many buyers?', ['Because it concerns one specific commodity market rather than the economy as a whole', 'Because aggregates are never used in macroeconomics', 'Because market demand is always normative', 'Because only firms matter in microeconomics'], 0, 'The level of analysis is decisive: an aggregate within one market can still be microeconomic.'),
-        makeQuestion('If a scarce resource had only one possible use, which part of the economic problem would be weakened most directly?', ['The allocation choice among alternative uses', 'The existence of human wants', 'The definition of macroeconomics', 'The possibility of production'], 0, 'Alternative uses create the need to allocate a resource among competing options; with only one use, that allocation choice largely disappears.'),
-        makeQuestion('A medicine is supplied free to patients, but producing it uses scarce labour, equipment and materials. The safest conclusion is:', ['It cannot be scarce because its price is zero', 'It can still be scarce because it uses scarce resources and has opportunity cost', 'It is automatically a normative good', 'It lies outside every PPF'], 1, 'Zero price does not eliminate scarcity when production still requires scarce resources that could have alternative uses.'),
-        makeQuestion('An economy moves from a point inside its PPF to a point on the same PPF without any new resources or technology. What has most likely happened?', ['Resources are being utilised more fully or efficiently', 'The economy has reduced productive capacity', 'The PPF has shifted outward', 'Opportunity cost has disappeared'], 0, 'Moving from inside to the frontier can occur through fuller or more efficient use of existing resources.'),
-        makeQuestion('A production combination currently outside the PPF may become attainable later if:', ['Resources increase or technology improves', 'The economy simply renames the goods', 'All resources become idle', 'The current PPF shifts inward'], 0, 'Greater resources or better technology can expand productive capacity and move the frontier outward.'),
-        makeQuestion('A student chooses a course yielding an expected benefit of ₹50,000 over alternatives yielding ₹42,000, ₹35,000 and ₹20,000. The opportunity cost is:', ['₹50,000', '₹42,000', '₹35,000', '₹20,000'], 1, 'The next best alternative to the chosen ₹50,000 option is ₹42,000, so that is the opportunity cost.'),
-        makeQuestion('With fixed resources, an economy chooses to produce more defence goods and therefore fewer civilian goods. This simultaneously demonstrates:', ['The “what to produce” problem and opportunity cost', 'Only the “how to produce” problem', 'Only positive economics', 'Absence of scarcity'], 0, 'The economy is choosing the composition of output, and the civilian goods forgone represent the opportunity cost.'),
-        makeQuestion('Which statement best distinguishes actual output from potential output on a PPF diagram?', ['An interior point has actual output below potential output', 'Every interior point is unattainable', 'Every point outside the PPF is potential output', 'Potential output is always below actual output'], 0, 'An interior point indicates that the economy is producing less than the maximum possible with its current resources and technology.'),
-        makeQuestion('Which sequence best represents the logic behind the central economic problem?', ['Unlimited wants → scarce resources with alternative uses → choice → allocation decision', 'Scarce wants → unlimited resources → no choice → allocation', 'Unlimited resources → alternative uses → no scarcity → central problem', 'High income → no wants → opportunity cost'], 0, 'The economic problem starts with unlimited wants and scarce resources that have alternative uses, forcing choice and allocation.'),
-      ],
-    },
-  },
+  ...microQuizPacks,
+  ...macroQuizPacks,
+  ...iedQuizPacks,
   {
     id: 'cbse-12-business-studies-ch1',
     board: 'CBSE',
