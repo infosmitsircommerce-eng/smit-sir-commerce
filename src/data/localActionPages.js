@@ -1,6 +1,8 @@
 export const localActionPages = [
   {
     path: '/commerce-tuition-mehsana-student-guide.html',
+    indexable: false,
+    canonicalTarget: '/commerce-coaching-mehsana',
     title: 'Commerce Tuition in Mehsana — Student & Parent Guide',
     description: 'A practical guide for students and parents searching Commerce tuition in Mehsana, with Class 11 and 12 Commerce support, free notes, tools and learning direction.',
     h1: 'Commerce Tuition in Mehsana — Student & Parent Guide',
@@ -26,6 +28,8 @@ export const localActionPages = [
   },
   {
     path: '/class-12-economics-tuition-mehsana.html',
+    indexable: false,
+    canonicalTarget: '/economics-tuition-mehsana',
     title: 'Class 12 Economics Tuition in Mehsana — CBSE & GSEB Support',
     description: 'Class 12 Economics tuition and revision support in Mehsana with free Economics notes, GSEB PDFs, CBSE revision, numericals, diagrams and exam guidance.',
     h1: 'Class 12 Economics Tuition in Mehsana',
@@ -51,6 +55,8 @@ export const localActionPages = [
   },
   {
     path: '/cbse-commerce-tuition-mehsana-student-support.html',
+    indexable: false,
+    canonicalTarget: '/cbse-commerce-classes-mehsana',
     title: 'CBSE Commerce Tuition in Mehsana — Class 11 & 12 Student Support',
     description: 'CBSE Commerce tuition support in Mehsana for Class 11 and 12 Economics, Business Studies and Commerce revision with free notes and practice resources.',
     h1: 'CBSE Commerce Tuition in Mehsana',
@@ -76,6 +82,8 @@ export const localActionPages = [
   },
   {
     path: '/gseb-economics-tuition-mehsana-student-support.html',
+    indexable: false,
+    canonicalTarget: '/gseb-economics-tuition-mehsana',
     title: 'GSEB Economics Tuition in Mehsana — Class 12 PDF Notes & Revision',
     description: 'GSEB Economics tuition support in Mehsana with Class 12 chapter-wise PDF notes, important questions, last-minute revision and exam presentation guidance.',
     h1: 'GSEB Economics Tuition in Mehsana',
@@ -101,6 +109,7 @@ export const localActionPages = [
   },
   {
     path: '/smit-sir-commerce-student-reviews.html',
+    indexable: false,
     title: 'Smit Sir Commerce Student Reviews & Honest Feedback',
     description: 'Student review and feedback page for Smit Sir Commerce, explaining how students and parents can share honest learning feedback ethically.',
     h1: 'Smit Sir Commerce Student Reviews & Honest Feedback',
@@ -125,6 +134,7 @@ export const localActionPages = [
   },
   {
     path: '/mehsana-commerce-student-resources.html',
+    indexable: true,
     title: 'Mehsana Commerce Student Resources — Free Notes, PDFs & Tools',
     description: 'Free Commerce resources for Mehsana students including CBSE Commerce notes, GSEB Class 12 Economics PDFs, formulas, important questions and tools.',
     h1: 'Mehsana Commerce Student Resources',
@@ -150,6 +160,8 @@ export const localActionPages = [
   },
   {
     path: '/commerce-tuition-mehsana-seo-action-plan.html',
+    indexable: false,
+    canonicalTarget: '/commerce-coaching-mehsana',
     title: 'Commerce Tuition Mehsana SEO Action Plan — Private Growth Checklist',
     description: 'A practical local SEO action checklist for Smit Sir Commerce: bottom-funnel keywords, service pages, honest reviews, local backlinks and simple tracking.',
     h1: 'Commerce Tuition Mehsana SEO Action Plan',
