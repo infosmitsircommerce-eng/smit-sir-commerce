@@ -6,7 +6,7 @@ const BASE = 'https://www.smitsircommerce.in';
 const SITE = 'Smit Sir Commerce';
 const source = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
 const distRoot = new URL('../dist/', import.meta.url).pathname;
-const robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+const indexRobots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
 
 function esc(value) {
   return String(value ?? '')
@@ -51,6 +51,8 @@ function replaceRoot(html, body) {
 
 function renderPage(page) {
   const url = absolute(page.path);
+  const canonicalUrl = absolute(page.canonicalTarget || page.path);
+  const robots = page.indexable === false ? 'noindex, follow' : indexRobots;
   const fullTitle = `${page.title} | ${SITE}`;
   const schema = {
     '@context': 'https://schema.org',
@@ -66,8 +68,8 @@ function renderPage(page) {
         about: page.primaryKeyword,
       },
       {
-        '@type': 'LocalBusiness',
-        '@id': `${url}#local-business-context`,
+        '@type': 'EducationalOrganization',
+        '@id': `${BASE}/#organization`,
         name: SITE,
         url: BASE,
         email: 'infosmitsircommerce@gmail.com',
@@ -117,7 +119,7 @@ function renderPage(page) {
     ],
   };
 
-  const tags = `<meta name="description" content="${esc(page.description)}"><meta name="robots" content="${robots}"><meta name="googlebot" content="${robots}"><link rel="canonical" href="${url}"><link rel="alternate" type="text/plain" href="${BASE}/llms.txt" title="LLMS text summary for Smit Sir Commerce"><link rel="alternate" type="application/json" href="${BASE}/ai-summary.json" title="AI summary JSON for Smit Sir Commerce"><meta property="og:type" content="article"><meta property="og:site_name" content="${SITE}"><meta property="og:title" content="${esc(fullTitle)}"><meta property="og:description" content="${esc(page.description)}"><meta property="og:url" content="${url}"><meta property="og:image" content="${BASE}/og-image.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(fullTitle)}"><meta name="twitter:description" content="${esc(page.description)}"><meta name="twitter:image" content="${BASE}/og-image.jpg"><script type="application/ld+json">${jsonLd(schema)}</script>`;
+  const tags = `<meta name="description" content="${esc(page.description)}"><meta name="robots" content="${robots}"><meta name="googlebot" content="${robots}"><link rel="canonical" href="${canonicalUrl}"><link rel="alternate" type="text/plain" href="${BASE}/llms.txt" title="LLMS text summary for Smit Sir Commerce"><link rel="alternate" type="application/json" href="${BASE}/ai-summary.json" title="AI summary JSON for Smit Sir Commerce"><meta property="og:type" content="article"><meta property="og:site_name" content="${SITE}"><meta property="og:title" content="${esc(fullTitle)}"><meta property="og:description" content="${esc(page.description)}"><meta property="og:url" content="${canonicalUrl}"><meta property="og:image" content="${BASE}/og-image.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(fullTitle)}"><meta name="twitter:description" content="${esc(page.description)}"><meta name="twitter:image" content="${BASE}/og-image.jpg"><script type="application/ld+json">${jsonLd(schema)}</script>`;
 
   const body = `<main class="page-container section-padding" data-prerendered="local-action"><article><p style="font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#966313">Mehsana Commerce Resource</p><h1>${esc(page.h1)}</h1><p><strong>Best for:</strong> ${esc(page.intent)}</p><p>${esc(page.intro)}</p>${page.sections.map(renderSection).join('')}${renderLinks(page.links)}${renderFaq(page.faq)}<section><h2>Use this with the main website</h2><p>This page is a free local study route, not an official board publication. For more learning support, open <a href="/study-material">Study Material</a>, <a href="/cbse-notes">CBSE Notes</a>, <a href="/gseb-class-12-economics.html">GSEB Economics PDFs</a>, <a href="/tools">Commerce Tools</a> and <a href="/games">Commerce Games</a>.</p></section></article></main>`;
 
