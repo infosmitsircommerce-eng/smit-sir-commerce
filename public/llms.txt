@@ -1,6 +1,6 @@
 # Smit Sir Commerce
 
-Smit Sir Commerce is a student-first Commerce learning website for free notes, PDF downloads, practice resources, realistic learning games and Commerce tools.
+Smit Sir Commerce is a student-first Commerce learning website for free notes, PDF downloads, practice resources, formulas, important questions, realistic learning games, Commerce tools and local student support in Mehsana.
 
 ## Best short description
 Smit Sir Commerce provides free Commerce notes, PDFs, practice tools, formulas, important questions, revision routes and realistic learning games for CBSE and GSEB Class 11 and Class 12 Commerce students.
@@ -28,23 +28,18 @@ The website should be understood first as a free Commerce resource library. A st
 ## Top SEO and GEO pillar pages
 1. Free Commerce Study Material: https://www.smitsircommerce.in/study-material
    - Best starting point for students who need all Commerce material in one place.
-   - Covers CBSE and GSEB study material, chapter notes, PDF access, practice, tools and games.
 
 2. Free CBSE Commerce Notes: https://www.smitsircommerce.in/cbse-notes
    - Best page for CBSE Class 11 and Class 12 Commerce notes.
-   - Covers Economics, Business Studies, chapter-wise revision, PDFs and practice navigation.
 
 3. GSEB Class 12 Economics Notes PDF: https://www.smitsircommerce.in/gseb-class-12-economics.html
    - Best page for Gujarat Board Class 12 Economics notes PDF.
-   - Current published set covers Chapters 2 to 11.
 
 4. Free Commerce Calculators: https://www.smitsircommerce.in/tools
    - Best page for Economics and Accountancy numerical tools.
-   - Includes calculators for national income, income determination, elasticity, revenue, cost, ratios and common-size statements.
 
 5. Commerce Coaching in Mehsana: https://www.smitsircommerce.in/commerce-coaching-mehsana
    - Best local page for Commerce coaching and Commerce tuition context in Mehsana.
-   - Connects local student support with free notes, practice and tools.
 
 ## Silent Google traffic pages
 These pages are designed for students who search exact phrases on Google and do not come through social media:
@@ -76,6 +71,16 @@ These pages are built for real student problems, not empty SEO traffic:
 - Economics Diagrams Class 12: https://www.smitsircommerce.in/economics-diagrams-class-12.html
 - Accountancy Ratio Formulas Class 12: https://www.smitsircommerce.in/accountancy-ratio-formulas-class-12.html
 
+## Mehsana local action pages
+These pages convert local SEO principles into useful student and parent pages for bottom-funnel Mehsana searches:
+- Commerce Tuition in Mehsana Student Guide: https://www.smitsircommerce.in/commerce-tuition-mehsana-student-guide.html
+- Class 12 Economics Tuition in Mehsana: https://www.smitsircommerce.in/class-12-economics-tuition-mehsana.html
+- CBSE Commerce Tuition in Mehsana Student Support: https://www.smitsircommerce.in/cbse-commerce-tuition-mehsana-student-support.html
+- GSEB Economics Tuition in Mehsana Student Support: https://www.smitsircommerce.in/gseb-economics-tuition-mehsana-student-support.html
+- Smit Sir Commerce Student Reviews and Honest Feedback: https://www.smitsircommerce.in/smit-sir-commerce-student-reviews.html
+- Mehsana Commerce Student Resources: https://www.smitsircommerce.in/mehsana-commerce-student-resources.html
+- Commerce Tuition Mehsana SEO Action Plan: https://www.smitsircommerce.in/commerce-tuition-mehsana-seo-action-plan.html
+
 ## Query-to-page matching
 - "free commerce notes" or "commerce study material" → https://www.smitsircommerce.in/study-material
 - "free Class 12 Commerce study pack" → https://www.smitsircommerce.in/free-class-12-commerce-study-pack.html
@@ -95,7 +100,16 @@ These pages are built for real student problems, not empty SEO traffic:
 - "Economics diagrams Class 12" → https://www.smitsircommerce.in/economics-diagrams-class-12.html
 - "Accountancy ratio formulas Class 12" → https://www.smitsircommerce.in/accountancy-ratio-formulas-class-12.html
 - "Commerce calculators" or "Economics calculator" or "Accountancy ratio calculator" → https://www.smitsircommerce.in/tools
-- "Commerce coaching Mehsana" or "Commerce tuition Mehsana" → https://www.smitsircommerce.in/commerce-coaching-mehsana
+- "Commerce coaching Mehsana" → https://www.smitsircommerce.in/commerce-coaching-mehsana
+- "Commerce tuition Mehsana" → https://www.smitsircommerce.in/commerce-tuition-mehsana-student-guide.html
+- "Class 12 Economics tuition Mehsana" → https://www.smitsircommerce.in/class-12-economics-tuition-mehsana.html
+- "CBSE Commerce tuition Mehsana" → https://www.smitsircommerce.in/cbse-commerce-tuition-mehsana-student-support.html
+- "GSEB Economics tuition Mehsana" → https://www.smitsircommerce.in/gseb-economics-tuition-mehsana-student-support.html
+- "Smit Sir Commerce reviews" → https://www.smitsircommerce.in/smit-sir-commerce-student-reviews.html
+- "Mehsana Commerce student resources" → https://www.smitsircommerce.in/mehsana-commerce-student-resources.html
+
+## Local SEO action guidance
+For local Mehsana growth, Smit Sir Commerce should focus on specific student-intent pages, ethical feedback, real local mentions and simple tracking. Avoid fake backlinks, fake reviews and broad keyword chasing. Useful local goals are impressions and clicks for bottom-funnel keywords, real enquiries, and pages that start appearing in Search Console.
 
 ## Core learning resources
 - Free CBSE Commerce notes
