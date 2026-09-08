@@ -1,3 +1,4 @@
+import { teacherContentGuides } from './teacherContentGuides.js';
 const UPDATED = '2026-09-03';
 
 export const authorityGuides = [
@@ -285,6 +286,7 @@ export const authorityGuides = [
       ['What causes a change in demand?','A change in a determinant other than the good\'s own price - such as income, tastes, related-goods prices, expectations or number of consumers - can shift the demand curve, depending on the case.'],
     ],
   },
+  ...teacherContentGuides,
 ];
 
 export const authorityGuideByPath = Object.fromEntries(authorityGuides.map((guide) => [guide.path, guide]));
