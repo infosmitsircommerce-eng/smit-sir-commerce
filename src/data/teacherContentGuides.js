@@ -132,17 +132,45 @@ export const teacherContentGuides = [
     intro: 'These are original revision prompts designed to make students retrieve the important concepts across the published GSEB Economics chapter set. They are not presented as official previous-year board questions.',
     updated: UPDATED,
     sections: [
-      { title: 'Questions 1-8: growth, money and banking', text: 'Revise indicators of growth and development, inflation and purchasing power, banking functions, central-bank roles and the purpose of monetary policy. Answer from memory first, then compare against your chapter notes.', links: [
+      { title: 'Questions 1-8: growth, money and banking', text: 'Revise indicators of growth and development, inflation and purchasing power, banking functions, central-bank roles and the purpose of monetary policy. Answer from memory first, then compare against your chapter notes.', items: [
+        'Differentiate economic growth from economic development in simple terms.',
+        'Why can one indicator alone give an incomplete picture of development?',
+        'Explain why per-capita income is useful but should be interpreted with other development indicators.',
+        'What is inflation, and why is a rise in one commodity price alone not enough to describe general inflation?',
+        'How does inflation affect the purchasing power of money?',
+        'Explain any major causes of inflation with the mechanism, not only the heading.',
+        'What are the main economic functions performed by commercial banks?',
+        'Why does a central bank use monetary policy, and how can changes in credit conditions influence the economy?',
+      ], links: [
         ['/gseb/class-12/economics/indicators-of-growth-and-development-notes.html','Growth & Development Notes'],
         ['/gseb/class-12/economics/money-and-inflation-notes.html','Money & Inflation Notes'],
         ['/gseb/class-12/economics/banking-and-monetary-policy-notes.html','Banking Notes'],
       ]},
-      { title: 'Questions 9-17: poverty, unemployment and population', text: 'Practise meaning, causes, consequences and policy responses. Keep related concepts separate so answers do not become a mixed list of problems and remedies.', links: [
+      { title: 'Questions 9-17: poverty, unemployment and population', text: 'Practise meaning, causes, consequences and policy responses. Keep related concepts separate so answers do not become a mixed list of problems and remedies.', items: [
+        'Explain poverty as an economic problem and distinguish the meaning from its causes.',
+        'Discuss important causes that can keep households trapped in poverty.',
+        'How can poverty affect education, health and productive capacity?',
+        'What is unemployment, and why is it different from simply not working?',
+        'Explain major causes of unemployment in a developing economy.',
+        'How can unemployment affect income, production and social well-being?',
+        'How can rapid population growth create pressure on resources and public services?',
+        'Why does the quality of population matter for economic development?',
+        'Explain how education, health and skill formation can improve the productive contribution of population.',
+      ], links: [
         ['/gseb/class-12/economics/poverty-notes.html','Poverty Notes'],
         ['/gseb/class-12/economics/unemployment-notes.html','Unemployment Notes'],
         ['/gseb/class-12/economics/population-notes.html','Population Notes'],
       ]},
-      { title: 'Questions 18-25: sectors, trade and emerging issues', text: 'Finish with agriculture, foreign trade, industry and emerging issues. Focus on sector roles, challenges, changes and economic relationships rather than memorising isolated headings.', links: [
+      { title: 'Questions 18-25: sectors, trade and emerging issues', text: 'Finish with agriculture, foreign trade, industry and emerging issues. Focus on sector roles, challenges, changes and economic relationships rather than memorising isolated headings.', items: [
+        'Explain the importance of agriculture in the Indian economy.',
+        'Discuss major structural or productivity challenges faced by the agriculture sector.',
+        'What kinds of changes can improve agricultural productivity and farmer income?',
+        'Why is foreign trade important for an economy?',
+        'Explain how exports and imports can influence domestic production, consumers and foreign-exchange needs.',
+        'Explain the role of the industrial sector in development and employment.',
+        'Discuss important challenges that can limit industrial growth.',
+        'Choose one emerging issue in the Indian economy and explain why it matters for long-term development.',
+      ], links: [
         ['/gseb/class-12/economics/agriculture-sector-notes.html','Agriculture Notes'],
         ['/gseb/class-12/economics/foreign-trade-notes.html','Foreign Trade Notes'],
         ['/gseb/class-12/economics/industrial-sector-notes.html','Industrial Sector Notes'],
@@ -226,15 +254,28 @@ export const teacherContentGuides = [
     intro: 'National Income becomes much easier when you stop treating every numerical as a new formula. Most mistakes come from a small set of repeated confusions, so this page turns them into a checklist.',
     updated: UPDATED,
     sections: [
-      { title: 'Mistakes 1-4: aggregate confusion', text: 'Mixing domestic with national, gross with net, market price with factor cost, or product with income/expenditure data creates errors even when arithmetic is perfect. Name the aggregate before solving.', links: [
+      { title: 'Mistakes 1-4: aggregate confusion', text: 'Mixing domestic with national, gross with net, market price with factor cost, or product with income/expenditure data creates errors even when arithmetic is perfect. Name the aggregate before solving.', items: [
+        'Starting calculation before writing the aggregate that the question asks you to find.',
+        'Confusing domestic with national and forgetting that net factor income from abroad is the bridge between them.',
+        'Confusing gross with net and forgetting that depreciation is the bridge between them.',
+        'Confusing market price with factor cost and using net indirect taxes in the wrong direction.',
+      ], links: [
         ['/cbse/class-12/national-income-numericals-beginner-to-board','Beginner-to-Board Numerical Strategy'],
         ['/cbse/class-12/economics-national-income-numericals','Numerical Practice Hub'],
       ]},
-      { title: 'Mistakes 5-7: sign and component errors', text: 'Students often add a component that should be subtracted, use a value twice, or forget whether a figure is already included. Write the conversion as words first, then symbols.', links: [
+      { title: 'Mistakes 5-7: sign and component errors', text: 'Students often add a component that should be subtracted, use a value twice, or forget whether a figure is already included. Write the conversion as words first, then symbols.', items: [
+        'Adding net factor income from abroad when the required conversion actually moves from national to domestic, or subtracting it when moving from domestic to national.',
+        'Adding depreciation while moving from gross to net instead of subtracting it, or forgetting to add it when reversing the conversion.',
+        'Using a component twice because you did not check whether the given aggregate already includes it.',
+      ], links: [
         ['/tools/national-income-calculator','National Income Calculator'],
         ['/class-12-commerce-formula-sheet.html','Formula Sheet'],
       ]},
-      { title: 'Mistakes 8-10: presentation errors', text: 'Skipping the formula, hiding working steps, and failing to write the final aggregate name make checking difficult. Show enough working that you can locate your own mistake in revision.', links: [
+      { title: 'Mistakes 8-10: presentation errors', text: 'Skipping the formula, hiding working steps, and failing to write the final aggregate name make checking difficult. Show enough working that you can locate your own mistake in revision.', items: [
+        'Jumping directly to the answer without writing the conversion relationship or working steps.',
+        'Mixing units, signs or percentage values during substitution and not checking them before the final calculation.',
+        'Writing only a number at the end instead of clearly naming the final aggregate and its unit where relevant.',
+      ], links: [
         ['/tests/class-12-economics-national-income-exam','National Income Practice Exam'],
         ['/cbse/class-12/economics-revision-guide','Economics Revision Guide'],
       ]},
@@ -347,15 +388,25 @@ export const teacherContentGuides = [
     intro: 'Seven days is not enough to relearn an entire year from zero, but it is enough to organise what you already know, repair weak areas and practise high-value questions. The plan below prioritises recall and application over passive reading.',
     updated: UPDATED,
     sections: [
-      { title: 'Days 1-2: diagnose and compress', text: 'List chapters as strong, medium or weak. Build one-page chapter maps and formula/keyword sheets. Spend more time on weak high-value concepts than on chapters you can already recall confidently.', links: [
+      { title: 'Days 1-2: diagnose and compress', text: 'List chapters as strong, medium or weak. Build one-page chapter maps and formula/keyword sheets. Spend more time on weak high-value concepts than on chapters you can already recall confidently.', items: [
+        'Day 1: audit Economics chapters, revise the weakest concepts, and build one formula/diagram sheet.',
+        'Day 2: audit Business Studies chapters, build a chapter-keyword sheet, and practise a small set of long answers or case studies.',
+      ], links: [
         ['/class-12-commerce-one-day-revision-plan.html','One-Day Emergency Revision'],
         ['/class-12-commerce-formula-sheet.html','Commerce Formula Sheet'],
       ]},
-      { title: 'Days 3-5: active practice', text: 'Rotate Economics numericals and diagrams with Business Studies case studies and long-answer recall. After each practice block, record exactly why an answer was wrong or incomplete.', links: [
+      { title: 'Days 3-5: active practice', text: 'Rotate Economics numericals and diagrams with Business Studies case studies and long-answer recall. After each practice block, record exactly why an answer was wrong or incomplete.', items: [
+        'Day 3: Economics numericals + diagrams + correction of every wrong step.',
+        'Day 4: Business Studies case studies + answer-writing practice using headings and justification.',
+        'Day 5: mixed weak-topic revision; revisit only the concepts that failed during Days 3-4.',
+      ], links: [
         ['/cbse/class-12/national-income-numericals-beginner-to-board','National Income Numericals'],
         ['/cbse/class-12/business-studies-case-study-master-guide','BST Case Study Guide'],
       ]},
-      { title: 'Days 6-7: timed revision and error repair', text: 'Attempt timed sections or tests, review only the mistakes and finish with your condensed sheets. The final day should reduce uncertainty, not introduce large new chapters unless absolutely necessary.', links: [
+      { title: 'Days 6-7: timed revision and error repair', text: 'Attempt timed sections or tests, review only the mistakes and finish with your condensed sheets. The final day should reduce uncertainty, not introduce large new chapters unless absolutely necessary.', items: [
+        'Day 6: attempt timed mixed practice, classify every lost mark, and repair the top three error patterns.',
+        'Day 7: light recall from condensed sheets, redraw key diagrams, review formulas/keywords, and avoid turning the final day into an exhausting new-syllabus marathon.',
+      ], links: [
         ['/test-series','Commerce Test Series'],
         ['/daily-practice','Daily Practice'],
       ]},
@@ -377,15 +428,28 @@ export const teacherContentGuides = [
     intro: 'Thirty days gives you enough time to do more than last-minute revision. The best use of the month is a cycle: understand weak concepts, retrieve them without notes, practise application and then test under time pressure.',
     updated: UPDATED,
     sections: [
-      { title: 'Week 1: repair concepts', text: 'Identify the weakest chapters and rebuild them from notes and simple examples. Do not start with full mock papers while basic chapter logic is still unclear.', links: [
+      { title: 'Week 1: repair concepts', text: 'Identify the weakest chapters and rebuild them from notes and simple examples. Do not start with full mock papers while basic chapter logic is still unclear.', items: [
+        'Days 1-2: make a chapter strength audit for each subject.',
+        'Days 3-5: rebuild the weakest concepts from notes and simple examples.',
+        'Days 6-7: close the notes and reproduce chapter maps, formulas, diagrams or keywords from memory.',
+      ], links: [
         ['/study-material','Study Material Library'],
         ['/cbse-notes','CBSE Commerce Notes'],
       ]},
-      { title: 'Weeks 2-3: practise and interleave', text: 'Combine Economics numericals, diagrams and theory with Business Studies case studies and answer writing. Revisit each subject repeatedly instead of completing it once and forgetting it.', links: [
+      { title: 'Weeks 2-3: practise and interleave', text: 'Combine Economics numericals, diagrams and theory with Business Studies case studies and answer writing. Revisit each subject repeatedly instead of completing it once and forgetting it.', items: [
+        'Days 8-12: chapter-wise questions and numericals with immediate correction.',
+        'Days 13-16: Business Studies case studies and long-answer presentation.',
+        'Days 17-21: mixed retrieval sessions so older chapters keep returning before they are forgotten.',
+      ], links: [
         ['/cbse-practice','CBSE Practice Library'],
         ['/gseb-class-12-economics-important-questions.html','GSEB Economics Important Questions'],
       ]},
-      { title: 'Week 4: test, analyse, repeat', text: 'Use timed tests, identify mark leaks and revise the exact concepts behind mistakes. Your final revision sheets should become shorter as confidence increases.', links: [
+      { title: 'Week 4: test, analyse, repeat', text: 'Use timed tests, identify mark leaks and revise the exact concepts behind mistakes. Your final revision sheets should become shorter as confidence increases.', items: [
+        'Days 22-24: timed chapter or subject tests.',
+        'Days 25-26: paper analysis and targeted repair of repeated errors.',
+        'Days 27-28: second timed attempt on previously weak areas.',
+        'Days 29-30: condensed revision, formulas, diagrams, keywords and a calm final review of the error log.',
+      ], links: [
         ['/test-series','Test Series'],
         ['/marks-recovery','Marks Recovery Tool'],
         ['/class-12-commerce-7-day-revision-plan','Final 7-Day Plan'],
@@ -438,7 +502,16 @@ export const teacherContentGuides = [
     intro: 'A formula sheet should not become a collection of symbols you cannot explain. A diagram sheet should not become shapes you copy without understanding. Use this page to connect every visual or formula with the economic relationship behind it.',
     updated: UPDATED,
     sections: [
-      { title: 'Formula: name the variables and relationship', text: 'Before memorising a formula, say what each variable means and what the formula measures. In numerical practice, write the relationship first and substitute data only after confirming the units.', links: [
+      { title: 'Formula: name the variables and relationship', text: 'Before memorising a formula, say what each variable means and what the formula measures. In numerical practice, write the relationship first and substitute data only after confirming the units.', items: [
+        'Net Domestic Product = Gross Domestic Product − Depreciation.',
+        'Gross National Product = Gross Domestic Product + Net Factor Income from Abroad.',
+        'Net National Product = Gross National Product − Depreciation.',
+        'At the standard conversion level, factor-cost aggregate = market-price aggregate − net indirect taxes.',
+        'MPC = change in consumption ÷ change in income.',
+        'MPS = change in saving ÷ change in income.',
+        'In the simple consumption-saving relationship, MPC + MPS = 1.',
+        'In the simple Keynesian multiplier model, k = 1 ÷ (1 − MPC) = 1 ÷ MPS.',
+      ], links: [
         ['/class-12-commerce-formula-sheet.html','Class 12 Commerce Formula Sheet'],
         ['/cbse/class-12/national-income-numericals-beginner-to-board','National Income Numerical Strategy'],
       ]},
