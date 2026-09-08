@@ -294,6 +294,26 @@ export default function Quizzes() {
   const subject = classEntry?.subjects.find((item) => item.name === subjectName) || null;
   const packs = useMemo(() => boardId && classLevel && subjectName ? getQuizPacks(boardId, classLevel, subjectName) : [], [boardId, classLevel, subjectName]);
 
+  const packGroups = useMemo(() => {
+    if (!packs.length) return [];
+    const groups = new Map();
+    packs.forEach((pack) => {
+      const key = pack.stream || (boardId === 'CBSE' && classLevel === 11 && subjectName === 'Economics'
+        ? 'Introductory Microeconomics'
+        : 'Chapter Quizzes');
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(pack);
+    });
+    return [...groups.entries()].map(([name, items]) => ({
+      name,
+      items,
+      questionCount: items.reduce(
+        (total, pack) => total + Object.values(pack.levels || {}).reduce((sum, level) => sum + level.length, 0),
+        0
+      ),
+    }));
+  }, [packs, boardId, classLevel, subjectName]);
+
   const resetAfterBoard = (id) => {
     setBoardId(id);
     setClassLevel(null);
@@ -441,8 +461,25 @@ export default function Quizzes() {
             <h2 className="text-3xl sm:text-4xl mt-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Choose chapter quiz and level.</h2>
             <p className="text-sm mt-3 leading-7 max-w-3xl" style={{ color: 'var(--muted)' }}>Each verified quiz has Easy, Moderate, Hard and Extreme levels. Difficulty changes the thinking required, not the source accuracy.</p>
 
-            <div className="grid gap-5 mt-7">
-              {packs.length > 0 ? packs.map((pack) => <VerifiedPackCard key={pack.id} pack={pack} />) : (
+            <div className="space-y-9 mt-7">
+              {packGroups.length > 0 ? packGroups.map((group) => (
+                <div key={group.name}>
+                  <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-4">
+                    <div>
+                      <div className="text-xs font-black uppercase tracking-[.14em]" style={{ color: 'var(--gold)' }}>{group.name}</div>
+                      <h3 className="text-2xl sm:text-3xl mt-1" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>
+                        {group.items.length} chapter {group.items.length === 1 ? 'quiz' : 'quizzes'}
+                      </h3>
+                    </div>
+                    <div className="text-xs font-black px-3 py-2 rounded-full self-start" style={{ background: 'var(--gold-bg)', color: 'var(--gold)', border: '1px solid rgba(184,135,47,.18)' }}>
+                      {group.questionCount} verified questions
+                    </div>
+                  </div>
+                  <div className="grid gap-5">
+                    {group.items.map((pack) => <VerifiedPackCard key={pack.id} pack={pack} />)}
+                  </div>
+                </div>
+              )) : (
                 <div className="card-paper p-7 text-center">
                   <CircleAlert className="w-10 h-10 mx-auto" style={{ color: 'var(--gold)' }} />
                   <h3 className="text-2xl mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Source mapped, quiz pack not published yet.</h3>
