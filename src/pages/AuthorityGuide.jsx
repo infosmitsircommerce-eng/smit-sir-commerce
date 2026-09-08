@@ -7,6 +7,8 @@ import { authorityEnhancements } from '../data/highIntentEnhancements';
 const SITE = 'https://www.smitsircommerce.in';
 
 function structuredData(guide) {
+  const hubPath = guide.hubPath || '/cbse-practice';
+  const hubLabel = guide.hubLabel || 'CBSE Practice';
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -35,7 +37,7 @@ function structuredData(guide) {
         '@type': 'BreadcrumbList',
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
-          { '@type': 'ListItem', position: 2, name: 'CBSE Practice', item: `${SITE}/cbse-practice` },
+          { '@type': 'ListItem', position: 2, name: hubLabel, item: `${SITE}${hubPath}` },
           { '@type': 'ListItem', position: 3, name: guide.shortTitle, item: `${SITE}${guide.path}` },
         ],
       },
@@ -48,12 +50,14 @@ export default function AuthorityGuide() {
   const guide = authorityGuideByPath[pathname.replace(/\/$/, '')];
   if (!guide) return null;
   const enhancement = authorityEnhancements[guide.path] || {};
+  const hubPath = guide.hubPath || '/cbse-practice';
+  const hubLabel = guide.hubLabel || 'CBSE Practice';
   const formatted = new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(`${guide.updated}T00:00:00`));
 
   return <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
     <SEO title={guide.title} description={guide.description} path={guide.path} type="article" publishedTime={guide.updated} modifiedTime={guide.updated} structuredData={structuredData(guide)} />
     <section className="page-hero"><div className="page-container">
-      <nav aria-label="Breadcrumb" className="text-sm flex flex-wrap gap-2 mb-7" style={{ color: 'var(--muted)' }}><Link to="/">Home</Link><span>/</span><Link to="/cbse-practice">CBSE Practice</Link><span>/</span><span style={{ color: 'var(--gold)' }}>{guide.shortTitle}</span></nav>
+      <nav aria-label="Breadcrumb" className="text-sm flex flex-wrap gap-2 mb-7" style={{ color: 'var(--muted)' }}><Link to="/">Home</Link><span>/</span><Link to={hubPath}>{hubLabel}</Link><span>/</span><span style={{ color: 'var(--gold)' }}>{guide.shortTitle}</span></nav>
       <span className="eyebrow">{guide.eyebrow}</span>
       <h1 className="mt-5 max-w-5xl">{guide.title}</h1>
       <p className="mt-5 max-w-3xl text-lg leading-relaxed" style={{ color: 'var(--muted)' }}>{guide.intro}</p>
@@ -82,7 +86,7 @@ export default function AuthorityGuide() {
         <section className="card-paper p-5 sm:p-8"><h2 className="text-3xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Frequently asked questions</h2><div className="divide-y mt-5" style={{ borderColor: 'var(--border-soft)' }}>{guide.faqs.map(([question, answer], index) => <details key={question} className="py-4" open={index === 0}><summary className="cursor-pointer font-semibold" style={{ color: 'var(--ink)' }}>{question}</summary><p className="mt-3 leading-7" style={{ color: 'var(--muted)' }}>{answer}</p></details>)}</div></section>
       </div>
 
-      <aside className="space-y-5 lg:sticky lg:top-24"><div className="card-paper p-5"><h2 className="text-xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Editorial transparency</h2><p className="text-sm leading-7 mt-3" style={{ color: 'var(--muted)' }}>This page links to material actually published on Smit Sir Commerce. Original practice is not presented as an official CBSE paper, and students should check the latest official CBSE curriculum and sample papers for current requirements.</p><Link to="/about" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold" style={{ color: 'var(--gold)' }}>About Smit Sir <ArrowRight className="w-4 h-4" /></Link></div><Link to="/cbse-practice" className="btn-primary w-full inline-flex items-center justify-center gap-2">Open Practice Library <ArrowRight className="w-4 h-4" /></Link><Link to="/cbse-notes" className="btn-secondary w-full inline-flex items-center justify-center gap-2">Browse Free Notes</Link></aside>
+      <aside className="space-y-5 lg:sticky lg:top-24"><div className="card-paper p-5"><h2 className="text-xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Editorial transparency</h2><p className="text-sm leading-7 mt-3" style={{ color: 'var(--muted)' }}>This page is a teacher-prepared learning resource from Smit Sir Commerce. Original practice is not presented as an official board paper, and students should use their current school or board-prescribed material for final syllabus and exam requirements.</p><Link to="/about" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold" style={{ color: 'var(--gold)' }}>About Smit Sir <ArrowRight className="w-4 h-4" /></Link></div><Link to={hubPath} className="btn-primary w-full inline-flex items-center justify-center gap-2">Open {hubLabel} <ArrowRight className="w-4 h-4" /></Link><Link to="/study-material" className="btn-secondary w-full inline-flex items-center justify-center gap-2">Browse Study Material</Link></aside>
     </div></main>
   </div>;
 }
