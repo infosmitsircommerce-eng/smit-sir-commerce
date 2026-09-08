@@ -41,6 +41,14 @@ function renderFaq(faq = []) {
   return `<section><h2>Quick answers</h2>${faq.map((item) => `<details><summary>${esc(item.q)}</summary><p>${esc(item.a)}</p></details>`).join('')}</section>`;
 }
 
+function replaceRoot(html, body) {
+  const replacement = `<body>\n    <div id="app-startup-mask" aria-hidden="true"></div>\n    <div id="root">${body}</div>\n  </body>`;
+  if (/<body>[\s\S]*?<\/body>/i.test(html)) {
+    return html.replace(/<body>[\s\S]*?<\/body>/i, replacement);
+  }
+  return html.replace('<div id="root"></div>', `<div id="root">${body}</div>`);
+}
+
 function renderPage(page) {
   const url = absolute(page.path);
   const fullTitle = `${page.title} | ${SITE}`;
@@ -85,10 +93,11 @@ function renderPage(page) {
 
   const body = `<main class="page-container section-padding" data-prerendered="silent-search"><article><p style="font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#966313">Silent Search Resource</p><h1>${esc(page.h1)}</h1><p><strong>Best for:</strong> ${esc(page.intent)}</p><p>${esc(page.intro)}</p>${page.sections.map(renderSection).join('')}${renderLinks(page.links)}${renderFaq(page.faq)}<section><h2>More free Commerce help</h2><p><a href="/study-material">Study Material</a> · <a href="/cbse-notes">CBSE Notes</a> · <a href="/gseb-class-12-economics.html">GSEB Economics PDFs</a> · <a href="/tools">Commerce Tools</a> · <a href="/games">Commerce Games</a></p></section></article></main>`;
 
-  return source
+  const withHead = source
     .replace(/<title>.*?<\/title>/s, `<title>${esc(fullTitle)}</title>`)
-    .replace('</head>', `${tags}\n</head>`)
-    .replace('<div id="root"></div>', `<div id="root">${body}</div>`);
+    .replace('</head>', `${tags}\n</head>`);
+
+  return replaceRoot(withHead, body);
 }
 
 for (const page of silentSearchPages) {
