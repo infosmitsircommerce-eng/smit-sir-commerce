@@ -8,7 +8,6 @@ import { useAuth } from '../../context/AuthContext';
 
 const SUBJECTS = ['Economics', 'Business Studies', 'Entrepreneurship', 'Physical Education'];
 const DEMO_SUBJECTS = [...SUBJECTS, 'Any taught subject'];
-const SOURCES = ['Google Search', 'Google Maps', 'UrbanPro', 'Referral', 'School / Teacher', 'Book / Stationery Store', 'Direct', 'Other'];
 
 export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book your free demo', compact = false, demoSlot = null }) {
   const { user } = useAuth();
@@ -17,19 +16,25 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
   const attribution = captureAcquisition(location.pathname, location.search);
   const firstTouch = attribution?.first || {};
   const initialSource = firstTouch.source || 'Direct';
+  const queryParams = new URLSearchParams(location.search);
+  const landingContext = (queryParams.get('from') || '').trim().slice(0, 160);
+  const requestedBoard = ['CBSE', 'GSEB', 'Other'].includes(queryParams.get('board')) ? queryParams.get('board') : 'CBSE';
+  const requestedClass = ['11', '12'].includes(queryParams.get('class')) ? queryParams.get('class') : '12';
+  const requestedSubject = SUBJECTS.includes(queryParams.get('subject')) ? queryParams.get('subject') : 'Economics';
+  const requestedMode = ['Online', 'Offline', 'Either'].includes(queryParams.get('mode')) ? queryParams.get('mode') : 'Either';
   const startedAt = useRef(Date.now());
   const trackedStart = useRef(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [honeypot, setHoneypot] = useState('');
   const [form, setForm] = useState({
-    fullName: '', mobile: '', parentMobile: '', classLevel: '12', board: 'CBSE', subjects: ['Economics'],
-    studyMode: 'Either', preferredTime: 'Any time', source: initialSource, demoSubject: 'Economics',
+    fullName: '', mobile: '', parentMobile: '', classLevel: requestedClass, board: requestedBoard, subjects: [requestedSubject],
+    studyMode: requestedMode, preferredTime: 'Any time', source: initialSource, demoSubject: requestedSubject,
     message: '', consent: false,
   });
 
   useEffect(() => {
-    trackEvent('lead_form_view', { intent, source: initialSource, hasSlot: Boolean(demoSlot?.id) }, user?.id || null);
+    trackEvent('lead_form_view', { intent, source: initialSource, landingContext, hasSlot: Boolean(demoSlot?.id) }, user?.id || null);
   }, [intent, initialSource, user?.id, demoSlot?.id]);
 
   useEffect(() => {
@@ -46,7 +51,7 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
   const startTracking = () => {
     if (trackedStart.current) return;
     trackedStart.current = true;
-    trackEvent('lead_form_start', { intent, source: form.source, hasSlot: Boolean(demoSlot?.id) }, user?.id || null);
+    trackEvent('lead_form_start', { intent, source: form.source, landingContext, hasSlot: Boolean(demoSlot?.id) }, user?.id || null);
   };
 
   const set = (key) => (event) => {
@@ -96,7 +101,7 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
     }
 
     setBusy(true);
-    trackEvent('lead_submit_attempt', { intent, source: form.source, classLevel: Number(form.classLevel), board: form.board, mode: form.studyMode, hasSlot: Boolean(demoSlot?.id) }, user?.id || null);
+    trackEvent('lead_submit_attempt', { intent, source: form.source, landingContext, classLevel: Number(form.classLevel), board: form.board, mode: form.studyMode, hasSlot: Boolean(demoSlot?.id) }, user?.id || null);
 
     const payload = {
       full_name: form.fullName.trim(),
@@ -117,6 +122,7 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
       utm_source: firstTouch.utmSource || null,
       utm_medium: firstTouch.utmMedium || null,
       utm_campaign: firstTouch.utmCampaign || null,
+      landing_context: landingContext || null,
     };
 
     const { error: submitError } = await supabase.from('lead_submissions').insert(payload);
@@ -125,7 +131,7 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
       setBusy(false);
       const slotProblem = /slot|full|available/i.test(submitError.message || '');
       setError(slotProblem ? 'That slot is no longer available. Refresh the slots and choose another time.' : 'We could not save the enquiry right now. Please try again or call Smit Sir on 63537 09585.');
-      trackEvent('lead_submit_error', { intent, source: form.source, hasSlot: Boolean(demoSlot?.id) }, user?.id || null);
+      trackEvent('lead_submit_error', { intent, source: form.source, landingContext, hasSlot: Boolean(demoSlot?.id) }, user?.id || null);
       return;
     }
 
@@ -147,6 +153,7 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
           message: form.message.trim() || null,
           firstPath: firstTouch.path || location.pathname,
           consent: true,
+          landingContext: landingContext || null,
         }),
       });
 
@@ -161,7 +168,7 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
 
     setBusy(false);
 
-    const successMetadata = { intent, source: form.source, classLevel: Number(form.classLevel), board: form.board, mode: demoSlot?.mode || form.studyMode, bookedSlot: Boolean(demoSlot?.id) };
+    const successMetadata = { intent, source: form.source, landingContext, classLevel: Number(form.classLevel), board: form.board, mode: demoSlot?.mode || form.studyMode, bookedSlot: Boolean(demoSlot?.id) };
     trackEvent('lead_submit_success', successMetadata, user?.id || null);
 
     if (typeof window.gtag === 'function') {
@@ -172,6 +179,7 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
         board: form.board,
         study_mode: demoSlot?.mode || form.studyMode,
         booked_slot: Boolean(demoSlot?.id),
+        landing_context: landingContext || 'direct-demo',
       });
     }
 
@@ -187,7 +195,7 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
       <div>
         <span className="eyebrow">Admission enquiry</span>
         <h2 className="text-3xl mt-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{heading}</h2>
-        <p className="text-sm mt-2 leading-relaxed" style={{ color: 'var(--muted)' }}>{demoSlot ? 'Complete your details to reserve the selected slot. Capacity is re-checked when you submit.' : 'Tell us what you are studying. We will use these details only to respond to this enquiry and help you choose the right learning option.'}</p>
+        <p className="text-sm mt-2 leading-relaxed" style={{ color: 'var(--muted)' }}>{demoSlot ? 'Complete your details to reserve the selected slot. Capacity is re-checked when you submit.' : 'Takes about a minute. Tell us your class, board and weak subject. There is no payment and no admission commitment just to request the free paper analysis + demo.'}</p>
       </div>
 
       {demoSlot && <div className="rounded-xl p-3 text-sm" style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,.28)', color: 'var(--charcoal)' }}><strong>Selected:</strong> {new Intl.DateTimeFormat('en-IN', { timeZone: 'Asia/Kolkata', weekday: 'short', day: '2-digit', month: 'short', hour: 'numeric', minute: '2-digit', hour12: true }).format(new Date(demoSlot.starts_at))} IST · {demoSlot.mode} · {demoSlot.duration_minutes} min</div>}
@@ -213,8 +221,7 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
       </fieldset>
 
       <div className="grid sm:grid-cols-2 gap-4">
-        <label className="block"><span className="text-xs font-semibold" style={{ color: 'var(--muted)' }}>Best time to contact</span><select value={form.preferredTime} onChange={set('preferredTime')} className="input-field w-full mt-1.5"><option>Any time</option><option>Morning</option><option>Afternoon</option><option>Evening</option></select></label>
-        <label className="block"><span className="text-xs font-semibold" style={{ color: 'var(--muted)' }}>How did you find us?</span><select value={form.source} onChange={set('source')} className="input-field w-full mt-1.5">{SOURCES.map((source) => <option key={source}>{source}</option>)}</select></label>
+        <label className="block sm:col-span-2"><span className="text-xs font-semibold" style={{ color: 'var(--muted)' }}>Best time to contact</span><select value={form.preferredTime} onChange={set('preferredTime')} className="input-field w-full mt-1.5"><option>Any time</option><option>Morning</option><option>Afternoon</option><option>Evening</option></select></label>
       </div>
 
       <label className="block"><span className="text-xs font-semibold" style={{ color: 'var(--muted)' }}>Anything you want help with? <span className="font-normal">(optional)</span></span><textarea maxLength={1000} rows={3} value={form.message} onChange={set('message')} className="input-field w-full mt-1.5 resize-none" placeholder="Example: I scored 38/80 in Economics and struggle with National Income numericals." /></label>
@@ -228,7 +235,13 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
 
       {error && <div role="alert" aria-live="polite" className="rounded-xl p-3 text-sm" style={{ background: 'rgba(180,83,60,.08)', border: '1px solid rgba(180,83,60,.2)', color: '#B4533C' }}>{error}</div>}
 
-      <button type="submit" disabled={busy} className="btn-primary w-full inline-flex items-center justify-center gap-2 py-3.5">{busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}{busy ? 'Checking availability…' : demoSlot ? 'Reserve This Demo Slot' : intent === 'Free Demo' ? 'Request Free Demo' : 'Send Enquiry'}</button>
+      <div className="grid grid-cols-3 gap-2 text-center text-[11px] font-semibold" style={{ color: 'var(--muted)' }}>
+        <div className="tile-paper px-2 py-2">No payment</div>
+        <div className="tile-paper px-2 py-2">No admission pressure</div>
+        <div className="tile-paper px-2 py-2">Mehsana + online</div>
+      </div>
+
+      <button type="submit" disabled={busy} className="btn-primary w-full inline-flex items-center justify-center gap-2 py-3.5">{busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}{busy ? 'Checking availability…' : demoSlot ? 'Reserve This Demo Slot' : intent === 'Free Demo' ? 'Request Free Paper Analysis + Demo' : 'Send Enquiry'}</button>
       <div className="flex items-center justify-center gap-2 text-xs" style={{ color: 'var(--subtle)' }}><ShieldCheck className="w-3.5 h-3.5" /> Your contact details are not shown publicly.</div>
     </form>
   );
