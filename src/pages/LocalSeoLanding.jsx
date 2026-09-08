@@ -146,6 +146,7 @@ export default function LocalSeoLanding() {
               <Link to="/cbse-practice" className="tile-paper p-4 flex items-center justify-between gap-3 font-semibold text-sm"><span>Chapter practice</span><ArrowRight className="w-4 h-4" style={{ color: 'var(--gold)' }} /></Link>
               <Link to="/test-series" className="tile-paper p-4 flex items-center justify-between gap-3 font-semibold text-sm"><span>Commerce tests</span><ArrowRight className="w-4 h-4" style={{ color: 'var(--gold)' }} /></Link>
               <Link to="/contact" className="tile-paper p-4 flex items-center justify-between gap-3 font-semibold text-sm"><span>Contact Smit Sir Commerce</span><ArrowRight className="w-4 h-4" style={{ color: 'var(--gold)' }} /></Link>
+              <Link to="/mehsana-commerce-student-resources.html" className="tile-paper p-4 flex items-center justify-between gap-3 font-semibold text-sm"><span>Mehsana student resources</span><ArrowRight className="w-4 h-4" style={{ color: 'var(--gold)' }} /></Link>
             </div>
           </div>
         </section>
