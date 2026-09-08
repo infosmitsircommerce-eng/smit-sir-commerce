@@ -114,6 +114,29 @@ export const localSeoPages = [
       ['Can Class 11 students also enquire?', 'Yes. Business Studies support is intended for both Class 11 and Class 12 students.'],
     ],
   },
+  {
+    path: '/gseb-economics-tuition-mehsana',
+    title: 'GSEB Economics Tuition in Mehsana | Class 11 & 12',
+    description: 'GSEB Economics tuition in Mehsana for Class 11 and 12 with simple concept explanation, chapter-wise revision, diagrams, answer writing and free Gujarat Board Economics resources.',
+    eyebrow: 'GSEB Economics · Mehsana',
+    h1: 'GSEB Economics Tuition in Mehsana for Class 11 & 12',
+    intro: 'Gujarat Board Economics becomes easier when students organise each chapter into meaning, causes, effects, measures, diagrams and important questions. This page is for Mehsana students who want Economics support that connects classroom explanation with chapter-wise GSEB revision resources.',
+    serviceName: 'GSEB Economics Tuition in Mehsana',
+    serviceType: 'GSEB Class 11 and Class 12 Economics tuition and revision support',
+    sectionTitle: 'Board-specific Economics support without random last-minute study',
+    sectionText: 'Students work from chapter concepts to point-wise answers, diagrams, important questions and repeated revision. Published GSEB Class 12 Economics notes on the website currently cover Chapter 2 to Chapter 11, giving local students a free revision layer outside class.',
+    focus: [
+      ['GSEB Economics concepts', 'Simple explanation of chapter meaning, relationships, definitions and real-life economic context.'],
+      ['Chapter-wise revision', 'Use headings, causes, effects, measures and key terms instead of rereading the whole chapter randomly.'],
+      ['Answer presentation', 'Practise point-wise theory answers, clear headings and relevant economic keywords for school and board-style questions.'],
+      ['Free GSEB resources', 'Chapter-wise Class 12 Economics PDF notes, important questions and last-minute revision routes are available on the website.'],
+    ],
+    faqs: [
+      ['Is GSEB Economics support available in Mehsana?', 'Yes. This page is specifically for local Mehsana students looking for Gujarat Board Economics learning and revision support.'],
+      ['Are free GSEB Class 12 Economics notes available?', 'Yes. The website currently publishes chapter-wise GSEB Class 12 Economics notes for Chapter 2 to Chapter 11.'],
+      ['Can I use the GSEB resources without joining tuition?', 'Yes. Published GSEB notes, important-question pages and revision resources can be used independently of tuition.'],
+    ],
+  },
 ];
 
 export const localSeoByPath = Object.fromEntries(localSeoPages.map((page) => [page.path, page]));
