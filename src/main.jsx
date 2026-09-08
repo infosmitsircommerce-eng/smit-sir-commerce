@@ -4,19 +4,21 @@ import './index.css'
 import './mobile.css'
 import './styles/premiumVisuals.css'
 import './styles/mobileExperience.css'
+import './styles/scrollSafety.css'
 import App from './App.jsx'
 
-const CACHE_RESET_KEY = 'ssc-cache-reset-2026-09-07-v5-scroll';
+const CACHE_RESET_KEY = 'ssc-cache-reset-2026-09-08-v6-scroll-safe';
 
-function unlockDocumentScroll() {
-  if (typeof window === 'undefined') return;
-  document.documentElement.style.overflow = '';
-  document.documentElement.style.overflowY = 'auto';
-  document.documentElement.style.height = 'auto';
-  document.body.style.overflow = '';
-  document.body.style.overflowY = 'auto';
-  document.body.style.position = '';
-  document.body.style.height = 'auto';
+function clearInlineScrollLocks() {
+  if (typeof document === 'undefined') return;
+  const nodes = [document.documentElement, document.body].filter(Boolean);
+  nodes.forEach((node) => {
+    node.style.removeProperty('overflow');
+    node.style.removeProperty('overflow-y');
+    node.style.removeProperty('position');
+    node.style.removeProperty('height');
+    node.style.removeProperty('max-height');
+  });
 }
 
 async function clearOldAppCaches() {
@@ -44,11 +46,9 @@ async function clearOldAppCaches() {
   }
 }
 
-unlockDocumentScroll();
-clearOldAppCaches().finally(unlockDocumentScroll);
-window.addEventListener('pageshow', unlockDocumentScroll);
-window.setTimeout(unlockDocumentScroll, 600);
-window.setTimeout(unlockDocumentScroll, 1800);
+clearInlineScrollLocks();
+clearOldAppCaches().finally(clearInlineScrollLocks);
+window.addEventListener('pageshow', clearInlineScrollLocks);
 
 // Keep the mobile startup path lean. AOS is decorative, so load it only on
 // larger screens and only after the first render has had time to settle.
@@ -80,8 +80,11 @@ root.render(
 window.requestAnimationFrame(() => {
   window.requestAnimationFrame(() => {
     document.getElementById('app-startup-mask')?.remove();
-    unlockDocumentScroll();
+    clearInlineScrollLocks();
   });
 });
 
-window.setTimeout(() => document.getElementById('app-startup-mask')?.remove(), 2400);
+window.setTimeout(() => {
+  document.getElementById('app-startup-mask')?.remove();
+  clearInlineScrollLocks();
+}, 1800);
