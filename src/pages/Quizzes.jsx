@@ -69,22 +69,75 @@ function QuizPlayer({ pack, level, onClose }) {
   if (finished) {
     const correct = answers.filter((answer, index) => answer === questions[index].answer).length;
     const score = Math.round((correct / questions.length) * 100);
-    return (
-      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" style={{ background: 'rgba(16,20,30,.72)', backdropFilter: 'blur(10px)' }}>
-        <motion.div initial={{ opacity: 0, scale: .96 }} animate={{ opacity: 1, scale: 1 }} className="card-paper p-6 sm:p-8 max-w-lg w-full">
-          <div className="text-center">
-            <div className="text-5xl">{score >= 80 ? '🏆' : score >= 60 ? '🎯' : '📚'}</div>
-            <span className="eyebrow mt-4 inline-block">{pack.board} · Class {pack.classLevel} · {level}</span>
-            <h2 className="text-3xl mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Quiz complete.</h2>
-            <div className="text-6xl font-black mt-3" style={{ color: 'var(--gold)' }}>{score}%</div>
-            <p className="mt-2 text-sm" style={{ color: 'var(--muted)' }}>{correct} correct out of {questions.length}</p>
-          </div>
+    const mistakes = questions
+      .map((item, index) => ({ item, selected: answers[index], index }))
+      .filter(({ item, selected }) => selected !== item.answer);
+    const performance = score >= 90
+      ? { icon: '🏆', title: 'Mastered', note: 'Excellent command. Move to the next level.' }
+      : score >= 75
+        ? { icon: '🔥', title: 'Strong', note: 'Very good. Review the missed concepts once.' }
+        : score >= 60
+          ? { icon: '🎯', title: 'Building', note: 'You understand the base. Fix the weak spots before moving up.' }
+          : { icon: '📚', title: 'Revise first', note: 'Revisit the explanations below, then retry this level.' };
 
-          <div className="grid grid-cols-2 gap-3 mt-6">
-            <button onClick={restart} className="btn-secondary inline-flex items-center justify-center gap-2"><RotateCcw className="w-4 h-4" /> Try again</button>
-            <button onClick={onClose} className="btn-primary inline-flex items-center justify-center gap-2">Done <CheckCircle2 className="w-4 h-4" /></button>
-          </div>
-        </motion.div>
+    return (
+      <div className="fixed inset-0 z-[100] overflow-y-auto p-4 sm:p-6" style={{ background: 'rgba(16,20,30,.76)', backdropFilter: 'blur(10px)' }}>
+        <div className="min-h-full flex items-center justify-center">
+          <motion.div initial={{ opacity: 0, scale: .96 }} animate={{ opacity: 1, scale: 1 }} className="card-paper p-6 sm:p-8 max-w-2xl w-full">
+            <div className="text-center">
+              <div className="text-5xl">{performance.icon}</div>
+              <span className="eyebrow mt-4 inline-block">{pack.board} · Class {pack.classLevel} · {pack.subject} · {level}</span>
+              <h2 className="text-3xl mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{performance.title}</h2>
+              <div className="text-6xl font-black mt-3" style={{ color: 'var(--gold)' }}>{score}%</div>
+              <p className="mt-2 text-sm font-semibold" style={{ color: 'var(--charcoal)' }}>{correct} correct out of {questions.length}</p>
+              <p className="mt-2 text-sm" style={{ color: 'var(--muted)' }}>{performance.note}</p>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3 mt-6">
+              <div className="rounded-2xl p-4 text-center" style={{ background: '#eef8ef', border: '1px solid #cfe6d2' }}>
+                <div className="text-2xl font-black" style={{ color: '#2f6b3a' }}>{correct}</div>
+                <div className="text-[11px] font-bold mt-1" style={{ color: '#50765a' }}>Correct</div>
+              </div>
+              <div className="rounded-2xl p-4 text-center" style={{ background: '#fff2f0', border: '1px solid #efd0cb' }}>
+                <div className="text-2xl font-black" style={{ color: '#8b3328' }}>{mistakes.length}</div>
+                <div className="text-[11px] font-bold mt-1" style={{ color: '#8b5b55' }}>To revise</div>
+              </div>
+              <div className="rounded-2xl p-4 text-center" style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,.2)' }}>
+                <div className="text-2xl font-black" style={{ color: 'var(--gold)' }}>{level}</div>
+                <div className="text-[11px] font-bold mt-1" style={{ color: 'var(--muted)' }}>Level</div>
+              </div>
+            </div>
+
+            {mistakes.length > 0 && (
+              <div className="mt-6">
+                <div className="flex items-center justify-between gap-3 mb-3">
+                  <div>
+                    <div className="text-sm font-black" style={{ color: 'var(--ink)' }}>Mistakes to revise</div>
+                    <div className="text-xs mt-1" style={{ color: 'var(--muted)' }}>Only the concepts you missed — no need to reread everything.</div>
+                  </div>
+                  <Target className="w-5 h-5 shrink-0" style={{ color: 'var(--gold)' }} />
+                </div>
+                <div className="space-y-3 max-h-72 overflow-y-auto pr-1">
+                  {mistakes.map(({ item, index }) => (
+                    <div key={index} className="rounded-2xl p-4" style={{ background: 'var(--bg-ivory)', border: '1px solid var(--border-soft)' }}>
+                      <div className="text-[10px] font-black uppercase tracking-wider" style={{ color: 'var(--gold)' }}>Question {index + 1}</div>
+                      <div className="text-sm font-semibold mt-1 leading-6" style={{ color: 'var(--ink)' }}>{item.q}</div>
+                      <div className="text-xs mt-2" style={{ color: '#2f6b3a' }}><strong>Correct answer:</strong> {item.options[item.answer]}</div>
+                      <p className="text-xs mt-2 leading-6" style={{ color: 'var(--muted)' }}>{item.explanation}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div className="grid grid-cols-2 gap-3 mt-6">
+              <button onClick={restart} className="btn-secondary inline-flex items-center justify-center gap-2"><RotateCcw className="w-4 h-4" /> Retry level</button>
+              <button onClick={onClose} className="btn-primary inline-flex items-center justify-center gap-2">Back to levels <CheckCircle2 className="w-4 h-4" /></button>
+            </div>
+
+            <p className="text-[11px] mt-4 leading-5 text-center" style={{ color: 'var(--subtle)' }}>Source: {pack.sourceLabel}</p>
+          </motion.div>
+        </div>
       </div>
     );
   }
@@ -207,6 +260,8 @@ function LevelGrid({ pack }) {
 }
 
 function VerifiedPackCard({ pack }) {
+  const totalQuestions = Object.values(pack.levels || {}).reduce((sum, items) => sum + items.length, 0);
+
   return (
     <article className="card-paper p-5 sm:p-7">
       <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-5">
@@ -215,6 +270,9 @@ function VerifiedPackCard({ pack }) {
           <div className="text-xs font-black uppercase tracking-[.12em] mt-4" style={{ color: 'var(--gold)' }}>{pack.chapter}</div>
           <h3 className="text-2xl sm:text-3xl mt-1" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{pack.title}</h3>
           <p className="text-sm mt-2 leading-7 max-w-3xl" style={{ color: 'var(--muted)' }}>Every level uses the same verified chapter source but changes the thinking required — from direct recall to high-level application.</p>
+          <div className="inline-flex items-center gap-2 mt-4 text-xs font-black px-3 py-2 rounded-full" style={{ background: 'var(--gold-bg)', color: 'var(--gold)', border: '1px solid rgba(184,135,47,.18)' }}>
+            <Sparkles className="w-4 h-4" /> {totalQuestions} verified questions · 4 levels
+          </div>
         </div>
         <div className="rounded-2xl p-4 min-w-[200px]" style={{ background: 'var(--bg-ivory)', border: '1px solid var(--border-soft)' }}>
           <div className="text-xs font-bold" style={{ color: 'var(--subtle)' }}>Source</div>
