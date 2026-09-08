@@ -7,6 +7,15 @@ import DemoSlotPicker from '../components/leads/DemoSlotPicker';
 export default function BookDemo() {
   const [selectedSlot, setSelectedSlot] = useState(null);
 
+  const chooseSlot = (slot) => {
+    setSelectedSlot(slot);
+    if (slot) {
+      window.setTimeout(() => {
+        document.getElementById('demo-enquiry-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 80);
+    }
+  };
+
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
       <SEO
@@ -70,19 +79,19 @@ export default function BookDemo() {
           </aside>
 
           <div className="space-y-5">
+            <section id="demo-enquiry-form" className="card-paper p-6 sm:p-8 scroll-mt-28">
+              <LeadCaptureForm intent="Free Demo" heading={selectedSlot ? 'Reserve your free analysis + demo' : 'Request your free analysis + demo'} demoSlot={selectedSlot} />
+            </section>
+
             <section className="card-paper p-6 sm:p-8">
               <div className="flex items-start gap-3 mb-5">
                 <Target className="w-5 h-5 mt-1" style={{ color: 'var(--gold)' }} />
                 <div>
-                  <h2 className="text-2xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Pick a live slot <span className="text-base font-normal" style={{ color: 'var(--muted)' }}>(optional)</span></h2>
-                  <p className="text-sm mt-1 leading-relaxed" style={{ color: 'var(--muted)' }}>Choose a published time only if one suits you. Otherwise skip this step and send the quick enquiry form — I can contact you to arrange another option.</p>
-                  <a href="#demo-enquiry-form" className="inline-flex mt-3 text-sm font-semibold" style={{ color: 'var(--gold)' }}>Skip slot selection — request a callback ↓</a>
+                  <h2 className="text-2xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Want to choose a time yourself? <span className="text-base font-normal" style={{ color: 'var(--muted)' }}>(optional)</span></h2>
+                  <p className="text-sm mt-1 leading-relaxed" style={{ color: 'var(--muted)' }}>The quick enquiry above works even when no live slots are published. When a suitable slot appears here, select it and the page will take you back to the form to reserve it.</p>
                 </div>
               </div>
-              <DemoSlotPicker selectedId={selectedSlot?.id || null} onSelect={setSelectedSlot} />
-            </section>
-            <section id="demo-enquiry-form" className="card-paper p-6 sm:p-8 scroll-mt-28">
-              <LeadCaptureForm intent="Free Demo" heading={selectedSlot ? 'Reserve your free analysis + demo' : 'Request your free analysis + demo'} demoSlot={selectedSlot} />
+              <DemoSlotPicker selectedId={selectedSlot?.id || null} onSelect={chooseSlot} />
             </section>
           </div>
         </div>
