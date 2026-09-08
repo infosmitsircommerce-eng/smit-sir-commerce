@@ -15,6 +15,7 @@ const BASE = 'https://www.smitsircommerce.in';
 const basePages = [
   ['/', 'weekly', '1.0'],
   ['/study-material', 'weekly', '1.0'],
+  ['/teacher-guides', 'weekly', '0.97'],
   ['/ai-discovery.html', 'monthly', '0.95'],
   ['/free-commerce-notes.html', 'weekly', '0.99'],
   ['/cbse-commerce-notes.html', 'weekly', '0.98'],
