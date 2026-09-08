@@ -8,6 +8,7 @@ import { toolClusters } from '../src/data/toolClusters.js';
 import { localizedPilotPages, localizedAlternatesByPath } from '../src/data/localizedPilot.js';
 import { silentSearchPages } from '../src/data/silentSearchPages.js';
 import { genuineTrafficPages } from '../src/data/genuineTrafficPages.js';
+import { localActionPages } from '../src/data/localActionPages.js';
 
 const BASE = 'https://www.smitsircommerce.in';
 
@@ -78,6 +79,7 @@ const entries = [
   ...basePages.map(([p, f, pr]) => urlEntry(p, f, pr)),
   ...silentSearchPages.map((page) => urlEntry(page.path, 'weekly', '0.92', '2026-09-08')),
   ...genuineTrafficPages.map((page) => urlEntry(page.path, 'weekly', '0.9', '2026-09-08')),
+  ...localActionPages.map((page) => urlEntry(page.path, 'weekly', '0.9', '2026-09-08')),
   ...localSeoPages.map((page) => urlEntry(page.path, 'weekly', '0.9', '2026-09-03')),
   ...seoHubs.map((hub) => urlEntry(hub.path, 'weekly', '0.9', '2026-09-06')),
   ...seoMaterials.map((material) => urlEntry(material.seo_path, 'monthly', '0.8', material.updated)),
