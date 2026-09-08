@@ -74,13 +74,14 @@ export default function BookDemo() {
               <div className="flex items-start gap-3 mb-5">
                 <Target className="w-5 h-5 mt-1" style={{ color: 'var(--gold)' }} />
                 <div>
-                  <h2 className="text-2xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Choose a demo time</h2>
-                  <p className="text-sm mt-1 leading-relaxed" style={{ color: 'var(--muted)' }}>If a suitable published slot is available, reserve it. Otherwise submit the form below and I can contact you to arrange another option.</p>
+                  <h2 className="text-2xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Pick a live slot <span className="text-base font-normal" style={{ color: 'var(--muted)' }}>(optional)</span></h2>
+                  <p className="text-sm mt-1 leading-relaxed" style={{ color: 'var(--muted)' }}>Choose a published time only if one suits you. Otherwise skip this step and send the quick enquiry form — I can contact you to arrange another option.</p>
+                  <a href="#demo-enquiry-form" className="inline-flex mt-3 text-sm font-semibold" style={{ color: 'var(--gold)' }}>Skip slot selection — request a callback ↓</a>
                 </div>
               </div>
               <DemoSlotPicker selectedId={selectedSlot?.id || null} onSelect={setSelectedSlot} />
             </section>
-            <section className="card-paper p-6 sm:p-8">
+            <section id="demo-enquiry-form" className="card-paper p-6 sm:p-8 scroll-mt-28">
               <LeadCaptureForm intent="Free Demo" heading={selectedSlot ? 'Reserve your free analysis + demo' : 'Request your free analysis + demo'} demoSlot={selectedSlot} />
             </section>
           </div>
