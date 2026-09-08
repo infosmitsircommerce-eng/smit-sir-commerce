@@ -56,6 +56,7 @@ export default async function handler(req, res) {
   const intent = clean(body.intent, 60);
   const message = clean(body.message, 1000);
   const firstPath = clean(body.firstPath, 240);
+  const landingContext = clean(body.landingContext, 160);
 
   const text = [
     'New enquiry received on Smit Sir Commerce',
@@ -70,7 +71,8 @@ export default async function handler(req, res) {
     preferredTime ? `Preferred contact time: ${preferredTime}` : null,
     source ? `Source: ${source}` : null,
     intent ? `Intent: ${intent}` : null,
-    firstPath ? `Page: ${firstPath}` : null,
+    firstPath ? `First page: ${firstPath}` : null,
+    landingContext ? `Local landing context: ${landingContext}` : null,
     '',
     message ? `Message: ${message}` : 'Message: —',
     '',
