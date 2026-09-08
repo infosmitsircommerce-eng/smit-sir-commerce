@@ -13,12 +13,14 @@ function esc(value) {
 }
 
 function schema(guide) {
+  const hubPath = guide.hubPath || '/cbse-practice';
+  const hubLabel = guide.hubLabel || 'CBSE Practice';
   return {
     '@context':'https://schema.org',
     '@graph':[
       { '@type':'LearningResource', name:guide.title, description:guide.description, url:`${BASE}${guide.path}`, isAccessibleForFree:true, inLanguage:'en-IN', datePublished:guide.updated, dateModified:guide.updated, learningResourceType:'Revision guide', author:{'@id':`${BASE}/#teacher`}, provider:{'@id':`${BASE}/#organization`} },
       { '@type':'FAQPage', mainEntity:guide.faqs.map(([question,answer])=>({ '@type':'Question', name:question, acceptedAnswer:{'@type':'Answer',text:answer} })) },
-      { '@type':'BreadcrumbList', itemListElement:[{ '@type':'ListItem',position:1,name:'Home',item:`${BASE}/`},{ '@type':'ListItem',position:2,name:'CBSE Practice',item:`${BASE}/cbse-practice`},{ '@type':'ListItem',position:3,name:guide.shortTitle,item:`${BASE}${guide.path}`}] },
+      { '@type':'BreadcrumbList', itemListElement:[{ '@type':'ListItem',position:1,name:'Home',item:`${BASE}/`},{ '@type':'ListItem',position:2,name:hubLabel,item:`${BASE}${hubPath}`},{ '@type':'ListItem',position:3,name:guide.shortTitle,item:`${BASE}${guide.path}`}] },
     ],
   };
 }
@@ -35,7 +37,9 @@ function enhancementBody(guide) {
 
 function body(guide) {
   const enhancement = authorityEnhancements[guide.path] || {};
-  return `<main class="page-container section-padding" data-prerendered="authority-guide"><nav aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/cbse-practice">CBSE Practice</a> / ${esc(guide.shortTitle)}</nav><article><h1>${esc(guide.title)}</h1><p>${esc(guide.intro)}</p><p><strong>Prepared by Smit Sir</strong> · Updated ${esc(guide.updated)} · Free revision resource${enhancement.yearLabel ? ` · ${esc(enhancement.yearLabel)}` : ''}</p>${enhancementBody(guide)}${guide.sections.map(section=>`<section><h2>${esc(section.title)}</h2><p>${esc(section.text)}</p><ul>${section.links.map(([path,label])=>`<li><a href="${esc(path)}">${esc(label)}</a></li>`).join('')}</ul></section>`).join('')}<h2>Frequently asked questions</h2>${guide.faqs.map(([q,a])=>`<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}<h2>Editorial transparency</h2><p>This guide links to material actually published on Smit Sir Commerce. Original practice is not presented as an official CBSE paper. Students should check the latest official CBSE curriculum and sample papers for current requirements.</p><p><a href="/about">About Smit Sir</a> · <a href="/cbse-practice">CBSE Practice Library</a> · <a href="/cbse-notes">Free CBSE Notes</a> · <a href="/book-demo">Free Paper Analysis</a></p></article></main>`;
+  const hubPath = guide.hubPath || '/cbse-practice';
+  const hubLabel = guide.hubLabel || 'CBSE Practice';
+  return `<main class="page-container section-padding" data-prerendered="authority-guide"><nav aria-label="Breadcrumb"><a href="/">Home</a> / <a href="${esc(hubPath)}">${esc(hubLabel)}</a> / ${esc(guide.shortTitle)}</nav><article><h1>${esc(guide.title)}</h1><p>${esc(guide.intro)}</p><p><strong>Prepared by Smit Sir</strong> · Updated ${esc(guide.updated)} · Free revision resource${enhancement.yearLabel ? ` · ${esc(enhancement.yearLabel)}` : ''}</p>${enhancementBody(guide)}${guide.sections.map(section=>`<section><h2>${esc(section.title)}</h2><p>${esc(section.text)}</p><ul>${section.links.map(([path,label])=>`<li><a href="${esc(path)}">${esc(label)}</a></li>`).join('')}</ul></section>`).join('')}<h2>Frequently asked questions</h2>${guide.faqs.map(([q,a])=>`<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}<h2>Editorial transparency</h2><p>This guide links to material actually published on Smit Sir Commerce. Original practice is not presented as an official board paper. Students should use current school or board-prescribed material for final syllabus and exam requirements.</p><p><a href="/about">About Smit Sir</a> · <a href="${esc(hubPath)}">${esc(hubLabel)}</a> · <a href="/study-material">Study Material</a> · <a href="/book-demo">Free Paper Analysis</a></p></article></main>`;
 }
 
 function html(guide) {
