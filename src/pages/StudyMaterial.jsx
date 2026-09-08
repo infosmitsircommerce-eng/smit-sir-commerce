@@ -35,6 +35,7 @@ const subjectBlocks = [
   { title: 'CBSE Class 12 Commerce Notes', text: 'Economics and Business Studies revision-focused resources.', to: '/cbse-notes' },
   { title: 'GSEB Class 12 Economics PDFs', text: 'Chapter 2 to 11 Economics notes with direct PDF access.', to: '/study-material?board=GSEB' },
   { title: 'Tools + Practice + Games', text: 'Calculators, daily questions and real-life Commerce games.', to: '/games' },
+  { title: 'Smit Sir Teacher Guides', text: 'Common mistakes, numericals, case studies, answer writing and revision plans.', to: '/teacher-guides' },
 ];
 
 const trustPoints = ['Made by Smit Thaker', 'Commerce teacher', 'Free material for students', 'CBSE + GSEB focused'];
@@ -152,7 +153,7 @@ export default function StudyMaterial() {
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <a href="#all-notes" className="btn-primary min-h-12 px-5"><Download className="w-4 h-4" /> Download notes</a>
-                  <Link to="/games" className="btn-outline-ink min-h-12 px-5"><Gamepad2 className="w-4 h-4" /> Play games</Link>
+                  <Link to="/games" className="btn-outline-ink min-h-12 px-5"><Gamepad2 className="w-4 h-4" /> Play games</Link><Link to="/teacher-guides" className="btn-outline-ink min-h-12 px-5"><BookOpen className="w-4 h-4" /> Teacher Guides</Link>
                 </div>
               </div>
 
