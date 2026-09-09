@@ -272,6 +272,10 @@
       "destination": "/"
     },
     {
+      "source": "/premium/economics",
+      "destination": "/"
+    },
+    {
       "source": "/test-series",
       "destination": "/"
     },
