@@ -17,13 +17,16 @@ export default defineConfig({
     },
     react(),
     VitePWA({
+      // Reliability first: replace the old navigation-caching worker, clear its caches,
+      // and unregister it so phones always request the current deployed page.
+      selfDestroying: true,
       registerType: 'autoUpdate',
       injectRegister: 'script-defer',
       includeAssets: ['favicon.svg', 'icon-192.png', 'icon-512.png'],
       manifest: {
         name: 'Smit Sir Commerce',
         short_name: 'SmitSir',
-        description: 'CBSE and GSEB Commerce study material — notes, PDFs, practice, tools and games | Mehsana',
+        description: 'CBSE and GSEB Commerce study material — notes, PDFs, practice, quizzes and tools | Mehsana',
         start_url: '/?v=fresh',
         scope: '/',
         display: 'standalone',
@@ -46,10 +49,10 @@ export default defineConfig({
             icons: [{ src: '/icon-192.png', sizes: '192x192' }]
           },
           {
-            name: 'Commerce Games',
-            short_name: 'Games',
-            description: 'Play realistic Commerce learning games',
-            url: '/games',
+            name: 'Economics Quizzes',
+            short_name: 'Quizzes',
+            description: 'Open chapter-wise Economics quizzes',
+            url: '/quizzes',
             icons: [{ src: '/icon-192.png', sizes: '192x192' }]
           },
         ],
