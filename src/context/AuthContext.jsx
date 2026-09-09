@@ -101,7 +101,15 @@ export function AuthProvider({ children }) {
 
   async function signIn(email, password) {
     const supabase = await getSupabase();
-    return supabase.auth.signInWithPassword({ email, password });
+    const result = await supabase.auth.signInWithPassword({ email, password });
+    if (!result.error && result.data?.user) {
+      const { data: nextProfile } = await supabase.from('profiles').select('*').eq('id', result.data.user.id).single();
+      setUser(result.data.user);
+      setProfile(nextProfile ?? null);
+      setLoading(false);
+      return { ...result, profile: nextProfile ?? null };
+    }
+    return result;
   }
 
   async function signOut() {
