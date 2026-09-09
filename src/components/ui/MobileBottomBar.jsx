@@ -1,11 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, BookOpen, Brain, Gamepad2, MessageCircle } from 'lucide-react';
+import { Home, BookOpen, Brain, ListChecks, MessageCircle } from 'lucide-react';
 
 const TABS = [
   { path: '/', icon: Home, label: 'Home' },
   { path: '/study-material', icon: BookOpen, label: 'Notes' },
   { path: '/daily-practice', icon: Brain, label: 'Practice' },
-  { path: '/games', icon: Gamepad2, label: 'Games' },
+  { path: '/quizzes', icon: ListChecks, label: 'Quizzes' },
   { path: '/contact', icon: MessageCircle, label: 'Contact' },
 ];
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { BookOpen, Brain, ChevronRight, Gamepad2, GraduationCap, Menu, MessageCircle, Search, X } from 'lucide-react';
+import { BookOpen, Brain, ChevronRight, ListChecks, GraduationCap, Menu, MessageCircle, Search, X } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { isLightRoute } from '../../lib/theme';
 
@@ -20,8 +20,8 @@ const groups = [
     { label: 'Flashcards', path: '/flashcards' },
     { label: 'Ask AI Doubt', path: '/ask' },
   ]},
-  { title: 'Games & Tools', icon: Gamepad2, links: [
-    { label: 'Games', path: '/games' },
+  { title: 'Quizzes & Tools', icon: ListChecks, links: [
+    { label: 'Quizzes', path: '/quizzes' },
     { label: 'Commerce Tools', path: '/tools' },
     { label: 'Study Coach', path: '/study-coach' },
     { label: 'Learning Insights', path: '/learning-insights' },

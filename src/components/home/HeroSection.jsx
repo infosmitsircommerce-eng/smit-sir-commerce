@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, BookOpen, CheckCircle, Download, FileText, Gamepad2, PlayCircle, Sparkles, Star, Trophy } from 'lucide-react';
+import { ArrowRight, BookOpen, CheckCircle, Download, FileText, ListChecks, PlayCircle, Sparkles, Star, Trophy } from 'lucide-react';
 import teacherPhoto from '../../assets/teacher-photo-opt.jpg';
 
 const trust = [
@@ -12,17 +12,17 @@ const trust = [
 
 const actionCards = [
   { icon: FileText, title: 'Study Material', text: 'Notes, PDFs and chapter-wise resources.', to: '/study-material' },
-  { icon: Gamepad2, title: 'Commerce Games', text: 'Real-life Economics and Business challenges.', to: '/games' },
+  { icon: ListChecks, title: 'Chapter Quizzes', text: 'Micro, Macro and Indian Economy quizzes.', to: '/quizzes' },
   { icon: Trophy, title: 'Practice & Tests', text: 'Daily questions, quizzes and exam mode.', to: '/daily-practice' },
 ];
 
 const materialPills = [
   { icon: FileText, text: 'Notes + PDFs' },
   { icon: Download, text: 'Free Material' },
-  { icon: Gamepad2, text: 'Real Commerce Games' },
+  { icon: ListChecks, text: 'Chapter Quizzes' },
 ];
 
-const startSteps = ['Choose your board', 'Pick class & subject', 'Open notes', 'Practise with games'];
+const startSteps = ['Choose your board', 'Pick class & subject', 'Open notes', 'Test your understanding'];
 
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 20 },
@@ -147,7 +147,7 @@ export default function HeroSection() {
                 marginBottom: '18px',
               }}
             >
-              Free Commerce notes, PDFs, practice, tools and real-life learning games for students who want clarity first — then marks as the natural result.
+              Free Commerce notes, PDFs, practice, tools and chapter-wise quizzes for students who want clarity first — then marks as the natural result.
             </motion.p>
 
             <motion.div
@@ -202,9 +202,9 @@ export default function HeroSection() {
                   Open Study Material
                   <ArrowRight style={{ width: '15px', height: '15px' }} />
                 </Link>
-                <Link to="/games" className="btn-outline-ink hero-secondary-cta" style={{ fontSize: '15px', background: 'rgba(255,255,255,0.74)' }}>
+                <Link to="/quizzes" className="btn-outline-ink hero-secondary-cta" style={{ fontSize: '15px', background: 'rgba(255,255,255,0.74)' }}>
                   <PlayCircle style={{ width: '15px', height: '15px' }} />
-                  Play Commerce Games
+                  Start Chapter Quiz
                 </Link>
                 <Link to="/book-demo" className="btn-outline-ink hero-demo-cta" style={{ fontSize: '14px', background: 'rgba(255,255,255,0.48)', borderColor: 'rgba(23,32,51,0.10)' }}>
                   <BookOpen style={{ width: '14px', height: '14px' }} />

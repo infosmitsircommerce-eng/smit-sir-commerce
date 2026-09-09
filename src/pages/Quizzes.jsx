@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, BadgeCheck, BookOpen, CheckCircle2, ChevronRight, CircleAlert, GraduationCap, Layers3, RotateCcw, ShieldCheck, Sparkles, Target, X } from 'lucide-react';
 import SEO from '../components/ui/SEO';
@@ -285,10 +286,12 @@ function VerifiedPackCard({ pack }) {
 }
 
 export default function Quizzes() {
+  const [params] = useSearchParams();
+  const initialStream = params.get('subject');
   const [boardId, setBoardId] = useState('CBSE');
-  const [classLevel, setClassLevel] = useState(11);
+  const [classLevel, setClassLevel] = useState(initialStream === 'macro' || initialStream === 'ied' ? 12 : 11);
   const [subjectName, setSubjectName] = useState('Economics');
-  const [streamFilter, setStreamFilter] = useState(null);
+  const [streamFilter, setStreamFilter] = useState(initialStream === 'macro' ? 'Macroeconomics' : initialStream === 'ied' ? 'Indian Economic Development' : null);
 
   const board = quizBoards.find((item) => item.id === boardId) || null;
   const classEntry = board?.classes.find((item) => item.classLevel === classLevel) || null;
@@ -337,8 +340,8 @@ export default function Quizzes() {
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
       <SEO
-        title="Commerce Quizzes — CBSE & GSEB Class 11 and 12"
-        description="Source-backed Commerce quizzes for CBSE and GSEB students. Choose board, class, subject and quiz level: Easy, Moderate, Hard or Extreme."
+        title="Economics MCQ Quizzes — Class 11 Micro & Class 12 Macro, Indian Economy"
+        description="Practise 1,240 Economics questions across Class 11 Microeconomics and Class 12 Macroeconomics and Indian Economic Development, with four levels and answer explanations."
         path="/quizzes"
       />
 

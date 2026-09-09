@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { BookOpen, Brain, ChevronDown, FileText, Gamepad2, GraduationCap, LogOut, Search, User, Wrench } from 'lucide-react';
+import { BookOpen, Brain, ChevronDown, FileText, ListChecks, GraduationCap, LogOut, Search, User, Wrench } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { isLightRoute } from '../../lib/theme';
 
@@ -26,7 +26,7 @@ const navLinks = [
       { label: 'Flashcards', path: '/flashcards' },
     ],
   },
-  { label: 'Games', path: '/games' },
+  { label: 'Quizzes', path: '/quizzes' },
   { label: 'Tools', path: '/tools' },
   { label: 'Contact', path: '/contact' },
 ];
@@ -35,7 +35,7 @@ const featureLinks = [
   { label: 'Notes', path: '/study-material', icon: BookOpen },
   { label: 'GSEB', path: '/study-material?board=GSEB', icon: FileText },
   { label: 'Practice', path: '/daily-practice', icon: Brain },
-  { label: 'Games', path: '/games', icon: Gamepad2 },
+  { label: 'Quizzes', path: '/quizzes', icon: ListChecks },
   { label: 'Tools', path: '/tools', icon: Wrench },
 ];
 

@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import SEO from '../components/ui/SEO';
+import QuizPromo from '../components/home/QuizPromo';
 import HeroSection from '../components/home/HeroSection';
 
 const HomeBelowFold = lazy(() => import('../components/home/HomeBelowFold'));
@@ -42,7 +43,7 @@ export default function Home() {
         '@id': 'https://www.smitsircommerce.in/#website',
         url: 'https://www.smitsircommerce.in/',
         name: 'Smit Sir Commerce',
-        description: 'Free Commerce learning website for Class 11 and 12 students with CBSE and GSEB notes, PDFs, practice tools and realistic Commerce games.',
+        description: 'Free Commerce learning website for Class 11 and 12 students with CBSE and GSEB notes, PDFs, practice tools and chapter-wise Economics quizzes.',
         inLanguage: 'en-IN',
         publisher: { '@id': 'https://www.smitsircommerce.in/#organization' },
       },
@@ -52,15 +53,15 @@ export default function Home() {
         name: 'Smit Sir Commerce',
         url: 'https://www.smitsircommerce.in/',
         areaServed: ['India', 'Mehsana, Gujarat'],
-        description: 'Commerce learning platform created by Smit Thaker with free study material, Economics notes, Business Studies support, Accountancy resources, practice tools and games for students.',
-        knowsAbout: ['Commerce education', 'CBSE Commerce', 'GSEB Economics', 'Class 11 Commerce', 'Class 12 Commerce', 'Economics', 'Business Studies', 'Accountancy', 'Commerce study material', 'Commerce learning games'],
+        description: 'Commerce learning platform created by Smit Thaker with free study material, Economics notes, Business Studies support, Accountancy resources, practice tools and quizzes for students.',
+        knowsAbout: ['Commerce education', 'CBSE Commerce', 'GSEB Economics', 'Class 11 Commerce', 'Class 12 Commerce', 'Economics', 'Business Studies', 'Accountancy', 'Commerce study material', 'Economics quizzes'],
       },
       {
         '@type': 'WebPage',
         '@id': 'https://www.smitsircommerce.in/#home',
         url: 'https://www.smitsircommerce.in/',
-        name: 'Free Commerce Study Material, Notes, PDFs, Practice and Games',
-        description: 'Homepage for Smit Sir Commerce: free Commerce notes, CBSE and GSEB study material, PDFs, practice tools and realistic games for students.',
+        name: 'Free Commerce Study Material, Notes, PDFs, Practice and Quizzes',
+        description: 'Homepage for Smit Sir Commerce: free Commerce notes, CBSE and GSEB study material, PDFs, practice tools and chapter-wise quizzes for students.',
         isPartOf: { '@id': 'https://www.smitsircommerce.in/#website' },
         about: { '@id': 'https://www.smitsircommerce.in/#organization' },
         inLanguage: 'en-IN',
@@ -71,12 +72,13 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Free Commerce Notes, PDFs, Practice & Games | Smit Sir Commerce"
-        description="Free Commerce study material for Class 11 and 12 students: CBSE and GSEB notes, Economics PDFs, Business Studies resources, Accountancy support, practice tools and realistic Commerce games."
+        title="Free Commerce Notes, PDFs, Practice & Quizzes | Smit Sir Commerce"
+        description="Free Commerce study material for Class 11 and 12 students: CBSE and GSEB notes, Economics PDFs, Business Studies resources, Accountancy support, practice tools and chapter-wise Economics quizzes."
         path="/"
         structuredData={structuredData}
       />
       <HeroSection />
+      <QuizPromo />
       <DeferredHomeContent />
     </>
   );
