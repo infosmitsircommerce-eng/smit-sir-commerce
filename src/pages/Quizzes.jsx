@@ -176,7 +176,7 @@ function QuizPlayer({ pack, level, onClose }) {
               <div className="text-xs font-bold mt-3" style={{ color: 'var(--muted)' }}>{pack.board} · Class {pack.classLevel} · {pack.subject} · {pack.chapter}</div>
               <h2 className="text-2xl mt-1" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{pack.title} — {level}</h2>
             </div>
-            <button type="button" onClick={onClose} className="w-10 h-10 rounded-full flex items-center justify-center" style={{ border: '1px solid var(--border)', color: 'var(--muted)' }} aria-label="Close quiz">
+            <button type="button" onClick={onClose} className="w-10 h-10 shrink-0 rounded-full flex items-center justify-center" style={{ border: '1px solid var(--border)', color: 'var(--muted)' }} aria-label="Close quiz">
               <X className="w-5 h-5" />
             </button>
           </div>
@@ -286,7 +286,7 @@ function VerifiedPackCard({ pack }) {
 
   return (
     <article className="card-paper p-5 sm:p-7" style={{ transform: 'none' }}>
-      <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-5">
+      <div className="grid lg:grid-cols-[minmax(0,1fr)_260px] gap-5">
         <div>
           <SourceBadge>{pack.sourceStatus}</SourceBadge>
           <div className="text-xs font-black uppercase tracking-[.12em] mt-4" style={{ color: 'var(--gold)' }}>{pack.chapter}</div>
@@ -296,7 +296,7 @@ function VerifiedPackCard({ pack }) {
             <Sparkles className="w-4 h-4" /> {totalQuestions} verified questions · 4 levels
           </div>
         </div>
-        <div className="rounded-2xl p-4 min-w-[200px]" style={{ background: 'var(--bg-ivory)', border: '1px solid var(--border-soft)' }}>
+        <div className="rounded-2xl p-4 min-w-0" style={{ background: 'var(--bg-ivory)', border: '1px solid var(--border-soft)' }}>
           <div className="text-xs font-bold" style={{ color: 'var(--subtle)' }}>Source</div>
           <div className="text-sm font-semibold mt-1 leading-6" style={{ color: 'var(--charcoal)' }}>{pack.sourceLabel}</div>
         </div>
@@ -387,7 +387,7 @@ export default function Quizzes() {
           ].map((item) => (
             <button key={item.name} type="button"
               aria-pressed={boardId === 'CBSE' && subjectName === 'Economics' && classLevel === item.level && streamFilter === item.stream}
-              className="btn-secondary p-4 text-left"
+              className="btn-secondary p-4 text-left" style={{ flexDirection: 'column', alignItems: 'flex-start', whiteSpace: 'normal', minWidth: 0, minHeight: '104px', gap: '4px' }}
               onClick={() => { setBoardId('CBSE'); setClassLevel(item.level); setSubjectName('Economics'); setStreamFilter(item.stream); }}>
               <strong>{item.name}</strong><span className="block text-sm mt-1">Class {item.level} · Open chapters</span>
             </button>
