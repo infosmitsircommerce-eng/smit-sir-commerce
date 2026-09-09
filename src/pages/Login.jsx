@@ -26,9 +26,10 @@ export default function Login() {
     setLoading(true);
 
     if (mode === 'login') {
-      const { error } = await signIn(form.email, form.password);
+      const { error, profile } = await signIn(form.email, form.password);
       if (error) { setError(error.message); setLoading(false); return; }
-      navigate('/dashboard');
+      const owner = profile?.is_admin === true || profile?.role === 'admin';
+      navigate(owner ? '/admin' : profile?.onboarding_completed ? '/dashboard' : '/onboarding');
     } else {
       if (!form.name.trim()) { setError('Please enter your name.'); setLoading(false); return; }
       if (form.password.length < 6) { setError('Password must be at least 6 characters.'); setLoading(false); return; }
