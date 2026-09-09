@@ -13,9 +13,9 @@ export default function QuizPromo() {
       <div className="page-container">
         <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-5 mb-7">
           <div>
-            <span className="eyebrow">Free CBSE Economics practice</span>
+            <span className="eyebrow">CBSE Economics practice</span>
             <h2 id="quiz-heading" className="headline mt-3">Know the chapter? <em>Test yourself.</em></h2>
-            <p className="text-base mt-3 max-w-2xl" style={{ color: 'var(--muted)' }}>1,240 questions with answers and explanations. Choose your subject, chapter and difficulty.</p>
+            <p className="text-base mt-3 max-w-2xl" style={{ color: 'var(--muted)' }}>Easy and Moderate are free. Explore 1,240 questions across four levels, with Hard and Extreme included in Premium.</p>
           </div>
           <Link to="/quizzes" className="btn-primary shrink-0">Browse all quizzes <ArrowRight className="w-4 h-4" /></Link>
         </div>
@@ -28,7 +28,7 @@ export default function QuizPromo() {
               <h3 className="text-2xl mt-4" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{subject.name}</h3>
               <p className="text-base mt-3" style={{ color: 'var(--muted)' }}>{subject.detail}</p>
               <p className="text-sm font-bold mt-4" style={{ color: 'var(--gold)' }}>{subject.chapters} · {subject.questions} questions</p>
-              <p className="text-sm mt-2 mb-6" style={{ color: 'var(--muted)' }}>Easy · Moderate · Hard · Extreme</p>
+              <p className="text-sm mt-2 mb-6" style={{ color: 'var(--muted)' }}>Easy & Moderate: Free · Hard & Extreme: Premium</p>
               <Link to={'/quizzes?subject=' + subject.key} className="btn-secondary mt-auto" aria-label={'Start ' + subject.name + ' quiz'}>Start quiz <ArrowRight className="w-4 h-4" /></Link>
             </article>
           ))}
