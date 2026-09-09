@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import { ArrowLeft, ArrowRight, BadgeCheck, BookOpen, CheckCircle2, ChevronRight, CircleAlert, GraduationCap, Layers3, RotateCcw, ShieldCheck, Sparkles, Target, X } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 import SEO from '../components/ui/SEO';
 import { getQuizPacks, quizBoards, quizLevels } from '../data/quizzes';
 
@@ -248,26 +249,75 @@ function QuizPlayer({ pack, level, onClose }) {
   );
 }
 
+
+function PremiumOffer({ onClose }) {
+  return (
+    <QuizDialog onClose={onClose}>
+      <div className="flex justify-between items-start gap-4">
+        <div><span className="eyebrow">Smit Sir Commerce Premium</span><h2 className="text-3xl mt-3">Go beyond the basics.</h2></div>
+        <button type="button" onClick={onClose} aria-label="Close premium details" className="p-2 shrink-0"><X className="w-5 h-5" /></button>
+      </div>
+      <p className="text-4xl font-black mt-5" style={{ color: 'var(--gold)' }}>₹999</p>
+      <p className="font-semibold mt-2">One-time payment · Lifetime access · No subscription</p>
+      <p className="text-sm mt-3 leading-6">Lifetime access means no scheduled expiry for your Premium account while Smit Sir Commerce operates. This plan covers digital study resources; personal tuition and live classes are separate.</p>
+      <div className="grid sm:grid-cols-2 gap-4 mt-6">
+        <div className="rounded-xl p-4" style={{ background: 'var(--gold-bg)' }}>
+          <h3 className="font-bold">Premium practice</h3>
+          <ul className="list-disc pl-5 space-y-2 mt-3 text-sm leading-6">
+            <li>Hard and Extreme chapter quizzes</li>
+            <li>Macroeconomics, Microeconomics and Indian Economic Development</li>
+            <li>Answer explanations and review of mistakes</li>
+            <li>Published Pro test series and exam practice</li>
+          </ul>
+        </div>
+        <div className="rounded-xl p-4" style={{ background: 'var(--bg-ivory)' }}>
+          <h3 className="font-bold">Planned additions</h3>
+          <ul className="list-disc pl-5 space-y-2 mt-3 text-sm leading-6">
+            <li>Extra-detailed chapter notes</li>
+            <li>Step-by-step topic explanations and worked examples</li>
+            <li>Revision sheets and additional practice sets</li>
+          </ul>
+          <p className="text-sm mt-3">These materials are being prepared and are not yet available in every chapter.</p>
+        </div>
+      </div>
+      <p className="text-sm mt-5 leading-6"><strong>Always free:</strong> Easy and Moderate quizzes, their answer explanations, and currently published free notes.</p>
+      <div role="status" className="rounded-xl p-4 mt-5" style={{ background: '#fff8e8', color: '#6e531d' }}>
+        <strong>Premium payments open soon</strong>
+        <p className="text-sm mt-2">Checkout is not open yet. Once available, access will activate only after payment is verified against your student account.</p>
+      </div>
+      <button type="button" disabled className="btn-primary w-full mt-5 opacity-60">₹999 lifetime plan · Coming soon</button>
+      <button type="button" onClick={onClose} className="btn-secondary w-full mt-3">Continue with free quizzes</button>
+    </QuizDialog>
+  );
+}
+
 function LevelGrid({ pack }) {
+  const { isPremium, isAdmin, loading } = useAuth();
+  const [showPremium, setShowPremium] = useState(false);
+  const premiumAccess = isPremium || isAdmin;
   const [activeLevel, setActiveLevel] = useState(null);
 
   return (
     <>
-      {activeLevel && <QuizPlayer pack={pack} level={activeLevel} onClose={() => setActiveLevel(null)} />}
+      {showPremium && <PremiumOffer onClose={() => setShowPremium(false)} />}
+      {activeLevel && (['Easy', 'Moderate'].includes(activeLevel) || premiumAccess) && <QuizPlayer pack={pack} level={activeLevel} onClose={() => setActiveLevel(null)} />}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-5">
         {quizLevels.map((level) => {
           const questions = pack.levels[level] || [];
           const meta = levelMeta[level];
+          const premiumLevel = level === 'Hard' || level === 'Extreme';
+          const locked = premiumLevel && !premiumAccess;
           return (
             <button
               key={level}
               type="button"
-              onClick={() => questions.length && setActiveLevel(level)}
-              disabled={!questions.length}
+              onClick={() => { if (!questions.length) return; if (locked) setShowPremium(true); else setActiveLevel(level); }}
+              disabled={!questions.length || (premiumLevel && loading)}
               className="tile-paper p-4 text-left disabled:opacity-50" style={{ minHeight: '144px', minWidth: 0 }}
             >
               <div className="text-2xl">{meta.icon}</div>
               <div className="font-black mt-2" style={{ color: 'var(--ink)' }}>{meta.label}</div>
+              <div className="text-xs font-bold mt-1" style={{ color: 'var(--gold)' }}>{premiumLevel ? (loading ? 'Checking access…' : locked ? 'Premium · ₹999 lifetime' : 'Premium unlocked') : 'Free'}</div>
               <p className="text-xs mt-1 leading-5" style={{ color: 'var(--muted)' }}>{meta.note}</p>
               <div className="flex items-center justify-between mt-4 text-xs font-bold">
                 <span style={{ color: 'var(--gold)' }}>{questions.length} questions</span>
@@ -372,7 +422,7 @@ export default function Quizzes() {
           <h1 className="mt-5">Economics chapter quizzes</h1>
           <p className="mt-5 max-w-3xl">Choose Microeconomics, Macroeconomics or Indian Economic Development, then select a chapter and difficulty.</p>
           <div className="flex flex-wrap gap-3 mt-6">
-            <div className="inline-flex items-center gap-2 text-xs font-bold px-3 py-2 rounded-full" style={{ background: '#eef8ef', color: '#2f6b3a', border: '1px solid #cfe6d2' }}><ShieldCheck className="w-4 h-4" /> Source-backed questions</div>
+            <div className="inline-flex items-center gap-2 text-xs font-bold px-3 py-2 rounded-full" style={{ background: '#eef8ef', color: '#2f6b3a', border: '1px solid #cfe6d2' }}><ShieldCheck className="w-4 h-4" /> Easy & Moderate free</div>
             <div className="inline-flex items-center gap-2 text-xs font-bold px-3 py-2 rounded-full" style={{ background: 'var(--gold-bg)', color: 'var(--gold)', border: '1px solid rgba(184,135,47,.2)' }}><Layers3 className="w-4 h-4" /> 4 levels per quiz</div>
           </div>
         </div>
@@ -501,7 +551,7 @@ export default function Quizzes() {
           <section>
             <span className="eyebrow">Step 4 · {board.name} · Class {classLevel} · {subjectName}</span>
             <h2 className="text-3xl sm:text-4xl mt-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Choose chapter quiz and level.</h2>
-            <p className="text-sm mt-3 leading-7 max-w-3xl" style={{ color: 'var(--muted)' }}>Each verified quiz has Easy, Moderate, Hard and Extreme levels. Difficulty changes the thinking required, not the source accuracy.</p>
+            <p className="text-sm mt-3 leading-7 max-w-3xl" style={{ color: 'var(--muted)' }}>Easy and Moderate are free. Hard and Extreme are for Premium members — ₹999 one-time lifetime access. Payment setup is coming soon.</p>
 
             <div className="space-y-9 mt-7">
               {packGroups.length > 0 ? packGroups.map((group) => (
