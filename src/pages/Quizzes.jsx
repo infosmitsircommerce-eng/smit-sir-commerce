@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import { ArrowLeft, ArrowRight, BadgeCheck, BookOpen, CheckCircle2, ChevronRight, CircleAlert, GraduationCap, Layers3, RotateCcw, ShieldCheck, Sparkles, Target, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -251,6 +251,7 @@ function QuizPlayer({ pack, level, onClose }) {
 
 
 function PremiumOffer({ onClose }) {
+  const { user } = useAuth();
   return (
     <QuizDialog onClose={onClose}>
       <div className="flex justify-between items-start gap-4">
@@ -281,11 +282,23 @@ function PremiumOffer({ onClose }) {
         </div>
       </div>
       <p className="text-sm mt-5 leading-6"><strong>Always free:</strong> Easy and Moderate quizzes, their answer explanations, and currently published free notes.</p>
-      <div role="status" className="rounded-xl p-4 mt-5" style={{ background: '#fff8e8', color: '#6e531d' }}>
-        <strong>Premium payments open soon</strong>
-        <p className="text-sm mt-2">Checkout is not open yet. Once available, access will activate only after payment is verified against your student account.</p>
+
+      <div className="rounded-xl p-5 mt-5" style={{ background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+        <h3 className="text-xl font-bold">Pay ₹999 once. Keep learning.</h3>
+        <p className="text-sm mt-2 leading-6">Scan this QR with your UPI app and enter ₹999. Check the recipient shown in your payment app before confirming.</p>
+        <img src="/premium-payment-qr.jpg" alt="UPI QR supplied by Smit Sir Commerce for the ₹999 lifetime Premium plan"
+          width="971" height="975" style={{ display: 'block', width: 'min(100%, 280px)', height: 'auto', objectFit: 'contain', margin: '16px auto', background: '#fff' }} />
+        <a href="/premium-payment-qr.jpg" download="Smit-Sir-Premium-QR.jpg" className="btn-secondary w-full">Download QR</a>
+        <ol className="list-decimal pl-5 space-y-2 mt-5 text-sm leading-6">
+          <li>Create or sign in to your student account.</li>
+          <li>Pay ₹999 using the QR above.</li>
+          <li>Send the payment receipt, transaction reference and your account email to Smit Sir using the button below.</li>
+          <li>After Smit Sir verifies the payment and activates your account, sign in again to access Premium.</li>
+        </ol>
+        <p className="text-sm mt-4 font-semibold">Scanning the QR or sending a receipt does not automatically unlock Premium. Please wait for payment verification; do not pay again while waiting.</p>
+        {!user && <Link to="/login" className="btn-primary w-full mt-4">Sign in / create account</Link>}
+        <a href="https://wa.me/916353709585?text=Hello%20Smit%20Sir%2C%20please%20verify%20my%20%E2%82%B9999%20lifetime%20Premium%20payment.%20I%20will%20share%20my%20receipt%2C%20transaction%20reference%20and%20student%20account%20email." target="_blank" rel="noopener noreferrer" className="btn-primary w-full mt-4">Send payment details for verification</a>
       </div>
-      <button type="button" disabled className="btn-primary w-full mt-5 opacity-60">₹999 lifetime plan · Coming soon</button>
       <button type="button" onClick={onClose} className="btn-secondary w-full mt-3">Continue with free quizzes</button>
     </QuizDialog>
   );
@@ -574,7 +587,7 @@ export default function Quizzes() {
           <section>
             <span className="eyebrow">Step 4 · {board.name} · Class {classLevel} · {subjectName}</span>
             <h2 className="text-3xl sm:text-4xl mt-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Choose chapter quiz and level.</h2>
-            <p className="text-sm mt-3 leading-7 max-w-3xl" style={{ color: 'var(--muted)' }}>Easy and Moderate are free. Hard and Extreme are for Premium members — ₹999 one-time lifetime access. Payment setup is coming soon.</p>
+            <p className="text-sm mt-3 leading-7 max-w-3xl" style={{ color: 'var(--muted)' }}>Easy and Moderate are free. Hard and Extreme are for Premium members — ₹999 one-time lifetime access. Access is activated after payment verification.</p>
 
             <div className="space-y-9 mt-7">
               {packGroups.length > 0 ? packGroups.map((group) => (
