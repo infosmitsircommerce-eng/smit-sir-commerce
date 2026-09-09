@@ -1,54 +1,268 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-11/economics-and-economy-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-11/central-problems-of-an-economy-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-11/consumers-equilibrium-utility-analysis-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-11/consumers-equilibrium-indifference-curve-analysis-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-11/theory-of-demand-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-11/price-elasticity-of-demand-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-11/production-function-and-returns-to-a-factor-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-11/concepts-of-cost-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-11/concept-of-revenue-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-11/producers-equilibrium-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-11/theory-of-supply-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-11/forms-of-market-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-11/market-equilibrium-under-perfect-competition-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-12/national-income-and-related-aggregates-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-12/money-and-banking-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-12/determination-of-income-and-employment-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-12/government-budget-and-the-economy-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-12/balance-of-payments-and-foreign-exchange-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-12/indian-economy-on-the-eve-of-independence-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-12/five-year-plans-in-india-goals-and-achievements-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-12/features-problems-and-policies-of-agriculture-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-12/strategy-of-industrial-growth-1947-1990-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-12/indias-foreign-trade-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-12/economic-reforms-since-1991-new-economic-policy-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-12/poverty-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-12/human-capital-formation-in-india-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-12/rural-development-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-12/employment-and-unemployment-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-12/infrastructure-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-12/environment-and-sustainable-development-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-quizzes/class-12/development-experience-of-india-pakistan-and-china-comparative-study-mcq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/quizzes</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
   <url>
     <loc>https://www.smitsircommerce.in/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.smitsircommerce.in/courses</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
     <loc>https://www.smitsircommerce.in/study-material</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.smitsircommerce.in/cbse-notes</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.smitsircommerce.in/quizzes</loc>
+    <loc>https://www.smitsircommerce.in/teacher-guides</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.97</priority>
   </url>
   <url>
-    <loc>https://www.smitsircommerce.in/test-series</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.smitsircommerce.in/live-classes</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.smitsircommerce.in/online-batch</loc>
+    <loc>https://www.smitsircommerce.in/ai-discovery.html</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://www.smitsircommerce.in/offline-batch</loc>
+    <loc>https://www.smitsircommerce.in/free-commerce-notes.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.99</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/cbse-commerce-notes.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.98</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb-class-12-economics-notes-pdf.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.98</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/free-commerce-tools.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.94</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/cbse-notes</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.98</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb-class-12-economics.html</loc>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.smitsircommerce.in/gseb-class-12-economics.html" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.smitsircommerce.in/hi/gseb-class-12-economics" />
+    <xhtml:link rel="alternate" hreflang="gu-IN" href="https://www.smitsircommerce.in/gu/gseb-class-12-economics" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.smitsircommerce.in/gseb-class-12-economics.html" />
+    <changefreq>weekly</changefreq>
+    <priority>0.98</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb-class-12-economics-practice.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/daily-practice</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/games</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/tools</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.94</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/commerce-learning</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/commerce-exams</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/ugc-net-commerce</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gset-commerce</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/commerce-coaching-mehsana</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.smitsircommerce.in/about</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.64</priority>
   </url>
   <url>
     <loc>https://www.smitsircommerce.in/contact</loc>
@@ -58,23 +272,224 @@
   <url>
     <loc>https://www.smitsircommerce.in/faq</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.56</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/privacy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.25</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.25</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/access-policy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/free-class-12-commerce-study-pack.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/class-12-commerce-formula-sheet.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/cbse-class-12-business-studies-case-study-questions.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/cbse-class-12-economics-important-questions.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb-class-12-economics-important-questions.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb-class-12-economics-chapter-2-growth-development-notes.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb-class-12-economics-chapter-3-money-inflation-notes.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb-class-12-economics-chapter-4-banking-monetary-policy-notes.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb-class-12-economics-chapter-5-poverty-notes.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb-class-12-economics-chapter-6-unemployment-notes.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb-class-12-economics-chapter-7-population-notes.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb-class-12-economics-chapter-8-agriculture-sector-notes.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb-class-12-economics-chapter-9-foreign-trade-notes.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb-class-12-economics-chapter-10-industrial-sector-notes.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb-class-12-economics-chapter-11-emerging-issues-notes.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb-class-12-economics-last-minute-revision.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb-class-12-economics-chapter-wise-pdf-notes.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/class-12-commerce-one-day-revision-plan.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/cbse-class-12-business-studies-chapter-wise-important-questions.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/cbse-class-12-macroeconomics-numericals.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/class-11-commerce-economics-notes.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/business-studies-keywords-for-case-study.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-diagrams-class-12.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/accountancy-ratio-formulas-class-12.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/mehsana-commerce-student-resources.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/cbse-commerce-classes-mehsana</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/class-11-commerce-tuition-mehsana</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/class-12-commerce-tuition-mehsana</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/economics-tuition-mehsana</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/business-studies-tuition-mehsana</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb-economics-tuition-mehsana</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.smitsircommerce.in/cbse/class-12/business-studies-notes</loc>
-    <lastmod>2026-08-31</lastmod>
+    <lastmod>2026-09-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.smitsircommerce.in/cbse/class-11/microeconomics-notes</loc>
-    <lastmod>2026-08-31</lastmod>
+    <lastmod>2026-09-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.smitsircommerce.in/cbse/class-12/macroeconomics-notes</loc>
-    <lastmod>2026-08-31</lastmod>
+    <lastmod>2026-09-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -128,7 +543,7 @@
   </url>
   <url>
     <loc>https://www.smitsircommerce.in/cbse/class-12/business-studies/controlling-notes</loc>
-    <lastmod>2026-08-31</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -158,7 +573,7 @@
   </url>
   <url>
     <loc>https://www.smitsircommerce.in/cbse/class-11/microeconomics/economics-and-economy-notes</loc>
-    <lastmod>2026-08-31</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -233,5 +648,421 @@
     <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb/class-12/economics/indicators-of-growth-and-development-notes.html</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb/class-12/economics/money-and-inflation-notes.html</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb/class-12/economics/banking-and-monetary-policy-notes.html</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb/class-12/economics/poverty-notes.html</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb/class-12/economics/unemployment-notes.html</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb/class-12/economics/population-notes.html</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb/class-12/economics/agriculture-sector-notes.html</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb/class-12/economics/foreign-trade-notes.html</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb/class-12/economics/industrial-sector-notes.html</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb/class-12/economics/emerging-issues-in-indian-economy-notes.html</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/cbse/class-12/business-studies-important-questions</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/cbse/class-12/business-studies-case-study-questions</loc>
+    <lastmod>2026-09-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.smitsircommerce.in/cbse/class-12/business-studies-case-study-questions" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.smitsircommerce.in/hi/cbse/class-12/business-studies-case-study-questions" />
+    <xhtml:link rel="alternate" hreflang="gu-IN" href="https://www.smitsircommerce.in/gu/cbse/class-12/business-studies-case-study-questions" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.smitsircommerce.in/cbse/class-12/business-studies-case-study-questions" />
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/cbse/class-12/business-studies-mcq</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/cbse/class-11/microeconomics-important-questions</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/cbse/class-11/economics-numericals</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/cbse/class-12/economics-revision-guide</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/cbse/class-12/economics-national-income-numericals</loc>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/cbse/class-12/business-studies-case-study-keywords</loc>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/cbse/class-11/demand-vs-quantity-demanded</loc>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb/class-12/economics-complete-revision-guide</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb/class-12/money-inflation-common-mistakes</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb/class-12/banking-monetary-policy-explained</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb/class-12/economics-answer-writing-3-4-marks</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb/class-12/economics-25-important-questions</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gseb/class-12/economics-formula-diagram-sheet</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/cbse/class-12/national-income-numericals-beginner-to-board</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/cbse/class-12/national-income-common-mistakes</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/cbse/class-12/business-studies-case-study-master-guide</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/cbse/class-12/business-studies-case-study-keywords-teacher-list</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/cbse/class-12/business-studies-6-mark-answer-writing</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/class-12-commerce-7-day-revision-plan</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/class-12-commerce-30-day-revision-plan</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/class-12-economics-where-marks-are-lost</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/class-12-economics-formula-diagram-master-sheet</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/tools/topics/national-income-gdp</loc>
+    <lastmod>2026-09-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.smitsircommerce.in/tools/topics/national-income-gdp" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.smitsircommerce.in/hi/tools/topics/national-income-gdp" />
+    <xhtml:link rel="alternate" hreflang="gu-IN" href="https://www.smitsircommerce.in/gu/tools/topics/national-income-gdp" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.smitsircommerce.in/tools/topics/national-income-gdp" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/tools/topics/income-determination</loc>
+    <lastmod>2026-09-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.smitsircommerce.in/tools/topics/income-determination" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.smitsircommerce.in/hi/tools/topics/income-determination" />
+    <xhtml:link rel="alternate" hreflang="gu-IN" href="https://www.smitsircommerce.in/gu/tools/topics/income-determination" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.smitsircommerce.in/tools/topics/income-determination" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/tools/topics/accounting-ratios</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/tools/topics/price-elasticity-demand</loc>
+    <lastmod>2026-09-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.smitsircommerce.in/tools/topics/price-elasticity-demand" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.smitsircommerce.in/hi/tools/topics/price-elasticity-demand" />
+    <xhtml:link rel="alternate" hreflang="gu-IN" href="https://www.smitsircommerce.in/gu/tools/topics/price-elasticity-demand" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.smitsircommerce.in/tools/topics/price-elasticity-demand" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/tools/mpc-mps-calculator</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/tools/investment-multiplier-calculator</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/tools/gdp-deflator-calculator</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/tools/real-gdp-calculator</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/tools/price-elasticity-demand-calculator</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/tools/current-ratio-calculator</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/tools/quick-ratio-calculator</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/tools/debt-equity-ratio-calculator</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/tools/tr-ar-mr-calculator</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/tools/cost-curves-calculator</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/tools/gross-profit-ratio-calculator</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/tools/common-size-statement-calculator</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/hi/tools/topics/national-income-gdp</loc>
+    <lastmod>2026-09-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.smitsircommerce.in/tools/topics/national-income-gdp" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.smitsircommerce.in/hi/tools/topics/national-income-gdp" />
+    <xhtml:link rel="alternate" hreflang="gu-IN" href="https://www.smitsircommerce.in/gu/tools/topics/national-income-gdp" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.smitsircommerce.in/tools/topics/national-income-gdp" />
+    <changefreq>weekly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gu/tools/topics/national-income-gdp</loc>
+    <lastmod>2026-09-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.smitsircommerce.in/tools/topics/national-income-gdp" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.smitsircommerce.in/hi/tools/topics/national-income-gdp" />
+    <xhtml:link rel="alternate" hreflang="gu-IN" href="https://www.smitsircommerce.in/gu/tools/topics/national-income-gdp" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.smitsircommerce.in/tools/topics/national-income-gdp" />
+    <changefreq>weekly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/hi/tools/topics/price-elasticity-demand</loc>
+    <lastmod>2026-09-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.smitsircommerce.in/tools/topics/price-elasticity-demand" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.smitsircommerce.in/hi/tools/topics/price-elasticity-demand" />
+    <xhtml:link rel="alternate" hreflang="gu-IN" href="https://www.smitsircommerce.in/gu/tools/topics/price-elasticity-demand" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.smitsircommerce.in/tools/topics/price-elasticity-demand" />
+    <changefreq>weekly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gu/tools/topics/price-elasticity-demand</loc>
+    <lastmod>2026-09-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.smitsircommerce.in/tools/topics/price-elasticity-demand" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.smitsircommerce.in/hi/tools/topics/price-elasticity-demand" />
+    <xhtml:link rel="alternate" hreflang="gu-IN" href="https://www.smitsircommerce.in/gu/tools/topics/price-elasticity-demand" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.smitsircommerce.in/tools/topics/price-elasticity-demand" />
+    <changefreq>weekly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/hi/tools/topics/income-determination</loc>
+    <lastmod>2026-09-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.smitsircommerce.in/tools/topics/income-determination" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.smitsircommerce.in/hi/tools/topics/income-determination" />
+    <xhtml:link rel="alternate" hreflang="gu-IN" href="https://www.smitsircommerce.in/gu/tools/topics/income-determination" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.smitsircommerce.in/tools/topics/income-determination" />
+    <changefreq>weekly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gu/tools/topics/income-determination</loc>
+    <lastmod>2026-09-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.smitsircommerce.in/tools/topics/income-determination" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.smitsircommerce.in/hi/tools/topics/income-determination" />
+    <xhtml:link rel="alternate" hreflang="gu-IN" href="https://www.smitsircommerce.in/gu/tools/topics/income-determination" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.smitsircommerce.in/tools/topics/income-determination" />
+    <changefreq>weekly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/hi/cbse/class-12/business-studies-case-study-questions</loc>
+    <lastmod>2026-09-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.smitsircommerce.in/cbse/class-12/business-studies-case-study-questions" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.smitsircommerce.in/hi/cbse/class-12/business-studies-case-study-questions" />
+    <xhtml:link rel="alternate" hreflang="gu-IN" href="https://www.smitsircommerce.in/gu/cbse/class-12/business-studies-case-study-questions" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.smitsircommerce.in/cbse/class-12/business-studies-case-study-questions" />
+    <changefreq>weekly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gu/cbse/class-12/business-studies-case-study-questions</loc>
+    <lastmod>2026-09-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.smitsircommerce.in/cbse/class-12/business-studies-case-study-questions" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.smitsircommerce.in/hi/cbse/class-12/business-studies-case-study-questions" />
+    <xhtml:link rel="alternate" hreflang="gu-IN" href="https://www.smitsircommerce.in/gu/cbse/class-12/business-studies-case-study-questions" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.smitsircommerce.in/cbse/class-12/business-studies-case-study-questions" />
+    <changefreq>weekly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/hi/gseb-class-12-economics</loc>
+    <lastmod>2026-09-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.smitsircommerce.in/gseb-class-12-economics.html" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.smitsircommerce.in/hi/gseb-class-12-economics" />
+    <xhtml:link rel="alternate" hreflang="gu-IN" href="https://www.smitsircommerce.in/gu/gseb-class-12-economics" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.smitsircommerce.in/gseb-class-12-economics.html" />
+    <changefreq>weekly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/gu/gseb-class-12-economics</loc>
+    <lastmod>2026-09-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.smitsircommerce.in/gseb-class-12-economics.html" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.smitsircommerce.in/hi/gseb-class-12-economics" />
+    <xhtml:link rel="alternate" hreflang="gu-IN" href="https://www.smitsircommerce.in/gu/gseb-class-12-economics" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.smitsircommerce.in/gseb-class-12-economics.html" />
+    <changefreq>weekly</changefreq>
+    <priority>0.82</priority>
   </url>
 </urlset>

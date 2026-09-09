@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import { ArrowLeft, ArrowRight, BadgeCheck, BookOpen, CheckCircle2, ChevronRight, CircleAlert, GraduationCap, Layers3, RotateCcw, ShieldCheck, Sparkles, Target, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { quizPageById } from '../data/quizDiscovery';
 import SEO from '../components/ui/SEO';
 import { getQuizPacks, quizBoards, quizLevels } from '../data/quizPublic';
 
@@ -304,7 +305,7 @@ function PremiumOffer({ onClose }) {
   );
 }
 
-function LevelGrid({ pack }) {
+export function LevelGrid({ pack }) {
   const { isPremium, isAdmin, loading } = useAuth();
   const [showPremium, setShowPremium] = useState(false);
   const [loadedPack, setLoadedPack] = useState(pack);
@@ -387,6 +388,7 @@ function VerifiedPackCard({ pack }) {
           <div className="text-sm font-semibold mt-1 leading-6" style={{ color: 'var(--charcoal)' }}>{pack.sourceLabel}</div>
         </div>
       </div>
+      {quizPageById[pack.id] && <Link className="inline-block underline mt-4 text-sm font-bold" to={quizPageById[pack.id].path}>{pack.title} MCQs, answers and revision</Link>}
       <LevelGrid pack={pack} />
     </article>
   );

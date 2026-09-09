@@ -1,3 +1,4 @@
+import { quizDiscovery } from '../src/data/quizDiscovery.js';
 import { writeFile } from 'node:fs/promises';
 import { seoHubs, seoMaterials } from '../src/data/seoMaterials.js';
 import { gsebMaterials } from '../src/data/gsebMaterials.js';
@@ -13,6 +14,8 @@ import { localActionPages } from '../src/data/localActionPages.js';
 const BASE = 'https://www.smitsircommerce.in';
 
 const basePages = [
+  ...quizDiscovery.map(p => [p.path, 'monthly', '0.8']),
+  ['/quizzes', 'weekly', '0.95'],
   ['/', 'weekly', '1.0'],
   ['/study-material', 'weekly', '1.0'],
   ['/teacher-guides', 'weekly', '0.97'],

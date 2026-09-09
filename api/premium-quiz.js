@@ -1,4 +1,6 @@
 import { verifiedQuizPacks } from '../src/data/quizzes.js';
+import { applyPremiumUpgrades } from '../src/data/quizPremiumUpgrades.js';
+applyPremiumUpgrades(verifiedQuizPacks);
 const base = 'https://abpruwygnsmeqisaehip.supabase.co';
 const key = 'sb_publishable_9eybAsihq3-YNL1uGmGo3w_DWheWwRg';
 

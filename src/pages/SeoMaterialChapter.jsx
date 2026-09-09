@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, CircleHelp, Download, Eye, FileQuestion, FileText, UserRound } from 'lucide-react';
+import { quizPageById } from '../data/quizDiscovery';
 import SEO from '../components/ui/SEO';
 import { getChapterMcqs, getHubMaterials, getImportantQuestions, getMaterialFaqs, getMaterialStructuredData, materialByPath, hubByPath, seoHubs } from '../data/seoMaterials';
 import { getGrowthPagesForMaterial } from '../data/contentGrowth';
@@ -13,6 +14,7 @@ export default function SeoMaterialChapter() {
   const material = materialByPath[pathname.replace(/\/$/, '')];
   if (!material) return <ChapterNotFound pathname={pathname} />;
 
+  const quizPage = material.class_level === 11 && material.hubId?.includes('micro') ? quizPageById[`cbse-11-micro-ch${material.chapterNumber}`] : null;
   const hub = hubByPath[material.hub_path];
   const siblings = getHubMaterials(material.hubId);
   const currentIndex = siblings.findIndex((item) => item.id === material.id);
@@ -45,6 +47,7 @@ export default function SeoMaterialChapter() {
 
       <section className="card-paper p-5 sm:p-7 md:p-9"><h2 className="text-3xl mb-6" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Exam-focused revision checklist</h2><ol className="space-y-4">{material.examFocus.map((point, index) => <li key={point} className="flex items-start gap-4"><span className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0" style={{ background: 'var(--gold-bg)', color: 'var(--gold)' }}>{index + 1}</span><span className="leading-relaxed pt-1" style={{ color: 'var(--muted)' }}>{point}</span></li>)}</ol></section>
 
+      {quizPage && <section className="card-paper p-6"><h2 className="text-2xl mb-3">Practise this chapter</h2><Link to={quizPage.path} className="btn-primary inline-flex">{quizPage.title} — start free</Link></section>}
       {chapterPractice.length > 0 && <section className="card-paper p-5 sm:p-7 md:p-9" aria-labelledby="chapter-practice-heading"><span className="eyebrow">Next step</span><h2 id="chapter-practice-heading" className="text-3xl mt-3 mb-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Now practise {material.chapter}</h2><p className="leading-7 mb-6" style={{ color: 'var(--muted)' }}>Reading is step one. Use these chapter-specific pages to retrieve the concepts, apply them and find what still needs revision.</p><div className="grid sm:grid-cols-2 gap-3">{chapterPractice.map((item) => <Link key={item.path} to={item.path} className="tile-paper p-4 flex items-center justify-between gap-3 font-semibold text-sm"><span>{item.label}</span><ArrowRight className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--gold)' }} /></Link>)}</div></section>}
 
       <section className="card-paper p-5 sm:p-7 md:p-9"><div className="flex items-center gap-3 mb-6"><FileQuestion className="w-7 h-7 flex-shrink-0" style={{ color: 'var(--gold)' }} /><h2 className="text-3xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Important questions with answer guidance</h2></div><div className="divide-y" style={{ borderColor: 'var(--border-soft)' }}>{importantQuestions.map((item, index) => <details key={item.question} className="py-4 group" open={index === 0}><summary className="cursor-pointer font-semibold list-none flex gap-3" style={{ color: 'var(--ink)' }}><span style={{ color: 'var(--gold)' }}>Q{index + 1}</span><span>{item.question}</span></summary><p className="mt-3 leading-7" style={{ color: 'var(--muted)' }}>{item.answer}</p></details>)}</div></section>
