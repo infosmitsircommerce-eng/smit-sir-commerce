@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import { ArrowLeft, ArrowRight, BadgeCheck, BookOpen, CheckCircle2, ChevronRight, CircleAlert, GraduationCap, Layers3, RotateCcw, ShieldCheck, Sparkles, Target, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { supabase } from '../lib/supabase';
 import { quizPageById } from '../data/quizDiscovery';
 import SEO from '../components/ui/SEO';
 import { getQuizPacks, quizBoards, quizLevels } from '../data/quizPublic';
@@ -251,6 +252,31 @@ function QuizPlayer({ pack, level, onClose }) {
 }
 
 
+function PaymentClaimForm() {
+  const [reference, setReference] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState('');
+  async function submit(event) {
+    event.preventDefault();
+    setBusy(true);
+    setMessage('');
+    const { error } = await supabase.rpc('submit_premium_payment_claim', { p_reference: reference.trim() });
+    if (error) setMessage(error.code === '23505' ? 'This transaction reference was already submitted or verified.' : error.message);
+    else {
+      setReference('');
+      setMessage('Payment reference submitted. Premium will unlock after Smit Sir verifies receipt.');
+    }
+    setBusy(false);
+  }
+  return <form onSubmit={submit} className="rounded-xl p-4 mt-5" style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,.24)' }}>
+    <label className="text-sm font-bold">Submit your transaction reference
+      <input required minLength={6} maxLength={80} pattern="[A-Za-z0-9/\\-]{6,80}" value={reference} onChange={(event) => setReference(event.target.value)} placeholder="Example: UPI transaction reference" className="w-full mt-2 rounded-lg border p-3 bg-white" />
+    </label>
+    <button disabled={busy} className="btn-primary w-full mt-3">{busy ? 'Submitting…' : 'Submit payment for verification'}</button>
+    {message && <p role="status" className="text-sm mt-3 leading-6">{message}</p>}
+  </form>;
+}
+
 function PremiumOffer({ onClose }) {
   const { user } = useAuth();
   return (
@@ -297,6 +323,7 @@ function PremiumOffer({ onClose }) {
           <li>Send the payment receipt, transaction reference and your account email to Smit Sir using the button below.</li>
           <li>After Smit Sir verifies the payment and activates your account, sign in again to access Premium.</li>
         </ol>
+        {user && <PaymentClaimForm />}
         <p className="text-sm mt-4 font-semibold">Scanning the QR or sending a receipt does not automatically unlock Premium. Please wait for payment verification; do not pay again while waiting.</p>
         {!user && <Link to="/login" className="btn-primary w-full mt-4">Sign in / create account</Link>}
         <a href="https://wa.me/916353709585?text=Hello%20Smit%20Sir%2C%20please%20verify%20my%20%E2%82%B9999%20lifetime%20Premium%20payment.%20I%20will%20share%20my%20receipt%2C%20transaction%20reference%20and%20student%20account%20email." target="_blank" rel="noopener noreferrer" className="btn-primary w-full mt-4">Send payment details for verification</a>
