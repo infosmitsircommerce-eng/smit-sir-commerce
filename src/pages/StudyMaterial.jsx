@@ -33,7 +33,7 @@ const startGuide = [
 const subjectBlocks = [
   { title: 'CBSE Class 11 Commerce Notes', text: 'Microeconomics, Statistics and foundation Commerce resources.', to: '/cbse-notes' },
   { title: 'CBSE Class 12 Commerce Notes', text: 'Economics and Business Studies revision-focused resources.', to: '/cbse-notes' },
-  { title: 'GSEB Class 12 OCM & Economics PDFs', text: 'OCM Chapters 1–4 and Economics Chapters 2–11 with direct PDF access.', to: '/study-material?board=GSEB' },
+  { title: 'GSEB Class 12 OCM & Economics PDFs', text: 'OCM Chapters 1–11 and Economics Chapters 2–11 with direct PDF access.', to: '/study-material?board=GSEB' },
   { title: 'Tools + Practice + Quizzes', text: 'Calculators, daily questions and chapter-wise Commerce quizzes.', to: '/quizzes' },
   { title: 'Smit Sir Teacher Guides', text: 'Common mistakes, numericals, case studies, answer writing and revision plans.', to: '/teacher-guides' },
 ];
@@ -130,7 +130,7 @@ export default function StudyMaterial() {
 
   const quickActions = [
     { icon: Download, title: 'All notes', text: 'Jump straight to chapter PDFs.', to: '#all-notes', primary: true },
-    { icon: GraduationCap, title: 'GSEB Class 12', text: 'OCM Chapters 1–4 and Economics Chapters 2–11.', to: '/study-material?board=GSEB' },
+    { icon: GraduationCap, title: 'GSEB Class 12', text: 'OCM Chapters 1–11 and Economics Chapters 2–11.', to: '/study-material?board=GSEB' },
     { icon: Brain, title: 'Practice', text: 'Daily questions and tests.', to: '/daily-practice' },
     { icon: ListChecks, title: 'Quizzes', text: 'Chapter-wise Commerce revision.', to: '/quizzes' },
   ];
@@ -259,7 +259,7 @@ export default function StudyMaterial() {
               const count = seoMaterials.filter((m) => m.hubId === hub.id).length;
               return <Link key={hub.id} to={hub.path} className="ssc-quick-action-card ssc-hover-lift rounded-2xl p-5"><div className="w-11 h-11 rounded-2xl flex items-center justify-center mb-4" style={{ background: '#eef4ff', color: '#2457a7' }}><BookOpen className="w-5 h-5" /></div><div className="text-[11px] font-black" style={{ color: 'var(--gold)' }}>CBSE • CLASS {hub.classLevel}</div><h3 className="text-lg font-black mt-2" style={{ color: 'var(--ink)' }}>{hub.label}</h3><p className="text-sm mt-1" style={{ color: 'var(--muted)' }}>{count} chapter PDF{count === 1 ? '' : 's'}</p><span className="inline-flex items-center gap-1 mt-4 text-sm font-black" style={{ color: 'var(--gold)' }}>Open folder <ArrowRight className="w-4 h-4" /></span></Link>;
             })}
-            <Link to="/study-material?board=GSEB" className="ssc-quick-action-card ssc-hover-lift rounded-2xl p-5"><div className="w-11 h-11 rounded-2xl flex items-center justify-center mb-4" style={{ background: '#fff4e6', color: '#9a4f00' }}><GraduationCap className="w-5 h-5" /></div><div className="text-[11px] font-black" style={{ color: 'var(--gold)' }}>GSEB • CLASS 12</div><h3 className="text-lg font-black mt-2" style={{ color: 'var(--ink)' }}>OCM & Economics PDFs</h3><p className="text-sm mt-1" style={{ color: 'var(--muted)' }}>OCM 1–4 • Economics 2–11</p><span className="inline-flex items-center gap-1 mt-4 text-sm font-black" style={{ color: 'var(--gold)' }}>Open folder <ArrowRight className="w-4 h-4" /></span></Link>
+            <Link to="/study-material?board=GSEB" className="ssc-quick-action-card ssc-hover-lift rounded-2xl p-5"><div className="w-11 h-11 rounded-2xl flex items-center justify-center mb-4" style={{ background: '#fff4e6', color: '#9a4f00' }}><GraduationCap className="w-5 h-5" /></div><div className="text-[11px] font-black" style={{ color: 'var(--gold)' }}>GSEB • CLASS 12</div><h3 className="text-lg font-black mt-2" style={{ color: 'var(--ink)' }}>OCM & Economics PDFs</h3><p className="text-sm mt-1" style={{ color: 'var(--muted)' }}>OCM 1–11 • Economics 2–11</p><span className="inline-flex items-center gap-1 mt-4 text-sm font-black" style={{ color: 'var(--gold)' }}>Open folder <ArrowRight className="w-4 h-4" /></span></Link>
           </div>
         </section>
 
