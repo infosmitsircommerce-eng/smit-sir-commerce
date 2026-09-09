@@ -9,6 +9,27 @@ const STUDY_PACK = `${BASE}/free-commerce-study-pack`;
 
 const channels = [
   {
+    id: 'whatsapp-students-quizzes',
+    title: 'WhatsApp students — free Economics quiz',
+    audience: 'Send only to students or class groups where educational resources are welcome. Easy and Moderate levels are free.',
+    url: `${BASE}/quizzes?utm_source=whatsapp&utm_medium=student_share&utm_campaign=economics_quiz_launch`,
+    message: `Free Class 11 & 12 Economics chapter quizzes are live on Smit Sir Commerce. Practise Microeconomics, Macroeconomics and Indian Economic Development chapter by chapter. Easy and Moderate levels are free, with answers and explanations.\n\nStart here: ${BASE}/quizzes?utm_source=whatsapp&utm_medium=student_share&utm_campaign=economics_quiz_launch`,
+  },
+  {
+    id: 'whatsapp-teachers-quizzes',
+    title: 'WhatsApp teachers — classroom quiz resource',
+    audience: 'Share personally with teachers who may find the free chapter practice useful for their students.',
+    url: `${BASE}/quizzes?utm_source=whatsapp&utm_medium=teacher_share&utm_campaign=economics_quiz_launch`,
+    message: `Hello, I have organised free chapter-wise Economics quizzes for Class 11 and 12 students covering Microeconomics, Macroeconomics and Indian Economic Development. Easy and Moderate levels are free and can be used for quick revision or classroom practice. I would value any feedback on accuracy and usefulness.\n\nResource: ${BASE}/quizzes?utm_source=whatsapp&utm_medium=teacher_share&utm_campaign=economics_quiz_launch`,
+  },
+  {
+    id: 'instagram-quizzes',
+    title: 'Instagram story / bio — Economics quiz launch',
+    audience: 'Use as a story caption, post caption or bio-link campaign. Keep the quiz screen visible in the creative.',
+    url: `${BASE}/quizzes?utm_source=instagram&utm_medium=social&utm_campaign=economics_quiz_launch`,
+    message: `FREE ECONOMICS CHAPTER QUIZZES 📚\n\nMicroeconomics • Macroeconomics • Indian Economic Development\nEasy + Moderate levels free\nInstant answers and explanations\nClass 11 & 12 Commerce\n\nPractise now: ${BASE}/quizzes?utm_source=instagram&utm_medium=social&utm_campaign=economics_quiz_launch`,
+  },
+  {
     id: 'reddit',
     title: 'Reddit - permission-first resource post',
     audience: 'Use only in communities that allow self-promotion or after moderators give permission. Be transparent that it is your own site.',
@@ -93,7 +114,7 @@ export default function GrowthLaunchKit() {
           <span className="eyebrow mt-5 inline-block">Real-student acquisition</span>
           <h1 className="mt-4">Launch the first traffic with <em>tracked links.</em></h1>
           <p className="mt-4 max-w-3xl leading-7" style={{ color: 'var(--muted)' }}>
-            Every channel below points to the same useful free study pack but carries different campaign information. The focus is silent, zero-budget distribution: search-friendly articles, useful Q&A answers, permission-first Reddit posts and static study pins.
+            Use the ready-made quiz campaigns first, then the wider study-pack campaigns. Every link includes campaign tracking so the owner dashboard can show which channel brings genuine students.
           </p>
           <div className="flex flex-wrap gap-3 mt-6">
             <a href={STUDY_PACK} target="_blank" rel="noreferrer" className="btn-primary inline-flex items-center gap-2">
