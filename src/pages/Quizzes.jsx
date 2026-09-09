@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { createPortal } from 'react-dom';
 import { ArrowLeft, ArrowRight, BadgeCheck, BookOpen, CheckCircle2, ChevronRight, CircleAlert, GraduationCap, Layers3, RotateCcw, ShieldCheck, Sparkles, Target, X } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { getQuizPacks, quizBoards, quizLevels } from '../data/quizzes';
@@ -35,6 +35,35 @@ function SourceBadge({ children }) {
     <div className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-black" style={{ background: '#eef8ef', color: '#2f6b3a', border: '1px solid #cfe6d2' }}>
       <ShieldCheck className="w-3.5 h-3.5" /> {children}
     </div>
+  );
+}
+
+function QuizDialog({ children, onClose }) {
+  const panel = useRef(null);
+  useEffect(() => {
+    const previous = document.activeElement;
+    panel.current?.focus();
+    return () => { if (previous?.isConnected) previous.focus(); };
+  }, []);
+  const handleKeyDown = (event) => {
+    if (event.key === 'Escape') { event.stopPropagation(); onClose(); }
+    if (event.key !== 'Tab') return;
+    const nodes = [...panel.current.querySelectorAll('button:not([disabled]), a[href], [tabindex="0"]')];
+    const first = nodes[0], last = nodes[nodes.length - 1];
+    if (event.shiftKey && (document.activeElement === first || document.activeElement === panel.current)) {
+      event.preventDefault(); last?.focus();
+    } else if (!event.shiftKey && (document.activeElement === last || document.activeElement === panel.current)) {
+      event.preventDefault(); first?.focus();
+    }
+  };
+  return createPortal(
+    <div style={{ position: 'fixed', inset: 0, zIndex: 1000, background: 'rgba(16,20,30,.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px', overscrollBehavior: 'contain' }}>
+      <div ref={panel} role="dialog" aria-modal="true" aria-label="Chapter quiz" tabIndex={-1} onKeyDown={handleKeyDown}
+        style={{ width: 'min(100%, 720px)', maxHeight: 'calc(100dvh - 24px)', overflowY: 'auto', overscrollBehavior: 'contain', borderRadius: '20px', background: '#fff', color: '#172033', boxSizing: 'border-box', padding: 'clamp(16px, 3vw, 28px)', overflowWrap: 'anywhere', boxShadow: '0 20px 70px rgba(0,0,0,.25)' }}>
+        {children}
+      </div>
+    </div>,
+    document.body
   );
 }
 
@@ -82,9 +111,7 @@ function QuizPlayer({ pack, level, onClose }) {
           : { icon: '📚', title: 'Revise first', note: 'Revisit the explanations below, then retry this level.' };
 
     return (
-      <div className="fixed inset-0 z-[100] overflow-y-auto p-4 sm:p-6" style={{ background: 'rgba(16,20,30,.76)', backdropFilter: 'blur(10px)' }}>
-        <div className="min-h-full flex items-center justify-center">
-          <motion.div initial={{ opacity: 0, scale: .96 }} animate={{ opacity: 1, scale: 1 }} className="card-paper p-6 sm:p-8 max-w-2xl w-full">
+      <QuizDialog onClose={onClose}>
             <div className="text-center">
               <div className="text-5xl">{performance.icon}</div>
               <span className="eyebrow mt-4 inline-block">{pack.board} · Class {pack.classLevel} · {pack.subject} · {level}</span>
@@ -137,16 +164,12 @@ function QuizPlayer({ pack, level, onClose }) {
             </div>
 
             <p className="text-[11px] mt-4 leading-5 text-center" style={{ color: 'var(--subtle)' }}>Source: {pack.sourceLabel}</p>
-          </motion.div>
-        </div>
-      </div>
+          </QuizDialog>
     );
   }
 
   return (
-    <div className="fixed inset-0 z-[100] overflow-y-auto p-4 sm:p-6" style={{ background: 'rgba(16,20,30,.76)', backdropFilter: 'blur(10px)' }}>
-      <div className="min-h-full flex items-center justify-center">
-        <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} className="card-paper p-5 sm:p-7 max-w-2xl w-full">
+    <QuizDialog onClose={onClose}>
           <div className="flex items-start justify-between gap-4">
             <div>
               <SourceBadge>{pack.sourceStatus}</SourceBadge>
@@ -221,9 +244,7 @@ function QuizPlayer({ pack, level, onClose }) {
           </button>
 
           <p className="text-[11px] mt-4 leading-5" style={{ color: 'var(--subtle)' }}>Source: {pack.sourceLabel}</p>
-        </motion.div>
-      </div>
-    </div>
+        </QuizDialog>
   );
 }
 
@@ -233,7 +254,7 @@ function LevelGrid({ pack }) {
   return (
     <>
       {activeLevel && <QuizPlayer pack={pack} level={activeLevel} onClose={() => setActiveLevel(null)} />}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-5">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-5">
         {quizLevels.map((level) => {
           const questions = pack.levels[level] || [];
           const meta = levelMeta[level];
@@ -243,7 +264,7 @@ function LevelGrid({ pack }) {
               type="button"
               onClick={() => questions.length && setActiveLevel(level)}
               disabled={!questions.length}
-              className="tile-paper p-4 text-left transition-transform hover:-translate-y-0.5 disabled:opacity-50"
+              className="tile-paper p-4 text-left disabled:opacity-50" style={{ minHeight: '144px', minWidth: 0 }}
             >
               <div className="text-2xl">{meta.icon}</div>
               <div className="font-black mt-2" style={{ color: 'var(--ink)' }}>{meta.label}</div>
@@ -264,7 +285,7 @@ function VerifiedPackCard({ pack }) {
   const totalQuestions = Object.values(pack.levels || {}).reduce((sum, items) => sum + items.length, 0);
 
   return (
-    <article className="card-paper p-5 sm:p-7">
+    <article className="card-paper p-5 sm:p-7" style={{ transform: 'none' }}>
       <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-5">
         <div>
           <SourceBadge>{pack.sourceStatus}</SourceBadge>
