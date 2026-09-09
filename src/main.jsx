@@ -7,7 +7,7 @@ import './styles/mobileExperience.css'
 import './styles/scrollSafety.css'
 import App from './App.jsx'
 
-const CACHE_RESET_KEY = 'ssc-cache-reset-2026-09-08-v6-scroll-safe';
+const CACHE_RESET_KEY = 'ssc-cache-reset-2026-09-09-v7-fresh-pages';
 
 function clearInlineScrollLocks() {
   if (typeof document === 'undefined') return;
