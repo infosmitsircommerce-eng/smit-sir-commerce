@@ -65,7 +65,8 @@ function ExamModeBanner() {
 }
 
 export default function TestSeriesPro() {
-  const { user, isPremium, displayName } = useAuth();
+  const { user, isPremium, isAdmin, displayName } = useAuth();
+  const premiumAccess = isPremium || isAdmin;
   const rootRef = useRef(null);
   const activeRef = useRef({ name: '', subject: '', source: 'base', answers: {} });
   const savedFingerprint = useRef('');
@@ -85,7 +86,7 @@ export default function TestSeriesPro() {
       const meta = card.querySelector('.text-xs')?.textContent || '';
       const subject = meta.split('·')[0]?.trim() || 'Commerce';
       if (isPro && !user) { event.preventDefault(); event.stopPropagation(); setGate('login'); return; }
-      if (isPro && !isPremium) { event.preventDefault(); event.stopPropagation(); setGate('premium'); return; }
+      if (isPro && !premiumAccess) { event.preventDefault(); event.stopPropagation(); setGate('premium'); return; }
       const surface = button.closest('[data-test-surface]')?.getAttribute('data-test-surface') || 'base';
       activeRef.current = { name: heading, subject, source: surface, answers: {} };
       savedFingerprint.current = '';
@@ -160,5 +161,5 @@ export default function TestSeriesPro() {
     return () => observer.disconnect();
   }, [user, displayName]);
 
-  return <><ExamModeBanner /><div ref={rootRef} onClickCapture={handleCapture}><div data-test-surface="base"><BaseTestSeries /></div><div data-test-surface="extended"><ExtendedTests /></div></div><TestSeriesSalesFunnel /><button onClick={() => setShowProgress(true)} className="fixed right-4 bottom-24 lg:bottom-6 z-40 rounded-full px-4 py-3 font-semibold shadow-xl inline-flex items-center gap-2" style={{ background: 'var(--ink)', color: '#fff', border: '1px solid rgba(184,135,47,.35)' }}><BarChart3 className="w-4 h-4" /> My Progress</button><AccessGate mode={gate} onClose={() => setGate(null)} /><ProgressModal open={showProgress} onClose={() => setShowProgress(false)} user={user} displayName={displayName} isPremium={isPremium} refreshToken={refreshToken} /></>;
+  return <><ExamModeBanner /><div ref={rootRef} onClickCapture={handleCapture}><div data-test-surface="base"><BaseTestSeries /></div><div data-test-surface="extended"><ExtendedTests /></div></div><TestSeriesSalesFunnel /><button onClick={() => setShowProgress(true)} className="fixed right-4 bottom-24 lg:bottom-6 z-40 rounded-full px-4 py-3 font-semibold shadow-xl inline-flex items-center gap-2" style={{ background: 'var(--ink)', color: '#fff', border: '1px solid rgba(184,135,47,.35)' }}><BarChart3 className="w-4 h-4" /> My Progress</button><AccessGate mode={gate} onClose={() => setGate(null)} /><ProgressModal open={showProgress} onClose={() => setShowProgress(false)} user={user} displayName={displayName} isPremium={premiumAccess} refreshToken={refreshToken} /></>;
 }
