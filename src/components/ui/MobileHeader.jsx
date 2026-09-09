@@ -44,7 +44,7 @@ const groups = [
 export default function MobileHeader() {
   const [open, setOpen] = useState(false);
   const { pathname, search } = useLocation();
-  const { user, initials } = useAuth();
+  const { user, initials, isAdmin } = useAuth();
   const light = isLightRoute(pathname);
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export default function MobileHeader() {
       <div className="flex items-center gap-2">
         <Link to="/study-material" className="mobile-header-demo hidden min-[390px]:inline-flex items-center gap-1.5 min-h-10 px-3 rounded-xl text-[11px] font-black" aria-label="Open free study material"><BookOpen className="w-4 h-4" />Notes</Link>
         <button type="button" onClick={() => window.dispatchEvent(new CustomEvent('ssc-open-search'))} className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ color: text, background: light ? 'var(--bg-ivory)' : 'rgba(255,255,255,0.07)', border: light ? '1px solid var(--border)' : '1px solid rgba(255,255,255,0.1)' }} aria-label="Search study resources"><Search className="w-4 h-4" /></button>
-        {user && <Link to="/learning-insights" className="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-black" style={{ color: '#1E1812', background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.28)' }} aria-label="Open learning insights">{initials}</Link>}
+        {user && <Link to={isAdmin ? "/admin" : "/learning-insights"} className="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-black" style={{ color: '#1E1812', background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.28)' }} aria-label="Open learning insights">{initials}</Link>}
         <button type="button" onClick={() => setOpen(value => !value)} className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ color: text, background: light ? 'var(--bg-ivory)' : 'rgba(255,255,255,0.07)', border: light ? '1px solid var(--border)' : '1px solid rgba(255,255,255,0.1)' }} aria-expanded={open} aria-controls="mobile-navigation" aria-label={open ? 'Close menu' : 'Open menu'}>{open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}</button>
       </div>
     </header>
@@ -86,7 +86,7 @@ export default function MobileHeader() {
             <div id={`mobile-${groupId}`} className="px-2 pb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--gold)' }}><Icon className="w-4 h-4" />{group.title}</div>
             <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-1">{group.links.map(item => { const active = pathname === item.path || pathname.startsWith(`${item.path.split('?')[0]}/`); return <Link key={item.path} to={item.path} className="min-h-11 rounded-xl px-3 py-2.5 flex items-center justify-between gap-2 text-sm font-semibold" style={{ color: active ? 'var(--gold)' : text, background: active ? 'var(--gold-bg)' : 'transparent' }}><span>{item.label}</span><ChevronRight className="w-4 h-4 flex-shrink-0" style={{ color: active ? 'var(--gold)' : muted }} /></Link>; })}</div>
           </section>; })}
-          {user ? <Link to="/my-data" className="btn-outline-ink w-full min-h-12">My Study Data & Backup</Link> : <Link to="/login" className="btn-outline-ink w-full min-h-12">Student Login</Link>}
+          {user ? <div className="grid gap-2">{isAdmin && <Link to="/admin" className="btn-primary w-full min-h-12">Owner Panel</Link>}<Link to="/my-data" className="btn-outline-ink w-full min-h-12">My Study Data & Backup</Link></div> : <Link to="/login" className="btn-outline-ink w-full min-h-12">Student Login</Link>}
         </div>
       </nav>
     </>}
