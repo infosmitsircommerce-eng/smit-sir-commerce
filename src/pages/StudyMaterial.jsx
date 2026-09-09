@@ -295,7 +295,7 @@ export default function StudyMaterial() {
               <section key={subject} className="ssc-glass-card rounded-[1.8rem] p-4 sm:p-6" aria-labelledby={`subject-${subject.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>
                 <div className="flex items-center justify-between gap-3 mb-5 pb-4" style={{ borderBottom: '1px solid var(--border-soft)' }}>
                   <div>
-                    <div className="text-[11px] font-black tracking-[0.16em] uppercase mb-1.5" style={{ color: 'var(--gold)' }}>{filterBoard} • CLASS 12</div>
+                    <div className="text-[11px] font-black tracking-[0.16em] uppercase mb-1.5" style={{ color: 'var(--gold)' }}>{filterBoard} • {filterClass === 'All' ? 'ALL CLASSES' : `CLASS ${filterClass}`}</div>
                     <h3 id={`subject-${subject.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} className="text-xl sm:text-2xl font-black" style={{ color: 'var(--ink)' }}>
                       {subject === 'Business Administration' ? 'Business Administration (OCM)' : subject}
                     </h3>
