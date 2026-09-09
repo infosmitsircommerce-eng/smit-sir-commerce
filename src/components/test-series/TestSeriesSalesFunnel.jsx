@@ -28,14 +28,14 @@ const plans = [
     actionLabel: 'Try a free test',
   },
   {
-    name: 'Pro Test Pass',
-    price: 'Ask for current price',
-    note: 'For serious exam practice',
+    name: 'Premium Lifetime',
+    price: '₹999 once',
+    note: 'Lifetime digital access · no subscription',
     badge: 'MOST COMPLETE',
     featured: true,
-    items: ['Unlock Pro-labelled tests', 'Saved test progress', 'Attempt history', 'Weak-topic workflow', 'Leaderboard support'],
+    items: ['Hard and Extreme Economics quizzes', '9 published Pro tests', 'Saved test progress', 'Attempt history and weak-topic workflow', 'All future Premium additions'],
     action: WHATSAPP_URL,
-    actionLabel: 'Get Pro details',
+    actionLabel: 'Pay ₹999 and unlock',
   },
   {
     name: 'Coaching + Test Support',
@@ -54,7 +54,7 @@ const faqs = [
   ['What happens after I get Pro access?', 'Your student profile can be marked Premium, which unlocks Pro-labelled tests in the test-series page.'],
   ['Does the site show solutions?', 'Yes. Completed tests show the correct answer and a short explanation for every question.'],
   ['Will my score be saved?', 'The site keeps device-based progress. Logged-in students can also sync attempts to the shared database once the test-attempts table is enabled.'],
-  ['Is payment automatic on the website?', 'Not yet. Current price, payment method, access duration and any applicable refund terms should be confirmed before payment through the contact or WhatsApp flow.'],
+  ['How does Premium activation work?', 'Premium costs ₹999 once. Pay using the official QR, then send the transaction reference and registered account email. Access is activated after Smit Sir verifies that the payment was received.'],
   ['Is the mastery score an official school grade?', 'No. It is a study estimate based on practice activity and is meant to help students decide what to revise next.'],
 ];
 
@@ -100,7 +100,7 @@ export default function TestSeriesSalesFunnel() {
 
         <div className="rounded-2xl p-4 sm:p-5 mt-5 flex items-start gap-3" style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,.24)' }}>
           <LockKeyhole className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: 'var(--gold)' }} />
-          <p className="text-sm leading-relaxed" style={{ color: 'var(--charcoal)' }}><strong>Clear purchase rule:</strong> the website does not invent a price or pretend payment is automated. Students should confirm the current price, access period, payment method and refund/access terms before paying.</p>
+          <p className="text-sm leading-relaxed" style={{ color: 'var(--charcoal)' }}><strong>Clear purchase rule:</strong> Premium costs ₹999 as a one-time payment with no scheduled expiry while Smit Sir Commerce operates. Activation happens after the transaction is verified for the registered student account. Live tuition and coaching batches are separate.</p>
         </div>
       </section>
 
