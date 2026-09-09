@@ -285,9 +285,10 @@ function VerifiedPackCard({ pack }) {
 }
 
 export default function Quizzes() {
-  const [boardId, setBoardId] = useState(null);
-  const [classLevel, setClassLevel] = useState(null);
-  const [subjectName, setSubjectName] = useState(null);
+  const [boardId, setBoardId] = useState('CBSE');
+  const [classLevel, setClassLevel] = useState(11);
+  const [subjectName, setSubjectName] = useState('Economics');
+  const [streamFilter, setStreamFilter] = useState(null);
 
   const board = quizBoards.find((item) => item.id === boardId) || null;
   const classEntry = board?.classes.find((item) => item.classLevel === classLevel) || null;
@@ -304,7 +305,7 @@ export default function Quizzes() {
       if (!groups.has(key)) groups.set(key, []);
       groups.get(key).push(pack);
     });
-    return [...groups.entries()].map(([name, items]) => ({
+    return [...groups.entries()].filter(([name]) => !streamFilter || name === streamFilter).map(([name, items]) => ({
       name,
       items,
       questionCount: items.reduce(
@@ -312,15 +313,17 @@ export default function Quizzes() {
         0
       ),
     }));
-  }, [packs, boardId, classLevel, subjectName]);
+  }, [packs, boardId, classLevel, subjectName, streamFilter]);
 
   const resetAfterBoard = (id) => {
+    setStreamFilter(null);
     setBoardId(id);
     setClassLevel(null);
     setSubjectName(null);
   };
 
   const resetAfterClass = (level) => {
+    setStreamFilter(null);
     setClassLevel(level);
     setSubjectName(null);
   };
@@ -339,11 +342,11 @@ export default function Quizzes() {
         path="/quizzes"
       />
 
-      <section className="page-hero">
+      <section className="pt-8 pb-4">
         <div className="page-container max-w-5xl">
           <span className="eyebrow">Verified Quiz Library</span>
-          <h1 className="mt-5">Board → Class → Subject → Level.</h1>
-          <p className="mt-5 max-w-3xl">No fake quiz counts. No broken “Start Quiz” buttons. A quiz is published only when the source is available and checked.</p>
+          <h1 className="mt-5">Economics chapter quizzes</h1>
+          <p className="mt-5 max-w-3xl">Choose Microeconomics, Macroeconomics or Indian Economic Development, then select a chapter and difficulty.</p>
           <div className="flex flex-wrap gap-3 mt-6">
             <div className="inline-flex items-center gap-2 text-xs font-bold px-3 py-2 rounded-full" style={{ background: '#eef8ef', color: '#2f6b3a', border: '1px solid #cfe6d2' }}><ShieldCheck className="w-4 h-4" /> Source-backed questions</div>
             <div className="inline-flex items-center gap-2 text-xs font-bold px-3 py-2 rounded-full" style={{ background: 'var(--gold-bg)', color: 'var(--gold)', border: '1px solid rgba(184,135,47,.2)' }}><Layers3 className="w-4 h-4" /> 4 levels per quiz</div>
@@ -352,6 +355,21 @@ export default function Quizzes() {
       </section>
 
       <main className="page-container section-padding max-w-6xl">
+        <nav aria-label="Economics quiz subjects" className="grid sm:grid-cols-3 gap-3 mb-6">
+          {[
+            { name: 'Microeconomics', level: 11, stream: null },
+            { name: 'Macroeconomics', level: 12, stream: 'Macroeconomics' },
+            { name: 'Indian Economic Development', level: 12, stream: 'Indian Economic Development' },
+          ].map((item) => (
+            <button key={item.name} type="button"
+              aria-pressed={boardId === 'CBSE' && subjectName === 'Economics' && classLevel === item.level && streamFilter === item.stream}
+              className="btn-secondary p-4 text-left"
+              onClick={() => { setBoardId('CBSE'); setClassLevel(item.level); setSubjectName('Economics'); setStreamFilter(item.stream); }}>
+              <strong>{item.name}</strong><span className="block text-sm mt-1">Class {item.level} · Open chapters</span>
+            </button>
+          ))}
+        </nav>
+
         <div className="card-paper p-4 sm:p-5 mb-6 overflow-x-auto">
           <div className="flex items-center gap-5 min-w-max">
             <StepChip active={!boardId} done={Boolean(boardId)}>Board</StepChip>
