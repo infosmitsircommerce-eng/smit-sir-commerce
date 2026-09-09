@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import { ArrowLeft, ArrowRight, BadgeCheck, BookOpen, CheckCircle2, ChevronRight, CircleAlert, GraduationCap, Layers3, RotateCcw, ShieldCheck, Sparkles, Target, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import SEO from '../components/ui/SEO';
-import { getQuizPacks, quizBoards, quizLevels } from '../data/quizzes';
+import { getQuizPacks, quizBoards, quizLevels } from '../data/quizPublic';
 
 const levelMeta = {
   Easy: { label: 'Easy', note: 'Definitions & direct recall', icon: '🌱' },
@@ -294,16 +294,39 @@ function PremiumOffer({ onClose }) {
 function LevelGrid({ pack }) {
   const { isPremium, isAdmin, loading } = useAuth();
   const [showPremium, setShowPremium] = useState(false);
+  const [loadedPack, setLoadedPack] = useState(pack);
+  const [fetching, setFetching] = useState(false);
+  const [loadError, setLoadError] = useState('');
+  async function openLevel(level) {
+    setLoadError('');
+    if (['Easy', 'Moderate'].includes(level)) { setActiveLevel(level); return; }
+    if (!premiumAccess) { setShowPremium(true); return; }
+    setFetching(true);
+    try {
+      const { supabase } = await import('../lib/supabase');
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) throw new Error('Please sign in again.');
+      const response = await fetch('/api/premium-quiz', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + session.access_token }, body: JSON.stringify({ packId: pack.id, level }) });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Unable to load quiz.');
+      if (!Array.isArray(data.questions) || !data.questions.length) throw new Error('Quiz is unavailable.');
+      setLoadedPack({ ...pack, levels: { ...pack.levels, [level]: data.questions } });
+      setActiveLevel(level);
+    } catch (error) { setLoadError(error.message); }
+    finally { setFetching(false); }
+  }
   const premiumAccess = isPremium || isAdmin;
   const [activeLevel, setActiveLevel] = useState(null);
 
   return (
     <>
+      {fetching && <p role="status">Loading your Premium quiz…</p>}
+      {loadError && <p role="alert" className="text-red-700">{loadError}</p>}
       {showPremium && <PremiumOffer onClose={() => setShowPremium(false)} />}
-      {activeLevel && (['Easy', 'Moderate'].includes(activeLevel) || premiumAccess) && <QuizPlayer pack={pack} level={activeLevel} onClose={() => setActiveLevel(null)} />}
+      {activeLevel && (['Easy', 'Moderate'].includes(activeLevel) || premiumAccess) && <QuizPlayer pack={loadedPack} level={activeLevel} onClose={() => setActiveLevel(null)} />}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-5">
         {quizLevels.map((level) => {
-          const questions = pack.levels[level] || [];
+          const questionCount = pack.levelCounts?.[level] || pack.levels[level]?.length || 0;
           const meta = levelMeta[level];
           const premiumLevel = level === 'Hard' || level === 'Extreme';
           const locked = premiumLevel && !premiumAccess;
@@ -311,8 +334,8 @@ function LevelGrid({ pack }) {
             <button
               key={level}
               type="button"
-              onClick={() => { if (!questions.length) return; if (locked) setShowPremium(true); else setActiveLevel(level); }}
-              disabled={!questions.length || (premiumLevel && loading)}
+              onClick={() => openLevel(level)}
+              disabled={!questionCount || fetching || (premiumLevel && loading)}
               className="tile-paper p-4 text-left disabled:opacity-50" style={{ minHeight: '144px', minWidth: 0 }}
             >
               <div className="text-2xl">{meta.icon}</div>
@@ -320,7 +343,7 @@ function LevelGrid({ pack }) {
               <div className="text-xs font-bold mt-1" style={{ color: 'var(--gold)' }}>{premiumLevel ? (loading ? 'Checking access…' : locked ? 'Premium · ₹999 lifetime' : 'Premium unlocked') : 'Free'}</div>
               <p className="text-xs mt-1 leading-5" style={{ color: 'var(--muted)' }}>{meta.note}</p>
               <div className="flex items-center justify-between mt-4 text-xs font-bold">
-                <span style={{ color: 'var(--gold)' }}>{questions.length} questions</span>
+                <span style={{ color: 'var(--gold)' }}>{questionCount} questions</span>
                 <ChevronRight className="w-4 h-4" style={{ color: 'var(--gold)' }} />
               </div>
             </button>
@@ -332,7 +355,7 @@ function LevelGrid({ pack }) {
 }
 
 function VerifiedPackCard({ pack }) {
-  const totalQuestions = Object.values(pack.levels || {}).reduce((sum, items) => sum + items.length, 0);
+  const totalQuestions = Object.values(pack.levelCounts || {}).reduce((sum, count) => sum + count, 0);
 
   return (
     <article className="card-paper p-5 sm:p-7" style={{ transform: 'none' }}>
@@ -383,7 +406,7 @@ export default function Quizzes() {
       name,
       items,
       questionCount: items.reduce(
-        (total, pack) => total + Object.values(pack.levels || {}).reduce((sum, level) => sum + level.length, 0),
+        (total, pack) => total + Object.values(pack.levelCounts || {}).reduce((sum, count) => sum + count, 0),
         0
       ),
     }));
