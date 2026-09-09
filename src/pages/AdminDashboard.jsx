@@ -5,6 +5,7 @@ import {
   Database, Download, ExternalLink, Loader2, RefreshCw, Search,
   ShieldCheck, Sparkles, UserRoundCog, Users, XCircle
 } from 'lucide-react';
+import PremiumPayments from '../components/admin/PremiumPayments';
 import SEO from '../components/ui/SEO';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
@@ -231,7 +232,7 @@ export default function AdminDashboard() {
             <div className="card-paper p-6"><div className="flex items-center justify-between"><div><span className="eyebrow">Audit trail</span><h2 className="text-2xl mt-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Recent Pro changes</h2></div><Clock3 className="w-6 h-6" style={{ color: 'var(--gold)' }} /></div>{logs.length === 0 ? <p className="text-sm mt-4" style={{ color: 'var(--muted)' }}>No Pro-access changes yet.</p> : <div className="space-y-3 mt-4 max-h-[420px] overflow-y-auto">{logs.slice(0, 12).map((log) => { const target = students.find((student) => student.id === log.target_user_id); return <div key={log.id} className="tile-paper p-3"><div className="text-sm font-semibold" style={{ color: 'var(--ink)' }}>{target?.full_name || target?.email || log.target_user_id.slice(0, 8)}</div><div className="text-xs mt-1" style={{ color: 'var(--muted)' }}>{log.new_is_premium ? `Pro enabled · ${formatDate(log.new_premium_until)}` : 'Pro revoked'} · {formatDate(log.changed_at)}</div></div>; })}</div>}</div>
           </div>
         </section>
-      </main>
+      <PremiumPayments students={students} onVerified={refresh} /></main>
     </div>
   );
 }
