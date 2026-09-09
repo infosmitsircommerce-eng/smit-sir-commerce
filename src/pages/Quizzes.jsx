@@ -282,6 +282,7 @@ function PremiumOffer({ onClose }) {
           <p className="text-sm mt-3">These materials are being prepared and are not yet available in every chapter.</p>
         </div>
       </div>
+      <Link to="/premium/economics" className="btn-secondary w-full mt-5">Open Premium Economics Library</Link>
       <p className="text-sm mt-5 leading-6"><strong>Always free:</strong> Easy and Moderate quizzes, their answer explanations, and currently published free notes.</p>
 
       <div className="rounded-xl p-5 mt-5" style={{ background: '#f8fafc', border: '1px solid #e2e8f0' }}>
