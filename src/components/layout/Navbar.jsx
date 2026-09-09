@@ -134,6 +134,7 @@ export default function Navbar() {
                 <Link to="/dashboard" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm" style={{ color: T.dropdownItem }}><User className="w-4 h-4" /> My Dashboard</Link>
                 <Link to="/learning-insights" onClick={() => setUserMenuOpen(false)} className="block px-4 py-2 text-sm" style={{ color: T.dropdownItem }}>Learning Insights</Link>
                 <Link to="/my-data" onClick={() => setUserMenuOpen(false)} className="block px-4 py-2 text-sm" style={{ color: T.dropdownItem }}>My Study Data</Link>
+                {isAdmin && <Link to="/admin" onClick={() => setUserMenuOpen(false)} className="block px-4 py-2 text-sm font-bold" style={{ color: 'var(--gold)' }}>Owner Panel</Link>}
                 {isAdmin && <Link to="/admin-studio" onClick={() => setUserMenuOpen(false)} className="block px-4 py-2 text-sm" style={{ color: 'var(--gold)' }}>Admin Studio</Link>}
                 <button onClick={handleLogout} className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-400"><LogOut className="w-4 h-4" /> Logout</button>
               </div>}
