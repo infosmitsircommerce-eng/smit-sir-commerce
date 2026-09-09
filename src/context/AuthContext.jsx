@@ -90,6 +90,7 @@ export function AuthProvider({ children }) {
       email,
       password,
       options: {
+        emailRedirectTo: 'https://www.smitsircommerce.in/login',
         data: {
           full_name: name,
           class_level: Number(classLevel),
