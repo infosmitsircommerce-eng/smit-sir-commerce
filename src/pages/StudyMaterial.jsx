@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { ArrowRight, BookOpen, Brain, CheckCircle2, Download, Eye, FileText, Gamepad2, GraduationCap, Search, SlidersHorizontal, Sparkles } from 'lucide-react';
+import { ArrowRight, BookOpen, Brain, CheckCircle2, Download, Eye, FileText, ListChecks, GraduationCap, Search, SlidersHorizontal, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/ui/SEO';
 import { seoHubs, seoMaterials } from '../data/seoMaterials';
@@ -9,7 +9,7 @@ const allMaterials = [...seoMaterials, ...gsebMaterials];
 const initialBoard = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('board')?.toUpperCase() === 'GSEB' ? 'GSEB' : 'CBSE';
 const PATH = '/study-material';
 const TITLE = 'Free Commerce Notes PDF — CBSE & GSEB Class 11 and 12 | Smit Sir Commerce';
-const DESCRIPTION = 'Free Commerce study material for CBSE and GSEB students: Class 11 and 12 Economics, Business Studies, Accountancy resources, GSEB Class 12 Economics PDFs, practice and tools.';
+const DESCRIPTION = 'Free Commerce study material for CBSE and GSEB students: Class 11 and 12 Economics, Business Studies, Accountancy resources, GSEB Class 12 Business Administration (OCM) and Economics PDFs, quizzes and study tools.';
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -18,7 +18,7 @@ const structuredData = {
   description: DESCRIPTION,
   url: `https://www.smitsircommerce.in${PATH}`,
   isAccessibleForFree: true,
-  about: ['Commerce notes', 'CBSE Commerce', 'GSEB Economics', 'Class 11 Commerce', 'Class 12 Commerce', 'Economics', 'Business Studies', 'Accountancy'],
+  about: ['Commerce notes', 'CBSE Commerce', 'GSEB Economics', 'GSEB Business Administration', 'Class 11 Commerce', 'Class 12 Commerce', 'Economics', 'Business Studies', 'Accountancy'],
 };
 
 const classLevelOf = (material) => material.class ?? material.class_level;
@@ -27,14 +27,14 @@ const startGuide = [
   { title: 'Choose board', text: 'Start with CBSE or GSEB so you do not waste time.' },
   { title: 'Pick class', text: 'Select Class 11 or Class 12 and then the subject.' },
   { title: 'Open chapter', text: 'Use direct chapter notes or download the PDF.' },
-  { title: 'Practise', text: 'After notes, revise with questions, tests and games.' },
+  { title: 'Practise', text: 'After notes, revise with questions, tests and quizzes.' },
 ];
 
 const subjectBlocks = [
   { title: 'CBSE Class 11 Commerce Notes', text: 'Microeconomics, Statistics and foundation Commerce resources.', to: '/cbse-notes' },
   { title: 'CBSE Class 12 Commerce Notes', text: 'Economics and Business Studies revision-focused resources.', to: '/cbse-notes' },
-  { title: 'GSEB Class 12 Economics PDFs', text: 'Chapter 2 to 11 Economics notes with direct PDF access.', to: '/study-material?board=GSEB' },
-  { title: 'Tools + Practice + Games', text: 'Calculators, daily questions and real-life Commerce games.', to: '/games' },
+  { title: 'GSEB Class 12 OCM & Economics PDFs', text: 'OCM Chapters 1–4 and Economics Chapters 2–11 with direct PDF access.', to: '/study-material?board=GSEB' },
+  { title: 'Tools + Practice + Quizzes', text: 'Calculators, daily questions and chapter-wise Commerce quizzes.', to: '/quizzes' },
   { title: 'Smit Sir Teacher Guides', text: 'Common mistakes, numericals, case studies, answer writing and revision plans.', to: '/teacher-guides' },
 ];
 
@@ -130,9 +130,9 @@ export default function StudyMaterial() {
 
   const quickActions = [
     { icon: Download, title: 'All notes', text: 'Jump straight to chapter PDFs.', to: '#all-notes', primary: true },
-    { icon: GraduationCap, title: 'GSEB Economics', text: 'Class 12 chapters 2–11.', to: '/study-material?board=GSEB' },
+    { icon: GraduationCap, title: 'GSEB Economics', 'GSEB Business Administration', text: 'Class 12 chapters 2–11.', to: '/study-material?board=GSEB' },
     { icon: Brain, title: 'Practice', text: 'Daily questions and tests.', to: '/daily-practice' },
-    { icon: Gamepad2, title: 'Games', text: 'Real-life Commerce revision.', to: '/games' },
+    { icon: Gamepad2, title: 'Games', text: 'Real-life Commerce revision.', to: '/quizzes' },
   ];
 
   return (
@@ -149,11 +149,11 @@ export default function StudyMaterial() {
                   Everything important in <span className="ssc-gold-text">one place.</span>
                 </h1>
                 <p className="mt-4 text-base sm:text-lg max-w-2xl" style={{ color: 'var(--muted)' }}>
-                  CBSE and GSEB Commerce notes, Economics PDFs, Business Studies resources, Accountancy support, practice tools and realistic Commerce games — arranged so students can find material fast.
+                  CBSE and GSEB Commerce notes, Economics PDFs, Business Administration (OCM) notes, Business Studies resources, Accountancy support, practice tools and chapter-wise quizzes — arranged so students can find material fast.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <a href="#all-notes" className="btn-primary min-h-12 px-5"><Download className="w-4 h-4" /> Download notes</a>
-                  <Link to="/games" className="btn-outline-ink min-h-12 px-5"><Gamepad2 className="w-4 h-4" /> Play games</Link><Link to="/teacher-guides" className="btn-outline-ink min-h-12 px-5"><BookOpen className="w-4 h-4" /> Teacher Guides</Link>
+                  <Link to="/quizzes" className="btn-outline-ink min-h-12 px-5"><ListChecks className="w-4 h-4" /> Take quizzes</Link><Link to="/teacher-guides" className="btn-outline-ink min-h-12 px-5"><BookOpen className="w-4 h-4" /> Teacher Guides</Link>
                 </div>
               </div>
 
@@ -259,7 +259,7 @@ export default function StudyMaterial() {
               const count = seoMaterials.filter((m) => m.hubId === hub.id).length;
               return <Link key={hub.id} to={hub.path} className="ssc-quick-action-card ssc-hover-lift rounded-2xl p-5"><div className="w-11 h-11 rounded-2xl flex items-center justify-center mb-4" style={{ background: '#eef4ff', color: '#2457a7' }}><BookOpen className="w-5 h-5" /></div><div className="text-[11px] font-black" style={{ color: 'var(--gold)' }}>CBSE • CLASS {hub.classLevel}</div><h3 className="text-lg font-black mt-2" style={{ color: 'var(--ink)' }}>{hub.label}</h3><p className="text-sm mt-1" style={{ color: 'var(--muted)' }}>{count} chapter PDF{count === 1 ? '' : 's'}</p><span className="inline-flex items-center gap-1 mt-4 text-sm font-black" style={{ color: 'var(--gold)' }}>Open folder <ArrowRight className="w-4 h-4" /></span></Link>;
             })}
-            <Link to="/study-material?board=GSEB" className="ssc-quick-action-card ssc-hover-lift rounded-2xl p-5"><div className="w-11 h-11 rounded-2xl flex items-center justify-center mb-4" style={{ background: '#fff4e6', color: '#9a4f00' }}><GraduationCap className="w-5 h-5" /></div><div className="text-[11px] font-black" style={{ color: 'var(--gold)' }}>GSEB • CLASS 12</div><h3 className="text-lg font-black mt-2" style={{ color: 'var(--ink)' }}>Economics PDFs</h3><p className="text-sm mt-1" style={{ color: 'var(--muted)' }}>Chapters 2–11 direct download</p><span className="inline-flex items-center gap-1 mt-4 text-sm font-black" style={{ color: 'var(--gold)' }}>Open folder <ArrowRight className="w-4 h-4" /></span></Link>
+            <Link to="/study-material?board=GSEB" className="ssc-quick-action-card ssc-hover-lift rounded-2xl p-5"><div className="w-11 h-11 rounded-2xl flex items-center justify-center mb-4" style={{ background: '#fff4e6', color: '#9a4f00' }}><GraduationCap className="w-5 h-5" /></div><div className="text-[11px] font-black" style={{ color: 'var(--gold)' }}>GSEB • CLASS 12</div><h3 className="text-lg font-black mt-2" style={{ color: 'var(--ink)' }}>OCM & Economics PDFs</h3><p className="text-sm mt-1" style={{ color: 'var(--muted)' }}>OCM 1–4 • Economics 2–11</p><span className="inline-flex items-center gap-1 mt-4 text-sm font-black" style={{ color: 'var(--gold)' }}>Open folder <ArrowRight className="w-4 h-4" /></span></Link>
           </div>
         </section>
 
