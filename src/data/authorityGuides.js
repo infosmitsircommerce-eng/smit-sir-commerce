@@ -171,23 +171,29 @@ export const authorityGuides = [
   },
   {
     path: '/cbse/class-12/economics-revision-guide',
-    title: 'CBSE Class 12 Economics Revision Guide - Notes, Practice & Tests',
-    shortTitle: 'Class 12 Economics Revision Guide',
-    description: 'A practical CBSE Class 12 Economics revision path using free notes, daily practice, timed tests and weak-topic review from Smit Sir Commerce.',
-    eyebrow: 'Class 12 · Economics · Study Plan',
-    intro: 'Use this as a revision workflow rather than a replacement for your school syllabus or the latest official CBSE curriculum. The website is still expanding its published Economics notes, so the guide links only to material that is actually available.',
-    updated: UPDATED,
+    title: 'CBSE Class 12 Economics Notes 2026–27 — Macro, IED, Quizzes & Tests',
+    shortTitle: 'Class 12 Economics Notes & Revision',
+    description: 'Free CBSE Class 12 Economics notes for Macroeconomics and Indian Economic Development, plus chapter quizzes, numericals, timed tests and a practical 2026–27 revision plan.',
+    eyebrow: 'Class 12 · Economics · Notes & Revision',
+    intro: 'Prepare CBSE Class 12 Economics with one organised route for notes, chapter quizzes, numericals and timed practice. Start with Macroeconomics or Indian Economic Development, use the free Easy and Moderate quizzes to check recall, then revise weak topics before attempting a timed test.',
+    updated: '2026-09-09',
     sections: [
-      { title: '1. Learn the concept', text: 'Start from the available Macroeconomics notes and make sure definitions, relationships and diagrams make sense before attempting timed questions.', links: [
-        ['/cbse/class-12/macroeconomics-notes','Class 12 Macroeconomics Notes'],
+      { title: '1. Study the Class 12 Economics notes', text: 'Build clear concepts before testing yourself. Use the Macroeconomics notes for national income, money and banking, income determination, government budget and balance of payments. Keep your prescribed textbook and the latest official CBSE curriculum beside you while revising.', links: [
+        ['/cbse/class-12/macroeconomics-notes','CBSE Class 12 Macroeconomics Notes'],
         ['/cbse/class-12/macroeconomics/introduction-to-macroeconomics-notes','Introduction to Macroeconomics Notes'],
+        ['/cbse/class-12/economics-national-income-numericals','National Income Numericals & Formula Map'],
       ]},
-      { title: '2. Practise actively', text: 'Use chapter practice and Daily 10 to retrieve concepts without looking at the notes. Wrong answers should become revision targets, not just a score.', links: [
-        ['/cbse-practice','CBSE Practice Library'],
+      { title: '2. Check every chapter with free quizzes', text: 'After each topic, attempt the Easy and Moderate quiz levels without reopening the notes. Review every wrong answer and repeat only the weak concepts. The quiz library covers Macroeconomics, Microeconomics and Indian Economic Development chapter by chapter.', links: [
+        ['/quizzes?subject=macro','Macroeconomics Chapter Quizzes'],
+        ['/quizzes?subject=ied','Indian Economic Development Quizzes'],
+        ['/quizzes?subject=micro','Microeconomics Chapter Quizzes'],
+      ]},
+      { title: '3. Practise numericals and exam questions', text: 'For numericals, write the relationship or formula before substitution and keep units visible. For theory answers, use the correct keyword, explain it clearly and connect it to the question. Turn every mistake into a short revision target.', links: [
+        ['/cbse-practice','CBSE Economics Practice Library'],
         ['/daily-practice','Daily 10 Practice'],
-        ['/learning-insights','Learning Insights'],
+        ['/learning-insights','Learning Insights & Mistake Review'],
       ]},
-      { title: '3. Test under time pressure', text: 'Use Exam Mode for the Economics test sets currently available on the platform, then revisit weak topics and the Mistake Book.', links: [
+      { title: '4. Finish with timed Economics tests', text: 'Attempt a timed test only after revising the relevant chapters. Analyse incorrect and skipped questions immediately, revisit the matching note or quiz, and then retest the topic rather than repeatedly rereading everything.', links: [
         ['/tests/class-12-economics-money-banking-exam','Money & Banking Practice Exam'],
         ['/tests/class-12-economics-national-income-exam','National Income Practice Exam'],
         ['/tests/class-12-economics-income-determination-exam','Income Determination Practice Exam'],
@@ -195,9 +201,10 @@ export const authorityGuides = [
       ]},
     ],
     faqs: [
-      ['Is this the official CBSE syllabus?','No. This is a study workflow for using the resources on Smit Sir Commerce. Always check the latest official CBSE curriculum and sample papers for the current syllabus and paper format.'],
-      ['How often should I take a timed test?','Use timed tests after you have revised the relevant concepts. The useful frequency depends on your exam date and current preparation; analyse mistakes after every attempt.'],
-      ['What if a chapter note is not published on the website yet?','Use your prescribed textbook, school material and official resources for that chapter. The website should not be treated as complete until the relevant material is explicitly published.'],
+      ['Where can I get free CBSE Class 12 Economics notes?','Use this revision guide to open the published Macroeconomics notes, National Income numerical guide, chapter quizzes and timed tests available on Smit Sir Commerce.'],
+      ['Are Easy and Moderate Economics quizzes free?','Yes. Easy and Moderate quiz levels are available free. Hard and Extreme levels are part of the optional Premium plan.'],
+      ['Does this cover Indian Economic Development too?','The quiz library includes chapter-wise Indian Economic Development practice. Use your prescribed textbook and latest official CBSE curriculum alongside the available website material.'],
+      ['Is this the official CBSE syllabus?','No. This is an independent study resource. Always check the latest official CBSE curriculum and sample papers for current syllabus and paper-format requirements.'],
     ],
   },
   {
