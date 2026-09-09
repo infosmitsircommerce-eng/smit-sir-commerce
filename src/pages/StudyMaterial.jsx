@@ -115,6 +115,27 @@ export default function StudyMaterial() {
     return haystack.includes(search.toLowerCase()) && (filterClass === 'All' || classLevel === Number(filterClass)) && (filterSubject === 'All' || m.subject === filterSubject);
   }).sort((a, b) => (Number(classLevelOf(a)) - Number(classLevelOf(b))) || ((a.chapterNumber || 0) - (b.chapterNumber || 0)) || a.title.localeCompare(b.title)), [boardMaterials, search, filterClass, filterSubject]);
 
+  const materialGroups = useMemo(() => {
+    const subjectOrder = ['Business Administration', 'Economics', 'Business Studies', 'Accountancy'];
+    const groups = new Map();
+
+    filtered.forEach((material) => {
+      const subject = material.subject || 'Other Commerce Resources';
+      if (!groups.has(subject)) groups.set(subject, []);
+      groups.get(subject).push(material);
+    });
+
+    return [...groups.entries()]
+      .map(([subject, materials]) => ({ subject, materials }))
+      .sort((a, b) => {
+        const aIndex = subjectOrder.indexOf(a.subject);
+        const bIndex = subjectOrder.indexOf(b.subject);
+        const safeA = aIndex === -1 ? subjectOrder.length : aIndex;
+        const safeB = bIndex === -1 ? subjectOrder.length : bIndex;
+        return safeA - safeB || a.subject.localeCompare(b.subject);
+      });
+  }, [filtered]);
+
   const selectBoard = (board) => {
     setFilterBoard(board);
     setFilterClass('All');
@@ -269,8 +290,25 @@ export default function StudyMaterial() {
             <div className="text-sm font-bold px-3 py-2 rounded-full self-start sm:self-auto" style={{ color: 'var(--gold)', background: 'var(--brand-soft)', border: '1px solid rgba(184,135,47,0.16)' }}>{filtered.length} result{filtered.length === 1 ? '' : 's'}</div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {filtered.map((material) => <MaterialCard key={material.id} material={material} />)}
+          <div className="grid gap-10">
+            {materialGroups.map(({ subject, materials }) => (
+              <section key={subject} className="ssc-glass-card rounded-[1.8rem] p-4 sm:p-6" aria-labelledby={`subject-${subject.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>
+                <div className="flex items-center justify-between gap-3 mb-5 pb-4" style={{ borderBottom: '1px solid var(--border-soft)' }}>
+                  <div>
+                    <div className="text-[11px] font-black tracking-[0.16em] uppercase mb-1.5" style={{ color: 'var(--gold)' }}>{filterBoard} • CLASS 12</div>
+                    <h3 id={`subject-${subject.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} className="text-xl sm:text-2xl font-black" style={{ color: 'var(--ink)' }}>
+                      {subject === 'Business Administration' ? 'Business Administration (OCM)' : subject}
+                    </h3>
+                  </div>
+                  <span className="shrink-0 text-xs sm:text-sm font-black px-3 py-2 rounded-full" style={{ background: 'var(--brand-soft)', color: 'var(--gold)', border: '1px solid rgba(184,135,47,0.16)' }}>
+                    {materials.length} chapter{materials.length === 1 ? '' : 's'}
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  {materials.map((material) => <MaterialCard key={material.id} material={material} />)}
+                </div>
+              </section>
+            ))}
           </div>
 
           {filtered.length === 0 && <div className="ssc-glass-card rounded-3xl text-center py-14 px-5"><FileText className="w-9 h-9 mx-auto mb-3" style={{ color: 'var(--subtle)' }} /><p style={{ color: 'var(--muted)' }}>No material found. Try another class, subject or chapter name.</p></div>}
