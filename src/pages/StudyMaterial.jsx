@@ -130,7 +130,7 @@ export default function StudyMaterial() {
 
   const quickActions = [
     { icon: Download, title: 'All notes', text: 'Jump straight to chapter PDFs.', to: '#all-notes', primary: true },
-    { icon: GraduationCap, title: 'GSEB Economics', 'GSEB Business Administration', text: 'Class 12 chapters 2–11.', to: '/study-material?board=GSEB' },
+    { icon: GraduationCap, title: 'GSEB Class 12', text: 'OCM Chapters 1–4 and Economics Chapters 2–11.', to: '/study-material?board=GSEB' },
     { icon: Brain, title: 'Practice', text: 'Daily questions and tests.', to: '/daily-practice' },
     { icon: ListChecks, title: 'Quizzes', text: 'Chapter-wise Commerce revision.', to: '/quizzes' },
   ];
