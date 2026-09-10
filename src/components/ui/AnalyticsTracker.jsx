@@ -27,6 +27,8 @@ function funnelEventForPath(pathname) {
   if (isMehsanaLanding(pathname)) return 'local_mehsana_landing_view';
   if (pathname === '/book-demo') return 'funnel_demo_open';
   if (pathname === '/demo-success') return 'funnel_demo_success';
+  if (pathname === '/premium') return 'premium_offer_view';
+  if (pathname === '/premium/economics') return 'premium_library_view';
   if (pathname === '/marks-recovery') return 'marks_recovery_view';
   if (pathname.startsWith('/tools/topics/')) return 'calculator_cluster_view';
   if (/^\/tools\/[^/]+$/.test(pathname)) return 'calculator_view';
@@ -85,10 +87,18 @@ export default function AnalyticsTracker() {
 
       if (href.startsWith('tel:')) {
         emit('contact_click', { channel: 'phone', from });
+        if (isMehsanaLanding(from)) emit('local_contact_click', { channel: 'phone', from });
         return;
       }
       if (href.startsWith('mailto:')) {
         emit('contact_click', { channel: 'email', from });
+        return;
+      }
+
+      if (href.includes('wa.me/')) {
+        emit('contact_click', { channel: 'whatsapp', from });
+        if (isMehsanaLanding(from)) emit('local_contact_click', { channel: 'whatsapp', from });
+        if (from === '/premium') emit('premium_help_click', { channel: 'whatsapp', from });
         return;
       }
 
@@ -97,6 +107,9 @@ export default function AnalyticsTracker() {
       if ((href === '/book-demo' || href.startsWith('/book-demo?')) && isMehsanaLanding(from)) {
         emit('local_demo_click', metadata);
       }
+
+      if (href === '/premium' || href.startsWith('/premium?')) emit('premium_cta_click', metadata);
+      if (href.includes('premium-payment-qr.jpg')) emit('premium_qr_download', { from });
 
       if (/^\/tools\/[^/]+$/.test(from)) {
         if (href === '/cbse-notes' || href.includes('-notes')) emit('notes_clicked_from_tool', metadata);
