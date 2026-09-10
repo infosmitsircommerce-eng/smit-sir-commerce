@@ -11,7 +11,7 @@ function getSupabase() {
 }
 
 function shouldLoadAuthImmediately() {
-  return /^\/(login|onboarding|dashboard|admin(?:\/|$)|admin-studio|learning-insights|my-data)/.test(window.location.pathname);
+  return /^\/(login|onboarding|premium|dashboard|admin(?:\/|$)|admin-studio|learning-insights|my-data)/.test(window.location.pathname);
 }
 
 export function AuthProvider({ children }) {
