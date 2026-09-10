@@ -4,9 +4,9 @@ import { extraToolClusters } from './highIntentEnhancements.js';
 const coreToolClusters = [
   {
     slug: 'national-income-gdp',
-    title: 'National Income Numericals, GDP & NNP Calculators',
-    h1: 'National Income Numericals for Class 12 with Solutions & GDP Calculators',
-    description: 'Solve Class 12 National Income numericals with step-by-step solutions for GDP, NDP, GNP, NNP, NFIA, depreciation, net indirect taxes, real GDP and all three national-income methods.',
+    title: 'National Income Calculator & Class 12 Numericals',
+    h1: 'National Income Calculator with Solved Class 12 Numericals',
+    description: 'Use free National Income calculators and solve Class 12 numericals for GDP, NDP, GNP, NNP, NFIA, depreciation, net indirect taxes and real GDP step by step.',
     intro: 'National Income numericals become difficult when students know each formula separately but are unsure which adjustment comes next. This toolkit now combines a formula map, original solved numericals and the most useful Class 12 GDP and National Income calculators so you can solve the question yourself and then verify every conversion step.',
     toolSlugs: [
       'domestic-national-aggregate-converter',
@@ -24,6 +24,7 @@ const coreToolClusters = [
     ],
     concepts: ['GDP, NDP, GNP and NNP', 'Domestic versus national aggregates', 'Gross versus net aggregates', 'Market price versus factor cost', 'NFIA and net indirect taxes', 'Real GDP, nominal GDP and GDP deflator', 'Income, expenditure and value-added methods', 'Reverse conversion questions', 'Negative NFIA and mixed-sign questions'],
     faq: [
+      ['Is there a free National Income calculator?', 'Yes. This page groups free step-by-step calculators for GDP, NDP, GNP, NNP, NFIA, depreciation, net indirect taxes, real GDP and the three National Income methods.'],
       ['How do I convert GDP into National Income?', 'Start from the given aggregate, add NFIA to move from domestic to national, subtract depreciation to move from gross to net, and subtract net indirect taxes to move from market price to factor cost. The exact steps depend on the starting aggregate.'],
       ['Which method is used to calculate National Income?', 'Class 12 Economics commonly studies the income method, expenditure method and value-added or product method. Separate calculators and worked examples are provided for all three.'],
       ['Are these solved numericals copied from board papers?', 'No. The worked numericals on this page are original learning problems unless a source is explicitly identified. They are designed to practise the same formula relationships without pretending to be official board questions.'],
