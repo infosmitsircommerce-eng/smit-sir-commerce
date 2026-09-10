@@ -23,6 +23,23 @@ const structuredData = {
 
 const classLevelOf = (material) => material.class ?? material.class_level;
 
+const curriculumRoadmap = {
+  CBSE: {
+    11: ['Accountancy', 'Business Studies', 'Economics'],
+    12: ['Accountancy', 'Business Studies', 'Economics'],
+  },
+  GSEB: {
+    11: ['Accountancy', 'Business Administration', 'Economics', 'Statistics', 'SPCC'],
+    12: ['Accountancy', 'Business Administration', 'Economics', 'Statistics', 'SPCC'],
+  },
+};
+
+const displaySubject = (subject) => {
+  if (subject === 'Business Administration') return 'Business Administration (OCM)';
+  if (subject === 'SPCC') return 'SPCC';
+  return subject;
+};
+
 const startGuide = [
   { title: 'Choose board', text: 'Start with CBSE or GSEB so you do not waste time.' },
   { title: 'Pick class', text: 'Select Class 11 or Class 12 and then the subject.' },
@@ -149,6 +166,22 @@ export default function StudyMaterial() {
     setFilterSubject('All');
   };
 
+  const coverageFor = (board, classLevel, subject) => allMaterials.filter((material) =>
+    (material.board || 'CBSE').toUpperCase() === board &&
+    Number(classLevelOf(material)) === Number(classLevel) &&
+    material.subject === subject
+  ).length;
+
+  const openAvailableCollection = (board, classLevel, subject) => {
+    if (!coverageFor(board, classLevel, subject)) return;
+    setFilterBoard(board);
+    setFilterClass(String(classLevel));
+    setFilterSubject(subject);
+    setSearch('');
+    window.history.replaceState({}, '', `/study-material?board=${board}`);
+    window.requestAnimationFrame(() => document.getElementById('all-notes')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  };
+
   const quickActions = [
     { icon: Download, title: 'All notes', text: 'Jump straight to chapter PDFs.', to: '#all-notes', primary: true },
     { icon: GraduationCap, title: 'GSEB Class 12', text: 'OCM Chapters 1–11 and Economics Chapters 2–11.', to: '/study-material?board=GSEB' },
@@ -170,7 +203,7 @@ export default function StudyMaterial() {
                   Everything important in <span className="ssc-gold-text">one place.</span>
                 </h1>
                 <p className="mt-4 text-base sm:text-lg max-w-2xl" style={{ color: 'var(--muted)' }}>
-                  CBSE and GSEB Commerce notes, Economics PDFs, Business Administration (OCM) notes, Business Studies resources, Accountancy support, practice tools and chapter-wise quizzes — arranged so students can find material fast.
+                  CBSE and GSEB Commerce notes for Classes 11 and 12, organised by board, class, subject and chapter. Available PDFs open instantly, while missing subjects are clearly shown in our publishing roadmap.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <a href="#all-notes" className="btn-primary min-h-12 px-5"><Download className="w-4 h-4" /> Download notes</a>
@@ -230,6 +263,70 @@ export default function StudyMaterial() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="page-container pb-7" aria-labelledby="coverage-heading">
+        <div className="ssc-glass-card rounded-[1.8rem] p-5 sm:p-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+            <div>
+              <span className="eyebrow">COMPLETE COMMERCE ROADMAP</span>
+              <h2 id="coverage-heading" className="text-2xl sm:text-3xl mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>
+                Class 11 & 12 • every core subject
+              </h2>
+              <p className="text-sm mt-2 max-w-2xl leading-relaxed" style={{ color: 'var(--muted)' }}>
+                Green collections are ready now. “Publishing next” shows the real gaps we are filling—there are no fake downloads or dead subject links.
+              </p>
+            </div>
+            <div className="inline-flex gap-2 self-start sm:self-auto rounded-2xl p-1" style={{ background: 'var(--brand-soft)' }}>
+              {['CBSE', 'GSEB'].map((board) => (
+                <button key={board} type="button" onClick={() => selectBoard(board)} className="ssc-chip-button px-4 py-2.5 text-sm" data-active={filterBoard === board}>{board}</button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-5">
+            {[11, 12].map((classLevel) => (
+              <section key={classLevel} className="rounded-3xl p-4 sm:p-5" style={{ background: '#fff', border: '1px solid var(--border-soft)' }} aria-labelledby={`roadmap-${filterBoard}-${classLevel}`}>
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <div>
+                    <div className="text-[11px] font-black tracking-[0.16em] uppercase" style={{ color: 'var(--gold)' }}>{filterBoard}</div>
+                    <h3 id={`roadmap-${filterBoard}-${classLevel}`} className="text-xl font-black mt-1" style={{ color: 'var(--ink)' }}>Class {classLevel} Commerce</h3>
+                  </div>
+                  <GraduationCap className="w-6 h-6" style={{ color: 'var(--gold)' }} />
+                </div>
+                <div className="grid gap-2">
+                  {curriculumRoadmap[filterBoard][classLevel].map((subject) => {
+                    const count = coverageFor(filterBoard, classLevel, subject);
+                    const ready = count > 0;
+                    return (
+                      <button
+                        key={subject}
+                        type="button"
+                        disabled={!ready}
+                        onClick={() => openAvailableCollection(filterBoard, classLevel, subject)}
+                        className="w-full flex items-center gap-3 rounded-2xl px-4 py-3 text-left transition"
+                        style={{
+                          background: ready ? '#f4f9ed' : '#f8fafc',
+                          border: ready ? '1px solid rgba(77,124,15,0.20)' : '1px solid var(--border-soft)',
+                          cursor: ready ? 'pointer' : 'default',
+                          opacity: 1,
+                        }}
+                        aria-label={ready ? `Open ${filterBoard} Class ${classLevel} ${displaySubject(subject)} notes` : `${displaySubject(subject)} notes publishing next`}
+                      >
+                        {ready ? <CheckCircle2 className="w-5 h-5 shrink-0" style={{ color: 'var(--green)' }} /> : <BookOpen className="w-5 h-5 shrink-0" style={{ color: 'var(--subtle)' }} />}
+                        <span className="min-w-0 flex-1">
+                          <span className="block text-sm font-black" style={{ color: 'var(--ink)' }}>{displaySubject(subject)}</span>
+                          <span className="block text-xs mt-0.5" style={{ color: ready ? 'var(--green)' : 'var(--muted)' }}>{ready ? `${count} chapter PDF${count === 1 ? '' : 's'} ready` : 'Publishing next'}</span>
+                        </span>
+                        {ready && <ArrowRight className="w-4 h-4 shrink-0" style={{ color: 'var(--green)' }} />}
+                      </button>
+                    );
+                  })}
+                </div>
+              </section>
+            ))}
           </div>
         </div>
       </section>
@@ -297,7 +394,7 @@ export default function StudyMaterial() {
                   <div>
                     <div className="text-[11px] font-black tracking-[0.16em] uppercase mb-1.5" style={{ color: 'var(--gold)' }}>{filterBoard} • {filterClass === 'All' ? 'ALL CLASSES' : `CLASS ${filterClass}`}</div>
                     <h3 id={`subject-${subject.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} className="text-xl sm:text-2xl font-black" style={{ color: 'var(--ink)' }}>
-                      {subject === 'Business Administration' ? 'Business Administration (OCM)' : subject}
+                      {displaySubject(subject)}
                     </h3>
                   </div>
                   <span className="shrink-0 text-xs sm:text-sm font-black px-3 py-2 rounded-full" style={{ background: 'var(--brand-soft)', color: 'var(--gold)', border: '1px solid rgba(184,135,47,0.16)' }}>
