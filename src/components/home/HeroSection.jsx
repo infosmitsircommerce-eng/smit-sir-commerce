@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, BookOpen, CheckCircle, Download, FileText, ListChecks, PlayCircle, Sparkles, Star, Trophy } from 'lucide-react';
+import { ArrowRight, BookOpen, CheckCircle, Crown, Download, FileText, ListChecks, PlayCircle, Sparkles, Star, Trophy } from 'lucide-react';
 import teacherPhoto from '../../assets/teacher-photo-opt.jpg';
 
 const trust = [
@@ -201,6 +201,10 @@ export default function HeroSection() {
                 <Link to="/study-material" className="btn-primary hero-primary-cta" style={{ fontSize: '15px', padding: '15px 30px', boxShadow: '0 18px 38px rgba(166,111,23,0.23)' }}>
                   Open Study Material
                   <ArrowRight style={{ width: '15px', height: '15px' }} />
+                </Link>
+                <Link to="/premium" className="btn-outline-ink hero-secondary-cta" style={{ fontSize: '15px', background: 'rgba(255,255,255,0.74)', borderColor: 'rgba(184,135,47,.34)' }}>
+                  <Crown style={{ width: '15px', height: '15px' }} />
+                  Lifetime Premium ₹999
                 </Link>
                 <Link to="/quizzes" className="btn-outline-ink hero-secondary-cta" style={{ fontSize: '15px', background: 'rgba(255,255,255,0.74)' }}>
                   <PlayCircle style={{ width: '15px', height: '15px' }} />
