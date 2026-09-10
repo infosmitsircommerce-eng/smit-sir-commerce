@@ -20,7 +20,7 @@ import { supabase } from '../lib/supabase';
 
 const benefits = [
   { icon: ListChecks, title: 'Hard & Extreme quizzes', text: 'Premium difficulty for CBSE Microeconomics, Macroeconomics and Indian Economic Development.' },
-  { icon: BookOpenCheck, title: '31 chapter deep-divives', text: 'Every covered Economics chapter includes 20 focused concept explanations.' },
+  { icon: BookOpenCheck, title: '31 chapter deep-dives', text: 'Every covered Economics chapter includes 20 focused concept explanations.' },
   { icon: FileCheck2, title: '620 worked challenges', text: 'Twenty solved Hard and Extreme questions per chapter with reasoning, not only answer keys.' },
   { icon: ShieldCheck, title: 'One account, lifetime access', text: 'Pay once. No monthly subscription and no scheduled expiry while Smit Sir Commerce operates.' },
 ];
