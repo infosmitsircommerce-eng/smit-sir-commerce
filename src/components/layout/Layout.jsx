@@ -7,6 +7,7 @@ import MobileHeader from '../ui/MobileHeader';
 import PilotHreflang from '../ui/PilotHreflang';
 import { isLightRoute } from '../../lib/theme';
 import { isAdEligiblePath } from '../../lib/adPolicy';
+import { RouteRevenueBridge } from '../leads/StudyRevenueBridge';
 
 const ScrollToTop = lazy(() => import('../ui/ScrollToTop'));
 const CursorSpotlight = lazy(() => import('../ui/CursorSpotlight'));
@@ -76,6 +77,7 @@ export default function Layout({ children }) {
       <main id="main-content" tabIndex="-1" className="flex-1 pt-0 lg:pt-20 pb-20 lg:pb-0">
         {children}
       </main>
+      <RouteRevenueBridge />
       <Footer />
       <MobileBottomBar />
       <DeferredEnhancements />
