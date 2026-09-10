@@ -1,5 +1,5 @@
 import { teacherContentGuides } from './teacherContentGuides.js';
-const UPDATED = '2026-09-03';
+const UPDATED = '2026-09-10';
 
 export const authorityGuides = [
   {
@@ -38,11 +38,11 @@ export const authorityGuides = [
   },
   {
     path: '/cbse/class-12/business-studies-case-study-questions',
-    title: 'CBSE Class 12 Business Studies Case Study Questions with Answers',
+    title: 'Class 12 Business Studies Case Studies with Answers',
     shortTitle: 'Class 12 BST Case Studies',
-    description: 'Practice CBSE Class 12 Business Studies case study questions chapter by chapter with answer guidance for management, finance, marketing and consumer protection.',
+    description: 'Free CBSE Class 12 Business Studies case study questions with answers. Practise chapter-wise case studies using a simple 5-step solving method.',
     eyebrow: 'Class 12 · Business Studies · Case Study Practice',
-    intro: 'Case-study questions test whether you can identify a Business Studies concept inside a situation and justify the answer using the correct principle, function or keyword. This hub organises original chapter-wise practice already published on Smit Sir Commerce.',
+    intro: 'Practise free Class 12 Business Studies case studies with answers chapter by chapter. Use the 5-step method to identify clue words, name the correct concept and connect each answer directly to the case.',
     updated: UPDATED,
     sections: [
       { title: 'Management foundations case studies', text: 'Practise identifying management concepts, Fayol and Taylor principles, and dimensions of business environment from short business situations.', links: [
