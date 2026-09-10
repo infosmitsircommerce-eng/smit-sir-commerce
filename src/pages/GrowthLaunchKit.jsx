@@ -9,6 +9,41 @@ const STUDY_PACK = `${BASE}/free-commerce-study-pack`;
 
 const channels = [
   {
+    id: 'google-business-weekly-post',
+    title: 'Google Business Profile — weekly local post',
+    audience: 'Publish from the verified business profile once each week with a real classroom/resource image. Use the Mehsana coaching page as the button destination.',
+    url: `${BASE}/commerce-coaching-mehsana?utm_source=google_business_profile&utm_medium=organic_local&utm_campaign=paper_analysis`,
+    message: `Free 20-minute Commerce paper analysis in Mehsana for Class 11 & 12 students. Bring a recent test paper and get a focused weak-topic and answer-writing improvement plan before deciding about tuition. Economics, Business Studies, Entrepreneurship and Physical Education support.\n\nBook here: ${BASE}/commerce-coaching-mehsana?utm_source=google_business_profile&utm_medium=organic_local&utm_campaign=paper_analysis`,
+  },
+  {
+    id: 'genuine-review-request',
+    title: 'WhatsApp — genuine student/parent review request',
+    audience: 'Send only to real students or parents who have directly used your teaching or resources. Never offer a reward and never write the review for them.',
+    url: `${BASE}/commerce-coaching-mehsana`,
+    message: `Hello! Thank you for learning with Smit Sir Commerce. If the classes or free study resources genuinely helped you, could you share an honest Google review in your own words? You can mention what you used, your class/subject and what improved. Honest feedback—positive or critical—helps other Mehsana students make a better decision.`,
+  },
+  {
+    id: 'short-commerce-near-me',
+    title: 'Short/Reel — Commerce classes near me',
+    audience: 'Record a 20–30 second vertical video. Show your face/classroom or one real paper-analysis example and add Mehsana in on-screen text.',
+    url: `${BASE}/commerce-coaching-mehsana?utm_source=instagram&utm_medium=reel&utm_campaign=mehsana_paper_analysis`,
+    message: `HOOK: Searching for Commerce classes near you in Mehsana?\nBODY: Do not choose only by promises. Bring one recent test paper. I will show you exactly whether marks are being lost in concepts, practice or answer writing.\nCTA: Book a free 20-minute paper analysis at Smit Sir Commerce. Link: ${BASE}/commerce-coaching-mehsana?utm_source=instagram&utm_medium=reel&utm_campaign=mehsana_paper_analysis`,
+  },
+  {
+    id: 'short-controlling-notes',
+    title: 'Short/Reel — Controlling Class 12 notes',
+    audience: 'Use screen recording of the real notes page and teach one useful point before showing the link.',
+    url: `${BASE}/cbse/class-12/business-studies/controlling-notes?utm_source=youtube&utm_medium=short&utm_campaign=controlling_notes`,
+    message: `HOOK: Planning and controlling are called inseparable twins—but why?\nBODY: Planning sets the standards; controlling compares actual performance with those standards and corrects deviations. Without planning there is nothing to control, and without control plans may not be achieved.\nCTA: Free Class 12 Controlling notes and MCQs are on Smit Sir Commerce.`,
+  },
+  {
+    id: 'short-bst-case-study',
+    title: 'Short/Reel — BST case-study trick',
+    audience: 'Teach the clue → concept → evidence method with one original example, then link to the free practice hub.',
+    url: `${BASE}/cbse/class-12/business-studies-case-study-questions?utm_source=youtube&utm_medium=short&utm_campaign=bst_case_studies`,
+    message: `HOOK: Stop guessing Business Studies case-study answers.\nBODY: First identify the chapter family. Second find the exact clue. Third name the concept. Fourth support it with one fact from the case.\nCTA: Practise free chapter-wise Class 12 BST case studies on Smit Sir Commerce.`,
+  },
+  {
     id: 'whatsapp-students-quizzes',
     title: 'WhatsApp students — free Economics quiz',
     audience: 'Send only to students or class groups where educational resources are welcome. Easy and Moderate levels are free.',
