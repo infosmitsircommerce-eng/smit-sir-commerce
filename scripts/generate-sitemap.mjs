@@ -16,6 +16,7 @@ const BASE = 'https://www.smitsircommerce.in';
 const basePages = [
   ...quizDiscovery.map(p => [p.path, 'monthly', '0.8']),
   ['/quizzes', 'weekly', '0.95'],
+  ['/premium', 'weekly', '0.9'],
   ['/', 'weekly', '1.0'],
   ['/study-material', 'weekly', '1.0'],
   ['/school-resource/gseb/class-11/business-administration/ch-1-nature-purpose-and-scope-of-business-gseb-class-11', 'weekly', '0.9'],
