@@ -211,7 +211,7 @@ async function writeRoute(path, html) {
 await writeRoute(cbseNotesPath, buildHtml({ path: cbseNotesPath, title: cbseNotesTitle, description: cbseNotesDescription, body: renderCbseNotes(), schema: getCbseNotesStructuredData() }));
 for (const hub of seoHubs) await writeRoute(hub.path, buildHtml({ path: hub.path, title: hub.seoTitle, description: hub.description, body: renderHub(hub), schema: getHubStructuredData(hub) }));
 for (const material of seoMaterials) await writeRoute(material.seo_path, buildHtml({ path: material.seo_path, title: material.seoTitle, description: material.description, body: renderMaterial(material), schema: getMaterialStructuredData(material), type: 'article', modifiedTime: material.updated }));
-for (const material of gsebMaterials) {
+for (const material of gsebMaterials.filter((item) => item.class_level === 11)) {
   const subject = gsebSubjectName(material);
   const title = `${material.chapter} Notes PDF - GSEB Class ${material.class_level} ${subject}`;
   const description = `Download free GSEB Class ${material.class_level} ${subject} Chapter ${material.chapterNumber} ${material.chapter} notes PDF with simple explanations, examples and exam-focused revision.`;
@@ -222,4 +222,4 @@ for (const test of examTests) {
   await writeRoute(path, buildHtml({ path, title: `${test.name} — CBSE Class ${test.classLevel} ${test.subject}`, description: `Take a ${test.minutes}-minute CBSE Class ${test.classLevel} ${test.subject} practice exam on ${test.chapter} with answers, explanations and weak-topic analysis.`, body: renderExam(test), schema: getExamStructuredData(test) }));
 }
 
-console.log(`Pre-rendered ${1 + seoHubs.length + seoMaterials.length + gsebMaterials.length + examTests.length} SEO landing pages.`);
+console.log(`Pre-rendered ${1 + seoHubs.length + seoMaterials.length + gsebMaterials.filter((item) => item.class_level === 11).length + examTests.length} SEO landing pages.`);
