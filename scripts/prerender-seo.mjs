@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { seoHubs, seoMaterials, getChapterMcqs, getHubMaterials, getImportantQuestions, getMaterialFaqs, getHubStructuredData, getMaterialStructuredData } from '../src/data/seoMaterials.js';
 import { examTests } from '../src/data/examBank.js';
+import { gsebMaterials } from '../src/data/gsebMaterials.js';
 
 const BASE = 'https://www.smitsircommerce.in';
 const SITE = 'Smit Sir Commerce';
@@ -111,6 +112,63 @@ function renderMaterial(material) {
   return `<main class="page-container section-padding" data-prerendered="seo-chapter"><nav aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/study-material">Study Material</a> / <a href="${escapeHtml(hub.path)}">${escapeHtml(hub.label)}</a> / Chapter ${material.chapterNumber}</nav><article><h1>${escapeHtml(material.chapter)} Notes PDF — CBSE Class ${material.class_level}</h1><p>${escapeHtml(material.summary)}</p><p><strong>Board:</strong> CBSE · <strong>Class:</strong> ${material.class_level} · <strong>Updated:</strong> ${escapeHtml(material.updated)} · <strong>Access:</strong> Free, no registration</p><h2>Important topics covered</h2><ul>${material.keyTopics.map((topic) => `<li>${escapeHtml(topic)}</li>`).join('')}</ul><h2>Exam-focused revision checklist</h2><ol>${material.examFocus.map((point) => `<li>${escapeHtml(point)}</li>`).join('')}</ol><h2>Important questions with answer guidance</h2>${importantQuestions.map((item) => `<h3>${escapeHtml(item.question)}</h3><p>${escapeHtml(item.answer)}</p>`).join('')}<h2>Chapter MCQs with answers</h2>${chapterMcqs.map((mcq, index) => `<section><h3>MCQ ${index + 1}: ${escapeHtml(mcq.question)}</h3><ol type="A">${mcq.options.map((option) => `<li>${escapeHtml(option)}</li>`).join('')}</ol><p><strong>Answer: ${String.fromCharCode(65 + mcq.answer)}.</strong> ${escapeHtml(mcq.explanation)}</p></section>`).join('')}<p><a href="${escapeHtml(material.file_url)}">View or download the free ${escapeHtml(material.chapter)} PDF</a>.</p><h2>Why you can trust this study resource</h2><p>This chapter-specific resource is organised by Smit Sir for Class ${material.class_level} Commerce students. It is free to view and download and should be used alongside NCERT questions and the latest official CBSE sample papers.</p><h2>Frequently asked questions</h2>${faqs.map((faq) => `<h3>${escapeHtml(faq.question)}</h3><p>${escapeHtml(faq.answer)}</p>`).join('')}<h2>Continue learning</h2><ul>${previous ? `<li><a href="${escapeHtml(previous.seo_path)}">Previous: Chapter ${previous.chapterNumber} ${escapeHtml(previous.chapter)} notes</a></li>` : ''}${next ? `<li><a href="${escapeHtml(next.seo_path)}">Next: Chapter ${next.chapterNumber} ${escapeHtml(next.chapter)} notes</a></li>` : ''}<li><a href="${escapeHtml(hub.path)}">All ${escapeHtml(hub.label)} notes</a></li><li><a href="/cbse-notes">All free CBSE Commerce notes</a></li></ul><h2>Other free CBSE Commerce subjects</h2><ul>${relatedHubs.map((item) => `<li><a href="${escapeHtml(item.path)}">Free ${escapeHtml(item.label)} notes PDF</a></li>`).join('')}</ul></article></main>`;
 }
 
+const gsebChapterDetails = {
+  'gseb-11-ocm-ch01': {
+    summary: 'Build a clear foundation in business by understanding economic and non-economic activities, the meaning and characteristics of business, profession and employment, and the relationship between industry, trade and commerce.',
+    topics: ['Economic and non-economic activities', 'Business, profession and employment', 'Industry, trade and commerce', 'Objectives of business', 'Business risk and classification of activities'],
+  },
+  'gseb-11-ocm-ch02': {
+    summary: 'Understand the services that support modern business, including insurance, postal services, warehousing and transportation. The PDF explains their purpose, important features and practical role through simple examples.',
+    topics: ['Insurance and its principles', 'Postal and related services', 'Godown and warehousing', 'Importance of transportation', 'Major modes of transport'],
+  },
+  'gseb-11-ocm-ch03': {
+    summary: 'Learn how banks support individuals and businesses through accounts, deposits, loans, payment services and electronic banking. The notes connect textbook terminology with familiar banking examples.',
+    topics: ['Meaning and functions of banks', 'Types of bank accounts', 'Drafts, RTGS and NEFT', 'Loans, overdraft and cash credit', 'ATM, cards and electronic banking'],
+  },
+  'gseb-11-ocm-ch04': {
+    summary: 'Study the communication process, internet and e-commerce, online transaction risks, outsourcing, BPO and KPO in one connected chapter. The explanations focus on concepts, comparisons and board-answer presentation.',
+    topics: ['Meaning and process of communication', 'Internet and network types', 'E-commerce transactions and risks', 'Meaning and need for outsourcing', 'BPO, KPO and their differences'],
+  },
+};
+
+function gsebSubjectName(material) {
+  return material.subject === 'Business Administration' ? 'Business Administration (OCM)' : material.subject;
+}
+
+function renderGsebMaterial(material) {
+  const details = gsebChapterDetails[material.id] || {
+    summary: `Revise ${material.chapter} with organised explanations, examples and exam-focused notes prepared for GSEB Commerce students.`,
+    topics: [material.chapter, 'Important definitions', 'Concept explanations', 'Examples and applications', 'Exam-focused revision'],
+  };
+  const siblings = gsebMaterials
+    .filter((item) => item.class_level === material.class_level && item.subject === material.subject)
+    .sort((a, b) => a.chapterNumber - b.chapterNumber);
+  const currentIndex = siblings.findIndex((item) => item.id === material.id);
+  const previous = currentIndex > 0 ? siblings[currentIndex - 1] : null;
+  const next = currentIndex < siblings.length - 1 ? siblings[currentIndex + 1] : null;
+  const subject = gsebSubjectName(material);
+
+  return `<main class="page-container section-padding" data-prerendered="gseb-chapter"><nav aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/study-material?board=GSEB">GSEB Study Material</a> / Class ${material.class_level} ${escapeHtml(subject)} / Chapter ${material.chapterNumber}</nav><article><h1>${escapeHtml(material.chapter)} Notes PDF - GSEB Class ${material.class_level} OCM</h1><p>${escapeHtml(details.summary)}</p><p><strong>Board:</strong> GSEB · <strong>Medium:</strong> English · <strong>Class:</strong> ${material.class_level} · <strong>Subject:</strong> ${escapeHtml(subject)} · <strong>PDF:</strong> ${material.pages} pages · <strong>Access:</strong> Free</p><h2>What these chapter notes cover</h2><ul>${details.topics.map((topic) => `<li>${escapeHtml(topic)}</li>`).join('')}</ul><h2>How to study this OCM chapter</h2><ol><li>Read the concept explanation and connect every definition with its example.</li><li>Underline the exact headings required for short and long board answers.</li><li>Revise comparisons in a basis-wise format so the differences remain clear.</li><li>Close the PDF and recall the main headings before beginning written practice.</li><li>Return to weak sections and then continue to the next chapter.</li></ol><h2>Free chapter PDF</h2><p><a href="${escapeHtml(material.file_url)}">View or download the free ${escapeHtml(material.chapter)} notes PDF</a>. The document is arranged for clear reading on mobile and printing on A4 paper.</p><h2>Prepared for focused GSEB Commerce revision</h2><p>These original chapter-wise notes are prepared by Smit Thaker for students who want straightforward explanations rather than scattered material. Use the PDF with your current school textbook and teacher guidance. Definitions, examples and answer-writing points should be revised together because board questions may test both memory and application.</p><h2>Frequently asked questions</h2><h3>Is this GSEB Class ${material.class_level} OCM PDF free?</h3><p>Yes. The available chapter PDF can be opened or downloaded without registration.</p><h3>Can I study this chapter on a mobile phone?</h3><p>Yes. Open the chapter page, use the PDF viewer or download the file for later revision.</p><h3>Are more GSEB OCM chapters being added?</h3><p>Yes. Only completed and checked chapters are marked as available; unfinished chapters are not shown as downloads.</p><h2>Continue studying</h2><ul>${previous ? `<li><a href="${escapeHtml(previous.seo_path)}">Previous: Chapter ${previous.chapterNumber} - ${escapeHtml(previous.chapter)}</a></li>` : ''}${next ? `<li><a href="${escapeHtml(next.seo_path)}">Next: Chapter ${next.chapterNumber} - ${escapeHtml(next.chapter)}</a></li>` : ''}<li><a href="/study-material?board=GSEB">Browse all GSEB Commerce notes</a></li><li><a href="/quizzes">Practise with Commerce quizzes</a></li></ul></article></main>`;
+}
+
+function getGsebMaterialStructuredData(material) {
+  const details = gsebChapterDetails[material.id];
+  const subject = gsebSubjectName(material);
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'LearningResource',
+    name: `${material.chapter} Notes PDF - GSEB Class ${material.class_level} OCM`,
+    description: details?.summary || `Free GSEB Class ${material.class_level} ${subject} chapter notes PDF.`,
+    url: `${BASE}${material.seo_path}`,
+    educationalLevel: `Class ${material.class_level}`,
+    learningResourceType: 'Chapter notes',
+    teaches: material.chapter,
+    isAccessibleForFree: true,
+    inLanguage: 'en-IN',
+    provider: { '@type': 'EducationalOrganization', name: SITE, url: BASE },
+  };
+}
+
 function examFaq(test) {
   return [
     { question: `Is the ${test.name} timed?`, answer: `Yes. Exam Mode gives this test a ${test.minutes}-minute countdown with automatic submission when time ends.` },
@@ -153,9 +211,15 @@ async function writeRoute(path, html) {
 await writeRoute(cbseNotesPath, buildHtml({ path: cbseNotesPath, title: cbseNotesTitle, description: cbseNotesDescription, body: renderCbseNotes(), schema: getCbseNotesStructuredData() }));
 for (const hub of seoHubs) await writeRoute(hub.path, buildHtml({ path: hub.path, title: hub.seoTitle, description: hub.description, body: renderHub(hub), schema: getHubStructuredData(hub) }));
 for (const material of seoMaterials) await writeRoute(material.seo_path, buildHtml({ path: material.seo_path, title: material.seoTitle, description: material.description, body: renderMaterial(material), schema: getMaterialStructuredData(material), type: 'article', modifiedTime: material.updated }));
+for (const material of gsebMaterials) {
+  const subject = gsebSubjectName(material);
+  const title = `${material.chapter} Notes PDF - GSEB Class ${material.class_level} ${subject}`;
+  const description = `Download free GSEB Class ${material.class_level} ${subject} Chapter ${material.chapterNumber} ${material.chapter} notes PDF with simple explanations, examples and exam-focused revision.`;
+  await writeRoute(material.seo_path, buildHtml({ path: material.seo_path, title, description, body: renderGsebMaterial(material), schema: getGsebMaterialStructuredData(material), type: 'article', modifiedTime: material.updated }));
+}
 for (const test of examTests) {
   const path = `/tests/${test.slug}`;
   await writeRoute(path, buildHtml({ path, title: `${test.name} — CBSE Class ${test.classLevel} ${test.subject}`, description: `Take a ${test.minutes}-minute CBSE Class ${test.classLevel} ${test.subject} practice exam on ${test.chapter} with answers, explanations and weak-topic analysis.`, body: renderExam(test), schema: getExamStructuredData(test) }));
 }
 
-console.log(`Pre-rendered ${1 + seoHubs.length + seoMaterials.length + examTests.length} SEO landing pages.`);
+console.log(`Pre-rendered ${1 + seoHubs.length + seoMaterials.length + gsebMaterials.length + examTests.length} SEO landing pages.`);
