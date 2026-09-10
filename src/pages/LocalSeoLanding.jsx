@@ -1,6 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
 import { ArrowRight, BookOpen, CheckCircle2, GraduationCap, MapPin, Sparkles } from 'lucide-react';
 import SEO from '../components/ui/SEO';
+import LeadCaptureForm from '../components/leads/LeadCaptureForm';
+import LocalRevenueActions from '../components/leads/LocalRevenueActions';
 import { localSeoByPath, localSeoPages } from '../data/localSeoPages';
 
 const BASE = 'https://www.smitsircommerce.in';
@@ -92,6 +94,12 @@ export default function LocalSeoLanding() {
   const isGseb = page.path.includes('gseb');
   const freeResourceHref = isGseb ? '/gseb-class-12-economics.html' : '/cbse-notes';
   const freeResourceLabel = isGseb ? 'Free GSEB Economics notes' : 'Free CBSE notes';
+  const defaults = {
+    board: isGseb ? 'GSEB' : 'CBSE',
+    classLevel: page.path.includes('class-11') ? 11 : 12,
+    subject: page.path.includes('business-studies') ? 'Business Studies' : 'Economics',
+    studyMode: 'Offline',
+  };
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
@@ -125,6 +133,22 @@ export default function LocalSeoLanding() {
       </section>
 
       <main className="page-container section-padding space-y-8">
+        <LocalRevenueActions demoHref={demoHref} />
+
+        <section id="free-paper-analysis" className="grid lg:grid-cols-[.8fr_1.2fr] gap-6 items-start">
+          <div className="card-paper p-5 sm:p-7">
+            <span className="eyebrow">Free 20-minute diagnosis</span>
+            <h2 className="text-3xl mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Know exactly where marks are being lost</h2>
+            <p className="leading-7 mt-4" style={{ color: 'var(--muted)' }}>Bring one recent school or tuition paper. Smit Sir will identify the mistake pattern, the weak chapter and the first improvement step. You can then decide whether the teaching support fits you.</p>
+            <div className="space-y-3 mt-5 text-sm">
+              {['No payment for the analysis', 'No admission commitment', 'Student and parent can discuss the plan'].map((item) => <div key={item} className="tile-paper p-3 flex items-center gap-3"><CheckCircle2 className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--green)' }} /> {item}</div>)}
+            </div>
+          </div>
+          <div className="card-paper p-5 sm:p-7">
+            <LeadCaptureForm compact heading="Request your free paper analysis" defaults={defaults} landingContextOverride={page.path.replace(/^\//, '')} />
+          </div>
+        </section>
+
         <section className="card-paper p-5 sm:p-7 md:p-9">
           <span className="eyebrow">Focused preparation</span>
           <h2 className="text-3xl mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{page.sectionTitle}</h2>

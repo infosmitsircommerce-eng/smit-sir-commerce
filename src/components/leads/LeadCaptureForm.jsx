@@ -9,7 +9,14 @@ import { useAuth } from '../../context/AuthContext';
 const SUBJECTS = ['Economics', 'Business Studies', 'Entrepreneurship', 'Physical Education'];
 const DEMO_SUBJECTS = [...SUBJECTS, 'Any taught subject'];
 
-export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book your free demo', compact = false, demoSlot = null }) {
+export default function LeadCaptureForm({
+  intent = 'Free Demo',
+  heading = 'Book your free demo',
+  compact = false,
+  demoSlot = null,
+  defaults = {},
+  landingContextOverride = '',
+}) {
   const { user } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
@@ -17,11 +24,19 @@ export default function LeadCaptureForm({ intent = 'Free Demo', heading = 'Book 
   const firstTouch = attribution?.first || {};
   const initialSource = firstTouch.source || 'Direct';
   const queryParams = new URLSearchParams(location.search);
-  const landingContext = (queryParams.get('from') || '').trim().slice(0, 160);
-  const requestedBoard = ['CBSE', 'GSEB', 'Other'].includes(queryParams.get('board')) ? queryParams.get('board') : 'CBSE';
-  const requestedClass = ['11', '12'].includes(queryParams.get('class')) ? queryParams.get('class') : '12';
-  const requestedSubject = SUBJECTS.includes(queryParams.get('subject')) ? queryParams.get('subject') : 'Economics';
-  const requestedMode = ['Online', 'Offline', 'Either'].includes(queryParams.get('mode')) ? queryParams.get('mode') : 'Either';
+  const landingContext = (landingContextOverride || queryParams.get('from') || '').trim().slice(0, 160);
+  const requestedBoard = ['CBSE', 'GSEB', 'Other'].includes(defaults.board)
+    ? defaults.board
+    : ['CBSE', 'GSEB', 'Other'].includes(queryParams.get('board')) ? queryParams.get('board') : 'CBSE';
+  const requestedClass = ['11', '12'].includes(String(defaults.classLevel))
+    ? String(defaults.classLevel)
+    : ['11', '12'].includes(queryParams.get('class')) ? queryParams.get('class') : '12';
+  const requestedSubject = SUBJECTS.includes(defaults.subject)
+    ? defaults.subject
+    : SUBJECTS.includes(queryParams.get('subject')) ? queryParams.get('subject') : 'Economics';
+  const requestedMode = ['Online', 'Offline', 'Either'].includes(defaults.studyMode)
+    ? defaults.studyMode
+    : ['Online', 'Offline', 'Either'].includes(queryParams.get('mode')) ? queryParams.get('mode') : 'Either';
   const startedAt = useRef(Date.now());
   const trackedStart = useRef(false);
   const [busy, setBusy] = useState(false);

@@ -50,7 +50,7 @@ export default function LeadCRM() {
     const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
     const [leadsRes, eventsRes] = await Promise.all([
       supabase.from('leads').select('*').order('last_enquiry_at', { ascending: false }).limit(3000),
-      supabase.from('learning_events').select('event_name,metadata,created_at').gte('created_at', since).in('event_name', ['lead_form_view','lead_form_start','lead_submit_attempt','lead_submit_success','local_mehsana_landing_view','local_demo_click','lead_joined']).order('created_at', { ascending: false }).limit(10000),
+      supabase.from('learning_events').select('event_name,metadata,created_at').gte('created_at', since).in('event_name', ['lead_form_view','lead_form_start','lead_submit_attempt','lead_submit_success','local_mehsana_landing_view','local_demo_click','local_contact_click','lead_joined','premium_offer_view','premium_cta_click','premium_qr_download','premium_claim_success']).order('created_at', { ascending: false }).limit(10000),
     ]);
     if (leadsRes.error || eventsRes.error) setMessage(`Some CRM data could not be loaded: ${(leadsRes.error || eventsRes.error)?.message}`);
     setLeads(leadsRes.data || []);
@@ -71,17 +71,26 @@ export default function LeadCRM() {
   const localFunnel = useMemo(() => {
     const localViews = events.filter((event) => event.event_name === 'local_mehsana_landing_view').length;
     const demoClicks = events.filter((event) => event.event_name === 'local_demo_click').length;
+    const contactClicks = events.filter((event) => event.event_name === 'local_contact_click').length;
     const enquiries = events.filter((event) => event.event_name === 'lead_submit_success' && event.metadata?.landingContext).length;
     const joinedLocal = leads.filter((lead) => lead.status === 'Joined' && lead.landing_context).length;
+    const actionClicks = demoClicks + contactClicks;
     return {
       localViews,
       demoClicks,
+      contactClicks,
+      actionClicks,
       enquiries,
       joinedLocal,
-      clickRate: localViews ? Math.round(demoClicks / localViews * 100) : 0,
+      clickRate: localViews ? Math.round(actionClicks / localViews * 100) : 0,
       enquiryRate: demoClicks ? Math.round(enquiries / demoClicks * 100) : 0,
     };
   }, [events, leads]);
+
+  const premiumFunnel = useMemo(() => {
+    const count = (name) => events.filter((event) => event.event_name === name).length;
+    return { views: count('premium_offer_view'), ctas: count('premium_cta_click'), qr: count('premium_qr_download'), claims: count('premium_claim_success') };
+  }, [events]);
 
   const localContextCounts = useMemo(() => {
     const map = new Map();
@@ -186,7 +195,7 @@ export default function LeadCRM() {
             <h2 className="text-2xl mt-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Mehsana traffic that can become students</h2>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-5 text-center">
               <div className="tile-paper p-4"><div className="text-2xl font-bold" style={{ color: 'var(--ink)' }}>{localFunnel.localViews}</div><div className="text-xs mt-1" style={{ color: 'var(--muted)' }}>Local page views</div></div>
-              <div className="tile-paper p-4"><div className="text-2xl font-bold" style={{ color: 'var(--ink)' }}>{localFunnel.demoClicks}</div><div className="text-xs mt-1" style={{ color: 'var(--muted)' }}>Demo clicks · {localFunnel.clickRate}%</div></div>
+              <div className="tile-paper p-4"><div className="text-2xl font-bold" style={{ color: 'var(--ink)' }}>{localFunnel.actionClicks}</div><div className="text-xs mt-1" style={{ color: 'var(--muted)' }}>Call/WhatsApp/demo · {localFunnel.clickRate}%</div></div>
               <div className="tile-paper p-4"><div className="text-2xl font-bold" style={{ color: 'var(--ink)' }}>{localFunnel.enquiries}</div><div className="text-xs mt-1" style={{ color: 'var(--muted)' }}>Local enquiries · {localFunnel.enquiryRate}%</div></div>
               <div className="tile-paper p-4"><div className="text-2xl font-bold" style={{ color: 'var(--ink)' }}>{localFunnel.joinedLocal}</div><div className="text-xs mt-1" style={{ color: 'var(--muted)' }}>Joined from local funnel</div></div>
             </div>
@@ -195,6 +204,14 @@ export default function LeadCRM() {
             <span className="eyebrow">Best local landing pages</span>
             <h2 className="text-2xl mt-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Which page creates leads?</h2>
             <div className="space-y-2 mt-5">{localContextCounts.length ? localContextCounts.slice(0, 8).map(([context,count]) => <div key={context} className="flex items-center justify-between tile-paper p-3"><span className="text-xs font-semibold break-all" style={{ color: 'var(--charcoal)' }}>{context}</span><span className="text-sm font-bold ml-3" style={{ color: 'var(--gold)' }}>{count}</span></div>) : <p className="text-sm" style={{ color: 'var(--muted)' }}>This will populate when Mehsana visitors submit enquiries.</p>}</div>
+          </div>
+        </section>
+
+        <section className="card-paper p-5 sm:p-6">
+          <span className="eyebrow">Premium revenue funnel · 30 days</span>
+          <h2 className="text-2xl mt-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Interest → payment verification</h2>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-5 text-center">
+            {[['Offer views', premiumFunnel.views], ['Premium CTA clicks', premiumFunnel.ctas], ['QR downloads', premiumFunnel.qr], ['Claims submitted', premiumFunnel.claims]].map(([label, value]) => <div key={label} className="tile-paper p-4"><div className="text-2xl font-bold" style={{ color: 'var(--ink)' }}>{value}</div><div className="text-xs mt-1" style={{ color: 'var(--muted)' }}>{label}</div></div>)}
           </div>
         </section>
 

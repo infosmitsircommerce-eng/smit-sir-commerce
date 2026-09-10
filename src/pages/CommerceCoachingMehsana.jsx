@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, CheckCircle2, GraduationCap, MapPin, Monitor, School, Sparkles, Users } from 'lucide-react';
 import SEO from '../components/ui/SEO';
+import LeadCaptureForm from '../components/leads/LeadCaptureForm';
+import LocalRevenueActions from '../components/leads/LocalRevenueActions';
 
 const BASE = 'https://www.smitsircommerce.in';
 const PATH = '/commerce-coaching-mehsana';
@@ -163,6 +165,22 @@ export default function CommerceCoachingMehsana() {
       </section>
 
       <main className="page-container section-padding space-y-8">
+        <LocalRevenueActions demoHref={DEMO_PATH} />
+
+        <section id="free-paper-analysis" className="grid lg:grid-cols-[.8fr_1.2fr] gap-6 items-start">
+          <div className="card-paper p-5 sm:p-7 md:p-8">
+            <span className="eyebrow">Free 20-minute diagnosis</span>
+            <h2 className="text-3xl mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Turn one test paper into an improvement plan</h2>
+            <p className="leading-7 mt-4" style={{ color: 'var(--muted)' }}>Bring a recent test paper. Smit Sir will identify the topic, answer-writing or practice problem costing marks and explain what to fix first.</p>
+            <ul className="space-y-3 mt-5 text-sm">
+              {['No payment for the analysis', 'No admission commitment', 'Offline Mehsana and online enquiries welcome'].map((item) => <li key={item} className="tile-paper p-3 flex items-center gap-3"><CheckCircle2 className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--green)' }} /> {item}</li>)}
+            </ul>
+          </div>
+          <div className="card-paper p-5 sm:p-7 md:p-8">
+            <LeadCaptureForm compact heading="Request your free paper analysis" defaults={{ board: 'CBSE', classLevel: 12, subject: 'Economics', studyMode: 'Offline' }} landingContextOverride="commerce-coaching-mehsana" />
+          </div>
+        </section>
+
         <section className="card-paper p-5 sm:p-7 md:p-9" aria-labelledby="subjects-heading">
           <span className="eyebrow">What Smit Sir personally teaches</span>
           <h2 id="subjects-heading" className="text-3xl mt-3 mb-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Understanding first. Exam application next.</h2>

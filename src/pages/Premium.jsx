@@ -17,6 +17,7 @@ import {
 import SEO from '../components/ui/SEO';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
+import { trackEvent } from '../lib/analytics';
 
 const benefits = [
   { icon: ListChecks, title: 'Hard & Extreme quizzes', text: 'Premium difficulty for CBSE Microeconomics, Macroeconomics and Indian Economic Development.' },
@@ -66,14 +67,18 @@ function PaymentClaim({ user, isPremium }) {
     }
     setBusy(true);
     setMessage('');
+    trackEvent('premium_claim_attempt', { offer: 'lifetime-999' }, user?.id || null);
     const { error } = await supabase.rpc('submit_premium_payment_claim', { p_reference: cleanReference });
     if (error) {
       setMessage(error.code === '23505'
         ? 'This transaction reference has already been submitted or verified.'
         : error.message);
+      trackEvent('premium_claim_error', { offer: 'lifetime-999' }, user?.id || null);
     } else {
       setReference('');
       setMessage('Reference submitted successfully. Do not pay again while verification is pending.');
+      trackEvent('premium_claim_success', { offer: 'lifetime-999' }, user?.id || null);
+      if (typeof window.gtag === 'function') window.gtag('event', 'premium_claim_success', { offer: 'lifetime-999', value: 999, currency: 'INR' });
       await loadClaim();
     }
     setBusy(false);
