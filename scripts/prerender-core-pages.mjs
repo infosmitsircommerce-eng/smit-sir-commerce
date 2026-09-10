@@ -22,6 +22,7 @@ function coreNav() {
     '<li><a href="/courses">Commerce courses</a></li>' +
     '<li><a href="/study-material">Free study material</a></li>' +
     '<li><a href="/quizzes">Commerce quizzes</a></li>' +
+    '<li><a href="/premium">₹999 Lifetime Premium</a></li>' +
     '<li><a href="/test-series">Commerce test series</a></li>' +
     '<li><a href="/study-tools">Study tools</a></li>' +
     '<li><a href="/faq">Frequently asked questions</a></li>' +
@@ -48,6 +49,21 @@ function schemaFor(page) {
       ]
     }
   ];
+  if (page.product) {
+    graph.push({
+      '@type': 'Product',
+      name: 'Smit Sir Commerce Premium',
+      description: page.description,
+      brand: { '@type': 'Brand', name: SITE },
+      offers: {
+        '@type': 'Offer',
+        price: '999',
+        priceCurrency: 'INR',
+        availability: 'https://schema.org/InStock',
+        url: BASE + page.path
+      }
+    });
+  }
   if (page.faqs?.length) {
     graph.push({
       '@type': 'FAQPage',
@@ -118,6 +134,13 @@ const faqs = [
 ];
 
 const pages = [
+  {
+    path: '/premium',
+    title: '₹999 Lifetime Premium Economics Quizzes & Study Guides',
+    description: 'Unlock Hard and Extreme CBSE Economics quizzes plus 31 chapter deep-dive guides with a one-time ₹999 payment.',
+    product: true,
+    body: '<main class="page-container section-padding" data-prerendered="core-page"><article><p><strong>Smit Sir Commerce Premium</strong></p><h1>Advanced Economics practice for ₹999 once</h1><p>Free notes and Easy–Moderate quizzes stay free. Premium unlocks advanced CBSE Economics practice and detailed chapter guides with no monthly subscription.</p><h2>What Premium includes</h2><ul><li>Hard and Extreme quizzes for CBSE Microeconomics, Macroeconomics and Indian Economic Development.</li><li>31 chapter deep-dive guides.</li><li>20 focused concept explanations in every covered chapter.</li><li>20 solved Hard and Extreme challenges per chapter with reasoning.</li><li>Lifetime account access with no scheduled expiry while Smit Sir Commerce operates.</li></ul><h2>How payment and access work</h2><ol><li><a href="/login">Create or sign in to your student account</a>.</li><li>Open the payment QR on this page and pay exactly ₹999 after confirming the recipient in your UPI app.</li><li>Submit the successful payment UTR from the same student account.</li><li>Premium unlocks after manual verification.</li></ol><p>This digital plan does not include personal tuition or live classes. <a href="/premium-payment-qr.jpg">Open the Premium payment QR</a>.</p><p><a href="/quizzes">Try the free Economics quizzes first</a> · <a href="/terms">Read the Terms</a> · <a href="/access-policy">Read the Access Policy</a></p>' + coreNav() + '</article></main>'
+  },
   {
     path: '/courses',
     title: 'Commerce Courses — Class 11 & 12',
