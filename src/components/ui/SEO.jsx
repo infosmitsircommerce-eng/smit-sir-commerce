@@ -143,17 +143,10 @@ function getChapterSearchMeta(path) {
   const material = materialByPath[path];
   if (!material) return null;
 
-  if (path === '/cbse/class-12/business-studies/controlling-notes') {
+  if (material.gscTitle || material.gscDescription) {
     return {
-      title: 'Controlling Class 12 Notes PDF | Business Studies Chapter 8',
-      description: 'Free CBSE Class 12 Business Studies Controlling notes PDF for Chapter 8. Revise meaning, importance, planning-controlling relationship, control process, management by exception and corrective action.',
-    };
-  }
-
-  if (path === '/cbse/class-11/microeconomics/economics-and-economy-notes') {
-    return {
-      title: 'Economics and Economy Class 11 Notes PDF | Microeconomics Chapter 1',
-      description: 'Free CBSE Class 11 Economics and Economy notes PDF for Microeconomics Chapter 1. Revise scarcity, choice, opportunity cost, economic activities, micro vs macro and types of economies.',
+      title: material.gscTitle || material.seoTitle,
+      description: material.gscDescription || material.description,
     };
   }
 
