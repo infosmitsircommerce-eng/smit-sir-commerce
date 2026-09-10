@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import SEO from '../components/ui/SEO';
 import QuizPromo from '../components/home/QuizPromo';
+import PremiumSpotlight from '../components/home/PremiumSpotlight';
 import HeroSection from '../components/home/HeroSection';
 
 const HomeBelowFold = lazy(() => import('../components/home/HomeBelowFold'));
@@ -78,6 +79,7 @@ export default function Home() {
         structuredData={structuredData}
       />
       <HeroSection />
+      <PremiumSpotlight />
       <QuizPromo />
       <DeferredHomeContent />
     </>
