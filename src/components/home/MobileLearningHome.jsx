@@ -5,15 +5,15 @@ import {
   BarChart3,
   Bell,
   BookOpen,
-  Brain,
   FileQuestion,
   FileText,
   GraduationCap,
-  ListChecks,
   Search,
-  Sparkles,
+  SlidersHorizontal,
+  Video,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
+import teacherPhoto from "../../assets/teacher-photo-opt.jpg";
 
 const QUICK_ACTIONS = [
   {
@@ -23,43 +23,37 @@ const QUICK_ACTIONS = [
     tone: "rose",
   },
   {
+    label: "Video\nLectures",
+    icon: Video,
+    to: "/lectures",
+    tone: "mint",
+  },
+  {
     label: "Practice\nQuizzes",
     icon: FileQuestion,
     to: "/quizzes",
     tone: "blue",
   },
   {
-    label: "Chapter\nDiagnostic",
-    icon: Brain,
-    to: "/board-exam-diagnostic",
-    tone: "mint",
-  },
-  {
-    label: "Important\nQuestions",
-    icon: ListChecks,
-    to: "/daily-practice",
+    label: "Test\nSeries",
+    icon: BarChart3,
+    to: "/test-series",
     tone: "violet",
   },
 ];
 
-const SUBJECTS = [
+const CLASSES = [
   {
-    label: "Accounts",
-    detail: "Notes & practice",
-    icon: BarChart3,
-    to: "/study-material",
-  },
-  {
-    label: "Business Studies",
-    detail: "CBSE resources",
+    label: "Class 11",
+    detail: "Commerce",
     icon: BookOpen,
-    to: "/cbse-notes",
+    to: "/study-material?class=11",
   },
   {
-    label: "Economics",
-    detail: "CBSE + GSEB",
+    label: "Class 12",
+    detail: "Commerce",
     icon: GraduationCap,
-    to: "/study-material?board=GSEB",
+    to: "/study-material?class=12",
   },
 ];
 
@@ -78,10 +72,12 @@ function AppLink({ to, children, ...props }) {
 }
 
 export default function MobileLearningHome() {
-  const { user, displayName } = useAuth();
+  const { user, displayName, initials } = useAuth();
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const firstName = user ? displayName.trim().split(/\s+/)[0] : "Learner";
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
 
   const submitSearch = (event) => {
     event.preventDefault();
@@ -99,16 +95,18 @@ export default function MobileLearningHome() {
       <div className="mobile-learning-shell">
         <div className="mobile-welcome-row">
           <div>
-            <p className="mobile-welcome-kicker">Hi {firstName} 👋</p>
-            <h1>Let&apos;s make Commerce simple today.</h1>
+            <small>{greeting},</small>
+            <p className="mobile-welcome-kicker">{firstName} 👋</p>
+            <h1>Small steps. Big results.</h1>
           </div>
-          <AppLink
-            to={user ? "/learning-insights" : "/login"}
-            className="mobile-icon-button"
-            aria-label={user ? "Open learning insights" : "Log in"}
-          >
-            <Bell aria-hidden="true" />
-          </AppLink>
+          <div className="mobile-welcome-actions">
+            <AppLink to={user ? "/learning-insights" : "/login"} className="mobile-icon-button" aria-label={user ? "Open learning insights" : "Log in to view learning insights"}>
+              <Bell aria-hidden="true" />
+            </AppLink>
+            <AppLink to={user ? "/learning-insights" : "/login"} className="mobile-profile-button" aria-label={user ? "Open profile" : "Log in"}>
+              {user ? initials : "S"}
+            </AppLink>
+          </div>
         </div>
 
         <form className="mobile-study-search" onSubmit={submitSearch} role="search">
@@ -121,24 +119,20 @@ export default function MobileLearningHome() {
             placeholder="Search notes, topics, quizzes..."
             enterKeyHint="search"
           />
-          <button type="submit" aria-label="Search">Go</button>
+          <button type="submit" aria-label="Search and filter"><SlidersHorizontal aria-hidden="true" /></button>
         </form>
 
         <article className="mobile-focus-banner">
           <div className="mobile-focus-copy">
-            <span>Class 11–12 · CBSE &amp; GSEB</span>
-            <h2>Study smarter.<br />Score higher.</h2>
-            <p>Clear notes, focused practice and honest progress.</p>
+            <h2>Master<br />Commerce<br />Your Way</h2>
+            <p>Notes · Quizzes · Test Series<br />All in one place</p>
             <AppLink to="/study-material">
-              Explore now <ArrowRight aria-hidden="true" />
+              Start learning <ArrowRight aria-hidden="true" />
             </AppLink>
           </div>
-          <div className="mobile-progress-art" aria-hidden="true">
-            <Sparkles />
-            <strong>Progress<br />over<br />perfection</strong>
-            <div className="mobile-progress-bars">
-              <i /><i /><i /><i />
-            </div>
+          <div className="mobile-teacher-visual">
+            <img src={teacherPhoto} alt="Smit Thaker, Commerce teacher" width="594" height="700" loading="eager" decoding="async" />
+            <span>Learn • Practice • Grow</span>
           </div>
         </article>
 
@@ -152,39 +146,25 @@ export default function MobileLearningHome() {
         </div>
 
         <div className="mobile-section-heading">
-          <h2>Continue learning</h2>
-          <AppLink to="/study-material">See all</AppLink>
+          <h2>Browse by Class</h2>
+          <AppLink to="/study-material">View all <ArrowRight aria-hidden="true" /></AppLink>
         </div>
 
-        <AppLink to="/study-material?board=GSEB" className="mobile-continue-card">
-          <span className="mobile-continue-icon"><BookOpen aria-hidden="true" /></span>
-          <span className="mobile-continue-copy">
-            <small>GSEB · Class 12</small>
-            <strong>Business Administration &amp; Economics</strong>
-            <em>Continue your chapter-wise notes</em>
-          </span>
-          <span className="mobile-progress-ring" aria-label="Study library available">21</span>
-        </AppLink>
-
-        <div className="mobile-section-heading">
-          <h2>Browse subjects</h2>
-          <AppLink to="/study-material">All notes</AppLink>
-        </div>
-
-        <div className="mobile-subject-list">
-          {SUBJECTS.map(({ label, detail, icon: Icon, to }) => (
-            <AppLink key={label} to={to} className="mobile-subject-card">
+        <div className="mobile-class-grid">
+          {CLASSES.map(({ label, detail, icon: Icon, to }) => (
+            <AppLink key={label} to={to} className="mobile-class-card">
               <span><Icon aria-hidden="true" /></span>
               <span><strong>{label}</strong><small>{detail}</small></span>
-              <ArrowRight aria-hidden="true" />
+              <i><ArrowRight aria-hidden="true" /></i>
             </AppLink>
           ))}
         </div>
 
-        <AppLink to="/board-booster-packs" className="mobile-booster-strip">
-          <span><strong>₹199 Board Boosters</strong><small>7-day plans, tests and complete answers</small></span>
-          <ArrowRight aria-hidden="true" />
-        </AppLink>
+        <blockquote className="mobile-quote-card">
+          <strong>“Consistent practice<br />today, a confident tomorrow.”</strong>
+          <span>— Smit Sir</span>
+          <BarChart3 aria-hidden="true" />
+        </blockquote>
       </div>
     </section>
   );
