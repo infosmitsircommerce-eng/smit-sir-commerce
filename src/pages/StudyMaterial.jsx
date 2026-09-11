@@ -7,6 +7,7 @@ import { gsebMaterials } from '../data/gsebMaterials';
 
 const allMaterials = [...seoMaterials, ...gsebMaterials];
 const initialBoard = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('board')?.toUpperCase() === 'GSEB' ? 'GSEB' : 'CBSE';
+const initialSearch = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('search') || '' : '';
 const PATH = '/study-material';
 const TITLE = 'Free Commerce Notes PDF — CBSE & GSEB Class 11 and 12 | Smit Sir Commerce';
 const DESCRIPTION = 'Free Commerce study material for CBSE and GSEB students: Class 11 and 12 Economics, Business Studies, Accountancy resources, GSEB Class 12 Business Administration (OCM) and Economics PDFs, quizzes and study tools.';
@@ -118,7 +119,7 @@ function MaterialCard({ material }) {
 }
 
 export default function StudyMaterial() {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(initialSearch);
   const [filterBoard, setFilterBoard] = useState(initialBoard);
   const [filterClass, setFilterClass] = useState('All');
   const [filterSubject, setFilterSubject] = useState('All');
