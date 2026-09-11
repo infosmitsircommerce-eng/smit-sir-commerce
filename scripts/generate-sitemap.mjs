@@ -20,6 +20,7 @@ const basePages = [
   ...quizDiscovery.map((p) => [p.path, "monthly", "0.8"]),
   ["/quizzes", "weekly", "0.95"],
   ["/premium", "weekly", "0.9"],
+  ["/board-exam-diagnostic", "weekly", "0.98"],
   ["/", "weekly", "1.0"],
   ["/study-material", "weekly", "1.0"],
   [

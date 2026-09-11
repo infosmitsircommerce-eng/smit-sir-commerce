@@ -38,6 +38,7 @@ const navLinks = [
     ],
   },
   { label: "Quizzes", path: "/quizzes" },
+  { label: "Free Diagnostic", path: "/board-exam-diagnostic" },
   { label: "Tools", path: "/tools" },
   { label: "For Teachers", path: "/services-for-teachers" },
   { label: "Contact", path: "/contact" },
@@ -48,6 +49,7 @@ const featureLinks = [
   { label: "GSEB", path: "/study-material?board=GSEB", icon: FileText },
   { label: "Practice", path: "/daily-practice", icon: Brain },
   { label: "Quizzes", path: "/quizzes", icon: ListChecks },
+  { label: "Free Diagnostic", path: "/board-exam-diagnostic", icon: Brain },
   { label: "Tools", path: "/tools", icon: Wrench },
   { label: "Teachers", path: "/services-for-teachers", icon: FileText },
 ];

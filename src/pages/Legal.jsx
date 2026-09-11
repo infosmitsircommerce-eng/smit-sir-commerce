@@ -36,6 +36,10 @@ const documents = {
         "Study activity may be saved in your browser. When cloud sync is enabled and you are signed in, supported progress can also be stored against your authenticated account so it can be available across devices.",
       ],
       [
+        "Board diagnostic and pack reservations",
+        "The free Board Exam Diagnostic stores answers and the latest result on the current device and may record limited non-identifying funnel events such as test start, completion, score band and selected subject. If a student voluntarily reserves a subject pack, the submitted name, mobile number, board, subject and score summary are stored privately to respond to that request. Students under 18 should submit a contact number only with a parent or guardian’s awareness.",
+      ],
+      [
         "Analytics",
         "The platform may record limited product-usage events such as page views, calculator use, marks-recovery interactions, exam starts, exam completions and admission-form funnel events to understand which learning and enquiry flows are useful. Analytics metadata is designed not to include passwords, phone numbers, email addresses or free-text student answers.",
       ],
@@ -105,6 +109,10 @@ const documents = {
       [
         "Service payment and delivery",
         "Payment should be made only after the scope, final amount, delivery date and official recipient are confirmed. Unless a different written scope is agreed, standard packages include one reasonable revision after the first draft. A major change in topic, length or format may require a revised quote. Keep the successful payment UTR or transaction reference; a screenshot alone does not establish receipt.",
+      ],
+      [
+        "Board Booster reservation",
+        "The ₹199 Board Booster amount is a launch-price reservation for the subject selected on the diagnostic result page. The form does not charge the student. Exact inclusions, delivery method, final amount and official payment recipient must be confirmed before payment. The free diagnostic and public revision resources remain free whether or not a pack is purchased.",
       ],
       [
         "Availability",
