@@ -37,6 +37,16 @@ const pages = [
   },
 ];
 
+const privacyPage = pages.find((page) => page.route === '/privacy');
+privacyPage.body = privacyPage.body
+  .replace('Last updated: 8 September 2026.', 'Last updated: 11 September 2026.')
+  .replace('<section><h2>Learning and website usage information</h2>', '<section><h2>Teacher Studio service requests</h2><p>Teachers, schools or coaching representatives may provide a contact name, mobile number, optional email and organisation name, curriculum, student level, subject, deadline, selected service and project brief. This information is used to prepare the quote, communicate about the project, deliver agreed work and manage follow-up. Teacher Studio contact details are not displayed publicly.</p></section><section><h2>Learning and website usage information</h2>');
+
+const termsPage = pages.find((page) => page.route === '/terms');
+termsPage.body = termsPage.body
+  .replace('Last updated: 8 September 2026.', 'Last updated: 11 September 2026.')
+  .replace('<section><h2>Updates and contact</h2>', '<section><h2>Teacher Studio quotes and payment</h2><p>Teacher Studio prices shown on the website are starting prices. Final deliverables, price, delivery date, file formats and revision allowance must be confirmed in writing before payment. Submitting a request does not create a purchase obligation. Payment should be made only to the confirmed official recipient. Keep the successful UTR or transaction reference; a screenshot alone does not establish receipt.</p></section><section><h2>Original work and client materials</h2><p>Teacher Studio work is created from the agreed syllabus and instructions. Clients must have permission to share any logo, reference file or source material they provide. Smit Sir Commerce does not agree to copy or rebrand third-party copyrighted publications.</p></section><section><h2>Updates and contact</h2>');
+
 function esc(value) {
   return String(value)
     .replaceAll('&', '&amp;')
