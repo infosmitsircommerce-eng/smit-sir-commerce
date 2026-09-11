@@ -75,7 +75,7 @@ export default function Layout({ children }) {
       <Navbar />
       {pathname !== '/' && <MobileHeader />}
       <main id="main-content" tabIndex="-1" className="flex-1 pt-0 lg:pt-20 pb-20 lg:pb-0">
-        {children}
+        <div key={pathname} className="ssc-route-view">{children}</div>
       </main>
       <RouteRevenueBridge />
       <Footer />

@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Home, BookOpen, Brain, ListChecks, MessageCircle } from "lucide-react";
 
 const TABS = [
@@ -11,6 +11,7 @@ const TABS = [
 
 export default function MobileBottomBar() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const isActive = (path) =>
     path === "/" ? pathname === "/" : pathname.startsWith(path);
 
@@ -34,6 +35,17 @@ export default function MobileBottomBar() {
                 className="mobile-bottom-item relative flex flex-col items-center justify-end gap-1 flex-1 min-h-12 py-1 active:scale-95"
                 aria-current={active ? "page" : undefined}
                 aria-label={tab.label}
+                onClick={(event) => {
+                  if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                  event.preventDefault();
+                  if (pathname === tab.path) {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                    return;
+                  }
+                  const changePage = () => navigate(tab.path);
+                  if (document.startViewTransition) document.startViewTransition(changePage);
+                  else changePage();
+                }}
               >
                 <div className="relative w-10 h-8 flex items-center justify-center">
                   {active && (
