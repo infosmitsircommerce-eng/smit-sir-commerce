@@ -13,6 +13,7 @@ import {
 import { silentSearchPages } from "../src/data/silentSearchPages.js";
 import { genuineTrafficPages } from "../src/data/genuineTrafficPages.js";
 import { localActionPages } from "../src/data/localActionPages.js";
+import { DIAGNOSTIC_ROUTES } from "../src/data/boardDiagnostic.js";
 
 const BASE = "https://www.smitsircommerce.in";
 
@@ -21,6 +22,11 @@ const basePages = [
   ["/quizzes", "weekly", "0.95"],
   ["/premium", "weekly", "0.9"],
   ["/board-exam-diagnostic", "weekly", "0.98"],
+  ...Object.values(DIAGNOSTIC_ROUTES).map((page) => [
+    page.path,
+    "weekly",
+    "0.97",
+  ]),
   ["/", "weekly", "1.0"],
   ["/study-material", "weekly", "1.0"],
   [

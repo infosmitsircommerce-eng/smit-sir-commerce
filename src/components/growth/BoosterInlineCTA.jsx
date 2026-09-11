@@ -6,6 +6,7 @@ import { trackEvent } from "../../lib/analytics";
 export default function BoosterInlineCTA({
   placement = "content",
   compact = false,
+  targetPath = "/board-exam-diagnostic",
 }) {
   useEffect(() => {
     trackEvent("booster_cta_view", { placement });
@@ -40,7 +41,7 @@ export default function BoosterInlineCTA({
           </p>
         </div>
         <Link
-          to={`/board-exam-diagnostic?from=${encodeURIComponent(placement)}`}
+          to={`${targetPath}?from=${encodeURIComponent(placement)}`}
           onClick={() => trackEvent("booster_cta_click", { placement })}
           className="btn-primary inline-flex items-center justify-center gap-2 shrink-0"
         >

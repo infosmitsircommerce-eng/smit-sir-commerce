@@ -190,6 +190,21 @@ const ROUTE_SEO = {
     description:
       "Take a free 15-question CBSE or GSEB Class 12 Commerce diagnostic and get an instant weak-topic report with a seven-day revision plan.",
   },
+  "/cbse/class-12/business-studies-diagnostic-test": {
+    title: "Free CBSE Class 12 Business Studies Diagnostic Test",
+    description:
+      "Take a free CBSE Class 12 Business Studies diagnostic and get weak-topic analysis with a seven-day revision plan.",
+  },
+  "/cbse/class-12/economics-diagnostic-test": {
+    title: "Free CBSE Class 12 Economics Diagnostic Test",
+    description:
+      "Take a free CBSE Class 12 Economics diagnostic for Macroeconomics and Indian Economic Development.",
+  },
+  "/gseb/class-12/economics-diagnostic-test": {
+    title: "Free GSEB Class 12 Economics Diagnostic Test",
+    description:
+      "Take a free English-medium GSEB Class 12 Economics diagnostic and receive a seven-day revision plan.",
+  },
   "/quizzes": {
     title: "CBSE Commerce Quizzes and Practice",
     description: "Practice Commerce concepts with quizzes and revision tools.",
@@ -478,6 +493,18 @@ function AnimatedRoutes() {
           />
           <Route
             path="/board-exam-diagnostic"
+            element={withPage(<BoardExamDiagnostic />)}
+          />
+          <Route
+            path="/cbse/class-12/business-studies-diagnostic-test"
+            element={withPage(<BoardExamDiagnostic />)}
+          />
+          <Route
+            path="/cbse/class-12/economics-diagnostic-test"
+            element={withPage(<BoardExamDiagnostic />)}
+          />
+          <Route
+            path="/gseb/class-12/economics-diagnostic-test"
             element={withPage(<BoardExamDiagnostic />)}
           />
           <Route path="/pdf-viewer" element={withPage(<PdfViewer />)} />

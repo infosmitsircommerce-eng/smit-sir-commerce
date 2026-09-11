@@ -386,6 +386,67 @@ export const DIAGNOSTIC_TESTS = {
 
 export const DIAGNOSTIC_LIST = Object.values(DIAGNOSTIC_TESTS);
 
+export const DIAGNOSTIC_ROUTES = {
+  "/cbse/class-12/business-studies-diagnostic-test": {
+    path: "/cbse/class-12/business-studies-diagnostic-test",
+    testId: "cbse-12-business-studies",
+    title: "Free CBSE Class 12 Business Studies Diagnostic Test",
+    description:
+      "Take a free 15-question CBSE Class 12 Business Studies diagnostic test. Find weak chapters and get an instant seven-day board revision plan.",
+    eyebrow: "CBSE Class 12 · Business Studies · Free",
+    heading: "CBSE Class 12 Business Studies diagnostic test",
+    intro:
+      "Check Management, Planning, Organising, Staffing, Directing, Controlling, Finance, Marketing and Consumer Protection in five focused minutes.",
+    topics: [
+      "Principles and functions of management",
+      "Business environment and planning",
+      "Organising, staffing and directing",
+      "Controlling and financial management",
+      "Marketing and consumer protection",
+    ],
+  },
+  "/cbse/class-12/economics-diagnostic-test": {
+    path: "/cbse/class-12/economics-diagnostic-test",
+    testId: "cbse-12-economics",
+    title: "Free CBSE Class 12 Economics Diagnostic Test",
+    description:
+      "Take a free 15-question CBSE Class 12 Economics diagnostic test for Macroeconomics and Indian Economic Development with an instant revision plan.",
+    eyebrow: "CBSE Class 12 · Economics · Free",
+    heading: "CBSE Class 12 Economics diagnostic test",
+    intro:
+      "Test National Income, Money and Banking, Income Determination, Government Budget, Balance of Payments and Indian Economic Development.",
+    topics: [
+      "National income accounting",
+      "Money, banking and credit creation",
+      "Income determination and multiplier",
+      "Government budget and balance of payments",
+      "Indian economic development",
+    ],
+  },
+  "/gseb/class-12/economics-diagnostic-test": {
+    path: "/gseb/class-12/economics-diagnostic-test",
+    testId: "gseb-12-economics",
+    title: "Free GSEB Class 12 Economics Diagnostic Test",
+    description:
+      "Take a free English-medium GSEB Class 12 Economics diagnostic test and get weak-topic analysis with a personalised seven-day revision plan.",
+    eyebrow: "GSEB Class 12 · Economics · English Medium · Free",
+    heading: "GSEB Class 12 Economics diagnostic test",
+    intro:
+      "Check growth, banking, poverty, unemployment, population, agriculture, industry, foreign trade, public finance and infrastructure.",
+    topics: [
+      "Growth and development",
+      "Money, banking and monetary policy",
+      "Poverty, unemployment and population",
+      "Agriculture, industry and foreign trade",
+      "Public finance, environment and infrastructure",
+    ],
+  },
+};
+
+export const DIAGNOSTIC_ROUTE_BY_TEST = Object.fromEntries(
+  Object.values(DIAGNOSTIC_ROUTES).map((route) => [route.testId, route.path]),
+);
+
 export function scoreDiagnostic(test, answers) {
   let correct = 0;
   const topicMap = new Map();

@@ -147,6 +147,13 @@ export default function AuthorityGuide() {
             <BoosterInlineCTA
               placement={`authority:${guide.shortTitle}`}
               compact
+              targetPath={
+                guide.path.includes("business-studies")
+                  ? "/cbse/class-12/business-studies-diagnostic-test"
+                  : guide.path.includes("economics")
+                    ? "/cbse/class-12/economics-diagnostic-test"
+                    : "/board-exam-diagnostic"
+              }
             />
             {enhancement.answerFramework?.length > 0 && (
               <section className="card-paper p-5 sm:p-8">
