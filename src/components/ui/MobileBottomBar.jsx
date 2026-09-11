@@ -1,19 +1,24 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Home, BookOpen, Brain, ListChecks, MessageCircle } from "lucide-react";
+import { Home, BookOpen, Download, ListChecks, UserRound } from "lucide-react";
+import { useAuth } from "../../context/AuthContext";
 
-const TABS = [
+const BASE_TABS = [
   { path: "/", icon: Home, label: "Home" },
   { path: "/study-material", icon: BookOpen, label: "Notes" },
-  { path: "/board-exam-diagnostic", icon: Brain, label: "Free Test" },
   { path: "/quizzes", icon: ListChecks, label: "Quizzes" },
-  { path: "/contact", icon: MessageCircle, label: "Contact" },
+  { path: "/study-material#all-notes", icon: Download, label: "Downloads" },
 ];
 
 export default function MobileBottomBar() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   const navigate = useNavigate();
-  const isActive = (path) =>
-    path === "/" ? pathname === "/" : pathname.startsWith(path);
+  const { user } = useAuth();
+  const tabs = [...BASE_TABS, { path: user ? "/learning-insights" : "/login", icon: UserRound, label: "Profile" }];
+  const isActive = (tab) => {
+    if (tab.label === "Downloads") return pathname === "/study-material" && hash === "#all-notes";
+    if (tab.label === "Notes") return pathname === "/study-material" && hash !== "#all-notes";
+    return tab.path === "/" ? pathname === "/" : pathname.startsWith(tab.path);
+  };
 
   return (
     <div
@@ -25,8 +30,8 @@ export default function MobileBottomBar() {
           aria-label="Primary mobile navigation"
           className="flex items-end justify-around px-1.5 pt-2 pb-1.5 min-h-[66px]"
         >
-          {TABS.map((tab) => {
-            const active = isActive(tab.path);
+          {tabs.map((tab) => {
+            const active = isActive(tab);
             const Icon = tab.icon;
             return (
               <Link
@@ -38,7 +43,7 @@ export default function MobileBottomBar() {
                 onClick={(event) => {
                   if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
                   event.preventDefault();
-                  if (pathname === tab.path) {
+                  if (`${pathname}${hash}` === tab.path) {
                     window.scrollTo({ top: 0, behavior: "smooth" });
                     return;
                   }
