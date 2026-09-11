@@ -37,7 +37,7 @@ const navLinks = [
       { label: "Flashcards", path: "/flashcards" },
     ],
   },
-  { label: "Quizzes", path: "/quizzes" },
+  { label: "Board Boosters", path: "/board-booster-packs" },
   { label: "Free Diagnostic", path: "/board-exam-diagnostic" },
   { label: "Tools", path: "/tools" },
   { label: "For Teachers", path: "/services-for-teachers" },
@@ -50,6 +50,7 @@ const featureLinks = [
   { label: "Practice", path: "/daily-practice", icon: Brain },
   { label: "Quizzes", path: "/quizzes", icon: ListChecks },
   { label: "Free Diagnostic", path: "/board-exam-diagnostic", icon: Brain },
+  { label: "₹199 Boosters", path: "/board-booster-packs", icon: FileText },
   { label: "Tools", path: "/tools", icon: Wrench },
   { label: "Teachers", path: "/services-for-teachers", icon: FileText },
 ];

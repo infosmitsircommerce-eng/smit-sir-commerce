@@ -21,6 +21,7 @@ const Home = lazy(() => import("./pages/Home"));
 const TeacherGuidesHub = lazy(() => import("./pages/TeacherGuidesHub"));
 const TeacherServices = lazy(() => import("./pages/TeacherServices"));
 const BoardExamDiagnostic = lazy(() => import("./pages/BoardExamDiagnostic"));
+const BoardBoosterPacks = lazy(() => import("./pages/BoardBoosterPacks"));
 const Login = lazy(() => import("./pages/Login"));
 const Onboarding = lazy(() => import("./pages/Onboarding"));
 const Courses = lazy(() => import("./pages/Courses"));
@@ -189,6 +190,11 @@ const ROUTE_SEO = {
     title: "Free Class 12 Commerce Board Exam Diagnostic Test",
     description:
       "Take a free 15-question CBSE or GSEB Class 12 Commerce diagnostic and get an instant weak-topic report with a seven-day revision plan.",
+  },
+  "/board-booster-packs": {
+    title: "₹199 Class 12 Commerce Board Booster Packs",
+    description:
+      "Original CBSE and GSEB Class 12 Board Booster packs with seven-day plans, three tests, answers and weak-topic worksheets.",
   },
   "/cbse/class-12/business-studies-diagnostic-test": {
     title: "Free CBSE Class 12 Business Studies Diagnostic Test",
@@ -389,6 +395,7 @@ function RouteSEO() {
     pathname.startsWith("/class-12-economics-") ||
     pathname === "/teacher-guides" ||
     pathname === "/services-for-teachers" ||
+    pathname === "/board-booster-packs" ||
     pathname === "/board-exam-diagnostic"
   )
     return null;
@@ -494,6 +501,10 @@ function AnimatedRoutes() {
           <Route
             path="/board-exam-diagnostic"
             element={withPage(<BoardExamDiagnostic />)}
+          />
+          <Route
+            path="/board-booster-packs"
+            element={withPage(<BoardBoosterPacks />)}
           />
           <Route
             path="/cbse/class-12/business-studies-diagnostic-test"

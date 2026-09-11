@@ -22,6 +22,7 @@ const basePages = [
   ["/quizzes", "weekly", "0.95"],
   ["/premium", "weekly", "0.9"],
   ["/board-exam-diagnostic", "weekly", "0.98"],
+  ["/board-booster-packs", "weekly", "0.98"],
   ...Object.values(DIAGNOSTIC_ROUTES).map((page) => [
     page.path,
     "weekly",

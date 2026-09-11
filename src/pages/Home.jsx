@@ -90,7 +90,7 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Free Commerce Notes, PDFs, Practice & Quizzes | Smit Sir Commerce"
+        title="Free Commerce Notes, PDFs, Practice & Quizzes"
         description="Free Commerce study material for Class 11 and 12 students: CBSE and GSEB notes, Economics PDFs, Business Studies resources, Accountancy support, practice tools and chapter-wise Economics quizzes."
         path="/"
         structuredData={structuredData}

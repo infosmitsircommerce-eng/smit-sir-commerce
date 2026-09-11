@@ -15,6 +15,14 @@ export default function BoardBoosterPromo() {
     >
       <div className="page-container">
         <BoosterInlineCTA placement="homepage" />
+        <div className="text-center mt-4">
+          <Link
+            to="/board-booster-packs?from=homepage"
+            className="btn-secondary inline-flex items-center justify-center"
+          >
+            See the prepared ₹199 Board Booster packs
+          </Link>
+        </div>
         <div className="grid sm:grid-cols-3 gap-3 mt-4">
           {SUBJECT_TESTS.map(([label, path]) => (
             <Link

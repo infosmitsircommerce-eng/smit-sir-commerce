@@ -17,6 +17,7 @@ const quickLinks = [
   { label: "GSET Commerce", path: "/gset-commerce" },
   { label: "Free Commerce Study Pack", path: "/free-commerce-study-pack" },
   { label: "Free Board Exam Diagnostic", path: "/board-exam-diagnostic" },
+  { label: "₹199 Board Booster Packs", path: "/board-booster-packs" },
   { label: "Free Commerce Calculators", path: "/tools" },
   { label: "Commerce Tuition Mehsana", path: "/commerce-coaching-mehsana" },
   {

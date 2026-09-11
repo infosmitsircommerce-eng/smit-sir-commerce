@@ -160,6 +160,11 @@ export default function LeadCRM() {
           "booster_pack_submit_success",
           "booster_pack_submit_error",
           "booster_premium_click",
+          "board_booster_catalog_view",
+          "board_booster_product_select",
+          "board_booster_direct_form_start",
+          "board_booster_direct_submit_success",
+          "board_booster_direct_submit_error",
         ])
         .order("created_at", { ascending: false })
         .limit(10000),
@@ -262,12 +267,14 @@ export default function LeadCRM() {
       String(lead.landing_context || "").startsWith("board-booster:"),
     );
     return {
-      views: count("booster_page_view"),
+      views: count("booster_page_view") + count("board_booster_catalog_view"),
       starts: count("booster_test_start"),
       completes: count("booster_test_complete"),
       shares:
         count("booster_scorecard_share") + count("booster_scorecard_download"),
-      forms: count("booster_pack_submit_success"),
+      forms:
+        count("booster_pack_submit_success") +
+        count("board_booster_direct_submit_success"),
       premiumClicks: count("booster_premium_click"),
       reservations: reservations.length,
       won: reservations.filter((lead) => lead.status === "Joined").length,
@@ -706,9 +713,14 @@ export default function LeadCRM() {
                 Google visit → diagnosis → revenue
               </h2>
             </div>
-            <Link to="/board-exam-diagnostic" className="btn-secondary">
-              Open diagnostic
-            </Link>
+            <div className="flex gap-2">
+              <Link to="/board-booster-packs" className="btn-primary">
+                Open product page
+              </Link>
+              <Link to="/board-exam-diagnostic" className="btn-secondary">
+                Open diagnostic
+              </Link>
+            </div>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-3 mt-5 text-center">
             {[
@@ -733,6 +745,15 @@ export default function LeadCRM() {
                 </div>
               </div>
             ))}
+          </div>
+          <div
+            className="tile-paper p-4 mt-4 text-sm leading-6"
+            style={{ color: "var(--muted)" }}
+          >
+            <strong style={{ color: "var(--ink)" }}>Delivery checklist:</strong>{" "}
+            confirm subject and recipient → verify payment in the official
+            account → send the matching private PDF → add a delivery note → mark
+            the lead “Joined”. Never send the public website a paid-file URL.
           </div>
         </section>
 
@@ -894,6 +915,9 @@ export default function LeadCRM() {
                 const isTeacherProject = String(
                   lead.landing_context || "",
                 ).startsWith("teacher-service:");
+                const isBoosterProject = String(
+                  lead.landing_context || "",
+                ).startsWith("board-booster:");
                 return (
                   <article key={lead.id} className="tile-paper p-5">
                     <div className="flex items-start justify-between gap-3">
@@ -914,6 +938,17 @@ export default function LeadCRM() {
                               style={{ background: "#101828", color: "#fff" }}
                             >
                               TEACHER STUDIO
+                            </span>
+                          )}
+                          {isBoosterProject && (
+                            <span
+                              className="text-[11px] font-black rounded-full px-2 py-1"
+                              style={{
+                                background: "var(--gold-bg)",
+                                color: "var(--gold)",
+                              }}
+                            >
+                              BOARD BOOSTER
                             </span>
                           )}
                           {lead.enquiries_count > 1 && (
