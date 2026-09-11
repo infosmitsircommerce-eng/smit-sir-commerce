@@ -73,7 +73,7 @@ export default function Layout({ children }) {
       </a>
       <PilotHreflang />
       <Navbar />
-      <MobileHeader />
+      {pathname !== '/' && <MobileHeader />}
       <main id="main-content" tabIndex="-1" className="flex-1 pt-0 lg:pt-20 pb-20 lg:pb-0">
         {children}
       </main>
