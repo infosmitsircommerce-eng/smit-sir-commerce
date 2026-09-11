@@ -7,6 +7,7 @@ export const LIGHT_ROUTES = [
   "/study-material",
   "/services-for-teachers",
   "/board-exam-diagnostic",
+  "/board-booster-packs",
   "/cbse-notes",
   "/cbse-practice",
   "/cbse-pyq",

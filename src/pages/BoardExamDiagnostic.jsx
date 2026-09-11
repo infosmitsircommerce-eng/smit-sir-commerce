@@ -858,10 +858,14 @@ export default function BoardExamDiagnostic() {
                 </p>
                 <div className="grid sm:grid-cols-2 gap-3 mt-5">
                   {[
-                    "Weak-topic priority sheet",
-                    "Seven-day printable revision plan",
-                    "Exam-style practice set",
-                    "Answer key and checking guidance",
+                    "14-page branded revision PDF",
+                    "Chapter-priority roadmap",
+                    "Seven-day revision timetable",
+                    "Three original 20-mark tests",
+                    "Complete answers and checking guidance",
+                    "High-yield concepts and common mistakes",
+                    "Weak-topic improvement worksheet",
+                    "Final revision checklist",
                   ].map((item) => (
                     <div
                       key={item}
@@ -875,6 +879,12 @@ export default function BoardExamDiagnostic() {
                     </div>
                   ))}
                 </div>
+                <Link
+                  to={`/board-booster-packs?pack=${test.id}&from=diagnostic-result`}
+                  className="btn-secondary inline-flex mt-5"
+                >
+                  See the complete pack details
+                </Link>
                 <SubjectPackForm
                   test={test}
                   result={result}

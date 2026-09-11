@@ -31,6 +31,7 @@ function coreNav() {
     '<li><a href="/study-material">Free study material</a></li>' +
     '<li><a href="/services-for-teachers">Services for teachers</a></li>' +
     '<li><a href="/board-exam-diagnostic">Free Board Exam Diagnostic</a></li>' +
+    '<li><a href="/board-booster-packs">₹199 Board Booster Packs</a></li>' +
     '<li><a href="/cbse/class-12/business-studies-diagnostic-test">CBSE Business Studies Diagnostic</a></li>' +
     '<li><a href="/cbse/class-12/economics-diagnostic-test">CBSE Economics Diagnostic</a></li>' +
     '<li><a href="/gseb/class-12/economics-diagnostic-test">GSEB Economics Diagnostic</a></li>' +
@@ -81,6 +82,28 @@ function schemaFor(page) {
         availability: "https://schema.org/InStock",
         url: BASE + page.path,
       },
+    });
+  }
+  if (page.boosterProducts?.length) {
+    graph.push({
+      "@type": "ItemList",
+      name: "Class 12 Commerce Board Booster Packs",
+      itemListElement: page.boosterProducts.map((name, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "Product",
+          name,
+          brand: { "@type": "Brand", name: SITE },
+          offers: {
+            "@type": "Offer",
+            price: "199",
+            priceCurrency: "INR",
+            availability: "https://schema.org/InStock",
+            url: BASE + page.path,
+          },
+        },
+      })),
     });
   }
   if (page.serviceOffers?.length) {
@@ -232,6 +255,36 @@ const diagnosticLandingPages = Object.values(DIAGNOSTIC_ROUTES).map((route) => {
 });
 
 const pages = [
+  {
+    path: "/board-booster-packs",
+    title: "₹199 Class 12 Commerce Board Booster Packs",
+    description:
+      "Original CBSE and GSEB Class 12 Commerce Board Booster packs with a seven-day plan, three exam-style tests, answers, weak-topic worksheet and final revision checklist.",
+    collection: true,
+    boosterProducts: [
+      "CBSE Class 12 Business Studies Board Booster",
+      "CBSE Class 12 Economics Board Booster",
+      "GSEB Class 12 Economics Board Booster",
+    ],
+    faqs: [
+      [
+        "What is included in each Board Booster pack?",
+        "Each 14-page pack includes a chapter-priority roadmap, seven-day timetable, high-yield concepts, common mistakes, three original 20-mark tests, complete answers, a weak-topic worksheet and final checklist.",
+      ],
+      [
+        "Is the ₹199 reservation a payment?",
+        "No. The form only reserves the launch price. The exact pack, official payment recipient and delivery terms are confirmed before payment.",
+      ],
+      [
+        "Are these official board papers?",
+        "No. They are original educational practice packs designed for focused revision. Students should verify the latest official syllabus and school instructions.",
+      ],
+    ],
+    body:
+      '<main class="page-container section-padding" data-prerendered="board-booster-catalog"><article><p><strong>Prepared revision packs · ₹199 each</strong></p><h1>Class 12 Commerce Board Booster Packs</h1><p>Choose a focused revision system for CBSE Class 12 Business Studies, CBSE Class 12 Economics or GSEB Class 12 Economics. Each product is already prepared and is delivered privately after payment verification.</p><h2>Choose a subject</h2><ul><li>CBSE Class 12 Business Studies Board Booster</li><li>CBSE Class 12 Economics Board Booster</li><li>GSEB Class 12 Economics Board Booster</li></ul><h2>Included in every 14-page pack</h2><ul><li>Chapter-priority roadmap and seven-day timetable</li><li>High-yield concepts and common mistakes</li><li>Three original 20-mark exam-style tests</li><li>Complete answers and suggested checking guidance</li><li>Weak-topic improvement worksheet and final checklist</li></ul><p>The reservation form does not collect payment. Pay only after the exact subject pack, official payment recipient and delivery terms are confirmed. These are original educational practice packs, not official board papers or guaranteed marks.</p><p><a href="/board-booster-packs">View packs and reserve</a> · <a href="/board-exam-diagnostic">Take the free diagnostic first</a></p>' +
+      coreNav() +
+      "</article></main>",
+  },
   {
     path: "/board-exam-diagnostic",
     title: "Free Class 12 Commerce Board Exam Diagnostic Test",
