@@ -4,6 +4,7 @@ import QuizPromo from "../components/home/QuizPromo";
 import PremiumSpotlight from "../components/home/PremiumSpotlight";
 import HeroSection from "../components/home/HeroSection";
 import BoardBoosterPromo from "../components/home/BoardBoosterPromo";
+import MobileLearningHome from "../components/home/MobileLearningHome";
 
 const HomeBelowFold = lazy(() => import("../components/home/HomeBelowFold"));
 
@@ -95,7 +96,10 @@ export default function Home() {
         path="/"
         structuredData={structuredData}
       />
-      <HeroSection />
+      <MobileLearningHome />
+      <div className="hidden lg:block">
+        <HeroSection />
+      </div>
       <BoardBoosterPromo />
       <PremiumSpotlight />
       <QuizPromo />
