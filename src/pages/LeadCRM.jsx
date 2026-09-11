@@ -148,6 +148,18 @@ export default function LeadCRM() {
           "teacher_service_order_submit_success",
           "teacher_service_order_submit_error",
           "teacher_service_whatsapp_click",
+          "booster_page_view",
+          "booster_cta_view",
+          "booster_cta_click",
+          "booster_test_start",
+          "booster_test_complete",
+          "booster_scorecard_download",
+          "booster_scorecard_share",
+          "booster_pack_form_start",
+          "booster_pack_submit_attempt",
+          "booster_pack_submit_success",
+          "booster_pack_submit_error",
+          "booster_premium_click",
         ])
         .order("created_at", { ascending: false })
         .limit(10000),
@@ -240,6 +252,25 @@ export default function LeadCRM() {
       whatsapp: count("teacher_service_whatsapp_click"),
       projects: projects.length,
       won,
+    };
+  }, [events, leads]);
+
+  const boosterFunnel = useMemo(() => {
+    const count = (name) =>
+      events.filter((event) => event.event_name === name).length;
+    const reservations = leads.filter((lead) =>
+      String(lead.landing_context || "").startsWith("board-booster:"),
+    );
+    return {
+      views: count("booster_page_view"),
+      starts: count("booster_test_start"),
+      completes: count("booster_test_complete"),
+      shares:
+        count("booster_scorecard_share") + count("booster_scorecard_download"),
+      forms: count("booster_pack_submit_success"),
+      premiumClicks: count("booster_premium_click"),
+      reservations: reservations.length,
+      won: reservations.filter((lead) => lead.status === "Joined").length,
     };
   }, [events, leads]);
 
@@ -661,6 +692,47 @@ export default function LeadCRM() {
                 </p>
               )}
             </div>
+          </div>
+        </section>
+
+        <section className="card-paper p-5 sm:p-6">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <span className="eyebrow">Board Booster funnel · 30 days</span>
+              <h2
+                className="text-2xl mt-2"
+                style={{ fontFamily: "var(--font-serif)", color: "var(--ink)" }}
+              >
+                Google visit → diagnosis → revenue
+              </h2>
+            </div>
+            <Link to="/board-exam-diagnostic" className="btn-secondary">
+              Open diagnostic
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-3 mt-5 text-center">
+            {[
+              ["Page views", boosterFunnel.views],
+              ["Test starts", boosterFunnel.starts],
+              ["Completions", boosterFunnel.completes],
+              ["Shares/cards", boosterFunnel.shares],
+              ["Pack forms", boosterFunnel.forms],
+              ["Premium clicks", boosterFunnel.premiumClicks],
+              ["Reservations", boosterFunnel.reservations],
+              ["Won", boosterFunnel.won],
+            ].map(([label, value]) => (
+              <div key={label} className="tile-paper p-4">
+                <div
+                  className="text-2xl font-bold"
+                  style={{ color: "var(--ink)" }}
+                >
+                  {value}
+                </div>
+                <div className="text-xs mt-1" style={{ color: "var(--muted)" }}>
+                  {label}
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 

@@ -30,6 +30,7 @@ const groups = [
     title: "Practice",
     icon: Brain,
     links: [
+      { label: "Free Board Diagnostic", path: "/board-exam-diagnostic" },
       { label: "Daily Practice", path: "/daily-practice" },
       { label: "CBSE Chapter Practice", path: "/cbse-practice" },
       { label: "Test Series", path: "/test-series" },

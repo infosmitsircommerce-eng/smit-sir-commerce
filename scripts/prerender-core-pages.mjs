@@ -26,6 +26,7 @@ function coreNav() {
     '<li><a href="/courses">Commerce courses</a></li>' +
     '<li><a href="/study-material">Free study material</a></li>' +
     '<li><a href="/services-for-teachers">Services for teachers</a></li>' +
+    '<li><a href="/board-exam-diagnostic">Free Board Exam Diagnostic</a></li>' +
     '<li><a href="/quizzes">Commerce quizzes</a></li>' +
     '<li><a href="/premium">₹999 Lifetime Premium</a></li>' +
     '<li><a href="/test-series">Commerce test series</a></li>' +
@@ -198,6 +199,26 @@ const faqs = [
 ];
 
 const pages = [
+  {
+    path: "/board-exam-diagnostic",
+    title: "Free Class 12 Commerce Board Exam Diagnostic Test",
+    description:
+      "Take a free 15-question CBSE or GSEB Class 12 Commerce diagnostic and get an instant weak-topic report with a seven-day revision plan.",
+    faqs: [
+      [
+        "Is the Board Exam Diagnostic free?",
+        "Yes. The 15-question diagnostic, score, weak-topic analysis and seven-day plan are free and do not require login.",
+      ],
+      [
+        "Which subjects are available?",
+        "The initial diagnostic supports CBSE Class 12 Business Studies, CBSE Class 12 Economics and GSEB Class 12 Economics.",
+      ],
+    ],
+    body:
+      '<main class="page-container section-padding" data-prerendered="board-exam-diagnostic"><article><p><strong>Free five-minute assessment</strong></p><h1>Class 12 Commerce Board Exam Diagnostic Test</h1><p>Answer 15 mixed questions and immediately see your readiness score, three weakest topics and a practical seven-day revision plan. No login or payment is required for the diagnostic.</p><h2>Choose a free diagnostic</h2><ul><li>CBSE Class 12 Business Studies</li><li>CBSE Class 12 Economics</li><li>GSEB Class 12 Economics</li></ul><h2>What the result includes</h2><ul><li>A percentage score and readiness band.</li><li>Topic-by-topic performance.</li><li>Your three weakest areas.</li><li>A personalised seven-day recovery plan.</li><li>A branded scorecard you can download and share.</li></ul><p>The result is an educational self-check and not an official predicted board score. A ₹199 subject-focused Board Booster reservation and the separate ₹999 Lifetime Premium plan are optional; free public resources remain free.</p><p><a href="/board-exam-diagnostic">Start the free diagnostic</a> · <a href="/cbse/class-12/business-studies-important-questions">Revise Business Studies</a> · <a href="/cbse/class-12/economics-revision-guide">Revise Economics</a></p>' +
+      coreNav() +
+      "</article></main>",
+  },
   {
     path: "/services-for-teachers",
     title: "Question Paper, Notes & PPT Services for Teachers",

@@ -20,6 +20,7 @@ const QuizChapter = lazy(() => import("./pages/QuizChapter"));
 const Home = lazy(() => import("./pages/Home"));
 const TeacherGuidesHub = lazy(() => import("./pages/TeacherGuidesHub"));
 const TeacherServices = lazy(() => import("./pages/TeacherServices"));
+const BoardExamDiagnostic = lazy(() => import("./pages/BoardExamDiagnostic"));
 const Login = lazy(() => import("./pages/Login"));
 const Onboarding = lazy(() => import("./pages/Onboarding"));
 const Courses = lazy(() => import("./pages/Courses"));
@@ -183,6 +184,11 @@ const ROUTE_SEO = {
     title: "Question Paper, Notes & PPT Services for Teachers",
     description:
       "Custom question papers, answer keys, branded notes, teaching PPTs, worksheets and websites for teachers, schools and coaching classes in India. Pricing from ₹499.",
+  },
+  "/board-exam-diagnostic": {
+    title: "Free Class 12 Commerce Board Exam Diagnostic Test",
+    description:
+      "Take a free 15-question CBSE or GSEB Class 12 Commerce diagnostic and get an instant weak-topic report with a seven-day revision plan.",
   },
   "/quizzes": {
     title: "CBSE Commerce Quizzes and Practice",
@@ -367,7 +373,8 @@ function RouteSEO() {
     pathname.startsWith("/class-12-commerce-") ||
     pathname.startsWith("/class-12-economics-") ||
     pathname === "/teacher-guides" ||
-    pathname === "/services-for-teachers"
+    pathname === "/services-for-teachers" ||
+    pathname === "/board-exam-diagnostic"
   )
     return null;
   const meta = ROUTE_SEO[pathname] || {
@@ -468,6 +475,10 @@ function AnimatedRoutes() {
           <Route
             path="/services-for-teachers"
             element={withPage(<TeacherServices />)}
+          />
+          <Route
+            path="/board-exam-diagnostic"
+            element={withPage(<BoardExamDiagnostic />)}
           />
           <Route path="/pdf-viewer" element={withPage(<PdfViewer />)} />
           <Route path="/cbse-notes" element={withPage(<CbseNotes />)} />

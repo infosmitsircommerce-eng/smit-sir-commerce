@@ -3,130 +3,200 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <meta name="theme-color" content="#FAF6EE" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
     <meta name="apple-mobile-web-app-title" content="Smit Sir Commerce" />
 
     <!-- Critical first-paint styles prevent a flash of unstyled prerendered SEO text. -->
     <style>
-      html, body, #root { min-height: 100%; background: #FAF6EE; color: #17130f; }
-      body { margin: 0; }
+      html,
+      body,
+      #root {
+        min-height: 100%;
+        background: #faf6ee;
+        color: #17130f;
+      }
+      body {
+        margin: 0;
+      }
       #app-startup-mask {
         position: fixed;
         inset: 0;
         z-index: 2147483647;
         display: grid;
         place-items: center;
-        background: #FAF6EE;
+        background: #faf6ee;
         pointer-events: none;
       }
       #app-startup-mask::after {
-        content: 'Smit Sir Commerce';
-        font: 700 14px/1.2 system-ui, sans-serif;
-        letter-spacing: .04em;
-        color: #8A631C;
+        content: "Smit Sir Commerce";
+        font:
+          700 14px/1.2 system-ui,
+          sans-serif;
+        letter-spacing: 0.04em;
+        color: #8a631c;
       }
     </style>
 
     <!-- Crawlable fallback SEO. React Helmet replaces these with route-specific tags. -->
-    <title>Free Commerce Notes, PDFs, Practice & Quizzes | Smit Sir Commerce</title>
-    <meta name="description" content="Free Commerce study material for Class 11 and 12 students: CBSE and GSEB notes, Economics PDFs, Business Studies resources, Accountancy support, practice tools and chapter-wise Economics quizzes." />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <title>
+      Free Commerce Notes, PDFs, Practice & Quizzes | Smit Sir Commerce
+    </title>
+    <meta
+      name="description"
+      content="Free Commerce study material for Class 11 and 12 students: CBSE and GSEB notes, Economics PDFs, Business Studies resources, Accountancy support, practice tools and chapter-wise Economics quizzes."
+    />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta
+      name="googlebot"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
     <meta name="author" content="Smit Sir Commerce" />
     <link rel="canonical" href="https://www.smitsircommerce.in/" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Smit Sir Commerce" />
     <meta property="og:locale" content="en_IN" />
-    <meta property="og:title" content="Free Commerce Notes, PDFs, Practice & Quizzes | Smit Sir Commerce" />
-    <meta property="og:description" content="Free Commerce study material for Class 11 and 12: CBSE and GSEB notes, Economics PDFs, Business Studies resources, Accountancy support, practice tools and chapter-wise quizzes." />
+    <meta
+      property="og:title"
+      content="Free Commerce Notes, PDFs, Practice & Quizzes | Smit Sir Commerce"
+    />
+    <meta
+      property="og:description"
+      content="Free Commerce study material for Class 11 and 12: CBSE and GSEB notes, Economics PDFs, Business Studies resources, Accountancy support, practice tools and chapter-wise quizzes."
+    />
     <meta property="og:url" content="https://www.smitsircommerce.in/" />
-    <meta property="og:image" content="https://www.smitsircommerce.in/og-image.jpg" />
+    <meta
+      property="og:image"
+      content="https://www.smitsircommerce.in/og-image.jpg"
+    />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Free Commerce Notes, PDFs, Practice & Quizzes | Smit Sir Commerce" />
-    <meta name="twitter:description" content="Free Commerce notes, PDFs, practice tools and chapter-wise quizzes for CBSE and GSEB Commerce students." />
-    <meta name="twitter:image" content="https://www.smitsircommerce.in/og-image.jpg" />
+    <meta
+      name="twitter:title"
+      content="Free Commerce Notes, PDFs, Practice & Quizzes | Smit Sir Commerce"
+    />
+    <meta
+      name="twitter:description"
+      content="Free Commerce notes, PDFs, practice tools and chapter-wise quizzes for CBSE and GSEB Commerce students."
+    />
+    <meta
+      name="twitter:image"
+      content="https://www.smitsircommerce.in/og-image.jpg"
+    />
 
     <meta name="geo.region" content="IN-GJ" />
     <meta name="geo.placename" content="Mehsana, Gujarat, India" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "EducationalOrganization",
-          "@id": "https://www.smitsircommerce.in/#organization",
-          "name": "Smit Sir Commerce",
-          "alternateName": "Smit Sir Commerce Classes",
-          "description": "A Commerce learning platform created by Smit Thaker with free notes, PDFs, practice tools and chapter-wise Economics quizzes for Class 11 and 12 students.",
-          "url": "https://www.smitsircommerce.in/",
-          "email": "infosmitsircommerce@gmail.com",
-          "contactPoint": {
-            "@type": "ContactPoint",
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "EducationalOrganization",
+            "@id": "https://www.smitsircommerce.in/#organization",
+            "name": "Smit Sir Commerce",
+            "alternateName": "Smit Sir Commerce Classes",
+            "description": "A Commerce learning platform created by Smit Thaker with free notes, PDFs, practice tools and chapter-wise Economics quizzes for Class 11 and 12 students.",
+            "url": "https://www.smitsircommerce.in/",
             "email": "infosmitsircommerce@gmail.com",
-            "contactType": "student support and enquiries",
-            "areaServed": "IN-GJ"
-          },
-          "areaServed": {
-            "@type": "City",
-            "name": "Mehsana",
-            "containedInPlace": {
-              "@type": "State",
-              "name": "Gujarat",
-              "containedInPlace": { "@type": "Country", "name": "India" }
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "email": "infosmitsircommerce@gmail.com",
+              "contactType": "student support and enquiries",
+              "areaServed": "IN-GJ"
+            },
+            "areaServed": {
+              "@type": "City",
+              "name": "Mehsana",
+              "containedInPlace": {
+                "@type": "State",
+                "name": "Gujarat",
+                "containedInPlace": { "@type": "Country", "name": "India" }
+              }
+            },
+            "knowsAbout": [
+              "Class 11 Commerce",
+              "Class 12 Commerce",
+              "CBSE Commerce",
+              "GSEB Economics",
+              "Economics",
+              "Business Studies",
+              "Accountancy",
+              "Entrepreneurship",
+              "Commerce study material",
+              "Economics quizzes"
+            ],
+            "founder": {
+              "@id": "https://www.smitsircommerce.in/about#smit-thaker"
             }
           },
-          "knowsAbout": ["Class 11 Commerce", "Class 12 Commerce", "CBSE Commerce", "GSEB Economics", "Economics", "Business Studies", "Accountancy", "Entrepreneurship", "Commerce study material", "Economics quizzes"],
-          "founder": { "@id": "https://www.smitsircommerce.in/about#smit-thaker" }
-        },
-        {
-          "@type": "Person",
-          "@id": "https://www.smitsircommerce.in/about#smit-thaker",
-          "name": "Smit Thaker",
-          "alternateName": "Smit Sir",
-          "url": "https://www.smitsircommerce.in/about",
-          "jobTitle": "Commerce Educator",
-          "worksFor": { "@id": "https://www.smitsircommerce.in/#organization" },
-          "knowsAbout": ["Economics", "Business Studies", "Entrepreneurship", "Commerce education", "Commerce study material"]
-        },
-        {
-          "@type": "WebSite",
-          "@id": "https://www.smitsircommerce.in/#website",
-          "url": "https://www.smitsircommerce.in/",
-          "name": "Smit Sir Commerce",
-          "description": "Free Commerce notes, PDFs, practice tools and chapter-wise Economics quizzes for CBSE and GSEB students.",
-          "inLanguage": "en-IN",
-          "publisher": { "@id": "https://www.smitsircommerce.in/#organization" }
-        }
-      ]
-    }
+          {
+            "@type": "Person",
+            "@id": "https://www.smitsircommerce.in/about#smit-thaker",
+            "name": "Smit Thaker",
+            "alternateName": "Smit Sir",
+            "url": "https://www.smitsircommerce.in/about",
+            "jobTitle": "Commerce Educator",
+            "worksFor": {
+              "@id": "https://www.smitsircommerce.in/#organization"
+            },
+            "knowsAbout": [
+              "Economics",
+              "Business Studies",
+              "Entrepreneurship",
+              "Commerce education",
+              "Commerce study material"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.smitsircommerce.in/#website",
+            "url": "https://www.smitsircommerce.in/",
+            "name": "Smit Sir Commerce",
+            "description": "Free Commerce notes, PDFs, practice tools and chapter-wise Economics quizzes for CBSE and GSEB students.",
+            "inLanguage": "en-IN",
+            "publisher": {
+              "@id": "https://www.smitsircommerce.in/#organization"
+            }
+          }
+        ]
+      }
     </script>
 
     <!-- Third-party analytics/ads never compete with the first useful paint. -->
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-6ZVG9CJEG8', { send_page_view: false });
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-6ZVG9CJEG8", { send_page_view: false });
 
       (function () {
         var loaded = false;
         var fallbackTimer;
 
         function addScript(src, marker) {
-          if (document.querySelector('script[' + marker + ']')) return;
-          var script = document.createElement('script');
+          if (document.querySelector("script[" + marker + "]")) return;
+          var script = document.createElement("script");
           script.async = true;
-          script.setAttribute(marker, '1');
+          script.setAttribute(marker, "1");
           script.src = src;
           document.head.appendChild(script);
         }
@@ -136,36 +206,55 @@
           loaded = true;
           cleanup();
 
-          addScript('https://www.googletagmanager.com/gtag/js?id=G-6ZVG9CJEG8', 'data-ga-loader');
+          addScript(
+            "https://www.googletagmanager.com/gtag/js?id=G-6ZVG9CJEG8",
+            "data-ga-loader",
+          );
           window.setTimeout(function () {
-            var path = window.location.pathname || '/';
+            var path = window.location.pathname || "/";
             var blockedForAds =
-              /^\/(?:login|onboarding|premium|admin(?:\/|$)|admin-studio|dashboard|learning-insights|my-data|contact|book-demo|demo-success|marks-recovery|pdf-viewer|reel|ask)(?:\/|$)/.test(path) ||
+              /^\/(?:login|onboarding|premium|admin(?:\/|$)|admin-studio|dashboard|learning-insights|my-data|contact|book-demo|demo-success|marks-recovery|board-exam-diagnostic|pdf-viewer|reel|ask)(?:\/|$)/.test(
+                path,
+              ) ||
               /^\/practice\//.test(path) ||
-              /^\/(?:daily-practice|study-coach|exam-mode)(?:\/|$)/.test(path) ||
+              /^\/(?:daily-practice|study-coach|exam-mode)(?:\/|$)/.test(
+                path,
+              ) ||
               /^\/tests\//.test(path) ||
               /^\/(?:privacy|terms|access-policy)(?:\/|$)/.test(path);
 
             if (!blockedForAds) {
-              addScript('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8111198978029240', 'data-adsense-loader');
+              addScript(
+                "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8111198978029240",
+                "data-adsense-loader",
+              );
             }
           }, 1200);
         }
 
         function cleanup() {
           window.clearTimeout(fallbackTimer);
-          ['pointerdown', 'touchstart', 'keydown'].forEach(function (eventName) {
-            window.removeEventListener(eventName, loadDeferredThirdParty);
-          });
+          ["pointerdown", "touchstart", "keydown"].forEach(
+            function (eventName) {
+              window.removeEventListener(eventName, loadDeferredThirdParty);
+            },
+          );
         }
 
-        ['pointerdown', 'touchstart', 'keydown'].forEach(function (eventName) {
-          window.addEventListener(eventName, loadDeferredThirdParty, { once: true, passive: true });
+        ["pointerdown", "touchstart", "keydown"].forEach(function (eventName) {
+          window.addEventListener(eventName, loadDeferredThirdParty, {
+            once: true,
+            passive: true,
+          });
         });
 
-        window.addEventListener('load', function () {
-          fallbackTimer = window.setTimeout(loadDeferredThirdParty, 4000);
-        }, { once: true });
+        window.addEventListener(
+          "load",
+          function () {
+            fallbackTimer = window.setTimeout(loadDeferredThirdParty, 4000);
+          },
+          { once: true },
+        );
       })();
     </script>
 
@@ -178,10 +267,16 @@
       rel="preload"
       as="style"
       href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
-      onload="this.onload=null;this.rel='stylesheet'"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
     />
     <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
+        rel="stylesheet"
+      />
     </noscript>
   </head>
   <body>
