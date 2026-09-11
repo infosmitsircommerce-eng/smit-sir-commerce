@@ -2,6 +2,10 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { examTests } from "../src/data/examBank.js";
 import { authorityGuides } from "../src/data/authorityGuides.js";
+import {
+  DIAGNOSTIC_ROUTES,
+  DIAGNOSTIC_TESTS,
+} from "../src/data/boardDiagnostic.js";
 
 const BASE = "https://www.smitsircommerce.in";
 const SITE = "Smit Sir Commerce";
@@ -27,6 +31,9 @@ function coreNav() {
     '<li><a href="/study-material">Free study material</a></li>' +
     '<li><a href="/services-for-teachers">Services for teachers</a></li>' +
     '<li><a href="/board-exam-diagnostic">Free Board Exam Diagnostic</a></li>' +
+    '<li><a href="/cbse/class-12/business-studies-diagnostic-test">CBSE Business Studies Diagnostic</a></li>' +
+    '<li><a href="/cbse/class-12/economics-diagnostic-test">CBSE Economics Diagnostic</a></li>' +
+    '<li><a href="/gseb/class-12/economics-diagnostic-test">GSEB Economics Diagnostic</a></li>' +
     '<li><a href="/quizzes">Commerce quizzes</a></li>' +
     '<li><a href="/premium">₹999 Lifetime Premium</a></li>' +
     '<li><a href="/test-series">Commerce test series</a></li>' +
@@ -198,6 +205,32 @@ const faqs = [
   ],
 ];
 
+const diagnosticLandingPages = Object.values(DIAGNOSTIC_ROUTES).map((route) => {
+  const test = DIAGNOSTIC_TESTS[route.testId];
+  const topicList = route.topics
+    .map((topic) => `<li>${esc(topic)}</li>`)
+    .join("");
+  return {
+    path: route.path,
+    title: route.title,
+    description: route.description,
+    faqs: [
+      [
+        `Is the ${test.label} diagnostic free?`,
+        "Yes. The 15-question test, score, weak-topic analysis and seven-day plan are free and do not require login.",
+      ],
+      [
+        "Does this predict my official board marks?",
+        "No. It is an original educational self-check designed to identify revision priorities, not an official marks prediction.",
+      ],
+    ],
+    body:
+      `<main class="page-container section-padding" data-prerendered="subject-diagnostic"><article><p><strong>${esc(route.eyebrow)}</strong></p><h1>${esc(route.heading)}</h1><p>${esc(route.intro)}</p><p>Answer 15 original questions and immediately receive a percentage score, topic-by-topic diagnosis, three weak areas and a personalised seven-day revision plan. No account or payment is needed.</p><h2>Topics checked</h2><ul>${topicList}</ul><h2>What you receive</h2><ul><li>Instant readiness score</li><li>Weak-topic analysis</li><li>Seven-day recovery plan</li><li>Downloadable and shareable scorecard</li></ul><p>This self-check is not an official board paper or a guaranteed marks prediction. The ₹199 subject-pack reservation and ₹999 Premium option are separate and optional.</p><p><a href="${esc(route.path)}">Start the free ${esc(test.shortLabel)} diagnostic</a> · <a href="${esc(test.revisionPath)}">Open free revision resources</a> · <a href="/board-exam-diagnostic">See every diagnostic</a></p>` +
+      coreNav() +
+      "</article></main>",
+  };
+});
+
 const pages = [
   {
     path: "/board-exam-diagnostic",
@@ -219,6 +252,7 @@ const pages = [
       coreNav() +
       "</article></main>",
   },
+  ...diagnosticLandingPages,
   {
     path: "/services-for-teachers",
     title: "Question Paper, Notes & PPT Services for Teachers",

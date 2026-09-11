@@ -224,7 +224,15 @@ export default function SeoMaterialChapter() {
       <main className="page-container section-padding">
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px] gap-8 items-start">
           <div className="space-y-7">
-            <BoosterInlineCTA placement={`notes:${material.chapter}`} compact />
+            <BoosterInlineCTA
+              placement={`notes:${material.chapter}`}
+              compact
+              targetPath={
+                material.subject === "Business Studies"
+                  ? "/cbse/class-12/business-studies-diagnostic-test"
+                  : "/cbse/class-12/economics-diagnostic-test"
+              }
+            />
             <section className="card-paper p-5 sm:p-7 md:p-9">
               <h2
                 className="text-3xl mb-5"

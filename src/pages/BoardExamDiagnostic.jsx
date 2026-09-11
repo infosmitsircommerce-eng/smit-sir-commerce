@@ -1,5 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import {
   ArrowLeft,
   ArrowRight,
@@ -23,12 +28,14 @@ import { trackEvent } from "../lib/analytics";
 import {
   buildSevenDayPlan,
   DIAGNOSTIC_LIST,
+  DIAGNOSTIC_ROUTE_BY_TEST,
+  DIAGNOSTIC_ROUTES,
   DIAGNOSTIC_TESTS,
   scoreDiagnostic,
 } from "../data/boardDiagnostic";
 
 const BASE = "https://www.smitsircommerce.in";
-const PATH = "/board-exam-diagnostic";
+const ROOT_PATH = "/board-exam-diagnostic";
 const STORAGE_KEY = "ssc-board-diagnostic-v1";
 
 function sourceFromSearch(searchParams) {
@@ -55,7 +62,7 @@ function ResultBand({ percent }) {
   );
 }
 
-function SubjectPackForm({ test, result, user }) {
+function SubjectPackForm({ test, result, user, landingPath }) {
   const [form, setForm] = useState({
     name: "",
     mobile: "",
@@ -116,7 +123,7 @@ function SubjectPackForm({ test, result, user }) {
       intent: "General Enquiry",
       message: `BOARD BOOSTER ₹199 RESERVATION | ${test.label} | Diagnostic score ${result.correct}/${result.total} (${result.percent}%) | Weak topics: ${result.weakTopics.map((item) => item.topic).join(", ")} | Payment status: not requested; confirm inclusions and recipient before payment.`,
       consent: true,
-      first_path: PATH,
+      first_path: landingPath,
       utm_source: params.get("utm_source") || sourceFromSearch(params),
       utm_medium: params.get("utm_medium") || "diagnostic",
       utm_campaign: params.get("utm_campaign") || "board_exam_booster",
@@ -228,10 +235,14 @@ function SubjectPackForm({ test, result, user }) {
 
 export default function BoardExamDiagnostic() {
   const { user } = useAuth();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const routeConfig = DIAGNOSTIC_ROUTES[pathname] || null;
   const requested = searchParams.get("test");
   const [testId, setTestId] = useState(
-    DIAGNOSTIC_TESTS[requested] ? requested : DIAGNOSTIC_LIST[0].id,
+    routeConfig?.testId ||
+      (DIAGNOSTIC_TESTS[requested] ? requested : DIAGNOSTIC_LIST[0].id),
   );
   const [screen, setScreen] = useState("landing");
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -246,12 +257,25 @@ export default function BoardExamDiagnostic() {
   );
 
   useEffect(() => {
+    if (!routeConfig?.testId) return;
+    setTestId(routeConfig.testId);
+    setScreen("landing");
+    setQuestionIndex(0);
+    setAnswers({});
+    setResult(null);
+  }, [routeConfig?.testId]);
+
+  useEffect(() => {
     trackEvent(
       "booster_page_view",
-      { source: sourceFromSearch(searchParams), testId },
+      {
+        source: sourceFromSearch(searchParams),
+        testId: routeConfig?.testId || testId,
+        landingPath: pathname,
+      },
       user?.id || null,
     );
-  }, []);
+  }, [pathname]);
 
   function begin() {
     setAnswers({});
@@ -352,7 +376,8 @@ export default function BoardExamDiagnostic() {
   }
 
   async function shareCard() {
-    const text = `I scored ${result.percent}% (${result.level}) in the free ${test.label} Board Exam Diagnostic. Can you beat my score? ${BASE}${PATH}?test=${testId}&utm_source=scorecard&utm_medium=student_share&utm_campaign=board_exam_booster`;
+    const sharePath = DIAGNOSTIC_ROUTE_BY_TEST[testId] || ROOT_PATH;
+    const text = `I scored ${result.percent}% (${result.level}) in the free ${test.label} Board Exam Diagnostic. Can you beat my score? ${BASE}${sharePath}?utm_source=scorecard&utm_medium=student_share&utm_campaign=board_exam_booster`;
     try {
       const blob = await new Promise((resolve) =>
         drawCard().toBlob(resolve, "image/png"),
@@ -393,10 +418,12 @@ export default function BoardExamDiagnostic() {
     "@graph": [
       {
         "@type": "LearningResource",
-        name: "Free Class 12 Commerce Board Exam Diagnostic Test",
+        name:
+          routeConfig?.title ||
+          "Free Class 12 Commerce Board Exam Diagnostic Test",
         description:
           "A free 15-question CBSE and GSEB Commerce diagnostic with instant weak-topic analysis and a seven-day revision plan.",
-        url: `${BASE}${PATH}`,
+        url: `${BASE}${pathname}`,
         isAccessibleForFree: true,
         learningResourceType: "Diagnostic assessment",
         educationalLevel: "Class 12",
@@ -434,9 +461,15 @@ export default function BoardExamDiagnostic() {
       }}
     >
       <SEO
-        title="Free Class 12 Commerce Board Exam Diagnostic Test"
-        description="Take a free 15-question CBSE or GSEB Class 12 Commerce diagnostic. Get your score, weak chapters and personalised seven-day revision plan instantly."
-        path={PATH}
+        title={
+          routeConfig?.title ||
+          "Free Class 12 Commerce Board Exam Diagnostic Test"
+        }
+        description={
+          routeConfig?.description ||
+          "Take a free 15-question CBSE or GSEB Class 12 Commerce diagnostic. Get your score, weak chapters and personalised seven-day revision plan instantly."
+        }
+        path={pathname}
         structuredData={structuredData}
       />
 
@@ -447,12 +480,14 @@ export default function BoardExamDiagnostic() {
             className="text-sm mb-7"
             style={{ color: "var(--muted)" }}
           >
-            <Link to="/">Home</Link> / Board Exam Diagnostic
+            <Link to="/">Home</Link> /{" "}
+            {routeConfig?.heading || "Board Exam Diagnostic"}
           </nav>
           <div className="grid lg:grid-cols-[1.05fr_.95fr] gap-8 items-center">
             <div>
               <span className="eyebrow inline-flex items-center gap-2">
-                <Target className="w-4 h-4" /> Free five-minute assessment
+                <Target className="w-4 h-4" />{" "}
+                {routeConfig?.eyebrow || "Free five-minute assessment"}
               </span>
               <h1
                 className="text-4xl sm:text-6xl mt-5 leading-tight"
@@ -462,16 +497,19 @@ export default function BoardExamDiagnostic() {
                   letterSpacing: "-.045em",
                 }}
               >
-                Stop guessing. Find the chapters{" "}
-                <span style={{ color: "var(--gold)" }}>costing you marks.</span>
+                {routeConfig
+                  ? routeConfig.heading
+                  : "Stop guessing. Find the chapters"}{" "}
+                <span style={{ color: "var(--gold)" }}>
+                  {routeConfig ? "and fix weak topics." : "costing you marks."}
+                </span>
               </h1>
               <p
                 className="text-lg mt-5 leading-8 max-w-2xl"
                 style={{ color: "var(--muted)" }}
               >
-                Answer 15 mixed questions. Get an instant readiness score, your
-                three weakest areas and a practical seven-day recovery
-                plan—without creating an account.
+                {routeConfig?.intro ||
+                  "Answer 15 mixed questions. Get an instant readiness score, your three weakest areas and a practical seven-day recovery plan—without creating an account."}
               </p>
               <div className="grid sm:grid-cols-3 gap-3 mt-7">
                 {[
@@ -503,7 +541,11 @@ export default function BoardExamDiagnostic() {
                 {DIAGNOSTIC_LIST.map((item) => (
                   <button
                     key={item.id}
-                    onClick={() => setTestId(item.id)}
+                    onClick={() => {
+                      const subjectPath = DIAGNOSTIC_ROUTE_BY_TEST[item.id];
+                      if (routeConfig && subjectPath) navigate(subjectPath);
+                      else setTestId(item.id);
+                    }}
                     className="w-full text-left rounded-2xl p-4 flex items-center justify-between gap-3"
                     style={{
                       border: `2px solid ${testId === item.id ? "var(--gold)" : "var(--border)"}`,
@@ -543,6 +585,38 @@ export default function BoardExamDiagnostic() {
               </p>
             </div>
           </div>
+          {routeConfig && (
+            <section className="card-paper p-5 sm:p-8 mt-8">
+              <h2
+                className="text-3xl"
+                style={{ fontFamily: "var(--font-serif)" }}
+              >
+                Topics checked in this free diagnostic
+              </h2>
+              <ul className="grid sm:grid-cols-2 gap-3 mt-5">
+                {routeConfig.topics.map((topic) => (
+                  <li
+                    key={topic}
+                    className="tile-paper p-4 flex gap-3 text-sm font-semibold"
+                  >
+                    <CheckCircle2
+                      className="w-5 h-5 shrink-0"
+                      style={{ color: "var(--green)" }}
+                    />
+                    {topic}
+                  </li>
+                ))}
+              </ul>
+              <p
+                className="mt-5 text-sm leading-7"
+                style={{ color: "var(--muted)" }}
+              >
+                This is an original revision self-check prepared for learning.
+                It is not an official board paper or a guaranteed marks
+                prediction.
+              </p>
+            </section>
+          )}
         </section>
       )}
 
@@ -801,7 +875,12 @@ export default function BoardExamDiagnostic() {
                     </div>
                   ))}
                 </div>
-                <SubjectPackForm test={test} result={result} user={user} />
+                <SubjectPackForm
+                  test={test}
+                  result={result}
+                  user={user}
+                  landingPath={pathname}
+                />
               </section>
 
               <section

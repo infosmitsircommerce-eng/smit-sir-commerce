@@ -27,6 +27,7 @@ export function isLightRoute(pathname) {
   return (
     LIGHT_ROUTES.includes(pathname) ||
     pathname.startsWith("/cbse/") ||
+    pathname.endsWith("-diagnostic-test") ||
     pathname.startsWith("/practice/cbse/") ||
     pathname === "/pdf-viewer"
   );
