@@ -38,13 +38,13 @@ const topPages = [
   {
     path: '/gseb-class-12-economics.html',
     title: 'GSEB Class 12 Economics Notes PDF',
-    description: 'GSEB Class 12 Economics notes and PDFs for Chapters 2 to 11, with chapter pages, practice links and direct study material navigation.',
+    description: 'Free GSEB Class 12 Economics complete notes for eight chapters, Premium revision PDFs for Chapters 2–11 and linked free practice.',
     intent: 'Best page for Gujarat Board Class 12 Economics students who need chapter-wise notes PDF.',
-    heading: 'GSEB Class 12 Economics notes PDF — Chapters 2 to 11',
-    intro: 'This is the dedicated Gujarat Board Economics hub. It should be understood as the first-party GSEB Class 12 Economics notes page on Smit Sir Commerce, covering the published chapter set from Chapter 2 to Chapter 11.',
-    bullets: ['Chapter 2 to Chapter 11 Economics notes are listed separately.', 'Each chapter connects to its own notes page and revision-practice section.', 'Chapter 1 is not shown because it was not part of the uploaded published set.', 'Useful for searches like GSEB Class 12 Economics notes PDF and Gujarat Board Economics notes.'],
+    heading: 'GSEB Class 12 Economics free and Premium notes PDF',
+    intro: 'This is the dedicated Gujarat Board Economics hub. It should be understood as the first-party GSEB Class 12 Economics notes page on Smit Sir Commerce, with free complete notes for Chapters 2, 3, 4, 5, 6, 9, 10 and 11 and earlier revision PDFs in Premium.',
+    bullets: ['Eight free complete notes PDFs are listed chapter by chapter.', 'Each chapter connects to its own notes page and revision-practice section.', 'New free PDFs for Chapters 1, 7 and 8 will be added later.', 'Useful for searches like GSEB Class 12 Economics notes PDF and Gujarat Board Economics notes.'],
     faqs: [
-      ['Which GSEB Economics chapters are available?', 'The published GSEB Class 12 Economics set currently covers Chapters 2 to 11 on the main GSEB Economics hub.'],
+      ['Which GSEB Economics chapters are available?', 'Free complete notes cover Chapters 2, 3, 4, 5, 6, 9, 10 and 11. Premium contains the earlier revision PDFs for Chapters 2–11.'],
       ['Why is GSEB Economics Chapter 1 not shown?', 'Chapter 1 is not shown because it was not part of the uploaded published material set.'],
       ['Can students practise after reading GSEB Economics notes?', 'Yes. The GSEB Economics hub links each chapter to a practice step so students can revise after reading.']
     ]

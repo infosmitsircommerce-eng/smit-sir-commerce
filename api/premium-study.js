@@ -1,5 +1,6 @@
 import { verifiedQuizPacks } from '../src/data/quizzes.js';
 import { applyPremiumUpgrades } from '../src/data/quizPremiumUpgrades.js';
+import { createHash } from 'node:crypto';
 applyPremiumUpgrades(verifiedQuizPacks);
 const base = 'https://abpruwygnsmeqisaehip.supabase.co';
 const key = 'sb_publishable_9eybAsihq3-YNL1uGmGo3w_DWheWwRg';
@@ -7,6 +8,7 @@ const key = 'sb_publishable_9eybAsihq3-YNL1uGmGo3w_DWheWwRg';
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'private, no-store');
   res.setHeader('Vary', 'Authorization');
+  res.setHeader('X-Robots-Tag', 'noindex, nofollow, nosnippet');
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   const authorization = req.headers.authorization;
   if (!authorization?.startsWith('Bearer ')) return res.status(401).json({ error: 'Please sign in to open Premium study guides.' });
@@ -21,6 +23,20 @@ export default async function handler(req, res) {
     const expiry = profile?.premium_until;
     const premium = profile?.is_premium === true && (expiry == null || (Number.isFinite(Date.parse(expiry)) && Date.parse(expiry) > Date.now()));
     if (!premium && profile?.is_admin !== true && profile?.role !== 'admin') return res.status(403).json({ error: 'This guide requires Premium access.' });
+    if (req.body?.gsebChapter !== undefined) {
+      const chapter = req.body.gsebChapter;
+      if (!Number.isInteger(chapter) || chapter < 2 || chapter > 11) return res.status(404).json({ error: 'Premium notes not found.' });
+      // Forward the verified student's JWT so database RLS independently enforces access.
+      const notesResponse = await fetch(base + '/rest/v1/premium_gseb_economics_notes?chapter=eq.' + chapter + '&select=file_base64,sha256', { headers });
+      if (!notesResponse.ok) return res.status(503).json({ error: 'Premium notes are temporarily unavailable.' });
+      const [notes] = await notesResponse.json();
+      if (!notes) return res.status(404).json({ error: 'Premium notes not found.' });
+      const pdf = Buffer.from(notes.file_base64, 'base64');
+      if (pdf.subarray(0, 5).toString() !== '%PDF-' || createHash('sha256').update(pdf).digest('hex') !== notes.sha256) return res.status(503).json({ error: 'Unable to load the PDF safely. Please try again.' });
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', 'inline; filename="gseb-class-12-economics-chapter-' + chapter + '-premium-notes.pdf"');
+      return res.status(200).send(pdf);
+    }
     const pack = verifiedQuizPacks.find((item) => item.id === req.body?.packId);
     if (!pack || pack.board !== 'CBSE' || pack.subject !== 'Economics') return res.status(404).json({ error: 'Study guide not found' });
     const concepts = [...pack.levels.Easy, ...pack.levels.Moderate].map((item, index) => ({ title: 'Concept ' + (index + 1), prompt: item.q, explanation: item.explanation }));

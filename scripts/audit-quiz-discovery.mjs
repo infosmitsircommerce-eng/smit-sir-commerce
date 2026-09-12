@@ -29,8 +29,8 @@ for (const page of quizDiscovery) {
     assert.ok(hub.includes(`href="${page.path}"`));
     assert.ok(!html.includes('href="/cbse/'));
     assert.equal(page.freeLevelLabel, 'Medium');
-    assert.equal(Boolean(page.notesPath), page.pack.chapterNumber !== 1);
+    assert.equal(Boolean(page.notesPath), ![1, 7, 8].includes(page.pack.chapterNumber));
   }
   await access(`dist${page.path}/index.html`);
 }
-console.log('PASS: 42 canonical/sitemap pages, exact chapter launches, board-correct related links, 23 reciprocal notes links and no fabricated Chapter 1 PDF.');
+console.log('PASS: 42 canonical/sitemap pages, exact chapter launches, board-correct related links, 21 reciprocal notes links and no fabricated Chapter 1 PDF.');

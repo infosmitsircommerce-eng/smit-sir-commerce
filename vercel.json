@@ -54,6 +54,66 @@
       "source": "/commerce-tuition-mehsana-seo-action-plan.html",
       "destination": "/commerce-coaching-mehsana",
       "permanent": true
+    },
+    {
+      "source": "/materials/gseb/class-12/economics/Ch2_Indicators_of_Growth_and_Development_Notes.pdf",
+      "destination": "/premium/economics?board=GSEB",
+      "permanent": true
+    },
+    {
+      "source": "/materials/gseb/class-12/economics/Ch3_Money_and_Inflation_Notes.pdf",
+      "destination": "/premium/economics?board=GSEB",
+      "permanent": true
+    },
+    {
+      "source": "/materials/gseb/class-12/economics/Ch4_Banking_and_Monetary_Policy_Notes.pdf",
+      "destination": "/premium/economics?board=GSEB",
+      "permanent": true
+    },
+    {
+      "source": "/materials/gseb/class-12/economics/Ch5_Poverty_Notes.pdf",
+      "destination": "/premium/economics?board=GSEB",
+      "permanent": true
+    },
+    {
+      "source": "/materials/gseb/class-12/economics/Ch6_Unemployment_Notes.pdf",
+      "destination": "/premium/economics?board=GSEB",
+      "permanent": true
+    },
+    {
+      "source": "/materials/gseb/class-12/economics/Ch7_Population_Notes.pdf",
+      "destination": "/premium/economics?board=GSEB",
+      "permanent": true
+    },
+    {
+      "source": "/materials/gseb/class-12/economics/Ch8_Agriculture_Sector_Notes.pdf",
+      "destination": "/premium/economics?board=GSEB",
+      "permanent": true
+    },
+    {
+      "source": "/materials/gseb/class-12/economics/Ch9_Foreign_Trade_Notes.pdf",
+      "destination": "/premium/economics?board=GSEB",
+      "permanent": true
+    },
+    {
+      "source": "/materials/gseb/class-12/economics/Ch10_Industrial_Sector_Notes.pdf",
+      "destination": "/premium/economics?board=GSEB",
+      "permanent": true
+    },
+    {
+      "source": "/materials/gseb/class-12/economics/Ch11_Emerging_Issues_in_Indian_Economy_Notes.pdf",
+      "destination": "/premium/economics?board=GSEB",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-chapter-7-population-notes.html",
+      "destination": "/gseb/class-12/economics/population-notes.html",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-chapter-8-agriculture-sector-notes.html",
+      "destination": "/gseb/class-12/economics/agriculture-sector-notes.html",
+      "permanent": true
     }
   ],
   "headers": [
@@ -246,6 +306,19 @@
         {
           "key": "X-Robots-Tag",
           "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/api/premium-study",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
         }
       ]
     }

@@ -29,14 +29,14 @@ export const genuineTrafficPages = [
   {
     path: '/gseb-class-12-economics-chapter-wise-pdf-notes.html',
     title: 'GSEB Class 12 Economics Chapter-wise PDF Notes — Free Revision Hub',
-    description: 'Chapter-wise GSEB Class 12 Economics PDF notes hub for Chapters 2 to 11 with direct revision path, practice links and exam-focused usage method.',
+    description: 'GSEB Class 12 Economics PDF guide: eight free complete chapter notes, earlier Premium revision PDFs and linked chapter practice.',
     h1: 'GSEB Class 12 Economics Chapter-wise PDF Notes',
     primaryKeyword: 'GSEB Class 12 Economics chapter-wise PDF notes',
     intent: 'Students searching direct chapter-wise PDF notes for Gujarat Board Class 12 Economics.',
     intro: 'This page collects the chapter-wise GSEB Class 12 Economics note routes in one place. It is made for students who want to open the correct chapter quickly instead of searching the full website again.',
     quickWin: 'Use the chapter pages first because they connect PDF notes, practice and related study resources. Open direct PDF only when you already know the chapter you need.',
     sections: [
-      { heading: 'Available chapter-wise notes', items: ['Chapter 2: Indicators of Growth and Development.', 'Chapter 3: Money and Inflation.', 'Chapter 4: Banking and Monetary Policy.', 'Chapter 5: Poverty.', 'Chapter 6: Unemployment.', 'Chapter 7: Population.', 'Chapter 8: Agriculture Sector.', 'Chapter 9: Foreign Trade.', 'Chapter 10: Industrial Sector.', 'Chapter 11: Emerging Issues in Indian Economy.'] },
+      { heading: 'Available chapter-wise notes', items: ['Chapter 2: Indicators of Growth and Development.', 'Chapter 3: Money and Inflation.', 'Chapter 4: Banking and Monetary Policy.', 'Chapter 5: Poverty.', 'Chapter 6: Unemployment.', 'Chapter 7: Population — original revision PDF in Premium; new free PDF coming later.', 'Chapter 8: Agriculture Sector — original revision PDF in Premium; new free PDF coming later.', 'Chapter 9: Foreign Trade.', 'Chapter 10: Industrial Sector.', 'Chapter 11: Emerging Issues in Indian Economy.'] },
       { heading: 'Best use of PDF notes', items: ['Read the chapter summary first.', 'Mark repeated textbook terms.', 'Convert long answers into headings and points.', 'Revise the chapter once from notes and once from practice questions.', 'Use the hub page when you want all chapters in order.'] },
       { heading: 'Why chapter-wise pages help', text: 'A direct PDF is useful, but a chapter page is better for search and revision because it explains what the chapter covers and connects notes with practice. That is why Smit Sir Commerce keeps both chapter pages and PDF links.' },
     ],
@@ -48,7 +48,7 @@ export const genuineTrafficPages = [
       { label: 'Important questions', href: '/gseb-class-12-economics-important-questions.html' },
     ],
     faq: [
-      { q: 'Are the GSEB Economics notes chapter-wise?', a: 'Yes. The published GSEB Class 12 Economics material is organised chapter-wise from Chapter 2 to Chapter 11.' },
+      { q: 'Are the GSEB Economics notes chapter-wise?', a: 'Yes. Free complete notes cover Chapters 2, 3, 4, 5, 6, 9, 10 and 11. Earlier revision PDFs for Chapters 2–11 are available in Premium.' },
       { q: 'Should I open the PDF or chapter page?', a: 'Open the chapter page first for revision direction, then use the PDF for detailed reading.' },
     ],
   },
