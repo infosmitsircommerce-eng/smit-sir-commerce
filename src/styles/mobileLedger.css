@@ -212,7 +212,8 @@
   [data-mobile-section="quizzes"] .ssc-quiz-chapter-list button[aria-pressed="true"] { background: #f6f0ff; }
   [data-mobile-section="lectures"] .page-hero h1,
   [data-mobile-section="downloads"] .ssc-downloads-page h1 { color: var(--section-ink) !important; }
-  [data-mobile-section="plan"] .page-hero h1 em { color: #c8e8ae; }
+  [data-mobile-section="plan"] .ssc-route-view { --gold: #426f30; --gold-bg: #f4faed; --brand-soft: #f4faed; }
+  [data-mobile-section="plan"] .page-hero h1 em { color: #426f30; }
   .mobile-chapter-finder-trigger { display: inline-flex; align-items: center; justify-content: flex-end; gap: 2px; min-height: 44px; padding: 0; color: #634b22; background: transparent; font-size: 10px; font-weight: 650; white-space: nowrap; }
   .mobile-chapter-finder-trigger svg { width: 12px; height: 12px; }
   .mobile-action-grid .mobile-action-card { position: relative; }
