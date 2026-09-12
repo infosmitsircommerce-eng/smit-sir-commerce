@@ -44,6 +44,8 @@ export function downloadEvent(anchor, origin) {
 }
 
 export function installDownloadTracking() {
+  if (window.__sscDownloadsInstalled) return () => {};
+  window.__sscDownloadsInstalled = true;
   const handle = event => {
     if (event.type === 'auxclick' && event.button !== 1) return;
     const tracking = downloadEvent(event.target?.closest?.('a[href]'), window.location.origin);
@@ -51,5 +53,5 @@ export function installDownloadTracking() {
   };
   document.addEventListener('click', handle, true);
   document.addEventListener('auxclick', handle, true);
-  return () => { document.removeEventListener('click', handle, true); document.removeEventListener('auxclick', handle, true); };
+  return () => { window.__sscDownloadsInstalled = false; document.removeEventListener('click', handle, true); document.removeEventListener('auxclick', handle, true); };
 }

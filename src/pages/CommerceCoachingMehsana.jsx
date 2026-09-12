@@ -199,7 +199,7 @@ export default function CommerceCoachingMehsana() {
                 >
                   <BookOpen className="w-4 h-4" /> Free CBSE notes
                 </Link>
-                <Link to="/gseb-class-12-economics.html" className="btn-outline-ink inline-flex items-center gap-2"><BookOpen className="w-4 h-4" /> Free GSEB Economics notes</Link>
+                <a href="/gseb-class-12-economics.html" className="btn-outline-ink inline-flex items-center gap-2"><BookOpen className="w-4 h-4" /> Free GSEB Economics notes</a>
               </div>
 
               <p className="mt-4 text-sm" style={{ color: "var(--muted)" }}>Free notes are available without joining tuition. For classes at Smit Sir’s location or home tuition in Mehsana, send an enquiry or request a free demo.</p>

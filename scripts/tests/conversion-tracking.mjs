@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { conversionPayload, downloadEvent, trackConversion } from '../../src/lib/conversionTracking.js';
+import { conversionPayload, downloadEvent, trackConversion, installDownloadTracking } from '../../src/lib/conversionTracking.js';
 const origin = 'https://www.smitsircommerce.in';
 const anchor = (href, dataset = {}, download = false) => ({ dataset, getAttribute: () => href, hasAttribute: name => name === 'download' && download });
 assert.equal(conversionPayload('premium_activation_verified'), null);
@@ -25,3 +25,13 @@ assert.equal(await trackConversion('premium_activation_verified'), false);
 globalThis.fetch = async () => { throw new Error('offline'); };
 assert.equal(await trackConversion('pdf_download_click'), false);
 console.log('Conversion privacy, event separation and download tracking checks passed (18 assertions).');
+
+let listeners = 0;
+globalThis.document = { addEventListener: () => { listeners++; }, removeEventListener: () => { listeners--; } };
+const remove = installDownloadTracking();
+installDownloadTracking();
+assert.equal(listeners, 2, 'Repeated installation must not duplicate click handlers');
+remove();
+assert.equal(listeners, 0);
+assert.equal(window.__sscDownloadsInstalled, false);
+console.log('Single tracker installation and cleanup checks passed.');

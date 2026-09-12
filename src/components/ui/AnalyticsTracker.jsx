@@ -109,7 +109,7 @@ export default function AnalyticsTracker() {
       }
 
       if (href === '/premium' || href.startsWith('/premium?')) emit('premium_cta_click', metadata);
-      if (href.includes('premium-payment-qr.jpg')) emit('premium_qr_download', { from });
+      // QR downloads are recorded once by conversionTracking.
 
       if (/^\/tools\/[^/]+$/.test(from)) {
         if (href === '/cbse-notes' || href.includes('-notes')) emit('notes_clicked_from_tool', metadata);
