@@ -48,8 +48,7 @@ export default function MobileBottomBar() {
                     return;
                   }
                   const changePage = () => navigate(tab.path);
-                  if (document.startViewTransition) document.startViewTransition(changePage);
-                  else changePage();
+                  changePage();
                 }}
               >
                 <div className="relative w-10 h-8 flex items-center justify-center">

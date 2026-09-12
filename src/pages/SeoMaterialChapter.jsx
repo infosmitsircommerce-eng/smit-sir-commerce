@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   ArrowLeft,
@@ -63,6 +64,13 @@ function ChapterNotFound({ pathname }) {
 
 export default function SeoMaterialChapter() {
   const { pathname } = useLocation();
+  const [activeSection, setActiveSection] = useState(() => window.location.hash || "#chapter-overview");
+  useEffect(() => {
+    const update = () => setActiveSection(window.location.hash || "#chapter-overview");
+    update();
+    window.addEventListener("hashchange", update);
+    return () => window.removeEventListener("hashchange", update);
+  }, [pathname]);
   const material = materialByPath[pathname.replace(/\/$/, "")];
   if (!material) return <ChapterNotFound pathname={pathname} />;
 
@@ -89,7 +97,7 @@ export default function SeoMaterialChapter() {
   }).format(new Date(`${material.updated}T00:00:00`));
 
   return (
-    <div className="min-h-screen" style={{ background: "var(--bg-ivory)" }}>
+    <div className="mobile-chapter-page min-h-screen" style={{ background: "var(--bg-ivory)" }}>
       <SEO
         title={material.gscTitle || material.seoTitle}
         description={material.gscDescription || material.description}
@@ -100,6 +108,12 @@ export default function SeoMaterialChapter() {
         structuredData={getMaterialStructuredData(material)}
       />
 
+      <nav className="mobile-chapter-nav lg:hidden" aria-label="Chapter shortcuts">
+        <a href="#chapter-overview" aria-current={activeSection === "#chapter-overview" ? "location" : undefined}>Overview</a>
+        <Link to={viewerUrl}>Notes PDF</Link>
+        <a href="#chapter-questions" aria-current={activeSection === "#chapter-questions" ? "location" : undefined}>Questions</a>
+        <a href="#chapter-mcqs" aria-current={activeSection === "#chapter-mcqs" ? "location" : undefined}>Practice</a>
+      </nav>
       <section className="page-hero">
         <div className="page-container">
           <nav
@@ -235,7 +249,7 @@ export default function SeoMaterialChapter() {
                   : "/cbse/class-12/economics-diagnostic-test"
               }
             />
-            <section className="card-paper p-5 sm:p-7 md:p-9">
+            <section id="chapter-overview" className="card-paper p-5 sm:p-7 md:p-9">
               <h2
                 className="text-3xl mb-5"
                 style={{ fontFamily: "var(--font-serif)", color: "var(--ink)" }}
@@ -410,7 +424,7 @@ export default function SeoMaterialChapter() {
               </section>
             )}
 
-            <section className="card-paper p-5 sm:p-7 md:p-9">
+            <section id="chapter-questions" className="card-paper p-5 sm:p-7 md:p-9">
               <div className="flex items-center gap-3 mb-6">
                 <FileQuestion
                   className="w-7 h-7 flex-shrink-0"
@@ -454,7 +468,7 @@ export default function SeoMaterialChapter() {
               </div>
             </section>
 
-            <section className="card-paper p-5 sm:p-7 md:p-9">
+            <section id="chapter-mcqs" className="card-paper p-5 sm:p-7 md:p-9">
               <div className="flex items-center gap-3 mb-6">
                 <CircleHelp
                   className="w-7 h-7 flex-shrink-0"

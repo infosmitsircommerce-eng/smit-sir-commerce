@@ -5,6 +5,7 @@ import './mobile.css'
 import './styles/premiumVisuals.css'
 import './styles/mobileExperience.css'
 import './styles/scrollSafety.css'
+import './styles/mobileLedger.css'
 import App from './App.jsx'
 import { installDownloadTracking } from './lib/conversionTracking';
 

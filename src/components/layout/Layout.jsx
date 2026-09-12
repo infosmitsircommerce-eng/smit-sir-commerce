@@ -91,6 +91,7 @@ export default function Layout({ children }) {
   return (
     <div
       className="min-h-screen flex flex-col"
+      data-mobile-theme={light ? "ledger" : "tool"}
       data-ad-eligible={adEligible ? 'true' : 'false'}
       style={{ background: light ? 'var(--bg-ivory)' : '#0f0d2e' }}
     >
