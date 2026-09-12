@@ -67,8 +67,8 @@ export default function SeoDiscoveryLinks() {
         <div className="mt-10 pt-8" style={{ borderTop: '1px solid var(--border-soft)' }}>
           <div className="max-w-3xl mb-5">
             <span className="eyebrow">Commerce tuition in Mehsana</span>
-            <h2 className="text-3xl mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Find the local Commerce support you need</h2>
-            <p className="text-sm leading-7 mt-3" style={{ color: 'var(--muted)' }}>Choose by class or subject. Each page explains the learning focus and connects to the demo-class and free-resource system.</p>
+            <h2 className="text-3xl mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}><Link to="/commerce-coaching-mehsana">Commerce tuition &amp; coaching in Mehsana</Link></h2>
+            <p className="text-sm leading-7 mt-3" style={{ color: 'var(--muted)' }}>Class 11 and 12 students can attend at Smit Sir’s location or enquire about home tuition in Mehsana. Choose your class or subject below, then confirm your area, fees and suitable timings.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {localSeoPages.map((page) => (

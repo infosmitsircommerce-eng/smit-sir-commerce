@@ -171,6 +171,8 @@ let patched = 0;
 let missing = 0;
 
 for (const page of topPages) {
+  // Local service details already come from prerender-local-seo; avoid SEO commentary and a second FAQ graph.
+  if (page.path === '/commerce-coaching-mehsana') continue;
   let found = false;
   for (const file of candidateFiles(page.path)) {
     if (!(await isFile(file))) continue;

@@ -14,6 +14,8 @@ import SEO from "../components/ui/SEO";
 import LeadCaptureForm from "../components/leads/LeadCaptureForm";
 import LocalRevenueActions from "../components/leads/LocalRevenueActions";
 import BoosterInlineCTA from "../components/growth/BoosterInlineCTA";
+import LocalTuitionDetails from "../components/leads/LocalTuitionDetails";
+import { localTuitionService, localTuitionChannels } from "../data/localTuitionService";
 
 const BASE = "https://www.smitsircommerce.in";
 const PATH = "/commerce-coaching-mehsana";
@@ -43,7 +45,7 @@ const advantages = [
   "Learning-first teaching with exam application",
   "Chapter-wise notes and revision resources",
   "Regular tests and weak-topic correction",
-  "Offline learning in Mehsana with online support available",
+  "Classes at Smit Sir’s location and home tuition in Mehsana",
   "Free Commerce resources students can use between classes",
 ];
 
@@ -51,7 +53,7 @@ const faqs = [
   {
     question: "Where is Smit Sir Commerce coaching available?",
     answer:
-      "Smit Sir Commerce serves students in Mehsana, Gujarat, with offline learning support and also provides online learning options for students who cannot attend locally.",
+      localTuitionService.intro,
   },
   {
     question: "Which subjects does Smit Sir personally teach?",
@@ -75,6 +77,8 @@ const faqs = [
   },
 ];
 
+faqs.push(...localTuitionService.faqs.map(([question, answer]) => ({ question, answer })));
+
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -97,6 +101,7 @@ const structuredData = {
       provider: { "@id": `${BASE}/#organization` },
       areaServed: { "@type": "City", name: "Mehsana" },
       availableChannel: [
+        ...localTuitionChannels(BASE),
         {
           "@type": "ServiceChannel",
           name: "Offline learning in Mehsana",
@@ -142,8 +147,8 @@ export default function CommerceCoachingMehsana() {
   return (
     <div className="min-h-screen" style={{ background: "var(--bg-ivory)" }}>
       <SEO
-        title="Commerce Coaching in Mehsana — Class 11 & 12"
-        description="Commerce coaching in Mehsana for Class 11 and 12 with CBSE Commerce support, GSEB Economics revision, Economics, Business Studies and Entrepreneurship teaching, plus free notes, tools and demo support."
+        title={localTuitionService.title}
+        description={localTuitionService.description}
         path={PATH}
         structuredData={structuredData}
       />
@@ -168,7 +173,7 @@ export default function CommerceCoachingMehsana() {
                 <MapPin className="w-4 h-4" /> Mehsana, Gujarat
               </span>
               <h1 className="mt-5">
-                Commerce Coaching in Mehsana for <em>Class 11 &amp; 12</em>
+                Commerce Tuition &amp; Coaching in Mehsana for <em>Class 11 &amp; 12</em>
               </h1>
               <p
                 className="mt-5 text-lg leading-relaxed max-w-3xl"
@@ -177,7 +182,8 @@ export default function CommerceCoachingMehsana() {
                 Learn with concept clarity first, then practise for exams. Smit
                 Sir personally teaches Economics, Business Studies,
                 Entrepreneurship and Physical Education, with structured
-                revision and weak-topic support.
+                revision and weak-topic support. Attend at Smit Sir’s location
+                or enquire about home tuition in Mehsana.
               </p>
 
               <div className="flex flex-wrap gap-3 mt-7">
@@ -266,7 +272,7 @@ export default function CommerceCoachingMehsana() {
       </section>
 
       <main className="page-container section-padding space-y-8">
-        <BoosterInlineCTA placement="commerce-coaching-mehsana" />
+        <LocalTuitionDetails demoHref={DEMO_PATH} />
         <LocalRevenueActions demoHref={DEMO_PATH} />
 
         <section
@@ -320,6 +326,7 @@ export default function CommerceCoachingMehsana() {
           </div>
         </section>
 
+        <BoosterInlineCTA placement="commerce-coaching-mehsana" />
         <section
           className="card-paper p-5 sm:p-7 md:p-9"
           aria-labelledby="subjects-heading"

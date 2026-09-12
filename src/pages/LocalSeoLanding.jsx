@@ -11,6 +11,8 @@ import SEO from "../components/ui/SEO";
 import LeadCaptureForm from "../components/leads/LeadCaptureForm";
 import LocalRevenueActions from "../components/leads/LocalRevenueActions";
 import BoosterInlineCTA from "../components/growth/BoosterInlineCTA";
+import LocalTuitionDetails from "../components/leads/LocalTuitionDetails";
+import { localTuitionChannels } from "../data/localTuitionService";
 import { localSeoByPath, localSeoPages } from "../data/localSeoPages";
 
 const BASE = "https://www.smitsircommerce.in";
@@ -34,6 +36,7 @@ function buildStructuredData(page) {
         "@id": `${BASE}${page.path}#service`,
         name: page.serviceName,
         serviceType: page.serviceType,
+        availableChannel: localTuitionChannels(BASE),
         provider: { "@id": `${BASE}/#organization` },
         areaServed: {
           "@type": "City",
@@ -217,8 +220,9 @@ export default function LocalSeoLanding() {
       </section>
 
       <main className="page-container section-padding space-y-8">
-        <BoosterInlineCTA placement={`local:${page.path}`} />
+        <LocalTuitionDetails demoHref={demoHref} />
         <LocalRevenueActions demoHref={demoHref} />
+        <BoosterInlineCTA placement={`local:${page.path}`} />
 
         <section
           id="free-paper-analysis"

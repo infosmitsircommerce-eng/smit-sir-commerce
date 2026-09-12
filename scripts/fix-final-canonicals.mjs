@@ -77,7 +77,8 @@ for (const url of urls) {
     const teaching = renderSearchTeachingGuide(pathname);
     const withTeaching = teaching ? cleanTeaching.replace(/<\/main>/i, `${teaching}</main>`) : cleanTeaching;
     const withoutCanonicals = addDiscovery(withTeaching, pathname).replace(/<link\s+[^>]*rel=["']canonical["'][^>]*>\s*/gi, '');
-    const after = withoutCanonicals.replace('</head>', `<link rel="canonical" href="${url}">\n</head>`);
+    // Let React Helmet reuse and replace this tag after the app loads or navigates.
+    const after = withoutCanonicals.replace('</head>', `<link rel="canonical" href="${url}" data-rh="true">\n</head>`);
     if (after !== before) {
       await writeFile(file, after, 'utf8');
       fixed += 1;

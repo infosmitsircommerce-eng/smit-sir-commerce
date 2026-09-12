@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { localSeoPages } from '../src/data/localSeoPages.js';
+import { localTuitionService, localTuitionChannels } from '../src/data/localTuitionService.js';
 
 const BASE = 'https://www.smitsircommerce.in';
 const SITE = 'Smit Sir Commerce';
@@ -9,6 +10,10 @@ const distRoot = new URL('../dist/', import.meta.url);
 
 function esc(value) {
   return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
+}
+
+function renderLocalTuitionDetails() {
+  return `<section data-local-tuition-details="true"><h2>${esc(localTuitionService.heading)}</h2><p>${esc(localTuitionService.intro)}</p>${localTuitionService.modes.map((mode) => `<h3>${esc(mode.title)}</h3><p>${esc(mode.description)}</p>`).join('')}<p><a href="/book-demo?from=local-lesson-options&amp;mode=Offline">Enquire about tuition</a> · <a href="tel:${localTuitionService.phone}">Call ${localTuitionService.phoneLabel}</a></p>${localTuitionService.faqs.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}</section>`;
 }
 
 function seoTags({ path, title, description, structuredData, imageAlt }) {
@@ -38,8 +43,8 @@ async function writeRoute(path, content) {
 }
 
 const mainPath = '/commerce-coaching-mehsana';
-const mainTitle = 'Commerce Tuition in Mehsana — Class 11 & 12 CBSE & GSEB';
-const mainDescription = 'Commerce tuition in Mehsana for Class 11 and 12 with CBSE Commerce support, GSEB Economics revision, Economics, Business Studies and Entrepreneurship teaching, plus free notes, tools, tests and demo support.';
+const mainTitle = localTuitionService.title;
+const mainDescription = localTuitionService.description;
 const mainFaqs = [
   ['Where is Smit Sir Commerce tuition available?', 'Smit Sir Commerce serves students in Mehsana, Gujarat, with offline Commerce tuition and also provides online learning options for students who cannot attend locally.'],
   ['Which classes and subjects are covered for Commerce tuition in Mehsana?', 'The tuition is focused on Class 11 and Class 12 students. Smit Sir personally teaches Economics, Business Studies, Entrepreneurship and Physical Education. Accountancy calculators and study resources are available free on the website as separate learning support.'],
@@ -47,16 +52,17 @@ const mainFaqs = [
   ['Can I take a demo class before joining?', 'Yes. Students and parents can use the website to request a demo class before deciding on a batch.'],
   ['Are free CBSE Commerce notes available?', 'Yes. Smit Sir Commerce publishes free chapter-wise CBSE Commerce notes, calculators and practice resources that can be viewed from the website.'],
 ];
+mainFaqs.push(...localTuitionService.faqs);
 const mainStructuredData = {
   '@context': 'https://schema.org',
   '@graph': [
     { '@type': 'WebPage', '@id': `${BASE}${mainPath}#webpage`, url: `${BASE}${mainPath}`, name: 'Commerce Tuition in Mehsana for Class 11 & 12', description: mainDescription, inLanguage: 'en-IN', about: { '@id': `${BASE}${mainPath}#service` }, isPartOf: { '@id': `${BASE}/#website` } },
-    { '@type': 'Service', '@id': `${BASE}${mainPath}#service`, name: 'Class 11 & 12 Commerce Tuition in Mehsana', serviceType: 'Class 11 and Class 12 Commerce tuition and coaching', provider: { '@id': `${BASE}/#organization` }, areaServed: { '@type': 'City', name: 'Mehsana' }, offers: { '@type': 'Offer', url: `${BASE}/book-demo`, description: 'Request a free paper analysis and demo class before joining a Commerce batch.' } },
+    { '@type': 'Service', '@id': `${BASE}${mainPath}#service`, name: 'Class 11 & 12 Commerce Tuition in Mehsana', serviceType: 'Class 11 and Class 12 Commerce tuition and coaching', availableChannel: localTuitionChannels(BASE), provider: { '@id': `${BASE}/#organization` }, areaServed: { '@type': 'City', name: 'Mehsana' }, offers: { '@type': 'Offer', url: `${BASE}/book-demo`, description: 'Request a free paper analysis and demo class before joining a Commerce batch.' } },
     { '@type': 'FAQPage', mainEntity: mainFaqs.map(([question, answer]) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })) },
     { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: `${BASE}/` }, { '@type': 'ListItem', position: 2, name: 'Commerce Tuition in Mehsana', item: `${BASE}${mainPath}` }] },
   ],
 };
-const mainBody = `<main class="page-container section-padding" data-prerendered="local-seo"><nav aria-label="Breadcrumb"><a href="/">Home</a> / Commerce Tuition in Mehsana</nav><article><p>Mehsana, Gujarat · Class 11 &amp; 12 Commerce</p><h1>Commerce Tuition &amp; Coaching in Mehsana for Class 11 &amp; 12</h1><p>Commerce learning focused on concept clarity, exam-style practice and chapter-wise revision for local Class 11 and 12 students. The website supports CBSE Commerce learning and GSEB Economics revision, while Smit Sir personally teaches Economics, Business Studies, Entrepreneurship and Physical Education. The website also provides free Accountancy calculators and learning resources, separate from personal tuition.</p><p><a href="/book-demo">Get a free paper analysis + demo</a> · <a href="/cbse-notes">Free CBSE notes</a></p><section><h2>Already studying somewhere but still losing marks?</h2><p>You do not need to leave your current tuition. Bring your latest test paper for a free academic analysis, identify weak topics and experience the teaching approach before making any admission decision.</p></section><section><h2>Explore Commerce tuition options in Mehsana</h2><ul>${localSeoPages.map((page) => `<li><a href="${esc(page.path)}">${esc(page.h1)}</a></li>`).join('')}</ul></section><section><h2>Frequently asked questions</h2>${mainFaqs.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}</section></article></main>`;
+const mainBody = `<main class="page-container section-padding" data-prerendered="local-seo"><nav aria-label="Breadcrumb"><a href="/">Home</a> / Commerce Tuition in Mehsana</nav><article><p>Mehsana, Gujarat · Class 11 &amp; 12 Commerce</p><h1>Commerce Tuition &amp; Coaching in Mehsana for Class 11 &amp; 12</h1><p>Commerce learning focused on concept clarity, exam-style practice and chapter-wise revision for local Class 11 and 12 students. The website supports CBSE Commerce learning and GSEB Economics revision, while Smit Sir personally teaches Economics, Business Studies, Entrepreneurship and Physical Education. The website also provides free Accountancy calculators and learning resources, separate from personal tuition.</p><p><a href="/book-demo">Get a free paper analysis + demo</a> · <a href="/cbse-notes">Free CBSE notes</a></p>${renderLocalTuitionDetails()}<section><h2>Already studying somewhere but still losing marks?</h2><p>You do not need to leave your current tuition. Bring your latest test paper for a free academic analysis, identify weak topics and experience the teaching approach before making any admission decision.</p></section><section><h2>Explore Commerce tuition options in Mehsana</h2><ul>${localSeoPages.map((page) => `<li><a href="${esc(page.path)}">${esc(page.h1)}</a></li>`).join('')}</ul></section><section><h2>Frequently asked questions</h2>${mainFaqs.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}</section></article></main>`;
 await writeRoute(mainPath, makeHtml({ path: mainPath, title: mainTitle, description: mainDescription, body: mainBody, structuredData: mainStructuredData, imageAlt: 'Commerce Tuition in Mehsana — Smit Sir Commerce' }));
 
 for (const page of localSeoPages) {
@@ -64,13 +70,13 @@ for (const page of localSeoPages) {
     '@context': 'https://schema.org',
     '@graph': [
       { '@type': 'WebPage', '@id': `${BASE}${page.path}#webpage`, url: `${BASE}${page.path}`, name: page.h1, description: page.description, inLanguage: 'en-IN', isPartOf: { '@id': `${BASE}/#website` }, about: { '@id': `${BASE}${page.path}#service` } },
-      { '@type': 'Service', '@id': `${BASE}${page.path}#service`, name: page.serviceName, serviceType: page.serviceType, provider: { '@id': `${BASE}/#organization` }, areaServed: { '@type': 'City', name: 'Mehsana', containedInPlace: { '@type': 'State', name: 'Gujarat' } }, offers: { '@type': 'Offer', url: `${BASE}/book-demo`, description: 'Request a free paper analysis and demo class before choosing a Commerce batch.' } },
+      { '@type': 'Service', '@id': `${BASE}${page.path}#service`, name: page.serviceName, serviceType: page.serviceType, availableChannel: localTuitionChannels(BASE), provider: { '@id': `${BASE}/#organization` }, areaServed: { '@type': 'City', name: 'Mehsana', containedInPlace: { '@type': 'State', name: 'Gujarat' } }, offers: { '@type': 'Offer', url: `${BASE}/book-demo`, description: 'Request a free paper analysis and demo class before choosing a Commerce batch.' } },
       { '@type': 'FAQPage', mainEntity: page.faqs.map(([question, answer]) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })) },
       { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: `${BASE}/` }, { '@type': 'ListItem', position: 2, name: 'Commerce Tuition in Mehsana', item: `${BASE}${mainPath}` }, { '@type': 'ListItem', position: 3, name: page.h1, item: `${BASE}${page.path}` }] },
     ],
   };
   const related = localSeoPages.filter((item) => item.path !== page.path);
-  const body = `<main class="page-container section-padding" data-prerendered="local-keyword-seo"><nav aria-label="Breadcrumb"><a href="/">Home</a> / <a href="${mainPath}">Commerce Tuition in Mehsana</a> / ${esc(page.h1)}</nav><article><p>${esc(page.eyebrow)}</p><h1>${esc(page.h1)}</h1><p>${esc(page.intro)}</p><p><a href="/book-demo">Get a free paper analysis + demo</a> · <a href="/cbse-notes">Free CBSE Commerce notes</a></p><section><h2>${esc(page.sectionTitle)}</h2><p>${esc(page.sectionText)}</p><ul>${page.focus.map(([title, text]) => `<li><strong>${esc(title)}:</strong> ${esc(text)}</li>`).join('')}</ul></section><section><h2>Questions students and parents ask</h2>${page.faqs.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}</section><section><h2>Related Commerce tuition in Mehsana</h2><ul>${related.map((item) => `<li><a href="${esc(item.path)}">${esc(item.h1)}</a></li>`).join('')}</ul></section><p><a href="/study-material">Study material</a> · <a href="/mehsana-commerce-student-resources.html">Mehsana student resources</a> · <a href="/test-series">Commerce tests</a> · <a href="/contact">Contact Smit Sir Commerce</a></p></article></main>`;
+  const body = `<main class="page-container section-padding" data-prerendered="local-keyword-seo"><nav aria-label="Breadcrumb"><a href="/">Home</a> / <a href="${mainPath}">Commerce Tuition in Mehsana</a> / ${esc(page.h1)}</nav><article><p>${esc(page.eyebrow)}</p><h1>${esc(page.h1)}</h1><p>${esc(page.intro)}</p><p><a href="/book-demo">Get a free paper analysis + demo</a> · <a href="/cbse-notes">Free CBSE Commerce notes</a></p>${renderLocalTuitionDetails()}<section><h2>${esc(page.sectionTitle)}</h2><p>${esc(page.sectionText)}</p><ul>${page.focus.map(([title, text]) => `<li><strong>${esc(title)}:</strong> ${esc(text)}</li>`).join('')}</ul></section><section><h2>Questions students and parents ask</h2>${page.faqs.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}</section><section><h2>Related Commerce tuition in Mehsana</h2><ul>${related.map((item) => `<li><a href="${esc(item.path)}">${esc(item.h1)}</a></li>`).join('')}</ul></section><p><a href="/study-material">Study material</a> · <a href="/mehsana-commerce-student-resources.html">Mehsana student resources</a> · <a href="/test-series">Commerce tests</a> · <a href="/contact">Contact Smit Sir Commerce</a></p></article></main>`;
   await writeRoute(page.path, makeHtml({ path: page.path, title: page.title, description: page.description, body, structuredData, imageAlt: `${page.h1} — Smit Sir Commerce` }));
 }
 

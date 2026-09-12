@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { hubByPath, materialByPath } from "../../data/seoMaterials";
 import { gsebMaterials } from "../../data/gsebMaterials";
+import { localTuitionService } from "../../data/localTuitionService";
 
 const BASE = "https://www.smitsircommerce.in";
 const DEFAULT_IMG = BASE + "/og-image.jpg";
@@ -246,9 +247,8 @@ function getGsebChapterSearchMeta(path) {
 function getLocalSearchMeta(path) {
   if (path !== "/commerce-coaching-mehsana") return null;
   return {
-    title: "Commerce Tuition in Mehsana — Class 11 & 12 CBSE",
-    description:
-      "Commerce tuition in Mehsana for Class 11 and 12 with Economics, Business Studies and Entrepreneurship teaching, tests, revision resources and student support by Smit Sir Commerce.",
+    title: localTuitionService.title,
+    description: localTuitionService.description,
   };
 }
 
