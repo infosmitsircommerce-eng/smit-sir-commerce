@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import SEO from '../components/ui/SEO';
 import { seoHubs, seoMaterials } from '../data/seoMaterials';
 import { gsebMaterials } from '../data/gsebMaterials';
+import StudyAccessFinder from '../components/ui/StudyAccessFinder';
 
 const allMaterials = [...seoMaterials, ...gsebMaterials];
 const initialBoard = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('board')?.toUpperCase() === 'GSEB' ? 'GSEB' : 'CBSE';
@@ -194,6 +195,7 @@ export default function StudyMaterial() {
   return (
     <div className="ssc-premium-canvas min-h-screen">
       <SEO title={TITLE} description={DESCRIPTION} path={PATH} structuredData={structuredData} />
+      <section className="page-container pt-5"><StudyAccessFinder /></section>
 
       <section className="pt-8 sm:pt-12 pb-7 sm:pb-10">
         <div className="page-container">

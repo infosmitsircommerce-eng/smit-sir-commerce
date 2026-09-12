@@ -36,7 +36,7 @@ for (const pack of verifiedQuizPacks) {
     }
 
     // Full CBSE Micro/Macro/IED banks are intentionally standardized to 10 per level.
-    if (/^cbse-(11-micro|12-macro|12-ied)-/.test(pack.id) && questions.length !== 10) {
+    if (/^(cbse-(11-micro|12-macro|12-ied)-|gseb-12-economics-ch)/.test(pack.id) && questions.length !== 10) {
       fail(`${pack.id} / ${level}: expected 10 questions, found ${questions.length}.`);
     }
 
@@ -70,6 +70,11 @@ for (const pack of verifiedQuizPacks) {
 const cbseMicro = verifiedQuizPacks.filter((pack) => /^cbse-11-micro-/.test(pack.id));
 const cbseMacro = verifiedQuizPacks.filter((pack) => /^cbse-12-macro-/.test(pack.id));
 const cbseIed = verifiedQuizPacks.filter((pack) => /^cbse-12-ied-/.test(pack.id));
+const gsebEconomics = verifiedQuizPacks.filter((pack) => /^gseb-12-economics-ch/.test(pack.id));
+if (gsebEconomics.length !== 11) fail(`Expected 11 GSEB Economics chapters, found ${gsebEconomics.length}.`);
+for (let chapter = 1; chapter <= 11; chapter += 1) {
+  if (!gsebEconomics.some(pack => pack.id === `gseb-12-economics-ch${chapter}`)) fail(`Missing GSEB Economics Chapter ${chapter}.`);
+}
 
 if (cbseMicro.length !== 13) fail(`Expected 13 Micro packs, found ${cbseMicro.length}.`);
 if (cbseMacro.length !== 5) fail(`Expected 5 Macro packs, found ${cbseMacro.length}.`);
@@ -83,6 +88,8 @@ const countQuestions = (packs) => packs.reduce(
 const microQuestions = countQuestions(cbseMicro);
 const macroQuestions = countQuestions(cbseMacro);
 const iedQuestions = countQuestions(cbseIed);
+const gsebQuestions = countQuestions(gsebEconomics);
+if (gsebQuestions !== 440) fail(`Expected 440 GSEB Economics questions, found ${gsebQuestions}.`);
 
 if (microQuestions !== 520) fail(`Expected 520 Micro questions, found ${microQuestions}.`);
 if (macroQuestions !== 200) fail(`Expected 200 Macro questions, found ${macroQuestions}.`);
@@ -98,4 +105,5 @@ console.log('[quiz-audit] PASS');
 console.log(`[quiz-audit] Micro: ${cbseMicro.length} packs / ${microQuestions} questions`);
 console.log(`[quiz-audit] Macro: ${cbseMacro.length} packs / ${macroQuestions} questions`);
 console.log(`[quiz-audit] IED: ${cbseIed.length} packs / ${iedQuestions} questions`);
+console.log(`[quiz-audit] GSEB Class 12 Economics: ${gsebEconomics.length} packs / ${gsebQuestions} questions`);
 console.log(`[quiz-audit] Total catalog packs checked: ${verifiedQuizPacks.length}`);

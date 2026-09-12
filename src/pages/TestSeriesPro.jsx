@@ -7,6 +7,7 @@ import ExtendedTests from '../components/test-series/ExtendedTests';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 import { addTestMistakes } from '../lib/mistakeBook';
+import StudyAccessFinder from '../components/ui/StudyAccessFinder';
 
 const STORAGE_PREFIX = 'ssc-test-attempts-v1';
 
@@ -161,5 +162,5 @@ export default function TestSeriesPro() {
     return () => observer.disconnect();
   }, [user, displayName]);
 
-  return <><ExamModeBanner /><div ref={rootRef} onClickCapture={handleCapture}><div data-test-surface="base"><BaseTestSeries /></div><div data-test-surface="extended"><ExtendedTests /></div></div><TestSeriesSalesFunnel /><button onClick={() => setShowProgress(true)} className="fixed right-4 bottom-24 lg:bottom-6 z-40 rounded-full px-4 py-3 font-semibold shadow-xl inline-flex items-center gap-2" style={{ background: 'var(--ink)', color: '#fff', border: '1px solid rgba(184,135,47,.35)' }}><BarChart3 className="w-4 h-4" /> My Progress</button><AccessGate mode={gate} onClose={() => setGate(null)} /><ProgressModal open={showProgress} onClose={() => setShowProgress(false)} user={user} displayName={displayName} isPremium={premiumAccess} refreshToken={refreshToken} /></>;
+  return <><section className="page-container pt-5"><StudyAccessFinder defaultKind="Tests" inlineTests /></section><ExamModeBanner /><div ref={rootRef} onClickCapture={handleCapture}><div data-test-surface="base"><BaseTestSeries /></div><div data-test-surface="extended"><ExtendedTests /></div></div><TestSeriesSalesFunnel /><button onClick={() => setShowProgress(true)} className="fixed right-4 bottom-24 lg:bottom-6 z-40 rounded-full px-4 py-3 font-semibold shadow-xl inline-flex items-center gap-2" style={{ background: 'var(--ink)', color: '#fff', border: '1px solid rgba(184,135,47,.35)' }}><BarChart3 className="w-4 h-4" /> My Progress</button><AccessGate mode={gate} onClose={() => setGate(null)} /><ProgressModal open={showProgress} onClose={() => setShowProgress(false)} user={user} displayName={displayName} isPremium={premiumAccess} refreshToken={refreshToken} /></>;
 }

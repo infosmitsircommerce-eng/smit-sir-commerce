@@ -1,3 +1,4 @@
+import { gsebEconomicsQuizPacks } from './quizGsebEconomics.js';
 import { microQuizPacks } from './quizMicro.js';
 import { macroQuizPacks } from './quizMacro.js';
 import { iedQuizPacks } from './quizIED.js';
@@ -119,46 +120,7 @@ export const verifiedQuizPacks = [
       ],
     },
   },
-  {
-    id: 'gseb-12-economics-ch3',
-    board: 'GSEB',
-    classLevel: 12,
-    subject: 'Economics',
-    title: 'Money and Inflation',
-    chapter: 'Chapter 3',
-    sourceLabel: 'GSEB Class 12 Economics — Chapter 3 Money and Inflation textbook-based notes',
-    sourceStatus: 'Verified textbook-based source used',
-    levels: {
-      Easy: [
-        makeQuestion('Barter means:', ['Exchange using only bank deposits', 'Direct exchange of goods/services without money', 'Only foreign trade', 'Borrowing from banks'], 1, 'The source defines barter as direct exchange without a medium such as money.'),
-        makeQuestion('Which is a main limitation of barter?', ['Too much paper money', 'Double coincidence of wants', 'Excess bank credit', 'High interest only'], 1, 'Barter requires both parties to want exactly what the other offers.'),
-        makeQuestion('Which function of money solves the double coincidence of wants problem?', ['Store of value', 'Medium of exchange', 'Measure of value', 'Tax payment only'], 1, 'Money acts as an intermediary, separating selling from buying.'),
-        makeQuestion('Inflation means a continuous rise in:', ['One product price only', 'General price level', 'Only wages', 'Only import prices'], 1, 'The source defines inflation as a sustained general price-level rise, not a temporary single-price increase.'),
-        makeQuestion('During inflation, purchasing power of money generally:', ['Rises', 'Falls', 'Never changes', 'Becomes zero'], 1, 'As the general price level rises, the same money buys fewer goods and services.'),
-      ],
-      Moderate: [
-        makeQuestion('Which function of money solves the barter problem of storing exchange value?', ['Medium of exchange', 'Store of value', 'Measure of value', 'Unit of production'], 1, 'Money can be saved for future use, overcoming the storage limitation of barter.'),
-        makeQuestion('Which function provides a common yardstick for comparing prices?', ['Store of value', 'Measure of value', 'Medium of exchange only', 'Credit creation'], 1, 'Measure of value allows different goods and services to be valued in common money terms.'),
-        makeQuestion('According to the source, true inflation after full employment is associated with:', ['Marshall', 'Robertson', 'Keynes', 'Robbins'], 2, 'The notes identify Keynes with the view that true inflation occurs beyond full employment.'),
-        makeQuestion('When government controls visible price rise through rules or subsidies, the source calls it:', ['Demand-pull inflation', 'Suppressed inflation', 'Deflation', 'Barter inflation'], 1, 'Underlying inflation may exist even when visible price increases are suppressed by controls.'),
-        makeQuestion('A rise in production costs causing firms to increase prices is:', ['Demand-pull inflation', 'Cost-push inflation', 'Only monetary inflation', 'No inflation'], 1, 'Cost-push inflation comes from the supply/cost side.'),
-      ],
-      Hard: [
-        makeQuestion('A farmer cannot find someone who both wants wheat and offers exactly the cloth he needs. Which barter limitation is this?', ['Storage problem', 'Measurement problem', 'Double coincidence of wants', 'Inflation'], 2, 'The exchange fails because mutual wants do not coincide.'),
-        makeQuestion('Crude oil import prices rise sharply, raising transport and many domestic prices. This best fits:', ['Imported / cost-related inflation pressure', 'Barter limitation', 'Deflation', 'Only demand from population'], 0, 'The source explicitly explains higher import prices as a channel through which inflation can enter the economy.'),
-        makeQuestion('Government expenditure raises incomes while output does not keep pace. Which mechanism is most relevant?', ['Demand-pull inflation', 'Store of value', 'Barter exchange', 'Price measurement'], 0, 'Higher public expenditure can raise aggregate demand faster than supply.'),
-        makeQuestion('Which is NOT enough by itself to establish inflation according to the source?', ['A sustained general price rise', 'A widespread price rise', 'A temporary rise in the price of a few goods', 'A fall in purchasing power accompanying general price rise'], 2, 'A short-period increase in a limited set of prices is not inflation in the chapter’s definition.'),
-        makeQuestion('Which sequence best describes cost-push inflation?', ['Higher production cost → producers raise prices → general price pressure', 'Higher prices → barter begins → costs disappear', 'Lower cost → lower supply → inflation', 'More storage → less money → inflation'], 0, 'Cost-push inflation starts with rising input or production costs that push prices upward.'),
-      ],
-      Extreme: [
-        makeQuestion('Suppose demand rises because money supply expands, while production is already constrained. Which inflation explanation fits best?', ['Demand-pull', 'Barter storage problem', 'Measure-of-value problem', 'No inflation mechanism'], 0, 'More spending power against limited output is the classic demand-pull mechanism in the source.'),
-        makeQuestion('A price rise occurs only in onions for one week after bad weather. Based on the chapter definition, the safest conclusion is:', ['This alone proves general inflation', 'This alone does not establish inflation', 'It is automatically suppressed inflation', 'It is always cost-push inflation in all sectors'], 1, 'Inflation requires a sustained and general rise, not merely a temporary increase in a limited good.'),
-        makeQuestion('Which pairing is fully correct?', ['Medium of exchange — solves measurement problem', 'Store of value — solves double coincidence', 'Measure of value — solves lack of common valuation', 'Paper money — causes barter'], 2, 'Measure of value gives a common unit for comparing different goods and services.'),
-        makeQuestion('If wages, electricity and transport costs all rise, while consumer demand is unchanged, which explanation is strongest?', ['Demand-pull only', 'Cost-push / supply-shock inflation', 'Barter inflation', 'Suppressed inflation only'], 1, 'The source lists wages, electricity and transport among production costs that can generate cost-push inflation.'),
-        makeQuestion('Which statement best combines the chapter’s inflation logic?', ['Any price rise is inflation', 'Inflation requires only high money income', 'Inflation is a sustained general price rise and is associated with falling purchasing power', 'Inflation means only imported oil becomes expensive'], 2, 'The chapter emphasises continuous, economy-wide price increase and the resulting fall in money’s purchasing power.'),
-      ],
-    },
-  },
+  ...gsebEconomicsQuizPacks,
 ];
 
 export function getQuizPacks(board, classLevel, subject) {

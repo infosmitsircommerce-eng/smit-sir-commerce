@@ -41,13 +41,14 @@ function SourceBadge({ children }) {
   );
 }
 
-function QuizDialog({ children, onClose }) {
+function QuizDialog({ children, onClose, resetKey }) {
   const panel = useRef(null);
   useEffect(() => {
-    const previous = document.activeElement;
-    panel.current?.focus();
-    return () => { if (previous?.isConnected) previous.focus(); };
+    const previous = document.activeElement, overflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden'; panel.current?.focus();
+    return () => { document.body.style.overflow = overflow; if (previous?.isConnected) previous.focus(); };
   }, []);
+  useEffect(() => { panel.current?.scrollTo({ top: 0 }); }, [resetKey]);
   const handleKeyDown = (event) => {
     if (event.key === 'Escape') { event.stopPropagation(); onClose(); }
     if (event.key !== 'Tab') return;
@@ -71,6 +72,7 @@ function QuizDialog({ children, onClose }) {
 }
 
 function QuizPlayer({ pack, level, onClose }) {
+  const levelLabel = pack.board === 'GSEB' && level === 'Moderate' ? 'Medium' : level;
   const questions = pack.levels[level] || [];
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState(null);
@@ -114,10 +116,10 @@ function QuizPlayer({ pack, level, onClose }) {
           : { icon: '📚', title: 'Revise first', note: 'Revisit the explanations below, then retry this level.' };
 
     return (
-      <QuizDialog onClose={onClose}>
+      <QuizDialog onClose={onClose} resetKey={finished ? 'result' : current}>
             <div className="text-center">
               <div className="text-5xl">{performance.icon}</div>
-              <span className="eyebrow mt-4 inline-block">{pack.board} · Class {pack.classLevel} · {pack.subject} · {level}</span>
+              <span className="eyebrow mt-4 inline-block">{pack.board} · Class {pack.classLevel} · {pack.subject} · {levelLabel}</span>
               <h2 className="text-3xl mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{performance.title}</h2>
               <div className="text-6xl font-black mt-3" style={{ color: 'var(--gold)' }}>{score}%</div>
               <p className="mt-2 text-sm font-semibold" style={{ color: 'var(--charcoal)' }}>{correct} correct out of {questions.length}</p>
@@ -134,7 +136,7 @@ function QuizPlayer({ pack, level, onClose }) {
                 <div className="text-[11px] font-bold mt-1" style={{ color: '#8b5b55' }}>To revise</div>
               </div>
               <div className="rounded-2xl p-4 text-center" style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,.2)' }}>
-                <div className="text-2xl font-black" style={{ color: 'var(--gold)' }}>{level}</div>
+                <div className="text-2xl font-black" style={{ color: 'var(--gold)' }}>{levelLabel}</div>
                 <div className="text-[11px] font-bold mt-1" style={{ color: 'var(--muted)' }}>Level</div>
               </div>
             </div>
@@ -172,12 +174,12 @@ function QuizPlayer({ pack, level, onClose }) {
   }
 
   return (
-    <QuizDialog onClose={onClose}>
+    <QuizDialog onClose={onClose} resetKey={finished ? 'result' : current}>
           <div className="flex items-start justify-between gap-4">
             <div>
               <SourceBadge>{pack.sourceStatus}</SourceBadge>
               <div className="text-xs font-bold mt-3" style={{ color: 'var(--muted)' }}>{pack.board} · Class {pack.classLevel} · {pack.subject} · {pack.chapter}</div>
-              <h2 className="text-2xl mt-1" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{pack.title} — {level}</h2>
+              <h2 className="text-2xl mt-1" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{pack.title} — {levelLabel}</h2>
             </div>
             <button type="button" onClick={onClose} className="w-10 h-10 shrink-0 rounded-full flex items-center justify-center" style={{ border: '1px solid var(--border)', color: 'var(--muted)' }} aria-label="Close quiz">
               <X className="w-5 h-5" />
@@ -333,7 +335,7 @@ function PremiumOffer({ onClose }) {
   );
 }
 
-export function LevelGrid({ pack }) {
+export function LevelGrid({ pack, onAttempt }) {
   const { isPremium, isAdmin, loading } = useAuth();
   const [showPremium, setShowPremium] = useState(false);
   const [loadedPack, setLoadedPack] = useState(pack);
@@ -341,7 +343,7 @@ export function LevelGrid({ pack }) {
   const [loadError, setLoadError] = useState('');
   async function openLevel(level) {
     setLoadError('');
-    if (['Easy', 'Moderate'].includes(level)) { setActiveLevel(level); return; }
+    if (['Easy', 'Moderate'].includes(level)) { onAttempt?.(); setActiveLevel(level); return; }
     if (!premiumAccess) { setShowPremium(true); return; }
     setFetching(true);
     try {
@@ -353,6 +355,7 @@ export function LevelGrid({ pack }) {
       if (!response.ok) throw new Error(data.error || 'Unable to load quiz.');
       if (!Array.isArray(data.questions) || !data.questions.length) throw new Error('Quiz is unavailable.');
       setLoadedPack({ ...pack, levels: { ...pack.levels, [level]: data.questions } });
+      onAttempt?.();
       setActiveLevel(level);
     } catch (error) { setLoadError(error.message); }
     finally { setFetching(false); }
@@ -381,7 +384,7 @@ export function LevelGrid({ pack }) {
               className="tile-paper p-4 text-left disabled:opacity-50" style={{ minHeight: '144px', minWidth: 0 }}
             >
               <div className="text-2xl">{meta.icon}</div>
-              <div className="font-black mt-2" style={{ color: 'var(--ink)' }}>{meta.label}</div>
+              <div className="font-black mt-2" style={{ color: 'var(--ink)' }}>{pack.board === 'GSEB' && level === 'Moderate' ? 'Medium' : meta.label}</div>
               <div className="text-xs font-bold mt-1" style={{ color: 'var(--gold)' }}>{premiumLevel ? (loading ? 'Checking access…' : locked ? 'Premium · ₹999 lifetime' : 'Premium unlocked') : 'Free'}</div>
               <p className="text-xs mt-1 leading-5" style={{ color: 'var(--muted)' }}>{meta.note}</p>
               <div className="flex items-center justify-between mt-4 text-xs font-bold">
@@ -425,10 +428,17 @@ function VerifiedPackCard({ pack }) {
 export default function Quizzes() {
   const [params] = useSearchParams();
   const initialStream = params.get('subject');
-  const [boardId, setBoardId] = useState('CBSE');
-  const [classLevel, setClassLevel] = useState(initialStream === 'macro' || initialStream === 'ied' ? 12 : 11);
-  const [subjectName, setSubjectName] = useState('Economics');
+  const [boardId, setBoardId] = useState(params.get('board') === 'GSEB' ? 'GSEB' : 'CBSE');
+  const [classLevel, setClassLevel] = useState(params.get('class') === '12' || initialStream === 'macro' || initialStream === 'ied' ? 12 : 11);
+  const [subjectName, setSubjectName] = useState(initialStream === 'Business Studies' ? 'Business Studies' : 'Economics');
   const [streamFilter, setStreamFilter] = useState(initialStream === 'macro' ? 'Macroeconomics' : initialStream === 'ied' ? 'Indian Economic Development' : null);
+  const [chapterId, setChapterId] = useState(params.get('pack') || '');
+  useEffect(() => {
+    const id = params.get('pack');
+    const target = getQuizPacks(params.get('board') === 'GSEB' ? 'GSEB' : 'CBSE', Number(params.get('class')) || 12, params.get('subject') || 'Economics').find(pack => pack.id === id);
+    if (!target) return;
+    setBoardId(target.board); setClassLevel(target.classLevel); setSubjectName(target.subject); setStreamFilter(null); setChapterId(target.id);
+  }, [params]);
 
   const board = quizBoards.find((item) => item.id === boardId) || null;
   const classEntry = board?.classes.find((item) => item.classLevel === classLevel) || null;
@@ -454,6 +464,8 @@ export default function Quizzes() {
       ),
     }));
   }, [packs, boardId, classLevel, subjectName, streamFilter]);
+  const chapterChoices = packGroups.flatMap(group => group.items);
+  const selectedChapter = chapterChoices.find(pack => pack.id === chapterId) || chapterChoices[0];
 
   const resetAfterBoard = (id) => {
     setStreamFilter(null);
@@ -619,8 +631,11 @@ export default function Quizzes() {
             <h2 className="text-3xl sm:text-4xl mt-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Choose chapter quiz and level.</h2>
             <p className="text-sm mt-3 leading-7 max-w-3xl" style={{ color: 'var(--muted)' }}>Easy and Moderate are free. Hard and Extreme are for Premium members — ₹999 one-time lifetime access. Access is activated after payment verification.</p>
 
+            {chapterChoices.length > 0 && <label className="block text-sm font-bold mt-5">Chapter
+              <select className="input-field w-full mt-2 min-h-11" value={selectedChapter?.id || ''} onChange={event => setChapterId(event.target.value)}>{chapterChoices.map(pack => <option key={pack.id} value={pack.id}>{pack.chapter} · {pack.title}</option>)}</select>
+            </label>}
             <div className="space-y-9 mt-7">
-              {packGroups.length > 0 ? packGroups.map((group) => (
+              {packGroups.length > 0 ? packGroups.filter(group => group.items.some(pack => pack.id === selectedChapter?.id)).map((group) => (
                 <div key={group.name}>
                   <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-4">
                     <div>
@@ -634,7 +649,7 @@ export default function Quizzes() {
                     </div>
                   </div>
                   <div className="grid gap-5">
-                    {group.items.map((pack) => <VerifiedPackCard key={pack.id} pack={pack} />)}
+                    {group.items.filter(pack => pack.id === selectedChapter?.id).map((pack) => <VerifiedPackCard key={pack.id} pack={pack} />)}
                   </div>
                 </div>
               )) : (

@@ -5,7 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 const BASE_TABS = [
   { path: "/", icon: Home, label: "Home" },
   { path: "/study-material", icon: BookOpen, label: "Notes" },
-  { path: "/quizzes", icon: ListChecks, label: "Quizzes" },
+  { path: "/test-series", icon: ListChecks, label: "Tests" },
   { path: "/study-material#all-notes", icon: Download, label: "Downloads" },
 ];
 

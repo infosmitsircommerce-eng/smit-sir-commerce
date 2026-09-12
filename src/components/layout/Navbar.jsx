@@ -270,10 +270,11 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-2 shrink-0">
             <button
               onClick={() =>
-                window.dispatchEvent(new CustomEvent("ssc-open-search"))
+                window.dispatchEvent(new CustomEvent("ssc-open-resource-finder"))
               }
               className="w-10 h-10 rounded-xl flex items-center justify-center"
-              title="Search (Ctrl/⌘ K)"
+              title="Find notes and tests"
+              aria-label="Find notes and tests"
               style={
                 light
                   ? {

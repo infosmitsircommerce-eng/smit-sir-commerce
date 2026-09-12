@@ -14,6 +14,7 @@ const ScrollToTop = lazy(() => import('../ui/ScrollToTop'));
 const CursorSpotlight = lazy(() => import('../ui/CursorSpotlight'));
 const ScrollProgressBar = lazy(() => import('../ui/ScrollProgressBar'));
 const GlobalStudySearch = lazy(() => import('../ui/GlobalStudySearch'));
+const StudyAccessDialog = lazy(() => import('../ui/StudyAccessDialog'));
 const QuickAccessDock = lazy(() => import('../ui/QuickAccessDock'));
 const CloudSyncBridge = lazy(() => import('../ui/CloudSyncBridge'));
 const AnalyticsTracker = lazy(() => import('../ui/AnalyticsTracker'));
@@ -76,6 +77,13 @@ function SearchOnDemand() {
 
 export default function Layout({ children }) {
   const { pathname } = useLocation();
+  const [finderOpen, setFinderOpen] = useState(false);
+  useEffect(() => {
+    const open = () => setFinderOpen(true);
+    window.addEventListener('ssc-open-resource-finder', open);
+    return () => window.removeEventListener('ssc-open-resource-finder', open);
+  }, []);
+  useEffect(() => { setFinderOpen(false); }, [pathname]);
   const light = isLightRoute(pathname);
   const adEligible = isAdEligiblePath(pathname);
 
@@ -101,6 +109,7 @@ export default function Layout({ children }) {
       <Footer />
       <MobileBottomBar />
       <SearchOnDemand />
+      {finderOpen && <Suspense fallback={<p role="status" className="fixed top-20 right-4 z-[180] card-paper p-4">Opening notes and tests…</p>}><StudyAccessDialog onClose={() => setFinderOpen(false)} /></Suspense>}
       <DeferredEnhancements />
     </div>
   );

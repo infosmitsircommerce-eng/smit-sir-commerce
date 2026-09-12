@@ -8,6 +8,7 @@ import { growthPages } from '../../data/contentGrowth';
 import { getExamSearchItems } from '../../data/examBank';
 import { getPublishedCommerceResources } from '../../lib/commerceResourceStore';
 import { commerceResourceContext } from '../../lib/commerceResourceModel';
+import { verifiedQuizPacks } from '../../data/quizPublic';
 
 const BOOKMARKS_KEY = 'ssc-bookmarks-v1';
 const RECENT_KEY = 'ssc-recent-learning-v1';
@@ -73,7 +74,8 @@ export default function GlobalStudySearch({ initialOpen = false }) {
     ...authorityGuides.map((guide) => ({ title: guide.shortTitle, subtitle: guide.description, path: guide.path, type: 'Revision Guide', keywords: `${guide.title} ${guide.eyebrow}` })),
     ...seoHubs.map((hub) => ({ title: hub.label, subtitle: hub.description, path: hub.path, type: 'Subject', keywords: `${hub.subject} class ${hub.classLevel}` })),
     ...seoMaterials.map((m) => ({ title: m.chapter, subtitle: `CBSE Class ${m.class_level} · ${m.subjectLabel}`, path: m.seo_path, type: 'Chapter', keywords: `${m.subject} ${m.keyTopics?.join(' ') || ''}` })),
-    ...gsebMaterials.map((m) => ({ title: m.chapter, subtitle: `GSEB Class ${m.class_level} · Economics · ${m.pages} pages`, path: m.seo_path, type: 'GSEB Chapter', keywords: `gseb gujarat board economics class 12 chapter ${m.chapterNumber} ${m.chapter}` })),
+    ...gsebMaterials.map((m) => ({ title: m.chapter, subtitle: `GSEB Class ${m.class_level} · ${m.subject} · ${m.pages} pages`, path: m.seo_path, type: 'GSEB Chapter', keywords: `gseb gujarat board ${m.subject} class ${m.class_level} chapter ${m.chapterNumber} ${m.chapter}` })),
+    ...verifiedQuizPacks.map(pack => ({ title: `${pack.chapter} · ${pack.title} MCQ test`, subtitle: `${pack.board} Class ${pack.classLevel} · ${pack.subject} · 4 levels`, path: `/quizzes?board=${pack.board}&class=${pack.classLevel}&subject=${encodeURIComponent(pack.subject)}&pack=${pack.id}`, type: 'Chapter Test', keywords: `${pack.board} ${pack.subject} class ${pack.classLevel} ${pack.title} quiz test MCQ` })),
     ...growthPages.map((page) => ({ id: page.id, title: `${page.chapter} ${page.label}`, subtitle: `Class ${page.classLevel} · ${page.subject}`, path: page.path, type: 'Chapter Practice', keywords: `${page.chapter} ${page.subject} ${page.label} ${page.type}` })),
     ...getExamSearchItems(),
     ...commerceResources.map((resource) => ({

@@ -152,7 +152,7 @@ export default function MobileHeader() {
           <button
             type="button"
             onClick={() =>
-              window.dispatchEvent(new CustomEvent("ssc-open-search"))
+              window.dispatchEvent(new CustomEvent("ssc-open-resource-finder"))
             }
             className="w-10 h-10 rounded-xl flex items-center justify-center"
             style={{
@@ -162,7 +162,7 @@ export default function MobileHeader() {
                 ? "1px solid var(--border)"
                 : "1px solid rgba(255,255,255,0.1)",
             }}
-            aria-label="Search study resources"
+            aria-label="Find notes and tests"
           >
             <Search className="w-4 h-4" />
           </button>
