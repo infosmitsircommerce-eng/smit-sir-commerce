@@ -1,5 +1,3 @@
-import { supabase } from './supabase';
-
 const LOCAL_KEY = 'ssc-analytics-events-v1';
 
 function safeRead() {
@@ -33,6 +31,7 @@ export async function trackEvent(eventName, metadata = {}, userId = null) {
   safeWrite(local);
 
   try {
+    const { supabase } = await import('./supabase');
     const { error } = await supabase.from('learning_events').insert({
       user_id: userId || null,
       event_name: event.event_name,

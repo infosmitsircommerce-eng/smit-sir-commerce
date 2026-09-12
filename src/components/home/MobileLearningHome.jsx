@@ -131,7 +131,7 @@ export default function MobileLearningHome() {
             </AppLink>
           </div>
           <div className="mobile-teacher-visual">
-            <img src={teacherPhoto} alt="Smit Thaker, Commerce teacher" width="594" height="700" loading="eager" decoding="async" />
+            <img src={teacherPhoto} alt="Smit Thaker, Commerce teacher" width="594" height="700" loading="eager" fetchPriority="high" decoding="async" />
             <span>Learn • Practice • Grow</span>
           </div>
         </article>

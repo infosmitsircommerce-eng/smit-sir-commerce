@@ -60,9 +60,9 @@ function trackRecent(item) {
   window.dispatchEvent(new CustomEvent('ssc-study-state-changed'));
 }
 
-export default function GlobalStudySearch() {
+export default function GlobalStudySearch({ initialOpen = false }) {
   const location = useLocation();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(initialOpen);
   const [query, setQuery] = useState('');
   const [bookmarks, setBookmarks] = useState(() => getBookmarks());
   const [commerceResources, setCommerceResources] = useState([]);

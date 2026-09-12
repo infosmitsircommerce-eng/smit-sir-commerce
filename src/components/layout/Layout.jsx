@@ -8,6 +8,7 @@ import PilotHreflang from '../ui/PilotHreflang';
 import { isLightRoute } from '../../lib/theme';
 import { isAdEligiblePath } from '../../lib/adPolicy';
 import { RouteRevenueBridge } from '../leads/StudyRevenueBridge';
+import { useAuth } from '../../context/AuthContext';
 
 const ScrollToTop = lazy(() => import('../ui/ScrollToTop'));
 const CursorSpotlight = lazy(() => import('../ui/CursorSpotlight'));
@@ -20,6 +21,7 @@ const ChapterProgressTracker = lazy(() => import('../ui/ChapterProgressTracker')
 
 function DeferredEnhancements() {
   const [ready, setReady] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     let idleId;
@@ -44,14 +46,32 @@ function DeferredEnhancements() {
     <Suspense fallback={null}>
       <AnalyticsTracker />
       <ScrollProgressBar />
-      <CursorSpotlight />
-      <GlobalStudySearch />
+      {window.matchMedia('(hover: hover) and (pointer: fine)').matches && <CursorSpotlight />}
       <QuickAccessDock />
-      <CloudSyncBridge />
+      {user && <CloudSyncBridge />}
       <ChapterProgressTracker />
       <ScrollToTop />
     </Suspense>
   );
+}
+
+function SearchOnDemand() {
+  const [requested, setRequested] = useState(false);
+  useEffect(() => {
+    const open = () => setRequested(true);
+    const onKey = event => {
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault(); open();
+      }
+    };
+    window.addEventListener('ssc-open-search', open);
+    window.addEventListener('keydown', onKey);
+    return () => {
+      window.removeEventListener('ssc-open-search', open);
+      window.removeEventListener('keydown', onKey);
+    };
+  }, []);
+  return requested ? <Suspense fallback={null}><GlobalStudySearch initialOpen /></Suspense> : null;
 }
 
 export default function Layout({ children }) {
@@ -80,6 +100,7 @@ export default function Layout({ children }) {
       <RouteRevenueBridge />
       <Footer />
       <MobileBottomBar />
+      <SearchOnDemand />
       <DeferredEnhancements />
     </div>
   );

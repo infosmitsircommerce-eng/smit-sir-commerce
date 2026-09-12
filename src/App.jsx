@@ -17,7 +17,7 @@ import { AuthProvider } from "./context/AuthContext";
 const Premium = lazy(() => import("./pages/Premium"));
 const PremiumEconomics = lazy(() => import("./pages/PremiumEconomics"));
 const QuizChapter = lazy(() => import("./pages/QuizChapter"));
-const Home = lazy(() => import("./pages/Home"));
+import Home from "./pages/Home";
 const TeacherGuidesHub = lazy(() => import("./pages/TeacherGuidesHub"));
 const TeacherServices = lazy(() => import("./pages/TeacherServices"));
 const BoardExamDiagnostic = lazy(() => import("./pages/BoardExamDiagnostic"));
