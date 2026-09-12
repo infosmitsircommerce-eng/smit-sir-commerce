@@ -1,0 +1,86 @@
+/* Scoped to the study finder. Existing site colours and motion stay unchanged. */
+.ssc-study-access {
+  --study-ink: #173632;
+  --study-muted: #617571;
+  --study-teal: #126c61;
+  --study-line: #d9e6e1;
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid var(--study-line);
+  border-top: 4px solid var(--study-teal);
+  border-radius: 20px;
+  background: #fff;
+  color: var(--study-ink);
+  box-shadow: 0 8px 28px #17363208;
+  font-family: var(--font-sans, sans-serif);
+  color-scheme: light;
+  isolation: isolate;
+}
+.ssc-study-access *, .ssc-study-access *::before, .ssc-study-access *::after {
+  animation: none !important;
+  transform: none !important;
+  transition: none !important;
+  box-sizing: border-box;
+}
+.ssc-study-access button::before, .ssc-study-access button::after { content: none !important; }
+.ssc-study-access button, .ssc-study-access a, .ssc-study-access select, .ssc-study-access input { -webkit-tap-highlight-color: #126c6120; }
+.ssc-study-access .ssc-study-kicker { display: flex; align-items: center; gap: 7px; color: var(--study-teal); font-size: 10px; letter-spacing: .13em; font-weight: 800; }
+.ssc-study-kicker > span { width: 6px; height: 6px; background: #126c61; border-radius: 2px; }
+.ssc-study-access .ssc-study-heading h2 { margin: 9px 0 0; font: 750 clamp(20px, 3vw, 26px)/1.25 var(--font-sans, sans-serif); letter-spacing: -.04em; color: var(--study-ink); }
+.ssc-study-access .ssc-study-heading p { margin: 8px 0 0; font-size: 13px; line-height: 1.5; color: var(--study-muted); }
+.ssc-study-tabs { display: flex; padding: 4px; gap: 4px; background: #edf4f1; border-radius: 12px; margin: 18px 0; max-width: 360px; }
+.ssc-study-access .ssc-study-tabs button { display: flex; align-items: center; justify-content: center; gap: 8px; flex: 1; min-height: 44px; border: 0; border-radius: 9px; background: transparent; color: #536b65; font-size: 14px; font-weight: 700; padding: 8px 16px; box-shadow: none; }
+.ssc-study-access .ssc-study-tabs button[aria-pressed="true"] { color: #fff; background: var(--study-teal); }
+.ssc-study-filters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.ssc-study-access label { display: block; min-width: 0; color: var(--study-ink); font-size: 12px; font-weight: 700; line-height: 1.5; }
+.ssc-study-access .ssc-study-control { display: block; width: 100%; min-width: 0; min-height: 48px; border: 1px solid var(--study-line); border-radius: 10px; margin-top: 6px; padding: 11px 12px; background: #f6f9f7; color: var(--study-ink); font: 600 16px/1.5 var(--font-sans, sans-serif); box-shadow: none; outline: none; }
+.ssc-study-access select.ssc-study-control { appearance: none; padding-right: 34px; text-overflow: ellipsis; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23617571' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-position: right 12px center; background-repeat: no-repeat; }
+.ssc-study-access .ssc-study-control::placeholder { color: #728580; opacity: 1; font-weight: 400; }
+.ssc-study-access .ssc-study-control:focus { border-color: #126c61; background-color: #fff; outline: 3px solid #126c6120; outline-offset: 1px; }
+.ssc-study-field { margin-top: 14px; }
+.ssc-study-label-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.ssc-study-label-row > span { font-size: 11px; font-weight: 500; color: var(--study-muted); }
+.ssc-study-search { position: relative; }
+.ssc-study-search > svg { position: absolute; left: 12px; top: 15px; color: #728580; pointer-events: none; }
+.ssc-study-access .ssc-study-search input { padding-left: 39px; font-weight: 400; }
+.ssc-study-selected { margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--study-line); }
+.ssc-study-selection { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.ssc-study-selection > span { color: var(--study-muted); font-size: 10px; font-weight: 800; letter-spacing: .1em; }
+.ssc-study-access .ssc-study-save { display: flex; align-items: center; gap: 5px; min-height: 44px; border: 0; border-radius: 8px; background: transparent; color: var(--study-teal); font-size: 12px; font-weight: 700; padding: 8px; box-shadow: none; }
+.ssc-study-access .ssc-study-save[aria-pressed="true"] { background: #edf6f1; }
+.ssc-study-access .ssc-study-chosen { margin: 0 0 12px; color: var(--study-ink); font-size: 15px; line-height: 1.5; font-weight: 750; overflow-wrap: anywhere; }
+.ssc-study-levels { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.ssc-study-access .ssc-study-level { display: flex; flex-direction: column; min-width: 0; padding: 14px; text-align: left; border-radius: 12px; border: 1px solid var(--study-line); background: #f5faf7; color: var(--study-ink); box-shadow: none; }
+.ssc-study-access .ssc-study-level[data-level="Moderate"] { background: #f2f7fc; border-color: #dce6ef; }
+.ssc-study-access .ssc-study-level[data-level="Hard"] { background: #f8f6f1; border-color: #e8e2d6; }
+.ssc-study-access .ssc-study-level[data-level="Extreme"] { background: #f7f3f4; border-color: #eadfe3; }
+.ssc-study-level-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.ssc-study-level-number { font-size: 11px; color: #617571; font-weight: 700; }
+.ssc-study-level-access { color: #126c61; background: #fff; border: 1px solid #d9e6e1; border-radius: 5px; padding: 2px 5px; font-size: 10px; font-weight: 750; }
+.ssc-study-level[data-level="Hard"] .ssc-study-level-access, .ssc-study-level[data-level="Extreme"] .ssc-study-level-access { color: #655453; border-color: #e5dad4; }
+.ssc-study-level > strong { margin-top: 10px; font-size: 16px; font-weight: 800; }
+.ssc-study-level-note { margin-top: 4px; font-size: 11px; line-height: 1.5; color: #617571; }
+.ssc-study-level-footer { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: auto; padding-top: 13px; font-size: 11px; color: #28574e; font-weight: 700; }
+.ssc-study-access .ssc-study-level:hover { border-color: #126c61; }
+.ssc-study-access .ssc-study-level:disabled { opacity: .55; cursor: wait; }
+.ssc-study-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.ssc-study-access .ssc-study-open, .ssc-study-access .ssc-study-pdf { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 46px; padding: 10px 16px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none; }
+.ssc-study-access .ssc-study-open { background: #126c61; color: #fff; }
+.ssc-study-access .ssc-study-pdf { background: #edf4f1; color: #126c61; }
+.ssc-study-access .ssc-study-empty { margin-top: 14px; color: var(--study-muted); font-size: 13px; }
+.ssc-study-history { border-top: 1px solid var(--study-line); margin-top: 18px; padding-top: 4px; }
+.ssc-study-history summary { cursor: pointer; min-height: 44px; padding: 12px 0; color: #28574e; font-size: 12px; font-weight: 700; }
+.ssc-study-access .ssc-study-history h3 { margin-top: 8px; font-size: 12px; font-weight: 750; color: var(--study-ink); }
+.ssc-study-history ul { list-style: none; padding: 0; margin: 8px 0 14px; }
+.ssc-study-history a { display: flex; flex-direction: column; gap: 3px; padding: 10px; margin-top: 6px; min-height: 44px; border-radius: 8px; border: 1px solid var(--study-line); background: #f6f9f7; color: var(--study-ink); font-size: 12px; font-weight: 650; text-decoration: none; }
+.ssc-study-history small { color: var(--study-muted); font-size: 11px; font-weight: 400; }
+.ssc-study-access button:focus-visible, .ssc-study-access a:focus-visible, .ssc-study-access summary:focus-visible { outline: 3px solid #126c61; outline-offset: 3px; }
+@media (max-width: 639px) {
+  .ssc-study-access { padding: 16px; border-radius: 16px; }
+  .ssc-study-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .ssc-study-subject { grid-column: 1 / -1; }
+  .ssc-study-levels { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ssc-study-access .ssc-study-level { padding: 12px; }
+  .ssc-study-tabs { max-width: none; margin: 14px 0; }
+  .ssc-study-access .ssc-study-heading p { font-size: 12px; }
+}

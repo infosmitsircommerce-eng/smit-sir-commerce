@@ -345,7 +345,7 @@ function PremiumOffer({ onClose }) {
   );
 }
 
-export function LevelGrid({ pack, onAttempt }) {
+export function LevelGrid({ pack, onAttempt, appearance }) {
   const { isPremium, isAdmin, loading } = useAuth();
   const [showPremium, setShowPremium] = useState(false);
   const [loadedPack, setLoadedPack] = useState(pack);
@@ -379,12 +379,18 @@ export function LevelGrid({ pack, onAttempt }) {
       {loadError && <p role="alert" className="text-red-700">{loadError}</p>}
       {showPremium && <PremiumOffer onClose={() => setShowPremium(false)} />}
       {activeLevel && (['Easy', 'Moderate'].includes(activeLevel) || premiumAccess) && <QuizPlayer pack={loadedPack} level={activeLevel} onClose={() => setActiveLevel(null)} />}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-5">
-        {quizLevels.map((level) => {
+      <div className={appearance === 'study' ? 'ssc-study-levels' : 'grid grid-cols-2 lg:grid-cols-4 gap-3 mt-5'}>
+        {quizLevels.map((level, index) => {
           const questionCount = pack.levelCounts?.[level] || pack.levels[level]?.length || 0;
           const meta = levelMeta[level];
           const premiumLevel = level === 'Hard' || level === 'Extreme';
           const locked = premiumLevel && !premiumAccess;
+          if (appearance === 'study') return <button key={level} type="button" className="ssc-study-level" data-level={level} onClick={() => openLevel(level)} disabled={!questionCount || fetching || (premiumLevel && loading)}>
+            <div className="ssc-study-level-top"><span className="ssc-study-level-number">0{index + 1}</span><span className="ssc-study-level-access">{premiumLevel ? (loading ? 'Checking…' : locked ? 'Premium' : 'Unlocked') : 'Free'}</span></div>
+            <strong>{pack.board === 'GSEB' && level === 'Moderate' ? 'Medium' : meta.label}</strong>
+            <span className="ssc-study-level-note">{meta.note}</span>
+            <span className="ssc-study-level-footer">{questionCount} questions<ArrowRight size={16} aria-hidden="true" /></span>
+          </button>;
           return (
             <button
               key={level}

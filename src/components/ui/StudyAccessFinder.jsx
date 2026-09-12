@@ -1,7 +1,8 @@
 import { lazy, Suspense, useEffect, useId, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Bookmark, BookmarkCheck, BookOpen, ListChecks } from 'lucide-react';
+import { ArrowUpRight, Bookmark, BookmarkCheck, BookOpen, ListChecks, Search } from 'lucide-react';
 import { studyAccessItems, filterStudyAccess } from '../../data/studyAccess';
+import '../../styles/studyAccess.css';
 
 const QuizLevels = lazy(() => import('../../pages/Quizzes').then(module => ({ default: module.LevelGrid })));
 const PREFS = 'ssc-resource-finder-v1';
@@ -46,24 +47,27 @@ export default function StudyAccessFinder({ defaultKind = 'Notes', inlineTests =
     setSaved(next); write(SAVED, next);
   }
   const isSaved = chosen && saved.some(item => item.id === chosen.id);
-  return <section className="card-paper p-4 sm:p-6" aria-label="Find notes and tests" style={{ minWidth: 0 }}>
-    <h2 className="text-xl sm:text-2xl" style={{ fontFamily: 'var(--font-serif)' }}>Find notes or a chapter test</h2>
-    <p className="text-sm mt-2" style={{ color: 'var(--muted)' }}>Choose once. Open directly. Your recent chapters stay here for next time.</p>
-    <div className="flex gap-2 mt-4" role="group" aria-label="Resource type">{['Notes', 'Tests'].map(kind => <button type="button" key={kind} className={filters.kind === kind ? 'btn-primary' : 'btn-secondary'} aria-pressed={filters.kind === kind} onClick={() => update('kind', kind)}>{kind === 'Notes' ? <BookOpen className="w-4 h-4" /> : <ListChecks className="w-4 h-4" />} {kind}</button>)}</div>
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4">
-      <label className="text-sm font-semibold" htmlFor={`${id}-board`}>Board<select id={`${id}-board`} className="input-field w-full mt-1 min-h-11" value={filters.board} onChange={event => update('board', event.target.value)}><option>CBSE</option><option>GSEB</option></select></label>
-      <label className="text-sm font-semibold" htmlFor={`${id}-class`}>Class<select id={`${id}-class`} className="input-field w-full mt-1 min-h-11" value={filters.classLevel} onChange={event => update('classLevel', event.target.value)}><option value="11">Class 11</option><option value="12">Class 12</option></select></label>
-      <label className="text-sm font-semibold col-span-2 sm:col-span-1 min-w-0" htmlFor={`${id}-subject`}>Subject<select id={`${id}-subject`} className="input-field w-full mt-1 min-h-11" value={subject} disabled={!subjects.length} onChange={event => update('subject', event.target.value)}>{subjects.length ? subjects.map(name => <option key={name}>{name}</option>) : <option value="">No published content yet</option>}</select></label>
+  return <section className="ssc-study-access" aria-label="Find notes and tests">
+    <header className="ssc-study-heading">
+      <span className="ssc-study-kicker"><span /> YOUR STUDY DESK</span>
+      <h2>Find notes or a chapter test</h2>
+      <p>Pick a chapter. Start learning. Come back anytime.</p>
+    </header>
+    <div className="ssc-study-tabs" role="group" aria-label="Resource type">{['Notes', 'Tests'].map(kind => <button type="button" key={kind} aria-pressed={filters.kind === kind} onClick={() => update('kind', kind)}>{kind === 'Notes' ? <BookOpen size={18} /> : <ListChecks size={18} />} {kind}</button>)}</div>
+    <div className="ssc-study-filters">
+      <label htmlFor={`${id}-board`}>Board<select id={`${id}-board`} className="ssc-study-control" value={filters.board} onChange={event => update('board', event.target.value)}><option>CBSE</option><option>GSEB</option></select></label>
+      <label htmlFor={`${id}-class`}>Class<select id={`${id}-class`} className="ssc-study-control" value={filters.classLevel} onChange={event => update('classLevel', event.target.value)}><option value="11">Class 11</option><option value="12">Class 12</option></select></label>
+      <label className="ssc-study-subject" htmlFor={`${id}-subject`}>Subject<select id={`${id}-subject`} className="ssc-study-control" value={subject} disabled={!subjects.length} onChange={event => update('subject', event.target.value)}>{subjects.length ? subjects.map(name => <option key={name}>{name}</option>) : <option value="">No published content yet</option>}</select></label>
     </div>
-    <label className="block text-sm font-semibold mt-3" htmlFor={`${id}-search`}>Search chapters<input id={`${id}-search`} className="input-field w-full mt-1 min-h-11" value={filters.search} onChange={event => update('search', event.target.value)} placeholder="Type a topic, e.g. inflation" type="search" /></label>
-    <label className="block text-sm font-semibold mt-3" htmlFor={`${id}-chapter`}>Chapter<select id={`${id}-chapter`} className="input-field w-full mt-1 min-h-11" value={chosen?.id || ''} disabled={!items.length} onChange={event => setChosenId(event.target.value)}>{items.length ? items.map(item => <option key={item.id} value={item.id}>{item.title}</option>) : <option value="">No matching chapters</option>}</select></label>
-    {!chosen && <p role="status" className="text-sm mt-3">{subjects.length ? 'No matching chapter. Try a shorter search or clear the search box.' : 'No published content for this selection. Choose another class, board or resource type.'}</p>}
-    {chosen && <div className="mt-4">
-      <p className="text-sm font-semibold break-words" style={{ color: 'var(--ink)' }}>{chosen.title}</p>
-      {chosen.kind === 'Tests' && inlineTests ? <Suspense fallback={<p role="status" className="mt-3">Loading test levels…</p>}><QuizLevels key={chosen.id} pack={chosen.pack} onAttempt={() => remember(chosen)} /></Suspense>
-        : <div className="flex flex-wrap gap-2 mt-3"><Link className="btn-primary" to={chosen.path} onClick={() => remember(chosen)}>{chosen.kind === 'Notes' ? 'Open notes' : 'Choose test level'}</Link>{chosen.pdf && <a className="btn-secondary" href={chosen.pdf} target="_blank" rel="noopener noreferrer" onClick={() => remember(chosen)}>Open PDF</a>}</div>}
-      <button type="button" className="btn-secondary mt-3 min-h-11" onClick={save} aria-pressed={Boolean(isSaved)}>{isSaved ? <BookmarkCheck className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />} {isSaved ? 'Saved for revision' : 'Save for revision'}</button>
+    <label className="ssc-study-field" htmlFor={`${id}-search`}>Search chapters<div className="ssc-study-search"><Search size={18} aria-hidden="true" /><input id={`${id}-search`} className="ssc-study-control" value={filters.search} onChange={event => update('search', event.target.value)} placeholder="Find a topic, e.g. inflation" type="search" /></div></label>
+    <label className="ssc-study-field" htmlFor={`${id}-chapter`}><span className="ssc-study-label-row">Chapter <span>{items.length} available</span></span><select id={`${id}-chapter`} className="ssc-study-control" value={chosen?.id || ''} disabled={!items.length} onChange={event => setChosenId(event.target.value)}>{items.length ? items.map(item => <option key={item.id} value={item.id}>{item.title}</option>) : <option value="">No matching chapters</option>}</select></label>
+    {!chosen && <p role="status" className="ssc-study-empty">{subjects.length ? 'No matching chapter. Try a shorter search or clear the search box.' : 'No published content for this selection. Choose another class, board or resource type.'}</p>}
+    {chosen && <div className="ssc-study-selected">
+      <div className="ssc-study-selection"><span>{chosen.kind === 'Tests' ? 'CHOOSE YOUR LEVEL' : 'READY TO READ'}</span><button type="button" className="ssc-study-save" onClick={save} aria-pressed={Boolean(isSaved)} aria-label={isSaved ? 'Saved for revision' : 'Save for revision'}>{isSaved ? <BookmarkCheck size={17} /> : <Bookmark size={17} />} {isSaved ? 'Saved' : 'Save'}</button></div>
+      <p className="ssc-study-chosen">{chosen.title}</p>
+      {chosen.kind === 'Tests' && inlineTests ? <Suspense fallback={<p role="status" className="ssc-study-empty">Loading test levels…</p>}><QuizLevels key={chosen.id} pack={chosen.pack} appearance="study" onAttempt={() => remember(chosen)} /></Suspense>
+        : <div className="ssc-study-actions"><Link className="ssc-study-open" to={chosen.path} onClick={() => remember(chosen)}>{chosen.kind === 'Notes' ? 'Open notes' : 'Choose test level'}<ArrowUpRight size={18} /></Link>{chosen.pdf && <a className="ssc-study-pdf" href={chosen.pdf} target="_blank" rel="noopener noreferrer" onClick={() => remember(chosen)}>Open PDF<ArrowUpRight size={16} /></a>}</div>}
     </div>}
-    {(saved.length > 0 || recents.length > 0) && <details className="mt-5"><summary className="cursor-pointer font-semibold text-sm min-h-11 flex items-center">Recent & saved chapters</summary>{[['Saved', saved], ['Recent', recents]].map(([label, entries]) => entries.length > 0 && <div key={label} className="mt-3"><h3 className="text-sm font-bold">{label}</h3><ul className="mt-2 space-y-2">{entries.slice(0, 5).map(item => <li key={item.id}><Link className="block rounded-xl border p-3 text-sm min-h-11" to={item.path} onClick={() => remember(item)}><span className="block font-semibold">{item.title}</span><span className="text-xs" style={{ color: 'var(--muted)' }}>{item.board} · Class {item.classLevel} · {item.kind}</span></Link></li>)}</ul></div>)}</details>}
+    {(saved.length > 0 || recents.length > 0) && <details className="ssc-study-history"><summary>Recent & saved chapters</summary>{[['Saved', saved], ['Recent', recents]].map(([label, entries]) => entries.length > 0 && <div key={label}><h3>{label}</h3><ul>{entries.slice(0, 5).map(item => <li key={item.id}><Link to={item.path} onClick={() => remember(item)}><span>{item.title}</span><small>{item.board} · Class {item.classLevel} · {item.kind}</small></Link></li>)}</ul></div>)}</details>}
   </section>;
 }
