@@ -4,3 +4,11 @@
 @media(max-width:800px){.lab-hero-grid{grid-template-columns:1fr}.lab-hero-art{display:none}.lab-panel-grid{grid-template-columns:1fr}.lab-case-layout{grid-template-columns:1fr}.lab-case-nav{display:grid;grid-template-columns:1fr 1fr;gap:8px}.lab-case-nav button{padding:12px 10px;gap:8px}.lab-case-nav button>svg{display:none}.lab-case-nav strong{font-size:11px}.lab-case-nav small{font-size:9px;line-height:1.5}.lab-progress{grid-column:1/-1;padding:0}.lab-resources>div{grid-template-columns:1fr}.lab-promo{align-items:flex-start;flex-direction:column;gap:18px}.lab-promo a{width:100%}.lab-breadcrumb{margin-bottom:29px}.lab-hero-grid{padding-bottom:29px}}
 @media(max-width:480px){.lab-wrap{width:calc(100% - 28px)}.lab-hero{padding-top:18px}.lab-hero h1{font-size:53px}.lab-eyebrow{font-size:9px}.lab-tags span{font-size:10px}.lab-route a{padding:16px 3px;gap:6px;font-size:10px}.lab-main{padding-top:32px}.lab-card{padding:20px 17px;border-radius:18px}.lab-section-heading p{font-size:12px}.lab-case-section{margin-top:37px}.lab-case-card h3{font-size:27px}.lab-story{font-size:14px}.lab-resources{padding:22px 17px}.lab-promo-section{padding:18px 14px}.lab-promo{padding:21px 19px;border-radius:18px}.lab-promo h2{font-size:25px}.lab-preset-row button{font-size:10px}.lab-basket-count>strong{font-size:65px}}
 @media(prefers-reduced-motion:reduce){.concept-lab,.concept-lab *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+/* Keep light learning panels readable under the site’s dark-section paragraph rule. */
+.concept-lab .lab-main section p{color:var(--lab-muted)}
+.concept-lab .lab-main p.lab-change{color:#1d6347}
+.concept-lab .lab-main p.lab-change-loss{color:#8b4930}
+.concept-lab .lab-main .lab-feedback p{color:#2e5545}
+.concept-lab .lab-main .lab-takeaway p{color:#285540}
+.lab-promo-section .lab-promo>div p{color:#51685b}

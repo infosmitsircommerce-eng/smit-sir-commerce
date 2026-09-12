@@ -69,7 +69,7 @@ export default function ConceptLab() {
         <div className="lab-route"><a href="#money-lab"><span>01</span> Experiment</a><a href="#case-lab"><span>02</span> Explain a case</a><a href="#lab-resources"><span>03</span> Keep learning</a></div>
       </div>
     </header>
-    <main className="lab-wrap lab-main">
+    <div className="lab-wrap lab-main">
       <section id="money-lab" aria-labelledby="money-title" className="lab-experiment">
         <div className="lab-section-heading"><span className="lab-kicker">01 / THE MONEY EXPERIMENT</span><h2 id="money-title">A bigger income. A smaller basket?</h2><p>Move the sliders and compare income with prices. These are fictional learning values for one period.</p></div>
         <div className="lab-panel-grid">
@@ -115,6 +115,6 @@ export default function ConceptLab() {
         </article></div>
       </section>
       <section id="lab-resources" className="lab-resources" aria-labelledby="resources-title"><span className="lab-kicker">03 / KEEP THE IDEA MOVING</span><h2 id="resources-title">Turn the experiment into revision.</h2><div><a href="/gseb/class-12/economics/money-and-inflation-notes.html">GSEB Money & Inflation notes <ArrowRight size={18} aria-hidden="true" /></a><Link to="/quizzes?board=GSEB&class=12&subject=Economics&pack=gseb-12-economics-ch3">GSEB chapter quiz <ArrowRight size={18} aria-hidden="true" /></Link><Link to="/cbse/class-12/macroeconomics-notes">CBSE Macroeconomics notes <ArrowRight size={18} aria-hidden="true" /></Link></div><p>Inflation basics: <a href="https://www.bankofengland.co.uk/explainers/what-is-inflation" target="_blank" rel="noopener noreferrer">Bank of England explainer</a>. The rupee examples here are fictional; they do not show current inflation or predict prices.</p></section>
-    </main>
+    </div>
   </div>;
 }
