@@ -1,6 +1,7 @@
 /* Reference-inspired mobile surfaces. Every rule is below the desktop breakpoint. */
 @media (max-width: 1023px) {
   [data-mobile-theme="ledger"] {
+    --font-serif: Georgia, "Times New Roman", serif;
     --ink: #211e18;
     --charcoal: #353027;
     --muted: #716b60;
@@ -43,7 +44,7 @@
     letter-spacing: -.025em;
     margin: 3px 0 0;
   }
-  .mobile-welcome-subtitle { margin: 5px 0 0; font-size: 11px; line-height: 1.4; color: #716b60; }
+  .mobile-welcome-subtitle { margin: 5px 0 0; font-size: 11px; line-height: 1.4; color: #716b60 !important; }
   .mobile-profile-button { width: 44px; height: 44px; background: #24221c; color: #e1c386; border: 1px solid #c5a268; font-family: var(--font-serif); font-size: 14px; }
   .mobile-study-search { margin: 20px 0 16px; min-height: 52px; padding: 0 6px 0 14px; border-radius: 15px; border-color: #e9e1d3; background: #fffdfa; box-shadow: 0 3px 12px #46351c05; font-weight: 400; }
   .mobile-study-search input { font-size: 16px; }
@@ -137,7 +138,7 @@
   [data-mobile-theme="ledger"] :is(.ssc-material-card, .ssc-glass-card, .ssc-quick-action-card) { background: #fffdf8; border-color: #e9dfce; box-shadow: 0 4px 12px #46351c06; backdrop-filter: none; }
   .mobile-chapter-nav { display: flex; gap: 6px; position: sticky; top: 64px; z-index: 30; padding: 9px max(12px, env(safe-area-inset-left)); background: #faf6ee; border-bottom: 1px solid #e5dac5; overflow-x: auto; }
   .mobile-chapter-nav a { flex: 1 0 auto; min-height: 44px; padding: 12px 13px; border-radius: 99px; color: #675b46; background: #f1e9da; font-size: 11px; font-weight: 650; text-align: center; white-space: nowrap; }
-  .mobile-chapter-nav a:first-child { color: #f6e5c5; background: #29251d; }
+  .mobile-chapter-nav a[aria-current="location"] { color: #f6e5c5; background: #29251d; }
   .mobile-chapter-page .page-hero { padding-top: 26px; padding-bottom: 30px; }
   .mobile-chapter-page .page-hero h1 { font-size: clamp(28px, 8.2vw, 42px); line-height: 1.12; letter-spacing: -.035em; }
   .mobile-chapter-page .page-hero p { font-size: 14px; line-height: 1.7; }

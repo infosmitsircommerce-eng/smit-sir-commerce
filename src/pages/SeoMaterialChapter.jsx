@@ -62,7 +62,7 @@ function ChapterNotFound({ pathname }) {
 }
 
 export default function SeoMaterialChapter() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   const material = materialByPath[pathname.replace(/\/$/, "")];
   if (!material) return <ChapterNotFound pathname={pathname} />;
 
@@ -101,10 +101,10 @@ export default function SeoMaterialChapter() {
       />
 
       <nav className="mobile-chapter-nav lg:hidden" aria-label="Chapter shortcuts">
-        <a href="#chapter-overview">Overview</a>
+        <a href="#chapter-overview" aria-current={!hash || hash === "#chapter-overview" ? "location" : undefined}>Overview</a>
         <Link to={viewerUrl}>Notes PDF</Link>
-        <a href="#chapter-questions">Questions</a>
-        <a href="#chapter-mcqs">Practice</a>
+        <a href="#chapter-questions" aria-current={hash === "#chapter-questions" ? "location" : undefined}>Questions</a>
+        <a href="#chapter-mcqs" aria-current={hash === "#chapter-mcqs" ? "location" : undefined}>Practice</a>
       </nav>
       <section className="page-hero">
         <div className="page-container">
