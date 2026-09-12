@@ -3,6 +3,7 @@ import { constants } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gsebMaterials } from '../src/data/gsebMaterials.js';
+import { renderSearchTeachingGuide } from '../src/data/searchTeachingGuides.js';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const DIST = join(ROOT, 'dist');
@@ -72,7 +73,10 @@ for (const url of urls) {
   for (const file of files) {
     if (!(await exists(file))) continue;
     const before = await readFile(file, 'utf8');
-    const withoutCanonicals = addDiscovery(before, pathname).replace(/<link\s+[^>]*rel=["']canonical["'][^>]*>\s*/gi, '');
+    const cleanTeaching = before.replace(/<section\b[^>]*data-teaching-guide="original-practice"[^>]*>[\s\S]*?<\/section>/gi, '');
+    const teaching = renderSearchTeachingGuide(pathname);
+    const withTeaching = teaching ? cleanTeaching.replace(/<\/main>/i, `${teaching}</main>`) : cleanTeaching;
+    const withoutCanonicals = addDiscovery(withTeaching, pathname).replace(/<link\s+[^>]*rel=["']canonical["'][^>]*>\s*/gi, '');
     const after = withoutCanonicals.replace('</head>', `<link rel="canonical" href="${url}">\n</head>`);
     if (after !== before) {
       await writeFile(file, after, 'utf8');

@@ -12,6 +12,7 @@ import SEO from "../components/ui/SEO";
 import { authorityGuideByPath } from "../data/authorityGuides";
 import { authorityEnhancements } from "../data/highIntentEnhancements";
 import BoosterInlineCTA from "../components/growth/BoosterInlineCTA";
+import SearchTeachingGuide from "../components/growth/SearchTeachingGuide";
 
 const SITE = "https://www.smitsircommerce.in";
 
@@ -144,6 +145,7 @@ export default function AuthorityGuide() {
       <main className="page-container section-padding">
         <div className="grid lg:grid-cols-[minmax(0,1fr)_300px] gap-8 items-start">
           <div className="space-y-7">
+            <SearchTeachingGuide path={guide.path} />
             <BoosterInlineCTA
               placement={`authority:${guide.shortTitle}`}
               compact

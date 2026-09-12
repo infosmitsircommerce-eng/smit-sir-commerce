@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { quizPageById } from "../data/quizDiscovery";
 import BoosterInlineCTA from "../components/growth/BoosterInlineCTA";
+import SearchTeachingGuide from "../components/growth/SearchTeachingGuide";
 import SEO from "../components/ui/SEO";
 import {
   getChapterMcqs,
@@ -224,6 +225,7 @@ export default function SeoMaterialChapter() {
       <main className="page-container section-padding">
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px] gap-8 items-start">
           <div className="space-y-7">
+            <SearchTeachingGuide path={material.seo_path} />
             <BoosterInlineCTA
               placement={`notes:${material.chapter}`}
               compact
