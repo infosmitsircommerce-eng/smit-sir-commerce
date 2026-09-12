@@ -262,7 +262,12 @@
 
     <link rel="dns-prefetch" href="https://abpruwygnsmeqisaehip.supabase.co" />
     <link rel="preload" as="image" href="/src/assets/teacher-photo-opt.jpg" fetchpriority="high" media="(max-width: 1023px)" />
-    <link rel="preload" as="image" href="/src/assets/teacher-photo-opt.jpg" media="(max-width: 1023px)" fetchpriority="high" />
+    <link id="mobile-home-photo" rel="preload" as="image" href="/src/assets/teacher-photo-opt.jpg" media="not all" fetchpriority="high" />
+    <script>
+      if (window.location.pathname === '/') {
+        document.getElementById('mobile-home-photo').media = '(max-width: 1023px)';
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
 
