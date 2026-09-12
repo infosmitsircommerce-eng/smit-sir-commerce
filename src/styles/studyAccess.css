@@ -84,3 +84,6 @@
   .ssc-study-tabs { max-width: none; margin: 14px 0; }
   .ssc-study-access .ssc-study-heading p { font-size: 12px; }
 }
+/* Legacy global paragraph colours must not reduce contrast in this white panel. */
+.ssc-study-access p { color: var(--study-muted) !important; }
+.ssc-study-access p.ssc-study-chosen { color: var(--study-ink) !important; }
