@@ -74,14 +74,36 @@
   .mobile-section-heading h2 { font: 700 19px/1.2 var(--font-serif); letter-spacing: -.02em; }
   .mobile-shortcuts-heading > span { color: #8a806d; font-size: 7px; letter-spacing: .08em; font-weight: 700; white-space: nowrap; }
   .mobile-action-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; margin-top: 13px; }
-  .mobile-action-card { min-height: 99px; padding: 12px 5px; gap: 9px; border: 1px solid #e1e5dc; border-radius: 17px; background: #ffffff; box-shadow: inset 0 -2px 0 #e7bd5c, 0 5px 12px #28352209; }
-  .mobile-action-card > span { width: 36px; height: 36px; border-radius: 11px; background: linear-gradient(145deg, #ffe6a1, #f2c051); box-shadow: inset 0 1px 0 #ffffffad, 0 2px 5px #94702a0d; }
+  .mobile-action-grid .mobile-action-card {
+    --action-ink: #825412; --action-accent: #e9b744; --action-wash: #fff9e7;
+    --action-icon-top: #ffe6a3; --action-icon-end: #f5c45e; --action-border: #eee1be;
+    min-height: 99px; padding: 12px 5px; gap: 9px; border: 1px solid var(--action-border); border-radius: 17px;
+    color: var(--action-ink); background: linear-gradient(150deg, #ffffff, var(--action-wash));
+    box-shadow: inset 0 -2px 0 var(--action-accent), 0 5px 12px #28352209;
+  }
+  .mobile-action-grid .mobile-action-card[href="/quizzes"] {
+    --action-ink: #634098; --action-accent: #a888e4; --action-wash: #f6f0ff;
+    --action-icon-top: #e6d5ff; --action-icon-end: #c9aaef; --action-border: #e5d9f3;
+  }
+  .mobile-action-grid .mobile-action-card[href="/lectures"] {
+    --action-ink: #156c6a; --action-accent: #67c5bd; --action-wash: #effbf8;
+    --action-icon-top: #c8f1e9; --action-icon-end: #8ed7cb; --action-border: #cde9e2;
+  }
+  .mobile-action-grid .mobile-action-card[href="/test-series"] {
+    --action-ink: #2b5f9c; --action-accent: #7baee7; --action-wash: #f0f7ff;
+    --action-icon-top: #d4e7ff; --action-icon-end: #a6c9f0; --action-border: #d5e4f5;
+  }
+  .mobile-action-grid .mobile-action-card[href="/study-material#all-notes"] {
+    --action-ink: #9a4938; --action-accent: #eb9c83; --action-wash: #fff3ee;
+    --action-icon-top: #ffe0d3; --action-icon-end: #f5b99f; --action-border: #f0dbd0;
+  }
+  .mobile-action-grid .mobile-action-card[href="/study-coach"] {
+    --action-ink: #426f30; --action-accent: #9ac878; --action-wash: #f4faed;
+    --action-icon-top: #e1f1c9; --action-icon-end: #bedb99; --action-border: #deebcf;
+  }
+  .mobile-action-grid .mobile-action-card > span { width: 36px; height: 36px; border-radius: 11px; background: linear-gradient(145deg, var(--action-icon-top), var(--action-icon-end)); box-shadow: inset 0 1px 0 #ffffffad, 0 2px 5px #2835220d; }
   .mobile-action-card svg { width: 21px; height: 21px; stroke-width: 1.8; }
   .mobile-action-card strong { font-size: 11px; font-weight: 650; color: #353027; }
-  .mobile-action-gold { color: #795014; }
-  .mobile-action-forest { color: #205d48; }
-  .mobile-action-forest { box-shadow: inset 0 -2px 0 #9bd6b7, 0 5px 12px #28352209; }
-  .mobile-action-forest > span { background: linear-gradient(145deg, #d7f5e6, #a7dfc4); }
   .mobile-resume-card { display: flex; align-items: center; gap: 12px; padding: 16px 13px; min-height: 98px; border-radius: 18px; border: 1px solid #e0e4d9; background: #ffffff; box-shadow: inset 3px 0 0 #e9bc52, 0 5px 14px #28352209; }
   .mobile-resume-icon { display: grid; place-items: center; width: 46px; height: 54px; border-radius: 12px; flex-shrink: 0; background: linear-gradient(135deg, #ffe7a4, #f3c65f); color: #9d712b; }
   .mobile-resume-icon svg { width: 25px; height: 25px; }
