@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   ArrowLeft,
@@ -62,7 +63,14 @@ function ChapterNotFound({ pathname }) {
 }
 
 export default function SeoMaterialChapter() {
-  const { pathname, hash } = useLocation();
+  const { pathname } = useLocation();
+  const [activeSection, setActiveSection] = useState(() => window.location.hash || "#chapter-overview");
+  useEffect(() => {
+    const update = () => setActiveSection(window.location.hash || "#chapter-overview");
+    update();
+    window.addEventListener("hashchange", update);
+    return () => window.removeEventListener("hashchange", update);
+  }, [pathname]);
   const material = materialByPath[pathname.replace(/\/$/, "")];
   if (!material) return <ChapterNotFound pathname={pathname} />;
 
@@ -101,10 +109,10 @@ export default function SeoMaterialChapter() {
       />
 
       <nav className="mobile-chapter-nav lg:hidden" aria-label="Chapter shortcuts">
-        <a href="#chapter-overview" aria-current={!hash || hash === "#chapter-overview" ? "location" : undefined}>Overview</a>
+        <a href="#chapter-overview" aria-current={activeSection === "#chapter-overview" ? "location" : undefined}>Overview</a>
         <Link to={viewerUrl}>Notes PDF</Link>
-        <a href="#chapter-questions" aria-current={hash === "#chapter-questions" ? "location" : undefined}>Questions</a>
-        <a href="#chapter-mcqs" aria-current={hash === "#chapter-mcqs" ? "location" : undefined}>Practice</a>
+        <a href="#chapter-questions" aria-current={activeSection === "#chapter-questions" ? "location" : undefined}>Questions</a>
+        <a href="#chapter-mcqs" aria-current={activeSection === "#chapter-mcqs" ? "location" : undefined}>Practice</a>
       </nav>
       <section className="page-hero">
         <div className="page-container">
