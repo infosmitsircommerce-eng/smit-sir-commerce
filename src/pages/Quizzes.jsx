@@ -6,8 +6,12 @@ import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 import { quizPageById } from '../data/quizDiscovery';
 import SEO from '../components/ui/SEO';
-import { getQuizPacks, quizBoards, quizLevels } from '../data/quizPublic';
+import { quizBoards, quizLevels } from '../data/quizPublic';
 import { recordQuizAttempt } from '../lib/quizAttempt';
+import { quizTracks, resolveQuizSelection, quizSelectionParams } from '../data/quizNavigation';
+import QuizChapterPicker from '../components/ui/QuizChapterPicker';
+import '../styles/studyAccess.css';
+import '../styles/quizHub.css';
 
 const levelMeta = {
   Easy: { label: 'Easy', note: 'Definitions & direct recall', icon: '🌱' },
@@ -15,32 +19,6 @@ const levelMeta = {
   Hard: { label: 'Hard', note: 'Application & tricky choices', icon: '🔥' },
   Extreme: { label: 'Extreme', note: 'High-level application', icon: '⚡' },
 };
-
-function StepChip({ active, done, children }) {
-  return (
-    <div className="flex items-center gap-2 text-xs font-bold">
-      <span
-        className="w-7 h-7 rounded-full flex items-center justify-center"
-        style={{
-          background: active || done ? 'var(--gold)' : 'var(--bg-white)',
-          color: active || done ? '#fff' : 'var(--subtle)',
-          border: active || done ? '1px solid var(--gold)' : '1px solid var(--border)',
-        }}
-      >
-        {done ? '✓' : children[0]}
-      </span>
-      <span style={{ color: active ? 'var(--ink)' : 'var(--muted)' }}>{children}</span>
-    </div>
-  );
-}
-
-function SourceBadge({ children }) {
-  return (
-    <div className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-black" style={{ background: '#eef8ef', color: '#2f6b3a', border: '1px solid #cfe6d2' }}>
-      <ShieldCheck className="w-3.5 h-3.5" /> {children}
-    </div>
-  );
-}
 
 function QuizDialog({ children, onClose, resetKey }) {
   const panel = useRef(null);
@@ -63,7 +41,7 @@ function QuizDialog({ children, onClose, resetKey }) {
   };
   return createPortal(
     <div style={{ position: 'fixed', inset: 0, zIndex: 1000, background: 'rgba(16,20,30,.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px', overscrollBehavior: 'contain' }}>
-      <div ref={panel} role="dialog" aria-modal="true" aria-label="Chapter quiz" tabIndex={-1} onKeyDown={handleKeyDown}
+      <div ref={panel} role="dialog" aria-modal="true" aria-label="Chapter quiz" className="ssc-quiz-dialog" tabIndex={-1} onKeyDown={handleKeyDown}
         style={{ width: 'min(100%, 720px)', maxHeight: 'calc(100dvh - 24px)', overflowY: 'auto', overscrollBehavior: 'contain', borderRadius: '20px', background: '#fff', color: '#172033', boxSizing: 'border-box', padding: 'clamp(16px, 3vw, 28px)', overflowWrap: 'anywhere', boxShadow: '0 20px 70px rgba(0,0,0,.25)' }}>
         {children}
       </div>
@@ -416,281 +394,52 @@ export function LevelGrid({ pack, onAttempt, appearance }) {
 }
 
 function VerifiedPackCard({ pack }) {
-  const totalQuestions = Object.values(pack.levelCounts || {}).reduce((sum, count) => sum + count, 0);
-
-  return (
-    <article className="card-paper p-5 sm:p-7" style={{ transform: 'none' }}>
-      <div className="grid lg:grid-cols-[minmax(0,1fr)_260px] gap-5">
-        <div>
-          <SourceBadge>{pack.sourceStatus}</SourceBadge>
-          <div className="text-xs font-black uppercase tracking-[.12em] mt-4" style={{ color: 'var(--gold)' }}>{pack.chapter}</div>
-          <h3 className="text-2xl sm:text-3xl mt-1" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{pack.title}</h3>
-          <p className="text-sm mt-2 leading-7 max-w-3xl" style={{ color: 'var(--muted)' }}>Every level uses the same verified chapter source but changes the thinking required — from direct recall to high-level application.</p>
-          <div className="inline-flex items-center gap-2 mt-4 text-xs font-black px-3 py-2 rounded-full" style={{ background: 'var(--gold-bg)', color: 'var(--gold)', border: '1px solid rgba(184,135,47,.18)' }}>
-            <Sparkles className="w-4 h-4" /> {totalQuestions} verified questions · 4 levels
-          </div>
-        </div>
-        <div className="rounded-2xl p-4 min-w-0" style={{ background: 'var(--bg-ivory)', border: '1px solid var(--border-soft)' }}>
-          <div className="text-xs font-bold" style={{ color: 'var(--subtle)' }}>Source</div>
-          <div className="text-sm font-semibold mt-1 leading-6" style={{ color: 'var(--charcoal)' }}>{pack.sourceLabel}</div>
-        </div>
-      </div>
-      {quizPageById[pack.id] && <Link className="inline-block underline mt-4 text-sm font-bold" to={quizPageById[pack.id].path}>{pack.title} MCQs, answers and revision</Link>}
-      <LevelGrid pack={pack} />
-    </article>
-  );
+  return <article className="ssc-quiz-pack" aria-label="Selected chapter test">
+    <div className="ssc-study-kicker">CHOOSE YOUR LEVEL</div>
+    <h2>{pack.title}</h2>
+    <p className="ssc-quiz-pack-note">{Object.values(pack.levelCounts || {}).every(count => count === 10) ? '10 questions per level' : 'Chapter practice'} · Instant answers and explanations</p>
+    <LevelGrid key={pack.id} pack={pack} appearance="study" />
+    <details className="ssc-quiz-source"><summary>Chapter source & revision</summary><p>{pack.sourceLabel}</p>{quizPageById[pack.id] && <Link to={quizPageById[pack.id].path}>Open chapter revision <ArrowRight size={15} /></Link>}</details>
+  </article>;
 }
 
 export default function Quizzes() {
-  const [params] = useSearchParams();
-  const initialStream = params.get('subject');
-  const [boardId, setBoardId] = useState(params.get('board') === 'GSEB' ? 'GSEB' : 'CBSE');
-  const [classLevel, setClassLevel] = useState(params.get('class') === '12' || initialStream === 'macro' || initialStream === 'ied' ? 12 : 11);
-  const [subjectName, setSubjectName] = useState(initialStream === 'Business Studies' ? 'Business Studies' : 'Economics');
-  const [streamFilter, setStreamFilter] = useState(initialStream === 'macro' ? 'Macroeconomics' : initialStream === 'ied' ? 'Indian Economic Development' : null);
-  const [chapterId, setChapterId] = useState(params.get('pack') || '');
+  const [params, setParams] = useSearchParams();
+  const selection = resolveQuizSelection(params);
+  const { boardId, classLevel, subject, board, classEntry, packs, selected, activeTrack } = selection;
+  const chapterArea = useRef(null), packArea = useRef(null);
+  const [moveFocus, setMoveFocus] = useState('');
   useEffect(() => {
-    const id = params.get('pack');
-    const target = getQuizPacks(params.get('board') === 'GSEB' ? 'GSEB' : 'CBSE', Number(params.get('class')) || 12, params.get('subject') || 'Economics').find(pack => pack.id === id);
-    if (!target) return;
-    setBoardId(target.board); setClassLevel(target.classLevel); setSubjectName(target.subject); setStreamFilter(null); setChapterId(target.id);
-  }, [params]);
-
-  const board = quizBoards.find((item) => item.id === boardId) || null;
-  const classEntry = board?.classes.find((item) => item.classLevel === classLevel) || null;
-  const subject = classEntry?.subjects.find((item) => item.name === subjectName) || null;
-  const packs = useMemo(() => boardId && classLevel && subjectName ? getQuizPacks(boardId, classLevel, subjectName) : [], [boardId, classLevel, subjectName]);
-
-  const packGroups = useMemo(() => {
-    if (!packs.length) return [];
-    const groups = new Map();
-    packs.forEach((pack) => {
-      const key = pack.stream || (boardId === 'CBSE' && classLevel === 11 && subjectName === 'Economics'
-        ? 'Introductory Microeconomics'
-        : 'Chapter Quizzes');
-      if (!groups.has(key)) groups.set(key, []);
-      groups.get(key).push(pack);
-    });
-    return [...groups.entries()].filter(([name]) => !streamFilter || name === streamFilter).map(([name, items]) => ({
-      name,
-      items,
-      questionCount: items.reduce(
-        (total, pack) => total + Object.values(pack.levelCounts || {}).reduce((sum, count) => sum + count, 0),
-        0
-      ),
-    }));
-  }, [packs, boardId, classLevel, subjectName, streamFilter]);
-  const chapterChoices = packGroups.flatMap(group => group.items);
-  const selectedChapter = chapterChoices.find(pack => pack.id === chapterId) || chapterChoices[0];
-
-  const resetAfterBoard = (id) => {
-    setStreamFilter(null);
-    setBoardId(id);
-    setClassLevel(null);
-    setSubjectName(null);
-  };
-
-  const resetAfterClass = (level) => {
-    setStreamFilter(null);
-    setClassLevel(level);
-    setSubjectName(null);
-  };
-
-  const back = () => {
-    if (subjectName) setSubjectName(null);
-    else if (classLevel) setClassLevel(null);
-    else setBoardId(null);
-  };
-
-  return (
-    <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
-      <SEO
-        title="Economics MCQ Quizzes — Class 11 Micro & Class 12 Macro, Indian Economy"
-        description="Practise 1,240 Economics questions across Class 11 Microeconomics and Class 12 Macroeconomics and Indian Economic Development, with four levels and answer explanations."
-        path="/quizzes"
-      />
-
-      <section className="pt-8 pb-4">
-        <div className="page-container max-w-5xl">
-          <span className="eyebrow">Verified Quiz Library</span>
-          <h1 className="mt-5">Economics chapter quizzes</h1>
-          <p className="mt-5 max-w-3xl">Choose your board, class and subject, then open a chapter and difficulty directly.</p>
-          <div className="flex flex-wrap gap-3 mt-6">
-            <div className="inline-flex items-center gap-2 text-xs font-bold px-3 py-2 rounded-full" style={{ background: '#eef8ef', color: '#2f6b3a', border: '1px solid #cfe6d2' }}><ShieldCheck className="w-4 h-4" /> Easy & Moderate free</div>
-            <div className="inline-flex items-center gap-2 text-xs font-bold px-3 py-2 rounded-full" style={{ background: 'var(--gold-bg)', color: 'var(--gold)', border: '1px solid rgba(184,135,47,.2)' }}><Layers3 className="w-4 h-4" /> 4 levels per quiz</div>
-          </div>
+    if (!moveFocus) return;
+    const element = moveFocus === 'pack' ? packArea.current : chapterArea.current;
+    element?.scrollIntoView({ behavior: 'instant', block: 'start' }); element?.focus({ preventScroll: true });
+    setMoveFocus('');
+  }, [params, moveFocus]);
+  function change(next, focus = '') {
+    setParams(quizSelectionParams(next));
+    setMoveFocus(focus);
+  }
+  const current = { boardId, classLevel, subject, trackId: activeTrack?.id };
+  return <div className="ssc-quiz-hub">
+    <SEO title="Economics MCQ Quizzes — Class 11 Micro & Class 12 Macro, Indian Economy" description="Practise Economics chapter MCQs across Class 11 Microeconomics, Class 12 Macroeconomics, Indian Economic Development and GSEB Economics, with four levels and answer explanations." path="/quizzes" />
+    <div className="page-container ssc-quiz-container">
+      <section className="ssc-study-access">
+        <header className="ssc-study-heading"><span className="ssc-study-kicker"><span /> YOUR PRACTICE DESK</span><h1>Chapter tests, without the searching.</h1><p>Choose a subject. Open a chapter. Practise again anytime.</p></header>
+        <nav aria-label="Economics quiz subjects" className="ssc-quiz-tracks">{quizTracks.map(track => <button key={track.id} type="button" aria-pressed={activeTrack?.id === track.id} onClick={() => change({ trackId: track.id, subject: 'Economics' }, 'chapters')}><strong>{track.name}</strong><span>{track.board} · Class {track.classLevel}</span><ArrowRight size={16} aria-hidden="true" /></button>)}</nav>
+        <div className="ssc-study-filters">
+          <label htmlFor="quiz-board">Board<select id="quiz-board" className="ssc-study-control" value={boardId} onChange={event => change({boardId:event.target.value,classLevel,subject:'Economics'})}>{quizBoards.map(item => <option key={item.id}>{item.id}</option>)}</select></label>
+          <label htmlFor="quiz-class">Class<select id="quiz-class" className="ssc-study-control" value={classLevel} onChange={event => change({boardId,classLevel:Number(event.target.value),subject:'Economics'})}>{board.classes.map(item => <option key={item.classLevel} value={item.classLevel}>Class {item.classLevel}</option>)}</select></label>
+          <label className="ssc-study-subject" htmlFor="quiz-subject">Subject<select id="quiz-subject" className="ssc-study-control" value={subject} disabled={!classEntry?.subjects.length} onChange={event => change({boardId,classLevel,subject:event.target.value})}>{classEntry?.subjects.length ? classEntry.subjects.map(item => <option key={item.id} value={item.name} disabled={item.status !== 'verified'}>{item.name}{item.status !== 'verified' ? ' · Coming later' : ''}</option>) : <option value={subject}>No published subjects</option>}</select></label>
         </div>
-      </section>
-
-      <main className="page-container section-padding max-w-6xl">
-        <nav aria-label="Economics quiz subjects" className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-          {[
-            { name: 'Microeconomics', level: 11, stream: null },
-            { name: 'Macroeconomics', level: 12, stream: 'Macroeconomics' },
-            { name: 'Indian Economic Development', level: 12, stream: 'Indian Economic Development' },
-            { name: 'GSEB Economics', level: 12, stream: null, board: 'GSEB' },
-          ].map((item) => (
-            <button key={item.name} type="button"
-              aria-pressed={boardId === (item.board || 'CBSE') && subjectName === 'Economics' && classLevel === item.level && streamFilter === item.stream}
-              className="btn-secondary p-4 text-left" style={{ flexDirection: 'column', alignItems: 'flex-start', whiteSpace: 'normal', minWidth: 0, minHeight: '104px', gap: '4px' }}
-              onClick={() => { setBoardId(item.board || 'CBSE'); setClassLevel(item.level); setSubjectName('Economics'); setStreamFilter(item.stream); }}>
-              <strong>{item.name}</strong><span className="block text-sm mt-1">Class {item.level} · Open chapters</span>
-            </button>
-          ))}
-        </nav>
-
-        <div className="card-paper p-4 sm:p-5 mb-6 overflow-x-auto">
-          <div className="flex items-center gap-5 min-w-max">
-            <StepChip active={!boardId} done={Boolean(boardId)}>Board</StepChip>
-            <ChevronRight className="w-4 h-4" style={{ color: 'var(--subtle)' }} />
-            <StepChip active={Boolean(boardId && !classLevel)} done={Boolean(classLevel)}>Class</StepChip>
-            <ChevronRight className="w-4 h-4" style={{ color: 'var(--subtle)' }} />
-            <StepChip active={Boolean(classLevel && !subjectName)} done={Boolean(subjectName)}>Subject</StepChip>
-            <ChevronRight className="w-4 h-4" style={{ color: 'var(--subtle)' }} />
-            <StepChip active={Boolean(subjectName)} done={false}>Quiz Levels</StepChip>
-          </div>
-        </div>
-
-        {boardId && (
-          <button type="button" onClick={back} className="inline-flex items-center gap-2 text-sm font-bold mb-5" style={{ color: 'var(--gold)' }}>
-            <ArrowLeft className="w-4 h-4" /> Back
-          </button>
-        )}
-
-        {!boardId && (
-          <section>
-            <span className="eyebrow">Step 1</span>
-            <h2 className="text-3xl sm:text-4xl mt-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Choose your board.</h2>
-            <div className="grid md:grid-cols-2 gap-5 mt-7">
-              {quizBoards.map((item) => (
-                <button key={item.id} type="button" onClick={() => resetAfterBoard(item.id)} className="card-paper p-6 sm:p-8 text-left group">
-                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center" style={{ background: 'var(--gold-bg)', color: 'var(--gold)' }}><GraduationCap className="w-7 h-7" /></div>
-                  <div className="text-xs font-black uppercase tracking-[.16em] mt-5" style={{ color: 'var(--gold)' }}>{item.id}</div>
-                  <h3 className="text-3xl mt-1" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{item.name}</h3>
-                  <p className="mt-3 text-sm leading-7" style={{ color: 'var(--muted)' }}>{item.description}</p>
-                  <span className="inline-flex items-center gap-2 mt-5 text-sm font-black" style={{ color: 'var(--gold)' }}>Open board quizzes <ArrowRight className="w-4 h-4" /></span>
-                </button>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {board && !classLevel && (
-          <section>
-            <span className="eyebrow">Step 2 · {board.name}</span>
-            <h2 className="text-3xl sm:text-4xl mt-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Choose class.</h2>
-            <div className="grid sm:grid-cols-2 gap-5 mt-7">
-              {board.classes.map((item) => (
-                <button key={item.classLevel} type="button" onClick={() => resetAfterClass(item.classLevel)} className="card-paper p-6 text-left">
-                  <div className="text-sm font-black uppercase tracking-[.14em]" style={{ color: 'var(--gold)' }}>{board.id}</div>
-                  <h3 className="text-3xl mt-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Class {item.classLevel}</h3>
-                  <p className="text-sm mt-3" style={{ color: 'var(--muted)' }}>{item.subjects.length ? `${item.subjects.length} subject entr${item.subjects.length === 1 ? 'y' : 'ies'} currently mapped` : 'Subject source mapping is waiting for verification.'}</p>
-                  <span className="inline-flex items-center gap-2 mt-5 text-sm font-black" style={{ color: 'var(--gold)' }}>Continue <ArrowRight className="w-4 h-4" /></span>
-                </button>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {classEntry && !subjectName && (
-          <section>
-            <span className="eyebrow">Step 3 · {board.name} · Class {classLevel}</span>
-            <h2 className="text-3xl sm:text-4xl mt-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Choose subject.</h2>
-
-            {classEntry.sourceNote && (
-              <div className="rounded-2xl p-4 mt-5 flex gap-3" style={{ background: '#fff8e8', border: '1px solid #ead7a2' }}>
-                <CircleAlert className="w-5 h-5 shrink-0 mt-0.5" style={{ color: '#8a6518' }} />
-                <p className="text-sm leading-7" style={{ color: '#6e531d' }}>{classEntry.sourceNote}</p>
-              </div>
-            )}
-
-            {classEntry.subjects.length > 0 ? (
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-7">
-                {classEntry.subjects.map((item) => {
-                  const verified = item.status === 'verified';
-                  return (
-                    <button
-                      key={item.id}
-                      type="button"
-                      disabled={!verified}
-                      onClick={() => verified && setSubjectName(item.name)}
-                      className="card-paper p-5 text-left disabled:cursor-not-allowed"
-                      style={{ opacity: verified ? 1 : .66 }}
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: verified ? '#eef8ef' : 'var(--bg-ivory)', color: verified ? '#2f6b3a' : 'var(--subtle)' }}>
-                          {verified ? <BadgeCheck className="w-5 h-5" /> : <BookOpen className="w-5 h-5" />}
-                        </div>
-                        <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full" style={{ background: verified ? '#eef8ef' : '#fff8e8', color: verified ? '#2f6b3a' : '#8a6518' }}>
-                          {verified ? 'Verified' : 'Source needed'}
-                        </span>
-                      </div>
-                      <h3 className="text-xl mt-4" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{item.name}</h3>
-                      <p className="text-xs mt-2 leading-6" style={{ color: 'var(--muted)' }}>{verified ? 'Verified quiz content is available.' : 'No quiz will be published until the textbook / reliable source is provided.'}</p>
-                      {verified && <span className="inline-flex items-center gap-2 mt-4 text-sm font-black" style={{ color: 'var(--gold)' }}>Open quizzes <ArrowRight className="w-4 h-4" /></span>}
-                    </button>
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="card-paper p-7 mt-7 text-center">
-                <BookOpen className="w-10 h-10 mx-auto" style={{ color: 'var(--gold)' }} />
-                <h3 className="text-2xl mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Verified source needed first.</h3>
-                <p className="text-sm mt-2 max-w-xl mx-auto leading-7" style={{ color: 'var(--muted)' }}>I have intentionally not guessed the subject list or questions for this class. Once the source books are supplied, subjects can be mapped accurately and each chapter can receive four levels.</p>
-              </div>
-            )}
-          </section>
-        )}
-
-        {subject && (
-          <section>
-            <span className="eyebrow">Step 4 · {board.name} · Class {classLevel} · {subjectName}</span>
-            <h2 className="text-3xl sm:text-4xl mt-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Choose chapter quiz and level.</h2>
-            <p className="text-sm mt-3 leading-7 max-w-3xl" style={{ color: 'var(--muted)' }}>Easy and Moderate are free. Hard and Extreme are for Premium members — ₹999 one-time lifetime access. Access is activated after payment verification.</p>
-
-            {chapterChoices.length > 0 && <label className="block text-sm font-bold mt-5">Chapter
-              <select className="input-field w-full mt-2 min-h-11" value={selectedChapter?.id || ''} onChange={event => setChapterId(event.target.value)}>{chapterChoices.map(pack => <option key={pack.id} value={pack.id}>{pack.chapter} · {pack.title}</option>)}</select>
-            </label>}
-            <div className="space-y-9 mt-7">
-              {packGroups.length > 0 ? packGroups.filter(group => group.items.some(pack => pack.id === selectedChapter?.id)).map((group) => (
-                <div key={group.name}>
-                  <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-4">
-                    <div>
-                      <div className="text-xs font-black uppercase tracking-[.14em]" style={{ color: 'var(--gold)' }}>{group.name}</div>
-                      <h3 className="text-2xl sm:text-3xl mt-1" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>
-                        {group.items.length} chapter {group.items.length === 1 ? 'quiz' : 'quizzes'}
-                      </h3>
-                    </div>
-                    <div className="text-xs font-black px-3 py-2 rounded-full self-start" style={{ background: 'var(--gold-bg)', color: 'var(--gold)', border: '1px solid rgba(184,135,47,.18)' }}>
-                      {group.questionCount} verified questions
-                    </div>
-                  </div>
-                  <div className="grid gap-5">
-                    {group.items.filter(pack => pack.id === selectedChapter?.id).map((pack) => <VerifiedPackCard key={pack.id} pack={pack} />)}
-                  </div>
-                </div>
-              )) : (
-                <div className="card-paper p-7 text-center">
-                  <CircleAlert className="w-10 h-10 mx-auto" style={{ color: 'var(--gold)' }} />
-                  <h3 className="text-2xl mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Source mapped, quiz pack not published yet.</h3>
-                  <p className="text-sm mt-2" style={{ color: 'var(--muted)' }}>I will not create questions until the chapter source is checked.</p>
-                </div>
-              )}
-            </div>
-          </section>
-        )}
-
-        <section className="mt-12 card-paper p-6 sm:p-8">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0" style={{ background: 'var(--gold-bg)', color: 'var(--gold)' }}><Target className="w-6 h-6" /></div>
-            <div>
-              <span className="eyebrow">Quality rule</span>
-              <h2 className="text-2xl mt-2" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Accuracy before quantity.</h2>
-              <p className="text-sm mt-3 leading-7 max-w-3xl" style={{ color: 'var(--muted)' }}>This section will never show a fake “25 questions” card without 25 real questions behind it. Missing source means the subject stays locked until verified material is available.</p>
-            </div>
-          </div>
+        <section ref={chapterArea} tabIndex={-1} className="ssc-quiz-chapters" aria-label="Chapter selection">
+          <p className="ssc-quiz-context" role="status">{activeTrack?.name || subject} · {boardId} Class {classLevel} · {packs.length} chapters</p>
+          <QuizChapterPicker packs={packs} selected={selected} onChange={packId => change({...current,packId}, 'pack')} />
         </section>
-      </main>
+        <div ref={packArea} tabIndex={-1} className="ssc-quiz-pack-area">
+          {selected ? <VerifiedPackCard key={selected.id} pack={selected} /> : <p role="status" className="ssc-study-empty">No published chapter tests for this selection yet. Choose another subject or class above.</p>}
+        </div>
+        <p className="ssc-quiz-access-note"><ShieldCheck size={16} aria-hidden="true" /><span>Easy & {boardId === 'GSEB' ? 'Medium' : 'Moderate'} are free. Hard & Extreme need Premium. Existing ₹999 lifetime access applies.</span></p>
+      </section>
     </div>
-  );
+  </div>;
 }
