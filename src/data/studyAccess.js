@@ -1,5 +1,5 @@
 import { seoMaterials } from './seoMaterials.js';
-import { gsebMaterials } from './gsebMaterials.js';
+import { gsebMaterials, gsebPremiumEconomicsMaterials } from './gsebMaterials.js';
 import { verifiedQuizPacks } from './quizPublic.js';
 
 export const studyAccessItems = [
@@ -7,6 +7,11 @@ export const studyAccessItems = [
     id: `note:${item.id}`, kind: 'Notes', title: item.title,
     board: item.board || 'CBSE', classLevel: Number(item.class ?? item.class_level), subject: item.subject,
     path: item.seo_path || item.file_url, pdf: item.file_url || '',
+  })),
+  ...gsebPremiumEconomicsMaterials.map(item => ({
+    id: `note:${item.id}`, kind: 'Notes', title: `${item.title} · Premium revision PDF`,
+    board: item.board, classLevel: item.class_level, subject: item.subject,
+    path: `/premium/economics?board=GSEB&chapter=${item.chapterNumber}`, pdf: '',
   })),
   ...verifiedQuizPacks.map(pack => ({
     id: `test:${pack.id}`, kind: 'Tests', title: `${pack.chapter} · ${pack.title}`,

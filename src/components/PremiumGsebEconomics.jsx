@@ -1,8 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsebPremiumEconomicsMaterials } from '../data/gsebMaterials';
 import { supabase } from '../lib/supabase';
+import { useAuth } from '../context/AuthContext';
+import PremiumPaymentDialog from './PremiumPaymentDialog';
 
 export default function PremiumGsebEconomics() {
+  const { user, isPremium, isAdmin, loading } = useAuth();
+  const access = isPremium || isAdmin;
+  const [paymentNotes, setPaymentNotes] = useState(null);
+  const launched = useRef(false);
   const [pdf, setPdf] = useState(null);
   const [busy, setBusy] = useState(null);
   const [error, setError] = useState('');
@@ -10,7 +16,20 @@ export default function PremiumGsebEconomics() {
   useEffect(() => () => request.current?.abort(), []);
   useEffect(() => () => { if (pdf) URL.revokeObjectURL(pdf.url); }, [pdf]);
 
+  useEffect(() => {
+    request.current?.abort(); setBusy(null); setPdf(null); setPaymentNotes(null);
+  }, [user?.id, access]);
+  useEffect(() => {
+    if (loading || launched.current) return;
+    launched.current = true;
+    const chapter = Number(new URLSearchParams(window.location.search).get('chapter'));
+    const notes = gsebPremiumEconomicsMaterials.find(m => m.chapterNumber === chapter);
+    if (notes) void open(notes);
+    return () => { launched.current = false; };
+  }, [loading]);
+
   async function open(notes) {
+    if (!access) { setPaymentNotes(notes); return; }
     request.current?.abort();
     const controller = new AbortController();
     request.current = controller;
@@ -51,14 +70,15 @@ export default function PremiumGsebEconomics() {
 
   return <section className="mt-7">
     <h2 className="text-2xl">GSEB Class 12 Economics revision PDFs</h2>
-    <p className="mt-3 leading-7">The original chapter revision PDFs are now part of your Premium access. Choose a chapter to read or download its notes. Chapters 2–11 are available here.</p>
+    <p className="mt-3 leading-7">Browse all original chapter revision PDFs. Premium students can read or download them; click a chapter to see the payment QR if you have Free access. Choose a chapter to read or download its notes. Chapters 2–11 are available here.</p>
     <a className="btn-secondary inline-flex mt-4" href="/gseb-class-12-economics.html">Open the new free notes collection</a>
     {error && <p role="alert" className="mt-4 text-red-700">{error}</p>}
     <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4 mt-7">{gsebPremiumEconomicsMaterials.map(notes => <article key={notes.id} className="card-paper p-5">
       <span className="eyebrow">GSEB · Class 12 · Premium</span>
       <h3 className="text-xl mt-3">{notes.title}</h3>
       <p className="text-sm mt-2">{notes.pages} pages · Revision PDF</p>
-      <button onClick={() => open(notes)} disabled={busy !== null} className="btn-primary w-full mt-5">{busy === notes.chapterNumber ? 'Loading…' : 'Open Premium PDF'}</button>
+      <button onClick={() => open(notes)} disabled={busy !== null} className="btn-primary w-full mt-5">{busy === notes.chapterNumber ? 'Loading…' : access ? 'Open Premium PDF' : 'View Premium PDF'}</button>
     </article>)}</div>
+    {paymentNotes && <PremiumPaymentDialog title={paymentNotes.title} onClose={() => setPaymentNotes(null)} />}
   </section>;
 }

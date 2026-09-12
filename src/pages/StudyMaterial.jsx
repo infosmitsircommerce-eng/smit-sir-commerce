@@ -3,10 +3,12 @@ import { ArrowRight, BookOpen, Brain, CheckCircle2, Download, Eye, FileText, Lis
 import { Link } from 'react-router-dom';
 import SEO from '../components/ui/SEO';
 import { seoHubs, seoMaterials } from '../data/seoMaterials';
-import { gsebMaterials } from '../data/gsebMaterials';
+import { gsebMaterials, gsebPremiumEconomicsMaterials } from '../data/gsebMaterials';
+import PremiumPaymentDialog from '../components/PremiumPaymentDialog';
+import { useAuth } from '../context/AuthContext';
 import StudyAccessFinder from '../components/ui/StudyAccessFinder';
 
-const allMaterials = [...seoMaterials, ...gsebMaterials];
+const allMaterials = [...seoMaterials, ...gsebMaterials, ...gsebPremiumEconomicsMaterials];
 const initialBoard = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('board')?.toUpperCase() === 'GSEB' ? 'GSEB' : 'CBSE';
 const initialSearch = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('search') || '' : '';
 const initialClass = typeof window !== 'undefined' && ['11', '12'].includes(new URLSearchParams(window.location.search).get('class')) ? new URLSearchParams(window.location.search).get('class') : 'All';
@@ -81,10 +83,14 @@ function QuickAction({ icon: Icon, title, text, to, primary }) {
 }
 
 function MaterialCard({ material }) {
+  const { isPremium, isAdmin } = useAuth();
+  const [paymentOpen, setPaymentOpen] = useState(false);
+  const premium = material.is_free === false;
+  const premiumPath = '/premium/economics?board=GSEB&chapter=' + material.chapterNumber;
   const board = (material.board || 'CBSE').toUpperCase();
   const classLevel = classLevelOf(material);
   const fileUrl = material.file_url;
-  const viewUrl = material.seo_path || fileUrl;
+  const viewUrl = premium ? premiumPath : material.seo_path || fileUrl;
   const directPdfReady = Boolean(fileUrl);
 
   return (
@@ -97,10 +103,11 @@ function MaterialCard({ material }) {
           <div className="flex items-center gap-2 flex-wrap mb-2">
             <span className="text-[11px] font-black px-2.5 py-1 rounded-full" style={{ background: board === 'CBSE' ? '#eef4ff' : '#fff4e6', color: board === 'CBSE' ? '#2457a7' : '#9a4f00', border: '1px solid rgba(23,32,51,0.06)' }}>{board}</span>
             <span className="text-[11px] font-bold px-2.5 py-1 rounded-full" style={{ background: '#f8fafc', color: 'var(--charcoal)', border: '1px solid var(--border-soft)' }}>Class {classLevel}</span>
+            {premium && <span className="text-[11px] font-black px-2.5 py-1 rounded-full" style={{ background: '#fff4d6', color: '#80550c' }}>Premium</span>}
             {material.is_free && <span className="text-[11px] font-black px-2.5 py-1 rounded-full" style={{ background: '#f1f8e8', color: 'var(--green)', border: '1px solid rgba(77,124,15,0.20)' }}>Free</span>}
           </div>
           <h3 className="text-[15px] sm:text-base font-black leading-snug" style={{ color: 'var(--ink)' }}>{material.title}</h3>
-          <p className="text-xs mt-2" style={{ color: 'var(--muted)' }}>{material.subject} • {material.pages ? `${material.pages} pages` : 'PDF notes'}</p>
+          <p className="text-xs mt-2" style={{ color: 'var(--muted)' }}>{material.subject}{premium ? ' · Revision edition' : ''} • {material.pages ? `${material.pages} pages` : 'PDF notes'}</p>
         </div>
       </div>
 
@@ -111,11 +118,12 @@ function MaterialCard({ material }) {
           </a>
         )}
         {viewUrl && (
-          <a href={viewUrl} className="ssc-quiet-btn flex items-center justify-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-bold">
-            <Eye className="w-4 h-4" /> View chapter notes
+          <a href={viewUrl} onClick={event => { if (premium && !isPremium && !isAdmin) { event.preventDefault(); setPaymentOpen(true); } }} className="ssc-quiet-btn flex items-center justify-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-bold">
+            <Eye className="w-4 h-4" /> {premium ? 'View Premium PDF' : 'View chapter notes'}
           </a>
         )}
       </div>
+      {paymentOpen && !isPremium && !isAdmin && <PremiumPaymentDialog title={material.title} onClose={() => setPaymentOpen(false)} />}
     </article>
   );
 }

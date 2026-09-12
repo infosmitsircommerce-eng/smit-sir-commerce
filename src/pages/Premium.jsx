@@ -205,7 +205,7 @@ export default function Premium() {
             </div>
           </div>
 
-          <aside className="card-paper p-5 sm:p-7 lg:sticky lg:top-24">
+          <aside id="premium-payment" className="card-paper p-5 sm:p-7 lg:sticky lg:top-24">
             <div className="flex items-start justify-between gap-4">
               <div><span className="text-sm font-black" style={{ color: 'var(--gold)' }}>LIFETIME PREMIUM</span><div className="text-5xl font-black mt-2">₹999</div><p className="text-sm mt-1" style={{ color: 'var(--muted)' }}>One-time payment · No subscription</p></div>
               <Crown className="w-10 h-10" style={{ color: 'var(--gold)' }} />
@@ -239,7 +239,7 @@ export default function Premium() {
             </div>
 
             <p className="text-xs mt-5 leading-5" style={{ color: 'var(--subtle)' }}>
-              Premium currently covers the listed CBSE Economics digital resources. Personal tuition, live classes and future unlisted material are separate. Payment does not auto-unlock until verified.
+              Premium covers the listed CBSE Economics digital resources and 10 GSEB Class 12 Economics revision PDFs. Personal tuition, live classes and future unlisted material are separate. Payment does not auto-unlock until verified.
             </p>
             <a
               href="https://wa.me/916353709585?text=Hello%20Smit%20Sir%2C%20I%20need%20help%20with%20the%20%E2%82%B9999%20Premium%20payment."
