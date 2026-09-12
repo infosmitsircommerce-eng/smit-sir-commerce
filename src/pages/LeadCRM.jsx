@@ -165,6 +165,9 @@ export default function LeadCRM() {
           "board_booster_direct_form_start",
           "board_booster_direct_submit_success",
           "board_booster_direct_submit_error",
+          "board_booster_preview_view",
+          "board_booster_preview_answer_open",
+          "board_booster_preview_reserve_click",
         ])
         .order("created_at", { ascending: false })
         .limit(10000),
@@ -268,6 +271,9 @@ export default function LeadCRM() {
     );
     return {
       views: count("booster_page_view") + count("board_booster_catalog_view"),
+      previews: count("board_booster_preview_view"),
+      previewAnswers: count("board_booster_preview_answer_open"),
+      previewRequests: count("board_booster_preview_reserve_click"),
       starts: count("booster_test_start"),
       completes: count("booster_test_complete"),
       shares:
@@ -725,6 +731,9 @@ export default function LeadCRM() {
           <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-3 mt-5 text-center">
             {[
               ["Page views", boosterFunnel.views],
+              ["Preview views", boosterFunnel.previews],
+              ["Worked answers opened", boosterFunnel.previewAnswers],
+              ["Preview request clicks", boosterFunnel.previewRequests],
               ["Test starts", boosterFunnel.starts],
               ["Completions", boosterFunnel.completes],
               ["Shares/cards", boosterFunnel.shares],

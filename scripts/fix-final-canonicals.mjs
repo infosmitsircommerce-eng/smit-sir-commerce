@@ -5,6 +5,9 @@ import { fileURLToPath } from 'node:url';
 import { gsebMaterials } from '../src/data/gsebMaterials.js';
 import { renderSearchTeachingGuide } from '../src/data/searchTeachingGuides.js';
 import { localTuitionService } from '../src/data/localTuitionService.js';
+import { BOARD_BOOSTER_PRODUCTS } from '../src/data/boardBoosterProducts.js';
+import { renderBoardBoosterPreviews } from '../src/data/boardBoosterPreviews.js';
+import { getStudyOffer } from '../src/data/studyOffers.js';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const DIST = join(ROOT, 'dist');
@@ -37,9 +40,11 @@ function discoveryBlock(pathname) {
     || pathname === '/cbse-class-12-economics-important-questions.html';
   if (!businessStudies && !economics) return '';
   const subject = businessStudies ? 'Business Studies' : 'Economics';
-  const pack = businessStudies ? 'cbse-12-business-studies' : 'cbse-12-economics';
+  const offer = getStudyOffer(pathname, { subject });
+  if (!offer) return '';
+  const pack = offer.product.id;
   const diagnostic = businessStudies ? '/cbse/class-12/business-studies-diagnostic-test' : '/cbse/class-12/economics-diagnostic-test';
-  return `<section data-search-revenue="board-booster"><h2>Practise Class 12 ${subject} after revising</h2><p>Keep using the free notes and questions. For a structured revision plan, the optional ₹199 ${subject} Board Booster includes a 14-page revision PDF, three original 20-mark tests with answers, a seven-day timetable and a weak-topic worksheet. These are original practice tests, not official board papers.</p><p><a href="/board-booster-packs?pack=${pack}&amp;from=${encodeURIComponent(pathname)}">View the ₹199 ${subject} Board Booster and its contents</a> · <a href="${diagnostic}">Try the free ${subject} diagnostic first</a></p><p>The pack request form does not take payment. Pay only after the recipient and delivery terms are confirmed.</p></section>`;
+  return `<section data-search-revenue="board-booster"><h2>Practise Class 12 ${subject} after revising</h2><p>Keep using the free notes and questions. For a structured revision plan, the optional ₹199 ${subject} Board Booster includes a 14-page revision PDF, three original 20-mark tests with answers, a seven-day timetable and a weak-topic worksheet. These are original practice tests, not official board papers.</p><p><a href="/board-booster-packs?pack=${pack}&amp;from=${encodeURIComponent(pathname)}#free-preview">See a free worked preview and the ₹199 ${subject} pack contents</a> · <a href="${diagnostic}">Try the free ${subject} diagnostic first</a></p><p>The pack request form does not take payment. Pay only after the recipient and delivery terms are confirmed.</p></section>`;
 }
 
 function addDiscovery(html, pathname) {
@@ -97,6 +102,10 @@ for (const url of urls) {
     const withoutCanonicals = addDiscovery(withTeaching, pathname).replace(/<link\s+[^>]*rel=["']canonical["'][^>]*>\s*/gi, '');
     // Let React Helmet reuse and replace this tag after the app loads or navigates.
     let after = connectMapsIdentity(withoutCanonicals).replace('</head>', `<link rel="canonical" href="${url}" data-rh="true">\n</head>`);
+    if (pathname === '/board-booster-packs') {
+      after = after.replace(/<section\b[^>]*data-booster-preview="true"[^>]*>[\s\S]*?<\/section>/gi, '');
+      after = after.replace(/<\/main>/i, `${renderBoardBoosterPreviews(BOARD_BOOSTER_PRODUCTS)}</main>`);
+    }
     if ((pathname === '/contact' || pathname === '/commerce-coaching-mehsana' || pathname.endsWith('-tuition-mehsana') || pathname === '/cbse-commerce-classes-mehsana') && !after.includes('data-google-maps-listing')) {
       const mapsLink = `<p data-google-maps-listing="true"><a href="${escapeHtml(localTuitionService.mapsUrl)}" target="_blank" rel="noopener noreferrer">View Smit Sir Commerce Classes on Google Maps</a></p>`;
       after = after.replace(/<\/main>/i, `${mapsLink}</main>`);

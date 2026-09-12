@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import {
   ArrowRight,
   BadgeCheck,
@@ -12,6 +12,7 @@ import {
   Target,
 } from "lucide-react";
 import SEO from "../components/ui/SEO";
+import BoardBoosterPreview from "../components/growth/BoardBoosterPreview";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../lib/supabase";
 import { trackEvent } from "../lib/analytics";
@@ -223,12 +224,22 @@ function ReservationForm({ selectedId, setSelectedId }) {
 
 export default function BoardBoosterPacks() {
   const [searchParams] = useSearchParams();
+  const { hash } = useLocation();
+  const packParam = searchParams.get("pack");
   const initial = BOARD_BOOSTER_PRODUCTS.some(
     (item) => item.id === searchParams.get("pack"),
   )
     ? searchParams.get("pack")
     : BOARD_BOOSTER_PRODUCTS[0].id;
   const [selectedId, setSelectedId] = useState(initial);
+  useEffect(() => {
+    if (BOARD_BOOSTER_PRODUCTS.some((item) => item.id === packParam)) setSelectedId(packParam);
+  }, [packParam]);
+  useEffect(() => {
+    if (hash !== "#free-preview") return;
+    const frame = requestAnimationFrame(() => document.getElementById("free-preview")?.scrollIntoView({ behavior: "auto" }));
+    return () => cancelAnimationFrame(frame);
+  }, [hash]);
 
   useEffect(() => {
     trackEvent("board_booster_catalog_view", {
@@ -316,6 +327,8 @@ export default function BoardBoosterPacks() {
           </p>
         </div>
       </section>
+
+      <BoardBoosterPreview selectedId={selectedId} setSelectedId={setSelectedId} />
 
       <section id="packs" className="page-container section-padding">
         <div className="grid lg:grid-cols-3 gap-5">
