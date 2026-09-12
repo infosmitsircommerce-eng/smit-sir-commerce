@@ -3,6 +3,7 @@
 export const LIGHT_ROUTES = [
   "/",
   "/courses",
+  "/concept-lab",
   "/lectures",
   "/study-material",
   "/services-for-teachers",

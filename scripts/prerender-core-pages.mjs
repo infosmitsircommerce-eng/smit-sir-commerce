@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { examTests } from "../src/data/examBank.js";
 import { authorityGuides } from "../src/data/authorityGuides.js";
+import { conceptLabMeta, inflationCases } from "../src/data/conceptLab.js";
 import {
   DIAGNOSTIC_ROUTES,
   DIAGNOSTIC_TESTS,
@@ -35,6 +36,7 @@ function coreNav() {
     '<li><a href="/cbse/class-12/business-studies-diagnostic-test">CBSE Business Studies Diagnostic</a></li>' +
     '<li><a href="/cbse/class-12/economics-diagnostic-test">CBSE Economics Diagnostic</a></li>' +
     '<li><a href="/gseb/class-12/economics-diagnostic-test">GSEB Economics Diagnostic</a></li>' +
+    '<li><a href="/concept-lab">Commerce Concept Lab</a></li>' +
     '<li><a href="/quizzes">Commerce quizzes</a></li>' +
     '<li><a href="/premium">₹999 Lifetime Premium</a></li>' +
     '<li><a href="/test-series">Commerce test series</a></li>' +
@@ -255,6 +257,10 @@ const diagnosticLandingPages = Object.values(DIAGNOSTIC_ROUTES).map((route) => {
 });
 
 const pages = [
+  {
+    ...conceptLabMeta,
+    body: `<main class="page-container section-padding"><article><p>Smit Sir Commerce · Free interactive practice</p><h1>Commerce Concept Lab: Make economics click.</h1><p>Explore how inflation and income changes affect purchasing power. Change the basket price and income sliders, then explain five everyday situations. Explanations are available in English and Hindi. No account or payment is required.</p><h2>The purchasing-power experiment</h2><p>A fictional starting income of ₹10,000 buys ten ₹1,000 baskets. With a 25% basket price rise and unchanged income, it buys eight baskets: 20% less purchasing power. Equal percentage increases in income and prices preserve purchasing power.</p><h2>Find the clue in each case</h2>${inflationCases.map(item => `<section><h3>${esc(item.title)}</h3><p>${esc(item.story)}</p><p>${esc(item.exam)}</p></section>`).join('')}<p>Each case includes a new follow-up question, a model exam explanation and a shareable case link. Progress is remembered on this device when local storage is available.</p><p><a href="/gseb/class-12/economics/money-and-inflation-notes.html">GSEB Money and Inflation notes</a> · <a href="/quizzes?board=GSEB&amp;class=12&amp;subject=Economics">GSEB chapter quizzes</a> · <a href="/cbse/class-12/macroeconomics-notes">CBSE Macroeconomics notes</a></p>${coreNav()}</article></main>`,
+  },
   {
     path: "/board-booster-packs",
     title: "₹199 Class 12 Commerce Board Booster Packs",

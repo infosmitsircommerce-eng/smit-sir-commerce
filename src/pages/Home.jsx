@@ -4,6 +4,7 @@ import QuizPromo from "../components/home/QuizPromo";
 import PremiumSpotlight from "../components/home/PremiumSpotlight";
 import BoardBoosterPromo from "../components/home/BoardBoosterPromo";
 import MobileLearningHome from "../components/home/MobileLearningHome";
+import ConceptLabPromo from "../components/home/ConceptLabPromo";
 
 const HomeBelowFold = lazy(() => import("../components/home/HomeBelowFold"));
 const HeroSection = lazy(() => import("../components/home/HeroSection"));
@@ -100,6 +101,7 @@ export default function Home() {
       <div className="hidden lg:block">
         {desktop && <Suspense fallback={<div style={{ minHeight: 580 }} />}><HeroSection /></Suspense>}
       </div>
+      <ConceptLabPromo />
       <BoardBoosterPromo />
       <PremiumSpotlight />
       <QuizPromo />

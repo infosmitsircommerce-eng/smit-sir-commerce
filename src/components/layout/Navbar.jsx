@@ -30,6 +30,7 @@ const navLinks = [
   {
     label: "Practice",
     children: [
+      { label: "Concept Lab · Inflation", path: "/concept-lab" },
       { label: "Daily Practice", path: "/daily-practice" },
       { label: "Chapter Practice", path: "/cbse-practice" },
       { label: "Test Series", path: "/test-series" },

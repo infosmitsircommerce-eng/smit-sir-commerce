@@ -61,6 +61,7 @@ const BookDemo = lazy(() => import("./pages/BookDemo"));
 const FreeStudyPack = lazy(() => import("./pages/FreeStudyPack"));
 const DemoSuccess = lazy(() => import("./pages/DemoSuccess"));
 const Games = lazy(() => import("./pages/Games"));
+const ConceptLab = lazy(() => import("./pages/ConceptLab"));
 const Flashcards = lazy(() => import("./pages/Flashcards"));
 const AskDoubt = lazy(() => import("./pages/AskDoubt"));
 const ReelGenerator = lazy(() => import("./pages/ReelGenerator"));
@@ -298,6 +299,10 @@ const ROUTE_SEO = {
     title: "Access & Learning Policy — Smit Sir Commerce",
     description: "Learning access policy.",
   },
+  "/concept-lab": {
+    title: "Commerce Concept Lab — Explore Inflation & Purchasing Power",
+    description: "Explore inflation with interactive sliders, five everyday cases, English and Hindi explanations, follow-up questions and exam-answer practice. Free, no login.",
+  },
   "/games": {
     title: "Commerce Learning Games",
     description: "Interactive Commerce learning games.",
@@ -398,7 +403,8 @@ function RouteSEO() {
     pathname === "/teacher-guides" ||
     pathname === "/services-for-teachers" ||
     pathname === "/board-booster-packs" ||
-    pathname === "/board-exam-diagnostic"
+    pathname === "/board-exam-diagnostic" ||
+    pathname === "/concept-lab"
   )
     return null;
   const meta = ROUTE_SEO[pathname] || {
@@ -724,6 +730,7 @@ function AnimatedRoutes() {
           <Route path="/privacy" element={withPage(<Legal />)} />
           <Route path="/terms" element={withPage(<Legal />)} />
           <Route path="/access-policy" element={withPage(<Legal />)} />
+          <Route path="/concept-lab" element={withPage(<ConceptLab />)} />
           <Route path="/games" element={withPage(<Games />)} />
           <Route path="/flashcards" element={withPage(<Flashcards />)} />
           <Route path="/ask" element={withPage(<AskDoubt />)} />

@@ -7,10 +7,10 @@ import {
   BookOpen,
   FileQuestion,
   FileText,
+  FlaskConical,
   GraduationCap,
   Search,
   SlidersHorizontal,
-  Video,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import teacherPhoto from "../../assets/teacher-photo-opt.jpg";
@@ -23,9 +23,9 @@ const QUICK_ACTIONS = [
     tone: "rose",
   },
   {
-    label: "Video\nLectures",
-    icon: Video,
-    to: "/lectures",
+    label: "Concept\nLab",
+    icon: FlaskConical,
+    to: "/concept-lab",
     tone: "mint",
   },
   {
