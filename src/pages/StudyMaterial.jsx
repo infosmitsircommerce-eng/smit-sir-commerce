@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ArrowRight, BookOpen, Brain, CheckCircle2, Download, Eye, FileText, ListChecks, GraduationCap, Search, SlidersHorizontal, Sparkles } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import SEO from '../components/ui/SEO';
 import { seoHubs, seoMaterials } from '../data/seoMaterials';
 import { gsebMaterials, gsebPremiumEconomicsMaterials } from '../data/gsebMaterials';
@@ -129,10 +129,19 @@ function MaterialCard({ material }) {
 }
 
 export default function StudyMaterial() {
+  const { search: routeSearch } = useLocation();
   const [search, setSearch] = useState(initialSearch);
   const [filterBoard, setFilterBoard] = useState(initialBoard);
   const [filterClass, setFilterClass] = useState(initialClass);
   const [filterSubject, setFilterSubject] = useState('All');
+  useEffect(() => {
+    if (!window.matchMedia('(max-width: 1023px)').matches) return;
+    const params = new URLSearchParams(routeSearch);
+    setSearch(params.get('search') || '');
+    setFilterBoard(params.get('board')?.toUpperCase() === 'GSEB' ? 'GSEB' : 'CBSE');
+    setFilterClass(['11', '12'].includes(params.get('class')) ? params.get('class') : 'All');
+    setFilterSubject(params.get('subject') || 'All');
+  }, [routeSearch]);
 
   const boardMaterials = useMemo(() => allMaterials.filter((m) => (m.board || 'CBSE').toUpperCase() === filterBoard), [filterBoard]);
   const subjects = useMemo(() => ['All', ...new Set(boardMaterials.map((m) => m.subject).filter(Boolean))], [boardMaterials]);
