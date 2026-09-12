@@ -93,7 +93,7 @@
     --action-ink: #2b5f9c; --action-accent: #7baee7; --action-wash: #f0f7ff;
     --action-icon-top: #d4e7ff; --action-icon-end: #a6c9f0; --action-border: #d5e4f5;
   }
-  .mobile-action-grid .mobile-action-card[href="/study-material#all-notes"] {
+  .mobile-action-grid .mobile-action-card[href="/study-material?view=downloads"] {
     --action-ink: #9a4938; --action-accent: #eb9c83; --action-wash: #fff3ee;
     --action-icon-top: #ffe0d3; --action-icon-end: #f5b99f; --action-border: #f0dbd0;
   }
@@ -186,6 +186,43 @@
   .mobile-chapter-page .card-paper { background: #fffefa; border-color: #e9dfce; box-shadow: 0 4px 12px #46351c06; border-radius: 19px; }
   .mobile-chapter-page .card-paper h2 { font-size: 24px; line-height: 1.2; }
   .mobile-chapter-page .section-padding { padding-top: 24px !important; }
+  /* Shared section accents match the six home shortcuts, on phones only. */
+  [data-mobile-section="notes"] { --section-ink: #825412; --section-accent: #e9b744; --section-wash: #fff9e7; }
+  [data-mobile-section="quizzes"] { --section-ink: #634098; --section-accent: #a888e4; --section-wash: #f6f0ff; }
+  [data-mobile-section="lectures"] { --section-ink: #156c6a; --section-accent: #67c5bd; --section-wash: #effbf8; }
+  [data-mobile-section="tests"] { --section-ink: #2b5f9c; --section-accent: #7baee7; --section-wash: #f0f7ff; }
+  [data-mobile-section="downloads"] { --section-ink: #9a4938; --section-accent: #eb9c83; --section-wash: #fff3ee; }
+  [data-mobile-section="plan"] { --section-ink: #426f30; --section-accent: #9ac878; --section-wash: #f4faed; }
+  [data-mobile-theme="ledger"][data-mobile-section]:not([data-mobile-section=""]) {
+    --gold: var(--section-ink); --gold-bg: var(--section-wash); --brand-soft: var(--section-wash);
+  }
+  [data-mobile-theme="ledger"][data-mobile-section]:not([data-mobile-section=""]) .ssc-study-access {
+    --study-teal: var(--section-ink); border-top-color: var(--section-accent);
+  }
+  [data-mobile-section]:not([data-mobile-section=""]) .ssc-study-access .ssc-study-kicker,
+  [data-mobile-section]:not([data-mobile-section=""]) .ssc-study-access .ssc-study-heading :is(h1,h2) { color: var(--section-ink); }
+  [data-mobile-section]:not([data-mobile-section=""]) .ssc-study-kicker > span { background: var(--section-accent); }
+  [data-mobile-section]:not([data-mobile-section=""]) .ssc-study-tabs { background: var(--section-wash); }
+  [data-mobile-section]:not([data-mobile-section=""]) .ssc-study-access :is(.ssc-study-open, .ssc-study-tabs button[aria-pressed="true"]) { background: var(--section-ink); color: #fff; }
+  [data-mobile-section]:not([data-mobile-section=""]) .ssc-study-access .ssc-study-pdf { background: var(--section-wash); color: var(--section-ink); }
+  [data-mobile-section]:not([data-mobile-section=""]) .ssc-study-access :is(button,a,select,input):focus-visible { outline-color: var(--section-ink); }
+  [data-mobile-theme="ledger"][data-mobile-section]:not([data-mobile-section=""]) .mobile-header-demo { background: var(--section-wash); color: var(--section-ink); border-color: var(--section-accent); }
+  [data-mobile-section="quizzes"] .ssc-quiz-tracks button[aria-pressed="true"] { background: #634098; border-color: #a888e4; color: #fff; }
+  [data-mobile-section="quizzes"] .ssc-quiz-tracks button[aria-pressed="true"] :is(span,svg) { color: #fff; }
+  [data-mobile-section="quizzes"] .ssc-quiz-chapter-list button[aria-pressed="true"] { background: #f6f0ff; }
+  [data-mobile-section="lectures"] .page-hero h1,
+  [data-mobile-section="downloads"] .ssc-downloads-page h1 { color: var(--section-ink) !important; }
+  [data-mobile-section="plan"] .ssc-route-view { --gold: #426f30; --gold-bg: #f4faed; --brand-soft: #f4faed; }
+  [data-mobile-section="plan"] .page-hero h1 em { color: #426f30; }
+  .mobile-chapter-finder-trigger { display: inline-flex; align-items: center; justify-content: flex-end; gap: 2px; min-height: 44px; padding: 0; color: #634b22; background: transparent; font-size: 10px; font-weight: 650; white-space: nowrap; }
+  .mobile-chapter-finder-trigger svg { width: 12px; height: 12px; }
+  .mobile-action-grid .mobile-action-card { position: relative; }
+  .mobile-action-grid .mobile-action-card[href="/lectures"] { gap: 5px; }
+  .mobile-action-status { font-size: 8px; font-weight: 650; line-height: 1.2; color: #156c6a; }
+  .mobile-learning-home .mobile-resume-copy > span { color: #70552c; }
+  .mobile-learning-home :is(a,button):focus-visible { outline: 2px solid #825412; outline-offset: 3px; }
+  [data-mobile-theme="ledger"] :is(.eyebrow, .btn-secondary) { color: var(--gold); }
+
 }
 @media (max-width: 359px) {
   .mobile-learning-shell { padding-inline: 12px; }

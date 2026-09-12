@@ -21,9 +21,9 @@ import teacherPhoto from "../../assets/teacher-photo-opt.jpg";
 const QUICK_ACTIONS = [
   { label: "Study Notes", icon: FileText, to: "/study-material", tone: "gold" },
   { label: "Quizzes", icon: FileQuestion, to: "/quizzes", tone: "gold" },
-  { label: "Video Lectures", icon: PlayCircle, to: "/lectures", tone: "forest" },
+  { label: "Video Lectures", icon: PlayCircle, to: "/lectures", tone: "forest", status: "Coming soon" },
   { label: "Test Series", icon: BarChart3, to: "/test-series", tone: "forest" },
-  { label: "Downloads", icon: Download, to: "/study-material#all-notes", tone: "gold" },
+  { label: "Downloads", icon: Download, to: "/study-material?view=downloads", tone: "gold" },
   { label: "Study Plan", icon: CalendarDays, to: "/study-coach", tone: "gold" },
 ];
 
@@ -133,12 +133,13 @@ export default function MobileLearningHome() {
           </div>
         </article>
 
-        <div className="mobile-section-heading mobile-shortcuts-heading"><h2>What will you learn today?</h2><span>QUICK ACCESS</span></div>
+        <div className="mobile-section-heading mobile-shortcuts-heading"><h2>What will you learn today?</h2><button type="button" className="mobile-chapter-finder-trigger" onClick={() => window.dispatchEvent(new CustomEvent("ssc-open-resource-finder"))}>Find a chapter <ChevronRight aria-hidden="true" /></button></div>
         <div className="mobile-action-grid" aria-label="Quick actions">
-          {QUICK_ACTIONS.map(({ label, icon: Icon, to, tone }) => (
+          {QUICK_ACTIONS.map(({ label, icon: Icon, to, tone, status }) => (
             <AppLink key={label} to={to} className={`mobile-action-card mobile-action-${tone}`}>
               <span><Icon aria-hidden="true" /></span>
               <strong>{label.split("\n").map((line) => <span key={line}>{line}</span>)}</strong>
+              {status && <small className="mobile-action-status">{status}</small>}
             </AppLink>
           ))}
         </div>

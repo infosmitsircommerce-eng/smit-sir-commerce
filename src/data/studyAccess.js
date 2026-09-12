@@ -1,6 +1,6 @@
 import { seoMaterials } from './seoMaterials.js';
 import { gsebMaterials, gsebPremiumEconomicsMaterials } from './gsebMaterials.js';
-import { verifiedQuizPacks } from './quizPublic.js';
+import { verifiedQuizPacks } from './quizCatalog.js';
 
 export const studyAccessItems = [
   ...[...seoMaterials, ...gsebMaterials].map(item => ({

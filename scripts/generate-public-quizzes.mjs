@@ -6,4 +6,6 @@ const packs = verifiedQuizPacks.map(({ levels, ...metadata }) => ({ ...metadata,
 }));
 const content = `// Public quiz catalog: Premium question bodies are served by the authenticated API.\nexport const quizBoards = ${JSON.stringify(quizBoards)};\nexport const quizLevels = ['Easy', 'Moderate', 'Hard', 'Extreme'];\nexport const verifiedQuizPacks = ${JSON.stringify(packs)};\nexport function getQuizPacks(board, classLevel, subject) { return verifiedQuizPacks.filter(p => p.board === board && p.classLevel === classLevel && p.subject === subject); }\n`;
 await writeFile(new URL('../src/data/quizPublic.js', import.meta.url), content);
+const catalog = packs.map(({ levels, ...metadata }) => metadata);
+await writeFile(new URL('../src/data/quizCatalog.js', import.meta.url), `// Lightweight chapter metadata. Questions load only when a quiz is opened.\nexport const verifiedQuizPacks = ${JSON.stringify(catalog)};\n`);
 console.log(`Generated ${packs.length} public quiz packs; Hard/Extreme question bodies excluded.`);
