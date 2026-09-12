@@ -20,6 +20,10 @@ const levelMeta = {
   Extreme: { label: 'Extreme', note: 'High-level application', icon: '⚡' },
 };
 
+function SourceBadge({ children }) {
+  return <div className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-black" style={{ background: '#edf6f1', color: '#126c61', border: '1px solid #d9e6e1' }}><ShieldCheck className="w-3.5 h-3.5" /> {children}</div>;
+}
+
 function QuizDialog({ children, onClose, resetKey }) {
   const panel = useRef(null);
   useEffect(() => {
