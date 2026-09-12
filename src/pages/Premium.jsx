@@ -18,6 +18,8 @@ import SEO from '../components/ui/SEO';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 import { trackEvent } from '../lib/analytics';
+import { trackConversion } from '../lib/conversionTracking';
+import PremiumQrImage from '../components/PremiumQrImage';
 
 const benefits = [
   { icon: ListChecks, title: 'Hard & Extreme quizzes', text: 'Premium difficulty for CBSE Microeconomics, Macroeconomics and Indian Economic Development.' },
@@ -78,7 +80,7 @@ function PaymentClaim({ user, isPremium }) {
       setReference('');
       setMessage('Reference submitted successfully. Do not pay again while verification is pending.');
       trackEvent('premium_claim_success', { offer: 'lifetime-999' }, user?.id || null);
-      if (typeof window.gtag === 'function') window.gtag('event', 'premium_claim_success', { offer: 'lifetime-999', value: 999, currency: 'INR' });
+      void trackConversion('premium_reference_submitted', { offer: 'lifetime-999' });
       await loadClaim();
     }
     setBusy(false);
@@ -214,7 +216,7 @@ export default function Premium() {
             {!hasAccess && (
               <>
                 <div className="rounded-2xl mt-6 p-3" style={{ background: '#fff', border: '1px solid var(--border)' }}>
-                  <img
+                  <PremiumQrImage
                     src="/premium-payment-qr.jpg"
                     alt="UPI QR for Smit Sir Commerce ₹999 Premium"
                     width="971"

@@ -63,7 +63,7 @@ export default function PremiumGsebEconomics() {
     <button className="btn-secondary" onClick={() => setPdf(null)}>← All GSEB Premium notes</button>
     <h2 className="text-2xl mt-5">{pdf.title}</h2>
     <p className="mt-2">GSEB Class 12 Economics · Premium revision notes · {pdf.pages} pages</p>
-    <a className="btn-primary inline-flex mt-4" href={pdf.url} download={`gseb-class-12-economics-chapter-${pdf.chapterNumber}-premium-notes.pdf`}>Download Premium PDF</a>
+    <a className="btn-primary inline-flex mt-4" href={pdf.url} data-pdf-resource={`gseb-economics-chapter-${pdf.chapterNumber}`} download={`gseb-class-12-economics-chapter-${pdf.chapterNumber}-premium-notes.pdf`}>Download Premium PDF</a>
     <p className="mt-3 text-sm">If your browser does not show the reader, use Download Premium PDF.</p>
     <iframe src={pdf.url} title={pdf.title + ' Premium PDF'} className="w-full mt-5 rounded-xl border" style={{ height: '75vh', minHeight: 420 }} />
   </section>;

@@ -1,11 +1,17 @@
 import { useEffect, useRef } from 'react';
+import { trackConversion } from '../lib/conversionTracking';
 
 export default function PremiumPaymentDialog({ title, onClose }) {
   const dialog = useRef(null);
+  const tracked = useRef(false);
   useEffect(() => {
     const element = dialog.current;
     const previousOverflow = document.body.style.overflow;
     element.showModal();
+    if (!tracked.current) {
+      tracked.current = true;
+      void trackConversion('premium_qr_open', { offer: 'lifetime-999', surface: 'notes-dialog', resource: title });
+    }
     document.body.style.overflow = 'hidden';
     return () => { element.close(); document.body.style.overflow = previousOverflow; };
   }, []);

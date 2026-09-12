@@ -38,9 +38,9 @@ export const authorityGuides = [
   },
   {
     path: '/cbse/class-12/business-studies-case-study-questions',
-    title: 'Class 12 Business Studies Case Study Questions With Answers',
+    title: 'CBSE Class 12 Business Studies Case Study Questions with Answers',
     shortTitle: 'Class 12 BST Case Studies',
-    description: 'Free CBSE Class 12 Business Studies case study questions with answers. Practise every chapter using a simple 5-step case-study solving method.',
+    description: 'Practise free CBSE Class 12 Business Studies case study questions with answers, chapter-wise sets and explained solutions. Learn a 5-step method to solve cases.',
     eyebrow: 'Class 12 · Business Studies · Case Study Practice',
     intro: 'Practise free Class 12 Business Studies case studies with answers chapter by chapter. Use the 5-step method to identify clue words, name the correct concept and connect each answer directly to the case.',
     updated: UPDATED,
