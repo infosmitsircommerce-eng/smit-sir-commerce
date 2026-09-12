@@ -390,6 +390,8 @@ function RouteSEO() {
     pathname.startsWith("/cbse/") ||
     pathname.startsWith("/practice/cbse/") ||
     pathname.startsWith("/tests/") ||
+    pathname.startsWith("/economics-quizzes/") ||
+    pathname.startsWith("/gseb-economics-quizzes/") ||
     pathname.startsWith("/gseb/class-12/") ||
     pathname.startsWith("/class-12-commerce-") ||
     pathname.startsWith("/class-12-economics-") ||
@@ -641,6 +643,10 @@ function AnimatedRoutes() {
           />
           <Route
             path="/economics-quizzes/:classSlug/:chapterSlug"
+            element={withPage(<QuizChapter />)}
+          />
+          <Route
+            path="/gseb-economics-quizzes/:classSlug/:chapterSlug"
             element={withPage(<QuizChapter />)}
           />
           <Route path="/test-series" element={withPage(<TestSeries />)} />

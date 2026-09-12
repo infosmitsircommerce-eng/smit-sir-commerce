@@ -52,3 +52,7 @@
   .ssc-quiz-chapters, .ssc-quiz-pack-area { scroll-margin-top: 84px; }
   .ssc-quiz-picker-trigger { font-size: 14px; }
 }
+
+/* Discovery pages share the practice desk colours and clear the mobile dock. */
+.ssc-study-access.ssc-quiz-chapter { padding-bottom: 120px; }
+.ssc-route-view:has(.ssc-quiz-chapter) { animation: none !important; }
