@@ -103,6 +103,8 @@ const SITEWIDE_ENTITY = {
       ],
       url: `${BASE}/`,
       email: "infosmitsircommerce@gmail.com",
+      telephone: localTuitionService.phone,
+      sameAs: [localTuitionService.mapsUrl],
       description:
         "Smit Sir Commerce is a student-first Commerce learning resource library for free CBSE and GSEB notes, PDFs, practice resources, realistic learning games and Commerce tools, with optional support from Smit Sir when students need help.",
       areaServed: [

@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gsebMaterials } from '../src/data/gsebMaterials.js';
 import { renderSearchTeachingGuide } from '../src/data/searchTeachingGuides.js';
+import { localTuitionService } from '../src/data/localTuitionService.js';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const DIST = join(ROOT, 'dist');
@@ -59,6 +60,23 @@ async function exists(file) {
   }
 }
 
+function connectMapsIdentity(html) {
+  return html.replace(/(<script\b[^>]*type=["']application\/ld\+json["'][^>]*>)([\s\S]*?)(<\/script>)/gi, (match, open, content, close) => {
+    const data = JSON.parse(content);
+    function visit(node) {
+      if (!node || typeof node !== 'object') return;
+      if (node['@id'] === `${BASE}/#organization` && node['@type']) {
+        const sameAs = Array.isArray(node.sameAs) ? node.sameAs : node.sameAs ? [node.sameAs] : [];
+        node.sameAs = [...new Set([...sameAs, localTuitionService.mapsUrl])];
+        node.telephone = localTuitionService.phone;
+      }
+      Object.values(node).forEach(value => Array.isArray(value) ? value.forEach(visit) : visit(value));
+    }
+    visit(data);
+    return `${open}${JSON.stringify(data).replaceAll('<', '\\u003c')}${close}`;
+  });
+}
+
 function candidates(pathname) {
   if (pathname === '/') return [join(DIST, 'index.html')];
   const clean = pathname.replace(/^\//, '');
@@ -78,7 +96,11 @@ for (const url of urls) {
     const withTeaching = teaching ? cleanTeaching.replace(/<\/main>/i, `${teaching}</main>`) : cleanTeaching;
     const withoutCanonicals = addDiscovery(withTeaching, pathname).replace(/<link\s+[^>]*rel=["']canonical["'][^>]*>\s*/gi, '');
     // Let React Helmet reuse and replace this tag after the app loads or navigates.
-    const after = withoutCanonicals.replace('</head>', `<link rel="canonical" href="${url}" data-rh="true">\n</head>`);
+    let after = connectMapsIdentity(withoutCanonicals).replace('</head>', `<link rel="canonical" href="${url}" data-rh="true">\n</head>`);
+    if ((pathname === '/contact' || pathname === '/commerce-coaching-mehsana' || pathname.endsWith('-tuition-mehsana') || pathname === '/cbse-commerce-classes-mehsana') && !after.includes('data-google-maps-listing')) {
+      const mapsLink = `<p data-google-maps-listing="true"><a href="${escapeHtml(localTuitionService.mapsUrl)}" target="_blank" rel="noopener noreferrer">View Smit Sir Commerce Classes on Google Maps</a></p>`;
+      after = after.replace(/<\/main>/i, `${mapsLink}</main>`);
+    }
     if (after !== before) {
       await writeFile(file, after, 'utf8');
       fixed += 1;

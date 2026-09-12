@@ -3,6 +3,7 @@ export const localTuitionService = {
   description: 'Class 11 & 12 Commerce tuition in Mehsana: Economics, Business Studies and Entrepreneurship. Classes at Smit Sir’s location or home tuition. Call 6353709585.',
   phone: '+916353709585',
   phoneLabel: '+91 63537 09585',
+  mapsUrl: 'https://maps.app.goo.gl/T5t5Mw2jKiqbozgi8?g_st=ac',
   heading: 'Classes at Smit Sir’s location or home tuition in Mehsana',
   intro: 'Choose face-to-face lessons at Smit Sir’s tuition location or enquire about lessons at your home in Mehsana. Share your class, board, subject and area so the location, travel availability and suitable timing can be confirmed before you join.',
   modes: [

@@ -2,6 +2,8 @@ import SEO from '../components/ui/SEO';
 import { Mail, MapPin, ArrowRight, ShieldCheck, CheckCircle2, BookOpenCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import LeadCaptureForm from '../components/leads/LeadCaptureForm';
+import { localTuitionService } from '../data/localTuitionService';
+import { trackEvent } from '../lib/analytics';
 
 const BASE = 'https://www.smitsircommerce.in';
 
@@ -25,6 +27,8 @@ const structuredData = {
       alternateName: 'Smit Sir Commerce Classes',
       url: `${BASE}/`,
       email: 'infosmitsircommerce@gmail.com',
+      telephone: localTuitionService.phone,
+      sameAs: [localTuitionService.mapsUrl],
       contactPoint: {
         '@type': 'ContactPoint',
         email: 'infosmitsircommerce@gmail.com',
@@ -95,6 +99,7 @@ export default function Contact() {
               <div className="flex-1"><div className="font-semibold" style={{ color: 'var(--ink)' }}>Service area</div><div className="text-sm" style={{ color: 'var(--muted)' }}>Mehsana, Gujarat, India</div><div className="text-xs mt-1 inline-flex items-center gap-1" style={{ color: 'var(--gold)' }}>Commerce support in Mehsana <ArrowRight className="w-3 h-3" /></div></div>
             </Link>
 
+            <a href={localTuitionService.mapsUrl} target="_blank" rel="noopener noreferrer" className="btn-secondary w-full justify-center inline-flex items-center gap-2 text-sm" onClick={() => trackEvent('local_tuition_contact_click', { action: 'maps', placement: 'contact-page' })}><MapPin className="w-4 h-4" /> View location on Google Maps</a>
             <Link to="/book-demo" className="btn-primary w-full justify-center inline-flex items-center gap-2 text-sm">Free paper analysis / demo <ArrowRight className="w-4 h-4" /></Link>
           </div>
 
