@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Bookmark, BookmarkCheck, Clock3, Search, X } from 'lucide-react';
 import { seoHubs, seoMaterials } from '../../data/seoMaterials';
@@ -62,6 +62,7 @@ function trackRecent(item) {
 
 export default function GlobalStudySearch({ initialOpen = false }) {
   const location = useLocation();
+  const previousPath = useRef(location.pathname);
   const [open, setOpen] = useState(initialOpen);
   const [query, setQuery] = useState('');
   const [bookmarks, setBookmarks] = useState(() => getBookmarks());
@@ -125,8 +126,11 @@ export default function GlobalStudySearch({ initialOpen = false }) {
   useEffect(() => {
     const item = index.find((entry) => entry.path === location.pathname);
     if (item && location.pathname !== '/') trackRecent(item);
-    setOpen(false);
-    setQuery('');
+    if (previousPath.current !== location.pathname) {
+      previousPath.current = location.pathname;
+      setOpen(false);
+      setQuery('');
+    }
   }, [location.pathname, index]);
 
   const results = useMemo(() => {

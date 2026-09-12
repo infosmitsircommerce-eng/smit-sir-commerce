@@ -251,7 +251,9 @@
         window.addEventListener(
           "load",
           function () {
-            fallbackTimer = window.setTimeout(loadDeferredThirdParty, 4000);
+            // Slow phones may still be painting the hero at four seconds.
+            // Give learning content priority; engagement still loads ads sooner.
+            fallbackTimer = window.setTimeout(loadDeferredThirdParty, 8000);
           },
           { once: true },
         );
