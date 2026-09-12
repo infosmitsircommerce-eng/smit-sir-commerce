@@ -19,7 +19,14 @@ const indexedPaths = new Set(urls.map((url) => new URL(url).pathname));
 const baChapters = gsebMaterials
   .filter((material) => material.subject === 'Business Administration' && material.class_level === 12 && indexedPaths.has(material.seo_path))
   .sort((a, b) => a.chapterNumber - b.chapterNumber);
-const class11Ba = [...indexedPaths].filter((path) => path.startsWith('/school-resource/gseb/class-11/business-administration/'));
+const class11Ba = gsebMaterials
+  .filter((material) => material.subject === 'Business Administration' && material.class_level === 11 && indexedPaths.has(material.seo_path))
+  .sort((a, b) => a.chapterNumber - b.chapterNumber);
+// Preserve the earlier uploaded PDF as a separate, accurately labelled resource.
+const uploadedClass11Chapter1 = '/school-resource/gseb/class-11/business-administration/ch-1-nature-purpose-and-scope-of-business-gseb-class-11';
+if (indexedPaths.has(uploadedClass11Chapter1)) {
+  class11Ba.push({ seo_path: uploadedClass11Chapter1, chapterNumber: 1, chapter: 'Nature, Purpose and Scope of Business — earlier uploaded notes' });
+}
 
 function escapeHtml(value) {
   return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
@@ -29,7 +36,7 @@ function discoveryBlock(pathname) {
   const baLibrary = pathname === '/study-material' || pathname === '/gseb-class-12-economics.html'
     || pathname.includes('/school-resource/gseb/') && pathname.includes('/business-administration/');
   if (baLibrary) {
-    return `<section data-search-revenue="gseb-ba"><h2>GSEB Business Administration (BA / OCM) notes</h2><p>Business Administration is a separate subject from Economics. Choose your class and chapter below; the published notes are free to read and download.</p><h3>Class 12 BA (OCM): chapter-wise notes</h3><ul>${baChapters.map((chapter) => `<li><a href="${escapeHtml(chapter.seo_path)}">${escapeHtml(chapter.title)}</a></li>`).join('')}</ul>${class11Ba.length ? `<h3>Class 11 Business Administration</h3><ul>${class11Ba.map((path) => `<li><a href="${escapeHtml(path)}">Chapter 1 — Nature, Purpose and Scope of Business</a></li>`).join('')}</ul>` : ''}</section>`;
+    return `<section data-search-revenue="gseb-ba"><h2>GSEB Business Administration (BA / OCM) notes</h2><p>Business Administration is a separate subject from Economics. Choose your class and chapter below; the published notes are free to read and download.</p><h3>Class 12 BA (OCM): chapter-wise notes</h3><ul>${baChapters.map((chapter) => `<li><a href="${escapeHtml(chapter.seo_path)}">${escapeHtml(chapter.title)}</a></li>`).join('')}</ul>${class11Ba.length ? `<h3>Class 11 Business Administration</h3><ul>${class11Ba.map((chapter) => `<li><a href="${escapeHtml(chapter.seo_path)}">Chapter ${chapter.chapterNumber} — ${escapeHtml(chapter.chapter)}</a></li>`).join('')}</ul>` : ''}</section>`;
   }
   const businessStudies = pathname.startsWith('/cbse/class-12/business-studies')
     || pathname.startsWith('/practice/cbse/class-12/business-studies/')

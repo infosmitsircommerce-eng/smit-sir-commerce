@@ -2,6 +2,7 @@ import { access, readFile, writeFile } from 'node:fs/promises';
 import { constants } from 'node:fs';
 import { extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { getStudyPathway } from '../src/data/studyPathways.js';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const DIST = join(ROOT, 'dist');
@@ -207,6 +208,20 @@ for (const pathname of sitemapSet) {
   const description = getMetaContent(html, 'description');
   const robots = getMetaContent(html, 'robots');
   const canonical = getCanonical(html);
+
+  const pathway = getStudyPathway(pathname);
+  if (pathway) {
+    const blocks = html.match(/<section\b[^>]*data-study-pathway="true"[^>]*>[\s\S]*?<\/section>/g) || [];
+    if (blocks.length !== 1) {
+      issue(critical, 'MISSING_STUDY_PATHWAY', 'Expected one related-study section on ' + pathname, { path: pathname });
+    } else {
+      const actual = hrefsFromHtml(blocks[0]);
+      const expected = pathway.links.map(([to]) => to);
+      if (JSON.stringify(actual) !== JSON.stringify(expected)) {
+        issue(critical, 'INCORRECT_STUDY_PATHWAY', 'Related-study links differ from the board and subject pathway on ' + pathname, { path: pathname });
+      }
+    }
+  }
 
   if (!title) issue(critical, 'MISSING_TITLE', 'Missing title on indexable page ' + pathname, { path: pathname });
   if (!description) issue(critical, 'MISSING_DESCRIPTION', 'Missing meta description on indexable page ' + pathname, { path: pathname });

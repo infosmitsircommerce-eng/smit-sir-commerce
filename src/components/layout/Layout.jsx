@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import TopicalAuthorityLinks from '../ui/TopicalAuthorityLinks';
 import MobileBottomBar from '../ui/MobileBottomBar';
 import MobileHeader from '../ui/MobileHeader';
 import PilotHreflang from '../ui/PilotHreflang';
@@ -105,6 +106,7 @@ export default function Layout({ children }) {
       <main id="main-content" tabIndex="-1" className="flex-1 pt-0 lg:pt-20 pb-20 lg:pb-0">
         <div key={pathname} className="ssc-route-view">{children}</div>
       </main>
+      <TopicalAuthorityLinks />
       <RouteRevenueBridge />
       <Footer />
       <MobileBottomBar />
