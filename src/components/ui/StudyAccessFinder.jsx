@@ -30,6 +30,7 @@ export default function StudyAccessFinder({ defaultKind = 'Notes', inlineTests =
   useEffect(() => {
     const params = new URLSearchParams(routeSearch);
     if (params.has('pack')) setChosenId(`test:${params.get('pack')}`);
+    if (params.has('subject')) setFilters(current => ({ ...current, subject: params.get('subject'), search: '' }));
     if (params.has('board') || params.has('class')) setFilters(current => ({ ...current, board: params.get('board')?.toUpperCase() === 'GSEB' ? 'GSEB' : params.has('board') ? 'CBSE' : current.board, classLevel: ['11', '12'].includes(params.get('class')) ? params.get('class') : current.classLevel }));
   }, [routeSearch]);
   function update(field, value) { setFilters(current => ({ ...current, [field]: value, ...(field !== 'search' ? { search: '' } : {}) })); setChosenId(''); }

@@ -7,6 +7,7 @@ import { supabase } from '../lib/supabase';
 import { quizPageById } from '../data/quizDiscovery';
 import SEO from '../components/ui/SEO';
 import { getQuizPacks, quizBoards, quizLevels } from '../data/quizPublic';
+import { recordQuizAttempt } from '../lib/quizAttempt';
 
 const levelMeta = {
   Easy: { label: 'Easy', note: 'Definitions & direct recall', icon: '🌱' },
@@ -72,12 +73,19 @@ function QuizDialog({ children, onClose, resetKey }) {
 }
 
 function QuizPlayer({ pack, level, onClose }) {
+  const { user, displayName } = useAuth();
+  const recorded = useRef(false);
   const levelLabel = pack.board === 'GSEB' && level === 'Moderate' ? 'Medium' : level;
   const questions = pack.levels[level] || [];
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [finished, setFinished] = useState(false);
+  useEffect(() => {
+    if (!finished || recorded.current) return;
+    recorded.current = true;
+    recordQuizAttempt({ pack, level, questions, answers, userId: user?.id, displayName });
+  }, [finished, pack, level, questions, answers, user?.id, displayName]);
 
   const question = questions[current];
 
@@ -95,6 +103,7 @@ function QuizPlayer({ pack, level, onClose }) {
   };
 
   const restart = () => {
+    recorded.current = false;
     setCurrent(0);
     setSelected(null);
     setAnswers([]);
@@ -296,6 +305,7 @@ function PremiumOffer({ onClose }) {
           <ul className="list-disc pl-5 space-y-2 mt-3 text-sm leading-6">
             <li>Hard and Extreme chapter quizzes</li>
             <li>Macroeconomics, Microeconomics and Indian Economic Development</li>
+            <li>All 11 GSEB Class 12 Economics chapters</li>
             <li>Answer explanations and review of mistakes</li>
             <li>Published Pro test series and exam practice</li>
           </ul>
@@ -498,7 +508,7 @@ export default function Quizzes() {
         <div className="page-container max-w-5xl">
           <span className="eyebrow">Verified Quiz Library</span>
           <h1 className="mt-5">Economics chapter quizzes</h1>
-          <p className="mt-5 max-w-3xl">Choose Microeconomics, Macroeconomics or Indian Economic Development, then select a chapter and difficulty.</p>
+          <p className="mt-5 max-w-3xl">Choose your board, class and subject, then open a chapter and difficulty directly.</p>
           <div className="flex flex-wrap gap-3 mt-6">
             <div className="inline-flex items-center gap-2 text-xs font-bold px-3 py-2 rounded-full" style={{ background: '#eef8ef', color: '#2f6b3a', border: '1px solid #cfe6d2' }}><ShieldCheck className="w-4 h-4" /> Easy & Moderate free</div>
             <div className="inline-flex items-center gap-2 text-xs font-bold px-3 py-2 rounded-full" style={{ background: 'var(--gold-bg)', color: 'var(--gold)', border: '1px solid rgba(184,135,47,.2)' }}><Layers3 className="w-4 h-4" /> 4 levels per quiz</div>
@@ -507,16 +517,17 @@ export default function Quizzes() {
       </section>
 
       <main className="page-container section-padding max-w-6xl">
-        <nav aria-label="Economics quiz subjects" className="grid sm:grid-cols-3 gap-3 mb-6">
+        <nav aria-label="Economics quiz subjects" className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
           {[
             { name: 'Microeconomics', level: 11, stream: null },
             { name: 'Macroeconomics', level: 12, stream: 'Macroeconomics' },
             { name: 'Indian Economic Development', level: 12, stream: 'Indian Economic Development' },
+            { name: 'GSEB Economics', level: 12, stream: null, board: 'GSEB' },
           ].map((item) => (
             <button key={item.name} type="button"
-              aria-pressed={boardId === 'CBSE' && subjectName === 'Economics' && classLevel === item.level && streamFilter === item.stream}
+              aria-pressed={boardId === (item.board || 'CBSE') && subjectName === 'Economics' && classLevel === item.level && streamFilter === item.stream}
               className="btn-secondary p-4 text-left" style={{ flexDirection: 'column', alignItems: 'flex-start', whiteSpace: 'normal', minWidth: 0, minHeight: '104px', gap: '4px' }}
-              onClick={() => { setBoardId('CBSE'); setClassLevel(item.level); setSubjectName('Economics'); setStreamFilter(item.stream); }}>
+              onClick={() => { setBoardId(item.board || 'CBSE'); setClassLevel(item.level); setSubjectName('Economics'); setStreamFilter(item.stream); }}>
               <strong>{item.name}</strong><span className="block text-sm mt-1">Class {item.level} · Open chapters</span>
             </button>
           ))}
