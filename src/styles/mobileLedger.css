@@ -136,6 +136,23 @@
   [data-mobile-theme="ledger"] .ssc-premium-canvas { background: #f8f4ec; }
   [data-mobile-theme="ledger"] .ssc-premium-canvas::before, [data-mobile-theme="ledger"] .ssc-premium-canvas::after { content: none; }
   [data-mobile-theme="ledger"] :is(.ssc-material-card, .ssc-glass-card, .ssc-quick-action-card) { background: #fffdf8; border-color: #e9dfce; box-shadow: 0 4px 12px #46351c06; backdrop-filter: none; }
+  [data-mobile-theme="ledger"] .ssc-quiz-hub { background: #f8f4ec; }
+  [data-mobile-theme="ledger"] .ssc-quiz-hub .ssc-study-heading h1 { font: 700 27px/1.15 var(--font-serif); color: #2c2820; }
+  [data-mobile-theme="ledger"] .ssc-quiz-tracks button { background: #faf6ee; border-color: #e5dac5; color: #2c2820; border-radius: 13px; }
+  [data-mobile-theme="ledger"] .ssc-quiz-tracks button span { color: #716b60; }
+  [data-mobile-theme="ledger"] .ssc-quiz-tracks button > svg { color: #986b24; }
+  [data-mobile-theme="ledger"] .ssc-quiz-tracks button[aria-pressed="true"] { background: #29251d; color: #f6e5c5; border-color: #a58040; }
+  [data-mobile-theme="ledger"] .ssc-quiz-tracks button[aria-pressed="true"] :is(span, svg) { color: #e3c998; }
+  [data-mobile-theme="ledger"] :is(.ssc-quiz-picker-trigger, .ssc-quiz-picker-panel) { border-color: #e5dac5; color: #2c2820; background: #fffdf8; border-radius: 13px; }
+  [data-mobile-theme="ledger"] .ssc-quiz-chapter-list button { color: #2c2820; background: #fffdf8; }
+  [data-mobile-theme="ledger"] .ssc-quiz-chapter-list button[aria-pressed="true"] { background: #f4e8d1; }
+  [data-mobile-theme="ledger"] .ssc-quiz-chapter-list button > svg { color: #986b24; }
+  [data-mobile-theme="ledger"] :is(.ssc-quiz-field-label, .ssc-quiz-hub .ssc-quiz-pack h2) { color: #2c2820; }
+  [data-mobile-theme="ledger"] .ssc-quiz-hub .ssc-quiz-pack h2 { font-family: var(--font-serif); }
+  [data-mobile-theme="ledger"] .ssc-study-access .ssc-study-level { background: #faf6ee; border-color: #e5dac5; border-radius: 14px; }
+  [data-mobile-theme="ledger"] :is(.ssc-study-level-number, .ssc-study-level-note, .ssc-study-level-footer) { color: #716b60; }
+  [data-mobile-theme="ledger"] .ssc-study-level-access { color: #896326; border-color: #e5dac5; }
+  [data-mobile-theme="ledger"] .ssc-quiz-more { color: #896326; background: #f4e8d1; border-color: #e5dac5; }
   .mobile-chapter-nav { display: flex; gap: 6px; position: sticky; top: 64px; z-index: 30; padding: 9px max(12px, env(safe-area-inset-left)); background: #faf6ee; border-bottom: 1px solid #e5dac5; overflow-x: auto; }
   .mobile-chapter-nav a { flex: 1 0 auto; min-height: 44px; padding: 12px 13px; border-radius: 99px; color: #675b46; background: #f1e9da; font-size: 11px; font-weight: 650; text-align: center; white-space: nowrap; }
   .mobile-chapter-nav a[aria-current="location"] { color: #f6e5c5; background: #29251d; }
