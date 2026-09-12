@@ -1,34 +1,27 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import SEO from "../components/ui/SEO";
 import QuizPromo from "../components/home/QuizPromo";
 import PremiumSpotlight from "../components/home/PremiumSpotlight";
-import HeroSection from "../components/home/HeroSection";
 import BoardBoosterPromo from "../components/home/BoardBoosterPromo";
 import MobileLearningHome from "../components/home/MobileLearningHome";
 
 const HomeBelowFold = lazy(() => import("../components/home/HomeBelowFold"));
+const HeroSection = lazy(() => import("../components/home/HeroSection"));
 
 function DeferredHomeContent() {
   const [ready, setReady] = useState(false);
+  const anchor = useRef(null);
 
   useEffect(() => {
-    let idleId;
-    let timerId;
-    const reveal = () => setReady(true);
-
-    if ("requestIdleCallback" in window) {
-      idleId = window.requestIdleCallback(reveal, { timeout: 1000 });
-    } else {
-      timerId = window.setTimeout(reveal, 550);
-    }
-
-    return () => {
-      if (idleId) window.cancelIdleCallback?.(idleId);
-      if (timerId) window.clearTimeout(timerId);
-    };
+    if (!('IntersectionObserver' in window)) { setReady(true); return; }
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { setReady(true); observer.disconnect(); }
+    }, { rootMargin: '300px' });
+    if (anchor.current) observer.observe(anchor.current);
+    return () => observer.disconnect();
   }, []);
 
-  if (!ready) return <div aria-hidden="true" style={{ minHeight: "240px" }} />;
+  if (!ready) return <div ref={anchor} aria-hidden="true" style={{ minHeight: "240px" }} />;
 
   return (
     <Suspense
@@ -40,6 +33,13 @@ function DeferredHomeContent() {
 }
 
 export default function Home() {
+  const [desktop, setDesktop] = useState(() => window.matchMedia('(min-width: 1024px)').matches);
+  useEffect(() => {
+    const query = window.matchMedia('(min-width: 1024px)');
+    const update = () => setDesktop(query.matches);
+    query.addEventListener('change', update);
+    return () => query.removeEventListener('change', update);
+  }, []);
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -98,7 +98,7 @@ export default function Home() {
       />
       <MobileLearningHome />
       <div className="hidden lg:block">
-        <HeroSection />
+        {desktop && <Suspense fallback={<div style={{ minHeight: 580 }} />}><HeroSection /></Suspense>}
       </div>
       <BoardBoosterPromo />
       <PremiumSpotlight />
