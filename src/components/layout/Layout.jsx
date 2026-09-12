@@ -6,7 +6,7 @@ import TopicalAuthorityLinks from '../ui/TopicalAuthorityLinks';
 import MobileBottomBar from '../ui/MobileBottomBar';
 import MobileHeader from '../ui/MobileHeader';
 import PilotHreflang from '../ui/PilotHreflang';
-import { isLightRoute } from '../../lib/theme';
+import { isLightRoute, mobileStudySection } from '../../lib/theme';
 import { isAdEligiblePath } from '../../lib/adPolicy';
 import { RouteRevenueBridge } from '../leads/StudyRevenueBridge';
 import { useAuth } from '../../context/AuthContext';
@@ -77,7 +77,7 @@ function SearchOnDemand() {
 }
 
 export default function Layout({ children }) {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
   const [finderOpen, setFinderOpen] = useState(false);
   useEffect(() => {
     const open = () => setFinderOpen(true);
@@ -92,6 +92,7 @@ export default function Layout({ children }) {
     <div
       className="min-h-screen flex flex-col"
       data-mobile-theme={light ? "ledger" : "tool"}
+      data-mobile-section={mobileStudySection(pathname, search)}
       data-ad-eligible={adEligible ? 'true' : 'false'}
       style={{ background: light ? 'var(--bg-ivory)' : '#0f0d2e' }}
     >

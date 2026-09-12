@@ -34,3 +34,12 @@ export function isLightRoute(pathname) {
     pathname === "/pdf-viewer"
   );
 }
+
+export function mobileStudySection(pathname, search = '') {
+  if (pathname === '/study-material') return new URLSearchParams(search).get('view') === 'downloads' ? 'downloads' : 'notes';
+  if (pathname === '/quizzes' || pathname.startsWith('/practice/cbse/')) return 'quizzes';
+  if (pathname === '/lectures') return 'lectures';
+  if (pathname === '/test-series') return 'tests';
+  if (pathname === '/study-coach') return 'plan';
+  return '';
+}

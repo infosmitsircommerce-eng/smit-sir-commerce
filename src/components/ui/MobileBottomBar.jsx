@@ -6,17 +6,18 @@ const BASE_TABS = [
   { path: "/", icon: Home, label: "Home" },
   { path: "/study-material", icon: BookOpen, label: "Notes" },
   { path: "/test-series", icon: ListChecks, label: "Tests" },
-  { path: "/study-material#all-notes", icon: Download, label: "Downloads" },
+  { path: "/study-material?view=downloads", icon: Download, label: "Downloads" },
 ];
 
 export default function MobileBottomBar() {
-  const { pathname, hash } = useLocation();
+  const { pathname, search } = useLocation();
   const navigate = useNavigate();
   const { user } = useAuth();
   const tabs = [...BASE_TABS, { path: user ? "/learning-insights" : "/login", icon: UserRound, label: "Profile" }];
   const isActive = (tab) => {
-    if (tab.label === "Downloads") return pathname === "/study-material" && hash === "#all-notes";
-    if (tab.label === "Notes") return pathname === "/study-material" && hash !== "#all-notes";
+    const downloads = new URLSearchParams(search).get('view') === 'downloads';
+    if (tab.label === "Downloads") return pathname === "/study-material" && downloads;
+    if (tab.label === "Notes") return pathname === "/study-material" && !downloads;
     return tab.path === "/" ? pathname === "/" : pathname.startsWith(tab.path);
   };
 

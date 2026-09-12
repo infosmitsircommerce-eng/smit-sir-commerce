@@ -114,12 +114,15 @@ export default defineConfig({
     chunkSizeWarningLimit: 600,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom'],
-          'router': ['react-router-dom'],
-          'framer': ['framer-motion'],
-          'supabase': ['@supabase/supabase-js'],
-          'icons': ['lucide-react'],
+        manualChunks(id) {
+          if (!id.includes('/node_modules/')) return;
+          // Keep React out of the animation chunk so mobile pages can render
+          // without downloading decorative motion code.
+          if (/\/node_modules\/(?:react|react-dom|scheduler)\//.test(id)) return 'react-vendor';
+          if (/\/node_modules\/(?:react-router|react-router-dom|@remix-run\/router)\//.test(id)) return 'router';
+          if (/\/node_modules\/(?:framer-motion|motion-dom|motion-utils)\//.test(id)) return 'framer';
+          if (id.includes('/node_modules/@supabase/')) return 'supabase';
+          if (id.includes('/node_modules/lucide-react/')) return 'icons';
         },
       },
     },

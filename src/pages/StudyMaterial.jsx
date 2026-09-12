@@ -209,6 +209,22 @@ export default function StudyMaterial() {
     { icon: ListChecks, title: 'Quizzes', text: 'Chapter-wise Commerce revision.', to: '/quizzes' },
   ];
 
+  if (new URLSearchParams(routeSearch).get('view') === 'downloads') return (
+    <div className="ssc-premium-canvas min-h-screen ssc-downloads-page">
+      <SEO title="Download Commerce Chapter PDFs — CBSE & GSEB | Smit Sir Commerce" description="Choose your board, class, subject and chapter to download published free Commerce PDFs." path={PATH} />
+      <section className="page-container pt-6 pb-4">
+        <span className="eyebrow">CHAPTER PDF LIBRARY</span>
+        <h1 className="mt-3 text-3xl sm:text-4xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>Download chapter PDFs</h1>
+        <p className="mt-3 text-sm" style={{ color: 'var(--muted)' }}>Board → Class → Subject → Chapter. Your PDF is one tap away.</p>
+      </section>
+      <section className="page-container pb-6"><StudyAccessFinder pdfOnly /></section>
+      <section className="page-container pb-10">
+        <p className="text-sm" style={{ color: 'var(--muted)' }}>Looking for a chapter without a published PDF?</p>
+        <Link to="/study-material" className="btn-secondary inline-flex mt-3">Browse all chapter notes <ArrowRight className="w-4 h-4" /></Link>
+      </section>
+    </div>
+  );
+
   return (
     <div className="ssc-premium-canvas min-h-screen">
       <SEO title={TITLE} description={DESCRIPTION} path={PATH} structuredData={structuredData} />
@@ -433,7 +449,7 @@ export default function StudyMaterial() {
         </section>
       </main>
 
-      <a href="#all-notes" className="sm:hidden fixed bottom-20 right-4 z-40 inline-flex items-center gap-2 px-4 py-3 rounded-full text-sm font-black shadow-lg" style={{ background: 'var(--ink)', color: 'var(--ivory-on-ink)' }}><Download className="w-4 h-4" /> Notes</a>
+      <button type="button" onClick={() => window.dispatchEvent(new CustomEvent('ssc-open-resource-finder'))} className="lg:hidden fixed bottom-24 right-4 z-40 inline-flex items-center gap-2 px-4 py-3 rounded-full text-sm font-black shadow-lg" style={{ background: 'var(--ink)', color: 'var(--ivory-on-ink)' }}><Search className="w-4 h-4" /> Find a chapter</button>
     </div>
   );
 }
