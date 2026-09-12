@@ -58,6 +58,10 @@ function addDiscovery(html, pathname) {
   const clean = html.replace(/<section\b[^>]*data-search-revenue=["'][^"']+["'][^>]*>[\s\S]*?<\/section>/gi, '');
   const block = discoveryBlock(pathname);
   if (!block) return clean;
+  if (pathname === '/gseb-class-12-economics.html') {
+    // This collection has one article per chapter. Keep subject navigation outside its cards.
+    return clean.replace(/<\/main>/i, `${block.replace('<section ', '<section class="wrap card" ')}</main>`);
+  }
   if (/<\/article>/i.test(clean)) return clean.replace(/<\/article>/i, `${block}</article>`);
   if (/<\/main>/i.test(clean)) return clean.replace(/<\/main>/i, `${block}</main>`);
   throw new Error(`No content container for search discovery links: ${pathname}`);
