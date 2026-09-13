@@ -58,18 +58,11 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
         skipWaiting: true,
         clientsClaim: true,
-        navigateFallbackDenylist: [
-          /^\/games(?:\/|\?|$)/,
-          /^\/materials\//,
-          /^\/cbse\//,
-          /^\/cbse-notes(?:\/|\?|$)/,
-          /^\/cbse-practice(?:\/|\?|$)/,
-          /^\/practice\//,
-          /^\/tests\//,
-          /^\/sitemap\.xml(?:\?|$)/,
-          /^\/robots\.txt(?:\?|$)/,
-          /\.html(?:\?|$)/i,
-          /\.pdf(?:\?|$)/i,
+        // Only the student app shell uses SPA navigation. Everything else —
+        // especially the many prerendered chapter pages — stays a real document.
+        navigateFallbackAllowlist: [
+          /^\/$/,
+          /^\/(?:study-material|quizzes|test-series|study-coach|study-tools|learning-insights|login|onboarding|dashboard|lectures|concept-lab|flashcards|daily-practice|exam-mode|my-data|ask)(?:\/|$)/,
         ],
         globPatterns: ['index.html', '**/*.{js,css,ico,png,svg,woff2}'],
         runtimeCaching: [
