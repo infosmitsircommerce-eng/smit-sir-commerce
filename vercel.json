@@ -56,6 +56,31 @@
       "permanent": true
     },
     {
+      "source": "/smit-sir-commerce-student-reviews.html",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/free-commerce-notes.html",
+      "destination": "/study-material",
+      "permanent": true
+    },
+    {
+      "source": "/cbse-commerce-notes.html",
+      "destination": "/cbse-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-notes-pdf.html",
+      "destination": "/gseb-class-12-economics.html",
+      "permanent": true
+    },
+    {
+      "source": "/free-commerce-tools.html",
+      "destination": "/tools",
+      "permanent": true
+    },
+    {
       "source": "/materials/gseb/class-12/economics/Ch2_Indicators_of_Growth_and_Development_Notes.pdf",
       "destination": "/premium/economics?board=GSEB&chapter=2",
       "permanent": true

@@ -27,7 +27,7 @@ const QUICK_ACTIONS = [
   { label: "Video Lectures", icon: PlayCircle, to: "/lectures", tone: "teal", status: "Coming soon" },
   { label: "Test Series", icon: BarChart3, to: "/test-series", tone: "blue" },
   { label: "Downloads", icon: Download, to: "/study-material?view=downloads", tone: "coral" },
-  { label: "Study Plan", icon: CalendarDays, to: "/study-coach", tone: "green" },
+  { label: "Daily Mission", icon: CalendarDays, to: "/study-coach", tone: "green" },
 ];
 
 function readArray(key) {

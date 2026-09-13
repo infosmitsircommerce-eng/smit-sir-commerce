@@ -235,8 +235,9 @@ const ROUTE_SEO = {
       "Daily CBSE Commerce questions with a streak, Mistake Book and Weak Topic Radar.",
   },
   "/study-coach": {
-    title: "Commerce Study Coach & Chapter Mastery",
-    description: "See chapter mastery and personalized study missions.",
+    title: "Daily Commerce Study Mission & Focus Timer",
+    description:
+      "Build a personalized Commerce mission by board, subject, goal and available time, then track each step with a focus timer.",
   },
   "/study-tools": {
     title: "Commerce Study Toolkit",
