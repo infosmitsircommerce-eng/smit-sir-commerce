@@ -63,6 +63,11 @@ const CLASSES = [
 
 function AppLink({ to, children, ...props }) {
   const navigate = useNavigate();
+  const staticPath = to.split(/[?#]/)[0];
+
+  if (staticPath.endsWith('.html') || staticPath.endsWith('.pdf')) {
+    return <a href={to} {...props}>{children}</a>;
+  }
 
   const open = (event) => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
