@@ -18,6 +18,7 @@ import StudentJourney from "./StudentJourney";
 import SectionDivider from "../ui/SectionDivider";
 import TeacherStudioPromo from "./TeacherStudioPromo";
 import { Pricing } from "../ui/pricing";
+import LogosSlider from "./LogosSlider";
 
 const studentPlans = [
   {
@@ -76,6 +77,7 @@ export default function HomeBelowFold() {
       <CommerceJourneyPreview />
       <LearningPhilosophy />
       <TrustLayer />
+      <LogosSlider />
       <TeacherStudioPromo />
       <MehsanaGrowthCampaign />
       <MarksRecoveryCTA />

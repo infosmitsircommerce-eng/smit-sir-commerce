@@ -545,6 +545,44 @@
   ::view-transition-new(root) { animation: none !important; }
 }
 
+/* Seamless technology logo rail. Two identical groups keep the loop gap-free. */
+@keyframes ssc-infinite-slide {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+.ssc-infinite-slider-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: ssc-infinite-slide var(--ssc-slider-duration, 30s) linear infinite;
+}
+
+.ssc-infinite-slider-group {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--ssc-slider-gap, 48px);
+  padding-right: var(--ssc-slider-gap, 48px);
+}
+
+.ssc-infinite-slider-reverse { animation-direction: reverse; }
+.ssc-infinite-slider-pausable:hover .ssc-infinite-slider-track,
+.ssc-infinite-slider-pausable:focus-within .ssc-infinite-slider-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ssc-infinite-slider-track {
+    width: 100%;
+    animation: none !important;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .ssc-infinite-slider-track::-webkit-scrollbar { display: none; }
+  .ssc-infinite-slider-group[aria-hidden="true"] { display: none; }
+}
+
 @media (max-width: 350px) {
   .mobile-learning-shell { padding-left: 12px; padding-right: 12px; }
   .mobile-action-grid { gap: 5px; }
