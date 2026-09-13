@@ -30,6 +30,7 @@ const navLinks = [
   {
     label: "Practice",
     children: [
+      { label: "Daily Mission Control", path: "/study-coach" },
       { label: "Concept Lab · Inflation", path: "/concept-lab" },
       { label: "Daily Practice", path: "/daily-practice" },
       { label: "Chapter Practice", path: "/cbse-practice" },
@@ -48,6 +49,7 @@ const navLinks = [
 const featureLinks = [
   { label: "Notes", path: "/study-material", icon: BookOpen },
   { label: "GSEB", path: "/study-material?board=GSEB", icon: FileText },
+  { label: "Study Mission", path: "/study-coach", icon: Target },
   { label: "Practice", path: "/daily-practice", icon: Brain },
   { label: "Quizzes", path: "/quizzes", icon: ListChecks },
   { label: "Free Diagnostic", path: "/board-exam-diagnostic", icon: Brain },

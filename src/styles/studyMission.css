@@ -1,0 +1,183 @@
+.mission-signal-card {
+  background:
+    radial-gradient(circle at 88% 12%, rgba(224, 178, 76, 0.22), transparent 34%),
+    linear-gradient(145deg, #ffffff 0%, #fffaf0 100%);
+}
+
+.mission-control-shell {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(184, 135, 47, 0.34);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 96% -5%, rgba(224, 178, 76, 0.2), transparent 28%),
+    radial-gradient(circle at 0% 100%, rgba(47, 111, 91, 0.12), transparent 31%),
+    rgba(255, 255, 255, 0.92);
+  box-shadow: 0 24px 70px rgba(32, 26, 18, 0.1);
+}
+
+.mission-control-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.mission-control-top h2 {
+  margin-top: 8px;
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4vw, 2.65rem);
+  line-height: 1;
+}
+
+.mission-ring {
+  --mission-progress: 0deg;
+  width: 78px;
+  height: 78px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: conic-gradient(#d7a83f var(--mission-progress), rgba(184, 135, 47, 0.13) 0);
+  box-shadow: 0 10px 26px rgba(184, 135, 47, 0.2);
+}
+
+.mission-ring > div {
+  width: 61px;
+  height: 61px;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  border-radius: inherit;
+  background: #fffdf8;
+  color: var(--ink);
+}
+
+.mission-ring strong { font-size: 1.12rem; line-height: 1; }
+.mission-ring span { margin-top: 3px; color: var(--subtle); font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.11em; }
+
+.mission-options-grid {
+  display: grid;
+  grid-template-columns: 0.65fr 1.35fr 0.8fr;
+  gap: 12px;
+  margin: 24px 0 28px;
+}
+
+.mission-option {
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  background: rgba(255, 253, 248, 0.82);
+}
+
+.mission-option > span {
+  display: block;
+  margin: 0 0 8px 3px;
+  color: var(--subtle);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.mission-option > div { display: flex; gap: 6px; flex-wrap: wrap; }
+.mission-option button {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 7px 10px;
+  color: var(--muted);
+  background: transparent;
+  font-size: 0.77rem;
+  font-weight: 750;
+  transition: 160ms ease;
+}
+.mission-option button:hover { background: rgba(184, 135, 47, 0.08); color: var(--ink); }
+.mission-option button.active { background: var(--ink); color: #fff; box-shadow: 0 5px 14px rgba(20, 24, 21, 0.18); }
+
+.mission-step {
+  position: relative;
+  min-height: 210px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-bottom-width: 3px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.94);
+  transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+}
+.mission-step:hover { transform: translateY(-4px); box-shadow: 0 16px 35px rgba(32, 26, 18, 0.09); }
+.mission-step-gold { border-bottom-color: #dfa92f; }
+.mission-step-green { border-bottom-color: #48a887; }
+.mission-step-violet { border-bottom-color: #8d71cf; }
+.mission-step-gold .mission-step-icon { color: #9c6a08; background: #fff0be; }
+.mission-step-green .mission-step-icon { color: #16634f; background: #d9f3e9; }
+.mission-step-violet .mission-step-icon { color: #5d3c9e; background: #ece5ff; }
+.mission-step-icon { width: 43px; height: 43px; display: grid; place-items: center; border-radius: 14px; }
+.mission-check {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--subtle);
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+.mission-step.is-done { opacity: 0.68; background: #f7fbf8; }
+.mission-step.is-done .mission-check { border-color: #2f6f5b; background: #2f6f5b; color: #fff; }
+.mission-step.is-done > .font-bold { text-decoration: line-through; text-decoration-thickness: 1px; }
+.mission-step-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 22px; color: var(--ink); font-size: 0.78rem; font-weight: 850; }
+
+.focus-dock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 20px;
+  border-radius: 20px;
+  background: linear-gradient(125deg, #17211d, #24352e);
+  color: #fff;
+  box-shadow: 0 14px 32px rgba(18, 29, 24, 0.2);
+}
+.focus-dock > div:first-child { display: grid; grid-template-columns: auto auto; align-items: baseline; gap: 2px 12px; }
+.focus-dock span { color: #e7c66c; font-size: 0.66rem; font-weight: 900; letter-spacing: 0.14em; }
+.focus-dock strong { font-family: var(--font-serif); font-size: 1.8rem; line-height: 1; }
+.focus-dock small { grid-column: 1 / -1; color: rgba(255,255,255,0.66); font-size: 0.72rem; }
+.focus-main, .focus-reset { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 42px; border-radius: 13px; font-size: 0.78rem; font-weight: 850; }
+.focus-main { min-width: 116px; padding: 0 15px; background: linear-gradient(135deg, #f0cf78, #d7a83f); color: #211b12; }
+.focus-main:disabled { opacity: 0.7; }
+.focus-reset { width: 42px; border: 1px solid rgba(255,255,255,0.18); color: #fff; }
+
+.mission-complete-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 14px 16px;
+  border: 1px solid rgba(47, 111, 91, 0.23);
+  border-radius: 16px;
+  background: #eaf7f1;
+  color: #245b4b;
+}
+.mission-complete-banner div { display: grid; }
+.mission-complete-banner span { font-size: 0.75rem; opacity: 0.78; }
+
+@media (max-width: 900px) {
+  .mission-options-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .mission-control-shell { border-radius: 24px; }
+  .mission-ring { width: 68px; height: 68px; }
+  .mission-ring > div { width: 53px; height: 53px; }
+  .mission-options-grid { margin-top: 20px; }
+  .focus-dock { align-items: stretch; flex-direction: column; }
+  .focus-dock > div:last-child { width: 100%; }
+  .focus-main { flex: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mission-step, .mission-option button { transition: none; }
+}

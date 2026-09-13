@@ -113,10 +113,10 @@ const resourceLinks = `<section data-seo-resource-bridges>
   <h2>Popular free Commerce resource hubs</h2>
   <p>Use these focused hubs when you want a quick route to notes, PDFs or calculators.</p>
   <ul>
-    <li><a href="/free-commerce-notes.html">Free Commerce Notes</a></li>
-    <li><a href="/cbse-commerce-notes.html">CBSE Commerce Notes</a></li>
-    <li><a href="/gseb-class-12-economics-notes-pdf.html">GSEB Class 12 Economics Notes PDF</a></li>
-    <li><a href="/free-commerce-tools.html">Free Commerce Tools</a></li>
+    <li><a href="/study-material">Free Commerce Notes</a></li>
+    <li><a href="/cbse-notes">CBSE Commerce Notes</a></li>
+    <li><a href="/gseb-class-12-economics.html">GSEB Class 12 Economics Notes PDF</a></li>
+    <li><a href="/tools">Free Commerce Tools</a></li>
   </ul>
 </section>`;
 

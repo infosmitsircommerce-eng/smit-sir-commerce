@@ -1,13 +1,15 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, BarChart3, BookOpen, Brain, CheckCircle2, Clock3, Flame, Target, Trophy } from 'lucide-react';
+import { ArrowRight, BarChart3, BookOpen, Brain, Check, CheckCircle2, Clock3, Pause, Play, RotateCcw, Sparkles, Target, Trophy } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { useAuth } from '../context/AuthContext';
+import '../styles/studyMission.css';
 
 const DAILY_HISTORY_KEY = 'ssc-daily10-history-v1';
 const MISTAKE_KEY = 'ssc-mistake-book-v1';
 const TEST_ATTEMPT_PREFIX = 'ssc-test-attempts-v1';
+const MISSION_KEY = 'ssc-study-mission-v1';
 
 const TOPICS = [
   { subject: 'Economics', topic: 'National Income' },
@@ -98,46 +100,105 @@ function masteryLabel(score, evidence) {
   return 'Needs focus';
 }
 
-function missionFor(row, minutes) {
+function resourceFor(subject, board) {
+  if (subject === 'Accountancy' && board === 'GSEB') return '/gseb-class-11-accountancy-notes';
+  if (subject === 'Economics' && board === 'GSEB') return '/gseb-class-12-economics.html';
+  if (board === 'CBSE') return '/cbse-notes';
+  return '/study-material';
+}
+
+function missionFor(row, minutes, board, goal) {
   const revise = Math.max(4, Math.round(minutes * 0.35));
   const practice = Math.max(4, Math.round(minutes * 0.4));
   const test = Math.max(2, minutes - revise - practice);
+  const firstVerb = goal === 'Learn' ? 'Understand' : goal === 'Exam' ? 'Recall' : 'Revise';
   return [
-    { icon: BookOpen, title: `Revise ${row.topic}`, meta: `${revise} min · read key concepts`, to: '/study-material' },
-    { icon: Brain, title: 'Do targeted practice', meta: `${practice} min · Daily 10 + Mistake Book`, to: '/daily-practice' },
-    { icon: Target, title: 'Finish with a test', meta: `${test} min · prove retention`, to: '/test-series' },
+    { icon: BookOpen, tone: 'gold', title: `${firstVerb} ${row.topic}`, meta: `${revise} min · active reading`, to: resourceFor(row.subject, board), action: 'Open notes' },
+    { icon: Brain, tone: 'green', title: 'Recall without looking', meta: `${practice} min · explain it aloud or on paper`, to: '/daily-practice', action: 'Start practice' },
+    { icon: Target, tone: 'violet', title: goal === 'Exam' ? 'Attempt an exam check' : 'Prove you remember it', meta: `${test} min · finish with questions`, to: '/test-series', action: 'Take a test' },
   ];
+}
+
+function todayKey() {
+  return new Date().toLocaleDateString('en-CA');
+}
+
+function formatTimer(totalSeconds) {
+  const minutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+  const seconds = (totalSeconds % 60).toString().padStart(2, '0');
+  return `${minutes}:${seconds}`;
 }
 
 export default function StudyCoach() {
   const { user } = useAuth();
   const [minutes, setMinutes] = useState(20);
   const [subject, setSubject] = useState('All');
+  const [board, setBoard] = useState('GSEB');
+  const [goal, setGoal] = useState('Revise');
+  const [completed, setCompleted] = useState([]);
+  const [focusSeconds, setFocusSeconds] = useState(20 * 60);
+  const [timerRunning, setTimerRunning] = useState(false);
   const mastery = useMemo(() => buildMastery(user?.id), [user?.id]);
   const started = mastery.filter((r) => r.evidence > 0);
-  const weakest = [...(started.length ? started : mastery)].sort((a, b) => a.score - b.score || b.evidence - a.evidence)[0];
+  const eligible = mastery.filter((row) => subject === 'All' || row.subject === subject);
+  const eligibleStarted = eligible.filter((row) => row.evidence > 0);
+  const weakest = [...(eligibleStarted.length ? eligibleStarted : eligible)].sort((a, b) => a.score - b.score || b.evidence - a.evidence)[0];
   const visible = mastery.filter((r) => subject === 'All' || r.subject === subject).sort((a, b) => a.score - b.score || b.evidence - a.evidence);
   const overall = started.length ? Math.round(started.reduce((s, r) => s + r.score, 0) / started.length) : 0;
   const masteredCount = mastery.filter((r) => r.evidence > 0 && r.score >= 85).length;
-  const mission = missionFor(weakest, minutes);
+  const mission = missionFor(weakest, minutes, board, goal);
+  const missionId = `${todayKey()}-${board}-${weakest.subject}-${weakest.topic}-${minutes}-${goal}`;
+  const missionProgress = Math.round((completed.length / mission.length) * 100);
+
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(MISSION_KEY) || '{}');
+      setCompleted(saved.id === missionId && Array.isArray(saved.completed) ? saved.completed : []);
+    } catch { setCompleted([]); }
+    setFocusSeconds(minutes * 60);
+    setTimerRunning(false);
+  }, [missionId, minutes]);
+
+  useEffect(() => {
+    if (!timerRunning || focusSeconds <= 0) return undefined;
+    const timer = window.setInterval(() => setFocusSeconds((seconds) => Math.max(0, seconds - 1)), 1000);
+    return () => window.clearInterval(timer);
+  }, [timerRunning, focusSeconds]);
+
+  useEffect(() => {
+    if (focusSeconds === 0) setTimerRunning(false);
+  }, [focusSeconds]);
+
+  function toggleStep(index) {
+    setCompleted((current) => {
+      const next = current.includes(index) ? current.filter((item) => item !== index) : [...current, index];
+      localStorage.setItem(MISSION_KEY, JSON.stringify({ id: missionId, completed: next }));
+      return next;
+    });
+  }
+
+  function resetTimer() {
+    setTimerRunning(false);
+    setFocusSeconds(minutes * 60);
+  }
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
-      <SEO title="Personal Study Coach & Chapter Mastery" description="See chapter mastery, weak areas and a personalized Commerce study mission based on your practice history." path="/study-coach" />
+      <SEO title="Daily Commerce Study Mission & Focus Timer" description="Build a personalized Commerce study mission by board, subject, goal and available time. Track three steps, use a focus timer and see chapter mastery." path="/study-coach" />
 
       <section className="page-hero overflow-hidden">
         <div className="page-container grid lg:grid-cols-[1.05fr_.95fr] gap-8 items-center">
           <div>
-            <span className="eyebrow">Personal Study Coach</span>
-            <h1 className="mt-5 max-w-3xl">Stop wondering what to study. <em>Start with what matters most.</em></h1>
-            <p className="mt-5 text-lg max-w-2xl" style={{ color: 'var(--muted)' }}>Your mastery estimate combines Daily 10 performance, resolved mistakes and saved test scores to point you toward the next best topic.</p>
+            <span className="eyebrow">Your Daily Mission Control</span>
+            <h1 className="mt-5 max-w-3xl">Turn free time into a <em>finished study mission.</em></h1>
+            <p className="mt-5 text-lg max-w-2xl" style={{ color: 'var(--muted)' }}>Choose what you need today. Your coach combines your practice history with a simple learn–recall–test flow, then keeps the whole session on one screen.</p>
             <div className="flex flex-wrap gap-3 mt-7">
-              <Link to="/daily-practice" className="btn-primary inline-flex items-center gap-2"><Flame className="w-4 h-4" /> Build mastery now</Link>
+              <a href="#today-mission" className="btn-primary inline-flex items-center gap-2"><Sparkles className="w-4 h-4" /> Build today’s mission</a>
               <Link to="/test-series" className="btn-secondary inline-flex items-center gap-2">Take a test <ArrowRight className="w-4 h-4" /></Link>
             </div>
           </div>
 
-          <div className="card-paper p-6 sm:p-8">
+          <div className="card-paper mission-signal-card p-6 sm:p-8">
             <div className="flex items-center justify-between gap-4">
               <div><div className="text-sm" style={{ color: 'var(--muted)' }}>Current learning signal</div><div className="text-4xl font-bold mt-1" style={{ color: 'var(--gold)', fontFamily: 'var(--font-serif)' }}>{overall}%</div><div className="text-xs mt-1" style={{ color: 'var(--subtle)' }}>average across practised topics</div></div>
               <div className="w-16 h-16 rounded-2xl flex items-center justify-center" style={{ background: 'var(--gold-bg)', color: 'var(--gold)' }}><BarChart3 className="w-8 h-8" /></div>
@@ -150,11 +211,27 @@ export default function StudyCoach() {
         </div>
       </section>
 
-      <section className="page-container py-8">
-        <div className="card-paper p-5 sm:p-7" style={{ border: '1px solid rgba(184,135,47,.32)' }}>
+      <section className="page-container py-8" id="today-mission">
+        <div className="mission-control-shell p-5 sm:p-7">
+          <div className="mission-control-top">
+            <div>
+              <span className="eyebrow">Mission setup</span>
+              <h2>Make today count.</h2>
+            </div>
+            <div className="mission-ring" style={{ '--mission-progress': `${missionProgress * 3.6}deg` }} aria-label={`${missionProgress}% mission completed`}>
+              <div><strong>{completed.length}/3</strong><span>done</span></div>
+            </div>
+          </div>
+
+          <div className="mission-options-grid">
+            <div className="mission-option"><span>Board</span><div>{['GSEB', 'CBSE'].map((item) => <button type="button" key={item} className={board === item ? 'active' : ''} onClick={() => setBoard(item)}>{item}</button>)}</div></div>
+            <div className="mission-option"><span>Subject</span><div>{['All', 'Economics', 'Business Studies', 'Accountancy'].map((item) => <button type="button" key={item} className={subject === item ? 'active' : ''} onClick={() => setSubject(item)}>{item === 'Business Studies' ? 'BST' : item}</button>)}</div></div>
+            <div className="mission-option"><span>Goal</span><div>{['Learn', 'Revise', 'Exam'].map((item) => <button type="button" key={item} className={goal === item ? 'active' : ''} onClick={() => setGoal(item)}>{item}</button>)}</div></div>
+          </div>
+
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5">
             <div>
-              <span className="eyebrow">What should I study now?</span>
+              <span className="eyebrow">Your best next topic</span>
               <h2 className="text-3xl mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{weakest.topic}</h2>
               <p className="text-sm mt-2" style={{ color: 'var(--muted)' }}>{weakest.evidence ? `Current mastery estimate: ${weakest.score}% · ${masteryLabel(weakest.score, weakest.evidence)}` : 'You have not practised this topic yet, so it is a good place to begin.'}</p>
             </div>
@@ -164,8 +241,22 @@ export default function StudyCoach() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-4 mt-7">
-            {mission.map(({ icon: Icon, title, meta, to }, i) => <Link key={title} to={to} className="tile-paper p-5 block transition-transform hover:-translate-y-1"><div className="flex items-center justify-between"><div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'var(--gold-bg)', color: 'var(--gold)' }}><Icon className="w-5 h-5" /></div><span className="text-xs font-bold" style={{ color: 'var(--subtle)' }}>STEP {i + 1}</span></div><div className="font-bold mt-4" style={{ color: 'var(--ink)' }}>{title}</div><div className="text-sm mt-1" style={{ color: 'var(--muted)' }}>{meta}</div></Link>)}
+            {mission.map(({ icon: Icon, tone, title, meta, to, action }, i) => {
+              const done = completed.includes(i);
+              return <article key={title} className={`mission-step mission-step-${tone} ${done ? 'is-done' : ''}`}>
+                <div className="flex items-center justify-between"><div className="mission-step-icon"><Icon className="w-5 h-5" /></div><button type="button" className="mission-check" onClick={() => toggleStep(i)} aria-label={`${done ? 'Mark incomplete' : 'Mark complete'}: ${title}`}>{done ? <Check className="w-4 h-4" /> : i + 1}</button></div>
+                <div className="font-bold mt-4" style={{ color: 'var(--ink)' }}>{title}</div><div className="text-sm mt-1" style={{ color: 'var(--muted)' }}>{meta}</div>
+                <Link to={to} className="mission-step-link">{action} <ArrowRight className="w-3.5 h-3.5" /></Link>
+              </article>;
+            })}
           </div>
+
+          <div className="focus-dock mt-5">
+            <div><span>FOCUS SPRINT</span><strong>{focusSeconds === 0 ? 'Mission time complete!' : formatTimer(focusSeconds)}</strong><small>{timerRunning ? 'Stay with one task until the bell.' : 'One timer. No tab chaos.'}</small></div>
+            <div className="flex gap-2"><button type="button" className="focus-main" onClick={() => setTimerRunning((value) => !value)} disabled={focusSeconds === 0}>{timerRunning ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}{timerRunning ? 'Pause' : focusSeconds === 0 ? 'Finished' : 'Start focus'}</button><button type="button" className="focus-reset" onClick={resetTimer} aria-label="Reset timer"><RotateCcw className="w-4 h-4" /></button></div>
+          </div>
+
+          {missionProgress === 100 && <div className="mission-complete-banner"><Trophy className="w-5 h-5" /><div><strong>Today’s mission complete.</strong><span>That is real progress—not just scrolling through notes.</span></div></div>}
         </div>
       </section>
 

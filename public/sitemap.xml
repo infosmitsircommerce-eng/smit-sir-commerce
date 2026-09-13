@@ -352,26 +352,6 @@
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://www.smitsircommerce.in/free-commerce-notes.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.99</priority>
-  </url>
-  <url>
-    <loc>https://www.smitsircommerce.in/cbse-commerce-notes.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.98</priority>
-  </url>
-  <url>
-    <loc>https://www.smitsircommerce.in/gseb-class-12-economics-notes-pdf.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.98</priority>
-  </url>
-  <url>
-    <loc>https://www.smitsircommerce.in/free-commerce-tools.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.94</priority>
-  </url>
-  <url>
     <loc>https://www.smitsircommerce.in/cbse-notes</loc>
     <changefreq>weekly</changefreq>
     <priority>0.98</priority>
@@ -394,6 +374,11 @@
     <loc>https://www.smitsircommerce.in/daily-practice</loc>
     <changefreq>weekly</changefreq>
     <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.smitsircommerce.in/study-coach</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
   </url>
   <url>
     <loc>https://www.smitsircommerce.in/tools</loc>
