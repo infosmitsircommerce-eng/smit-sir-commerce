@@ -3,6 +3,8 @@ const KEY = '6489ed9080c4bf19fb1b88dc0d6ef6fc';
 const BING_ENDPOINT = 'https://www.bing.com/indexnow';
 const changedPaths = [
   '/',
+  '/gseb-class-11-accountancy-notes',
+  '/study-material',
   '/commerce-coaching-mehsana',
   '/cbse-commerce-classes-mehsana',
   '/class-11-commerce-tuition-mehsana',

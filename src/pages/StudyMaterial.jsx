@@ -56,7 +56,7 @@ const startGuide = [
 const subjectBlocks = [
   { title: 'CBSE Class 11 Commerce Notes', text: 'Microeconomics, Statistics and foundation Commerce resources.', to: '/cbse-notes' },
   { title: 'CBSE Class 12 Commerce Notes', text: 'Economics and Business Studies revision-focused resources.', to: '/cbse-notes' },
-  { title: 'GSEB Class 11 Accountancy Notes', text: 'Free simple-explanation PDFs for Chapters 1-7, 9 and 10. No numerical practice set.', to: '/study-material?board=GSEB&class=11&subject=Accountancy' },
+  { title: 'GSEB Class 11 Accountancy Notes', text: 'Free simple-explanation PDFs for Chapters 1-7, 9 and 10. No numerical practice set.', to: '/gseb-class-11-accountancy-notes' },
   { title: 'GSEB Class 12 OCM & Economics PDFs', text: 'OCM Chapters 1–11 and Economics Chapters 2–11 with direct PDF access.', to: '/study-material?board=GSEB' },
   { title: 'Tools + Practice + Quizzes', text: 'Calculators, daily questions and chapter-wise Commerce quizzes.', to: '/quizzes' },
   { title: 'Smit Sir Teacher Guides', text: 'Common mistakes, numericals, case studies, answer writing and revision plans.', to: '/teacher-guides' },
@@ -206,7 +206,7 @@ export default function StudyMaterial() {
 
   const quickActions = [
     { icon: Download, title: 'All notes', text: 'Jump straight to chapter PDFs.', to: '#all-notes', primary: true },
-    { icon: GraduationCap, title: 'GSEB 11 Accounts', text: 'Free chapter notes without numerical practice.', to: '/study-material?board=GSEB&class=11&subject=Accountancy' },
+    { icon: GraduationCap, title: 'GSEB 11 Accounts', text: 'Free chapter notes without numerical practice.', to: '/gseb-class-11-accountancy-notes' },
     { icon: Brain, title: 'Practice', text: 'Daily questions and tests.', to: '/daily-practice' },
     { icon: ListChecks, title: 'Quizzes', text: 'Chapter-wise Commerce revision.', to: '/quizzes' },
   ];

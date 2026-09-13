@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link, Navigate, useLocation, useParams } from 'react-router-dom';
-import { ArrowLeft, BookOpen, Download, ExternalLink, FileText, Loader2, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, BookOpen, Copy, Download, ExternalLink, FileText, Loader2, Share2, ShieldCheck } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { getPublishedCommerceResource } from '../lib/commerceResourceStore';
 import { commerceResourceContext, resourceSeoTitle } from '../lib/commerceResourceModel';
 import { gsebMaterials } from '../data/gsebMaterials';
+import { trackEvent } from '../lib/analytics';
 
 const BASE = 'https://www.smitsircommerce.in';
 
@@ -43,6 +44,9 @@ function backPath(resource) {
     if (resource.exam === 'GSET Commerce') return '/gset-commerce';
     return '/commerce-exams';
   }
+  if (resource?.board === 'GSEB' && Number(resource?.classLevel) === 11 && resource?.subject === 'Accountancy') {
+    return '/gseb-class-11-accountancy-notes';
+  }
   return '/study-material';
 }
 
@@ -51,6 +55,7 @@ export default function CommerceResourcePage() {
   const location = useLocation();
   const [resource, setResource] = useState(null);
   const [state, setState] = useState('loading');
+  const [shareNotice, setShareNotice] = useState('');
 
   useEffect(() => {
     let active = true;
@@ -101,6 +106,26 @@ export default function CommerceResourcePage() {
 
   const fileUrl = resource.fileUrl || resource.externalUrl || '';
   const source = resource.sourceLabel || (resource.isOfficial ? (resource.exam || resource.university || 'Official source') : 'Smit Sir Commerce resource library');
+  const shareUrl = `${BASE}${resource.path}`;
+  const shareResource = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: resource.title, text: `Free ${commerceResourceContext(resource)} notes from Smit Sir Commerce.`, url: shareUrl });
+        void trackEvent('resource_share_native', { placement: 'commerce_resource_page', path: resource.path });
+        return;
+      } catch (error) {
+        if (error?.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setShareNotice('Chapter link copied');
+      window.setTimeout(() => setShareNotice(''), 2200);
+      void trackEvent('resource_share_copy', { placement: 'commerce_resource_page', path: resource.path });
+    } catch {
+      setShareNotice('Copy was blocked. Copy the address from your browser.');
+    }
+  };
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'LearningResource',
@@ -149,6 +174,7 @@ export default function CommerceResourcePage() {
                 {resource.fileUrl ? 'Open / Download PDF' : 'Open verified source'}
               </a>
               <Link to="/commerce-learning" className="btn-outline-ink inline-flex items-center gap-2"><BookOpen className="w-4 h-4" /> Explore Commerce Hub</Link>
+              <button type="button" onClick={shareResource} className="btn-outline-ink inline-flex items-center gap-2"><Share2 className="w-4 h-4" /> Share chapter</button>
             </div>
           )}
         </div>
@@ -182,6 +208,9 @@ export default function CommerceResourcePage() {
                 {resource.pages && <div><dt className="font-semibold" style={{ color: 'var(--ink)' }}>Pages</dt><dd className="mt-1" style={{ color: 'var(--muted)' }}>{resource.pages}</dd></div>}
                 <div><dt className="font-semibold" style={{ color: 'var(--ink)' }}>Access</dt><dd className="mt-1" style={{ color: 'var(--muted)' }}>{resource.isFree === false ? 'Restricted' : 'Free'}</dd></div>
               </dl>
+              {resource.board === 'GSEB' && Number(resource.classLevel) === 11 && resource.subject === 'Accountancy' && (
+                <Link to="/gseb-class-11-accountancy-notes" className="btn-outline-ink mt-5 inline-flex items-center gap-2"><BookOpen className="w-4 h-4" /> All Accountancy chapters</Link>
+              )}
             </section>
 
             {resource.isOfficial && (
@@ -193,6 +222,8 @@ export default function CommerceResourcePage() {
           </aside>
         </div>
       </main>
+      <p className="sr-only" aria-live="polite">{shareNotice}</p>
+      {shareNotice && <div role="status" className="fixed right-4 bottom-4 z-[100] rounded-xl px-4 py-3 text-xs font-bold text-white shadow-xl" style={{ background: '#26312b', border: '1px solid #b68d49' }}><Copy className="w-4 h-4 inline mr-2" />{shareNotice}</div>}
     </div>
   );
 }
