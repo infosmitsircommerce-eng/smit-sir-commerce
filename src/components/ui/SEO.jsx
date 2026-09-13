@@ -240,9 +240,11 @@ function getGsebChapterSearchMeta(path) {
   const material = gsebMaterialByPath[path];
   if (!material) return null;
 
+  const accessLabel = material.is_free === false ? "Explore" : "Download free";
+  const resourceLabel = material.type || "Notes PDF";
   return {
-    title: `GSEB Class 12 Economics Chapter ${material.chapterNumber} ${material.chapter} Notes PDF`,
-    description: `Download free GSEB Class 12 Economics Chapter ${material.chapterNumber} ${material.chapter} notes PDF from Smit Sir Commerce. Chapter-wise Gujarati board Economics notes with online view, direct PDF and practice link.`,
+    title: `GSEB Class ${material.class_level} ${material.subject} Chapter ${material.chapterNumber} ${material.chapter} Notes PDF`,
+    description: `${accessLabel} GSEB Class ${material.class_level} ${material.subject} Chapter ${material.chapterNumber} ${material.chapter} ${resourceLabel.toLowerCase()} from Smit Sir Commerce. ${material.description || "View the chapter resource online with clear subject-specific details."}`,
   };
 }
 
