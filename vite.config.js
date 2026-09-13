@@ -17,9 +17,6 @@ export default defineConfig({
     },
     react(),
     VitePWA({
-      // Reliability first: replace the old navigation-caching worker, clear its caches,
-      // and unregister it so phones always request the current deployed page.
-      selfDestroying: true,
       registerType: 'autoUpdate',
       injectRegister: 'script-defer',
       includeAssets: ['favicon.svg', 'icon-192.png', 'icon-512.png'],
@@ -27,7 +24,7 @@ export default defineConfig({
         name: 'Smit Sir Commerce',
         short_name: 'SmitSir',
         description: 'CBSE and GSEB Commerce study material — notes, PDFs, practice, quizzes and tools | Mehsana',
-        start_url: '/?v=fresh',
+        start_url: '/',
         scope: '/',
         display: 'standalone',
         background_color: '#FAF6EE',
@@ -61,22 +58,13 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
         skipWaiting: true,
         clientsClaim: true,
-        navigateFallbackDenylist: [
+        // Only the student app shell uses SPA navigation. Everything else —
+        // especially the many prerendered chapter pages — stays a real document.
+        navigateFallbackAllowlist: [
           /^\/$/,
-          /^\/(?:\?|$)/,
-          /^\/study-material(?:\/|\?|$)/,
-          /^\/games(?:\/|\?|$)/,
-          /^\/materials\//,
-          /^\/cbse\//,
-          /^\/cbse-notes(?:\/|\?|$)/,
-          /^\/cbse-practice(?:\/|\?|$)/,
-          /^\/practice\//,
-          /^\/tests\//,
-          /^\/sitemap\.xml(?:\?|$)/,
-          /^\/robots\.txt(?:\?|$)/,
-          /\.pdf(?:\?|$)/i,
+          /^\/(?:study-material|quizzes|test-series|study-coach|study-tools|learning-insights|login|onboarding|dashboard|lectures|concept-lab|flashcards|daily-practice|exam-mode|my-data|ask)(?:\/|$)/,
         ],
-        globPatterns: ['**/*.{js,css,ico,png,svg,woff2}'],
+        globPatterns: ['index.html', '**/*.{js,css,ico,png,svg,woff2}'],
         runtimeCaching: [
           {
             urlPattern: ({ request }) => request.mode === 'navigate',

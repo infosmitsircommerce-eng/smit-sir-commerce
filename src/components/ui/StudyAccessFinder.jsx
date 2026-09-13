@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { ArrowUpRight, Bookmark, BookmarkCheck, BookOpen, ListChecks, Search } from 'lucide-react';
 import { studyAccessItems, filterStudyAccess } from '../../data/studyAccess';
 import '../../styles/studyAccess.css';
+import { trackEvent } from '../../lib/analytics';
 
 const QuizLevels = lazy(() => Promise.all([import('../../pages/Quizzes'), import('../../data/quizPublic')]).then(([module, catalog]) => ({
   default: function FinderQuizLevels({ pack, ...props }) {
@@ -46,16 +47,19 @@ export default function StudyAccessFinder({ defaultKind = 'Notes', inlineTests =
     }));
   }, [routeSearch, pdfOnly]);
   function update(field, value) { setFilters(current => ({ ...current, [field]: value, ...(field !== 'search' ? { search: '' } : {}) })); setChosenId(''); }
-  function remember(item) {
-    const entry = { id: item.id, title: item.title, path: item.path, board: item.board, classLevel: item.classLevel, subject: item.subject, kind: item.kind };
+  function remember(item, action = 'open') {
+    const entry = { id: item.id, title: item.title, path: item.path, board: item.board, classLevel: item.classLevel, subject: item.subject, kind: item.kind, viewedAt: new Date().toISOString() };
     const next = [entry, ...read(RECENTS, []).filter(old => old.id !== item.id)].slice(0, 5);
-    write(RECENTS, next); setRecents(next); onNavigate?.();
+    write(RECENTS, next); setRecents(next); window.dispatchEvent(new CustomEvent('ssc-study-state-changed')); onNavigate?.();
+    void trackEvent('resource_open', { resourceId: item.id, resourceType: item.kind, action, board: item.board, classLevel: item.classLevel, subject: item.subject, hasPdf: Boolean(item.pdf) });
   }
   function save() {
     if (!chosen) return;
     const next = saved.some(item => item.id === chosen.id) ? saved.filter(item => item.id !== chosen.id)
       : [{ id: chosen.id, title: chosen.title, path: chosen.path, board: chosen.board, classLevel: chosen.classLevel, subject: chosen.subject, kind: chosen.kind }, ...saved].slice(0, 20);
     setSaved(next); write(SAVED, next);
+    window.dispatchEvent(new CustomEvent('ssc-study-state-changed'));
+    void trackEvent(saved.some(item => item.id === chosen.id) ? 'resource_unsave' : 'resource_save', { resourceId: chosen.id, resourceType: chosen.kind, board: chosen.board, classLevel: chosen.classLevel, subject: chosen.subject });
   }
   const isSaved = chosen && saved.some(item => item.id === chosen.id);
   return <section className="ssc-study-access" aria-label={pdfOnly ? 'Find downloadable PDFs' : 'Find notes and tests'}>
@@ -76,9 +80,9 @@ export default function StudyAccessFinder({ defaultKind = 'Notes', inlineTests =
     {chosen && <div className="ssc-study-selected">
       <div className="ssc-study-selection"><span>{pdfOnly ? 'PDF READY' : chosen.kind === 'Tests' ? 'CHOOSE YOUR LEVEL' : 'READY TO READ'}</span><button type="button" className="ssc-study-save" onClick={save} aria-pressed={Boolean(isSaved)} aria-label={isSaved ? 'Saved for revision' : 'Save for revision'}>{isSaved ? <BookmarkCheck size={17} /> : <Bookmark size={17} />} {isSaved ? 'Saved' : 'Save'}</button></div>
       <p className="ssc-study-chosen">{chosen.title}</p>
-      {pdfOnly ? <div className="ssc-study-actions"><a className="ssc-study-open" href={chosen.pdf} download target="_blank" rel="noopener noreferrer" onClick={() => remember(chosen)}>Download PDF<ArrowUpRight size={18} /></a><Link className="ssc-study-pdf" to={chosen.path} onClick={() => remember(chosen)}>Read chapter notes<ArrowUpRight size={16} /></Link></div>
-        : chosen.kind === 'Tests' && inlineTests ? <Suspense fallback={<p role="status" className="ssc-study-empty">Loading test levels…</p>}><QuizLevels key={chosen.id} pack={chosen.pack} appearance="study" onAttempt={() => remember(chosen)} /></Suspense>
-        : <div className="ssc-study-actions"><Link className="ssc-study-open" to={chosen.path} onClick={() => remember(chosen)}>{chosen.kind === 'Notes' ? 'Open notes' : 'Choose test level'}<ArrowUpRight size={18} /></Link>{chosen.pdf && <a className="ssc-study-pdf" href={chosen.pdf} target="_blank" rel="noopener noreferrer" onClick={() => remember(chosen)}>Open PDF<ArrowUpRight size={16} /></a>}</div>}
+      {pdfOnly ? <div className="ssc-study-actions"><a className="ssc-study-open" href={chosen.pdf} download target="_blank" rel="noopener noreferrer" onClick={() => remember(chosen, 'pdf_download')}>Download PDF<ArrowUpRight size={18} /></a><Link className="ssc-study-pdf" to={chosen.path} onClick={() => remember(chosen, 'chapter_read')}>Read chapter notes<ArrowUpRight size={16} /></Link></div>
+        : chosen.kind === 'Tests' && inlineTests ? <Suspense fallback={<p role="status" className="ssc-study-empty">Loading test levels…</p>}><QuizLevels key={chosen.id} pack={chosen.pack} appearance="study" onAttempt={() => remember(chosen, 'test_start')} /></Suspense>
+        : <div className="ssc-study-actions"><Link className="ssc-study-open" to={chosen.path} onClick={() => remember(chosen, chosen.kind === 'Notes' ? 'chapter_open' : 'test_choose')}>{chosen.kind === 'Notes' ? 'Open notes' : 'Choose test level'}<ArrowUpRight size={18} /></Link>{chosen.pdf && <a className="ssc-study-pdf" href={chosen.pdf} target="_blank" rel="noopener noreferrer" onClick={() => remember(chosen, 'pdf_open')}>Open PDF<ArrowUpRight size={16} /></a>}</div>}
     </div>}
     {!pdfOnly && (saved.length > 0 || recents.length > 0) && <details className="ssc-study-history"><summary>Recent & saved chapters</summary>{[['Saved', saved], ['Recent', recents]].map(([label, entries]) => entries.length > 0 && <div key={label}><h3>{label}</h3><ul>{entries.slice(0, 5).map(item => <li key={item.id}><Link to={item.path} onClick={() => remember(item)}><span>{item.title}</span><small>{item.board} · Class {item.classLevel} · {item.kind}</small></Link></li>)}</ul></div>)}</details>}
   </section>;

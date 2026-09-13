@@ -46,7 +46,14 @@
   }
   .mobile-welcome-subtitle { margin: 5px 0 0; font-size: 11px; line-height: 1.4; color: #716b60 !important; }
   .mobile-profile-button { width: 44px; height: 44px; background: linear-gradient(145deg, #ffe6a0, #eabd55); color: #483514; border: 1px solid #c5a268; box-shadow: inset 0 1px 0 #fff2ca26, 0 4px 10px #46351c14; font-family: var(--font-serif); font-size: 14px; }
-  .mobile-study-search { margin: 20px 0 16px; min-height: 52px; padding: 0 6px 0 14px; border-radius: 15px; border-color: #dce2d8; background: #ffffff; box-shadow: inset 0 1px 0 #fff, 0 4px 14px #46351c08; font-weight: 400; }
+  .mobile-study-path { display: grid; grid-template-columns: 35px minmax(0, 1fr) 16px; align-items: center; gap: 10px; width: 100%; min-height: 55px; margin-top: 14px; padding: 8px 12px; border: 1px solid #e5d7bc; border-radius: 15px; background: linear-gradient(135deg, #fffdf8, #fff6e5); color: #3f3526; text-align: left; box-shadow: 0 3px 10px #46351c08; }
+  .mobile-study-path > span:first-child { display: grid; place-items: center; width: 35px; height: 35px; border-radius: 11px; background: linear-gradient(145deg, #ffe6a0, #efc560); color: #704d17; }
+  .mobile-study-path svg { width: 18px; height: 18px; }
+  .mobile-study-path > span:nth-child(2) { display: grid; gap: 1px; min-width: 0; }
+  .mobile-study-path small { color: #7b705f; font-size: 8px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
+  .mobile-study-path strong { overflow: hidden; color: #302a21; font-size: 11px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+  .mobile-study-path > svg { color: #8c682d; }
+  .mobile-study-search { margin: 10px 0 16px; min-height: 52px; padding: 0 6px 0 14px; border-radius: 15px; border-color: #dce2d8; background: #ffffff; box-shadow: inset 0 1px 0 #fff, 0 4px 14px #46351c08; font-weight: 400; }
   .mobile-study-search input { font-size: 16px; }
   .mobile-study-search input::placeholder { font-size: 12px; color: #817a6f; }
   .mobile-study-search button { width: 44px; height: 44px; border-radius: 11px; background: linear-gradient(145deg, #343d37, #202721); color: #f9da8b; box-shadow: inset 0 1px 0 #ffffffc9; }
@@ -81,23 +88,23 @@
     color: var(--action-ink); background: linear-gradient(150deg, #ffffff, var(--action-wash));
     box-shadow: inset 0 -2px 0 var(--action-accent), 0 5px 12px #28352209;
   }
-  .mobile-action-grid .mobile-action-card[href="/quizzes"] {
+  .mobile-action-grid .mobile-action-card[data-tone="violet"] {
     --action-ink: #634098; --action-accent: #a888e4; --action-wash: #f6f0ff;
     --action-icon-top: #e6d5ff; --action-icon-end: #c9aaef; --action-border: #e5d9f3;
   }
-  .mobile-action-grid .mobile-action-card[href="/lectures"] {
+  .mobile-action-grid .mobile-action-card[data-tone="teal"] {
     --action-ink: #156c6a; --action-accent: #67c5bd; --action-wash: #effbf8;
     --action-icon-top: #c8f1e9; --action-icon-end: #8ed7cb; --action-border: #cde9e2;
   }
-  .mobile-action-grid .mobile-action-card[href="/test-series"] {
+  .mobile-action-grid .mobile-action-card[data-tone="blue"] {
     --action-ink: #2b5f9c; --action-accent: #7baee7; --action-wash: #f0f7ff;
     --action-icon-top: #d4e7ff; --action-icon-end: #a6c9f0; --action-border: #d5e4f5;
   }
-  .mobile-action-grid .mobile-action-card[href="/study-material?view=downloads"] {
+  .mobile-action-grid .mobile-action-card[data-tone="coral"] {
     --action-ink: #9a4938; --action-accent: #eb9c83; --action-wash: #fff3ee;
     --action-icon-top: #ffe0d3; --action-icon-end: #f5b99f; --action-border: #f0dbd0;
   }
-  .mobile-action-grid .mobile-action-card[href="/study-coach"] {
+  .mobile-action-grid .mobile-action-card[data-tone="green"] {
     --action-ink: #426f30; --action-accent: #9ac878; --action-wash: #f4faed;
     --action-icon-top: #e1f1c9; --action-icon-end: #bedb99; --action-border: #deebcf;
   }
@@ -217,11 +224,34 @@
   .mobile-chapter-finder-trigger { display: inline-flex; align-items: center; justify-content: flex-end; gap: 2px; min-height: 44px; padding: 0; color: #634b22; background: transparent; font-size: 10px; font-weight: 650; white-space: nowrap; }
   .mobile-chapter-finder-trigger svg { width: 12px; height: 12px; }
   .mobile-action-grid .mobile-action-card { position: relative; }
-  .mobile-action-grid .mobile-action-card[href="/lectures"] { gap: 5px; }
+  .mobile-action-grid .mobile-action-card[data-tone="teal"] { gap: 5px; }
   .mobile-action-status { font-size: 8px; font-weight: 650; line-height: 1.2; color: #156c6a; }
   .mobile-learning-home .mobile-resume-copy > span { color: #70552c; }
   .mobile-learning-home :is(a,button):focus-visible { outline: 2px solid #825412; outline-offset: 3px; }
   [data-mobile-theme="ledger"] :is(.eyebrow, .btn-secondary) { color: var(--gold); }
+
+  .mobile-setup-backdrop { position: fixed; inset: 0; z-index: 220; display: flex; align-items: flex-end; justify-content: center; padding: 12px; background: #1f1a13ad; backdrop-filter: blur(6px); }
+  .mobile-setup-sheet { width: min(100%, 560px); max-height: calc(100dvh - 24px); overflow-y: auto; padding: 8px 17px max(20px, env(safe-area-inset-bottom)); border: 1px solid #dcc48f; border-radius: 25px 25px 19px 19px; background: linear-gradient(180deg, #fffefb, #fff8eb); color: #2c2820; box-shadow: 0 -16px 50px #17120b40; outline: none; overscroll-behavior: contain; }
+  .mobile-setup-handle { width: 42px; height: 4px; margin: 3px auto 13px; border-radius: 99px; background: #d8c9ad; }
+  .mobile-setup-sheet header { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+  .mobile-setup-sheet header > div > span { display: flex; align-items: center; gap: 6px; color: #8d6320; font-size: 9px; font-weight: 800; letter-spacing: .1em; }
+  .mobile-setup-sheet header > div > span svg { width: 14px; height: 14px; }
+  .mobile-setup-sheet h2 { margin: 7px 0 0; color: #211e18; font: 700 25px/1.12 var(--font-serif); letter-spacing: -.03em; }
+  .mobile-setup-sheet header p { margin: 6px 0 0; color: #716b60 !important; font-size: 11px; line-height: 1.5; }
+  .mobile-setup-sheet header > button { display: grid; place-items: center; flex: 0 0 42px; width: 42px; height: 42px; border: 1px solid #e7dece; border-radius: 13px; background: #fff; color: #6d6457; }
+  .mobile-setup-sheet header > button svg { width: 18px; height: 18px; }
+  .mobile-setup-fields { display: grid; gap: 14px; margin-top: 18px; }
+  .mobile-setup-fields fieldset { min-width: 0; padding: 0; border: 0; }
+  .mobile-setup-fields legend { margin-bottom: 7px; color: #625746; font-size: 10px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+  .mobile-setup-fields fieldset > div { display: flex; flex-wrap: wrap; gap: 7px; }
+  .mobile-setup-fields button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 9px 13px; border: 1px solid #e6dccb; border-radius: 12px; background: #fff; color: #544a3c; font-size: 12px; font-weight: 650; box-shadow: none; }
+  .mobile-setup-fields button[aria-pressed="true"] { border-color: #c59b4e; background: #ffebba; color: #533a13; }
+  .mobile-setup-fields button svg { width: 14px; height: 14px; }
+  .mobile-setup-goals { display: grid !important; grid-template-columns: 1fr; }
+  .mobile-setup-goals button { justify-content: flex-start; text-align: left; }
+  .mobile-setup-save { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 50px; margin-top: 18px; border: 0; border-radius: 14px; background: linear-gradient(135deg, #353c36, #202721); color: #fff4dc; font-size: 13px; font-weight: 750; box-shadow: inset 0 1px 0 #ffffff24, 0 6px 15px #20272122; }
+  .mobile-setup-save svg { width: 17px; height: 17px; }
+  .mobile-setup-sheet :is(button):focus-visible { outline: 2px solid #825412; outline-offset: 2px; }
 
 }
 @media (max-width: 359px) {
@@ -232,6 +262,8 @@
   .mobile-section-heading h2 { font-size: 18px; }
   .mobile-class-card { gap: 5px; padding-inline: 8px; }
   .mobile-class-card strong { font-size: 15px; }
+  .install-pwa-banner > div { gap: 8px !important; padding: 10px !important; }
+  .install-pwa-banner > div > span:first-child { display: none; }
 }
 @media (max-width: 1023px) and (prefers-reduced-motion: reduce) {
   .mobile-learning-home *, .mobile-bottom-item { transition: none !important; transform: none !important; }

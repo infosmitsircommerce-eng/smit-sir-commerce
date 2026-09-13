@@ -58,9 +58,9 @@ function DeferredEnhancements() {
 }
 
 function SearchOnDemand() {
-  const [requested, setRequested] = useState(false);
+  const [request, setRequest] = useState(null);
   useEffect(() => {
-    const open = () => setRequested(true);
+    const open = (event) => setRequest({ query: event?.detail?.query || '', key: Date.now() });
     const onKey = event => {
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault(); open();
@@ -73,7 +73,7 @@ function SearchOnDemand() {
       window.removeEventListener('keydown', onKey);
     };
   }, []);
-  return requested ? <Suspense fallback={null}><GlobalStudySearch initialOpen /></Suspense> : null;
+  return request ? <Suspense fallback={null}><GlobalStudySearch key={request.key} initialOpen initialQuery={request.query} /></Suspense> : null;
 }
 
 export default function Layout({ children }) {

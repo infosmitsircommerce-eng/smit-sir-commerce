@@ -4,6 +4,7 @@ import { BookOpenCheck, Check, GraduationCap, Loader2, Sparkles, Target } from '
 import SEO from '../components/ui/SEO';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
+import { saveStudentPreferences } from '../lib/studentPreferences';
 
 const SUBJECTS = ['Accountancy', 'Economics', 'Business Studies', 'Entrepreneurship', 'Physical Education'];
 const GOALS = [
@@ -60,6 +61,7 @@ export default function Onboarding() {
       return;
     }
     await fetchProfile(user.id);
+    saveStudentPreferences({ board, classLevel, subject: subjects[0], goal });
     setSaving(false);
     navigate('/dashboard', { replace: true });
   };

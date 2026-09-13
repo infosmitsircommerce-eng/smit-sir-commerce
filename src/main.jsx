@@ -11,7 +11,7 @@ import { installDownloadTracking } from './lib/conversionTracking';
 
 installDownloadTracking();
 
-const CACHE_RESET_KEY = 'ssc-cache-reset-2026-09-11-v9-mobile-photo-home';
+const CACHE_RESET_KEY = 'ssc-cache-reset-2026-09-13-v10-installable-app';
 
 function clearInlineScrollLocks() {
   if (typeof document === 'undefined') return;

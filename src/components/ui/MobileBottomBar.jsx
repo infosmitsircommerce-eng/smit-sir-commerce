@@ -44,7 +44,7 @@ export default function MobileBottomBar() {
                 onClick={(event) => {
                   if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
                   event.preventDefault();
-                  if (`${pathname}${hash}` === tab.path) {
+                  if (`${pathname}${search}` === tab.path) {
                     window.scrollTo({ top: 0, behavior: "smooth" });
                     return;
                   }
