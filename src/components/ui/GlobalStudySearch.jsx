@@ -161,12 +161,15 @@ export default function GlobalStudySearch({ initialOpen = false, initialQuery = 
         <div className="p-3 sm:p-4 max-h-[65vh] overflow-y-auto">
           {results.length === 0 ? <div className="p-8 text-center text-sm" style={{ color: 'var(--muted)' }}>No matching study resource or practice question found.</div> : results.map((item) => {
             const saved = bookmarks.some((entry) => entry.path === item.path);
+            const isStaticDocument = item.path.split(/[?#]/)[0].endsWith('.html');
+            const ResultLink = isStaticDocument ? 'a' : Link;
+            const resultLinkProps = isStaticDocument ? { href: item.path } : { to: item.path };
             return <div key={`${item.id || item.type}-${item.path}-${item.title}`} className="flex items-center gap-2 rounded-xl hover:bg-black/[.025] transition-colors">
-              <Link to={item.path} className="flex-1 min-w-0 p-3" onClick={() => { trackRecent(item); setOpen(false); void trackEvent('global_search_result_click', { resultType: item.type, destination: item.path, position: results.indexOf(item) + 1, queryLength: query.trim().length }); }}>
+              <ResultLink {...resultLinkProps} className="flex-1 min-w-0 p-3" onClick={() => { trackRecent(item); setOpen(false); void trackEvent('global_search_result_click', { resultType: item.type, destination: item.path, position: results.indexOf(item) + 1, queryLength: query.trim().length }); }}>
                 <div className="flex items-center gap-2"><span className="text-[10px] uppercase tracking-wider font-bold" style={{ color: 'var(--gold)' }}>{item.type}</span></div>
                 <div className="font-semibold mt-1 line-clamp-2" style={{ color: 'var(--ink)' }}>{item.title}</div>
                 <div className="text-xs mt-1 truncate" style={{ color: 'var(--muted)' }}>{item.subtitle}</div>
-              </Link>
+              </ResultLink>
               <button onClick={() => setBookmarks(toggleBookmark(item))} className="w-10 h-10 rounded-xl flex items-center justify-center mr-2 flex-shrink-0" title={saved ? 'Remove bookmark' : 'Bookmark'} style={{ background: saved ? 'var(--gold-bg)' : 'var(--bg-ivory)', color: saved ? 'var(--gold)' : 'var(--muted)' }}>
                 {saved ? <BookmarkCheck className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
               </button>
