@@ -9,6 +9,7 @@ import {
   GraduationCap,
   LogOut,
   Search,
+  Target,
   User,
   Wrench,
 } from "lucide-react";

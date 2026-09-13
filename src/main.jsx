@@ -12,7 +12,7 @@ import { installDownloadTracking } from './lib/conversionTracking';
 
 installDownloadTracking();
 
-const CACHE_RESET_KEY = 'ssc-cache-reset-2026-09-13-v10-installable-app';
+const CACHE_RESET_KEY = 'ssc-cache-reset-2026-09-14-v11-startup-recovery';
 
 function clearInlineScrollLocks() {
   if (typeof document === 'undefined') return;
