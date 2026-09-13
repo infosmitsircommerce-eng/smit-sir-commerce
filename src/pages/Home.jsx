@@ -7,7 +7,6 @@ import MobileLearningHome from "../components/home/MobileLearningHome";
 import ConceptLabPromo from "../components/home/ConceptLabPromo";
 
 const HomeBelowFold = lazy(() => import("../components/home/HomeBelowFold"));
-const HeroSection = lazy(() => import("../components/home/HeroSection"));
 
 function DeferredHomeContent() {
   const [ready, setReady] = useState(false);
@@ -34,13 +33,6 @@ function DeferredHomeContent() {
 }
 
 export default function Home() {
-  const [desktop, setDesktop] = useState(() => window.matchMedia('(min-width: 1024px)').matches);
-  useEffect(() => {
-    const query = window.matchMedia('(min-width: 1024px)');
-    const update = () => setDesktop(query.matches);
-    query.addEventListener('change', update);
-    return () => query.removeEventListener('change', update);
-  }, []);
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -98,9 +90,6 @@ export default function Home() {
         structuredData={structuredData}
       />
       <MobileLearningHome />
-      <div className="hidden lg:block">
-        {desktop && <Suspense fallback={<div style={{ minHeight: 580 }} />}><HeroSection /></Suspense>}
-      </div>
       <ConceptLabPromo />
       <BoardBoosterPromo />
       <PremiumSpotlight />
