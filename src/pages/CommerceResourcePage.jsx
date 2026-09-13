@@ -4,8 +4,33 @@ import { ArrowLeft, BookOpen, Download, ExternalLink, FileText, Loader2, ShieldC
 import SEO from '../components/ui/SEO';
 import { getPublishedCommerceResource } from '../lib/commerceResourceStore';
 import { commerceResourceContext, resourceSeoTitle } from '../lib/commerceResourceModel';
+import { gsebMaterials } from '../data/gsebMaterials';
 
 const BASE = 'https://www.smitsircommerce.in';
+
+function localGsebResource(pathname) {
+  const material = gsebMaterials.find((item) => item.seo_path === pathname);
+  if (!material) return null;
+  return {
+    stage: 'school',
+    title: material.title,
+    board: material.board,
+    classLevel: material.class_level,
+    subject: material.subject,
+    resourceType: material.type || 'Notes & PDF',
+    description: material.description || `Free ${material.board} Class ${material.class_level} ${material.subject} notes for ${material.chapter}.`,
+    keyTopics: material.keyTopics || [],
+    notes: material.numericalsIncluded === false
+      ? 'This free edition focuses on simple explanations and chapter formats. The detailed numerical practice edition will be kept in a separate Premium collection.'
+      : '',
+    isFree: material.is_free,
+    fileUrl: material.file_url,
+    pages: material.pages,
+    path: material.seo_path,
+    sourceLabel: 'Smit Sir Commerce',
+    updatedAt: material.updated,
+  };
+}
 
 function backPath(resource) {
   if (resource?.stage === 'college') {
@@ -30,6 +55,12 @@ export default function CommerceResourcePage() {
   useEffect(() => {
     let active = true;
     setState('loading');
+    const localResource = localGsebResource(location.pathname);
+    if (localResource) {
+      setResource(localResource);
+      setState('ready');
+      return () => { active = false; };
+    }
     getPublishedCommerceResource(resourceSlug)
       .then((item) => {
         if (!active) return;
@@ -41,7 +72,7 @@ export default function CommerceResourcePage() {
         setState('missing');
       });
     return () => { active = false; };
-  }, [resourceSlug]);
+  }, [resourceSlug, location.pathname]);
 
   if (state === 'loading') {
     return (
