@@ -12,6 +12,7 @@ const allMaterials = [...seoMaterials, ...gsebMaterials, ...gsebPremiumEconomics
 const initialBoard = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('board')?.toUpperCase() === 'GSEB' ? 'GSEB' : 'CBSE';
 const initialSearch = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('search') || '' : '';
 const initialClass = typeof window !== 'undefined' && ['11', '12'].includes(new URLSearchParams(window.location.search).get('class')) ? new URLSearchParams(window.location.search).get('class') : 'All';
+const initialSubject = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('subject') || 'All' : 'All';
 const PATH = '/study-material';
 const TITLE = 'Free Commerce Notes PDF — CBSE & GSEB Class 11 and 12 | Smit Sir Commerce';
 const DESCRIPTION = 'Free Commerce study material for CBSE and GSEB students: Class 11 and 12 Economics, Business Studies, Accountancy resources, GSEB Class 12 Business Administration (OCM) and Economics PDFs, quizzes and study tools.';
@@ -55,6 +56,7 @@ const startGuide = [
 const subjectBlocks = [
   { title: 'CBSE Class 11 Commerce Notes', text: 'Microeconomics, Statistics and foundation Commerce resources.', to: '/cbse-notes' },
   { title: 'CBSE Class 12 Commerce Notes', text: 'Economics and Business Studies revision-focused resources.', to: '/cbse-notes' },
+  { title: 'GSEB Class 11 Accountancy Notes', text: 'Free simple-explanation PDFs for Chapters 1-7, 9 and 10. No numerical practice set.', to: '/study-material?board=GSEB&class=11&subject=Accountancy' },
   { title: 'GSEB Class 12 OCM & Economics PDFs', text: 'OCM Chapters 1–11 and Economics Chapters 2–11 with direct PDF access.', to: '/study-material?board=GSEB' },
   { title: 'Tools + Practice + Quizzes', text: 'Calculators, daily questions and chapter-wise Commerce quizzes.', to: '/quizzes' },
   { title: 'Smit Sir Teacher Guides', text: 'Common mistakes, numericals, case studies, answer writing and revision plans.', to: '/teacher-guides' },
@@ -108,6 +110,7 @@ function MaterialCard({ material }) {
           </div>
           <h3 className="text-[15px] sm:text-base font-black leading-snug" style={{ color: 'var(--ink)' }}>{material.title}</h3>
           <p className="text-xs mt-2" style={{ color: 'var(--muted)' }}>{material.subject}{premium ? ' · Revision edition' : ''} • {material.pages ? `${material.pages} pages` : 'PDF notes'}</p>
+          {material.collectionLabel && <p className="text-[11px] font-bold mt-1.5" style={{ color: 'var(--gold)' }}>{material.collectionLabel}</p>}
         </div>
       </div>
 
@@ -133,9 +136,8 @@ export default function StudyMaterial() {
   const [search, setSearch] = useState(initialSearch);
   const [filterBoard, setFilterBoard] = useState(initialBoard);
   const [filterClass, setFilterClass] = useState(initialClass);
-  const [filterSubject, setFilterSubject] = useState('All');
+  const [filterSubject, setFilterSubject] = useState(initialSubject);
   useEffect(() => {
-    if (!window.matchMedia('(max-width: 1023px)').matches) return;
     const params = new URLSearchParams(routeSearch);
     setSearch(params.get('search') || '');
     setFilterBoard(params.get('board')?.toUpperCase() === 'GSEB' ? 'GSEB' : 'CBSE');
@@ -204,7 +206,7 @@ export default function StudyMaterial() {
 
   const quickActions = [
     { icon: Download, title: 'All notes', text: 'Jump straight to chapter PDFs.', to: '#all-notes', primary: true },
-    { icon: GraduationCap, title: 'GSEB Class 12', text: 'OCM Chapters 1–11 and Economics Chapters 2–11.', to: '/study-material?board=GSEB' },
+    { icon: GraduationCap, title: 'GSEB 11 Accounts', text: 'Free chapter notes without numerical practice.', to: '/study-material?board=GSEB&class=11&subject=Accountancy' },
     { icon: Brain, title: 'Practice', text: 'Daily questions and tests.', to: '/daily-practice' },
     { icon: ListChecks, title: 'Quizzes', text: 'Chapter-wise Commerce revision.', to: '/quizzes' },
   ];
@@ -414,6 +416,7 @@ export default function StudyMaterial() {
               const count = seoMaterials.filter((m) => m.hubId === hub.id).length;
               return <Link key={hub.id} to={hub.path} className="ssc-quick-action-card ssc-hover-lift rounded-2xl p-5"><div className="w-11 h-11 rounded-2xl flex items-center justify-center mb-4" style={{ background: '#eef4ff', color: '#2457a7' }}><BookOpen className="w-5 h-5" /></div><div className="text-[11px] font-black" style={{ color: 'var(--gold)' }}>CBSE • CLASS {hub.classLevel}</div><h3 className="text-lg font-black mt-2" style={{ color: 'var(--ink)' }}>{hub.label}</h3><p className="text-sm mt-1" style={{ color: 'var(--muted)' }}>{count} chapter PDF{count === 1 ? '' : 's'}</p><span className="inline-flex items-center gap-1 mt-4 text-sm font-black" style={{ color: 'var(--gold)' }}>Open folder <ArrowRight className="w-4 h-4" /></span></Link>;
             })}
+            <Link to="/study-material?board=GSEB&class=11&subject=Accountancy" className="ssc-quick-action-card ssc-hover-lift rounded-2xl p-5"><div className="w-11 h-11 rounded-2xl flex items-center justify-center mb-4" style={{ background: '#eef9f1', color: '#287a4b' }}><FileText className="w-5 h-5" /></div><div className="text-[11px] font-black" style={{ color: 'var(--gold)' }}>GSEB • CLASS 11</div><h3 className="text-lg font-black mt-2" style={{ color: 'var(--ink)' }}>Accountancy Free Notes</h3><p className="text-sm mt-1" style={{ color: 'var(--muted)' }}>Chapters 1-7, 9 and 10 • simple explanations</p><span className="inline-flex items-center gap-1 mt-4 text-sm font-black" style={{ color: 'var(--gold)' }}>Open folder <ArrowRight className="w-4 h-4" /></span></Link>
             <Link to="/study-material?board=GSEB" className="ssc-quick-action-card ssc-hover-lift rounded-2xl p-5"><div className="w-11 h-11 rounded-2xl flex items-center justify-center mb-4" style={{ background: '#fff4e6', color: '#9a4f00' }}><GraduationCap className="w-5 h-5" /></div><div className="text-[11px] font-black" style={{ color: 'var(--gold)' }}>GSEB • CLASS 12</div><h3 className="text-lg font-black mt-2" style={{ color: 'var(--ink)' }}>OCM & Economics PDFs</h3><p className="text-sm mt-1" style={{ color: 'var(--muted)' }}>OCM 1–11 • Economics 2–11</p><span className="inline-flex items-center gap-1 mt-4 text-sm font-black" style={{ color: 'var(--gold)' }}>Open folder <ArrowRight className="w-4 h-4" /></span></Link>
           </div>
         </section>
@@ -438,6 +441,19 @@ export default function StudyMaterial() {
                     {materials.length} chapter{materials.length === 1 ? '' : 's'}
                   </span>
                 </div>
+                {subject === 'Accountancy' && materials.some((material) => material.collectionKey === 'free-simple-explanation') && (
+                  <div className="rounded-2xl p-4 sm:p-5 mb-5" style={{ background: 'linear-gradient(135deg, #fff9e8, #fffdf7)', border: '1px solid rgba(184,135,47,0.28)' }}>
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 rounded-2xl flex items-center justify-center shrink-0" style={{ background: 'linear-gradient(135deg, #8F5C10, #D5A438)', color: '#fff' }}><Sparkles className="w-5 h-5" /></div>
+                      <div>
+                        <div className="text-[11px] font-black tracking-[0.16em] uppercase" style={{ color: 'var(--gold)' }}>FREE CONCEPT COLLECTION</div>
+                        <h4 className="text-lg sm:text-xl font-black mt-1" style={{ color: 'var(--ink)' }}>Simple Explanation Chapter Notes</h4>
+                        <p className="text-sm leading-relaxed mt-1.5" style={{ color: 'var(--muted)' }}>Concept clarity and chapter formats without a separate numerical practice set. Chapters 1-7, 9 and 10 are available now; Chapter 8 will be added later.</p>
+                        <p className="text-xs font-bold mt-3" style={{ color: '#80550c' }}>Detailed numerical editions will appear later in a separate Premium collection. Chapters 1 and 2 will remain available as free Premium demos.</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                   {materials.map((material) => <MaterialCard key={material.id} material={material} />)}
                 </div>

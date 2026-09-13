@@ -45,16 +45,27 @@ for (const material of gsebMaterials) {
     let html = await readFile(path, 'utf8');
     if (html.includes('data-adsense-enrichment="gseb"')) continue;
 
-    const guidance = chapterGuidance[material.chapterNumber] || `Revise the key definitions, relationships and examples from ${material.chapter}, then practise explaining each point in your own words before checking the chapter practice questions.`;
+    const isEconomics = material.subject === 'Economics' && material.class_level === 12;
+    const isAccountancyConceptEdition = material.subject === 'Accountancy' && material.numericalsIncluded === false;
+    const subjectLabel = material.subject === 'Business Administration' ? 'Business Administration (OCM)' : material.subject;
+    const guidance = isEconomics
+      ? chapterGuidance[material.chapterNumber]
+      : material.description || `Revise the key definitions, relationships and examples from ${material.chapter}, then explain each point in your own words before beginning written practice.`;
     const pdfPath = join(distRoot, material.file_url.replace(/^\//, ''));
     const hasPdf = await fileExists(pdfPath);
     const pdfGuidance = hasPdf
-      ? `Use this page as a chapter map, then open the complete ${material.pages}-page notes PDF for the full explanation. After reading, attempt the linked practice section without looking at the notes. Mark any concept you cannot explain in two or three clear sentences, return to that section in the PDF, and then retry the question.`
+      ? `Use this page as a chapter map, then open the complete ${material.pages}-page notes PDF for the full explanation. After reading, recall the important headings without looking at the notes. Mark any concept you cannot explain in two or three clear sentences, return to that section in the PDF, and then retry the recall exercise.`
       : `Use this chapter page as your revision map, then attempt the linked practice section without looking at the notes. The downloadable PDF is temporarily unavailable in this build, so this page does not link students to a missing file.`;
     const pdfLink = hasPdf
       ? `<a class="btn" href="${material.file_url}">Open complete Chapter ${material.chapterNumber} PDF</a>`
       : '';
-    const enrichment = `<section class="card" data-adsense-enrichment="gseb"><h2>How to revise ${material.chapter}</h2><p>${guidance}</p><p>${pdfGuidance} This active-recall cycle is more useful than repeatedly reading the same page.</p><h2>Free chapter resources</h2><div class="btns">${pdfLink}<a class="btn gold" href="${material.practice_path}">Practice Chapter ${material.chapterNumber}</a><a class="btn" href="/marks-recovery">Find where you are losing marks</a></div><p>This resource is organised for GSEB Class 12 Economics revision. Use your current school textbook, teacher guidance and official board material alongside these notes whenever the wording or syllabus emphasis differs.</p></section>`;
+    const practiceLink = material.practice_path
+      ? `<a class="btn gold" href="${material.practice_path}">Practice Chapter ${material.chapterNumber}</a>`
+      : '';
+    const editionNote = isAccountancyConceptEdition
+      ? '<p><strong>Free edition:</strong> Simple explanations and chapter formats without a separate numerical practice set. Detailed numerical editions will be published later in a separate Premium collection, with Chapters 1 and 2 available as free demos.</p>'
+      : '';
+    const enrichment = `<section class="card" data-adsense-enrichment="gseb"><h2>How to revise ${material.chapter}</h2><p>${guidance}</p>${editionNote}<p>${pdfGuidance} This active-recall cycle is more useful than repeatedly reading the same page.</p><h2>Free chapter resources</h2><div class="btns">${pdfLink}${practiceLink}<a class="btn" href="/marks-recovery">Find where you are losing marks</a></div><p>This resource is organised for GSEB Class ${material.class_level} ${subjectLabel} revision. Use your current school textbook, teacher guidance and official board material alongside these notes whenever the wording or syllabus emphasis differs.</p></section>`;
 
     html = html.replace('</main>', `${enrichment}</main>`);
     await writeFile(path, html, 'utf8');
