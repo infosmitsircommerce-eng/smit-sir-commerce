@@ -68,6 +68,7 @@ export default defineConfig({
           /^\/tests\//,
           /^\/sitemap\.xml(?:\?|$)/,
           /^\/robots\.txt(?:\?|$)/,
+          /\.html(?:\?|$)/i,
           /\.pdf(?:\?|$)/i,
         ],
         globPatterns: ['index.html', '**/*.{js,css,ico,png,svg,woff2}'],
