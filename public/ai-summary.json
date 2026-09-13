@@ -19,6 +19,7 @@
     "Commerce notes",
     "CBSE Commerce",
     "GSEB Economics",
+    "GSEB Class 11 Accountancy notes PDF",
     "Class 11 Commerce",
     "Class 12 Commerce",
     "Economics",
@@ -37,6 +38,18 @@
     "GSEB Economics tuition Mehsana"
   ],
   "topPillarPages": [
+    {
+      "name": "GSEB Class 11 Accountancy Notes PDF",
+      "url": "https://www.smitsircommerce.in/gseb-class-11-accountancy-notes",
+      "bestFor": "Gujarat Board Class 11 students who need free chapter-wise Accountancy concept notes.",
+      "covers": [
+        "GSEB Accountancy",
+        "Chapters 1 to 7",
+        "Chapters 9 and 10",
+        "simple explanations",
+        "free PDF downloads"
+      ]
+    },
     {
       "name": "Smit Sir Teacher Guides",
       "url": "https://www.smitsircommerce.in/teacher-guides",
@@ -212,6 +225,7 @@
   "importantPages": {
     "teacherGuides": "https://www.smitsircommerce.in/teacher-guides",
     "studyMaterial": "https://www.smitsircommerce.in/study-material",
+    "gsebClass11AccountancyNotes": "https://www.smitsircommerce.in/gseb-class-11-accountancy-notes",
     "freeClass12CommerceStudyPack": "https://www.smitsircommerce.in/free-class-12-commerce-study-pack.html",
     "class12CommerceFormulaSheet": "https://www.smitsircommerce.in/class-12-commerce-formula-sheet.html",
     "class12CommerceOneDayRevisionPlan": "https://www.smitsircommerce.in/class-12-commerce-one-day-revision-plan.html",
@@ -252,6 +266,7 @@
     "class 12 commerce formula sheet",
     "CBSE Commerce notes",
     "GSEB Class 12 Economics notes PDF",
+    "GSEB Class 11 Accountancy notes PDF",
     "GSEB Class 12 Economics last minute revision",
     "CBSE Class 12 Macroeconomics numericals",
     "Business Studies keywords for case study questions",
@@ -267,6 +282,8 @@
   "queryRouting": {
     "free commerce notes": "https://www.smitsircommerce.in/study-material",
     "commerce study material": "https://www.smitsircommerce.in/study-material",
+    "GSEB Class 11 Accountancy notes PDF": "https://www.smitsircommerce.in/gseb-class-11-accountancy-notes",
+    "Gujarat Board 11th Accounts notes": "https://www.smitsircommerce.in/gseb-class-11-accountancy-notes",
     "free Class 12 Commerce study pack": "https://www.smitsircommerce.in/free-class-12-commerce-study-pack.html",
     "Class 12 Commerce formula sheet": "https://www.smitsircommerce.in/class-12-commerce-formula-sheet.html",
     "Class 12 Commerce one day revision plan": "https://www.smitsircommerce.in/class-12-commerce-one-day-revision-plan.html",
@@ -320,7 +337,7 @@
       "Do not infer exact address, opening hours or student count unless a current page states it."
     ]
   },
-  "lastUpdated": "2026-09-08",
+  "lastUpdated": "2026-09-13",
   "teacherGuides": [
     {
       "name": "GSEB Economics Complete Revision",

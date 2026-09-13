@@ -3,6 +3,7 @@ import { dirname, join } from "node:path";
 import { examTests } from "../src/data/examBank.js";
 import { authorityGuides } from "../src/data/authorityGuides.js";
 import { conceptLabMeta, inflationCases } from "../src/data/conceptLab.js";
+import { gsebFreeAccountancyMaterials } from "../src/data/gsebMaterials.js";
 import {
   DIAGNOSTIC_ROUTES,
   DIAGNOSTIC_TESTS,
@@ -15,6 +16,9 @@ const source = await readFile(
   "utf8",
 );
 const distRoot = new URL("../dist/", import.meta.url);
+const accountancyChapterLinks = gsebFreeAccountancyMaterials
+  .map((item) => `<li><a href="${item.seo_path}">Chapter ${item.chapterNumber}: ${item.chapter} notes PDF</a> — ${item.pages} pages</li>`)
+  .join("");
 
 function esc(value) {
   return String(value)
@@ -30,6 +34,7 @@ function coreNav() {
     '<nav aria-label="Explore Smit Sir Commerce"><h2>Explore more learning resources</h2><ul>' +
     '<li><a href="/courses">Commerce courses</a></li>' +
     '<li><a href="/study-material">Free study material</a></li>' +
+    '<li><a href="/gseb-class-11-accountancy-notes">GSEB Class 11 Accountancy notes</a></li>' +
     '<li><a href="/services-for-teachers">Services for teachers</a></li>' +
     '<li><a href="/board-exam-diagnostic">Free Board Exam Diagnostic</a></li>' +
     '<li><a href="/board-booster-packs">₹199 Board Booster Packs</a></li>' +
@@ -139,6 +144,27 @@ function schemaFor(page) {
         "@type": "Question",
         name: q,
         acceptedAnswer: { "@type": "Answer", text: a },
+      })),
+    });
+  }
+  if (page.learningResources?.length) {
+    graph.push({
+      "@type": "ItemList",
+      name: "Free GSEB Class 11 Accountancy chapter notes",
+      numberOfItems: page.learningResources.length,
+      itemListElement: page.learningResources.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "LearningResource",
+          name: item.title,
+          url: BASE + item.seo_path,
+          contentUrl: BASE + item.file_url,
+          educationalLevel: "GSEB Class 11",
+          learningResourceType: "Concept notes PDF",
+          isAccessibleForFree: true,
+          inLanguage: "en-IN",
+        },
       })),
     });
   }
@@ -377,9 +403,29 @@ const pages = [
       "Browse free CBSE and GSEB Commerce study material with chapter-wise notes, practice resources and connected calculators for Class 11 and 12.",
     collection: true,
     body:
-      '<main class="page-container section-padding" data-prerendered="core-page"><article><h1>Free Commerce study material</h1><p>Choose the correct board, class, subject and chapter instead of searching through disconnected files. Published public resources are organised into searchable CBSE and GSEB collections.</p><h2>Study by board</h2><ul><li><a href="/cbse-notes">CBSE Class 11 & 12 Commerce notes</a></li><li><a href="/gseb-class-12-economics.html">GSEB Class 12 Economics notes</a></li><li><a href="/cbse-practice">CBSE chapter practice</a></li><li><a href="/tools">Free Commerce calculators</a></li></ul><h2>Exam-focused guides</h2><ul>' +
+      '<main class="page-container section-padding" data-prerendered="core-page"><article><h1>Free Commerce study material</h1><p>Choose the correct board, class, subject and chapter instead of searching through disconnected files. Published public resources are organised into searchable CBSE and GSEB collections.</p><h2>Study by board</h2><ul><li><a href="/gseb-class-11-accountancy-notes">GSEB Class 11 Accountancy notes PDF</a></li><li><a href="/cbse-notes">CBSE Class 11 & 12 Commerce notes</a></li><li><a href="/gseb-class-12-economics.html">GSEB Class 12 Economics notes</a></li><li><a href="/cbse-practice">CBSE chapter practice</a></li><li><a href="/tools">Free Commerce calculators</a></li></ul><h2>Exam-focused guides</h2><ul>' +
       guideList +
       "</ul>" +
+      coreNav() +
+      "</article></main>",
+  },
+  {
+    path: "/gseb-class-11-accountancy-notes",
+    title: "GSEB Class 11 Accountancy Notes PDF — Free Chapters",
+    description:
+      "Download free GSEB Class 11 Accountancy notes PDF for Chapters 1–7, 9 and 10. Simple English explanations without numericals, organised chapter-wise by Smit Sir Commerce.",
+    collection: true,
+    learningResources: gsebFreeAccountancyMaterials,
+    faqs: [
+      ["Are these GSEB Class 11 Accountancy notes free?", "Yes. Every currently available chapter can be opened or downloaded without payment or registration."],
+      ["Do these PDFs contain Accountancy numericals?", "This free collection focuses on simple explanations, concepts and chapter formats. Detailed numerical practice will be published separately."],
+      ["Which chapter is currently missing?", "Chapter 8 is still being prepared. Chapters 1–7, 9 and 10 are available now."],
+      ["Which Premium chapters will be free demos?", "When the detailed numerical collection is published, Chapters 1 and 2 are planned as free demos. Chapters 3–10 will form the Premium numerical collection."],
+    ],
+    body:
+      '<main class="page-container section-padding" data-prerendered="gseb-accountancy-hub"><article><nav aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/study-material">Study Material</a> / GSEB Class 11 Accountancy</nav><p><strong>GSEB · Class 11 · Accountancy</strong></p><h1>Free GSEB Class 11 Accountancy Notes PDF</h1><p>Study Gujarat Board Accountancy chapter by chapter with simple English-medium concept explanations. These free notes cover Chapters 1–7, 9 and 10 without a separate numerical practice set.</p><h2>Free chapter-wise Accountancy notes</h2><ol>' +
+      accountancyChapterLinks +
+      '</ol><p><strong>Chapter 8:</strong> Uploading later. It will only be linked after the checked PDF is ready.</p><h2>Free concept notes and future numerical practice</h2><p>This page contains the Free Simple Explanation collection. Detailed Accountancy numericals will remain clearly separated: Chapters 1 and 2 are planned as free numerical demos, while Chapters 3–10 are planned for the future Premium numerical collection. No unavailable PDF is presented as ready.</p><h2>How to study these chapters</h2><ol><li>Read one concept or format at a time.</li><li>Close the notes and recall the main idea in your own words.</li><li>Match the concept with your current GSEB textbook and school work.</li><li>Attempt written sums separately when numerical practice is available.</li></ol><h2>Frequently asked questions</h2><h3>Are these notes free?</h3><p>Yes. All nine available chapter PDFs can be opened or downloaded without registration.</p><h3>Which chapter is missing?</h3><p>Chapter 8 is still being prepared; every other chapter from 1 to 10 is available.</p><p><a href="/study-material">Browse all study material</a> · <a href="/quizzes">Practise Commerce quizzes</a></p>' +
       coreNav() +
       "</article></main>",
   },

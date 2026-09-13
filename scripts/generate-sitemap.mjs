@@ -31,6 +31,7 @@ const basePages = [
   ]),
   ["/", "weekly", "1.0"],
   ["/study-material", "weekly", "1.0"],
+  ["/gseb-class-11-accountancy-notes", "weekly", "1.0"],
   [
     "/school-resource/gseb/class-11/business-administration/ch-1-nature-purpose-and-scope-of-business-gseb-class-11",
     "weekly",

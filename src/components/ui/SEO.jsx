@@ -30,6 +30,11 @@ const CORE_RESOURCE_LINKS = [
     about: "GSEB Class 12 Economics chapter-wise notes and PDFs",
   },
   {
+    name: "GSEB Class 11 Accountancy Notes",
+    url: `${BASE}/gseb-class-11-accountancy-notes`,
+    about: "Free chapter-wise GSEB Class 11 Accountancy concept notes PDFs",
+  },
+  {
     name: "Commerce Practice",
     url: `${BASE}/daily-practice`,
     about: "Chapter practice and revision questions",
@@ -124,6 +129,7 @@ const SITEWIDE_ENTITY = {
         "Class 12 Commerce",
         "CBSE Commerce notes",
         "GSEB Class 12 Economics notes",
+        "GSEB Class 11 Accountancy notes PDF",
         "Free Commerce notes PDF",
         "Commerce study material",
         "Commerce learning games",
@@ -160,6 +166,7 @@ const SITEWIDE_ENTITY = {
           "CBSE Class 11 Commerce Notes",
           "CBSE Class 12 Commerce Notes",
           "GSEB Class 12 Economics Notes",
+          "GSEB Class 11 Accountancy Notes PDF",
           "Economics Practice Resources",
           "Business Studies Revision Resources",
           "Accountancy Learning Tools",

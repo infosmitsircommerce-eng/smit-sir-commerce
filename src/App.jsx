@@ -27,6 +27,9 @@ const Onboarding = lazy(() => import("./pages/Onboarding"));
 const Courses = lazy(() => import("./pages/Courses"));
 const Lectures = lazy(() => import("./pages/Lectures"));
 const StudyMaterial = lazy(() => import("./pages/StudyMaterial"));
+const GsebClass11AccountancyNotes = lazy(
+  () => import("./pages/GsebClass11AccountancyNotes"),
+);
 const PdfViewer = lazy(() => import("./pages/PdfViewer"));
 const SeoMaterialHub = lazy(() => import("./pages/SeoMaterialHub"));
 const SeoMaterialChapter = lazy(() => import("./pages/SeoMaterialChapter"));
@@ -384,6 +387,7 @@ function RouteSEO() {
     pathname.startsWith("/college/") ||
     pathname.startsWith("/competitive/") ||
     pathname.startsWith("/school-resource/") ||
+    pathname === "/gseb-class-11-accountancy-notes" ||
     pathname === "/commerce-coaching-mehsana" ||
     pathname === "/cbse-commerce-classes-mehsana" ||
     pathname.endsWith("-tuition-mehsana") ||
@@ -498,6 +502,10 @@ function AnimatedRoutes() {
           <Route path="/courses" element={withPage(<Courses />)} />
           <Route path="/lectures" element={withPage(<Lectures />)} />
           <Route path="/study-material" element={withPage(<StudyMaterial />)} />
+          <Route
+            path="/gseb-class-11-accountancy-notes"
+            element={withPage(<GsebClass11AccountancyNotes />)}
+          />
           <Route
             path="/teacher-guides"
             element={withPage(<TeacherGuidesHub />)}
