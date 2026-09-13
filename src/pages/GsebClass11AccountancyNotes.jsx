@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
   BookOpen,
   Check,
+  CheckCircle2,
   Clock3,
   Copy,
   Download,
@@ -11,8 +12,11 @@ import {
   GraduationCap,
   LockKeyhole,
   MessageCircle,
+  RotateCcw,
   Share2,
   Sparkles,
+  Target,
+  Trophy,
 } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { gsebFreeAccountancyMaterials } from '../data/gsebMaterials';
@@ -99,9 +103,31 @@ const structuredData = {
 };
 
 const shareText = 'Free GSEB Class 11 Accountancy chapter-wise notes — simple explanations by Smit Sir Commerce.';
+const PROGRESS_KEY = 'ssc:gseb11-accountancy-quest:v1';
+
+function readSavedProgress() {
+  try {
+    const saved = JSON.parse(window.localStorage.getItem(PROGRESS_KEY) || '[]');
+    return Array.isArray(saved) ? saved.filter((value) => Number.isInteger(value) && value >= 1 && value <= 10 && value !== 8) : [];
+  } catch {
+    return [];
+  }
+}
 
 export default function GsebClass11AccountancyNotes() {
   const [notice, setNotice] = useState('');
+  const [completedChapters, setCompletedChapters] = useState(readSavedProgress);
+  const completedSet = new Set(completedChapters);
+  const progress = Math.round((completedChapters.length / gsebFreeAccountancyMaterials.length) * 100);
+  const nextChapter = gsebFreeAccountancyMaterials.find((chapter) => !completedSet.has(chapter.chapterNumber)) || gsebFreeAccountancyMaterials[0];
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(PROGRESS_KEY, JSON.stringify(completedChapters));
+    } catch {
+      // Progress remains available for this visit when storage is unavailable.
+    }
+  }, [completedChapters]);
 
   const copyUrl = async (url, label = 'Page link') => {
     try {
@@ -133,6 +159,24 @@ export default function GsebClass11AccountancyNotes() {
       action,
       collection: 'free_simple_explanation',
     });
+  };
+
+  const toggleChapter = (chapterNumber) => {
+    const wasComplete = completedSet.has(chapterNumber);
+    setCompletedChapters((current) => wasComplete
+      ? current.filter((number) => number !== chapterNumber)
+      : [...current, chapterNumber].sort((a, b) => a - b));
+    void trackEvent('gseb_11_accountancy_progress', {
+      chapter: chapterNumber,
+      status: wasComplete ? 'not_studied' : 'studied',
+    });
+  };
+
+  const resetProgress = () => {
+    setCompletedChapters([]);
+    setNotice('Study progress reset');
+    window.setTimeout(() => setNotice(''), 2200);
+    void trackEvent('gseb_11_accountancy_progress_reset');
   };
 
   const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(`${shareText}\n${PAGE_URL}`)}`;
@@ -185,11 +229,49 @@ export default function GsebClass11AccountancyNotes() {
             </div>
           </div>
 
+          <aside className="g11-quest" aria-labelledby="accountancy-quest-title">
+            <div className="g11-quest-ring" style={{ '--quest-progress': `${progress}%` }} aria-label={`${progress}% of available chapters studied`}>
+              <div><strong>{completedChapters.length}<small>/9</small></strong><span>studied</span></div>
+            </div>
+            <div className="g11-quest-copy">
+              <span><Target aria-hidden="true" /> YOUR ACCOUNTANCY QUEST</span>
+              <h3 id="accountancy-quest-title">{progress === 100 ? 'Quest complete. Foundation unlocked.' : 'Turn your notes into a visible win.'}</h3>
+              <p>Tap a chapter number after studying it. Your progress stays saved on this device, and the smart button always takes you to the next unfinished chapter.</p>
+              <div className="g11-quest-route" aria-label="Accountancy chapter progress">
+                {chapters.map((chapter) => {
+                  const available = chapter.available !== false && Boolean(chapter.file_url);
+                  const complete = completedSet.has(chapter.chapterNumber);
+                  return (
+                    <button
+                      type="button"
+                      key={chapter.chapterNumber}
+                      className={complete ? 'is-complete' : ''}
+                      disabled={!available}
+                      aria-label={available ? `${complete ? 'Unmark' : 'Mark'} Chapter ${chapter.chapterNumber} as studied` : 'Chapter 8 coming soon'}
+                      aria-pressed={available ? complete : undefined}
+                      onClick={() => available && toggleChapter(chapter.chapterNumber)}
+                    >
+                      {complete ? <Check aria-hidden="true" /> : chapter.chapterNumber}
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="g11-quest-actions">
+                <Link to={nextChapter.seo_path} onClick={() => trackChapter(nextChapter, 'quest_continue')}>
+                  {progress === 100 ? <Trophy aria-hidden="true" /> : <BookOpen aria-hidden="true" />}
+                  {progress === 100 ? 'Revisit Chapter 1' : `Continue with Chapter ${nextChapter.chapterNumber}`}
+                  <ArrowRight aria-hidden="true" />
+                </Link>
+                <button type="button" onClick={resetProgress} disabled={completedChapters.length === 0}><RotateCcw aria-hidden="true" /> Reset</button>
+              </div>
+            </div>
+          </aside>
+
           <div className="g11-chapter-grid">
             {chapters.map((chapter, index) => {
               const available = chapter.available !== false && Boolean(chapter.file_url);
               return (
-                <article key={chapter.chapterNumber} className={`g11-chapter-card tone-${index % 6}${available ? '' : ' is-missing'}`}>
+                <article key={chapter.chapterNumber} className={`g11-chapter-card tone-${index % 6}${available ? '' : ' is-missing'}${completedSet.has(chapter.chapterNumber) ? ' is-complete' : ''}`}>
                   <div className="g11-chapter-top">
                     <span className="g11-chapter-number">{String(chapter.chapterNumber).padStart(2, '0')}</span>
                     <span className={`g11-status ${available ? 'available' : ''}`}>{available ? 'FREE' : 'COMING SOON'}</span>
@@ -197,10 +279,15 @@ export default function GsebClass11AccountancyNotes() {
                   <h3>{available ? chapter.chapter : 'Chapter 8'}</h3>
                   <p>{available ? `${chapter.pages} pages · Simple explanation notes` : 'This chapter will be added when the checked PDF is ready.'}</p>
                   {available ? (
-                    <div className="g11-chapter-actions">
-                      <Link to={chapter.seo_path} onClick={() => trackChapter(chapter, 'view')}>View notes <ArrowRight aria-hidden="true" /></Link>
-                      <a href={chapter.file_url} download target="_blank" rel="noopener noreferrer" aria-label={`Download ${chapter.title}`} onClick={() => trackChapter(chapter, 'download')}><Download aria-hidden="true" /></a>
-                    </div>
+                    <>
+                      <div className="g11-chapter-actions">
+                        <Link to={chapter.seo_path} onClick={() => trackChapter(chapter, 'view')}>View notes <ArrowRight aria-hidden="true" /></Link>
+                        <a href={chapter.file_url} download target="_blank" rel="noopener noreferrer" aria-label={`Download ${chapter.title}`} onClick={() => trackChapter(chapter, 'download')}><Download aria-hidden="true" /></a>
+                      </div>
+                      <button type="button" className="g11-mark-studied" aria-pressed={completedSet.has(chapter.chapterNumber)} onClick={() => toggleChapter(chapter.chapterNumber)}>
+                        <CheckCircle2 aria-hidden="true" /> {completedSet.has(chapter.chapterNumber) ? 'Studied — tap to undo' : 'Mark chapter as studied'}
+                      </button>
+                    </>
                   ) : (
                     <div className="g11-coming-row"><Clock3 aria-hidden="true" /> Uploading later</div>
                   )}
