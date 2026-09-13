@@ -290,6 +290,14 @@
   </head>
   <body>
     <div id="app-startup-mask" aria-hidden="true"></div>
+    <script>
+      (() => {
+        const revealPage = () => document.getElementById("app-startup-mask")?.remove();
+        window.setTimeout(revealPage, 2400);
+        window.addEventListener("error", revealPage, { once: true });
+        window.addEventListener("unhandledrejection", revealPage, { once: true });
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
