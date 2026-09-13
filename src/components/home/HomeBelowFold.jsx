@@ -19,6 +19,10 @@ import SectionDivider from "../ui/SectionDivider";
 import TeacherStudioPromo from "./TeacherStudioPromo";
 import { Pricing } from "../ui/pricing";
 import LogosSlider from "./LogosSlider";
+import ConceptLabPromo from "./ConceptLabPromo";
+import BoardBoosterPromo from "./BoardBoosterPromo";
+import PremiumSpotlight from "./PremiumSpotlight";
+import QuizPromo from "./QuizPromo";
 
 const studentPlans = [
   {
@@ -73,7 +77,11 @@ const studentPlans = [
 
 export default function HomeBelowFold() {
   return (
-    <>
+    <div className="ssc-home-modules">
+      <ConceptLabPromo />
+      <BoardBoosterPromo />
+      <PremiumSpotlight />
+      <QuizPromo />
       <CommerceJourneyPreview />
       <LearningPhilosophy />
       <TrustLayer />
@@ -100,6 +108,6 @@ export default function HomeBelowFold() {
       <SectionDivider />
       <FAQSection />
       <ContactCTA />
-    </>
+    </div>
   );
 }

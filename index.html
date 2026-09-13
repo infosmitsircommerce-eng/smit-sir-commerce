@@ -193,10 +193,10 @@
         var fallbackTimer;
 
         function addScript(src, marker) {
-          if (document.querySelector("script[" + marker + "]")) return;
+          if (document.getElementById(marker)) return;
           var script = document.createElement("script");
           script.async = true;
-          script.setAttribute(marker, "1");
+          script.id = marker;
           script.src = src;
           document.head.appendChild(script);
         }
