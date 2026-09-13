@@ -1,10 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import SEO from "../components/ui/SEO";
-import QuizPromo from "../components/home/QuizPromo";
-import PremiumSpotlight from "../components/home/PremiumSpotlight";
-import BoardBoosterPromo from "../components/home/BoardBoosterPromo";
 import MobileLearningHome from "../components/home/MobileLearningHome";
-import ConceptLabPromo from "../components/home/ConceptLabPromo";
 
 const HomeBelowFold = lazy(() => import("../components/home/HomeBelowFold"));
 
@@ -90,10 +86,6 @@ export default function Home() {
         structuredData={structuredData}
       />
       <MobileLearningHome />
-      <ConceptLabPromo />
-      <BoardBoosterPromo />
-      <PremiumSpotlight />
-      <QuizPromo />
       <DeferredHomeContent />
     </>
   );

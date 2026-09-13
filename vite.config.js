@@ -69,14 +69,16 @@ export default defineConfig({
           /^\/$/,
           /^\/(?:study-material|quizzes|test-series|study-coach|study-tools|learning-insights|login|onboarding|dashboard|lectures|concept-lab|flashcards|daily-practice|exam-mode|my-data|ask)(?:\/|$)/,
         ],
-        globPatterns: ['index.html', '**/*.{js,css,ico,png,svg,woff2}'],
+        // Precache only the critical app shell. Feature chunks stay on-demand,
+        // avoiding a multi-megabyte service-worker install on slower phones.
+        globPatterns: ['index.html', 'assets/index-*.{js,css}'],
         runtimeCaching: [
           {
             urlPattern: ({ request }) => request.mode === 'navigate',
             handler: 'NetworkFirst',
             options: {
-              cacheName: 'ssc-navigation-fresh-v2',
-              networkTimeoutSeconds: 3,
+              cacheName: 'ssc-navigation-fresh-v3',
+              networkTimeoutSeconds: 2,
               expiration: { maxEntries: 20, maxAgeSeconds: 60 * 5 },
               cacheableResponse: { statuses: [200] },
             },
