@@ -6,11 +6,10 @@ import {
   ChevronRight,
   ListChecks,
   GraduationCap,
-  Menu,
   MessageCircle,
   Search,
-  X,
 } from "lucide-react";
+import { MenuToggleIcon } from "./menu-toggle-icon";
 import { useAuth } from "../../context/AuthContext";
 import { isLightRoute } from "../../lib/theme";
 
@@ -195,7 +194,7 @@ export default function MobileHeader() {
             aria-controls="mobile-navigation"
             aria-label={open ? "Close menu" : "Open menu"}
           >
-            {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            <MenuToggleIcon open={open} className="w-6 h-6" duration={420} />
           </button>
         </div>
       </header>
