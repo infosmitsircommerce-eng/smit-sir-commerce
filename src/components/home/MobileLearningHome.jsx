@@ -17,22 +17,33 @@ import {
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import teacherPhoto from "../../assets/teacher-photo-opt.jpg";
+import MobileStudySetup from "./MobileStudySetup";
+import { readStudentPreferences, studyPath } from "../../lib/studentPreferences";
+import { trackEvent } from "../../lib/analytics";
 
 const QUICK_ACTIONS = [
   { label: "Study Notes", icon: FileText, to: "/study-material", tone: "gold" },
-  { label: "Quizzes", icon: FileQuestion, to: "/quizzes", tone: "gold" },
-  { label: "Video Lectures", icon: PlayCircle, to: "/lectures", tone: "forest", status: "Coming soon" },
-  { label: "Test Series", icon: BarChart3, to: "/test-series", tone: "forest" },
-  { label: "Downloads", icon: Download, to: "/study-material?view=downloads", tone: "gold" },
-  { label: "Study Plan", icon: CalendarDays, to: "/study-coach", tone: "gold" },
+  { label: "Quizzes", icon: FileQuestion, to: "/quizzes", tone: "violet" },
+  { label: "Video Lectures", icon: PlayCircle, to: "/lectures", tone: "teal", status: "Coming soon" },
+  { label: "Test Series", icon: BarChart3, to: "/test-series", tone: "blue" },
+  { label: "Downloads", icon: Download, to: "/study-material?view=downloads", tone: "coral" },
+  { label: "Study Plan", icon: CalendarDays, to: "/study-coach", tone: "green" },
 ];
 
-function readRecentChapter() {
+function readArray(key) {
   try {
-    const items = JSON.parse(localStorage.getItem("ssc-resource-recents-v1") || "[]");
-    if (!Array.isArray(items)) return null;
-    return items.find(item => typeof item?.title === "string" && typeof item?.path === "string" && /^\/(?!\/)/.test(item.path)) || null;
-  } catch { return null; }
+    const items = JSON.parse(localStorage.getItem(key) || "[]");
+    return Array.isArray(items) ? items : [];
+  } catch { return []; }
+}
+
+function readContinueLearning() {
+  const candidates = [
+    ...readArray("ssc-resource-recents-v1"),
+    ...readArray("ssc-recent-learning-v1"),
+    ...readArray("ssc-chapter-progress-v1"),
+  ].filter(item => typeof item?.title === "string" && typeof item?.path === "string" && /^\/(?!\/)/.test(item.path));
+  return candidates.toSorted((a, b) => new Date(b.viewedAt || b.updatedAt || 0) - new Date(a.viewedAt || a.updatedAt || 0))[0] || null;
 }
 
 const CLASSES = [
@@ -63,12 +74,13 @@ function AppLink({ to, children, ...props }) {
 }
 
 export default function MobileLearningHome() {
-  const { user, displayName, initials } = useAuth();
+  const { user, profile, displayName, initials } = useAuth();
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
-  const [recent, setRecent] = useState(readRecentChapter);
+  const [recent, setRecent] = useState(readContinueLearning);
+  const [preferences, setPreferences] = useState(() => readStudentPreferences(profile));
   useEffect(() => {
-    const refresh = () => setRecent(readRecentChapter());
+    const refresh = () => setRecent(readContinueLearning());
     window.addEventListener("storage", refresh);
     window.addEventListener("ssc-study-state-changed", refresh);
     return () => {
@@ -76,6 +88,12 @@ export default function MobileLearningHome() {
       window.removeEventListener("ssc-study-state-changed", refresh);
     };
   }, []);
+  useEffect(() => {
+    const refresh = (event) => setPreferences(event?.detail || readStudentPreferences(profile));
+    refresh();
+    window.addEventListener("ssc-student-preferences-changed", refresh);
+    return () => window.removeEventListener("ssc-student-preferences-changed", refresh);
+  }, [profile]);
   const firstName = user ? displayName.trim().split(/\s+/)[0] : "Learner";
   const hour = new Date().getHours();
   const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
@@ -83,10 +101,20 @@ export default function MobileLearningHome() {
   const submitSearch = (event) => {
     event.preventDefault();
     const query = search.trim();
-    const destination = query
-      ? `/study-material?search=${encodeURIComponent(query)}#all-notes`
-      : "/study-material";
-    navigate(destination);
+    if (query) {
+      window.dispatchEvent(new CustomEvent("ssc-open-search", { detail: { query } }));
+      void trackEvent('global_search_submit', { placement: 'mobile_home', queryLength: query.length });
+      return;
+    }
+    navigate(studyPath('/study-material', preferences));
+  };
+
+  const personalizedTo = (to) => {
+    if (to.startsWith('/study-material?view=downloads') && preferences) {
+      const params = new URLSearchParams({ view: 'downloads', board: preferences.board, class: preferences.classLevel, subject: preferences.subject });
+      return `/study-material?${params}`;
+    }
+    return studyPath(to, preferences);
   };
 
   return (
@@ -104,6 +132,8 @@ export default function MobileLearningHome() {
             </AppLink>
           </div>
         </div>
+
+        <MobileStudySetup profile={profile} onSaved={setPreferences} />
 
         <form className="mobile-study-search" onSubmit={submitSearch} role="search">
           <Search aria-hidden="true" />
@@ -123,7 +153,7 @@ export default function MobileLearningHome() {
             <span>Your personal study desk</span>
             <h2>Master Commerce<br /><em>Your Way.</em></h2>
             <p>Notes · Quizzes · Test Series<br />All in one place</p>
-            <AppLink to="/study-material">
+            <AppLink to={studyPath('/study-material', preferences)}>
               Start learning <ArrowRight aria-hidden="true" />
             </AppLink>
           </div>
@@ -136,7 +166,7 @@ export default function MobileLearningHome() {
         <div className="mobile-section-heading mobile-shortcuts-heading"><h2>What will you learn today?</h2><button type="button" className="mobile-chapter-finder-trigger" onClick={() => window.dispatchEvent(new CustomEvent("ssc-open-resource-finder"))}>Find a chapter <ChevronRight aria-hidden="true" /></button></div>
         <div className="mobile-action-grid" aria-label="Quick actions">
           {QUICK_ACTIONS.map(({ label, icon: Icon, to, tone, status }) => (
-            <AppLink key={label} to={to} className={`mobile-action-card mobile-action-${tone}`}>
+            <AppLink key={label} to={personalizedTo(to)} data-tone={tone} className={`mobile-action-card mobile-action-${tone}`} onClick={() => void trackEvent('mobile_quick_action_click', { action: label, board: preferences?.board, classLevel: Number(preferences?.classLevel), subject: preferences?.subject })}>
               <span><Icon aria-hidden="true" /></span>
               <strong>{label.split("\n").map((line) => <span key={line}>{line}</span>)}</strong>
               {status && <small className="mobile-action-status">{status}</small>}
@@ -146,26 +176,26 @@ export default function MobileLearningHome() {
 
         <div className="mobile-section-heading">
           <h2>{recent ? "Continue Learning" : "A good place to start"}</h2>
-          <AppLink to="/study-material">View all <ChevronRight aria-hidden="true" /></AppLink>
+          <AppLink to={studyPath('/study-material', preferences)}>View all <ChevronRight aria-hidden="true" /></AppLink>
         </div>
         <AppLink to={recent?.path || "/board-exam-diagnostic"} className="mobile-resume-card">
           <span className="mobile-resume-icon"><BookOpen aria-hidden="true" /></span>
           <span className="mobile-resume-copy">
             <small>{recent ? `${recent.board || "Commerce"} · ${recent.classLevel ? `Class ${recent.classLevel}` : "Study resource"}` : "FREE · KNOW YOUR STARTING POINT"}</small>
             <strong>{recent?.title || "Find your strengths in 5 minutes"}</strong>
-            <span>{recent ? "Pick up where you left off" : "Try the board exam diagnostic"}</span>
+            <span>{recent ? recent.completed ? "Completed · review anytime" : "Pick up where you left off" : "Try the board exam diagnostic"}</span>
           </span>
           <span className="mobile-resume-arrow"><ArrowRight aria-hidden="true" /></span>
         </AppLink>
 
         <div className="mobile-section-heading">
           <h2>Browse by Class</h2>
-          <AppLink to="/study-material">View all <ArrowRight aria-hidden="true" /></AppLink>
+          <AppLink to={studyPath('/study-material', preferences)}>View all <ArrowRight aria-hidden="true" /></AppLink>
         </div>
 
         <div className="mobile-class-grid">
           {CLASSES.map(({ label, detail, icon: Icon, to }) => (
-            <AppLink key={label} to={to} className="mobile-class-card">
+            <AppLink key={label} to={`${to}&board=${preferences?.board || 'CBSE'}`} className="mobile-class-card">
               <span><Icon aria-hidden="true" /></span>
               <span><strong>{label}</strong><small>{detail}</small></span>
               <i><ArrowRight aria-hidden="true" /></i>

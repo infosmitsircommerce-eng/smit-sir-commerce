@@ -9,6 +9,8 @@ import { getExamSearchItems } from '../../data/examBank';
 import { getPublishedCommerceResources } from '../../lib/commerceResourceStore';
 import { commerceResourceContext } from '../../lib/commerceResourceModel';
 import { verifiedQuizPacks } from '../../data/quizPublic';
+import { readStudentPreferences } from '../../lib/studentPreferences';
+import { trackEvent } from '../../lib/analytics';
 
 const BOOKMARKS_KEY = 'ssc-bookmarks-v1';
 const RECENT_KEY = 'ssc-recent-learning-v1';
@@ -61,11 +63,11 @@ function trackRecent(item) {
   window.dispatchEvent(new CustomEvent('ssc-study-state-changed'));
 }
 
-export default function GlobalStudySearch({ initialOpen = false }) {
+export default function GlobalStudySearch({ initialOpen = false, initialQuery = '' }) {
   const location = useLocation();
   const previousPath = useRef(location.pathname);
   const [open, setOpen] = useState(initialOpen);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(initialQuery);
   const [bookmarks, setBookmarks] = useState(() => getBookmarks());
   const [commerceResources, setCommerceResources] = useState([]);
 
@@ -73,9 +75,9 @@ export default function GlobalStudySearch({ initialOpen = false }) {
     ...coreItems,
     ...authorityGuides.map((guide) => ({ title: guide.shortTitle, subtitle: guide.description, path: guide.path, type: 'Revision Guide', keywords: `${guide.title} ${guide.eyebrow}` })),
     ...seoHubs.map((hub) => ({ title: hub.label, subtitle: hub.description, path: hub.path, type: 'Subject', keywords: `${hub.subject} class ${hub.classLevel}` })),
-    ...seoMaterials.map((m) => ({ title: m.chapter, subtitle: `CBSE Class ${m.class_level} · ${m.subjectLabel}`, path: m.seo_path, type: 'Chapter', keywords: `${m.subject} ${m.keyTopics?.join(' ') || ''}` })),
-    ...gsebMaterials.map((m) => ({ title: m.chapter, subtitle: `GSEB Class ${m.class_level} · ${m.subject} · ${m.pages} pages`, path: m.seo_path, type: 'GSEB Chapter', keywords: `gseb gujarat board ${m.subject} class ${m.class_level} chapter ${m.chapterNumber} ${m.chapter}` })),
-    ...verifiedQuizPacks.map(pack => ({ title: `${pack.chapter} · ${pack.title} MCQ test`, subtitle: `${pack.board} Class ${pack.classLevel} · ${pack.subject} · 4 levels`, path: `/quizzes?board=${pack.board}&class=${pack.classLevel}&subject=${encodeURIComponent(pack.subject)}&pack=${pack.id}`, type: 'Chapter Test', keywords: `${pack.board} ${pack.subject} class ${pack.classLevel} ${pack.title} quiz test MCQ` })),
+    ...seoMaterials.map((m) => ({ title: m.chapter, subtitle: `CBSE Class ${m.class_level} · ${m.subjectLabel}`, path: m.seo_path, type: 'Chapter', board: 'CBSE', classLevel: String(m.class_level), subject: m.subject, keywords: `${m.subject} ${m.keyTopics?.join(' ') || ''}` })),
+    ...gsebMaterials.map((m) => ({ title: m.chapter, subtitle: `GSEB Class ${m.class_level} · ${m.subject} · ${m.pages} pages`, path: m.seo_path, type: 'GSEB Chapter', board: 'GSEB', classLevel: String(m.class_level), subject: m.subject, keywords: `gseb gujarat board ${m.subject} class ${m.class_level} chapter ${m.chapterNumber} ${m.chapter}` })),
+    ...verifiedQuizPacks.map(pack => ({ title: `${pack.chapter} · ${pack.title} MCQ test`, subtitle: `${pack.board} Class ${pack.classLevel} · ${pack.subject} · 4 levels`, path: `/quizzes?board=${pack.board}&class=${pack.classLevel}&subject=${encodeURIComponent(pack.subject)}&pack=${pack.id}`, type: 'Chapter Test', board: pack.board, classLevel: String(pack.classLevel), subject: pack.subject, keywords: `${pack.board} ${pack.subject} class ${pack.classLevel} ${pack.title} quiz test MCQ` })),
     ...growthPages.map((page) => ({ id: page.id, title: `${page.chapter} ${page.label}`, subtitle: `Class ${page.classLevel} · ${page.subject}`, path: page.path, type: 'Chapter Practice', keywords: `${page.chapter} ${page.subject} ${page.label} ${page.type}` })),
     ...getExamSearchItems(),
     ...commerceResources.map((resource) => ({
@@ -113,7 +115,10 @@ export default function GlobalStudySearch({ initialOpen = false }) {
       }
       if (event.key === 'Escape') setOpen(false);
     };
-    const onOpen = () => setOpen(true);
+    const onOpen = (event) => {
+      setQuery(event?.detail?.query || '');
+      setOpen(true);
+    };
     const onState = () => setBookmarks(getBookmarks());
     window.addEventListener('keydown', onKey);
     window.addEventListener('ssc-open-search', onOpen);
@@ -137,17 +142,19 @@ export default function GlobalStudySearch({ initialOpen = false }) {
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return index.slice(0, 12);
-    return index.filter((item) => `${item.title} ${item.subtitle || ''} ${item.type} ${item.keywords || ''}`.toLowerCase().includes(q)).slice(0, 20);
+    const preferences = readStudentPreferences();
+    const matches = q ? index.filter((item) => `${item.title} ${item.subtitle || ''} ${item.type} ${item.keywords || ''}`.toLowerCase().includes(q)) : index;
+    return matches.map((item, order) => ({ item, order, score: (item.board === preferences?.board ? 4 : 0) + (String(item.classLevel) === preferences?.classLevel ? 3 : 0) + (item.subject === preferences?.subject ? 2 : 0) }))
+      .sort((a, b) => b.score - a.score || a.order - b.order).slice(0, q ? 20 : 12).map(entry => entry.item);
   }, [query, index]);
 
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[180] p-3 sm:p-6 overflow-y-auto" style={{ background: 'rgba(30,24,18,.72)', backdropFilter: 'blur(10px)' }}>
-      <div className="max-w-3xl mx-auto mt-10 sm:mt-20 card-paper overflow-hidden">
+    <div className="fixed inset-0 z-[180] p-3 sm:p-6 overflow-y-auto" style={{ background: 'rgba(30,24,18,.72)', backdropFilter: 'blur(10px)' }} onClick={(event) => { if (event.target === event.currentTarget) setOpen(false); }}>
+      <div role="dialog" aria-modal="true" aria-label="Search all study resources" className="max-w-3xl mx-auto mt-10 sm:mt-20 card-paper overflow-hidden">
         <div className="flex items-center gap-3 p-4 border-b" style={{ borderColor: 'var(--border)' }}>
-          <Search className="w-5 h-5" style={{ color: 'var(--gold)' }} />
+          <Search aria-hidden="true" className="w-5 h-5" style={{ color: 'var(--gold)' }} />
           <input autoFocus value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search school, B.Com, M.Com, NET, GSET, notes, tests…" className="flex-1 bg-transparent outline-none text-base" style={{ color: 'var(--ink)' }} />
           <button onClick={() => setOpen(false)} aria-label="Close search" className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: 'var(--bg-ivory)' }}><X className="w-4 h-4" /></button>
         </div>
@@ -155,7 +162,7 @@ export default function GlobalStudySearch({ initialOpen = false }) {
           {results.length === 0 ? <div className="p-8 text-center text-sm" style={{ color: 'var(--muted)' }}>No matching study resource or practice question found.</div> : results.map((item) => {
             const saved = bookmarks.some((entry) => entry.path === item.path);
             return <div key={`${item.id || item.type}-${item.path}-${item.title}`} className="flex items-center gap-2 rounded-xl hover:bg-black/[.025] transition-colors">
-              <Link to={item.path} className="flex-1 min-w-0 p-3">
+              <Link to={item.path} className="flex-1 min-w-0 p-3" onClick={() => { trackRecent(item); setOpen(false); void trackEvent('global_search_result_click', { resultType: item.type, destination: item.path, position: results.indexOf(item) + 1, queryLength: query.trim().length }); }}>
                 <div className="flex items-center gap-2"><span className="text-[10px] uppercase tracking-wider font-bold" style={{ color: 'var(--gold)' }}>{item.type}</span></div>
                 <div className="font-semibold mt-1 line-clamp-2" style={{ color: 'var(--ink)' }}>{item.title}</div>
                 <div className="text-xs mt-1 truncate" style={{ color: 'var(--muted)' }}>{item.subtitle}</div>
