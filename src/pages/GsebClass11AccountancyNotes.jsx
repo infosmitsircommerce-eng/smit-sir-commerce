@@ -141,7 +141,7 @@ export default function GsebClass11AccountancyNotes() {
     <div className="g11-accountancy-page">
       <SEO title={TITLE} description={DESCRIPTION} path={PATH} type="website" structuredData={structuredData} />
 
-      <section className="g11-accountancy-hero">
+      <section className="g11-accountancy-hero section-light">
         <div className="page-container">
           <nav className="g11-breadcrumb" aria-label="Breadcrumb">
             <Link to="/">Home</Link><span>/</span><Link to="/study-material">Study Material</Link><span>/</span><span>GSEB Class 11 Accountancy</span>
@@ -176,7 +176,7 @@ export default function GsebClass11AccountancyNotes() {
       </section>
 
       <main>
-        <section id="free-chapters" className="page-container g11-section">
+        <section id="free-chapters" className="page-container g11-section section-light">
           <div className="g11-section-heading">
             <div><span>FREE LIBRARY</span><h2>Choose your chapter</h2><p>Open the chapter page for details or download the PDF directly.</p></div>
             <div className="g11-share-mini">
@@ -231,7 +231,7 @@ export default function GsebClass11AccountancyNotes() {
           </div>
         </section>
 
-        <section className="page-container g11-section g11-study-guide">
+        <section className="page-container g11-section g11-study-guide section-light">
           <div>
             <span className="g11-section-label">HOW TO USE THESE NOTES</span>
             <h2>Read less. Recall more.</h2>
@@ -244,7 +244,7 @@ export default function GsebClass11AccountancyNotes() {
           </ol>
         </section>
 
-        <section className="page-container g11-section g11-faq">
+        <section className="page-container g11-section g11-faq section-light">
           <span className="g11-section-label">STUDENT QUESTIONS</span>
           <h2>Frequently asked questions</h2>
           <div>
