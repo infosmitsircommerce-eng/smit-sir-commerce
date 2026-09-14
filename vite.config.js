@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { VitePWA } from 'vite-plugin-pwa'
 import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
@@ -21,96 +20,6 @@ export default defineConfig({
       },
     },
     react(),
-    VitePWA({
-      registerType: 'autoUpdate',
-      injectRegister: 'script-defer',
-      includeAssets: ['favicon.svg', 'icon-192.png', 'icon-512.png'],
-      manifest: {
-        name: 'Smit Sir Commerce',
-        short_name: 'SmitSir',
-        description: 'CBSE and GSEB Commerce study material — notes, PDFs, practice, quizzes and tools | Mehsana',
-        start_url: '/',
-        scope: '/',
-        display: 'standalone',
-        background_color: '#FAF6EE',
-        theme_color: '#D4AF37',
-        orientation: 'portrait-primary',
-        categories: ['education'],
-        lang: 'en-IN',
-        icons: [
-          { src: '/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
-          { src: '/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
-          { src: '/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
-        ],
-        shortcuts: [
-          {
-            name: 'Study Material',
-            short_name: 'Notes',
-            description: 'Open free Commerce notes and PDFs',
-            url: '/study-material',
-            icons: [{ src: '/icon-192.png', sizes: '192x192' }]
-          },
-          {
-            name: 'Economics Quizzes',
-            short_name: 'Quizzes',
-            description: 'Open chapter-wise Economics quizzes',
-            url: '/quizzes',
-            icons: [{ src: '/icon-192.png', sizes: '192x192' }]
-          },
-        ],
-      },
-      workbox: {
-        cleanupOutdatedCaches: true,
-        skipWaiting: true,
-        clientsClaim: true,
-        // Only the student app shell uses SPA navigation. Everything else —
-        // especially the many prerendered chapter and local SEO pages — stays
-        // network-first as a real document and cannot fall back to an old app shell.
-        navigateFallbackAllowlist: [
-          /^\/$/,
-          /^\/(?:study-material|quizzes|test-series|study-coach|study-tools|learning-insights|login|onboarding|dashboard|lectures|concept-lab|flashcards|daily-practice|exam-mode|my-data|ask)(?:\/|$)/,
-        ],
-        // Precache only the critical app shell. Feature chunks stay on-demand,
-        // avoiding a multi-megabyte service-worker install on slower phones.
-        globPatterns: ['index.html', 'assets/index-*.{js,css}'],
-        runtimeCaching: [
-          {
-            // Cache navigations only for the routes that intentionally use the SPA shell.
-            // Do not cache local/SEO landing documents such as /commerce-coaching-mehsana.
-            urlPattern: ({ request, url }) =>
-              request.mode === 'navigate' &&
-              (url.pathname === '/' ||
-                /^\/(?:study-material|quizzes|test-series|study-coach|study-tools|learning-insights|login|onboarding|dashboard|lectures|concept-lab|flashcards|daily-practice|exam-mode|my-data|ask)(?:\/|$)/.test(url.pathname)),
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'ssc-navigation-fresh-v4',
-              // Wait for the live document while online. Cached HTML is now an offline fallback,
-              // not a two-second timeout fallback that can point at deleted hashed chunks.
-              expiration: { maxEntries: 20, maxAgeSeconds: 60 * 5 },
-              cacheableResponse: { statuses: [200] },
-            },
-          },
-          {
-            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-cache',
-              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
-              cacheableResponse: { statuses: [0, 200] },
-            },
-          },
-          {
-            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'gstatic-fonts-cache',
-              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
-              cacheableResponse: { statuses: [0, 200] },
-            },
-          },
-        ],
-      },
-    }),
   ],
   build: {
     chunkSizeWarningLimit: 600,
