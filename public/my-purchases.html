@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="robots" content="noindex,nofollow,nosnippet" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>My Purchases | Smit Sir Commerce</title>
+  <style>
+    :root{--ink:#17130f;--muted:#667085;--gold:#b8872f;--paper:#fff;--bg:#faf6ee;--line:#e8e2d8;--green:#21663a;--navy:#0f172a}*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--ink)}a{color:inherit}.top{background:linear-gradient(145deg,#0f172a,#16233f);color:#fff;padding:18px 0;position:sticky;top:0;z-index:20}.wrap{width:min(980px,calc(100% - 28px));margin:auto}.topin{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-weight:900;text-decoration:none}.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:13px;font-weight:850;text-decoration:none;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}.btn.gold{background:linear-gradient(135deg,#d7a83f,#b7791f);border:0;color:#19140d}.hero{padding:46px 0 20px}.eyebrow{font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}h1,h2,h3{margin:0}h1{font-family:Georgia,serif;font-size:clamp(34px,7vw,54px);margin-top:12px}.lead{color:var(--muted);line-height:1.7;max-width:720px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 14px 34px rgba(22,28,45,.05)}.pack{display:flex;flex-direction:column;gap:12px}.status{display:inline-flex;width:max-content;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.paid{background:#edf9f0;color:var(--green)}.pending{background:#fff6df;color:#8a631c}.failed{background:#fff0ed;color:#a54430}.muted{color:var(--muted)}.history{display:grid;gap:10px}.row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 0;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.msg{margin:18px 0;padding:14px 16px;border-radius:14px;background:#fff8e8;border:1px solid #ead4a4;color:#6d531b}.hidden{display:none}.empty{text-align:center;padding:28px}.loader{width:32px;height:32px;border:3px solid #e6dcc7;border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:40px auto}@keyframes spin{to{transform:rotate(360deg)}}@media(max-width:700px){.grid{grid-template-columns:1fr}.row{align-items:flex-start;flex-direction:column}.btn{width:100%}}
+  </style>
+</head>
+<body>
+  <header class="top"><div class="wrap topin"><a class="brand" href="/">Smit Sir Commerce</a><a class="btn" href="/board-booster-packs">Board Boosters</a></div></header>
+  <main class="wrap">
+    <section class="hero"><span class="eyebrow">Private student library</span><h1>My Purchases</h1><p class="lead">Every ₹199 purchase unlocks only the pack you bought. Payments are verified server-side before access is granted.</p></section>
+    <div id="message"></div>
+    <div id="loading" class="loader"></div>
+    <section id="signed-out" class="card empty hidden"><h2>Sign in to see your purchases</h2><p class="muted">Use the same student account you use on Smit Sir Commerce.</p><a class="btn gold" href="/login">Sign in</a></section>
+    <section id="content" class="hidden">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 0 16px"><h2>Unlocked packs</h2><button id="refresh" class="btn">Refresh</button></div>
+      <div id="packs" class="grid"></div>
+      <h2 style="margin:34px 0 12px">Payment history</h2>
+      <div id="orders" class="card history"></div>
+    </section>
+  </main>
+<script>
+const SUPABASE_URL='https://abpruwygnsmeqisaehip.supabase.co';
+const ANON='sb_publishable_9eybAsihq3-YNL1uGmGo3w_DWheWwRg';
+const AUTH_KEY='sb-abpruwygnsmeqisaehip-auth-token';
+const PRODUCTS={
+  'gseb-12-economics':{name:'GSEB Class 12 Economics Board Booster',short:'GSEB 12 Economics',access:'/premium/economics?board=GSEB'},
+  'cbse-12-economics':{name:'CBSE Class 12 Economics Board Booster',short:'CBSE 12 Economics',access:'/premium/economics?board=CBSE'},
+  'cbse-11-microeconomics':{name:'CBSE Class 11 Microeconomics Foundation Pack',short:'CBSE 11 Microeconomics',access:'/premium/economics?board=CBSE'}
+};
+function token(){try{const raw=localStorage.getItem(AUTH_KEY);if(!raw)return'';const parsed=JSON.parse(raw);return parsed?.access_token||parsed?.currentSession?.access_token||''}catch{return''}}
+function headers(){const t=token();return{apikey:ANON,Authorization:'Bearer '+t}}
+function product(id){return PRODUCTS[id]||{name:id,short:id,access:'/board-booster-packs'}}
+function money(p){return '₹'+Math.round(Number(p||0)/100)}
+function date(v){try{return new Date(v).toLocaleString('en-IN')}catch{return v||''}}
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function setMessage(text){document.getElementById('message').innerHTML=text?'<div class="msg">'+esc(text)+'</div>':''}
+async function rest(path){const r=await fetch(SUPABASE_URL+path,{headers:headers()});if(!r.ok)throw new Error('Unable to load purchase data.');return r.json()}
+async function verify(orderId){const t=token();if(!t)return;setMessage('Checking Cashfree payment status…');const r=await fetch('/api/purchase-status',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+t},body:JSON.stringify({orderId})});const b=await r.json();if(!r.ok)throw new Error(b.error||'Unable to verify payment.');setMessage(b.paid?'Payment verified. Your pack is unlocked.':'Payment is not confirmed yet. Do not pay again; refresh in a moment.');await load(false)}
+async function load(showLoader=true){
+  const t=token();
+  if(showLoader)document.getElementById('loading').classList.remove('hidden');
+  if(!t){document.getElementById('loading').classList.add('hidden');document.getElementById('signed-out').classList.remove('hidden');return}
+  try{
+    const [ents,orders]=await Promise.all([
+      rest('/rest/v1/product_entitlements?select=id,product_id,granted_at,expires_at,revoked_at&revoked_at=is.null&order=granted_at.desc'),
+      rest('/rest/v1/payment_orders?select=id,product_id,provider_order_id,status,amount_paise,created_at,updated_at&order=created_at.desc&limit=30')
+    ]);
+    document.getElementById('loading').classList.add('hidden');document.getElementById('content').classList.remove('hidden');
+    const packs=document.getElementById('packs');
+    packs.innerHTML=ents.length?ents.map(e=>{const p=product(e.product_id);return '<article class="card pack"><span class="status paid">Unlocked</span><h3>'+esc(p.name)+'</h3><div class="muted">Access granted '+esc(date(e.granted_at))+'</div><a class="btn gold" href="'+esc(p.access)+'">Open purchased pack</a><a class="btn" href="/board-booster-packs?pack='+encodeURIComponent(e.product_id)+'">See pack contents</a></article>'}).join(''):'<div class="card empty" style="grid-column:1/-1"><h3>No pack purchase yet</h3><p class="muted">Preview the packs first and buy only what you need.</p><a class="btn gold" href="/board-booster-packs">Browse Board Boosters</a></div>';
+    const box=document.getElementById('orders');
+    box.innerHTML=orders.length?orders.map(o=>{const p=product(o.product_id);const cls=o.status==='paid'?'paid':(['failed','cancelled','refunded'].includes(o.status)?'failed':'pending');const action=o.status==='paid'?'':'<button class="btn verify" data-order="'+esc(o.provider_order_id)+'">Verify payment</button>';return '<div class="row"><div><strong>'+esc(p.short)+'</strong><div class="muted" style="font-size:13px;margin-top:4px">'+money(o.amount_paise)+' · '+esc(date(o.created_at))+'</div><span class="status '+cls+'" style="margin-top:8px">'+esc(o.status)+'</span></div>'+action+'</div>'}).join(''):'<div class="empty muted">No online payment orders yet.</div>';
+    document.querySelectorAll('.verify').forEach(btn=>btn.addEventListener('click',()=>verify(btn.dataset.order).catch(e=>setMessage(e.message))));
+  }catch(e){document.getElementById('loading').classList.add('hidden');setMessage(e.message)}
+}
+document.getElementById('refresh').addEventListener('click',()=>load());
+const incoming=new URLSearchParams(location.search).get('order_id');
+load().then(()=>{if(incoming&&token())verify(incoming).catch(e=>setMessage(e.message))});
+</script>
+</body>
+</html>
