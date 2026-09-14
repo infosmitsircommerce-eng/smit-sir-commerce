@@ -5,8 +5,9 @@ import SEO from '../components/ui/SEO';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 import { BOARD_BOOSTER_PRODUCTS } from '../data/boardBoosterProducts';
+import { PREMIUM_MEGA_PACK } from '../data/premiumMegaPack';
 
-const products = new Map(BOARD_BOOSTER_PRODUCTS.map((product) => [product.id, product]));
+const products = new Map([...BOARD_BOOSTER_PRODUCTS, PREMIUM_MEGA_PACK].map((product) => [product.id, product]));
 
 function productFor(id) {
   return products.get(id) || {
@@ -20,7 +21,7 @@ function productFor(id) {
 }
 
 export default function MyPurchases() {
-  const { user, loading, isPremium } = useAuth();
+  const { user, loading, isPremium, hasMegaPremium, legacyPremium } = useAuth();
   const [entitlements, setEntitlements] = useState([]);
   const [orders, setOrders] = useState([]);
   const [busy, setBusy] = useState(false);
@@ -70,7 +71,7 @@ export default function MyPurchases() {
       });
       const body = await response.json();
       if (!response.ok) throw new Error(body.error || 'Unable to verify payment.');
-      setMessage(body.paid ? 'Payment verified. Your pack is unlocked.' : 'Payment has not been confirmed yet.');
+      setMessage(body.paid ? 'Payment verified. Your purchased access is unlocked.' : 'Payment has not been confirmed yet.');
       await load();
     } catch (error) {
       setMessage(error.message || 'Unable to verify payment.');
@@ -95,7 +96,7 @@ export default function MyPurchases() {
         <section className="card-paper p-8 text-center">
           <LockKeyhole className="w-10 h-10 mx-auto" style={{ color: 'var(--gold)' }} />
           <h1 className="text-3xl mt-4">My Purchases</h1>
-          <p className="mt-3 leading-7">Sign in with the student account used for payment to see unlocked Board Booster packs.</p>
+          <p className="mt-3 leading-7">Sign in with the student account used for payment to see unlocked Premium and Board Booster purchases.</p>
           <Link to="/login" className="btn-primary inline-flex mt-6">Sign in</Link>
         </section>
       </main>
@@ -110,40 +111,45 @@ export default function MyPurchases() {
         <div>
           <span className="eyebrow">Private student library</span>
           <h1 className="text-4xl sm:text-5xl mt-3" style={{ fontFamily: 'var(--font-serif)' }}>My Purchases</h1>
-          <p className="mt-3 max-w-2xl leading-7" style={{ color: 'var(--muted)' }}>Every ₹199 purchase unlocks only the pack you bought. Your free resources remain free.</p>
+          <p className="mt-3 max-w-2xl leading-7" style={{ color: 'var(--muted)' }}>Focused ₹199 purchases unlock only the matching subject pack. The ₹699 Commerce Mega Premium purchase unlocks the full current Premium ecosystem.</p>
         </div>
         <button onClick={() => void load()} disabled={busy} className="btn-secondary inline-flex items-center justify-center gap-2"><RefreshCw className={`w-4 h-4 ${busy ? 'animate-spin' : ''}`} /> Refresh</button>
       </div>
 
-      {isPremium ? (
+      {hasMegaPremium ? (
+        <div className="card-paper p-5 mt-7" style={{ borderColor: 'rgba(184,135,47,.35)', background: 'linear-gradient(135deg,#fffaf0,#fff3c8)' }}>
+          <div className="flex gap-3"><CheckCircle2 className="w-6 h-6 shrink-0" style={{ color: '#21663a' }} /><div><div className="font-black">Commerce Mega Premium is active</div><p className="text-sm mt-1 leading-6" style={{ color: 'var(--muted)' }}>Your ₹699 full-access purchase unlocks the current Premium libraries, protected PDFs and Premium-gated practice tools.</p><Link to="/premium" className="font-black inline-flex mt-2" style={{ color: 'var(--gold)' }}>Open Premium home →</Link></div></div>
+        </div>
+      ) : legacyPremium || isPremium ? (
         <div className="card-paper p-5 mt-7" style={{ borderColor: 'rgba(184,135,47,.35)' }}>
-          <div className="flex gap-3"><CheckCircle2 className="w-6 h-6 shrink-0" style={{ color: '#21663a' }} /><div><div className="font-black">Legacy full-library Premium is active</div><p className="text-sm mt-1 leading-6" style={{ color: 'var(--muted)' }}>Your older Premium status continues to work. New ₹199 purchases are tracked separately by pack.</p></div></div>
+          <div className="flex gap-3"><CheckCircle2 className="w-6 h-6 shrink-0" style={{ color: '#21663a' }} /><div><div className="font-black">Legacy full-library Premium is active</div><p className="text-sm mt-1 leading-6" style={{ color: 'var(--muted)' }}>Your older Premium status continues to work. New focused purchases are tracked separately by product.</p></div></div>
         </div>
       ) : null}
 
       {message ? <p role="status" className="card-paper p-4 mt-5 text-sm font-semibold">{message}</p> : null}
 
       <section className="mt-8">
-        <h2 className="text-2xl font-black">Unlocked packs</h2>
+        <h2 className="text-2xl font-black">Unlocked purchases</h2>
         {busy && !activeEntitlements.length ? <div className="mt-5 flex items-center gap-2"><Loader2 className="w-5 h-5 animate-spin" /> Loading purchases…</div> : null}
         {!busy && !activeEntitlements.length ? (
           <div className="card-paper p-7 mt-5 text-center">
             <CreditCard className="w-8 h-8 mx-auto" style={{ color: 'var(--gold)' }} />
-            <h3 className="text-xl font-black mt-3">No pack purchase yet</h3>
-            <p className="mt-2" style={{ color: 'var(--muted)' }}>Preview the study packs first and buy only the subject you need.</p>
-            <Link to="/board-booster-packs" className="btn-primary inline-flex mt-5">Browse Board Boosters</Link>
+            <h3 className="text-xl font-black mt-3">No tracked purchase yet</h3>
+            <p className="mt-2" style={{ color: 'var(--muted)' }}>Choose full Mega Premium access or preview a focused subject pack first.</p>
+            <div className="flex flex-wrap justify-center gap-3 mt-5"><Link to="/premium" className="btn-primary">See ₹699 Mega Premium</Link><Link to="/board-booster-packs" className="btn-secondary">Browse ₹199 packs</Link></div>
           </div>
         ) : (
           <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4 mt-5">
             {activeEntitlements.map((item) => {
               const product = productFor(item.product_id);
+              const isMega = product.id === PREMIUM_MEGA_PACK.id;
               return (
-                <article key={item.id} className="card-paper p-6 flex flex-col">
-                  <div className="flex items-center justify-between gap-3"><span className="eyebrow">Unlocked</span><CheckCircle2 className="w-6 h-6" style={{ color: '#21663a' }} /></div>
+                <article key={item.id} className="card-paper p-6 flex flex-col" style={isMega ? { borderColor: 'rgba(184,135,47,.45)', background: 'linear-gradient(180deg,#fffaf0,#fff)' } : undefined}>
+                  <div className="flex items-center justify-between gap-3"><span className="eyebrow">{isMega ? 'Full Premium' : 'Unlocked'}</span><CheckCircle2 className="w-6 h-6" style={{ color: '#21663a' }} /></div>
                   <h3 className="text-xl font-black mt-4">{product.name}</h3>
                   <p className="text-sm mt-2" style={{ color: 'var(--muted)' }}>Purchased access · {new Date(item.granted_at).toLocaleDateString('en-IN')}</p>
-                  <Link to={product.accessPath} className="btn-primary w-full mt-6 text-center">Open purchased pack</Link>
-                  <Link to={`/board-booster-packs?pack=${product.id}`} className="btn-secondary w-full mt-2 text-center">See pack contents</Link>
+                  <Link to={product.accessPath} className="btn-primary w-full mt-6 text-center">{isMega ? 'Open Premium home' : 'Open purchased pack'}</Link>
+                  <Link to={isMega ? '/premium' : `/board-booster-packs?pack=${product.id}`} className="btn-secondary w-full mt-2 text-center">{isMega ? 'See everything included' : 'See pack contents'}</Link>
                 </article>
               );
             })}
