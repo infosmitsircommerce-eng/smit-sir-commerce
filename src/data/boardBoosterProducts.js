@@ -31,6 +31,23 @@ export const BOARD_BOOSTER_PRODUCTS = [
         detail: "Easy + Moderate levels stay free before purchase",
       },
     ],
+    premiumItems: [
+      { title: "Chapter 2 — Indicators of Growth and Development", meta: "17-page Premium revision PDF" },
+      { title: "Chapter 3 — Money and Inflation", meta: "14-page Premium revision PDF" },
+      { title: "Chapter 4 — Banking and Monetary Policy", meta: "14-page Premium revision PDF" },
+      { title: "Chapter 5 — Poverty", meta: "17-page Premium revision PDF" },
+      { title: "Chapter 6 — Unemployment", meta: "8-page Premium revision PDF" },
+      { title: "Chapter 7 — Population", meta: "9-page Premium revision PDF" },
+      { title: "Chapter 8 — Agriculture Sector", meta: "8-page Premium revision PDF" },
+      { title: "Chapter 9 — Foreign Trade", meta: "10-page Premium revision PDF" },
+      { title: "Chapter 10 — Industrial Sector", meta: "7-page Premium revision PDF" },
+      { title: "Chapter 11 — Emerging Issues in Indian Economy", meta: "13-page Premium revision PDF" },
+    ],
+    premiumPractice: [
+      "220 Hard + Extreme chapter-wise MCQs with explanations",
+      "20 paid Hard/Extreme questions across each of 11 Economics quiz chapters",
+      "Free Easy + Moderate practice remains available before purchase",
+    ],
     included: [
       "10 concise Premium revision guides covering Chapters 2–11",
       "220 Hard + Extreme chapter-wise MCQs with explanations",
@@ -76,6 +93,17 @@ export const BOARD_BOOSTER_PRODUCTS = [
         detail: "Hard + Extreme practice with reasoning",
       },
     ],
+    premiumItems: [
+      { title: "5 Macroeconomics chapter deep-dives", meta: "20 focused concept explanations per chapter" },
+      { title: "13 Indian Economic Development chapter deep-dives", meta: "20 focused concept explanations per chapter" },
+      { title: "360 focused concept explanations", meta: "Across all 18 Class 12 Premium guides" },
+      { title: "360 worked Hard + Extreme challenges", meta: "Solved with reasoning, not answer-only practice" },
+    ],
+    premiumPractice: [
+      "Hard + Extreme Economics practice is part of the paid layer",
+      "Each covered chapter combines concept explanation with worked challenge practice",
+      "Existing free notes and public revision pages remain free",
+    ],
     included: [
       "18 Class 12 Economics premium chapter guides",
       "360 focused concept explanations",
@@ -120,6 +148,16 @@ export const BOARD_BOOSTER_PRODUCTS = [
         label: "Worked challenges",
         detail: "20 Hard + Extreme challenges per chapter",
       },
+    ],
+    premiumItems: [
+      { title: "13 Microeconomics chapter deep-dives", meta: "One Premium deep-dive for every published chapter pack" },
+      { title: "260 focused concept explanations", meta: "20 Premium explanations across each of 13 chapters" },
+      { title: "260 worked Hard + Extreme challenges", meta: "20 worked higher-level challenges per chapter" },
+    ],
+    premiumPractice: [
+      "The 13 published chapter PDFs remain free",
+      "The paid layer adds deeper explanation and Hard/Extreme practice",
+      "Premium material is clearly separated from the free foundation notes",
     ],
     included: [
       "Premium deep-dives for all 13 Microeconomics chapters",
