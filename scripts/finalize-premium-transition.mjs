@@ -50,7 +50,7 @@ function premiumBody() {
     <p>Instead of forcing every subject into one thousands-page file, Mega Premium keeps each subject, chapter, PDF and practice set organised while giving the student one full-access purchase. This makes the material faster to find and easier to revise.</p>
     <h2>Need only one subject?</h2>
     <p>Focused ₹199 Board Booster packs remain available separately. They unlock only the matching subject pack. Existing legacy full-library Premium accounts continue to be recognised.</p>
-    <p><a href="/premium/accountancy">Open Premium Accountancy</a> · <a href="/premium/economics">Open Premium Economics</a> · <a href="/board-booster-packs">Browse ₹199 Board Boosters</a> · <a href="/my-purchases.html">My Purchases</a></p>
+    <p><a href="/gseb-class-11-accountancy-premium.html">See Premium Accountancy contents</a> · <a href="/board-booster-packs">Browse ₹199 Board Boosters</a> · <a href="/my-purchases.html">My Purchases</a> · <a href="/study-material">Free study material</a></p>
   </article></main>`;
 }
 
