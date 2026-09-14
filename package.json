@@ -25,6 +25,7 @@
     "@radix-ui/react-switch": "^1.3.7",
     "@remotion/cli": "^4.0.468",
     "@remotion/google-fonts": "^4.0.468",
+    "@supabase/supabase-js": "^2.106.0",
     "aos": "^2.3.4",
     "canvas-confetti": "^1.9.4",
     "class-variance-authority": "^0.7.1",
