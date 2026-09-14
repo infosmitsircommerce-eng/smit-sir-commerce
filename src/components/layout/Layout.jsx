@@ -43,34 +43,69 @@ class EnhancementBoundary extends Component {
 function DeferredEnhancements() {
   const [ready, setReady] = useState(false);
   const { user } = useAuth();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     let idleId;
     let timerId;
-    const reveal = () => setReady(true);
+    let loadTimerId;
+    let cancelled = false;
 
-    if ('requestIdleCallback' in window) {
-      idleId = window.requestIdleCallback(reveal, { timeout: 1200 });
-    } else {
-      timerId = window.setTimeout(reveal, 650);
+    const mobile = window.matchMedia('(max-width: 768px)').matches;
+    const saveData = navigator.connection?.saveData === true;
+    const slowConnection = ['slow-2g', '2g', '3g'].includes(navigator.connection?.effectiveType);
+    const delay = mobile || saveData || slowConnection ? 7000 : 3200;
+
+    const reveal = () => {
+      if (!cancelled) setReady(true);
+    };
+
+    const schedule = () => {
+      timerId = window.setTimeout(() => {
+        if ('requestIdleCallback' in window) {
+          idleId = window.requestIdleCallback(reveal, { timeout: 2200 });
+        } else {
+          reveal();
+        }
+      }, delay);
+    };
+
+    if (document.readyState === 'complete') schedule();
+    else {
+      const onLoad = () => schedule();
+      window.addEventListener('load', onLoad, { once: true });
+      // Fallback in case a third-party resource keeps the load event waiting.
+      loadTimerId = window.setTimeout(schedule, delay + 1800);
+      return () => {
+        cancelled = true;
+        window.removeEventListener('load', onLoad);
+        if (idleId) window.cancelIdleCallback?.(idleId);
+        if (timerId) window.clearTimeout(timerId);
+        if (loadTimerId) window.clearTimeout(loadTimerId);
+      };
     }
 
     return () => {
+      cancelled = true;
       if (idleId) window.cancelIdleCallback?.(idleId);
       if (timerId) window.clearTimeout(timerId);
+      if (loadTimerId) window.clearTimeout(loadTimerId);
     };
-  }, []);
+  }, [pathname]);
 
   if (!ready) return null;
+
+  const desktopPointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const isChapterRoute = /^\/cbse\/[^/]+\/[^/]+\/[^/]+\/?$/.test(pathname);
 
   return (
     <Suspense fallback={null}>
       <AnalyticsTracker />
-      <ScrollProgressBar />
-      {window.matchMedia('(hover: hover) and (pointer: fine)').matches && <CursorSpotlight />}
+      {desktopPointer && <ScrollProgressBar />}
+      {desktopPointer && <CursorSpotlight />}
       {user && <CloudSyncBridge />}
-      <ChapterProgressTracker />
-      <ScrollToTop />
+      {isChapterRoute && <ChapterProgressTracker />}
+      {desktopPointer && <ScrollToTop />}
     </Suspense>
   );
 }
