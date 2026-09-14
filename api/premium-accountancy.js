@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { inflateSync } from 'node:zlib';
 import {
   getAuthorization,
   hasProductAccess,
@@ -7,6 +8,7 @@ import {
 } from './_purchase-utils.js';
 
 const PRODUCT_ID = 'gseb-11-accountancy-part1';
+const MASTER_KEY = 'complete-book';
 const ALLOWED_RESOURCES = new Set([
   'chapter-1',
   'chapter-2',
@@ -18,14 +20,8 @@ const ALLOWED_RESOURCES = new Set([
   'chapter-8',
   'chapter-9',
   'chapter-10',
-  'complete-book',
+  MASTER_KEY,
 ]);
-
-function safeFilename(resourceKey) {
-  if (resourceKey === 'complete-book') return 'gseb-class-11-accountancy-part-1-premium-complete-book.pdf';
-  const chapter = resourceKey.replace('chapter-', '');
-  return `gseb-class-11-accountancy-chapter-${chapter}-premium-complete.pdf`;
-}
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'private, no-store, max-age=0');
@@ -54,22 +50,28 @@ export default async function handler(req, res) {
       productId: PRODUCT_ID,
     });
 
-    const rows = await serviceRequest(
-      `/rest/v1/premium_gseb_11_accountancy_notes?resource_key=eq.${encodeURIComponent(resourceKey)}&select=resource_key,title,pages,file_base64,sha256`,
+    const metadataRows = await serviceRequest(
+      `/rest/v1/premium_gseb_11_accountancy_notes?resource_key=eq.${MASTER_KEY}&select=resource_key,title,pages,sha256`,
     );
-    const notes = Array.isArray(rows) ? rows[0] : null;
-    if (!notes) return res.status(404).json({ error: 'This Premium PDF is being synced. Please try again shortly.' });
+    const metadata = Array.isArray(metadataRows) ? metadataRows[0] : null;
+    if (!metadata) return res.status(404).json({ error: 'The Premium book is being synced. Please try again shortly.' });
 
-    const pdf = Buffer.from(notes.file_base64, 'base64');
+    const chunks = await serviceRequest(
+      `/rest/v1/premium_gseb_11_accountancy_chunks?resource_key=eq.${MASTER_KEY}&select=chunk_index,payload&order=chunk_index.asc`,
+    );
+    if (!Array.isArray(chunks) || !chunks.length) return res.status(404).json({ error: 'The Premium book is being synced. Please try again shortly.' });
+
+    const compressed = Buffer.from(chunks.map((item) => item.payload).join(''), 'base64');
+    const pdf = inflateSync(compressed);
     const validHeader = pdf.subarray(0, 5).toString() === '%PDF-';
-    const validHash = createHash('sha256').update(pdf).digest('hex') === notes.sha256;
+    const validHash = createHash('sha256').update(pdf).digest('hex') === metadata.sha256;
     if (!validHeader || !validHash) {
       console.error('premium-accountancy-integrity', resourceKey, validHeader, validHash);
       return res.status(503).json({ error: 'Unable to load this PDF safely. Please try again.' });
     }
 
     res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', `inline; filename="${safeFilename(resourceKey)}"`);
+    res.setHeader('Content-Disposition', 'inline; filename="gseb-class-11-accountancy-part-1-premium-complete-book.pdf"');
     res.setHeader('Content-Length', String(pdf.length));
     return res.status(200).send(pdf);
   } catch (error) {
