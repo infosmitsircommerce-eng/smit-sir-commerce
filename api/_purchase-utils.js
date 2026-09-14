@@ -1,11 +1,18 @@
 import { randomUUID, createHmac, timingSafeEqual } from 'node:crypto';
 import { BOARD_BOOSTER_PRODUCTS } from '../src/data/boardBoosterProducts.js';
+import {
+  PREMIUM_MEGA_INCLUDED_PRODUCT_IDS,
+  PREMIUM_MEGA_PACK,
+} from '../src/data/premiumMegaPack.js';
 
 export const SUPABASE_URL = 'https://abpruwygnsmeqisaehip.supabase.co';
 export const SUPABASE_ANON_KEY = 'sb_publishable_9eybAsihq3-YNL1uGmGo3w_DWheWwRg';
 export const CASHFREE_API_VERSION = '2025-01-01';
 
-const PRODUCTS = new Map(BOARD_BOOSTER_PRODUCTS.map((product) => [product.id, product]));
+const PRODUCTS = new Map(
+  [...BOARD_BOOSTER_PRODUCTS, PREMIUM_MEGA_PACK].map((product) => [product.id, product]),
+);
+const MEGA_INCLUDED_PRODUCTS = new Set(PREMIUM_MEGA_INCLUDED_PRODUCT_IDS);
 
 export function getProduct(productId) {
   return PRODUCTS.get(productId) || null;
@@ -49,7 +56,7 @@ export async function verifyUser(authorization) {
   return user?.id ? user : null;
 }
 
-export async function hasProductAccess(authorization, productId) {
+async function hasDirectProductAccess(authorization, productId) {
   if (!authorization || !productId) return false;
   const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/has_product_entitlement`, {
     method: 'POST',
@@ -62,6 +69,17 @@ export async function hasProductAccess(authorization, productId) {
   });
   if (!response.ok) return false;
   return (await response.json()) === true;
+}
+
+export async function hasProductAccess(authorization, productId) {
+  const direct = await hasDirectProductAccess(authorization, productId);
+  if (direct) return true;
+
+  if (MEGA_INCLUDED_PRODUCTS.has(productId)) {
+    return hasDirectProductAccess(authorization, PREMIUM_MEGA_PACK.id);
+  }
+
+  return false;
 }
 
 export function serviceRoleKey() {
