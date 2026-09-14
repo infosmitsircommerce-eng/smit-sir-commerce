@@ -3,28 +3,55 @@ import SEO from "../components/ui/SEO";
 import MobileLearningHome from "../components/home/MobileLearningHome";
 
 const HomeBelowFold = lazy(() => import("../components/home/HomeBelowFold"));
+const HeroScrollDemo = lazy(() =>
+  import("../components/ui/demo").then((module) => ({ default: module.HeroScrollDemo })),
+);
 
-function DeferredHomeContent() {
+function DeferredSection({ children, minHeight = "240px", rootMargin = "300px" }) {
   const [ready, setReady] = useState(false);
   const anchor = useRef(null);
 
   useEffect(() => {
-    if (!('IntersectionObserver' in window)) { setReady(true); return; }
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { setReady(true); observer.disconnect(); }
-    }, { rootMargin: '300px' });
+    if (!("IntersectionObserver" in window)) {
+      setReady(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setReady(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin },
+    );
+
     if (anchor.current) observer.observe(anchor.current);
     return () => observer.disconnect();
-  }, []);
+  }, [rootMargin]);
 
-  if (!ready) return <div ref={anchor} aria-hidden="true" style={{ minHeight: "240px" }} />;
+  if (!ready) return <div ref={anchor} aria-hidden="true" style={{ minHeight }} />;
+  return children;
+}
 
+function DeferredScrollExperiment() {
   return (
-    <Suspense
-      fallback={<div aria-hidden="true" style={{ minHeight: "240px" }} />}
-    >
-      <HomeBelowFold />
-    </Suspense>
+    <DeferredSection minHeight="320px" rootMargin="500px">
+      <Suspense fallback={<div aria-hidden="true" style={{ minHeight: "320px" }} />}>
+        <HeroScrollDemo />
+      </Suspense>
+    </DeferredSection>
+  );
+}
+
+function DeferredHomeContent() {
+  return (
+    <DeferredSection>
+      <Suspense fallback={<div aria-hidden="true" style={{ minHeight: "240px" }} />}>
+        <HomeBelowFold />
+      </Suspense>
+    </DeferredSection>
   );
 }
 
@@ -86,6 +113,7 @@ export default function Home() {
         structuredData={structuredData}
       />
       <MobileLearningHome />
+      <DeferredScrollExperiment />
       <DeferredHomeContent />
     </>
   );
