@@ -11,7 +11,7 @@ import {
 const BASE = "https://www.smitsircommerce.in";
 const PATH = "/board-booster-packs";
 const TITLE = "Premium Commerce Board Boosters — Preview Before You Buy | Smit Sir Commerce";
-const DESCRIPTION = "Compare Smit Sir Commerce premium packs and free resources by board, class and subject. See exact inclusions, real resource counts, free previews and ₹199 pack pricing.";
+const DESCRIPTION = "Compare Smit Sir Commerce premium packs and free resources by board, class and subject. See exact paid PDF and practice contents, real resource counts, free previews and ₹199 pack pricing.";
 const DIST = new URL("../dist/", import.meta.url).pathname;
 
 function esc(value) {
@@ -33,6 +33,20 @@ function productIncluded(product) {
   return product.included.map((item) => `<li>${esc(item)}</li>`).join("");
 }
 
+function productPremiumItems(product) {
+  if (!product.premiumItems?.length) return "";
+  return `<h4>Inside this ₹${esc(product.price)} pack</h4><ul>${product.premiumItems
+    .map((item) => `<li><strong>${esc(item.title)}</strong>${item.meta ? ` — ${esc(item.meta)}` : ""}</li>`)
+    .join("")}</ul>`;
+}
+
+function productPremiumPractice(product) {
+  if (!product.premiumPractice?.length) return "";
+  return `<h4>Premium practice also included</h4><ul>${product.premiumPractice
+    .map((item) => `<li>${esc(item)}</li>`)
+    .join("")}</ul>`;
+}
+
 function renderProducts() {
   return BOARD_BOOSTER_PRODUCTS.map((product) => `
     <article data-product-id="${esc(product.id)}">
@@ -41,9 +55,11 @@ function renderProducts() {
       <p>${esc(product.focus)}</p>
       <h4>Real inventory</h4>
       <ul>${productInventory(product)}</ul>
-      <h4>Included</h4>
+      ${productPremiumItems(product)}
+      ${productPremiumPractice(product)}
+      <h4>Pack benefits and access</h4>
       <ul>${productIncluded(product)}</ul>
-      <p><a href="${esc(product.previewPath)}">View free preview</a>${product.diagnosticPath ? ` · <a href="${esc(product.diagnosticPath)}">Take free diagnostic</a>` : ""}</p>
+      <p><a href="${esc(product.previewPath)}">Preview free material</a>${product.diagnosticPath ? ` · <a href="${esc(product.diagnosticPath)}">Take free diagnostic</a>` : ""}</p>
     </article>`).join("");
 }
 
@@ -57,9 +73,9 @@ function staticBody() {
     <article>
       <p><strong>Smit Sir Commerce Study Store · preview before you buy</strong></p>
       <h1>Premium Commerce Board Boosters</h1>
-      <p>Free notes stay free. Premium packs add deeper explanations, harder practice and focused revision. Every paid pack below has a defined board, class, subject, ₹199 one-time pack price, real inventory and a free preview route.</p>
+      <p>Free notes stay free. Premium packs add deeper explanations, harder practice and focused revision. Every paid pack below has a defined board, class, subject, ₹199 one-time pack price, exact paid-resource list and a free preview route.</p>
       <h2>How the catalogue works</h2>
-      <ol><li>Choose your board.</li><li>Choose Class 11 or 12.</li><li>Choose the subject pack.</li><li>Preview free material before deciding.</li><li>Reserve now while Cashfree activation is pending; no money is collected by the reservation form.</li></ol>
+      <ol><li>Choose your board.</li><li>Choose Class 11 or 12.</li><li>Choose the subject pack.</li><li>See the exact paid PDFs, deep-dives and practice included.</li><li>Preview free material before deciding.</li><li>Reserve now while Cashfree activation is pending; no money is collected by the reservation form.</li></ol>
       <h2>Premium packs currently mapped</h2>
       ${renderProducts()}
       <h2>What remains free</h2>
