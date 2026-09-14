@@ -64,7 +64,8 @@ export default defineConfig({
         skipWaiting: true,
         clientsClaim: true,
         // Only the student app shell uses SPA navigation. Everything else —
-        // especially the many prerendered chapter pages — stays a real document.
+        // especially the many prerendered chapter and local SEO pages — stays
+        // network-first as a real document and cannot fall back to an old app shell.
         navigateFallbackAllowlist: [
           /^\/$/,
           /^\/(?:study-material|quizzes|test-series|study-coach|study-tools|learning-insights|login|onboarding|dashboard|lectures|concept-lab|flashcards|daily-practice|exam-mode|my-data|ask)(?:\/|$)/,
@@ -74,11 +75,17 @@ export default defineConfig({
         globPatterns: ['index.html', 'assets/index-*.{js,css}'],
         runtimeCaching: [
           {
-            urlPattern: ({ request }) => request.mode === 'navigate',
+            // Cache navigations only for the routes that intentionally use the SPA shell.
+            // Do not cache local/SEO landing documents such as /commerce-coaching-mehsana.
+            urlPattern: ({ request, url }) =>
+              request.mode === 'navigate' &&
+              (url.pathname === '/' ||
+                /^\/(?:study-material|quizzes|test-series|study-coach|study-tools|learning-insights|login|onboarding|dashboard|lectures|concept-lab|flashcards|daily-practice|exam-mode|my-data|ask)(?:\/|$)/.test(url.pathname)),
             handler: 'NetworkFirst',
             options: {
-              cacheName: 'ssc-navigation-fresh-v3',
-              networkTimeoutSeconds: 2,
+              cacheName: 'ssc-navigation-fresh-v4',
+              // Wait for the live document while online. Cached HTML is now an offline fallback,
+              // not a two-second timeout fallback that can point at deleted hashed chunks.
               expiration: { maxEntries: 20, maxAgeSeconds: 60 * 5 },
               cacheableResponse: { statuses: [200] },
             },
