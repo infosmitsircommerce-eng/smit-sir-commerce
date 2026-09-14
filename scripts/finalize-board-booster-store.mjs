@@ -164,8 +164,10 @@ function patchPage(html) {
 
   const pageSchema = JSON.stringify(schema()).replaceAll("<", "\\u003c");
   next = next.replace(
-    /<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?board-booster-packs#webpage[\s\S]*?)<\/script>/i,
-    `<script type="application/ld+json">${pageSchema}</script>`,
+    /<script\b[^>]*type=["']application\/ld\+json["'][^>]*>[\s\S]*?<\/script>/gi,
+    (match) => match.includes("board-booster-packs#webpage")
+      ? `<script type="application/ld+json">${pageSchema}</script>`
+      : match,
   );
 
   const body = staticBody();
