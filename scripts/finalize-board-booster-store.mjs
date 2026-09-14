@@ -59,7 +59,7 @@ function renderProducts() {
       ${productPremiumPractice(product)}
       <h4>Pack benefits and access</h4>
       <ul>${productIncluded(product)}</ul>
-      <p><a href="${esc(product.previewPath)}">Preview free material</a>${product.diagnosticPath ? ` · <a href="${esc(product.diagnosticPath)}">Take free diagnostic</a>` : ""}</p>
+      <p><a href="${esc(product.previewPath)}">Preview free material</a>${product.diagnosticPath ? ` · <a href="${esc(product.diagnosticPath)}">Take free diagnostic</a>` : ""} · <a href="${PATH}?pack=${esc(product.id)}">Open ₹${esc(product.price)} pack page</a></p>
     </article>`).join("");
 }
 
@@ -75,15 +75,16 @@ function staticBody() {
       <h1>Premium Commerce Board Boosters</h1>
       <p>Free notes stay free. Premium packs add deeper explanations, harder practice and focused revision. Every paid pack below has a defined board, class, subject, ₹199 one-time pack price, exact paid-resource list and a free preview route.</p>
       <h2>How the catalogue works</h2>
-      <ol><li>Choose your board.</li><li>Choose Class 11 or 12.</li><li>Choose the subject pack.</li><li>See the exact paid PDFs, deep-dives and practice included.</li><li>Preview free material before deciding.</li><li>Reserve now while Cashfree activation is pending; no money is collected by the reservation form.</li></ol>
+      <ol><li>Choose your board.</li><li>Choose Class 11 or 12.</li><li>Choose the subject pack.</li><li>See the exact paid PDFs, deep-dives and practice included.</li><li>Preview free material before deciding.</li><li>Sign in so any future payment unlocks the correct student account.</li><li>Secure Cashfree checkout opens only when approved gateway credentials are active; until then the site cannot collect payment.</li><li>After a verified payment, only the purchased product is unlocked and appears in My Purchases.</li></ol>
       <h2>Premium packs currently mapped</h2>
       ${renderProducts()}
       <h2>What remains free</h2>
       <ul>${renderFreeCollections()}</ul>
       <p>Published chapter notes, selected PDFs, Easy and Moderate quiz levels where available, free previews and public diagnostic tools remain free. Premium is limited to the specifically listed deep-dives, revision guides, harder practice and pack-specific additions.</p>
-      <p><strong>Payment status:</strong> secure Cashfree checkout is being activated. The current reservation form does not collect payment and does not unlock content.</p>
+      <p><strong>Payment status:</strong> the purchase architecture and pack-specific access system are wired. Cashfree checkout remains fail-closed until approved credentials are configured, so no incomplete checkout can take money. Successful orders are verified server-side before access is granted.</p>
+      <p><a href="/my-purchases.html">Open My Purchases</a> to see unlocked packs and payment history.</p>
       ${renderBoardBoosterPreviews(BOARD_BOOSTER_PRODUCTS)}
-      <p><a href="/study-material">Browse free study material</a> · <a href="/quizzes">Try free quizzes</a> · <a href="/board-exam-diagnostic">Take a free diagnostic</a></p>
+      <p><a href="/study-material">Browse free study material</a> · <a href="/quizzes">Try free quizzes</a> · <a href="/board-exam-diagnostic">Take a free diagnostic</a> · <a href="/my-purchases.html">My Purchases</a></p>
     </article>
   </main>`;
 }
@@ -152,10 +153,10 @@ function schema() {
           },
           {
             "@type": "Question",
-            name: "Does the ₹199 reservation form charge me?",
+            name: "How is a ₹199 pack unlocked?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "No. Cashfree payment-gateway activation is pending. The current reservation form records interest only and does not collect money.",
+              text: "The student signs in, completes secure Cashfree checkout when the approved gateway is active, and the server verifies the successful order before granting access to that specific purchased pack. Until gateway credentials are active, the site does not collect payment.",
             },
           },
         ],
