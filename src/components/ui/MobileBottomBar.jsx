@@ -1,23 +1,21 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Home, BookOpen, Download, ListChecks, UserRound } from "lucide-react";
+import { Home, BookOpen, CircleHelp, ListChecks, UserRound } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 
 const BASE_TABS = [
   { path: "/", icon: Home, label: "Home" },
   { path: "/study-material", icon: BookOpen, label: "Notes" },
+  { path: "/quizzes", icon: CircleHelp, label: "Quizzes" },
   { path: "/test-series", icon: ListChecks, label: "Tests" },
-  { path: "/study-material?view=downloads", icon: Download, label: "Downloads" },
 ];
 
 export default function MobileBottomBar() {
-  const { pathname, search } = useLocation();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   const { user } = useAuth();
   const tabs = [...BASE_TABS, { path: user ? "/learning-insights" : "/login", icon: UserRound, label: "Profile" }];
   const isActive = (tab) => {
-    const downloads = new URLSearchParams(search).get('view') === 'downloads';
-    if (tab.label === "Downloads") return pathname === "/study-material" && downloads;
-    if (tab.label === "Notes") return pathname === "/study-material" && !downloads;
+    if (tab.label === "Notes") return pathname === "/study-material";
     return tab.path === "/" ? pathname === "/" : pathname.startsWith(tab.path);
   };
 

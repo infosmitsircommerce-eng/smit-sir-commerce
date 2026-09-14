@@ -11,48 +11,13 @@ import {
 
 const quickLinks = [
   { label: "Home", path: "/" },
-  { label: "Commerce Learning Hub", path: "/commerce-learning" },
-  { label: "B.Com & M.Com", path: "/college-commerce" },
-  { label: "UGC NET Commerce", path: "/ugc-net-commerce" },
-  { label: "GSET Commerce", path: "/gset-commerce" },
-  { label: "Free Commerce Study Pack", path: "/free-commerce-study-pack" },
-  { label: "Free Board Exam Diagnostic", path: "/board-exam-diagnostic" },
-  { label: "₹199 Board Booster Packs", path: "/board-booster-packs" },
-  { label: "Free Commerce Calculators", path: "/tools" },
-  { label: "Commerce Tuition Mehsana", path: "/commerce-coaching-mehsana" },
-  {
-    label: "Class 11 Commerce Mehsana",
-    path: "/class-11-commerce-tuition-mehsana",
-  },
-  {
-    label: "Class 12 Commerce Mehsana",
-    path: "/class-12-commerce-tuition-mehsana",
-  },
-  { label: "Free Paper Analysis", path: "/book-demo" },
   { label: "Study Material", path: "/study-material" },
-  { label: "Teacher Guides", path: "/teacher-guides" },
-  { label: "Services for Teachers", path: "/services-for-teachers" },
+  { label: "Quizzes", path: "/quizzes" },
   { label: "Test Series", path: "/test-series" },
+  { label: "Premium", path: "/premium" },
+  { label: "Study Tools", path: "/tools" },
+  { label: "Board Boosters", path: "/board-booster-packs" },
   { label: "Contact", path: "/contact" },
-];
-
-const classLinks = [
-  "Economics",
-  "Business Studies",
-  "Entrepreneurship",
-  "Physical Education",
-];
-
-const localSubjectLinks = [
-  { label: "Economics Tuition in Mehsana", path: "/economics-tuition-mehsana" },
-  {
-    label: "GSEB Economics Tuition in Mehsana",
-    path: "/gseb-economics-tuition-mehsana",
-  },
-  {
-    label: "Business Studies Tuition in Mehsana",
-    path: "/business-studies-tuition-mehsana",
-  },
 ];
 
 const legalLinks = [
@@ -112,7 +77,7 @@ export default function Footer() {
       />
 
       <div className="page-container py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           <div>
             <Link to="/" className="flex items-center gap-3 mb-5">
               <div
@@ -169,67 +134,6 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
-
-          <div>
-            <h4 className="mb-5" style={headingStyle}>
-              Commerce Pathways
-            </h4>
-            <div className="space-y-4">
-              <div>
-                <div
-                  className="text-xs font-semibold uppercase tracking-wider mb-2"
-                  style={{ color: "var(--gold-bright)" }}
-                >
-                  Local subject pages
-                </div>
-                <ul className="space-y-1">
-                  {localSubjectLinks.map((s) => (
-                    <li key={s.path}>
-                      <FooterLink to={s.path}>{s.label}</FooterLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <div
-                  className="text-xs font-semibold uppercase tracking-wider mb-2"
-                  style={{ color: "var(--gold-bright)" }}
-                >
-                  Class 11 &amp; 12
-                </div>
-                <ul className="space-y-1">
-                  {classLinks.map((s) => (
-                    <li key={s}>
-                      <FooterLink to="/courses">{s}</FooterLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <div
-                  className="text-xs font-semibold uppercase tracking-wider mb-2"
-                  style={{ color: "var(--gold-bright)" }}
-                >
-                  College & competitive exams
-                </div>
-                <ul className="space-y-1">
-                  <li>
-                    <FooterLink to="/college-commerce">
-                      B.Com &amp; M.Com
-                    </FooterLink>
-                  </li>
-                  <li>
-                    <FooterLink to="/ugc-net-commerce">
-                      UGC NET Commerce
-                    </FooterLink>
-                  </li>
-                  <li>
-                    <FooterLink to="/gset-commerce">GSET Commerce</FooterLink>
-                  </li>
-                </ul>
-              </div>
-            </div>
           </div>
 
           <div>
