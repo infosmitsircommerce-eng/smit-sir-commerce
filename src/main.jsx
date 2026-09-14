@@ -12,7 +12,7 @@ import { installDownloadTracking } from './lib/conversionTracking';
 
 installDownloadTracking();
 
-const CACHE_RESET_KEY = 'ssc-cache-reset-2026-09-14-v12-smooth-shell';
+const PWA_RETIRE_KEY = 'ssc-pwa-retired-2026-09-14-v1';
 
 function clearInlineScrollLocks() {
   if (typeof document === 'undefined') return;
@@ -26,11 +26,17 @@ function clearInlineScrollLocks() {
   });
 }
 
-async function clearOldAppCaches() {
-  if (typeof window === 'undefined' || !('localStorage' in window)) return;
-  if (window.localStorage.getItem(CACHE_RESET_KEY) === 'done') return;
+async function retireLegacyPwa() {
+  if (typeof window === 'undefined') return false;
+  const alreadyRetired = window.localStorage?.getItem(PWA_RETIRE_KEY) === 'done';
+  const hadController = Boolean(navigator.serviceWorker?.controller);
 
   try {
+    if ('serviceWorker' in navigator) {
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(registrations.map((registration) => registration.unregister().catch(() => false)));
+    }
+
     if ('caches' in window) {
       const names = await window.caches.keys();
       await Promise.all(
@@ -40,24 +46,69 @@ async function clearOldAppCaches() {
       );
     }
 
-    if ('serviceWorker' in navigator) {
-      const registrations = await navigator.serviceWorker.getRegistrations();
-      await Promise.all(registrations.map((registration) => registration.update().catch(() => null)));
-    }
-
-    window.localStorage.setItem(CACHE_RESET_KEY, 'done');
+    window.localStorage?.setItem(PWA_RETIRE_KEY, 'done');
   } catch {
-    // Cache cleanup is only a freshness helper. The app must still render normally.
+    // A cleanup failure must never stop the website from loading.
+  }
+
+  // A page already controlled by an old worker keeps that controller until the
+  // next navigation. Reload exactly once so future asset requests go directly
+  // to the live Vercel deployment instead of a stale service-worker shell.
+  if (hadController && !alreadyRetired) {
+    window.location.replace(window.location.href);
+    return true;
+  }
+
+  return false;
+}
+
+function currentRouteWarmup() {
+  const path = window.location.pathname.replace(/\/$/, '') || '/';
+
+  if (path === '/study-material') return () => import('./pages/StudyMaterial');
+  if (path === '/cbse-notes') return () => import('./pages/CbseNotes');
+  if (path === '/commerce-coaching-mehsana') return () => import('./pages/CommerceCoachingMehsana');
+
+  const cbseParts = path.split('/').filter(Boolean);
+  if (cbseParts[0] === 'cbse' && cbseParts.length === 3) {
+    return () => import('./pages/SeoMaterialHub');
+  }
+  if (cbseParts[0] === 'cbse' && cbseParts.length === 4) {
+    return () => import('./pages/SeoMaterialChapter');
+  }
+
+  return null;
+}
+
+async function warmCurrentPublicRoute() {
+  const rootNode = document.getElementById('root');
+  const hasPrerenderedContent = Boolean(rootNode?.querySelector('[data-prerendered]'));
+  const warmup = currentRouteWarmup();
+
+  if (!hasPrerenderedContent || !warmup) return true;
+
+  // The prerendered page is real readable content. Show it immediately while
+  // the interactive route chunk loads instead of replacing it with a spinner.
+  document.getElementById('app-startup-mask')?.remove();
+  clearInlineScrollLocks();
+
+  try {
+    await warmup();
+    return true;
+  } catch (error) {
+    // If a route chunk cannot load on a weak connection, keeping the static
+    // study page visible is a better visitor experience than crashing/spinning.
+    console.error('Interactive route warmup failed; preserving static content', error);
+    return false;
   }
 }
 
-clearInlineScrollLocks();
-clearOldAppCaches().finally(clearInlineScrollLocks);
-window.addEventListener('pageshow', clearInlineScrollLocks);
-
 // Keep the mobile startup path lean. AOS is decorative, so load it only on
 // larger screens and only after the first render has had time to settle.
-if (window.matchMedia('(min-width: 769px)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+function scheduleDesktopAnimations() {
+  if (!window.matchMedia('(min-width: 769px)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
   const loadAos = async () => {
     try {
       const [{ default: AOS }] = await Promise.all([
@@ -69,27 +120,41 @@ if (window.matchMedia('(min-width: 769px)').matches && !window.matchMedia('(pref
       // Decorative animation failure must never block the learning experience.
     }
   };
-  if ('requestIdleCallback' in window) window.requestIdleCallback(loadAos, { timeout: 1600 });
-  else window.setTimeout(loadAos, 700);
+
+  if ('requestIdleCallback' in window) window.requestIdleCallback(loadAos, { timeout: 2500 });
+  else window.setTimeout(loadAos, 1400);
 }
 
-const root = createRoot(document.getElementById('root'));
-root.render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-);
+async function startApp() {
+  clearInlineScrollLocks();
+  const reloadingAfterPwaRetirement = await retireLegacyPwa();
+  if (reloadingAfterPwaRetirement) return;
 
-// Keep the neutral startup layer in place until React and the critical CSS
-// have painted. This prevents the prerendered SEO HTML from flashing as raw text.
-window.requestAnimationFrame(() => {
+  const shouldMountInteractiveApp = await warmCurrentPublicRoute();
+  if (!shouldMountInteractiveApp) return;
+
+  const root = createRoot(document.getElementById('root'));
+  root.render(
+    <StrictMode>
+      <App />
+    </StrictMode>,
+  );
+
+  // Keep the neutral startup layer only until React and critical CSS paint.
   window.requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => {
+      document.getElementById('app-startup-mask')?.remove();
+      clearInlineScrollLocks();
+    });
+  });
+
+  window.setTimeout(() => {
     document.getElementById('app-startup-mask')?.remove();
     clearInlineScrollLocks();
-  });
-});
+  }, 1200);
 
-window.setTimeout(() => {
-  document.getElementById('app-startup-mask')?.remove();
-  clearInlineScrollLocks();
-}, 1800);
+  scheduleDesktopAnimations();
+}
+
+window.addEventListener('pageshow', clearInlineScrollLocks);
+startApp();
