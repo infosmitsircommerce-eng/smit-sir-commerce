@@ -62,6 +62,7 @@ export default function StudyAccessFinder({ defaultKind = 'Notes', inlineTests =
     void trackEvent(saved.some(item => item.id === chosen.id) ? 'resource_unsave' : 'resource_save', { resourceId: chosen.id, resourceType: chosen.kind, board: chosen.board, classLevel: chosen.classLevel, subject: chosen.subject });
   }
   const isSaved = chosen && saved.some(item => item.id === chosen.id);
+  const premiumChosen = Boolean(chosen?.path?.startsWith('/premium'));
   return <section className="ssc-study-access" aria-label={pdfOnly ? 'Find downloadable PDFs' : 'Find notes and tests'}>
     <header className="ssc-study-heading">
       <span className="ssc-study-kicker"><span /> YOUR STUDY DESK</span>
@@ -78,7 +79,7 @@ export default function StudyAccessFinder({ defaultKind = 'Notes', inlineTests =
     <label className="ssc-study-field" htmlFor={`${id}-chapter`}><span className="ssc-study-label-row">Chapter <span>{items.length} available</span></span><select id={`${id}-chapter`} aria-label="Chapter" className="ssc-study-control" value={chosen?.id || ''} disabled={!items.length} onChange={event => setChosenId(event.target.value)}>{items.length ? items.map(item => <option key={item.id} value={item.id}>{item.title}</option>) : <option value="">No matching chapters</option>}</select></label>
     {!chosen && <p role="status" className="ssc-study-empty">{subjects.length ? 'No matching chapter. Try a shorter search or clear the search box.' : 'No published content for this selection. Choose another class, board or resource type.'}</p>}
     {chosen && <div className="ssc-study-selected">
-      <div className="ssc-study-selection"><span>{pdfOnly ? 'PDF READY' : chosen.kind === 'Tests' ? 'CHOOSE YOUR LEVEL' : 'READY TO READ'}</span><button type="button" className="ssc-study-save" onClick={save} aria-pressed={Boolean(isSaved)} aria-label={isSaved ? 'Saved for revision' : 'Save for revision'}>{isSaved ? <BookmarkCheck size={17} /> : <Bookmark size={17} />} {isSaved ? 'Saved' : 'Save'}</button></div>
+      <div className="ssc-study-selection"><span className={premiumChosen ? 'ssc-access-premium' : 'ssc-access-free'}>{premiumChosen ? 'PREMIUM' : pdfOnly ? 'FREE PDF READY' : chosen.kind === 'Tests' ? 'CHOOSE YOUR LEVEL' : 'FREE · READY TO READ'}</span><button type="button" className="ssc-study-save" onClick={save} aria-pressed={Boolean(isSaved)} aria-label={isSaved ? 'Saved for revision' : 'Save for revision'}>{isSaved ? <BookmarkCheck size={17} /> : <Bookmark size={17} />} {isSaved ? 'Saved' : 'Save'}</button></div>
       <p className="ssc-study-chosen">{chosen.title}</p>
       {pdfOnly ? <div className="ssc-study-actions"><a className="ssc-study-open" href={chosen.pdf} download target="_blank" rel="noopener noreferrer" onClick={() => remember(chosen, 'pdf_download')}>Download PDF<ArrowUpRight size={18} /></a><Link className="ssc-study-pdf" to={chosen.path} onClick={() => remember(chosen, 'chapter_read')}>Read chapter notes<ArrowUpRight size={16} /></Link></div>
         : chosen.kind === 'Tests' && inlineTests ? <Suspense fallback={<p role="status" className="ssc-study-empty">Loading test levels…</p>}><QuizLevels key={chosen.id} pack={chosen.pack} appearance="study" onAttempt={() => remember(chosen, 'test_start')} /></Suspense>
