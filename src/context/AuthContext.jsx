@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { PREMIUM_MEGA_PACK_ID } from '../data/premiumMegaPack';
 
 const AuthContext = createContext({});
 let supabasePromise;
@@ -14,9 +15,35 @@ function shouldLoadAuthImmediately() {
   return /^\/(login|onboarding|premium|dashboard|admin(?:\/|$)|admin-studio|learning-insights|my-data|my-purchases|purchase-status)/.test(window.location.pathname);
 }
 
+function entitlementIsActive(row) {
+  if (!row) return false;
+  if (!row.expires_at) return true;
+  const expires = new Date(row.expires_at).getTime();
+  return !Number.isNaN(expires) && expires > Date.now();
+}
+
+async function loadAccountState(supabase, userId) {
+  const [profileResult, megaResult] = await Promise.all([
+    supabase.from('profiles').select('*').eq('id', userId).single(),
+    supabase
+      .from('product_entitlements')
+      .select('product_id,granted_at,expires_at,revoked_at')
+      .eq('user_id', userId)
+      .eq('product_id', PREMIUM_MEGA_PACK_ID)
+      .is('revoked_at', null)
+      .order('granted_at', { ascending: false })
+      .limit(1),
+  ]);
+
+  const nextProfile = profileResult.data ?? null;
+  const megaRow = Array.isArray(megaResult.data) ? megaResult.data[0] : null;
+  return { nextProfile, hasMegaPremium: entitlementIsActive(megaRow) };
+}
+
 export function AuthProvider({ children }) {
-  const [user, setUser]       = useState(null);
+  const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
+  const [hasMegaPremium, setHasMegaPremium] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -35,7 +62,10 @@ export function AuthProvider({ children }) {
 
         setUser(session?.user ?? null);
         if (session?.user) await fetchProfile(session.user.id);
-        else setLoading(false);
+        else {
+          setHasMegaPremium(false);
+          setLoading(false);
+        }
 
         const { data } = supabase.auth.onAuthStateChange((_event, nextSession) => {
           if (cancelled) return;
@@ -43,6 +73,7 @@ export function AuthProvider({ children }) {
           if (nextSession?.user) fetchProfile(nextSession.user.id);
           else {
             setProfile(null);
+            setHasMegaPremium(false);
             setLoading(false);
           }
         });
@@ -71,14 +102,14 @@ export function AuthProvider({ children }) {
   async function fetchProfile(userId) {
     try {
       const supabase = await getSupabase();
-      const { data } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
-        .single();
-      setProfile(data ?? null);
+      const state = await loadAccountState(supabase, userId);
+      setProfile(state.nextProfile);
+      setHasMegaPremium(state.hasMegaPremium);
+      return state.nextProfile;
     } catch {
       setProfile(null);
+      setHasMegaPremium(false);
+      return null;
     } finally {
       setLoading(false);
     }
@@ -103,17 +134,19 @@ export function AuthProvider({ children }) {
     const supabase = await getSupabase();
     const result = await supabase.auth.signInWithPassword({ email, password });
     if (!result.error && result.data?.user) {
-      const { data: nextProfile } = await supabase.from('profiles').select('*').eq('id', result.data.user.id).single();
+      const state = await loadAccountState(supabase, result.data.user.id);
       setUser(result.data.user);
-      setProfile(nextProfile ?? null);
+      setProfile(state.nextProfile);
+      setHasMegaPremium(state.hasMegaPremium);
       setLoading(false);
-      return { ...result, profile: nextProfile ?? null };
+      return { ...result, profile: state.nextProfile };
     }
     return result;
   }
 
   async function signOut() {
     const supabase = await getSupabase();
+    setHasMegaPremium(false);
     return supabase.auth.signOut();
   }
 
@@ -127,7 +160,8 @@ export function AuthProvider({ children }) {
   const premiumUntil = profile?.premium_until ? new Date(profile.premium_until) : null;
   const premiumHasTime = premiumUntil && !Number.isNaN(premiumUntil.getTime());
   const premiumExpired = profile?.is_premium === true && premiumHasTime && premiumUntil.getTime() <= Date.now();
-  const isPremium = profile?.is_premium === true && !premiumExpired;
+  const legacyPremium = profile?.is_premium === true && !premiumExpired;
+  const isPremium = legacyPremium || hasMegaPremium;
   const isAdmin = profile?.is_admin === true || profile?.role === 'admin';
   const displayName = profile?.full_name ?? user?.user_metadata?.full_name ?? user?.email?.split('@')[0] ?? 'Student';
   const initials = displayName.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
@@ -135,7 +169,7 @@ export function AuthProvider({ children }) {
   return (
     <AuthContext.Provider value={{
       user, profile, loading,
-      isPremium, premiumUntil, premiumExpired,
+      isPremium, legacyPremium, hasMegaPremium, premiumUntil, premiumExpired,
       isAdmin, displayName, initials,
       signIn, signUp, signOut, resetPassword, fetchProfile,
     }}>
