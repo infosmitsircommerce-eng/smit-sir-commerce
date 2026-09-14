@@ -1,6 +1,9 @@
 User-agent: *
 Allow: /
 Allow: /materials/
+Allow: /downloads/
+Allow: /free-pdf-library.html
+Allow: /pdf-sitemap.xml
 Allow: /llms.txt
 Allow: /ai-discovery.html
 Allow: /ai-summary.json
@@ -13,5 +16,7 @@ Disallow: /my-data
 Disallow: /api/
 
 Sitemap: https://www.smitsircommerce.in/sitemap.xml
+Sitemap: https://www.smitsircommerce.in/pdf-sitemap.xml
+# Direct PDF sitemap includes only Smit Sir Commerce original/free study material.
 # AI/GEO discovery: https://www.smitsircommerce.in/llms.txt
 # AI summary JSON: https://www.smitsircommerce.in/ai-summary.json
