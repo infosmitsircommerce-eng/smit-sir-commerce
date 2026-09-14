@@ -4,22 +4,28 @@ import {
   ArrowRight,
   BarChart3,
   BookOpen,
+  BookOpenCheck,
+  CheckCircle2,
+  Crown,
   FileQuestion,
   FileText,
   FlaskConical,
   GraduationCap,
+  Moon,
   Search,
   SlidersHorizontal,
   CalendarDays,
   ChevronRight,
+  Sun,
   Wrench,
   Rocket,
+  TrendingUp,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
-import teacherPhoto from "../../assets/teacher-photo-opt.jpg";
 import MobileStudySetup from "./MobileStudySetup";
 import { readStudentPreferences, studyPath } from "../../lib/studentPreferences";
 import { trackEvent } from "../../lib/analytics";
+import "../../styles/homeHero.css";
 
 const QUICK_ACTIONS = [
   { label: "Study Notes", icon: FileText, to: "/study-material", tone: "gold" },
@@ -44,6 +50,14 @@ function readContinueLearning() {
     ...readArray("ssc-chapter-progress-v1"),
   ].filter(item => typeof item?.title === "string" && typeof item?.path === "string" && /^\/(?!\/)/.test(item.path));
   return candidates.toSorted((a, b) => new Date(b.viewedAt || b.updatedAt || 0) - new Date(a.viewedAt || a.updatedAt || 0))[0] || null;
+}
+
+function initialHomeTheme() {
+  try {
+    const saved = localStorage.getItem("ssc-home-theme");
+    if (saved === "dark" || saved === "light") return saved;
+  } catch { /* ignore */ }
+  return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
 const CLASSES = [
@@ -84,6 +98,8 @@ export default function MobileLearningHome() {
   const [search, setSearch] = useState("");
   const [recent, setRecent] = useState(readContinueLearning);
   const [preferences, setPreferences] = useState(() => readStudentPreferences(profile));
+  const [homeTheme, setHomeTheme] = useState(initialHomeTheme);
+
   useEffect(() => {
     const refresh = () => setRecent(readContinueLearning());
     window.addEventListener("storage", refresh);
@@ -93,12 +109,25 @@ export default function MobileLearningHome() {
       window.removeEventListener("ssc-study-state-changed", refresh);
     };
   }, []);
+
   useEffect(() => {
     const refresh = (event) => setPreferences(event?.detail || readStudentPreferences(profile));
     refresh();
     window.addEventListener("ssc-student-preferences-changed", refresh);
     return () => window.removeEventListener("ssc-student-preferences-changed", refresh);
   }, [profile]);
+
+  useEffect(() => {
+    try { localStorage.setItem("ssc-home-theme", homeTheme); } catch { /* ignore */ }
+    document.documentElement.dataset.sscHomeTheme = homeTheme;
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+    themeMeta?.setAttribute("content", homeTheme === "dark" ? "#0d1421" : "#FAF6EE");
+    return () => {
+      delete document.documentElement.dataset.sscHomeTheme;
+      themeMeta?.setAttribute("content", "#FAF6EE");
+    };
+  }, [homeTheme]);
+
   const firstName = user ? displayName.trim().split(/\s+/)[0] : "Learner";
   const hour = new Date().getHours();
   const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
@@ -122,67 +151,122 @@ export default function MobileLearningHome() {
     return studyPath(to, preferences);
   };
 
+  const toggleTheme = () => setHomeTheme((current) => current === "dark" ? "light" : "dark");
+
   return (
-    <section className="mobile-learning-home" aria-label="Student learning dashboard">
+    <section className="mobile-learning-home" data-home-theme={homeTheme} aria-label="Student learning dashboard">
       <div className="mobile-learning-shell">
-        <div className="learning-home-topline">
-          <div className="mobile-welcome-row">
-            <div>
-              <small>{greeting} 👋</small>
-              <h1 className="mobile-welcome-kicker">{user ? `${firstName}, let’s learn.` : "Commerce Learner!"}</h1>
-              <p className="mobile-welcome-subtitle">Small steps make big careers.</p>
-            </div>
-            <div className="mobile-welcome-actions">
-              <AppLink to={user ? "/learning-insights" : "/login"} className="mobile-profile-button" aria-label={user ? "Open profile" : "Log in"}>
-                {user ? initials : "SS"}
+        <article className="ssc-home-hero" aria-labelledby="ssc-home-hero-title">
+          <div className="ssc-home-hero-copy">
+            <p className="ssc-home-eyebrow">Class 11 & 12 · CBSE + GSEB</p>
+            <h1 id="ssc-home-hero-title">Master Commerce <span>with clarity.</span></h1>
+            <p>Free notes, quizzes and exam-focused practice — organised so you always know what to study next.</p>
+
+            <div className="ssc-home-hero-actions">
+              <AppLink to={studyPath('/study-material', preferences)} className="ssc-home-primary">
+                Start Free <ArrowRight aria-hidden="true" />
               </AppLink>
+              <AppLink to="/cbse-notes" className="ssc-home-secondary">
+                Explore Notes <BookOpen aria-hidden="true" />
+              </AppLink>
+            </div>
+
+            <div className="ssc-home-proof" aria-label="Study platform highlights">
+              <span><CheckCircle2 aria-hidden="true" /> Free study material</span>
+              <span><CheckCircle2 aria-hidden="true" /> Chapter practice</span>
+              <span><CheckCircle2 aria-hidden="true" /> Board preparation</span>
             </div>
           </div>
-          <MobileStudySetup profile={profile} onSaved={setPreferences} />
-        </div>
 
-        <form className="mobile-study-search" onSubmit={submitSearch} role="search">
-          <Search aria-hidden="true" />
-          <label className="sr-only" htmlFor="mobile-home-search">Search study notes and chapters</label>
-          <input
-            id="mobile-home-search"
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-            placeholder="Search a chapter or topic…"
-            enterKeyHint="search"
-          />
-          <button type="submit" aria-label="Search chapters"><SlidersHorizontal aria-hidden="true" /></button>
-        </form>
-
-        <div className="learning-home-primary-grid">
-          <article className="mobile-focus-banner">
-            <div className="mobile-focus-copy">
-              <span>Your personal study desk</span>
-              <h2>Master Commerce<br /><em>Your Way.</em></h2>
-              <p>Notes · Quizzes · Test Series<br />All in one place</p>
-              <AppLink to={studyPath('/study-material', preferences)}>
-                Start learning <ArrowRight aria-hidden="true" />
-              </AppLink>
+          <div className="ssc-home-visual" aria-label="Smit Sir Commerce study dashboard preview">
+            <div className="ssc-home-visual-head">
+              <div className="ssc-home-visual-brand">
+                <span><GraduationCap aria-hidden="true" /></span>
+                <div><strong>Your Commerce Desk</strong><small>Learn · Practice · Improve</small></div>
+              </div>
+              <button type="button" className="ssc-home-theme-toggle" onClick={toggleTheme} aria-label={`Switch to ${homeTheme === "dark" ? "light" : "dark"} mode`}>
+                {homeTheme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
+                <span>{homeTheme === "dark" ? "Light" : "Dark"}</span>
+              </button>
             </div>
-            <div className="mobile-teacher-visual">
-              <img src={teacherPhoto} alt="Smit Thaker, Commerce teacher" width="594" height="700" loading="eager" fetchPriority="high" decoding="async" />
-              <span>Learn • Practice • Grow</span>
-            </div>
-          </article>
 
-          <section className="learning-home-actions-panel" aria-labelledby="learning-actions-title">
-            <div className="mobile-section-heading mobile-shortcuts-heading"><h2 id="learning-actions-title">What will you learn today?</h2><button type="button" className="mobile-chapter-finder-trigger" onClick={() => window.dispatchEvent(new CustomEvent("ssc-open-resource-finder"))}>Find a chapter <ChevronRight aria-hidden="true" /></button></div>
-            <div className="mobile-action-grid" aria-label="Quick actions">
-              {QUICK_ACTIONS.map(({ label, icon: Icon, to, tone, status }) => (
-                <AppLink key={label} to={personalizedTo(to)} data-tone={tone} className={`mobile-action-card mobile-action-${tone}`} onClick={() => void trackEvent('mobile_quick_action_click', { action: label, board: preferences?.board, classLevel: Number(preferences?.classLevel), subject: preferences?.subject })}>
-                  <span><Icon aria-hidden="true" /></span>
-                  <strong>{label.split("\n").map((line) => <span key={line}>{line}</span>)}</strong>
-                  {status && <small className="mobile-action-status">{status}</small>}
+            <div className="ssc-home-visual-grid">
+              <div className="ssc-home-study-card" data-kind="notes">
+                <span><BookOpenCheck aria-hidden="true" /></span>
+                <small>Study</small>
+                <strong>Chapter-wise Notes</strong>
+                <p>Open the exact topic you need.</p>
+              </div>
+              <div className="ssc-home-study-card" data-kind="quiz">
+                <span><FileQuestion aria-hidden="true" /></span>
+                <small>Practice</small>
+                <strong>Quizzes & Tests</strong>
+                <p>Check understanding immediately.</p>
+              </div>
+              <div className="ssc-home-study-card" data-kind="premium">
+                <span><Crown aria-hidden="true" /></span>
+                <small>Exam Prep</small>
+                <strong>Board Boosters</strong>
+                <p>Focused revision when it matters.</p>
+              </div>
+              <div className="ssc-home-study-card" data-kind="plan">
+                <span><TrendingUp aria-hidden="true" /></span>
+                <small>Improve</small>
+                <strong>Study Smarter</strong>
+                <p>Move from weak topic to confidence.</p>
+              </div>
+              <div className="ssc-home-progress-card">
+                <div className="ssc-home-progress-top"><strong>Your study path</strong><span>Learn → Practice → Improve</span></div>
+                <div className="ssc-home-progress-track" aria-hidden="true"><i /></div>
+                <p>Everything connected in one place — without hunting through scattered files.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <div className="ssc-home-after-hero">
+          <div className="learning-home-topline">
+            <div className="mobile-welcome-row">
+              <div>
+                <small>{greeting} 👋</small>
+                <h2 className="mobile-welcome-kicker">{user ? `${firstName}, continue learning.` : "Ready to study?"}</h2>
+                <p className="mobile-welcome-subtitle">Choose your path or search the exact chapter you need.</p>
+              </div>
+              <div className="mobile-welcome-actions">
+                <AppLink to={user ? "/learning-insights" : "/login"} className="mobile-profile-button" aria-label={user ? "Open profile" : "Log in"}>
+                  {user ? initials : "SS"}
                 </AppLink>
-              ))}
+              </div>
             </div>
-          </section>
+            <MobileStudySetup profile={profile} onSaved={setPreferences} />
+          </div>
+
+          <form className="mobile-study-search" onSubmit={submitSearch} role="search">
+            <Search aria-hidden="true" />
+            <label className="sr-only" htmlFor="mobile-home-search">Search study notes and chapters</label>
+            <input
+              id="mobile-home-search"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              placeholder="Search a chapter or topic…"
+              enterKeyHint="search"
+            />
+            <button type="submit" aria-label="Search chapters"><SlidersHorizontal aria-hidden="true" /></button>
+          </form>
         </div>
+
+        <section className="learning-home-actions-panel" aria-labelledby="learning-actions-title">
+          <div className="mobile-section-heading mobile-shortcuts-heading"><h2 id="learning-actions-title">What will you learn today?</h2><button type="button" className="mobile-chapter-finder-trigger" onClick={() => window.dispatchEvent(new CustomEvent("ssc-open-resource-finder"))}>Find a chapter <ChevronRight aria-hidden="true" /></button></div>
+          <div className="mobile-action-grid" aria-label="Quick actions">
+            {QUICK_ACTIONS.map(({ label, icon: Icon, to, tone, status }) => (
+              <AppLink key={label} to={personalizedTo(to)} data-tone={tone} className={`mobile-action-card mobile-action-${tone}`} onClick={() => void trackEvent('mobile_quick_action_click', { action: label, board: preferences?.board, classLevel: Number(preferences?.classLevel), subject: preferences?.subject })}>
+                <span><Icon aria-hidden="true" /></span>
+                <strong>{label.split("\n").map((line) => <span key={line}>{line}</span>)}</strong>
+                {status && <small className="mobile-action-status">{status}</small>}
+              </AppLink>
+            ))}
+          </div>
+        </section>
 
         <div className="learning-home-progress-grid">
           <section className="learning-home-continue-panel" aria-labelledby="continue-learning-title">
