@@ -1,16 +1,16 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Home, BookOpen, CircleHelp, ListChecks, UserRound } from "lucide-react";
+import { Home, BookOpen, CircleHelp, Crown, UserRound } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 
 const BASE_TABS = [
   { path: "/", icon: Home, label: "Home" },
   { path: "/study-material", icon: BookOpen, label: "Notes" },
   { path: "/quizzes", icon: CircleHelp, label: "Quizzes" },
-  { path: "/test-series", icon: ListChecks, label: "Tests" },
+  { path: "/board-booster-packs", icon: Crown, label: "Boosters" },
 ];
 
 export default function MobileBottomBar() {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
   const navigate = useNavigate();
   const { user } = useAuth();
   const tabs = [...BASE_TABS, { path: user ? "/learning-insights" : "/login", icon: UserRound, label: "Profile" }];
@@ -46,27 +46,20 @@ export default function MobileBottomBar() {
                     window.scrollTo({ top: 0, behavior: "smooth" });
                     return;
                   }
-                  const changePage = () => navigate(tab.path);
-                  changePage();
+                  navigate(tab.path);
                 }}
               >
                 <div className="relative w-10 h-8 flex items-center justify-center">
-                  {active && (
-                    <div className="mobile-tab-active absolute inset-0 rounded-xl" />
-                  )}
+                  {active && <div className="mobile-tab-active absolute inset-0 rounded-xl" />}
                   <Icon
                     className="w-5 h-5 relative z-10 transition-all"
-                    style={{
-                      color: active ? "#D9AC5C" : "rgba(148,163,184,0.72)",
-                    }}
+                    style={{ color: active ? "#D9AC5C" : "rgba(148,163,184,0.72)" }}
                     strokeWidth={active ? 2.5 : 1.9}
                   />
                 </div>
                 <span
                   className="mobile-bottom-label text-[10px] font-bold leading-none"
-                  style={{
-                    color: active ? "#D9AC5C" : "rgba(203,213,225,0.68)",
-                  }}
+                  style={{ color: active ? "#D9AC5C" : "rgba(203,213,225,0.68)" }}
                 >
                   {tab.label}
                 </span>
