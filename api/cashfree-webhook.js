@@ -4,31 +4,36 @@ import {
   verifyCashfreeWebhook,
 } from './_purchase-utils.js';
 
-function rawPayload(req) {
-  if (Buffer.isBuffer(req.body)) return req.body.toString('utf8');
-  if (typeof req.body === 'string') return req.body;
-  // Vercel may pre-parse JSON in classic functions. Re-serialization can change bytes,
-  // so signature verification will fail safely rather than grant access incorrectly.
-  return req.body && typeof req.body === 'object' ? JSON.stringify(req.body) : '';
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
+async function readRawBody(req) {
+  const chunks = [];
+  for await (const chunk of req) chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+  return Buffer.concat(chunks).toString('utf8');
 }
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const config = cashfreeConfig();
-  if (!config.ready) return res.status(503).json({ error: 'Payment gateway is not configured.' });
+  const gateway = cashfreeConfig();
+  if (!gateway.ready) return res.status(503).json({ error: 'Payment gateway is not configured.' });
 
   const timestamp = String(req.headers['x-webhook-timestamp'] || '');
   const signature = String(req.headers['x-webhook-signature'] || '');
-  const raw = rawPayload(req);
+  const raw = await readRawBody(req);
+
   if (!verifyCashfreeWebhook(raw, timestamp, signature)) {
     return res.status(400).json({ error: 'Invalid webhook signature.' });
   }
 
   let event;
   try {
-    event = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+    event = JSON.parse(raw);
   } catch {
     return res.status(400).json({ error: 'Invalid JSON.' });
   }
@@ -37,8 +42,8 @@ export default async function handler(req, res) {
   if (!providerOrderId) return res.status(200).json({ ok: true, ignored: true });
 
   try {
-    // Never trust the webhook status alone. Confirm the order directly with Cashfree
-    // before granting an entitlement.
+    // The signed event is only a trigger. We independently fetch the order from
+    // Cashfree before marking it paid and granting the product entitlement.
     const result = await reconcileCashfreeOrder(providerOrderId);
     return res.status(200).json({ ok: true, status: result.status, paid: result.paid });
   } catch (error) {
