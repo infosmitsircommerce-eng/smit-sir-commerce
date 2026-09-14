@@ -1,9 +1,10 @@
 import { seoMaterials } from './seoMaterials.js';
 import { gsebMaterials, gsebPremiumEconomicsMaterials } from './gsebMaterials.js';
+import { ccspMaterials } from './ccspMaterials.js';
 import { verifiedQuizPacks } from './quizCatalog.js';
 
 export const studyAccessItems = [
-  ...[...seoMaterials, ...gsebMaterials].map(item => ({
+  ...[...seoMaterials, ...gsebMaterials, ...ccspMaterials].map(item => ({
     id: `note:${item.id}`, kind: 'Notes', title: item.title,
     board: item.board || 'CBSE', classLevel: Number(item.class ?? item.class_level), subject: item.subject,
     path: item.seo_path || item.file_url, pdf: item.file_url || '',
