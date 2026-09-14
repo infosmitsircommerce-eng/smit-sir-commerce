@@ -7,13 +7,48 @@ import { useAuth } from '../../context/AuthContext';
 
 const KEY = 'ssc-chapter-progress-v1';
 
+function normalizeItems(value) {
+  let candidates = [];
+
+  if (Array.isArray(value)) {
+    candidates = value;
+  } else if (Array.isArray(value?.items)) {
+    // Preserve progress from any older wrapper-object format.
+    candidates = value.items;
+  } else if (value && typeof value === 'object') {
+    // Preserve legacy path-keyed objects instead of deleting student progress.
+    candidates = Object.entries(value).map(([path, item]) => {
+      if (item && typeof item === 'object') return { path, ...item };
+      return null;
+    });
+  }
+
+  const seen = new Set();
+  return candidates
+    .filter((item) => item && typeof item === 'object' && typeof item.path === 'string' && item.path.trim())
+    .filter((item) => {
+      if (seen.has(item.path)) return false;
+      seen.add(item.path);
+      return true;
+    })
+    .slice(0, 250);
+}
+
 function read() {
-  try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch { return []; }
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (!raw) return [];
+    return normalizeItems(JSON.parse(raw));
+  } catch {
+    return [];
+  }
 }
 
 function write(items) {
-  try { localStorage.setItem(KEY, JSON.stringify(items.slice(0, 250))); } catch { /* ignore */ }
-  window.dispatchEvent(new CustomEvent('ssc-study-state-changed'));
+  const safeItems = normalizeItems(items);
+  try { localStorage.setItem(KEY, JSON.stringify(safeItems)); } catch { /* ignore */ }
+  try { window.dispatchEvent(new CustomEvent('ssc-study-state-changed')); } catch { /* ignore */ }
+  return safeItems;
 }
 
 export default function ChapterProgressTracker() {
@@ -23,12 +58,16 @@ export default function ChapterProgressTracker() {
   const material = materialByPath[cleanPath];
   const [items, setItems] = useState(() => read());
 
-  const current = useMemo(() => items.find((item) => item.path === cleanPath), [items, cleanPath]);
+  const current = useMemo(
+    () => items.find((item) => item.path === cleanPath),
+    [items, cleanPath],
+  );
 
   useEffect(() => {
     if (!material) return;
     setItems((previous) => {
-      const existing = previous.find((item) => item.path === cleanPath);
+      const safePrevious = normalizeItems(previous);
+      const existing = safePrevious.find((item) => item.path === cleanPath);
       const nextItem = {
         path: cleanPath,
         title: material.chapter,
@@ -38,9 +77,7 @@ export default function ChapterProgressTracker() {
         completed: existing?.completed || false,
         completedAt: existing?.completedAt || null,
       };
-      const next = [nextItem, ...previous.filter((item) => item.path !== cleanPath)];
-      write(next);
-      return next;
+      return write([nextItem, ...safePrevious.filter((item) => item.path !== cleanPath)]);
     });
     trackEvent('chapter_view', { chapter: material.chapter, subject: material.subject, classLevel: material.class_level }, user?.id || null);
   }, [cleanPath, material?.id, user?.id]);
@@ -49,7 +86,8 @@ export default function ChapterProgressTracker() {
 
   const toggle = () => {
     const complete = !current?.completed;
-    const next = [{
+    const safeItems = normalizeItems(items);
+    const next = write([{
       path: cleanPath,
       title: material.chapter,
       subject: material.subject,
@@ -57,8 +95,7 @@ export default function ChapterProgressTracker() {
       viewedAt: current?.viewedAt || new Date().toISOString(),
       completed: complete,
       completedAt: complete ? new Date().toISOString() : null,
-    }, ...items.filter((item) => item.path !== cleanPath)];
-    write(next);
+    }, ...safeItems.filter((item) => item.path !== cleanPath)]);
     setItems(next);
     trackEvent(complete ? 'chapter_complete' : 'chapter_reopen', { chapter: material.chapter, subject: material.subject }, user?.id || null);
   };
