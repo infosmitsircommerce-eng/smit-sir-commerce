@@ -59,9 +59,13 @@ const SignIn2 = ({
       return
     }
     setError("")
-    if (onForgotPassword) {
+    if (!onForgotPassword) return
+
+    try {
       await onForgotPassword(email)
       setResetMessage("If this email is registered, a password-reset link has been sent.")
+    } catch (problem) {
+      setError(problem instanceof Error ? problem.message : "Unable to send the password-reset email right now.")
     }
   }
 
