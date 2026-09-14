@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { Component, lazy, Suspense, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -19,6 +19,26 @@ const StudyAccessDialog = lazy(() => import('../ui/StudyAccessDialog'));
 const CloudSyncBridge = lazy(() => import('../ui/CloudSyncBridge'));
 const AnalyticsTracker = lazy(() => import('../ui/AnalyticsTracker'));
 const ChapterProgressTracker = lazy(() => import('../ui/ChapterProgressTracker'));
+
+class EnhancementBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { failed: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  componentDidCatch(error, info) {
+    // These widgets are optional conveniences. Never let one take down study content.
+    console.error('Optional Smit Sir Commerce enhancement failed', error, info);
+  }
+
+  render() {
+    return this.state.failed ? null : this.props.children;
+  }
+}
 
 function DeferredEnhancements() {
   const [ready, setReady] = useState(false);
@@ -112,7 +132,9 @@ export default function Layout({ children }) {
       <MobileBottomBar />
       <SearchOnDemand />
       {finderOpen && <Suspense fallback={<p role="status" className="fixed top-20 right-4 z-[180] card-paper p-4">Opening notes and tests…</p>}><StudyAccessDialog onClose={() => setFinderOpen(false)} /></Suspense>}
-      <DeferredEnhancements />
+      <EnhancementBoundary>
+        <DeferredEnhancements />
+      </EnhancementBoundary>
     </div>
   );
 }
