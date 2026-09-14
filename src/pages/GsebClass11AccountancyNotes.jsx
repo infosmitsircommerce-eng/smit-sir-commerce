@@ -41,9 +41,9 @@ const chapters = Array.from({ length: 10 }, (_, index) => {
 
 const faqs = [
   ['Are these GSEB Class 11 Accountancy notes free?', 'Yes. Every currently available chapter in this collection can be opened or downloaded without payment or registration.'],
-  ['Do these PDFs contain Accountancy numericals?', 'This collection focuses on simple explanations, concepts and chapter formats. Detailed numerical practice will be published separately.'],
-  ['Which chapter is currently missing?', 'Chapter 8 is still being prepared. Chapters 1–7, 9 and 10 are available now.'],
-  ['Which Premium chapters will be free demos?', 'When the detailed numerical collection is published, Chapters 1 and 2 are planned as free demos. Chapters 3–10 will form the Premium numerical collection.'],
+  ['Do these PDFs contain Accountancy numericals?', 'This free collection focuses on simple explanations, concepts and chapter formats. The separate Part 1 Premium Book contains the deeper accounting tables, worked numericals and exam practice.'],
+  ['Which chapter is currently missing from the free collection?', 'Chapter 8 is not yet part of this free concept collection. Chapters 1–7, 9 and 10 are available free.'],
+  ['Is the detailed Premium Part 1 collection ready?', 'Yes. The Premium Part 1 library covers Chapters 1–10 and shows every chapter, page count and included feature before access is unlocked.'],
 ];
 
 const structuredData = {
@@ -195,10 +195,10 @@ export default function GsebClass11AccountancyNotes() {
             <div>
               <span className="g11-eyebrow"><GraduationCap aria-hidden="true" /> GSEB · CLASS 11 · ACCOUNTANCY</span>
               <h1>Free Accountancy Notes, <em>Chapter by Chapter.</em></h1>
-              <p>Clear English-medium explanations for Gujarat Board students. Start with concepts and formats here; detailed numerical practice will stay in a separate collection.</p>
+              <p>Clear English-medium explanations for Gujarat Board students. Start with concepts and formats here; use the separate Premium Part 1 Book when you need detailed numericals and practical accounting work.</p>
               <div className="g11-hero-actions">
                 <a href="#free-chapters" className="g11-btn g11-btn-primary"><BookOpen aria-hidden="true" /> Open free chapters</a>
-                <button type="button" className="g11-btn g11-btn-light" onClick={sharePage}><Share2 aria-hidden="true" /> Share this collection</button>
+                <a href="/gseb-class-11-accountancy-premium.html" className="g11-btn g11-btn-light" onClick={() => void trackEvent('gseb_11_accountancy_premium_preview', { placement: 'hero' })}><LockKeyhole aria-hidden="true" /> See Premium Part 1</a>
               </div>
               <div className="g11-proof-row" aria-label="Collection highlights">
                 <span><Check aria-hidden="true" /> 9 PDFs available</span>
@@ -213,7 +213,7 @@ export default function GsebClass11AccountancyNotes() {
               <strong>Chapters 1–7, 9 & 10</strong>
               <p>Simple explanations without a separate numerical practice set.</p>
               <div className="g11-progress"><i /><i /><i /><i /><i /><i /><i /><i className="missing" /><i /><i /></div>
-              <small>Chapter 8 will be uploaded later.</small>
+              <small>Chapter 8 is available inside the separate Premium Part 1 collection.</small>
             </aside>
           </div>
         </div>
@@ -247,7 +247,7 @@ export default function GsebClass11AccountancyNotes() {
                       key={chapter.chapterNumber}
                       className={complete ? 'is-complete' : ''}
                       disabled={!available}
-                      aria-label={available ? `${complete ? 'Unmark' : 'Mark'} Chapter ${chapter.chapterNumber} as studied` : 'Chapter 8 coming soon'}
+                      aria-label={available ? `${complete ? 'Unmark' : 'Mark'} Chapter ${chapter.chapterNumber} as studied` : 'Chapter 8 is Premium-only in this collection'}
                       aria-pressed={available ? complete : undefined}
                       onClick={() => available && toggleChapter(chapter.chapterNumber)}
                     >
@@ -274,10 +274,10 @@ export default function GsebClass11AccountancyNotes() {
                 <article key={chapter.chapterNumber} className={`g11-chapter-card tone-${index % 6}${available ? '' : ' is-missing'}${completedSet.has(chapter.chapterNumber) ? ' is-complete' : ''}`}>
                   <div className="g11-chapter-top">
                     <span className="g11-chapter-number">{String(chapter.chapterNumber).padStart(2, '0')}</span>
-                    <span className={`g11-status ${available ? 'available' : ''}`}>{available ? 'FREE' : 'COMING SOON'}</span>
+                    <span className={`g11-status ${available ? 'available' : ''}`}>{available ? 'FREE' : 'PREMIUM'}</span>
                   </div>
                   <h3>{available ? chapter.chapter : 'Chapter 8'}</h3>
-                  <p>{available ? `${chapter.pages} pages · Simple explanation notes` : 'This chapter will be added when the checked PDF is ready.'}</p>
+                  <p>{available ? `${chapter.pages} pages · Simple explanation notes` : 'Detailed Chapter 8 is included in the Premium Part 1 Book.'}</p>
                   {available ? (
                     <>
                       <div className="g11-chapter-actions">
@@ -289,7 +289,7 @@ export default function GsebClass11AccountancyNotes() {
                       </button>
                     </>
                   ) : (
-                    <div className="g11-coming-row"><Clock3 aria-hidden="true" /> Uploading later</div>
+                    <a className="g11-coming-row" href="/gseb-class-11-accountancy-premium.html" onClick={() => void trackEvent('gseb_11_accountancy_premium_preview', { placement: 'chapter_8' })}><LockKeyhole aria-hidden="true" /> See Premium Chapter 8</a>
                   )}
                 </article>
               );
@@ -300,19 +300,20 @@ export default function GsebClass11AccountancyNotes() {
         <section className="g11-premium-wrap">
           <div className="page-container g11-premium-grid">
             <div className="g11-premium-copy">
-              <span><Sparkles aria-hidden="true" /> COMING NEXT</span>
-              <h2>Detailed Numerical Practice</h2>
-              <p>The future numerical collection will remain clearly separated from these free concept notes, so students always know exactly what they are opening.</p>
+              <span><Sparkles aria-hidden="true" /> PREMIUM PART 1 · READY</span>
+              <h2>Detailed Accountancy Part 1 Premium Book</h2>
+              <p>The deeper practical collection is now organised separately from these free concept notes. Students can see every Premium chapter and page count before access is unlocked.</p>
               <div className="g11-edition-grid">
-                <div><strong>Chapters 1 & 2</strong><span>Free numerical demos</span></div>
-                <div><strong>Chapters 3–10</strong><span>Premium numerical editions</span></div>
+                <div><strong>10 Chapters</strong><span>Chapters 1–10 complete</span></div>
+                <div><strong>720-page book</strong><span>Tables · numericals · practice</span></div>
               </div>
-              <p className="g11-honesty-note"><LockKeyhole aria-hidden="true" /> No unavailable PDF is being sold or shown as ready. The collection will open only after the detailed files are uploaded and checked.</p>
+              <p className="g11-honesty-note"><LockKeyhole aria-hidden="true" /> The chapter catalogue is visible to everyone, but the actual Premium document is served only after the signed-in account passes the access check.</p>
+              <a href="/gseb-class-11-accountancy-premium.html" className="g11-btn g11-btn-primary" onClick={() => void trackEvent('gseb_11_accountancy_premium_preview', { placement: 'premium_section' })}>See exactly what Premium includes <ArrowRight aria-hidden="true" /></a>
             </div>
             <aside className="g11-qr-card">
               <img src="/gseb-class-11-accountancy-notes-qr.svg" width="180" height="180" alt="QR code for the free GSEB Class 11 Accountancy notes collection" loading="lazy" />
-              <strong>Open on your phone</strong>
-              <p>Scan this QR code in class or share the collection link with a student.</p>
+              <strong>Open the free library on your phone</strong>
+              <p>Scan this QR code in class or share the free collection link with a student.</p>
               <button type="button" onClick={() => copyUrl(PAGE_URL, 'Collection link')}><Copy aria-hidden="true" /> Copy collection link</button>
             </aside>
           </div>
@@ -327,7 +328,7 @@ export default function GsebClass11AccountancyNotes() {
             <li><span>1</span><div><strong>Learn one idea</strong><p>Read one small concept or format instead of rushing through the entire PDF.</p></div></li>
             <li><span>2</span><div><strong>Close the notes</strong><p>Explain the idea aloud or write its meaning in your own words.</p></div></li>
             <li><span>3</span><div><strong>Use your textbook</strong><p>Match the concept with your prescribed GSEB examples and school work.</p></div></li>
-            <li><span>4</span><div><strong>Practise separately</strong><p>Attempt written sums independently when numerical practice is available.</p></div></li>
+            <li><span>4</span><div><strong>Practise separately</strong><p>Use the Premium Part 1 practical collection when you need worked numericals and deeper accounting treatment.</p></div></li>
           </ol>
         </section>
 
