@@ -2,16 +2,13 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   BookOpen,
-  Brain,
   ChevronDown,
-  FileText,
   ListChecks,
   GraduationCap,
   LogOut,
   Search,
-  Target,
   User,
-  Wrench,
+  Crown,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import { isLightRoute } from "../../lib/theme";
@@ -19,44 +16,26 @@ import { isLightRoute } from "../../lib/theme";
 const navLinks = [
   { label: "Home", path: "/" },
   { label: "Study Material", path: "/study-material" },
+  { label: "Quizzes", path: "/quizzes" },
+  { label: "Tests", path: "/test-series" },
+  { label: "Premium", path: "/premium" },
   {
-    label: "Notes",
+    label: "More",
     children: [
-      { label: "All Study Material", path: "/study-material" },
-      { label: "GSEB Class 12 Economics", path: "/study-material?board=GSEB" },
-      { label: "CBSE Notes", path: "/cbse-notes" },
-      { label: "CBSE PYQ & Sample Papers", path: "/cbse-pyq" },
-    ],
-  },
-  {
-    label: "Practice",
-    children: [
-      { label: "Daily Mission Control", path: "/study-coach" },
-      { label: "Concept Lab · Inflation", path: "/concept-lab" },
       { label: "Daily Practice", path: "/daily-practice" },
-      { label: "Chapter Practice", path: "/cbse-practice" },
-      { label: "Test Series", path: "/test-series" },
-      { label: "Quizzes", path: "/quizzes" },
-      { label: "Flashcards", path: "/flashcards" },
+      { label: "Study Tools", path: "/tools" },
+      { label: "Board Boosters", path: "/board-booster-packs" },
+      { label: "Free Diagnostic", path: "/board-exam-diagnostic" },
+      { label: "Contact", path: "/contact" },
     ],
   },
-  { label: "Board Boosters", path: "/board-booster-packs" },
-  { label: "Free Diagnostic", path: "/board-exam-diagnostic" },
-  { label: "Tools", path: "/tools" },
-  { label: "For Teachers", path: "/services-for-teachers" },
-  { label: "Contact", path: "/contact" },
 ];
 
 const featureLinks = [
   { label: "Notes", path: "/study-material", icon: BookOpen },
-  { label: "GSEB", path: "/study-material?board=GSEB", icon: FileText },
-  { label: "Study Mission", path: "/study-coach", icon: Target },
-  { label: "Practice", path: "/daily-practice", icon: Brain },
   { label: "Quizzes", path: "/quizzes", icon: ListChecks },
-  { label: "Free Diagnostic", path: "/board-exam-diagnostic", icon: Brain },
-  { label: "₹199 Boosters", path: "/board-booster-packs", icon: FileText },
-  { label: "Tools", path: "/tools", icon: Wrench },
-  { label: "Teachers", path: "/services-for-teachers", icon: FileText },
+  { label: "Tests", path: "/test-series", icon: ListChecks },
+  { label: "Premium", path: "/premium", icon: Crown },
 ];
 
 export default function Navbar() {

@@ -6,7 +6,7 @@ import { getStudyPathway } from '../../data/studyPathways';
 export default function TopicalAuthorityLinks() {
   const { pathname } = useLocation();
   const cluster = getStudyPathway(pathname);
-  if (!cluster) return null;
+  if (!cluster || pathname === '/') return null;
 
   const links = cluster.links;
 

@@ -1,28 +1,10 @@
 import CommerceJourneyPreview from "./CommerceJourneyPreview";
-import LearningPhilosophy from "./LearningPhilosophy";
 import TrustLayer from "./TrustLayer";
-import MehsanaGrowthCampaign from "./MehsanaGrowthCampaign";
-import SeoDiscoveryLinks from "./SeoDiscoveryLinks";
 import CommerceToolsPreview from "./CommerceToolsPreview";
-import MarksRecoveryCTA from "./MarksRecoveryCTA";
-import StatsSection from "./StatsSection";
-import CoursesPreview from "./CoursesPreview";
-import AboutSection from "./AboutSection";
-import FreeResources from "./FreeResources";
-import DailyPracticeCTA from "./DailyPracticeCTA";
-import StudyCoachCTA from "./StudyCoachCTA";
-import BatchCTA from "./BatchCTA";
 import FAQSection from "./FAQSection";
 import ContactCTA from "./ContactCTA";
-import StudentJourney from "./StudentJourney";
-import SectionDivider from "../ui/SectionDivider";
-import TeacherStudioPromo from "./TeacherStudioPromo";
 import { Pricing } from "../ui/pricing";
-import LogosSlider from "./LogosSlider";
-import ConceptLabPromo from "./ConceptLabPromo";
 import BoardBoosterPromo from "./BoardBoosterPromo";
-import PremiumSpotlight from "./PremiumSpotlight";
-import QuizPromo from "./QuizPromo";
 
 const studentPlans = [
   {
@@ -78,34 +60,15 @@ const studentPlans = [
 export default function HomeBelowFold() {
   return (
     <div className="ssc-home-modules">
-      <ConceptLabPromo />
-      <BoardBoosterPromo />
-      <PremiumSpotlight />
-      <QuizPromo />
       <CommerceJourneyPreview />
-      <LearningPhilosophy />
       <TrustLayer />
-      <LogosSlider />
-      <TeacherStudioPromo />
-      <MehsanaGrowthCampaign />
-      <MarksRecoveryCTA />
       <CommerceToolsPreview />
-      <SeoDiscoveryLinks />
-      <StatsSection />
-      <StudentJourney />
-      <DailyPracticeCTA />
-      <StudyCoachCTA />
-      <CoursesPreview />
-      <SectionDivider />
-      <AboutSection />
-      <FreeResources />
+      <BoardBoosterPromo />
       <Pricing
         plans={studentPlans}
         title="Free first. Upgrade only when useful."
         description="Every option is clear, student-friendly and paid only once—there are no monthly subscriptions."
       />
-      <BatchCTA />
-      <SectionDivider />
       <FAQSection />
       <ContactCTA />
     </div>

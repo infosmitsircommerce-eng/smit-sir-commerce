@@ -11,9 +11,9 @@ import {
   Search,
   SlidersHorizontal,
   CalendarDays,
-  Download,
-  PlayCircle,
   ChevronRight,
+  Wrench,
+  Rocket,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import teacherPhoto from "../../assets/teacher-photo-opt.jpg";
@@ -24,10 +24,10 @@ import { trackEvent } from "../../lib/analytics";
 const QUICK_ACTIONS = [
   { label: "Study Notes", icon: FileText, to: "/study-material", tone: "gold" },
   { label: "Quizzes", icon: FileQuestion, to: "/quizzes", tone: "violet" },
-  { label: "Video Lectures", icon: PlayCircle, to: "/lectures", tone: "teal", status: "Coming soon" },
   { label: "Test Series", icon: BarChart3, to: "/test-series", tone: "blue" },
-  { label: "Downloads", icon: Download, to: "/study-material?view=downloads", tone: "coral" },
   { label: "Daily Mission", icon: CalendarDays, to: "/study-coach", tone: "green" },
+  { label: "Study Tools", icon: Wrench, to: "/tools", tone: "teal" },
+  { label: "Board Boosters", icon: Rocket, to: "/board-booster-packs", tone: "coral" },
 ];
 
 function readArray(key) {

@@ -16,7 +16,6 @@ const CursorSpotlight = lazy(() => import('../ui/CursorSpotlight'));
 const ScrollProgressBar = lazy(() => import('../ui/ScrollProgressBar'));
 const GlobalStudySearch = lazy(() => import('../ui/GlobalStudySearch'));
 const StudyAccessDialog = lazy(() => import('../ui/StudyAccessDialog'));
-const QuickAccessDock = lazy(() => import('../ui/QuickAccessDock'));
 const CloudSyncBridge = lazy(() => import('../ui/CloudSyncBridge'));
 const AnalyticsTracker = lazy(() => import('../ui/AnalyticsTracker'));
 const ChapterProgressTracker = lazy(() => import('../ui/ChapterProgressTracker'));
@@ -49,7 +48,6 @@ function DeferredEnhancements() {
       <AnalyticsTracker />
       <ScrollProgressBar />
       {window.matchMedia('(hover: hover) and (pointer: fine)').matches && <CursorSpotlight />}
-      <QuickAccessDock />
       {user && <CloudSyncBridge />}
       <ChapterProgressTracker />
       <ScrollToTop />
