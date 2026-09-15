@@ -13,6 +13,7 @@ const UPDATED_PATHS = [
   "/economics-tuition-mehsana",
   "/gseb-economics-tuition-mehsana",
   "/book-demo",
+  "/online-batch",
   "/mehsana-commerce-student-resources.html",
   "/cbse/class-12/business-studies/business-environment-notes",
   "/cbse/class-12/business-studies/controlling-notes",
