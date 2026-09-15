@@ -60,8 +60,8 @@ const studentPlans = [
 export default function HomeBelowFold() {
   return (
     <div className="ssc-home-modules">
-      <CommerceJourneyPreview />
       <TrustLayer />
+      <CommerceJourneyPreview />
       <CommerceToolsPreview />
       <BoardBoosterPromo />
       <Pricing
