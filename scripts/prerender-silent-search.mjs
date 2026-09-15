@@ -25,6 +25,10 @@ function absolute(path) {
   return path.startsWith('http') ? path : `${BASE}${path}`;
 }
 
+function cleanPublicPath(path) {
+  return path?.endsWith('.html') ? path.slice(0, -5) : path;
+}
+
 function stripSpaRuntime(html) {
   return html
     .replace(/\s*<script type="module"[^>]*src="\/assets\/index-[^"]+\.js"><\/script>/g, '')
@@ -34,7 +38,7 @@ function stripSpaRuntime(html) {
 
 function renderLinks(links = []) {
   if (!links.length) return '';
-  return `<section class="resource-links"><h2>Continue with these study resources</h2><ul>${links.map((link) => `<li><a href="${esc(link.href)}">${esc(link.label)}</a></li>`).join('')}</ul></section>`;
+  return `<section class="resource-links"><h2>Continue with these study resources</h2><ul>${links.map((link) => `<li><a href="${esc(cleanPublicPath(link.href))}">${esc(link.label)}</a></li>`).join('')}</ul></section>`;
 }
 
 function renderSection(section) {
@@ -57,15 +61,16 @@ function replaceRoot(html, body) {
 }
 
 function renderPage(page) {
-  const url = absolute(page.path);
+  const pageUrl = absolute(cleanPublicPath(page.path));
+  const canonicalUrl = absolute(cleanPublicPath(page.canonicalHub || page.path));
   const fullTitle = `${page.title} | ${SITE}`;
   const schema = {
     '@context': 'https://schema.org',
     '@graph': [
       {
         '@type': 'WebPage',
-        '@id': `${url}#webpage`,
-        url,
+        '@id': `${canonicalUrl}#webpage`,
+        url: canonicalUrl,
         name: page.title,
         description: page.description,
         inLanguage: 'en-IN',
@@ -74,7 +79,7 @@ function renderPage(page) {
       },
       {
         '@type': 'LearningResource',
-        '@id': `${url}#learning-resource`,
+        '@id': `${canonicalUrl}#learning-resource`,
         name: page.title,
         description: page.description,
         educationalLevel: 'Class 12',
@@ -86,7 +91,7 @@ function renderPage(page) {
       },
       ...(page.faq?.length ? [{
         '@type': 'FAQPage',
-        '@id': `${url}#faq`,
+        '@id': `${canonicalUrl}#faq`,
         mainEntity: page.faq.map((item) => ({
           '@type': 'Question',
           name: item.q,
@@ -96,9 +101,9 @@ function renderPage(page) {
     ],
   };
 
-  const tags = `<meta name="description" content="${esc(page.description)}"><meta name="robots" content="${robots}"><meta name="googlebot" content="${robots}"><link rel="canonical" href="${url}"><link rel="alternate" type="text/plain" href="${BASE}/llms.txt" title="LLMS text summary for Smit Sir Commerce"><link rel="alternate" type="application/json" href="${BASE}/ai-summary.json" title="AI summary JSON for Smit Sir Commerce"><meta property="og:type" content="article"><meta property="og:site_name" content="${SITE}"><meta property="og:title" content="${esc(fullTitle)}"><meta property="og:description" content="${esc(page.description)}"><meta property="og:url" content="${url}"><meta property="og:image" content="${BASE}/og-image.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(fullTitle)}"><meta name="twitter:description" content="${esc(page.description)}"><meta name="twitter:image" content="${BASE}/og-image.jpg"><script type="application/ld+json">${jsonLd(schema)}</script>`;
+  const tags = `<meta name="description" content="${esc(page.description)}"><meta name="robots" content="${robots}"><meta name="googlebot" content="${robots}"><link rel="canonical" href="${canonicalUrl}"><link rel="alternate" type="text/plain" href="${BASE}/llms.txt" title="LLMS text summary for Smit Sir Commerce"><link rel="alternate" type="application/json" href="${BASE}/ai-summary.json" title="AI summary JSON for Smit Sir Commerce"><meta property="og:type" content="article"><meta property="og:site_name" content="${SITE}"><meta property="og:title" content="${esc(fullTitle)}"><meta property="og:description" content="${esc(page.description)}"><meta property="og:url" content="${canonicalUrl}"><meta property="og:image" content="${BASE}/og-image.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(fullTitle)}"><meta name="twitter:description" content="${esc(page.description)}"><meta name="twitter:image" content="${BASE}/og-image.jpg"><script type="application/ld+json">${jsonLd(schema)}</script>`;
 
-  const body = `<main class="page-container section-padding" data-prerendered="student-resource"><article><p style="font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#966313">Free Commerce Study Guide</p><h1>${esc(page.h1)}</h1><p><strong>Useful for:</strong> ${esc(page.intent)}</p><p>${esc(page.intro)}</p>${page.sections.map(renderSection).join('')}${renderLinks(page.links)}${renderFaq(page.faq)}<section><h2>More free Commerce help</h2><p><a href="/study-material">Study Material</a> · <a href="/cbse-notes">CBSE Notes</a> · <a href="/gseb-class-12-economics.html">GSEB Economics PDFs</a> · <a href="/tools">Commerce Tools</a> · <a href="/games">Commerce Games</a></p></section></article></main>`;
+  const body = `<main class="page-container section-padding" data-prerendered="student-resource" data-public-url="${esc(pageUrl)}"><article><p style="font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#966313">Free Commerce Study Guide</p><h1>${esc(page.h1)}</h1><p><strong>Useful for:</strong> ${esc(page.intent)}</p><p>${esc(page.intro)}</p>${page.sections.map(renderSection).join('')}${renderLinks(page.links)}${renderFaq(page.faq)}<section><h2>More free Commerce help</h2><p><a href="/study-material">Study Material</a> · <a href="/cbse-notes">CBSE Notes</a> · <a href="/gseb-class-12-economics">GSEB Economics PDFs</a> · <a href="/tools">Commerce Tools</a> · <a href="/games">Commerce Games</a></p></section></article></main>`;
 
   const withHead = stripSpaRuntime(source)
     .replace(/<title>.*?<\/title>/s, `<title>${esc(fullTitle)}</title>`)
@@ -114,4 +119,4 @@ for (const page of silentSearchPages) {
   await writeFile(htmlPath, renderPage(page), 'utf8');
 }
 
-console.log(`Pre-rendered ${silentSearchPages.length} student-focused Commerce resource pages.`);
+console.log(`Pre-rendered ${silentSearchPages.length} student-focused Commerce resource pages with canonical hub consolidation.`);
