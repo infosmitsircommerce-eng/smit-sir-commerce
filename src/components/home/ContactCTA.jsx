@@ -69,7 +69,7 @@ export default function ContactCTA() {
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6"
         >
           <Link
             to="/book-demo"
@@ -89,6 +89,22 @@ export default function ContactCTA() {
           >
             Send an enquiry
             <ArrowRight className="w-5 h-5" />
+          </Link>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.42 }}
+          className="mb-8"
+        >
+          <Link
+            to="/commerce-coaching-mehsana"
+            className="inline-flex items-center gap-2 text-sm font-semibold"
+            style={{ color: 'var(--gold-bright)' }}
+          >
+            Looking for Commerce classes in Mehsana? View local class details
+            <ArrowRight className="w-4 h-4" />
           </Link>
         </motion.div>
 
