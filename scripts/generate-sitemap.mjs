@@ -125,6 +125,8 @@ const priorityToolSlugs = new Set([
   "current-ratio-calculator",
   "quick-ratio-calculator",
   "debt-equity-ratio-calculator",
+  "net-indirect-tax-calculator",
+  "market-price-from-factor-cost-calculator",
   "gross-profit-ratio-calculator",
   "common-size-statement-calculator",
 ]);
