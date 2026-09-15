@@ -1,7 +1,8 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
 const file = new URL('../dist/mehsana-commerce-student-resources.html', import.meta.url);
-const canonical = 'https://www.smitsircommerce.in/mehsana-commerce-student-resources.html';
+const legacyUrl = 'https://www.smitsircommerce.in/mehsana-commerce-student-resources.html';
+const canonical = 'https://www.smitsircommerce.in/mehsana-commerce-student-resources';
 
 function setTitle(html, value) {
   return html.replace(/<title>[^<]*<\/title>/i, `<title>${value}</title>`);
@@ -12,6 +13,12 @@ function setMeta(html, attribute, key, value) {
   const pattern = new RegExp(`<meta\\s+${attribute}=["']${key}["'][^>]*>`, 'i');
   const replacement = `<meta ${attribute}="${key}" content="${escaped}">`;
   return pattern.test(html) ? html.replace(pattern, replacement) : html.replace('</head>', `${replacement}\n</head>`);
+}
+
+function setCanonical(html, value) {
+  const tag = `<link rel="canonical" href="${value}" data-rh="true">`;
+  const pattern = /<link\s+rel=["']canonical["'][^>]*>/i;
+  return pattern.test(html) ? html.replace(pattern, tag) : html.replace('</head>', `${tag}\n</head>`);
 }
 
 const title = 'Free Commerce Notes & PDFs in Mehsana | CBSE & GSEB';
@@ -44,6 +51,10 @@ try {
   html = setMeta(html, 'property', 'og:url', canonical);
   html = setMeta(html, 'name', 'twitter:title', title);
   html = setMeta(html, 'name', 'twitter:description', description);
+  html = setCanonical(html, canonical);
+
+  // The physical prerender remains .html, but every public SEO signal uses the clean URL.
+  html = html.replaceAll(legacyUrl, canonical);
 
   // Keep the prerendered structured data aligned with the stronger public snippet.
   html = html.replaceAll(oldSchemaTitle, title);
@@ -63,7 +74,7 @@ try {
   }
 
   await writeFile(file, html, 'utf8');
-  console.log('Upgraded Mehsana Commerce student resources page.');
+  console.log('Upgraded Mehsana Commerce student resources page with clean canonical URL.');
 } catch (error) {
   if (error?.code === 'ENOENT') console.log('Mehsana student resources page not generated; skipped.');
   else throw error;
