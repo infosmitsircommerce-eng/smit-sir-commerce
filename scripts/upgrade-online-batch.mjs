@@ -6,6 +6,7 @@ const files = [
 ];
 
 const title = "Online Commerce Classes for Class 11 & 12 | CBSE + Free Demo";
+const pageName = "Online Commerce Classes for CBSE Class 11 & 12";
 const description =
   "Online CBSE Commerce learning support for Class 11 and 12 in Economics, Business Studies and Entrepreneurship, with free notes and practice to try first plus a free demo before joining.";
 
@@ -42,9 +43,16 @@ for (const file of files) {
     html = setMeta(html, "twitter:title", title);
     html = setMeta(html, "twitter:description", description);
 
+    // Keep JSON-LD and breadcrumb naming aligned with the visible page.
+    html = html.replaceAll("Online CBSE Commerce Coaching", pageName);
+    html = html.replaceAll(
+      "Online CBSE Commerce learning support for Class 11 and 12 with connected notes, practice, tests and demo information.",
+      description,
+    );
+
     html = html.replace(
       /<h1>Online CBSE Commerce coaching<\/h1>/i,
-      "<h1>Online Commerce Classes for CBSE Class 11 & 12</h1>",
+      `<h1>${pageName}</h1>`,
     );
 
     if (!html.includes('data-online-batch-proof="true"')) {
@@ -58,4 +66,4 @@ for (const file of files) {
   }
 }
 
-console.log("Strengthened online-batch discovery, subject clarity and free-demo proof.");
+console.log("Strengthened online-batch discovery, subject clarity, schema and free-demo proof.");
