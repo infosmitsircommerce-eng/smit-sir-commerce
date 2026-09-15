@@ -29,6 +29,13 @@ function cleanPublicPath(path) {
   return path?.endsWith('.html') ? path.slice(0, -5) : path;
 }
 
+function canonicalPathFor(page) {
+  const mainChapterLink = page.links?.find(
+    (link) => link.label === 'Open main chapter page',
+  )?.href;
+  return cleanPublicPath(page.canonicalHub || mainChapterLink || page.path);
+}
+
 function stripSpaRuntime(html) {
   return html
     .replace(/\s*<script type="module"[^>]*src="\/assets\/index-[^"]+\.js"><\/script>/g, '')
@@ -62,7 +69,7 @@ function replaceRoot(html, body) {
 
 function renderPage(page) {
   const pageUrl = absolute(cleanPublicPath(page.path));
-  const canonicalUrl = absolute(cleanPublicPath(page.canonicalHub || page.path));
+  const canonicalUrl = absolute(canonicalPathFor(page));
   const fullTitle = `${page.title} | ${SITE}`;
   const schema = {
     '@context': 'https://schema.org',
