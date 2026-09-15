@@ -101,6 +101,7 @@ const basePages = [
   ["/daily-practice", "weekly", "0.86"],
   ["/study-coach", "weekly", "0.92"],
   ["/tools", "weekly", "0.94"],
+  ["/online-batch", "weekly", "0.82"],
   ["/commerce-learning", "monthly", "0.72"],
   ["/commerce-exams", "monthly", "0.72"],
   ["/ugc-net-commerce", "monthly", "0.7"],
