@@ -145,6 +145,12 @@ function xmlEscape(value) {
     .replace(/'/g, "&apos;");
 }
 
+function publicLocalActionPath(page) {
+  return page.path === "/mehsana-commerce-student-resources.html"
+    ? "/mehsana-commerce-student-resources"
+    : page.path;
+}
+
 function urlEntry(path, changefreq, priority, lastmod = "") {
   const alternates = path.startsWith("http")
     ? []
@@ -175,7 +181,9 @@ const entries = [
   ),
   ...localActionPages
     .filter((page) => page.indexable !== false)
-    .map((page) => urlEntry(page.path, "weekly", "0.9", "2026-09-08")),
+    .map((page) =>
+      urlEntry(publicLocalActionPath(page), "weekly", "0.9", "2026-09-08"),
+    ),
   ...localSeoPages.map((page) =>
     urlEntry(page.path, "weekly", "0.9", "2026-09-03"),
   ),
