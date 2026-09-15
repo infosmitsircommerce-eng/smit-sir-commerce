@@ -14,7 +14,7 @@ const block = `<section data-mehsana-pathways="true" style="margin:22px 0;paddin
     <li><a href="/business-studies-tuition-mehsana"><strong>Business Studies tuition in Mehsana</strong></a></li>
     <li><a href="/gseb-economics-tuition-mehsana"><strong>GSEB Economics tuition + free GSEB proof</strong></a></li>
     <li><a href="/cbse-commerce-classes-mehsana"><strong>CBSE Commerce classes in Mehsana</strong></a></li>
-    <li><a href="/mehsana-commerce-student-resources.html"><strong>Free Commerce resources for Mehsana students</strong></a></li>
+    <li><a href="/mehsana-commerce-student-resources"><strong>Free Commerce resources for Mehsana students</strong></a></li>
     <li><a href="/book-demo?from=commerce-coaching-pathways&mode=Offline"><strong>Free paper analysis + demo</strong></a></li>
   </ul>
 </section>`;
@@ -26,11 +26,15 @@ for (const file of files) {
       const intro = /(<p>Free notes are available without joining tuition\.[\s\S]*?<\/p>)/i;
       if (intro.test(html)) html = html.replace(intro, `$1${block}`);
       else html = html.replace(/(<h1>[^<]*<\/h1>\s*<p>[^<]*<\/p>)/i, `$1${block}`);
+    } else {
+      html = html.replace(/<section data-mehsana-pathways="true"[\s\S]*?<\/section>/i, block);
     }
+    // Remove the old .html internal-link variant anywhere it survived older prerenders.
+    html = html.replaceAll('/mehsana-commerce-student-resources.html', '/mehsana-commerce-student-resources');
     await writeFile(file, html, 'utf8');
   } catch (error) {
     if (error?.code !== 'ENOENT') throw error;
   }
 }
 
-console.log('Added student pathways to the high-traffic Mehsana Commerce coaching hub.');
+console.log('Added student pathways to the high-traffic Mehsana Commerce coaching hub with clean resource URL.');
