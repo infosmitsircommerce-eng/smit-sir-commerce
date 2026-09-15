@@ -3,6 +3,7 @@ import { join } from 'node:path';
 
 const dist = new URL('../dist/', import.meta.url);
 const PATH = '/school-resource/gseb/class-11/accountancy/gseb-class-11-accountancy-chapter-5-accounting-equation-notes';
+const PDF = '/materials/gseb/class-11/accountancy/free/chapter-05-accounting-equation.pdf';
 
 function routeFiles(path) {
   const relative = path.replace(/^\//, '');
@@ -24,13 +25,15 @@ function setMeta(html, selector, value) {
   return pattern.test(html) ? html.replace(pattern, replacement) : html.replace('</head>', `${replacement}\n</head>`);
 }
 
-const title = 'Accounting Equation Class 11 Notes | GSEB Chapter 5';
-const description = 'Free GSEB Class 11 Accountancy Chapter 5 Accounting Equation notes with Assets = Capital + Liabilities, transaction effects, solved examples and quick revision.';
+const title = 'Class 11 Accounting Equation Notes PDF | GSEB Chapter 5';
+const description = 'Free GSEB Class 11 Accounting Equation notes PDF for Chapter 5 with Assets = Capital + Liabilities, transaction effects, solved examples and quick revision.';
 
 const block = `<section data-accounting-equation-growth="true" style="margin:32px 0;padding:26px;border:1px solid #d9e4ef;border-radius:22px;background:#f9fcff">
   <p style="margin:0 0 10px;font-size:12px;font-weight:900;letter-spacing:.10em;color:#315f8b">GSEB CLASS 11 · ACCOUNTANCY CHAPTER 5</p>
   <h2>Accounting Equation: understand the logic before memorising entries</h2>
-  <p>The accounting equation shows the relationship between what a business owns and the claims against those resources.</p>
+  <p>The accounting equation shows the relationship between what a business owns and the claims against those resources. Use the quick revision below first, then open the full free Chapter 5 PDF when you want the complete notes.</p>
+
+  <p style="margin:18px 0"><a href="${PDF}" style="display:inline-block;padding:12px 18px;border-radius:999px;background:#172033;color:#fff;font-weight:900;text-decoration:none"><strong>Open Free Accounting Equation Notes PDF →</strong></a></p>
 
   <h3>Core formula</h3>
   <p style="font-size:1.12rem"><strong>Assets = Capital + Liabilities</strong></p>
@@ -64,6 +67,14 @@ const block = `<section data-accounting-equation-growth="true" style="margin:32p
   <h3>Mini example</h3>
   <p>If the owner brings ₹1,00,000 cash and the business then buys furniture worth ₹20,000 in cash, total assets remain ₹1,00,000: Cash ₹80,000 + Furniture ₹20,000. Capital remains ₹1,00,000, so the equation still balances.</p>
 
+  <h3>Common mistakes to avoid</h3>
+  <ul>
+    <li>Treating every purchase as an expense. Buying an asset for cash can simply change the form of assets.</li>
+    <li>Forgetting that income increases capital and expenses reduce capital.</li>
+    <li>Changing only one side of the equation after a transaction.</li>
+    <li>Mixing the owner's personal transactions with business transactions.</li>
+  </ul>
+
   <h3>Quick self-test</h3>
   <ul>
     <li>What happens to the equation when goods are purchased on credit?</li>
@@ -72,7 +83,8 @@ const block = `<section data-accounting-equation-growth="true" style="margin:32p
     <li>How does income affect capital?</li>
   </ul>
 
-  <p><a href="/study-material?board=GSEB&class=11&subject=Accountancy"><strong>Continue with GSEB Class 11 Accountancy resources →</strong></a></p>
+  <h3>Continue Class 11 Accountancy</h3>
+  <p><a href="/school-resource/gseb/class-11/accountancy/gseb-class-11-accountancy-chapter-4-journal-notes">Chapter 4: Journal</a> · <a href="/school-resource/gseb/class-11/accountancy/gseb-class-11-accountancy-chapter-6-subsidiary-books-notes">Chapter 6: Subsidiary Books</a> · <a href="/study-material?board=GSEB&class=11&subject=Accountancy">All GSEB Class 11 Accountancy resources</a></p>
 </section>`;
 
 let patched = 0;
