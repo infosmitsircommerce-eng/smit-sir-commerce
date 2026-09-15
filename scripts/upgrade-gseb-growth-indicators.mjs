@@ -1,7 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
 const file = new URL('../dist/gseb/class-12/economics/indicators-of-growth-and-development-notes.html', import.meta.url);
-const canonical = 'https://www.smitsircommerce.in/gseb/class-12/economics/indicators-of-growth-and-development-notes';
+const canonical = 'https://www.smitsircommerce.in/gseb/class-12/economics/indicators-of-growth-and-development-notes.html';
 const pdf = '/materials/gseb/class-12/economics/free/chapter-02-notes.pdf';
 const practice = '/gseb-class-12-economics-practice.html#chapter-2';
 
