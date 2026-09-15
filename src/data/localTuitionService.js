@@ -1,11 +1,11 @@
 export const localTuitionService = {
-  title: 'Commerce Tuition & Coaching in Mehsana | Class 11 & 12',
-  description: 'Class 11 & 12 Commerce tuition in Mehsana: Economics, Business Studies and Entrepreneurship. Classes at Smit Sir’s location or home tuition. Call 6353709585.',
+  title: 'Commerce Classes & Tuition in Mehsana | Class 11 & 12',
+  description: 'Commerce classes and tuition in Mehsana for Class 11 & 12 students, with Economics, Business Studies and Entrepreneurship support, free resources and demo options.',
   phone: '+916353709585',
   phoneLabel: '+91 63537 09585',
   mapsUrl: 'https://maps.app.goo.gl/T5t5Mw2jKiqbozgi8?g_st=ac',
-  heading: 'Classes at Smit Sir’s location or home tuition in Mehsana',
-  intro: 'Choose face-to-face lessons at Smit Sir’s tuition location or enquire about lessons at your home in Mehsana. Share your class, board, subject and area so the location, travel availability and suitable timing can be confirmed before you join.',
+  heading: 'Class 11 & 12 Commerce classes in Mehsana — choose the learning option that fits',
+  intro: 'Looking for Commerce classes in Mehsana? Students can enquire about face-to-face lessons at Smit Sir’s tuition location or lessons at their home in Mehsana. Share your class, board, subject and area so the location, travel availability and suitable timing can be confirmed before you join.',
   modes: [
     { title: 'Classes at Smit Sir’s location', description: 'Attend in person in Mehsana. Contact Smit Sir for the exact location and current class timings before visiting.' },
     { title: 'Home tuition in Mehsana', description: 'Smit Sir can also teach at the student’s home. Share your area or landmark to confirm travel availability, timing and fees.' },
