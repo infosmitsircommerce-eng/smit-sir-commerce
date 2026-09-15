@@ -16,6 +16,11 @@ function renderLocalTuitionDetails() {
   return `<section data-local-tuition-details="true"><h2>${esc(localTuitionService.heading)}</h2><p>${esc(localTuitionService.intro)}</p>${localTuitionService.modes.map((mode) => `<h3>${esc(mode.title)}</h3><p>${esc(mode.description)}</p>`).join('')}<p><a href="/book-demo?from=local-lesson-options&amp;mode=Offline">Enquire about tuition</a> · <a href="tel:${localTuitionService.phone}">Call ${localTuitionService.phoneLabel}</a></p>${localTuitionService.faqs.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}</section>`;
 }
 
+function renderProofLinks(page) {
+  if (!page.proofLinks?.length) return '';
+  return `<section data-free-proof-links="true"><h2>Try the free resources before deciding</h2><p>You do not need to trust a tuition claim first. Use these free resources to judge the explanation and practice approach for yourself.</p><ul>${page.proofLinks.map(([href, label]) => `<li><a href="${esc(href)}">${esc(label)}</a></li>`).join('')}</ul></section>`;
+}
+
 function seoTags({ path, title, description, structuredData, imageAlt }) {
   const fullTitle = `${title} | ${SITE}`;
   const url = `${BASE}${path}`;
@@ -76,7 +81,7 @@ for (const page of localSeoPages) {
     ],
   };
   const related = localSeoPages.filter((item) => item.path !== page.path);
-  const body = `<main class="page-container section-padding" data-prerendered="local-keyword-seo"><nav aria-label="Breadcrumb"><a href="/">Home</a> / <a href="${mainPath}">Commerce Tuition in Mehsana</a> / ${esc(page.h1)}</nav><article><p>${esc(page.eyebrow)}</p><h1>${esc(page.h1)}</h1><p>${esc(page.intro)}</p><p><a href="/book-demo">Get a free paper analysis + demo</a> · <a href="/cbse-notes">Free CBSE Commerce notes</a></p>${renderLocalTuitionDetails()}<section><h2>${esc(page.sectionTitle)}</h2><p>${esc(page.sectionText)}</p><ul>${page.focus.map(([title, text]) => `<li><strong>${esc(title)}:</strong> ${esc(text)}</li>`).join('')}</ul></section><section><h2>Questions students and parents ask</h2>${page.faqs.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}</section><section><h2>Related Commerce tuition in Mehsana</h2><ul>${related.map((item) => `<li><a href="${esc(item.path)}">${esc(item.h1)}</a></li>`).join('')}</ul></section><p><a href="/study-material">Study material</a> · <a href="/mehsana-commerce-student-resources.html">Mehsana student resources</a> · <a href="/test-series">Commerce tests</a> · <a href="/contact">Contact Smit Sir Commerce</a></p></article></main>`;
+  const body = `<main class="page-container section-padding" data-prerendered="local-keyword-seo"><nav aria-label="Breadcrumb"><a href="/">Home</a> / <a href="${mainPath}">Commerce Tuition in Mehsana</a> / ${esc(page.h1)}</nav><article><p>${esc(page.eyebrow)}</p><h1>${esc(page.h1)}</h1><p>${esc(page.intro)}</p><p><a href="/book-demo">Get a free paper analysis + demo</a> · <a href="/cbse-notes">Free CBSE Commerce notes</a></p>${renderProofLinks(page)}${renderLocalTuitionDetails()}<section><h2>${esc(page.sectionTitle)}</h2><p>${esc(page.sectionText)}</p><ul>${page.focus.map(([title, text]) => `<li><strong>${esc(title)}:</strong> ${esc(text)}</li>`).join('')}</ul></section><section><h2>Questions students and parents ask</h2>${page.faqs.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join('')}</section><section><h2>Related Commerce tuition in Mehsana</h2><ul>${related.map((item) => `<li><a href="${esc(item.path)}">${esc(item.h1)}</a></li>`).join('')}</ul></section><p><a href="/study-material">Study material</a> · <a href="/mehsana-commerce-student-resources.html">Mehsana student resources</a> · <a href="/test-series">Commerce tests</a> · <a href="/contact">Contact Smit Sir Commerce</a></p></article></main>`;
   await writeRoute(page.path, makeHtml({ path: page.path, title: page.title, description: page.description, body, structuredData, imageAlt: `${page.h1} — Smit Sir Commerce` }));
 }
 
