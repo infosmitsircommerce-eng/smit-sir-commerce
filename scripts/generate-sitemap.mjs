@@ -145,10 +145,21 @@ function xmlEscape(value) {
     .replace(/'/g, "&apos;");
 }
 
+function cleanPublicPath(path) {
+  return path?.endsWith(".html") ? path.slice(0, -5) : path;
+}
+
 function publicLocalActionPath(page) {
   return page.path === "/mehsana-commerce-student-resources.html"
     ? "/mehsana-commerce-student-resources"
     : page.path;
+}
+
+function publicSilentSearchPath(page) {
+  const mainChapterLink = page.links?.find(
+    (link) => link.label === "Open main chapter page",
+  )?.href;
+  return cleanPublicPath(mainChapterLink || page.path);
 }
 
 function urlEntry(path, changefreq, priority, lastmod = "") {
@@ -174,7 +185,7 @@ function urlEntry(path, changefreq, priority, lastmod = "") {
 const entries = [
   ...basePages.map(([p, f, pr]) => urlEntry(p, f, pr)),
   ...silentSearchPages.map((page) =>
-    urlEntry(page.path, "weekly", "0.92", "2026-09-08"),
+    urlEntry(publicSilentSearchPath(page), "weekly", "0.92", "2026-09-08"),
   ),
   ...genuineTrafficPages.map((page) =>
     urlEntry(page.path, "weekly", "0.9", "2026-09-08"),
