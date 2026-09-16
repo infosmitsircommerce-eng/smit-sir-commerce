@@ -73,13 +73,20 @@ function insertBeforeLearning(html, marker, block) {
 }
 
 const title = 'Class 12 Business Studies Case Study Questions with Answers | CBSE 2026-27';
-const description = 'Practice CBSE Class 12 Business Studies case study questions with answers for Management, Principles of Management, Business Environment, Planning, Controlling and more, with chapter-wise clues and a simple solving method.';
+const description = 'Free chapter-wise CBSE Class 12 Business Studies case study questions with answers for Chapters 1–12, including solved examples, clue maps and a 4-step solving method for 2026–27.';
 
 const hubBlock = `
 <section data-bst-national-upgrade="true" style="margin:32px 0;padding:26px;border:1px solid #ead7a7;border-radius:22px;background:#fffdf7">
   <p style="margin:0 0 10px;font-size:12px;font-weight:900;letter-spacing:.10em;color:#8b641c">CBSE CLASS 12 · CHAPTER-WISE PRACTICE</p>
   <h2>Class 12 Business Studies case study questions with answers</h2>
   <p>Case-study questions become much easier when you stop reading them like stories. First find the clue, then identify the chapter concept, write the correct Business Studies term, and connect that term back to the situation.</p>
+
+  <div data-bst-search-fast-start="true" style="margin:18px 0;padding:16px 18px;border-radius:16px;background:#fff7df;border:1px solid #efd99d">
+    <strong>Start with the chapters students search most:</strong>
+    <a href="/practice/cbse/class-12/business-studies/nature-and-significance-of-management-case-study-questions">Chapter 1 case study questions with answers</a> ·
+    <a href="/practice/cbse/class-12/business-studies/principles-of-management-case-study-questions">Chapter 2 case study questions with answers</a> ·
+    <a href="/practice/cbse/class-12/business-studies/planning-case-study-questions">Planning case study questions with solutions</a>
+  </div>
 
   <h3>Use this 4-step method in every case study</h3>
   <ol>
@@ -125,6 +132,8 @@ const hubBlock = `
 
   <h3>Frequently asked questions</h3>
   <details><summary><strong>Are these official CBSE case-study questions?</strong></summary><p>No. The practice questions and explanations on Smit Sir Commerce are original learning material designed to help students practise CBSE-style application skills.</p></details>
+  <details><summary><strong>Where can I practise Chapter 1 case study questions with answers?</strong></summary><p>Use the dedicated <a href="/practice/cbse/class-12/business-studies/nature-and-significance-of-management-case-study-questions">Chapter 1 Nature and Significance of Management case-study page</a> for focused practice.</p></details>
+  <details><summary><strong>Where can I practise Chapter 2 Principles of Management case studies?</strong></summary><p>Use the dedicated <a href="/practice/cbse/class-12/business-studies/principles-of-management-case-study-questions">Chapter 2 Principles of Management case-study page</a> for Fayol and Taylor application questions.</p></details>
   <details><summary><strong>How do I identify the correct chapter in a Business Studies case?</strong></summary><p>Look for the action being described. Targets and alternatives usually point to Planning; recruitment and training to Staffing; motivation and leadership to Directing; standards and deviations to Controlling.</p></details>
   <details><summary><strong>Should I write long answers for case-study questions?</strong></summary><p>Write according to the marks. Usually the strongest response is the correct concept, a precise explanation and a direct application to the case rather than an unrelated long paragraph.</p></details>
 
