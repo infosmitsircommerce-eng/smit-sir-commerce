@@ -1,13 +1,15 @@
 import { readFile, writeFile } from "node:fs/promises";
 
 const BASE = "https://www.smitsircommerce.in";
-const MODIFIED_DATE = "2026-09-15";
+const MODIFIED_DATE = "2026-09-16";
 const SITEMAP = new URL("../public/sitemap.xml", import.meta.url);
 
-// Only pages that were materially updated on 2026-09-15.
-// Keeping this explicit avoids pretending untouched pages changed today.
+// Only pages materially updated on 2026-09-16 or carried forward from the
+// focused growth pass so search engines can discover the latest versions.
 const UPDATED_PATHS = [
   "/",
+  "/about",
+  "/contact",
   "/commerce-coaching-mehsana",
   "/cbse-commerce-classes-mehsana",
   "/economics-tuition-mehsana",
