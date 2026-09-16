@@ -10,6 +10,10 @@ const chapterPages = [
     label: 'Chapter 1: Nature and Significance of Management',
   },
   {
+    path: '/practice/cbse/class-12/business-studies/principles-of-management-case-study-questions',
+    label: 'Chapter 2: Principles of Management',
+  },
+  {
     path: '/practice/cbse/class-12/business-studies/business-environment-case-study-questions',
     label: 'Chapter 3: Business Environment',
   },
@@ -69,7 +73,7 @@ function insertBeforeLearning(html, marker, block) {
 }
 
 const title = 'Class 12 Business Studies Case Study Questions with Answers | CBSE 2026-27';
-const description = 'Practice CBSE Class 12 Business Studies case study questions with answers, chapter-wise clues and a simple solving method for Management, Business Environment, Planning, Controlling and more.';
+const description = 'Practice CBSE Class 12 Business Studies case study questions with answers for Management, Principles of Management, Business Environment, Planning, Controlling and more, with chapter-wise clues and a simple solving method.';
 
 const hubBlock = `
 <section data-bst-national-upgrade="true" style="margin:32px 0;padding:26px;border:1px solid #ead7a7;border-radius:22px;background:#fffdf7">
