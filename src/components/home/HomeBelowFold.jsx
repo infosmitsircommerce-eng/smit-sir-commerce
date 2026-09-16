@@ -1,5 +1,6 @@
 import CommerceJourneyPreview from "./CommerceJourneyPreview";
 import TrustLayer from "./TrustLayer";
+import PublishedWork from "./PublishedWork";
 import CommerceToolsPreview from "./CommerceToolsPreview";
 import FAQSection from "./FAQSection";
 import ContactCTA from "./ContactCTA";
@@ -61,6 +62,7 @@ export default function HomeBelowFold() {
   return (
     <div className="ssc-home-modules">
       <TrustLayer />
+      <PublishedWork />
       <CommerceJourneyPreview />
       <CommerceToolsPreview />
       <BoardBoosterPromo />
