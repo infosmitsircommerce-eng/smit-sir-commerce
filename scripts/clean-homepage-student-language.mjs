@@ -18,3 +18,7 @@ html = html.replace(
 
 await writeFile(file, html, 'utf8');
 console.log('Cleaned homepage search-engine wording and replaced it with student-first resource paths.');
+
+// Final contextual internal-link pass. This runs here because this script is the last
+// HTML-mutating step before the SEO audits in package.json.
+await import('./link-final-orphan-pages.mjs');
