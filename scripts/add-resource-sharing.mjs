@@ -6,7 +6,17 @@ const dist = new URL('../dist/', import.meta.url);
 const routes = [
   '/cbse/class-12/business-studies-case-study-questions',
   '/cbse/class-12/business-studies/business-environment-notes',
+  '/cbse/class-12/business-studies-mcq',
+  '/cbse/class-12/economics-revision-guide',
+  '/cbse-notes',
+  '/study-material',
+  '/daily-practice',
+  '/test-series',
+  '/tools',
   '/school-resource/gseb/class-11/accountancy/gseb-class-11-accountancy-chapter-5-accounting-equation-notes',
+  '/gseb/class-12/economics/emerging-issues-in-indian-economy-notes',
+  '/gseb/class-12/economics/indicators-of-growth-and-development-notes',
+  '/mehsana-commerce-student-resources',
   '/tools/net-indirect-tax-calculator',
   '/tools/topics/national-income-gdp',
 ];
