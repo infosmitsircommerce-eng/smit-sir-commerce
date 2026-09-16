@@ -283,7 +283,9 @@ export default function SEO({
   const effectiveTitle = searchMeta?.title || title;
   const effectiveDescription = searchMeta?.description || description;
   const fullTitle = effectiveTitle
-    ? `${effectiveTitle} | ${SITE}`
+    ? normalizedPath === "/"
+      ? `${SITE} | ${effectiveTitle}`
+      : `${effectiveTitle} | ${SITE}`
     : `${SITE} | Commerce Learning Hub`;
   const url = BASE + normalizedPath;
   const robots = noindex
