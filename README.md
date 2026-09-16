@@ -1,72 +1,55 @@
-# Smit Sir Commerce — Premium Commerce Learning Platform
+# Smit Sir Commerce — Official Website Source
 
-A complete, production-quality education website for Class 11 & 12 CBSE Commerce students.
+This repository contains the source code for **Smit Sir Commerce**, a Commerce learning platform created by Smit Thaker.
+
+**Official website:** https://www.smitsircommerce.in/
+
+**About Smit Sir Commerce:** https://www.smitsircommerce.in/about
+
+**Student resources:** https://www.smitsircommerce.in/study-material
+
+> This GitHub repository is the website's development/source-code repository. Students looking for notes, quizzes, calculators, CBSE/GSEB resources or teacher support should use the official website above.
+
+## What the website provides
+
+- Free Class 11 & 12 Commerce notes and PDFs
+- CBSE and GSEB learning resources
+- Economics and Business Studies practice
+- Chapter-wise quizzes and diagnostic tools
+- Commerce calculators and revision tools
+- Optional paid Board Booster and teacher-support pathways
 
 ## Tech Stack
-- **React 18** + **Vite** (fast build tool)
-- **Tailwind CSS** (utility-first styling)
-- **Framer Motion** (smooth animations)
-- **Lucide React** (icons)
-- **React Router DOM** (page routing)
 
-## Pages Included
-| Page | URL |
-|------|-----|
-| Home | `/` |
-| Courses | `/courses` |
-| Video Lectures | `/lectures` |
-| Study Material | `/study-material` |
-| Quizzes | `/quizzes` |
-| Test Series | `/test-series` |
-| Live Classes | `/live-classes` |
-| Online Batch | `/online-batch` |
-| Offline Batch | `/offline-batch` |
-| Student Dashboard | `/dashboard` |
-| Admin Dashboard | `/admin` |
-| Parent Info | `/parent-info` |
-| About | `/about` |
-| Contact | `/contact` |
-| FAQ | `/faq` |
+- **React 18** + **Vite**
+- **Tailwind CSS**
+- **Framer Motion**
+- **Lucide React**
+- **React Router DOM**
 
-## Setup Instructions
+## Main public pages
 
-### Step 1 — Install Node.js
-Download and install Node.js from: https://nodejs.org
-Choose the **LTS** version (recommended).
+| Page | Official URL |
+|---|---|
+| Home | https://www.smitsircommerce.in/ |
+| About | https://www.smitsircommerce.in/about |
+| Study Material | https://www.smitsircommerce.in/study-material |
+| CBSE Notes | https://www.smitsircommerce.in/cbse-notes |
+| Quizzes | https://www.smitsircommerce.in/quizzes |
+| Commerce Tools | https://www.smitsircommerce.in/tools |
+| Contact | https://www.smitsircommerce.in/contact |
 
-### Step 2 — Install dependencies
-Open a terminal in this folder and run:
-```
+## Local development
+
+```bash
 npm install
-```
-
-### Step 3 — Start development server
-```
 npm run dev
 ```
-Open your browser and go to: **http://localhost:5173**
 
-### Step 4 — Build for production
-```
+Production build:
+
+```bash
 npm run build
 ```
 
-## Replacing the Teacher Photo
-The teacher photo is at: `src/assets/teacher-photo.jpg`
-Replace it with your preferred high-quality portrait photo.
-
-## Customization
-- **Contact details**: Search for `90000 00000` and replace with real number
-- **Social links**: Update Instagram/YouTube URLs in `Footer.jsx`
-- **WhatsApp link**: Update the phone number in `WhatsApp` links
-- **Fee structure**: Update fee details in `BatchPage.jsx`
-- **Location**: Update address in `Contact.jsx` and `Footer.jsx`
-
-## Backend Integration (Future)
-All data is structured in `/src/data/` files ready for API replacement:
-- `courses.js` — Course and chapter data
-- `lectures.js` — Video lecture data
-- `studyMaterial.js` — PDF/notes data
-- `quizzes.js` — Quiz data
-- `testimonials.js` — Student testimonials
-- `faqs.js` — FAQ data
+The canonical public identity of this project is **Smit Sir Commerce — https://www.smitsircommerce.in/**.
