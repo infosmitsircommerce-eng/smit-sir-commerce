@@ -25,12 +25,16 @@ function setMeta(html, selector, value) {
 }
 
 const title = 'Business Environment Class 12 Notes 2026-27 | CBSE Chapter 3';
-const description = 'Free Business Environment Class 12 notes for CBSE Chapter 3 with features, importance, dimensions, LPG reforms, demonetisation, case-study clues, questions and quick revision.';
+const description = 'Free CBSE Class 12 Business Studies Chapter 3 Business Environment notes with features, importance, dimensions, LPG reforms, case-study clues, quick questions and a print/save-as-PDF option.';
 
 const block = `<section data-business-environment-growth="true" style="margin:32px 0;padding:26px;border:1px solid #dbe7f4;border-radius:22px;background:#f8fbff">
   <p style="margin:0 0 10px;font-size:12px;font-weight:900;letter-spacing:.10em;color:#315f8b">CBSE CLASS 12 · CHAPTER 3 QUICK REVISION</p>
   <h2>Business Environment Class 12: revise the chapter in the right order</h2>
   <p>If you are revising this chapter before a test, do not reread everything randomly. First understand the meaning and features, then learn why business environment matters, then practise the five dimensions and finally revise LPG reforms and application-based questions.</p>
+  <p data-business-environment-pdf-intent="true" style="padding:14px 16px;border-radius:14px;background:#eef6ff;border:1px solid #cfe0f3"><strong>Looking for Business Environment Class 12 notes PDF?</strong> This page is print-friendly. On supported browsers, use <a href="#" onclick="window.print();return false;"><strong>Print / Save these notes as PDF</strong></a> so you can revise them offline.</p>
+
+  <h3>Business Studies Class 12 Chapter 3 notes at a glance</h3>
+  <p>The chapter can be organised into five exam blocks: meaning and features, importance, dimensions, LPG reforms, and application-based case-study clues. Revise in that order so definitions and examples stay connected.</p>
 
   <h3>1. Meaning in one line</h3>
   <p><strong>Business environment</strong> means the total external forces, institutions and conditions that can affect the working and decisions of a business enterprise.</p>
@@ -100,6 +104,7 @@ const block = `<section data-business-environment-growth="true" style="margin:32
 </section>`;
 
 const oldBlock = /<section\s+data-traffic-winner=["']business-environment["'][\s\S]*?<\/section>/i;
+const currentBlock = /<section\s+data-business-environment-growth=["']true["'][\s\S]*?<\/section>/i;
 
 let patched = 0;
 for (const file of routeFiles(PATH)) {
@@ -113,9 +118,11 @@ for (const file of routeFiles(PATH)) {
     html = setMeta(html, 'twitter:title', title);
     html = setMeta(html, 'twitter:description', description);
 
-    if (oldBlock.test(html)) {
+    if (currentBlock.test(html)) {
+      html = html.replace(currentBlock, block);
+    } else if (oldBlock.test(html)) {
       html = html.replace(oldBlock, block);
-    } else if (!html.includes('data-business-environment-growth="true"')) {
+    } else {
       const anchors = ['<h2>Continue learning</h2>', '<h2>Related resources</h2>', '</article>', '</main>'];
       let inserted = false;
       for (const anchor of anchors) {
