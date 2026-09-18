@@ -7,6 +7,7 @@ import './styles/mobileExperience.css'
 import './styles/scrollSafety.css'
 import './styles/mobileLedger.css'
 import './styles/desktopLearningHome.css'
+import './styles/productPolish.css'
 import App from './App.jsx'
 import { installDownloadTracking } from './lib/conversionTracking';
 
@@ -30,6 +31,11 @@ async function retireLegacyPwa() {
   if (typeof window === 'undefined') return false;
   const alreadyRetired = window.localStorage?.getItem(PWA_RETIRE_KEY) === 'done';
   const hadController = Boolean(navigator.serviceWorker?.controller);
+
+  // The legacy worker/cache cleanup is a one-time migration. Once it has
+  // completed and no old worker controls this page, do not block every future
+  // app start on service-worker and Cache Storage calls.
+  if (alreadyRetired && !hadController) return false;
 
   try {
     if ('serviceWorker' in navigator) {

@@ -56,8 +56,11 @@ export default function Navbar() {
   }
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setScrolled((current) => {
+      const next = window.scrollY > 20;
+      return current === next ? current : next;
+    });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -165,30 +168,50 @@ export default function Navbar() {
           <div className="hidden xl:flex items-center gap-1">
             {navLinks.map((link) =>
               link.children ? (
-                <div key={link.label} className="relative">
+                <div
+                  key={link.label}
+                  className="relative"
+                  onMouseEnter={() => setOpenDropdown(link.label)}
+                  onMouseLeave={() => setOpenDropdown(null)}
+                  onBlur={(event) => {
+                    if (!event.currentTarget.contains(event.relatedTarget)) {
+                      setOpenDropdown(null);
+                    }
+                  }}
+                >
                   <button
                     className="flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-semibold transition-colors"
-                    style={linkStyle(false)}
-                    onMouseEnter={(e) => {
-                      setOpenDropdown(link.label);
-                      e.currentTarget.style.background = T.linkHoverBg;
-                      e.currentTarget.style.color = T.linkActive;
+                    style={{
+                      ...linkStyle(false),
+                      background: openDropdown === link.label ? T.linkHoverBg : "transparent",
+                      color: openDropdown === link.label ? T.linkActive : T.linkColor,
                     }}
-                    onMouseLeave={(e) => {
-                      setOpenDropdown(null);
-                      e.currentTarget.style.background = "transparent";
-                      e.currentTarget.style.color = T.linkColor;
-                    }}
+                    type="button"
+                    aria-haspopup="menu"
+                    aria-expanded={openDropdown === link.label}
+                    onFocus={() => setOpenDropdown(link.label)}
+                    onClick={() =>
+                      setOpenDropdown((current) =>
+                        current === link.label ? null : link.label,
+                      )
+                    }
                   >
                     {link.label}
-                    <ChevronDown className="w-3 h-3" />
+                    <ChevronDown
+                      className="w-3 h-3 transition-transform"
+                      style={{
+                        transform:
+                          openDropdown === link.label
+                            ? "rotate(180deg)"
+                            : "rotate(0deg)",
+                      }}
+                    />
                   </button>
                   {openDropdown === link.label && (
                     <div
                       className="absolute top-full left-0 mt-1 rounded-xl py-2 min-w-[240px] max-h-[70vh] overflow-y-auto"
                       style={T.dropdownBg}
-                      onMouseEnter={() => setOpenDropdown(link.label)}
-                      onMouseLeave={() => setOpenDropdown(null)}
+                      role="menu"
                     >
                       {link.children.map((child) => (
                         <Link

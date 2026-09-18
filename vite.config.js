@@ -33,7 +33,6 @@ export default defineConfig({
           if (/\/node_modules\/(?:react-router|react-router-dom|@remix-run\/router)\//.test(id)) return 'router';
           if (/\/node_modules\/(?:framer-motion|motion-dom|motion-utils)\//.test(id)) return 'framer';
           if (id.includes('/node_modules/@supabase/')) return 'supabase';
-          if (id.includes('/node_modules/lucide-react/')) return 'icons';
         },
       },
     },

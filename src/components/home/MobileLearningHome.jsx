@@ -6,7 +6,6 @@ import {
   BookOpen,
   FileQuestion,
   FileText,
-  FlaskConical,
   GraduationCap,
   Search,
   SlidersHorizontal,

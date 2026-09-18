@@ -8,7 +8,6 @@ import {
   Outlet,
 } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-import InstallPWA from "./components/ui/InstallPWA";
 import Layout from "./components/layout/Layout";
 import AppErrorBoundary from "./components/ui/AppErrorBoundary";
 import SEO from "./components/ui/SEO";
@@ -110,22 +109,20 @@ function NotFound() {
 }
 function PageFallback() {
   return (
-    <div
-      className="min-h-screen flex items-center justify-center"
-      style={{ background: "var(--bg-ivory)" }}
-      role="status"
-    >
-      <div className="flex flex-col items-center gap-4">
-        <div
-          className="w-10 h-10 rounded-full border-2 animate-spin"
-          style={{
-            borderColor: "rgba(184,135,47,0.25)",
-            borderTopColor: "var(--gold)",
-          }}
-        />
-        <p className="text-sm" style={{ color: "var(--subtle)" }}>
-          Loading this page…
-        </p>
+    <div className="ssc-page-fallback" role="status" aria-live="polite">
+      <div className="ssc-page-fallback-card">
+        <div className="ssc-page-fallback-top">
+          <span className="ssc-page-fallback-spinner" aria-hidden="true" />
+          <span className="ssc-page-fallback-copy">
+            <strong>Opening your study page…</strong>
+            <span>Just a moment.</span>
+          </span>
+        </div>
+        <div className="ssc-page-fallback-lines" aria-hidden="true">
+          <i />
+          <i />
+          <i />
+        </div>
       </div>
     </div>
   );
@@ -790,8 +787,7 @@ export default function App() {
           <AppErrorBoundary>
             <RouteSEO />
             <AnimatedRoutes />
-            <InstallPWA />
-          </AppErrorBoundary>
+                      </AppErrorBoundary>
         </AuthProvider>
       </BrowserRouter>
     </HelmetProvider>
