@@ -55,8 +55,8 @@ function enhancementBody(enhancement = {}) {
 }
 
 const hubPath = '/tools';
-const hubTitle = 'Free Commerce Calculators — Economics & Accountancy Class 11 & 12';
-const hubDescription = 'Free Class 11 and 12 Commerce calculators for MPC, MPS, consumption and saving functions, GDP and national income conversions, revenue, costs, money, elasticity and Accountancy ratios with step-by-step working.';
+const hubTitle = 'Free Commerce Calculators Class 11–12';
+const hubDescription = 'Free Class 11–12 Commerce calculators for Economics and Accountancy, with formulas and step-by-step working for common numerical topics.';
 const hubStructuredData = {
   '@context': 'https://schema.org',
   '@graph': [
