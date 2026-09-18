@@ -529,6 +529,10 @@
       "destination": "/"
     },
     {
+      "source": "/content-provenance",
+      "destination": "/"
+    },
+    {
       "source": "/games",
       "destination": "/"
     },
