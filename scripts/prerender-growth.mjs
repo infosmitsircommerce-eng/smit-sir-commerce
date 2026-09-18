@@ -32,7 +32,7 @@ function hubBody() {
 }
 
 function structuredData(page) {
-  return { '@context': 'https://schema.org', '@type': 'LearningResource', name: page.title, description: page.description, url: `${BASE}${page.path}`, educationalLevel: `CBSE Class ${page.classLevel}`, learningResourceType: page.label, isAccessibleForFree: true, inLanguage: 'en-IN', dateModified: page.updated, about: [page.chapter, page.subject], provider: { '@type': 'EducationalOrganization', name: SITE, url: BASE } };
+  return { '@context': 'https://schema.org', '@type': 'LearningResource', name: page.title, description: page.description, url: `${BASE}${page.path}`, educationalLevel: `CBSE Class ${page.classLevel}`, learningResourceType: page.label, isAccessibleForFree: true, inLanguage: 'en-IN', dateModified: page.updated, about: [page.chapter, page.subject], provider: { '@type': 'EducationalOrganization', name: SITE, url: BASE, logo: `${BASE}/og-image.jpg` } };
 }
 
 function buildHtml({ path, title, description, body, schema, modifiedTime = '2026-09-01', indexable = true }) {
