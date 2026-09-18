@@ -128,6 +128,41 @@ const documents = {
       ],
     ],
   },
+  "/disclaimer": {
+    title: "Disclaimer & Content Originality",
+    description:
+      "Educational-use, accuracy, copyright, advertising and external-link disclosures for Smit Sir Commerce.",
+    sections: [
+      [
+        "Educational purpose",
+        "Smit Sir Commerce provides learning resources for study and revision support. Website notes, quizzes, calculators, guides and explanations are not official CBSE, GSEB, university or government publications unless a source is explicitly identified as such.",
+      ],
+      [
+        "Originality and copyright",
+        "The platform is intended to publish original explanations, practice resources, worksheets, tools and teaching material created for Smit Sir Commerce, together with properly identified official or third-party references where their use is permitted. The website does not claim ownership of board names, textbook titles, trademarks or third-party publications.",
+      ],
+      [
+        "Accuracy",
+        "Reasonable care is taken to keep educational content accurate and useful, but mistakes can occur and syllabi, marking patterns or official instructions can change. Students should verify high-stakes exam requirements against the latest official board or institution notice.",
+      ],
+      [
+        "No marks guarantee",
+        "Study material, diagnostics, tools, tests and teaching support are designed to improve preparation. They do not guarantee a particular score, rank, admission outcome or examination result.",
+      ],
+      [
+        "External links",
+        "Some pages may link to official boards, publishers, articles, maps or other third-party websites for reference. Smit Sir Commerce does not control those external websites and is not responsible for their availability, privacy practices or later content changes.",
+      ],
+      [
+        "Advertising",
+        "Public learning pages may use Google AdSense or another advertising provider after approval. Advertising is separate from editorial and educational content and does not represent an endorsement by Smit Sir Commerce.",
+      ],
+      [
+        "Corrections and rights concerns",
+        "If you believe a page contains an error or material that should not be published, use the Contact page and identify the exact page or resource so it can be reviewed promptly.",
+      ],
+    ],
+  },
   "/access-policy": {
     title: "Access & Learning Policy",
     description:
@@ -187,7 +222,7 @@ export default function Legal() {
             {doc.description}
           </p>
           <div className="text-xs mt-4" style={{ color: "var(--subtle)" }}>
-            Last updated: 11 September 2026
+            Last updated: 18 September 2026
           </div>
         </div>
       </section>
