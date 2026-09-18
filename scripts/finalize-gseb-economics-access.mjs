@@ -35,7 +35,10 @@ for(const m of premium) {
   html=html.replace('<section class="card"><h2>Study flow',`<!-- economics-access-start -->${section}${premiumSection}${study}<!-- economics-access-end --><section class="card"><h2>Study flow`);
   if(!current) html=html.replace(/<meta name="robots" content="[^"]*">/,'<meta name="robots" content="noindex,follow">').replace(/Free GSEB/g,'GSEB').replace('Revision page based on the uploaded', 'Chapter overview and free practice for');
   const outputPath = htmlPath(m.seo_path);
+  const directoryPath = m.seo_path.replace(/\/$/, '') + '/index.html';
   await mkdir(dirname(new URL('.'+outputPath,output).pathname),{recursive:true});
+  await mkdir(dirname(new URL('.'+directoryPath,output).pathname),{recursive:true});
   await writeFile(new URL('.'+outputPath,output),html);
+  await writeFile(new URL('.'+directoryPath,output),html);
 }
 console.log('Finalized GSEB Economics: 8 free PDFs, 10 Premium revision editions; missing free PDFs labelled.');
