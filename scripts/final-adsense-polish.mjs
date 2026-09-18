@@ -22,11 +22,39 @@ const targets = [
       new URL('../dist/contact.html', import.meta.url),
       new URL('../dist/contact/index.html', import.meta.url),
     ],
-    title: 'Contact Smit Sir Commerce',
+    title: 'Contact Smit Sir Commerce | Student Help',
     patch(html) {
       if (html.includes('data-final-contact-trust="true"')) return html;
-      const block = `<section data-final-contact-trust="true"><h2>How support requests are handled</h2><p>Study questions are answered by first identifying the class, board, subject and exact concept involved. Resource problems are checked against the specific page or PDF URL. Accuracy, privacy or rights concerns are reviewed separately so they are not mixed with admission enquiries. This keeps the contact page useful for students, parents and rights holders without requiring anyone to join a batch.</p></section>`;
+      const block = `<section data-final-contact-trust="true"><h2>How support requests are handled</h2><p>Study questions are answered by first identifying the class, board, subject and exact concept involved. Resource problems are checked against the specific page or PDF URL. Accuracy, privacy or rights concerns are reviewed separately so they are not mixed with admission enquiries. This keeps the contact page useful for students, parents and rights holders without requiring anyone to join a batch.</p><h2>Before sending a study question</h2><p>Include the chapter name, the question type and what you have already tried. For a numerical, mention the formula or step where the answer stops making sense. For a theory answer, mention whether the difficulty is understanding the concept, remembering the headings or applying the idea to a case. That context makes the response more useful than a message that only says a subject is difficult.</p></section>`;
       return html.replace('</article></main>', block + '</article></main>');
+    },
+  },
+  {
+    files: [
+      new URL('../dist/gseb/class-12/economics/emerging-issues-in-indian-economy-notes.html', import.meta.url),
+      new URL('../dist/gseb/class-12/economics/emerging-issues-in-indian-economy-notes/index.html', import.meta.url),
+    ],
+    title: 'Emerging Issues Class 12 Notes | GSEB',
+    description: 'Free GSEB Class 12 Economics notes on migration, urbanisation and infrastructure, with chapter revision guidance and practice links.',
+    patch(html) {
+      if (/<script\b[^>]*type=["']application\/ld\+json["']/i.test(html)) return html;
+      const schema = {
+        '@context': 'https://schema.org',
+        '@type': 'LearningResource',
+        name: 'Emerging Issues in Indian Economy Notes',
+        url: BASE + '/gseb/class-12/economics/emerging-issues-in-indian-economy-notes',
+        educationalLevel: 'Class 12',
+        learningResourceType: 'Chapter notes',
+        inLanguage: 'en-IN',
+        isAccessibleForFree: true,
+        provider: {
+          '@type': 'EducationalOrganization',
+          name: 'Smit Sir Commerce',
+          url: BASE + '/',
+          logo: BASE + '/og-image.jpg',
+        },
+      };
+      return html.replace('</head>', '<script type="application/ld+json">' + JSON.stringify(schema).replaceAll('<', '\\u003c') + '</script>\n</head>');
     },
   },
   {
