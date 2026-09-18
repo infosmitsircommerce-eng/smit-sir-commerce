@@ -81,5 +81,6 @@ const report = {
 await writeFile(join(root, 'adsense-readiness-report.json'), JSON.stringify(report, null, 2), 'utf8');
 console.log(`AdSense content audit: ${rows.length} indexable HTML files checked; ${risky.length} pages flagged for review.`);
 if (Object.keys(report.riskBreakdown).length) console.log(`AdSense audit flags: ${JSON.stringify(report.riskBreakdown)}`);
+for (const row of risky.slice(0, 20)) console.log(`AdSense risky page: ${row.path} | ${row.words} words | ${row.issues.join(',')}`);
 if (duplicateTitles.length) console.log(`AdSense audit: ${duplicateTitles.length} repeated-title groups need monitoring.`);
 if (duplicateCanonicals.length) console.log(`AdSense audit: ${duplicateCanonicals.length} repeated-canonical groups need monitoring.`);
