@@ -174,7 +174,7 @@ function getGsebMaterialStructuredData(material) {
     teaches: material.chapter,
     isAccessibleForFree: true,
     inLanguage: 'en-IN',
-    provider: { '@type': 'EducationalOrganization', name: SITE, url: BASE },
+    provider: { '@type': 'EducationalOrganization', name: SITE, url: BASE, logo: `${BASE}/og-image.jpg` },
   };
 }
 
