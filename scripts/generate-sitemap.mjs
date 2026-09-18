@@ -171,9 +171,9 @@ function urlEntry(path, changefreq, priority, lastmod = "") {
 
 const entries = [
   ...basePages.map(([p, f, pr]) => urlEntry(p, f, pr)),
-  ...silentSearchPages.map((page) =>
-    urlEntry(page.path, "weekly", "0.92", "2026-09-08"),
-  ),
+  ...silentSearchPages
+    .filter((page) => !page.path.startsWith("/gseb-class-12-economics-chapter-"))
+    .map((page) => urlEntry(page.path, "weekly", "0.92", "2026-09-08")),
   ...genuineTrafficPages.map((page) =>
     urlEntry(page.path, "weekly", "0.9", "2026-09-08"),
   ),
