@@ -163,6 +163,37 @@ const documents = {
       ],
     ],
   },
+  "/content-provenance": {
+    title: "Content Provenance & Copyright",
+    description:
+      "How Smit Sir Commerce identifies, sources and reviews public notes, PDFs and learning resources.",
+    sections: [
+      [
+        "Public PDF inventory",
+        "Smit Sir Commerce maintains a machine-readable inventory of the PDF files intentionally published on the public website. The current public PDF set consists of Smit Sir Commerce study resources, notes and revision material. Official board textbooks used for study or reference are not included in the public website PDF inventory.",
+      ],
+      [
+        "Authorship and branding",
+        "Public notes are published as Smit Sir Commerce resources and are designed around original explanations, examples, practice, revision structure and teaching guidance. Many resources identify Smit Sir Commerce or Smit Thaker directly inside the document. A board, subject or textbook name is used only to identify the educational syllabus or source context and does not transfer ownership of that board or textbook.",
+      ],
+      [
+        "Textbook-based does not mean textbook copy",
+        "Some notes are described as textbook-based, NCERT-based or GSEB-based because the prescribed syllabus is the primary exam reference. The website does not intend to republish complete official textbooks as Smit Sir Commerce material. The public resources are study notes and learning aids derived from the syllabus with added explanation, organisation, examples and practice.",
+      ],
+      [
+        "Source transparency",
+        "Where a resource relies on an official syllabus, prescribed textbook, board document or another reference, the learning page or document may identify that basis. Historical figures or textbook-era rules are labelled where practical so students do not mistake them for current law or current policy.",
+      ],
+      [
+        "Machine-readable manifest",
+        "The public file inventory is published at /pdf-provenance.json and is rebuilt from the repository during deployment. It records the public PDF paths, their resource collection and the provenance basis used for the collection.",
+      ],
+      [
+        "Rights concerns and corrections",
+        "If you are a rights holder and believe a public resource contains material that should not be distributed, use the Contact page and identify the exact URL, work and concern. The resource can then be reviewed, corrected, credited, restricted or removed as appropriate.",
+      ],
+    ],
+  },
   "/access-policy": {
     title: "Access & Learning Policy",
     description:
