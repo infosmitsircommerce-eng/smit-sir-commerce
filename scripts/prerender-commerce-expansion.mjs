@@ -105,7 +105,7 @@ function resourceList(filter) {
 }
 
 const explore = '<nav aria-label="Commerce learning pathways"><h2>Explore the Commerce journey</h2><ul>' +
-  '<li><a href="/commerce-learning">All Commerce learning pathways</a></li>' +
+  '<li><a href="/study-material">Current Commerce study material</a></li>' +
   '<li><a href="/cbse-notes">Class 11 & 12 Commerce notes</a></li>' +
   '<li><a href="/college-commerce">B.Com & M.Com roadmap</a></li>' +
   '<li><a href="/commerce-exams">Commerce competitive exams</a></li>' +
