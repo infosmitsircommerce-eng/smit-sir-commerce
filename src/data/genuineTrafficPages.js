@@ -70,7 +70,7 @@ export const genuineTrafficPages = [
     links: [
       { label: 'Open formula sheet', href: '/class-12-commerce-formula-sheet.html' },
       { label: 'Open study pack', href: '/free-class-12-commerce-study-pack.html' },
-      { label: 'Open Business Studies case study guide', href: '/cbse-class-12-business-studies-case-study-questions.html' },
+      { label: 'Open Business Studies case study guide', href: '/cbse/class-12/business-studies-case-study-questions' },
       { label: 'Open Economics important questions', href: '/cbse-class-12-economics-important-questions.html' },
       { label: 'Open Commerce tools', href: '/tools' },
     ],
@@ -95,7 +95,7 @@ export const genuineTrafficPages = [
     ],
     links: [
       { label: 'Open CBSE Commerce notes', href: '/cbse-notes' },
-      { label: 'Open Business Studies case-study guide', href: '/cbse-class-12-business-studies-case-study-questions.html' },
+      { label: 'Open Business Studies case-study guide', href: '/cbse/class-12/business-studies-case-study-questions' },
       { label: 'Open Business Studies important questions', href: '/cbse/class-12/business-studies-important-questions' },
       { label: 'Open study material', href: '/study-material' },
     ],
@@ -170,7 +170,7 @@ export const genuineTrafficPages = [
       { heading: 'Why this method works', text: 'Case-study answers are not about copying the paragraph. They test whether the student can identify and apply the right concept. Keyword mapping trains that skill.' },
     ],
     links: [
-      { label: 'Open case-study question guide', href: '/cbse-class-12-business-studies-case-study-questions.html' },
+      { label: 'Open case-study question guide', href: '/cbse/class-12/business-studies-case-study-questions' },
       { label: 'Open chapter-wise important questions', href: '/cbse-class-12-business-studies-chapter-wise-important-questions.html' },
       { label: 'Open CBSE notes', href: '/cbse-notes' },
       { label: 'Open study material', href: '/study-material' },
