@@ -21,6 +21,10 @@ function jsonLd(value) {
   return JSON.stringify(value).replace(/</g, '\\u003c');
 }
 
+function cleanPublicPath(path) {
+  return path?.endsWith('.html') ? path.slice(0, -5) : path;
+}
+
 function absolute(path) {
   return path.startsWith('http') ? path : `${BASE}${path}`;
 }
@@ -51,7 +55,8 @@ function renderFaq(faq = []) {
 }
 
 function renderPage(page) {
-  const url = absolute(page.path);
+  const publicPath = cleanPublicPath(page.path);
+  const url = absolute(publicPath);
   const fullTitle = `${page.title} | ${SITE}`;
   const schema = {
     '@context': 'https://schema.org',
@@ -74,7 +79,7 @@ function renderPage(page) {
         educationalLevel: page.primaryKeyword.includes('Class 11') ? 'Class 11' : 'Class 12',
         learningResourceType: 'Study material',
         isAccessibleForFree: true,
-        provider: { '@type': 'EducationalOrganization', name: SITE, url: BASE },
+        provider: { '@type': 'EducationalOrganization', name: SITE, url: BASE, logo: `${BASE}/og-image.jpg` },
         teaches: page.primaryKeyword,
         audience: { '@type': 'EducationalAudience', educationalRole: 'student' },
       },
@@ -114,10 +119,15 @@ function renderPage(page) {
 }
 
 for (const page of genuineTrafficPages) {
-  const relative = page.path.replace(/^\//, '');
-  const htmlPath = join(distRoot, relative);
-  await mkdir(dirname(htmlPath), { recursive: true });
-  await writeFile(htmlPath, renderPage(page), 'utf8');
+  const publicPath = cleanPublicPath(page.path);
+  const relative = publicPath.replace(/^\//, '');
+  const flatPath = join(distRoot, relative + '.html');
+  const directoryPath = join(distRoot, relative, 'index.html');
+  await mkdir(dirname(flatPath), { recursive: true });
+  await mkdir(dirname(directoryPath), { recursive: true });
+  const html = renderPage(page);
+  await writeFile(flatPath, html, 'utf8');
+  await writeFile(directoryPath, html, 'utf8');
 }
 
 console.log(`Pre-rendered ${genuineTrafficPages.length} genuine organic traffic pages.`);
