@@ -48,10 +48,10 @@ const pilotTopics = [
   },
   {
     key: 'gseb-class-12-economics',
-    englishPath: '/gseb-class-12-economics.html',
+    englishPath: '/gseb-class-12-economics',
     localizedPath: '/gseb-class-12-economics',
     resources: [
-      ['/gseb-class-12-economics.html', 'GSEB Class 12 Economics Resources'],
+      ['/gseb-class-12-economics', 'GSEB Class 12 Economics Resources'],
       ['/gseb-class-12-economics-practice.html', 'GSEB Economics Practice'],
       ['/tools', 'Commerce Calculators'],
       ['/marks-recovery', 'Marks Recovery'],
