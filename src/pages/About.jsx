@@ -28,7 +28,7 @@ const structuredData = {
       '@id': `${BASE}/about#webpage`,
       url: `${BASE}/about`,
       name: 'About Smit Sir Commerce',
-      description: 'Learn about Smit Sir, his Class 11 & 12 Commerce teaching specialisation and the broader school, college and competitive-exam resource platform behind Smit Sir Commerce.',
+      description: 'Learn about Smit Sir, his Class 11 & 12 Commerce teaching specialisation and the student-first CBSE and GSEB learning platform behind Smit Sir Commerce.',
       inLanguage: 'en-IN',
       about: { '@id': `${BASE}/about#smit-thaker` },
       isPartOf: { '@id': `${BASE}/#website` },
@@ -52,7 +52,7 @@ export default function About() {
     <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
       <SEO
         title="About Smit Sir Commerce — Teacher & Commerce Learning Platform"
-        description="Smit Sir specialises in Class 11 & 12 Commerce teaching while Smit Sir Commerce is growing into a wider learning platform for school, B.Com, M.Com, UGC NET and GSET students."
+        description="Smit Sir specialises in Class 11 & 12 Commerce teaching, while Smit Sir Commerce currently focuses on published CBSE and GSEB notes, practice, quizzes, tools and exam support."
         path="/about"
         structuredData={structuredData}
       />
@@ -62,7 +62,7 @@ export default function About() {
           <span className="eyebrow">Meet the teacher</span>
           <h1 className="mt-5">Not just teaching answers. <em>Teaching understanding.</em></h1>
           <p className="mx-auto max-w-3xl mt-4">
-            Smit Sir Commerce is a growing Commerce learning platform for school, college and competitive-exam students. Smit Sir's personal teaching specialisation remains Class 11 &amp; 12 Commerce.
+            Smit Sir Commerce is a student-first Class 11 &amp; 12 Commerce learning platform. The current public library focuses on CBSE and GSEB notes, practice, quizzes, tools and exam support.
           </p>
         </div>
       </div>
@@ -94,7 +94,7 @@ export default function About() {
               That does not mean ignoring marks. Exams are real, answer-writing matters and practice matters. The difference is the order: first understand, then apply, then practise, then improve the result.
             </p>
             <p className="leading-7 mb-7" style={{ color: 'var(--muted)' }}>
-              Smit Sir Commerce combines this learning-first philosophy with free notes, practice resources, calculators and exam support. The platform is expanding beyond school into B.Com, M.Com, UGC NET Commerce and GSET Commerce without pretending that every listed subject is personally taught by Smit Sir.
+              Smit Sir Commerce combines this learning-first philosophy with free notes, practice resources, calculators and exam support. Public pages are kept focused on resources that are already available rather than advertising unfinished sections.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-3 mb-7">
@@ -126,13 +126,11 @@ export default function About() {
             </div>
             <div>
               <p className="leading-7" style={{ color: 'var(--muted)' }}>
-                The website is designed as a wider Commerce resource platform: school Commerce today, college Commerce as material is added, and competitive Commerce preparation through UGC NET and GSET hubs.
+                The website is designed around currently available Class 11 & 12 Commerce resources, with clear separation between free study material, practice tools and optional teaching support.
               </p>
               <div className="grid sm:grid-cols-3 gap-3 mt-5">
                 {[
                   ['School', 'Class 11 & 12', '/cbse-notes'],
-                  ['College', 'B.Com & M.Com', '/college-commerce'],
-                  ['Competitive', 'UGC NET & GSET', '/commerce-exams'],
                 ].map(([stage, label, path]) => (
                   <Link key={stage} to={path} className="tile-paper p-4">
                     <div className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--gold)' }}>{stage}</div>
