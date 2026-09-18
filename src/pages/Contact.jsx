@@ -26,6 +26,7 @@ const structuredData = {
       name: 'Smit Sir Commerce',
       alternateName: 'Smit Sir Commerce Classes',
       url: `${BASE}/`,
+      logo: `${BASE}/og-image.jpg`,
       email: 'infosmitsircommerce@gmail.com',
       telephone: localTuitionService.phone,
       sameAs: [localTuitionService.mapsUrl],
