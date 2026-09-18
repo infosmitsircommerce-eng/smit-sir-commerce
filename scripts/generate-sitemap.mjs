@@ -20,7 +20,6 @@ const BASE = "https://www.smitsircommerce.in";
 
 const basePages = [
   ["/concept-lab", "monthly", "0.85"],
-  ["/commerce-city", "daily", "1.0"],
   ...quizDiscovery.map((p) => [p.path, "monthly", "0.8"]),
   ["/quizzes", "weekly", "0.95"],
   ["/premium", "weekly", "0.9"],

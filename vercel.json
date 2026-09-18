@@ -27,7 +27,12 @@
     },
     {
       "source": "/marks-xray",
-      "destination": "/commerce-city",
+      "destination": "/study-material",
+      "permanent": true
+    },
+    {
+      "source": "/commerce-city",
+      "destination": "/study-material",
       "permanent": true
     },
     {

@@ -15,17 +15,14 @@ import {
   ChevronRight,
   Wrench,
   Rocket,
-  Building2,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import teacherPhoto from "../../assets/teacher-photo-opt.jpg";
 import MobileStudySetup from "./MobileStudySetup";
 import { readStudentPreferences, studyPath } from "../../lib/studentPreferences";
 import { trackEvent } from "../../lib/analytics";
-import { COMMERCE_CITY_SCENARIOS, dailyScenarioIndex } from "../../data/commerceCity";
 
 const QUICK_ACTIONS = [
-  { label: "Commerce City", icon: Building2, to: "/commerce-city", tone: "violet" },
   { label: "Exam Tomorrow", icon: Flame, to: "/exam-tomorrow", tone: "coral" },
   { label: "Study Notes", icon: FileText, to: "/study-material", tone: "gold" },
   { label: "Quizzes", icon: FileQuestion, to: "/quizzes", tone: "violet" },
@@ -104,7 +101,6 @@ export default function MobileLearningHome() {
     window.addEventListener("ssc-student-preferences-changed", refresh);
     return () => window.removeEventListener("ssc-student-preferences-changed", refresh);
   }, [profile]);
-  const cityEvent = COMMERCE_CITY_SCENARIOS[dailyScenarioIndex()];
   const firstName = user ? displayName.trim().split(/\s+/)[0] : "Learner";
   const hour = new Date().getHours();
   const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
@@ -176,20 +172,6 @@ export default function MobileLearningHome() {
             </div>
           </article>
 
-          <AppLink
-            to="/commerce-city"
-            className="mobile-commerce-city-card"
-            onClick={() => void trackEvent("commerce_city_home_entry", { event: cityEvent.id })}
-          >
-            <span className="mobile-commerce-city-icon"><Building2 aria-hidden="true" /></span>
-            <span className="mobile-commerce-city-copy">
-              <small>LIVE TODAY · COMMERCE CITY</small>
-              <strong>{cityEvent.title}</strong>
-              <em>{cityEvent.headline}</em>
-            </span>
-            <span className="mobile-commerce-city-enter">Enter world <ChevronRight aria-hidden="true" /></span>
-          </AppLink>
-
           <section className="learning-home-actions-panel" aria-labelledby="learning-actions-title">
             <div className="mobile-section-heading mobile-shortcuts-heading"><h2 id="learning-actions-title">What will you learn today?</h2><button type="button" className="mobile-chapter-finder-trigger" onClick={() => window.dispatchEvent(new CustomEvent("ssc-open-resource-finder"))}>Find a chapter <ChevronRight aria-hidden="true" /></button></div>
             <div className="mobile-action-grid" aria-label="Quick actions">
@@ -239,7 +221,6 @@ export default function MobileLearningHome() {
           </section>
 
           <aside className="learning-home-insight-panel">
-            <AppLink to="/commerce-city" className="mobile-lab-link"><span><Building2 aria-hidden="true" /><strong>Enter the living Commerce world</strong></span><span>Open Commerce City <ChevronRight aria-hidden="true" /></span></AppLink>
             <AppLink to="/concept-lab" className="mobile-lab-link"><span><FlaskConical aria-hidden="true" /><strong>Make concepts click</strong></span><span>Explore Concept Lab <ChevronRight aria-hidden="true" /></span></AppLink>
             <blockquote className="mobile-quote-card">
               <strong>“Consistent practice<br />today, a confident tomorrow.”</strong>
