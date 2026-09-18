@@ -10,6 +10,7 @@ import {
   Eye,
   FileQuestion,
   FileText,
+  Flame,
   UserRound,
 } from "lucide-react";
 import { quizPageById } from "../data/quizDiscovery";
@@ -240,6 +241,38 @@ export default function SeoMaterialChapter() {
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px] gap-8 items-start">
           <div className="space-y-7">
             <SearchTeachingGuide path={material.seo_path} />
+            {material.subject === "Business Studies" && (
+              <section className="card-paper p-5 sm:p-6">
+                <div className="grid md:grid-cols-[1fr_auto] gap-4 items-center">
+                  <div>
+                    <span className="eyebrow">Turn notes into marks</span>
+                    <h2
+                      className="text-2xl mt-2"
+                      style={{ fontFamily: "var(--font-serif)", color: "var(--ink)" }}
+                    >
+                      Now apply {material.chapter} in a case study
+                    </h2>
+                    <p className="text-sm leading-7 mt-2" style={{ color: "var(--muted)" }}>
+                      Reading is passive. Use the case-study hub to identify clue words, name the exact concept and practise connecting evidence to your answer.
+                    </p>
+                  </div>
+                  <div className="flex flex-col sm:flex-row md:flex-col gap-2">
+                    <Link
+                      to="/cbse/class-12/business-studies-case-study-questions"
+                      className="btn-primary inline-flex items-center justify-center gap-2"
+                    >
+                      <FileQuestion className="w-4 h-4" /> Case Studies
+                    </Link>
+                    <Link
+                      to="/exam-tomorrow"
+                      className="btn-secondary inline-flex items-center justify-center gap-2"
+                    >
+                      <Flame className="w-4 h-4" /> Exam Tomorrow
+                    </Link>
+                  </div>
+                </div>
+              </section>
+            )}
             <BoosterInlineCTA
               placement={`notes:${material.chapter}`}
               compact
