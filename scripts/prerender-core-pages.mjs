@@ -403,7 +403,7 @@ const pages = [
       "Browse free CBSE and GSEB Commerce study material with chapter-wise notes, practice resources and connected calculators for Class 11 and 12.",
     collection: true,
     body:
-      '<main class="page-container section-padding" data-prerendered="core-page"><article><h1>Free Commerce study material</h1><p>Choose the correct board, class, subject and chapter instead of searching through disconnected files. Published public resources are organised into searchable CBSE and GSEB collections.</p><h2>Study by board</h2><ul><li><a href="/gseb-class-11-accountancy-notes">GSEB Class 11 Accountancy notes PDF</a></li><li><a href="/cbse-notes">CBSE Class 11 & 12 Commerce notes</a></li><li><a href="/gseb-class-12-economics.html">GSEB Class 12 Economics notes</a></li><li><a href="/cbse-practice">CBSE chapter practice</a></li><li><a href="/tools">Free Commerce calculators</a></li></ul><h2>Exam-focused guides</h2><ul>' +
+      '<main class="page-container section-padding" data-prerendered="core-page"><article><h1>Free Commerce study material</h1><p>Choose the correct board, class, subject and chapter instead of searching through disconnected files. Published public resources are organised into searchable CBSE and GSEB collections.</p><h2>Study by board</h2><ul><li><a href="/gseb-class-11-accountancy-notes">GSEB Class 11 Accountancy notes PDF</a></li><li><a href="/cbse-notes">CBSE Class 11 & 12 Commerce notes</a></li><li><a href="/gseb-class-12-economics">GSEB Class 12 Economics notes</a></li><li><a href="/cbse-practice">CBSE chapter practice</a></li><li><a href="/tools">Free Commerce calculators</a></li></ul><h2>Exam-focused guides</h2><ul>' +
       guideList +
       "</ul>" +
       coreNav() +
