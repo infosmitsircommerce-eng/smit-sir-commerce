@@ -26,6 +26,7 @@ const legalLinks = [
   { label: "Terms of Use", path: "/terms", icon: FileText },
   { label: "Access Policy", path: "/access-policy", icon: LockKeyhole },
   { label: "Disclaimer", path: "/disclaimer", icon: FileText },
+  { label: "Content Provenance", path: "/content-provenance", icon: FileText },
 ];
 
 const mutedLink = { color: "var(--muted-on-ink)" };
@@ -240,6 +241,7 @@ export default function Footer() {
             <FooterLink to="/terms">Terms of Use</FooterLink>
             <FooterLink to="/access-policy">Access Policy</FooterLink>
             <FooterLink to="/disclaimer">Disclaimer</FooterLink>
+            <FooterLink to="/content-provenance">Content Provenance</FooterLink>
           </div>
         </div>
       </div>
