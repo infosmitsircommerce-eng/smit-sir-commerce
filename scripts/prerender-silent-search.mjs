@@ -92,7 +92,7 @@ function renderPage(page) {
         educationalLevel: 'Class 12',
         learningResourceType: 'Study material',
         isAccessibleForFree: true,
-        provider: { '@type': 'EducationalOrganization', name: SITE, url: BASE },
+        provider: { '@type': 'EducationalOrganization', name: SITE, url: BASE, logo: `${BASE}/og-image.jpg` },
         teaches: page.primaryKeyword,
         audience: { '@type': 'EducationalAudience', educationalRole: 'student' },
       },
@@ -119,11 +119,13 @@ function renderPage(page) {
   return replaceRoot(withHead, body);
 }
 
-for (const page of silentSearchPages) {
+const renderablePages = silentSearchPages.filter((page) => !page.path.startsWith('/gseb-class-12-economics-chapter-'));
+
+for (const page of renderablePages) {
   const relative = page.path.replace(/^\//, '');
   const htmlPath = join(distRoot, relative);
   await mkdir(dirname(htmlPath), { recursive: true });
   await writeFile(htmlPath, renderPage(page), 'utf8');
 }
 
-console.log(`Pre-rendered ${silentSearchPages.length} student-focused Commerce resource pages with canonical hub consolidation.`);
+console.log(`Pre-rendered ${renderablePages.length} student-focused Commerce resource pages with canonical hub consolidation.`);
