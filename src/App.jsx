@@ -322,8 +322,8 @@ const ROUTE_SEO = {
       "How public Smit Sir Commerce notes, PDFs and learning resources are identified, sourced and reviewed.",
   },
   "/commerce-city": {
-    title: "Commerce City — Learn Commerce by Playing",
-    description: "Run a simple shop and learn Economics, Business Studies and Accountancy through real-life decisions. No Commerce knowledge needed.",
+    title: "Commerce Hub — See Commerce Concepts Move",
+    description: "Watch simple animated Commerce concepts such as money flow, credit sales and price-demand before learning the textbook words.",
   },
   "/concept-lab": {
     title: "Commerce Concept Lab — Explore Inflation & Purchasing Power",

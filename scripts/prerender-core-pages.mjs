@@ -41,7 +41,7 @@ function coreNav() {
     '<li><a href="/cbse/class-12/business-studies-diagnostic-test">CBSE Business Studies Diagnostic</a></li>' +
     '<li><a href="/cbse/class-12/economics-diagnostic-test">CBSE Economics Diagnostic</a></li>' +
     '<li><a href="/gseb/class-12/economics-diagnostic-test">GSEB Economics Diagnostic</a></li>' +
-    '<li><a href="/commerce-city">Commerce City learning game</a></li>' +
+    '<li><a href="/commerce-city">Commerce Hub animated concepts</a></li>' +
     '<li><a href="/concept-lab">Commerce Concept Lab</a></li>' +
     '<li><a href="/quizzes">Commerce quizzes</a></li>' +
     '<li><a href="/premium">₹999 Lifetime Premium</a></li>' +
@@ -302,21 +302,21 @@ const diagnosticLandingPages = Object.values(DIAGNOSTIC_ROUTES).map((route) => {
 const pages = [
   {
     path: "/commerce-city",
-    title: "Commerce City — Learn Commerce by Playing",
+    title: "Commerce Hub — See Commerce Concepts Move",
     description:
-      "Run a small shop and understand Economics, Business Studies and Accountancy through simple real-life decisions before learning the textbook words.",
+      "Animated, beginner-friendly Commerce explanations for money flow, credit sales and price-demand behaviour. Watch first, learn the textbook word second.",
     faqs: [
       [
-        "What is Commerce City?",
-        "Commerce City is a beginner-friendly learning game. Students run a small shop, make everyday decisions and then see the Economics, Business Studies and Accountancy concepts hidden inside those decisions.",
+        "What is the Commerce Hub?",
+        "The Commerce Hub is a visual learning page where students watch simple Commerce ideas happen through animation before seeing the textbook term.",
       ],
       [
-        "Do I need to know Commerce before playing?",
-        "No. The game starts with normal situations such as setting a price, allowing a customer to pay later, taking a small loan, facing a supplier cost increase, paying tax and advertising. Textbook words appear only after the practical idea is understood.",
+        "Which concepts are included?",
+        "The first version includes how money moves through a normal sale, what a credit sale means, and how buyers can react when price changes.",
       ],
     ],
     body:
-      '<main class="page-container section-padding" data-prerendered="commerce-city"><article><p><strong>No Commerce knowledge needed</strong></p><h1>Commerce City: learn Commerce by running a small shop</h1><p>Start with ₹10,000, buy and sell products, set prices, deal with customers, use bank finance, face tax changes and try simple marketing decisions. The game explains what happened in normal language first and only then reveals the textbook concept.</p><h2>Five simple places</h2><ul><li>Your Home — the consumer side</li><li>Your Shop — the business side</li><li>Bank — saving, loans and interest</li><li>Factory / Supplier — where products and costs come from</li><li>Government — rules and taxes</li></ul><h2>Six practical levels</h2><ol><li>Set the price of your first product</li><li>Decide whether a customer can pay later</li><li>Arrange money for extra stock</li><li>Respond when your supplier increases cost</li><li>Handle an indirect-tax change</li><li>Choose between advertising and discounting</li></ol><p>After every choice, students see changes in cash, customers, stock and profit, followed by the related concepts from Economics, Business Studies and Accountancy.</p><p><a href="/commerce-city">Play Commerce City</a> · <a href="/study-material">Open free study material</a></p>' +
+      '<main class="page-container section-padding" data-prerendered="commerce-hub"><article><p><strong>Animation first. Textbook word second.</strong></p><h1>Commerce Hub: see Commerce concepts move</h1><p>Watch three simple visual stories: how goods and money move in a normal sale, what happens when a customer buys now and pays later, and how buyers can react when price changes.</p><h2>Money Flow</h2><p>A supplier sells goods to a shop. The shop sells those goods to a customer. Money comes back to the shop and the difference between selling price and cost becomes profit.</p><h2>Credit Sale</h2><p>The customer receives goods today but pays later. The sale has happened even though cash has not yet arrived. The amount due from the customer is a debtor or trade receivable.</p><h2>Price and Demand</h2><p>Students can change a simple selling price and immediately see how the number of willing buyers can change. The example is simplified for learning and does not claim every market behaves identically.</p><p><a href="/commerce-city">Open the animated Commerce Hub</a> · <a href="/study-material">Open free study material</a></p>' +
       coreNav() +
       "</article></main>",
   },
