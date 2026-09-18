@@ -26,6 +26,11 @@
       "permanent": true
     },
     {
+      "source": "/marks-xray",
+      "destination": "/commerce-city",
+      "permanent": true
+    },
+    {
       "source": "/accountancy-tuition-mehsana",
       "destination": "/tools",
       "permanent": true
