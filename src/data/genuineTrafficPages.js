@@ -1,6 +1,6 @@
 export const genuineTrafficPages = [
   {
-    path: '/gseb-class-12-economics-last-minute-revision.html',
+    path: '/gseb-class-12-economics-last-minute-revision',
     title: 'GSEB Class 12 Economics Last Minute Revision — Chapter 2 to 11',
     description: 'A practical last-minute revision route for GSEB Class 12 Economics students with chapter-wise focus, PDF notes, important questions and exam-day strategy.',
     h1: 'GSEB Class 12 Economics Last Minute Revision',
@@ -15,10 +15,10 @@ export const genuineTrafficPages = [
       { heading: 'Mistakes to avoid', items: ['Do not spend the full time reading only one chapter.', 'Do not skip definitions because they are easy scoring points.', 'Do not write vague answers without economic keywords.', 'Do not ignore presentation: headings and numbering matter.', 'Do not keep switching pages every two minutes; complete one chapter block first.'] },
     ],
     links: [
-      { label: 'Open GSEB Economics hub', href: '/gseb-class-12-economics.html' },
-      { label: 'Open important questions', href: '/gseb-class-12-economics-important-questions.html' },
-      { label: 'Open Chapter 3 Money and Inflation notes', href: '/gseb-class-12-economics-chapter-3-money-inflation-notes.html' },
-      { label: 'Open Chapter 4 Banking notes', href: '/gseb-class-12-economics-chapter-4-banking-monetary-policy-notes.html' },
+      { label: 'Open GSEB Economics hub', href: '/gseb-class-12-economics' },
+      { label: 'Open important questions', href: '/gseb-class-12-economics-important-questions' },
+      { label: 'Open Chapter 3 Money and Inflation notes', href: '/gseb/class-12/economics/money-and-inflation-notes' },
+      { label: 'Open Chapter 4 Banking notes', href: '/gseb/class-12/economics/banking-and-monetary-policy-notes' },
       { label: 'Open study pack', href: '/free-class-12-commerce-study-pack.html' },
     ],
     faq: [
@@ -27,7 +27,7 @@ export const genuineTrafficPages = [
     ],
   },
   {
-    path: '/gseb-class-12-economics-chapter-wise-pdf-notes.html',
+    path: '/gseb-class-12-economics-chapter-wise-pdf-notes',
     title: 'GSEB Class 12 Economics Chapter-wise PDF Notes — Free Revision Hub',
     description: 'GSEB Class 12 Economics PDF guide: eight free complete chapter notes, earlier Premium revision PDFs and linked chapter practice.',
     h1: 'GSEB Class 12 Economics Chapter-wise PDF Notes',
@@ -41,11 +41,11 @@ export const genuineTrafficPages = [
       { heading: 'Why chapter-wise pages help', text: 'A direct PDF is useful, but a chapter page is better for search and revision because it explains what the chapter covers and connects notes with practice. That is why Smit Sir Commerce keeps both chapter pages and PDF links.' },
     ],
     links: [
-      { label: 'Open full GSEB Economics hub', href: '/gseb-class-12-economics.html' },
-      { label: 'Chapter 2 notes', href: '/gseb-class-12-economics-chapter-2-growth-development-notes.html' },
-      { label: 'Chapter 3 notes', href: '/gseb-class-12-economics-chapter-3-money-inflation-notes.html' },
-      { label: 'Chapter 4 notes', href: '/gseb-class-12-economics-chapter-4-banking-monetary-policy-notes.html' },
-      { label: 'Important questions', href: '/gseb-class-12-economics-important-questions.html' },
+      { label: 'Open full GSEB Economics hub', href: '/gseb-class-12-economics' },
+      { label: 'Chapter 2 notes', href: '/gseb/class-12/economics/indicators-of-growth-and-development-notes' },
+      { label: 'Chapter 3 notes', href: '/gseb/class-12/economics/money-and-inflation-notes' },
+      { label: 'Chapter 4 notes', href: '/gseb/class-12/economics/banking-and-monetary-policy-notes' },
+      { label: 'Important questions', href: '/gseb-class-12-economics-important-questions' },
     ],
     faq: [
       { q: 'Are the GSEB Economics notes chapter-wise?', a: 'Yes. Free complete notes cover Chapters 2, 3, 4, 5, 6, 9, 10 and 11. Earlier revision PDFs for Chapters 2–11 are available in Premium.' },
@@ -71,7 +71,7 @@ export const genuineTrafficPages = [
       { label: 'Open formula sheet', href: '/class-12-commerce-formula-sheet.html' },
       { label: 'Open study pack', href: '/free-class-12-commerce-study-pack.html' },
       { label: 'Open Business Studies case study guide', href: '/cbse/class-12/business-studies-case-study-questions' },
-      { label: 'Open Economics important questions', href: '/cbse-class-12-economics-important-questions.html' },
+      { label: 'Open Economics important questions', href: '/cbse-class-12-economics-important-questions' },
       { label: 'Open Commerce tools', href: '/tools' },
     ],
     faq: [
@@ -105,7 +105,7 @@ export const genuineTrafficPages = [
     ],
   },
   {
-    path: '/cbse-class-12-macroeconomics-numericals.html',
+    path: '/cbse-class-12-macroeconomics-numericals',
     title: 'CBSE Class 12 Macroeconomics Numericals — Formula & Practice Route',
     description: 'CBSE Class 12 Macroeconomics numericals guide for national income, MPC, MPS, multiplier, equilibrium income and formula-based revision.',
     h1: 'CBSE Class 12 Macroeconomics Numericals',
@@ -123,7 +123,7 @@ export const genuineTrafficPages = [
       { label: 'MPC MPS calculator', href: '/tools/mpc-mps-calculator' },
       { label: 'Investment multiplier calculator', href: '/tools/investment-multiplier-calculator' },
       { label: 'GDP deflator calculator', href: '/tools/gdp-deflator-calculator' },
-      { label: 'Open Economics important questions', href: '/cbse-class-12-economics-important-questions.html' },
+      { label: 'Open Economics important questions', href: '/cbse-class-12-economics-important-questions' },
     ],
     faq: [
       { q: 'How do I improve Macroeconomics numericals?', a: 'Practise by writing the formula, substituting values and interpreting the answer. Use calculators only to check after solving.' },
@@ -181,7 +181,7 @@ export const genuineTrafficPages = [
     ],
   },
   {
-    path: '/economics-diagrams-class-12.html',
+    path: '/economics-diagrams-class-12',
     title: 'Economics Diagrams Class 12 — Revision Method for Board Answers',
     description: 'Class 12 Economics diagram revision method for students who need clearer presentation, labelling and explanation in board-style answers.',
     h1: 'Economics Diagrams Class 12',
@@ -195,7 +195,7 @@ export const genuineTrafficPages = [
       { heading: 'Common diagram mistakes', items: ['No axis labels.', 'Wrong curve slope.', 'No explanation after drawing.', 'Too much decoration instead of clarity.', 'Writing theory that does not match the diagram.'] },
     ],
     links: [
-      { label: 'Open CBSE Economics important questions', href: '/cbse-class-12-economics-important-questions.html' },
+      { label: 'Open CBSE Economics important questions', href: '/cbse-class-12-economics-important-questions' },
       { label: 'Open Class 11 Economics notes', href: '/class-11-commerce-economics-notes' },
       { label: 'Open TR AR MR calculator', href: '/tools/tr-ar-mr-calculator' },
       { label: 'Open cost curves calculator', href: '/tools/cost-curves-calculator' },
