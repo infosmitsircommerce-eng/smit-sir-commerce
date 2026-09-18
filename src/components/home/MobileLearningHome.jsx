@@ -11,6 +11,7 @@ import {
   Search,
   SlidersHorizontal,
   CalendarDays,
+  Flame,
   ChevronRight,
   Wrench,
   Rocket,
@@ -22,6 +23,7 @@ import { readStudentPreferences, studyPath } from "../../lib/studentPreferences"
 import { trackEvent } from "../../lib/analytics";
 
 const QUICK_ACTIONS = [
+  { label: "Exam Tomorrow", icon: Flame, to: "/exam-tomorrow", tone: "coral" },
   { label: "Study Notes", icon: FileText, to: "/study-material", tone: "gold" },
   { label: "Quizzes", icon: FileQuestion, to: "/quizzes", tone: "violet" },
   { label: "Test Series", icon: BarChart3, to: "/test-series", tone: "blue" },
