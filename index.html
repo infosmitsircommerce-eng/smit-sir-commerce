@@ -214,10 +214,11 @@
           window.setTimeout(function () {
             var path = window.location.pathname || "/";
             var blockedForAds =
-              /^\/(?:login|onboarding|premium|admin(?:\/|$)|admin-studio|dashboard|learning-insights|my-data|contact|book-demo|demo-success|marks-recovery|board-exam-diagnostic|pdf-viewer|reel|ask)(?:\/|$)/.test(
+              /^\/(?:login|onboarding|premium|admin(?:\/|$)|admin-studio|dashboard|learning-insights|my-data|contact|book-demo|demo-success|marks-recovery|board-exam-diagnostic|pdf-viewer|reel|ask|commerce-learning|college-commerce|commerce-exams|ugc-net-commerce|gset-commerce)(?:\/|$)/.test(
                 path,
               ) ||
               /^\/practice\//.test(path) ||
+              /^\/(?:college|competitive)\//.test(path) ||
               /^\/(?:daily-practice|study-coach|exam-mode)(?:\/|$)/.test(
                 path,
               ) ||
