@@ -34,7 +34,15 @@ function structuredData(guide) {
         dateModified: guide.updated,
         author: { "@id": `${SITE}/#teacher` },
         provider: { "@id": `${SITE}/#organization` },
-        learningResourceType: "Revision guide",
+        learningResourceType: guide.path.includes("case-study") ? "Practice questions" : "Revision guide",
+        hasPart: guide.sections.flatMap((section) =>
+          section.links.map(([path, label]) => ({
+            "@type": "LearningResource",
+            name: label,
+            url: `${SITE}${path}`,
+            isAccessibleForFree: true,
+          })),
+        ),
       },
       {
         "@type": "FAQPage",
@@ -166,6 +174,47 @@ export default function AuthorityGuide() {
                 <span className="text-sm font-bold inline-flex items-center gap-1 shrink-0" style={{ color: "var(--gold)" }}>Start rescue <ArrowRight className="w-4 h-4" /></span>
               </Link>
             )}
+            {guide.path === "/cbse/class-12/business-studies-case-study-questions" && (
+              <section className="card-paper p-5 sm:p-8">
+                <div className="flex flex-wrap items-end justify-between gap-4">
+                  <div>
+                    <span className="eyebrow">Choose your chapter</span>
+                    <h2
+                      className="text-3xl mt-2"
+                      style={{ fontFamily: "var(--font-serif)", color: "var(--ink)" }}
+                    >
+                      Jump straight to chapter-wise case studies
+                    </h2>
+                    <p className="mt-3 text-sm leading-7 max-w-2xl" style={{ color: "var(--muted)" }}>
+                      If Google brought you here for one chapter, start there. Each chapter page is focused on application-style practice instead of making you search through the full syllabus.
+                    </p>
+                  </div>
+                  <Link
+                    to="/exam-tomorrow"
+                    className="btn-secondary inline-flex items-center gap-2"
+                  >
+                    <Flame className="w-4 h-4" /> Exam Tomorrow
+                  </Link>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-6">
+                  {guide.sections.flatMap((section) => section.links).map(([to, label], index) => (
+                    <Link
+                      key={to}
+                      to={to}
+                      className="tile-paper p-4 flex items-center justify-between gap-3 text-sm font-semibold"
+                    >
+                      <span>
+                        <small className="block mb-1" style={{ color: "var(--muted)" }}>
+                          Chapter {index + 1}
+                        </small>
+                        {label.replace(" - Case Studies", "")}
+                      </span>
+                      <ArrowRight className="w-4 h-4 shrink-0" style={{ color: "var(--gold)" }} />
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
             <BoosterInlineCTA
               placement={`authority:${guide.shortTitle}`}
               compact
@@ -261,6 +310,29 @@ export default function AuthorityGuide() {
                     </li>
                   ))}
                 </ol>
+              </section>
+            )}
+
+            {enhancement.clueMap?.length > 0 && (
+              <section className="card-paper p-5 sm:p-8">
+                <span className="eyebrow">Case-study clue map</span>
+                <h2
+                  className="text-3xl mt-3"
+                  style={{ fontFamily: "var(--font-serif)", color: "var(--ink)" }}
+                >
+                  Spot the clue before you write the answer
+                </h2>
+                <p className="mt-3 text-sm leading-7" style={{ color: "var(--muted)" }}>
+                  These words are not automatic answers. Use them as signals, then check the full situation before naming the concept.
+                </p>
+                <div className="grid md:grid-cols-2 gap-3 mt-6">
+                  {enhancement.clueMap.map(([chapter, clues]) => (
+                    <article key={chapter} className="tile-paper p-4">
+                      <h3 className="font-semibold" style={{ color: "var(--ink)" }}>{chapter}</h3>
+                      <p className="text-sm leading-6 mt-2" style={{ color: "var(--muted)" }}>{clues}</p>
+                    </article>
+                  ))}
+                </div>
               </section>
             )}
 
