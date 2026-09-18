@@ -110,7 +110,7 @@ export const silentSearchPages = [
       { label: 'Open CBSE Commerce Notes', href: '/cbse-notes' },
       { label: 'Open GSEB Economics PDFs', href: '/gseb-class-12-economics' },
       { label: 'Open Formula Sheet', href: '/class-12-commerce-formula-sheet.html' },
-      { label: 'Open Important Questions', href: '/gseb-class-12-economics-important-questions.html' },
+      { label: 'Open Important Questions', href: '/gseb-class-12-economics-important-questions' },
     ],
     faq: [
       { q: 'Is the Class 12 Commerce study pack free?', a: 'Yes. The linked study material pages on Smit Sir Commerce are designed as free starting resources for Commerce students.' },
@@ -167,7 +167,7 @@ export const silentSearchPages = [
     ],
   },
   {
-    path: '/cbse-class-12-economics-important-questions.html',
+    path: '/cbse-class-12-economics-important-questions',
     title: 'CBSE Class 12 Economics Important Questions — Free Revision Route',
     description: 'Free CBSE Class 12 Economics important question revision route for Macroeconomics chapters, numericals, definitions and exam-style practice.',
     h1: 'CBSE Class 12 Economics Important Questions',
@@ -191,7 +191,7 @@ export const silentSearchPages = [
     ],
   },
   {
-    path: '/gseb-class-12-economics-important-questions.html',
+    path: '/gseb-class-12-economics-important-questions',
     title: 'GSEB Class 12 Economics Important Questions — Chapter 2 to 11 Revision',
     description: 'GSEB Class 12 Economics important questions page for Chapters 2 to 11 with notes PDF links, practice direction and exam revision checklist.',
     h1: 'GSEB Class 12 Economics Important Questions',
