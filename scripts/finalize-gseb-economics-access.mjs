@@ -7,8 +7,9 @@ const base = 'https://www.smitsircommerce.in';
 const accessPath = '/premium/economics?board=GSEB';
 const freeByChapter = new Map(free.map(m => [m.chapterNumber, m]));
 const esc = s => String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
+const htmlPath = path => path.endsWith('.html') ? path : path + '.html';
 const templates = new Map();
-for (const m of premium) templates.set(m.chapterNumber, await readFile(new URL('.' + m.seo_path, source), 'utf8'));
+for (const m of premium) templates.set(m.chapterNumber, await readFile(new URL('.' + htmlPath(m.seo_path), source), 'utf8'));
 const originalHub = await readFile(new URL('gseb-class-12-economics.html', source), 'utf8');
 const style = originalHub.match(/<style>([\s\S]*?)<\/style>/)[1];
 const links = `<div class="heroactions"><a class="btn gold" href="/gseb-class-12-economics-practice.html">Free chapter practice</a><a class="btn" href="${accessPath}">Premium revision PDFs</a><a class="btn" href="/study-material?board=GSEB">All GSEB material</a></div>`;
@@ -33,7 +34,8 @@ for(const m of premium) {
   const study=`<section class="card"><h2>Revise with understanding</h2><p>Start by reading the topic definitions, then make a short outline of the chapter under clear headings. Explain each point in your own words. Keep causes, effects and policy measures separate so your answer directly addresses the question asked.</p><p>After studying, try the chapter practice without looking at your notes. Review any incomplete answer, identify the missing concept and return to that section. Use the Economics hub to move to a related chapter when the same idea appears again.</p></section>`;
   html=html.replace('<section class="card"><h2>Study flow',`<!-- economics-access-start -->${section}${premiumSection}${study}<!-- economics-access-end --><section class="card"><h2>Study flow`);
   if(!current) html=html.replace(/<meta name="robots" content="[^"]*">/,'<meta name="robots" content="noindex,follow">').replace(/Free GSEB/g,'GSEB').replace('Revision page based on the uploaded', 'Chapter overview and free practice for');
-  await mkdir(dirname(new URL('.'+m.seo_path,output).pathname),{recursive:true});
-  await writeFile(new URL('.'+m.seo_path,output),html);
+  const outputPath = htmlPath(m.seo_path);
+  await mkdir(dirname(new URL('.'+outputPath,output).pathname),{recursive:true});
+  await writeFile(new URL('.'+outputPath,output),html);
 }
 console.log('Finalized GSEB Economics: 8 free PDFs, 10 Premium revision editions; missing free PDFs labelled.');
