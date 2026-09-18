@@ -684,6 +684,7 @@ function AnimatedRoutes() {
           <Route path="/test-series" element={withPage(<TestSeries />)} />
           <Route path="/exam-mode" element={withPage(<ExamMode />)} />
           <Route path="/exam-tomorrow" element={withPage(<ExamTomorrow />)} />
+          <Route path="/exam-tomorrow/:chapterSlug" element={withPage(<ExamTomorrow />)} />
           <Route
             path="/tests/:testSlug"
             element={withPage(<ExamTestLanding />)}
