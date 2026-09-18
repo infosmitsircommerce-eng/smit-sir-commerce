@@ -4,6 +4,7 @@ import {
   BookOpen,
   CalendarDays,
   CheckCircle2,
+  Flame,
   Lightbulb,
   ListChecks,
   UserRound,
@@ -146,6 +147,25 @@ export default function AuthorityGuide() {
         <div className="grid lg:grid-cols-[minmax(0,1fr)_300px] gap-8 items-start">
           <div className="space-y-7">
             <SearchTeachingGuide path={guide.path} />
+            {guide.path.includes("business-studies") && (
+              <Link
+                to="/exam-tomorrow"
+                className="card-paper p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                onClick={() => void 0}
+              >
+                <div className="flex gap-3 items-start">
+                  <span className="w-10 h-10 rounded-full inline-flex items-center justify-center shrink-0" style={{ background: "var(--gold-bg)", color: "var(--gold)" }}>
+                    <Flame className="w-5 h-5" />
+                  </span>
+                  <div>
+                    <div className="text-xs font-black tracking-wide" style={{ color: "var(--gold)" }}>EXAM TOMORROW?</div>
+                    <strong className="block mt-1" style={{ color: "var(--ink)" }}>Open the 60-second Business Studies rescue desk</strong>
+                    <span className="text-sm mt-1 block" style={{ color: "var(--muted)" }}>Chapter summaries, high-value questions, instant MCQ explanations, score, streak and XP.</span>
+                  </div>
+                </div>
+                <span className="text-sm font-bold inline-flex items-center gap-1 shrink-0" style={{ color: "var(--gold)" }}>Start rescue <ArrowRight className="w-4 h-4" /></span>
+              </Link>
+            )}
             <BoosterInlineCTA
               placement={`authority:${guide.shortTitle}`}
               compact
