@@ -1651,3 +1651,102 @@ section.section-padding {
     scroll-behavior: auto !important;
   }
 }
+
+
+/* Flagship Commerce City entry on the student home. */
+.mobile-commerce-city-card {
+  position: relative;
+  min-height: 98px;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0 8px;
+  padding: 15px 14px;
+  overflow: hidden;
+  color: #fff;
+  background:
+    radial-gradient(circle at 90% 20%, rgba(246, 196, 83, 0.18), transparent 9rem),
+    linear-gradient(135deg, #111a29, #1d2b43);
+  border: 1px solid rgba(246, 196, 83, 0.18);
+  border-radius: 20px;
+  box-shadow: 0 14px 34px rgba(16, 24, 40, 0.16);
+}
+.mobile-commerce-city-card::after {
+  position: absolute;
+  right: -28px;
+  top: -48px;
+  width: 130px;
+  height: 130px;
+  content: "";
+  border: 1px solid rgba(246, 196, 83, 0.12);
+  border-radius: 50%;
+  box-shadow: 0 0 0 20px rgba(246, 196, 83, 0.025), 0 0 0 42px rgba(246, 196, 83, 0.015);
+  pointer-events: none;
+}
+.mobile-commerce-city-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  z-index: 2;
+  color: #172033;
+  background: linear-gradient(135deg, #f8d777, #e0a72b);
+  border-radius: 14px;
+  box-shadow: 0 8px 22px rgba(224, 167, 43, 0.22);
+}
+.mobile-commerce-city-icon svg { width: 20px; height: 20px; }
+.mobile-commerce-city-copy {
+  min-width: 0;
+  position: relative;
+  z-index: 2;
+}
+.mobile-commerce-city-copy small,
+.mobile-commerce-city-copy strong,
+.mobile-commerce-city-copy em { display: block; }
+.mobile-commerce-city-copy small {
+  color: #f6c453;
+  font-size: 0.52rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+.mobile-commerce-city-copy strong {
+  margin-top: 4px;
+  color: #fff;
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+.mobile-commerce-city-copy em {
+  margin-top: 3px;
+  max-width: 370px;
+  overflow: hidden;
+  color: #aeb9c9;
+  font-size: 0.59rem;
+  font-style: normal;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mobile-commerce-city-enter {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #f6c453;
+  font-size: 0.58rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+.mobile-commerce-city-enter svg { width: 13px; height: 13px; }
+
+@media (max-width: 420px) {
+  .mobile-commerce-city-card {
+    grid-template-columns: 40px minmax(0, 1fr);
+  }
+  .mobile-commerce-city-enter {
+    grid-column: 2;
+    margin-top: -3px;
+  }
+}
