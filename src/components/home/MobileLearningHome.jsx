@@ -22,6 +22,7 @@ import teacherPhoto from "../../assets/teacher-photo-opt.jpg";
 import MobileStudySetup from "./MobileStudySetup";
 import { readStudentPreferences, studyPath } from "../../lib/studentPreferences";
 import { trackEvent } from "../../lib/analytics";
+import { COMMERCE_CITY_SCENARIOS, dailyScenarioIndex } from "../../data/commerceCity";
 
 const QUICK_ACTIONS = [
   { label: "Commerce City", icon: Building2, to: "/commerce-city", tone: "violet" },
@@ -103,6 +104,7 @@ export default function MobileLearningHome() {
     window.addEventListener("ssc-student-preferences-changed", refresh);
     return () => window.removeEventListener("ssc-student-preferences-changed", refresh);
   }, [profile]);
+  const cityEvent = COMMERCE_CITY_SCENARIOS[dailyScenarioIndex()];
   const firstName = user ? displayName.trim().split(/\s+/)[0] : "Learner";
   const hour = new Date().getHours();
   const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
@@ -173,6 +175,20 @@ export default function MobileLearningHome() {
               <span>Learn • Practice • Grow</span>
             </div>
           </article>
+
+          <AppLink
+            to="/commerce-city"
+            className="mobile-commerce-city-card"
+            onClick={() => void trackEvent("commerce_city_home_entry", { event: cityEvent.id })}
+          >
+            <span className="mobile-commerce-city-icon"><Building2 aria-hidden="true" /></span>
+            <span className="mobile-commerce-city-copy">
+              <small>LIVE TODAY · COMMERCE CITY</small>
+              <strong>{cityEvent.title}</strong>
+              <em>{cityEvent.headline}</em>
+            </span>
+            <span className="mobile-commerce-city-enter">Enter world <ChevronRight aria-hidden="true" /></span>
+          </AppLink>
 
           <section className="learning-home-actions-panel" aria-labelledby="learning-actions-title">
             <div className="mobile-section-heading mobile-shortcuts-heading"><h2 id="learning-actions-title">What will you learn today?</h2><button type="button" className="mobile-chapter-finder-trigger" onClick={() => window.dispatchEvent(new CustomEvent("ssc-open-resource-finder"))}>Find a chapter <ChevronRight aria-hidden="true" /></button></div>
