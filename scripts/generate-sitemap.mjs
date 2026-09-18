@@ -96,7 +96,7 @@ const basePages = [
   ["/services-for-teachers", "weekly", "0.97"],
   ["/ai-discovery.html", "monthly", "0.95"],
   ["/cbse-notes", "weekly", "0.98"],
-  ["/gseb-class-12-economics.html", "weekly", "0.98"],
+  ["/gseb-class-12-economics", "weekly", "0.98"],
   ["/gseb-class-12-economics-practice.html", "weekly", "0.9"],
   ["/daily-practice", "weekly", "0.86"],
   ["/study-coach", "weekly", "0.92"],
