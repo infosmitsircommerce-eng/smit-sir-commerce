@@ -70,13 +70,18 @@ export const localSeoPages = [
   },
   {
     path: '/economics-tuition-mehsana',
-    title: 'Economics Tuition in Mehsana | Class 11 & 12 CBSE',
-    description: 'Economics tuition in Mehsana for Class 11 and 12 with simple concept explanation, diagrams, numericals, application questions, chapter practice and revision resources.',
+    title: 'Economics Tuition in Mehsana | CBSE Class 11 & 12 + Free Demo',
+    description: 'CBSE Economics tuition in Mehsana for Class 11 & 12 with Micro & Macro concepts, diagrams, numericals, exam practice, free notes and a free demo before joining.',
     eyebrow: 'Economics · Mehsana',
     h1: 'Economics Tuition in Mehsana for Class 11 & 12',
     intro: 'Economics becomes easier when students understand the logic behind the graph, formula or relationship instead of memorising isolated lines. The focus is concept clarity followed by repeated application.',
     serviceName: 'Economics Tuition in Mehsana',
     serviceType: 'Class 11 and Class 12 Economics tuition',
+    proofLinks: [
+      ['/class-11-commerce-economics-notes', 'Try Class 11 Economics notes'],
+      ['/economics-diagrams-class-12', 'Revise Class 12 Economics diagrams'],
+      ['/tools/topics/national-income-gdp', 'Try National Income calculators'],
+    ],
     sectionTitle: 'Learn the reason behind the diagram, formula and answer',
     sectionText: 'Economics tuition focuses on the areas students commonly struggle with: interpreting diagrams, connecting variables, solving numericals, understanding real situations and writing precise theory answers. Free chapter notes and calculators on the website support revision outside class.',
     focus: [
@@ -121,13 +126,18 @@ export const localSeoPages = [
   },
   {
     path: '/gseb-economics-tuition-mehsana',
-    title: 'GSEB Economics Tuition in Mehsana | Class 11 & 12',
-    description: 'GSEB Economics tuition in Mehsana for Class 11 and 12 with simple concept explanation, chapter-wise revision, diagrams, answer writing and free Gujarat Board Economics resources.',
+    title: 'GSEB Economics Tuition in Mehsana | Class 11 & 12 + Free Demo',
+    description: 'GSEB Economics tuition in Mehsana for Class 11 & 12 with chapter-wise notes, concepts, diagrams, answer writing, revision practice and a free demo before joining.',
     eyebrow: 'GSEB Economics · Mehsana',
     h1: 'GSEB Economics Tuition in Mehsana for Class 11 & 12',
     intro: 'Gujarat Board Economics becomes easier when students organise each chapter into meaning, causes, effects, measures, diagrams and important questions. This page is for Mehsana students who want Economics support that connects classroom explanation with chapter-wise GSEB revision resources.',
     serviceName: 'GSEB Economics Tuition in Mehsana',
     serviceType: 'GSEB Class 11 and Class 12 Economics tuition and revision support',
+    proofLinks: [
+      ['/gseb/class-12/economics/indicators-of-growth-and-development-notes', 'Try Chapter 2 Growth & Development notes'],
+      ['/gseb-class-12-economics-important-questions', 'Open GSEB Economics important questions'],
+      ['/gseb-class-12-economics-last-minute-revision', 'Use the last-minute revision route'],
+    ],
     sectionTitle: 'Board-specific Economics support without random last-minute study',
     sectionText: 'Students work from chapter concepts to point-wise answers, diagrams, important questions and repeated revision. Published GSEB Class 12 Economics notes on the website currently cover Chapter 2 to Chapter 11, giving local students a free revision layer outside class.',
     focus: [
