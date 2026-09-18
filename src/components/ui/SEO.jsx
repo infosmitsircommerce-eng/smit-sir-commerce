@@ -140,10 +140,6 @@ const SITEWIDE_ENTITY = {
         "Entrepreneurship",
         "Physical Education",
         "Commerce exam preparation",
-        "B.Com learning resources",
-        "M.Com learning resources",
-        "UGC NET Commerce preparation resources",
-        "GSET Commerce preparation resources",
       ],
       founder: { "@id": `${BASE}/about#smit-thaker` },
       subjectOf: [
