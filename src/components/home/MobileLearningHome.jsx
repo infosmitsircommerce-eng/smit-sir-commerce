@@ -15,6 +15,7 @@ import {
   ChevronRight,
   Wrench,
   Rocket,
+  ScanSearch,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import teacherPhoto from "../../assets/teacher-photo-opt.jpg";
@@ -23,6 +24,7 @@ import { readStudentPreferences, studyPath } from "../../lib/studentPreferences"
 import { trackEvent } from "../../lib/analytics";
 
 const QUICK_ACTIONS = [
+  { label: "Marks X-Ray", icon: ScanSearch, to: "/marks-xray", tone: "violet" },
   { label: "Exam Tomorrow", icon: Flame, to: "/exam-tomorrow", tone: "coral" },
   { label: "Study Notes", icon: FileText, to: "/study-material", tone: "gold" },
   { label: "Quizzes", icon: FileQuestion, to: "/quizzes", tone: "violet" },
@@ -221,6 +223,7 @@ export default function MobileLearningHome() {
           </section>
 
           <aside className="learning-home-insight-panel">
+            <AppLink to="/marks-xray" className="mobile-lab-link"><span><ScanSearch aria-hidden="true" /><strong>Decode any exam question</strong></span><span>Try Marks X-Ray <ChevronRight aria-hidden="true" /></span></AppLink>
             <AppLink to="/concept-lab" className="mobile-lab-link"><span><FlaskConical aria-hidden="true" /><strong>Make concepts click</strong></span><span>Explore Concept Lab <ChevronRight aria-hidden="true" /></span></AppLink>
             <blockquote className="mobile-quote-card">
               <strong>“Consistent practice<br />today, a confident tomorrow.”</strong>
