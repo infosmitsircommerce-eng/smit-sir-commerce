@@ -7,7 +7,7 @@ const gsebChapterPages = [
     chapter: 'Indicators of Growth and Development',
     slug: 'gseb-class-12-economics-chapter-2-growth-development-notes.html',
     pdf: freeEconomics.get(2)?.file_url,
-    canonicalHub: '/gseb/class-12/economics/indicators-of-growth-and-development-notes.html',
+    canonicalHub: '/gseb/class-12/economics/indicators-of-growth-and-development-notes',
     focus: 'growth, development, indicators, national income and human development revision',
   },
   {
@@ -15,7 +15,7 @@ const gsebChapterPages = [
     chapter: 'Money and Inflation',
     slug: 'gseb-class-12-economics-chapter-3-money-inflation-notes.html',
     pdf: freeEconomics.get(3)?.file_url,
-    canonicalHub: '/gseb/class-12/economics/money-and-inflation-notes.html',
+    canonicalHub: '/gseb/class-12/economics/money-and-inflation-notes',
     focus: 'money, value of money, inflation, causes, effects and control measures',
   },
   {
@@ -23,7 +23,7 @@ const gsebChapterPages = [
     chapter: 'Banking and Monetary Policy',
     slug: 'gseb-class-12-economics-chapter-4-banking-monetary-policy-notes.html',
     pdf: freeEconomics.get(4)?.file_url,
-    canonicalHub: '/gseb/class-12/economics/banking-and-monetary-policy-notes.html',
+    canonicalHub: '/gseb/class-12/economics/banking-and-monetary-policy-notes',
     focus: 'commercial banks, central bank, RBI functions, credit control and monetary policy',
   },
   {
@@ -31,7 +31,7 @@ const gsebChapterPages = [
     chapter: 'Poverty',
     slug: 'gseb-class-12-economics-chapter-5-poverty-notes.html',
     pdf: freeEconomics.get(5)?.file_url,
-    canonicalHub: '/gseb/class-12/economics/poverty-notes.html',
+    canonicalHub: '/gseb/class-12/economics/poverty-notes',
     focus: 'poverty meaning, poverty line, causes, effects and poverty removal measures',
   },
   {
@@ -39,7 +39,7 @@ const gsebChapterPages = [
     chapter: 'Unemployment',
     slug: 'gseb-class-12-economics-chapter-6-unemployment-notes.html',
     pdf: freeEconomics.get(6)?.file_url,
-    canonicalHub: '/gseb/class-12/economics/unemployment-notes.html',
+    canonicalHub: '/gseb/class-12/economics/unemployment-notes',
     focus: 'unemployment meaning, types, causes, effects and employment generation measures',
   },
   {
@@ -47,7 +47,7 @@ const gsebChapterPages = [
     chapter: 'Population',
     slug: 'gseb-class-12-economics-chapter-7-population-notes.html',
     pdf: freeEconomics.get(7)?.file_url,
-    canonicalHub: '/gseb/class-12/economics/population-notes.html',
+    canonicalHub: '/gseb/class-12/economics/population-notes',
     focus: 'population growth, demographic features, problems and population policy revision',
   },
   {
@@ -55,7 +55,7 @@ const gsebChapterPages = [
     chapter: 'Agriculture Sector',
     slug: 'gseb-class-12-economics-chapter-8-agriculture-sector-notes.html',
     pdf: freeEconomics.get(8)?.file_url,
-    canonicalHub: '/gseb/class-12/economics/agriculture-sector-notes.html',
+    canonicalHub: '/gseb/class-12/economics/agriculture-sector-notes',
     focus: 'role of agriculture, problems of agriculture, reforms and rural development points',
   },
   {
@@ -63,7 +63,7 @@ const gsebChapterPages = [
     chapter: 'Foreign Trade',
     slug: 'gseb-class-12-economics-chapter-9-foreign-trade-notes.html',
     pdf: freeEconomics.get(9)?.file_url,
-    canonicalHub: '/gseb/class-12/economics/foreign-trade-notes.html',
+    canonicalHub: '/gseb/class-12/economics/foreign-trade-notes',
     focus: 'foreign trade meaning, imports, exports, balance of trade and policy points',
   },
   {
@@ -71,7 +71,7 @@ const gsebChapterPages = [
     chapter: 'Industrial Sector',
     slug: 'gseb-class-12-economics-chapter-10-industrial-sector-notes.html',
     pdf: freeEconomics.get(10)?.file_url,
-    canonicalHub: '/gseb/class-12/economics/industrial-sector-notes.html',
+    canonicalHub: '/gseb/class-12/economics/industrial-sector-notes',
     focus: 'industrialisation, role of industry, problems, policy and development revision',
   },
   {
@@ -79,14 +79,14 @@ const gsebChapterPages = [
     chapter: 'Emerging Issues in Indian Economy',
     slug: 'gseb-class-12-economics-chapter-11-emerging-issues-notes.html',
     pdf: freeEconomics.get(11)?.file_url,
-    canonicalHub: '/gseb/class-12/economics/emerging-issues-in-indian-economy-notes.html',
+    canonicalHub: '/gseb/class-12/economics/emerging-issues-in-indian-economy-notes',
     focus: 'current emerging economic issues, development challenges and Indian economy revision',
   },
 ];
 
 const commonLinks = [
   { label: 'All free study material', href: '/study-material' },
-  { label: 'GSEB Class 12 Economics hub', href: '/gseb-class-12-economics.html' },
+  { label: 'GSEB Class 12 Economics hub', href: '/gseb-class-12-economics' },
   { label: 'GSEB Economics practice', href: '/gseb-class-12-economics-practice.html' },
   { label: 'Free Commerce tools', href: '/tools' },
 ];
@@ -108,7 +108,7 @@ export const silentSearchPages = [
     links: [
       { label: 'Open Study Material', href: '/study-material' },
       { label: 'Open CBSE Commerce Notes', href: '/cbse-notes' },
-      { label: 'Open GSEB Economics PDFs', href: '/gseb-class-12-economics.html' },
+      { label: 'Open GSEB Economics PDFs', href: '/gseb-class-12-economics' },
       { label: 'Open Formula Sheet', href: '/class-12-commerce-formula-sheet.html' },
       { label: 'Open Important Questions', href: '/gseb-class-12-economics-important-questions.html' },
     ],
@@ -204,7 +204,7 @@ export const silentSearchPages = [
       { heading: 'Useful for silent study', text: 'Students who do not want to ask anyone for notes can use this page as a direct starting point. Open the PDF, revise the chapter, then move to practice.' },
     ],
     links: [
-      { label: 'Open GSEB Economics PDFs', href: '/gseb-class-12-economics.html' },
+      { label: 'Open GSEB Economics PDFs', href: '/gseb-class-12-economics' },
       { label: 'Practice GSEB Economics', href: '/gseb-class-12-economics-practice.html' },
       { label: 'Open study pack', href: '/free-class-12-commerce-study-pack.html' },
       { label: 'Formula sheet', href: '/class-12-commerce-formula-sheet.html' },
