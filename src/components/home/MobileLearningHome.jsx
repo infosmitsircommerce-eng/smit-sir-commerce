@@ -15,6 +15,7 @@ import {
   ChevronRight,
   Wrench,
   Rocket,
+  Store,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import teacherPhoto from "../../assets/teacher-photo-opt.jpg";
@@ -23,6 +24,7 @@ import { readStudentPreferences, studyPath } from "../../lib/studentPreferences"
 import { trackEvent } from "../../lib/analytics";
 
 const QUICK_ACTIONS = [
+  { label: "Commerce City", icon: Store, to: "/commerce-city", tone: "green" },
   { label: "Exam Tomorrow", icon: Flame, to: "/exam-tomorrow", tone: "coral" },
   { label: "Study Notes", icon: FileText, to: "/study-material", tone: "gold" },
   { label: "Quizzes", icon: FileQuestion, to: "/quizzes", tone: "violet" },
@@ -221,7 +223,7 @@ export default function MobileLearningHome() {
           </section>
 
           <aside className="learning-home-insight-panel">
-            <AppLink to="/concept-lab" className="mobile-lab-link"><span><FlaskConical aria-hidden="true" /><strong>Make concepts click</strong></span><span>Explore Concept Lab <ChevronRight aria-hidden="true" /></span></AppLink>
+            <AppLink to="/commerce-city" className="mobile-lab-link"><span><Store aria-hidden="true" /><strong>Learn Commerce by running a shop</strong></span><span>Play Commerce City <ChevronRight aria-hidden="true" /></span></AppLink>
             <blockquote className="mobile-quote-card">
               <strong>“Consistent practice<br />today, a confident tomorrow.”</strong>
               <span>— Smit Sir</span>

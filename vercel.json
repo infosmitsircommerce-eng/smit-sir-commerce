@@ -31,11 +31,6 @@
       "permanent": true
     },
     {
-      "source": "/commerce-city",
-      "destination": "/study-material",
-      "permanent": true
-    },
-    {
       "source": "/accountancy-tuition-mehsana",
       "destination": "/tools",
       "permanent": true

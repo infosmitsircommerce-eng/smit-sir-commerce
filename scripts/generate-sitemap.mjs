@@ -19,6 +19,7 @@ import { examTomorrowChapters } from "../src/data/examTomorrow.js";
 const BASE = "https://www.smitsircommerce.in";
 
 const basePages = [
+  ["/commerce-city", "weekly", "0.97"],
   ["/concept-lab", "monthly", "0.85"],
   ...quizDiscovery.map((p) => [p.path, "monthly", "0.8"]),
   ["/quizzes", "weekly", "0.95"],
