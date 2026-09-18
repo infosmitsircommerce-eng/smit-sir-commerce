@@ -80,7 +80,7 @@ export const genuineTrafficPages = [
     ],
   },
   {
-    path: '/cbse-class-12-business-studies-chapter-wise-important-questions.html',
+    path: '/cbse-class-12-business-studies-chapter-wise-important-questions',
     title: 'CBSE Class 12 Business Studies Chapter-wise Important Questions',
     description: 'Chapter-wise CBSE Class 12 Business Studies important question revision guide with case-study keywords, concept identification and answer-writing strategy.',
     h1: 'CBSE Class 12 Business Studies Chapter-wise Important Questions',
@@ -131,7 +131,7 @@ export const genuineTrafficPages = [
     ],
   },
   {
-    path: '/class-11-commerce-economics-notes.html',
+    path: '/class-11-commerce-economics-notes',
     title: 'Class 11 Commerce Economics Notes — Microeconomics Revision Start',
     description: 'Free Class 11 Commerce Economics notes route for Microeconomics concepts like demand, elasticity, cost, revenue, supply and market forms.',
     h1: 'Class 11 Commerce Economics Notes',
@@ -171,7 +171,7 @@ export const genuineTrafficPages = [
     ],
     links: [
       { label: 'Open case-study question guide', href: '/cbse/class-12/business-studies-case-study-questions' },
-      { label: 'Open chapter-wise important questions', href: '/cbse-class-12-business-studies-chapter-wise-important-questions.html' },
+      { label: 'Open chapter-wise important questions', href: '/cbse-class-12-business-studies-chapter-wise-important-questions' },
       { label: 'Open CBSE notes', href: '/cbse-notes' },
       { label: 'Open study material', href: '/study-material' },
     ],
@@ -196,7 +196,7 @@ export const genuineTrafficPages = [
     ],
     links: [
       { label: 'Open CBSE Economics important questions', href: '/cbse-class-12-economics-important-questions.html' },
-      { label: 'Open Class 11 Economics notes', href: '/class-11-commerce-economics-notes.html' },
+      { label: 'Open Class 11 Economics notes', href: '/class-11-commerce-economics-notes' },
       { label: 'Open TR AR MR calculator', href: '/tools/tr-ar-mr-calculator' },
       { label: 'Open cost curves calculator', href: '/tools/cost-curves-calculator' },
     ],
