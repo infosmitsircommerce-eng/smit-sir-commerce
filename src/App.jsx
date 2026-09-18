@@ -50,6 +50,7 @@ const CommerceToolsHub = lazy(() => import("./pages/CommerceToolsHub"));
 const CommerceToolPage = lazy(() => import("./pages/CommerceToolPage"));
 const ToolTopicCluster = lazy(() => import("./pages/ToolTopicCluster"));
 const MarksRecovery = lazy(() => import("./pages/MarksRecovery"));
+const MarksXRay = lazy(() => import("./pages/MarksXRay"));
 const LearningInsights = lazy(() => import("./pages/LearningInsights"));
 const DataCenter = lazy(() => import("./pages/DataCenter"));
 const LiveClasses = lazy(() => import("./pages/LiveClasses"));
@@ -410,6 +411,7 @@ function RouteSEO() {
     pathname === "/cbse-commerce-classes-mehsana" ||
     pathname.endsWith("-tuition-mehsana") ||
     pathname === "/marks-recovery" ||
+    pathname === "/marks-xray" ||
     pathname === "/free-commerce-study-pack" ||
     pathname === "/tools" ||
     pathname.startsWith("/tools/") ||
@@ -693,6 +695,7 @@ function AnimatedRoutes() {
           <Route path="/study-coach" element={withPage(<StudyCoach />)} />
           <Route path="/study-tools" element={withPage(<StudyTools />)} />
           <Route path="/marks-recovery" element={withPage(<MarksRecovery />)} />
+          <Route path="/marks-xray" element={withPage(<MarksXRay />)} />
           <Route path="/tools" element={withPage(<CommerceToolsHub />)} />
           <Route
             path="/tools/topics/:clusterSlug"
