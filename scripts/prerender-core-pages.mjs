@@ -43,7 +43,6 @@ function coreNav() {
     '<li><a href="/gseb/class-12/economics-diagnostic-test">GSEB Economics Diagnostic</a></li>' +
     '<li><a href="/concept-lab">Commerce Concept Lab</a></li>' +
     '<li><a href="/commerce-city">Commerce City living Commerce world</a></li>' +
-    '<li><a href="/marks-xray">Marks X-Ray question decoder</a></li>' +
     '<li><a href="/quizzes">Commerce quizzes</a></li>' +
     '<li><a href="/premium">₹999 Lifetime Premium</a></li>' +
     '<li><a href="/test-series">Commerce test series</a></li>' +
@@ -326,26 +325,6 @@ const pages = [
     ],
     body:
       '<main class="page-container section-padding" data-prerendered="commerce-city"><article><p><strong>Smit Sir Commerce Original Lab</strong></p><h1>Commerce City: a living world where the Commerce syllabus reacts</h1><p>Textbooks separate Economics, Business Studies and Accountancy. Commerce City puts them back together. A student changes one real-world variable, predicts what happens next, reveals the causal chain through three subject lenses and then turns the same event into exam questions.</p><h2>How the living world works</h2><ol><li><strong>A daily event happens:</strong> for example RBI raises the repo rate, SmitMart changes price or NovaWorks faces a cost shock.</li><li><strong>Change reality:</strong> move the event variable and watch city indicators react.</li><li><strong>Predict before reveal:</strong> choose what is likely to happen next before the causal chain unlocks.</li><li><strong>Switch subject lenses:</strong> see the same event through Economics, Business Studies and Accountancy.</li><li><strong>Turn reality into an exam:</strong> practise the event as 1-mark, 3-mark, 4-mark and longer application questions.</li></ol><h2>The first connected realities</h2><ul><li>RBI raises the repo rate</li><li>SmitMart cuts its selling price</li><li>SmitMart increases credit sales</li><li>Raw-material cost jumps</li><li>Advertising spend rises</li><li>Household income falls</li><li>An indirect tax rate rises</li><li>NovaWorks finances a new factory</li></ul><h2>Your Commerce Brain</h2><p>Predictions build a simple subject-level connection map on the student device. The goal is not only to score questions but to strengthen the causal links between concepts across subjects.</p><p><a href="/commerce-city">Enter Commerce City</a> · <a href="/exam-tomorrow">Exam Tomorrow</a> · <a href="/study-material">Open free study material</a></p>' +
-      coreNav() +
-      "</article></main>",
-  },
-  {
-    path: "/marks-xray",
-    title: "Marks X-Ray — Decode Any Commerce Exam Question",
-    description:
-      "Paste a Class 11 or 12 Commerce question and reveal the command word, likely topic, answer blueprint, mark-loss traps and question mutations. Free, no login.",
-    faqs: [
-      [
-        "Does Marks X-Ray give the full answer?",
-        "No. It is designed to teach question reading and answer planning: command word, likely topic, answer structure, common mark-loss traps and alternate ways the same concept can be asked.",
-      ],
-      [
-        "Which subjects are supported?",
-        "The first version supports Economics, Business Studies and Accountancy for Class 11 and 12 students, with CBSE and GSEB selection.",
-      ],
-    ],
-    body:
-      '<main class="page-container section-padding" data-prerendered="marks-xray"><article><p><strong>Free Commerce question-analysis lab</strong></p><h1>Marks X-Ray: see what an exam question is really testing</h1><p>Paste a Class 11 or 12 Commerce question and inspect the command word, likely chapter or concept, suggested answer shape, common mark-loss traps and four ways the same concept could return in a different form.</p><h2>Why this is different</h2><p>Most revision starts with the chapter. Marks X-Ray starts with the <em>question-reading skill</em>: what action is required, what concept is hidden inside the wording and how the answer should be structured before the student writes.</p><h2>The five-layer scan</h2><ol><li><strong>Question fingerprint:</strong> subject, topic, command word and mark value.</li><li><strong>Examiner intent:</strong> a plain-language explanation of what the question is asking the student to do.</li><li><strong>Marks blueprint:</strong> a short answer structure before writing begins.</li><li><strong>Trap radar:</strong> common ways students lose marks on that question type.</li><li><strong>Question mutation lab:</strong> four different forms in which the same concept can return.</li></ol><h2>Personal mark-loss pattern</h2><p>Students can record whether they usually lose marks through concept gaps, keywords, structure, calculation, case-study clues or time. The pattern is remembered on the device so revision can focus on <em>how</em> marks are being lost, not only which chapter is weak.</p><p>Marks X-Ray is an independent study tool and not an official CBSE or GSEB marking scheme.</p><p><a href="/marks-xray">Open Marks X-Ray</a> · <a href="/exam-tomorrow">Exam Tomorrow</a> · <a href="/board-exam-diagnostic">Free board diagnostic</a></p>' +
       coreNav() +
       "</article></main>",
   },
