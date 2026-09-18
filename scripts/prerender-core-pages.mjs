@@ -254,6 +254,22 @@ const faqs = [
     "Where can I read the access rules?",
     "The Access & Learning Policy explains how public learning resources and restricted areas are handled.",
   ],
+  [
+    "How are original practice questions labelled?",
+    "Original Smit Sir Commerce practice is presented as learning material and is not described as an official CBSE or GSEB previous-year paper unless an official source is explicitly identified.",
+  ],
+  [
+    "Are the downloadable PDFs official board textbooks?",
+    "No. Public downloadable PDFs on Smit Sir Commerce are study notes, revision resources and learning aids. Prescribed textbooks remain separate source references and are not republished as Smit Sir Commerce material.",
+  ],
+  [
+    "Can I report an error or copyright concern?",
+    "Yes. Use the Contact page and share the exact resource URL and concern. The material can then be reviewed, corrected, credited, restricted or removed when appropriate.",
+  ],
+  [
+    "Do free resources require admission?",
+    "No. Public notes, quizzes, calculators and study pages can be used without joining a tuition batch or booking a demo.",
+  ],
 ];
 
 const diagnosticLandingPages = Object.values(DIAGNOSTIC_ROUTES).map((route) => {
@@ -540,7 +556,7 @@ const pages = [
       faqs
         .map(([q, a]) => "<h2>" + esc(q) + "</h2><p>" + esc(a) + "</p>")
         .join("") +
-      '<p><a href="/access-policy">Read the Access & Learning Policy</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Use</a></p>' +
+      '<p><a href="/access-policy">Read the Access & Learning Policy</a> · <a href="/content-provenance">Content Provenance</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Use</a></p>' +
       coreNav() +
       "</article></main>",
   },
