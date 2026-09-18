@@ -1,7 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
 const file = new URL('../dist/gseb/class-12/economics/indicators-of-growth-and-development-notes.html', import.meta.url);
-const canonical = 'https://www.smitsircommerce.in/gseb/class-12/economics/indicators-of-growth-and-development-notes.html';
+const canonical = 'https://www.smitsircommerce.in/gseb/class-12/economics/indicators-of-growth-and-development-notes';
 const pdf = '/materials/gseb/class-12/economics/free/chapter-02-notes.pdf';
 const practice = '/gseb-class-12-economics-practice.html#chapter-2';
 
@@ -77,7 +77,7 @@ const revision = `<section class="card" data-growth-indicators-upgrade="true">
     <li>What broad dimensions are considered by HDI?</li>
   </ul>
 
-  <p><a href="/gseb-class-12-economics.html"><strong>All GSEB Class 12 Economics chapters →</strong></a> · <a href="/gseb-economics-tuition-mehsana">GSEB Economics support in Mehsana</a></p>
+  <p><a href="/gseb-class-12-economics"><strong>All GSEB Class 12 Economics chapters →</strong></a> · <a href="/gseb-economics-tuition-mehsana">GSEB Economics support in Mehsana</a></p>
 </section>`;
 
 try {
