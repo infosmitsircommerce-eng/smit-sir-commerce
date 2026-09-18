@@ -122,15 +122,10 @@ function renderPage(page) {
 const renderablePages = silentSearchPages.filter((page) => !page.path.startsWith('/gseb-class-12-economics-chapter-'));
 
 for (const page of renderablePages) {
-  const publicPath = cleanPublicPath(page.path);
-  const relative = publicPath.replace(/^\//, '');
-  const flatPath = join(distRoot, relative + '.html');
-  const directoryPath = join(distRoot, relative, 'index.html');
-  const html = renderPage(page);
-  await mkdir(dirname(flatPath), { recursive: true });
-  await mkdir(dirname(directoryPath), { recursive: true });
-  await writeFile(flatPath, html, 'utf8');
-  await writeFile(directoryPath, html, 'utf8');
+  const relative = page.path.replace(/^\//, '');
+  const htmlPath = join(distRoot, relative);
+  await mkdir(dirname(htmlPath), { recursive: true });
+  await writeFile(htmlPath, renderPage(page), 'utf8');
 }
 
 console.log(`Pre-rendered ${renderablePages.length} student-focused Commerce resource pages with canonical hub consolidation.`);
