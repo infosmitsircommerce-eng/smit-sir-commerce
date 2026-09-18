@@ -25,6 +25,7 @@ const legalLinks = [
   { label: "FAQ / Help", path: "/faq", icon: CircleHelp },
   { label: "Terms of Use", path: "/terms", icon: FileText },
   { label: "Access Policy", path: "/access-policy", icon: LockKeyhole },
+  { label: "Disclaimer", path: "/disclaimer", icon: FileText },
 ];
 
 const mutedLink = { color: "var(--muted-on-ink)" };
@@ -110,9 +111,9 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-sm leading-relaxed mb-3" style={mutedLink}>
-              A growing Commerce learning platform for school, college and
-              competitive-exam students — with Smit Sir personally specialising
-              in Class 11 &amp; 12 Commerce teaching.
+              A student-first Class 11 &amp; 12 Commerce learning platform with
+              CBSE and GSEB notes, practice, quizzes, tools and exam-focused
+              support created around currently published resources.
             </p>
             <a
               href="mailto:infosmitsircommerce@gmail.com"
@@ -238,6 +239,7 @@ export default function Footer() {
             <FooterLink to="/faq">FAQ</FooterLink>
             <FooterLink to="/terms">Terms of Use</FooterLink>
             <FooterLink to="/access-policy">Access Policy</FooterLink>
+            <FooterLink to="/disclaimer">Disclaimer</FooterLink>
           </div>
         </div>
       </div>
