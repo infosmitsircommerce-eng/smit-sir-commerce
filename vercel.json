@@ -299,6 +299,41 @@
       "source": "/gseb-class-12-economics-chapter-11-emerging-issues-notes",
       "destination": "/gseb/class-12/economics/emerging-issues-in-indian-economy-notes",
       "permanent": true
+    },
+    {
+      "source": "/economics-diagrams-class-12.html",
+      "destination": "/economics-diagrams-class-12",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-important-questions.html",
+      "destination": "/gseb-class-12-economics-important-questions",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics.html",
+      "destination": "/gseb-class-12-economics",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-last-minute-revision.html",
+      "destination": "/gseb-class-12-economics-last-minute-revision",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-chapter-wise-pdf-notes.html",
+      "destination": "/gseb-class-12-economics-chapter-wise-pdf-notes",
+      "permanent": true
+    },
+    {
+      "source": "/cbse-class-12-macroeconomics-numericals.html",
+      "destination": "/cbse-class-12-macroeconomics-numericals",
+      "permanent": true
+    },
+    {
+      "source": "/cbse-class-12-economics-important-questions.html",
+      "destination": "/cbse-class-12-economics-important-questions",
+      "permanent": true
     }
   ],
   "headers": [
