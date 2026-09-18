@@ -90,6 +90,9 @@ export default function SeoMaterialChapter() {
   const chapterMcqs = getChapterMcqs(material);
   const faqs = getMaterialFaqs(material);
   const chapterPractice = getGrowthPagesForMaterial(material.id);
+  const caseStudyPractice = chapterPractice.find((item) =>
+    /case stud/i.test(item.label || item.path || ""),
+  );
   const relatedHubs = seoHubs.filter((item) => item.id !== material.hubId);
   const formattedUpdated = new Intl.DateTimeFormat("en-IN", {
     day: "numeric",
@@ -166,6 +169,14 @@ export default function SeoMaterialChapter() {
                 >
                   <Download className="w-4 h-4" /> Download PDF
                 </a>
+                {material.subject === "Business Studies" && caseStudyPractice && (
+                  <Link
+                    to={caseStudyPractice.path}
+                    className="btn-secondary w-full sm:w-auto inline-flex items-center justify-center gap-2"
+                  >
+                    <FileQuestion className="w-4 h-4" /> Chapter Case Studies
+                  </Link>
+                )}
               </div>
             </div>
             <aside className="card-paper p-5 sm:p-6">
