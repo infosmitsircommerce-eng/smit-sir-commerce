@@ -9,8 +9,8 @@ const SITE = 'Smit Sir Commerce';
 const source = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
 const distRoot = new URL('../dist/', import.meta.url);
 const cbseNotesPath = '/cbse-notes';
-const cbseNotesTitle = 'Free CBSE Commerce Notes Class 11 & 12 PDF';
-const cbseNotesDescription = 'Free CBSE Commerce notes for Class 11 and 12 with chapter-wise PDF notes for Economics, Business Studies, Microeconomics and Macroeconomics. View online or download free.';
+const cbseNotesTitle = 'Free CBSE Commerce Notes Class 11 & 12';
+const cbseNotesDescription = 'Free CBSE Class 11–12 Commerce notes with chapter-wise PDFs for Economics and Business Studies, plus connected practice and revision support.';
 const cbseNotesFaqs = [
   {
     question: 'Are these CBSE Commerce notes free?',
