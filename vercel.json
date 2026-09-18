@@ -745,14 +745,6 @@
     {
       "source": "/school-resource/:boardSlug/:classSlug/:subjectSlug/:resourceSlug",
       "destination": "/"
-    },
-    {
-      "source": "/exam-tomorrow",
-      "destination": "/"
-    },
-    {
-      "source": "/exam-tomorrow/:chapterSlug",
-      "destination": "/"
     }
   ]
 }
