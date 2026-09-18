@@ -23,8 +23,8 @@ function setCanonical(html, value) {
     : html.replace('</head>', `${tag}\n</head>`);
 }
 
-const title = 'Indicators of Growth and Development Class 12 Notes PDF | GSEB';
-const description = 'Free GSEB Class 12 Economics Indicators of Growth and Development notes PDF: growth vs development, national income, per capita income, PQLI, HDI and quick revision.';
+const title = 'GSEB Class 12 Economics Chapter 2 Notes PDF | Growth & Development';
+const description = 'Free GSEB Class 12 Economics Chapter 2 notes PDF for Indicators of Growth and Development, with growth vs development, per capita income, PQLI, HDI, MCQs and revision practice.';
 
 const revision = `<section class="card" data-growth-indicators-upgrade="true">
   <h2>Indicators of Growth and Development: quick revision</h2>
@@ -34,6 +34,7 @@ const revision = `<section class="card" data-growth-indicators-upgrade="true">
     <a class="btn gold" href="${pdf}">Read free 64-page PDF</a>
     <a class="btn" href="${pdf}" download>Download free PDF</a>
     <a class="btn" href="${practice}">Practice Chapter 2</a>
+    <a class="btn" href="/gseb-economics-quizzes/class-12/indicators-of-growth-and-development-mcq">Take Chapter 2 MCQs</a>
   </div>
 
   <h3>1. Economic growth vs economic development</h3>
@@ -68,7 +69,15 @@ const revision = `<section class="card" data-growth-indicators-upgrade="true">
     <li>For longer answers, explain why one income measure alone may not capture the full idea of development.</li>
   </ol>
 
-  <h3>5. Test yourself before opening the PDF</h3>
+  <h3>5. 15-minute exam rescue</h3>
+  <ol>
+    <li><strong>3 minutes:</strong> recall the difference between growth and development without notes.</li>
+    <li><strong>4 minutes:</strong> revise National Income, Per Capita Income, PQLI and HDI.</li>
+    <li><strong>5 minutes:</strong> answer the five questions below in short points.</li>
+    <li><strong>3 minutes:</strong> take the Chapter 2 MCQ set and review every wrong answer.</li>
+  </ol>
+
+  <h3>6. Test yourself before opening the PDF</h3>
   <ul>
     <li>How is economic development broader than economic growth?</li>
     <li>How is per-capita income calculated?</li>
@@ -77,7 +86,7 @@ const revision = `<section class="card" data-growth-indicators-upgrade="true">
     <li>What broad dimensions are considered by HDI?</li>
   </ul>
 
-  <p><a href="/gseb-class-12-economics"><strong>All GSEB Class 12 Economics chapters →</strong></a> · <a href="/gseb-economics-tuition-mehsana">GSEB Economics support in Mehsana</a></p>
+  <p><a href="/gseb-class-12-economics"><strong>All GSEB Class 12 Economics chapters →</strong></a> · <a href="/gseb-class-12-economics-important-questions">Important questions</a> · <a href="/gseb-class-12-economics-last-minute-revision">Last-minute revision</a> · <a href="/gseb/class-12/economics/money-and-inflation-notes">Next: Money & Inflation</a></p>
 </section>`;
 
 try {
