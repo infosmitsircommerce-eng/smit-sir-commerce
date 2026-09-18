@@ -36,7 +36,7 @@ const topPages = [
     ]
   },
   {
-    path: '/gseb-class-12-economics.html',
+    path: '/gseb-class-12-economics',
     title: 'GSEB Class 12 Economics Notes PDF',
     description: 'Free GSEB Class 12 Economics complete notes for eight chapters, Premium revision PDFs for Chapters 2–11 and linked free practice.',
     intent: 'For Gujarat Board Class 12 Economics students who need chapter-wise notes, PDFs and connected revision practice.',
@@ -82,7 +82,7 @@ const topPages = [
 const pillarLinks = [
   ['/study-material', 'Free study material'],
   ['/cbse-notes', 'CBSE Commerce notes'],
-  ['/gseb-class-12-economics.html', 'GSEB Economics notes PDF'],
+  ['/gseb-class-12-economics', 'GSEB Economics notes PDF'],
   ['/tools', 'Commerce calculators'],
   ['/commerce-coaching-mehsana', 'Commerce coaching Mehsana'],
   ['/ai-discovery.html', 'Website resource summary'],
