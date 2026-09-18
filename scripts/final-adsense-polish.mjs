@@ -85,6 +85,64 @@ const targets = [
   },
   {
     files: [
+      new URL('../dist/cbse/class-12/business-studies/controlling-notes.html', import.meta.url),
+      new URL('../dist/cbse/class-12/business-studies/controlling-notes/index.html', import.meta.url),
+    ],
+    title: 'Controlling Class 12 Notes PDF | BST Chapter 8',
+    description: 'Free CBSE Class 12 Business Studies Controlling notes PDF with process, relationship with planning, key terms, examples and exam revision.',
+  },
+  {
+    files: [
+      new URL('../dist/cbse/class-12/business-studies/business-environment-notes.html', import.meta.url),
+      new URL('../dist/cbse/class-12/business-studies/business-environment-notes/index.html', import.meta.url),
+    ],
+    description: 'Free CBSE Class 12 Business Environment notes for Chapter 3 with dimensions, importance, demonetisation, examples and exam revision.',
+  },
+  {
+    files: [
+      new URL('../dist/tools/net-indirect-tax-calculator.html', import.meta.url),
+      new URL('../dist/tools/net-indirect-tax-calculator/index.html', import.meta.url),
+    ],
+    title: 'Net Indirect Tax Calculator | NIT Formula',
+    description: 'Calculate Net Indirect Tax from indirect taxes and subsidies with the NIT formula, step-by-step working and Class 12 Economics examples.',
+  },
+  {
+    files: [
+      new URL('../dist/tools/topics/national-income-gdp.html', import.meta.url),
+      new URL('../dist/tools/topics/national-income-gdp/index.html', import.meta.url),
+    ],
+    title: 'National Income & GDP Calculators | Class 12',
+  },
+  {
+    files: [
+      new URL('../dist/online-batch.html', import.meta.url),
+      new URL('../dist/online-batch/index.html', import.meta.url),
+    ],
+    description: 'Online Class 11–12 Commerce support with Economics and Business Studies learning resources, structured practice and a free demo option.',
+  },
+  {
+    files: [
+      new URL('../dist/tools/market-price-from-factor-cost-calculator.html', import.meta.url),
+      new URL('../dist/tools/market-price-from-factor-cost-calculator/index.html', import.meta.url),
+    ],
+    description: 'Convert factor cost to market price using net indirect taxes, with the formula, step-by-step working and Class 12 Economics examples.',
+  },
+  {
+    files: [
+      new URL('../dist/tools/debt-equity-ratio-calculator.html', import.meta.url),
+      new URL('../dist/tools/debt-equity-ratio-calculator/index.html', import.meta.url),
+    ],
+    description: 'Calculate debt-equity ratio with the formula, clear working and examples for Class 12 Accountancy and financial statement analysis.',
+  },
+  {
+    files: [
+      new URL('../dist/tools/topics/income-determination.html', import.meta.url),
+      new URL('../dist/tools/topics/income-determination/index.html', import.meta.url),
+    ],
+    title: 'MPC, MPS & Multiplier Calculators | Class 12',
+  },
+  {
+    files: [
       new URL('../dist/content-provenance.html', import.meta.url),
       new URL('../dist/content-provenance/index.html', import.meta.url),
     ],
