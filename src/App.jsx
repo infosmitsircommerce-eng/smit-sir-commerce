@@ -130,9 +130,9 @@ function PageFallback() {
 }
 const ROUTE_SEO = {
   "/": {
-    title: "Commerce Notes, Tools & Exam Resources — School to NET",
+    title: "Class 11 & 12 Commerce Notes, Tools & Exam Resources",
     description:
-      "A growing Commerce learning platform for Class 11 & 12, B.Com, M.Com, UGC NET and GSET, with specialist Class 11 & 12 teaching by Smit Sir.",
+      "Free and exam-focused Class 11 & 12 Commerce learning resources for CBSE and GSEB, including notes, quizzes, practice, tests and calculators.",
   },
   "/courses": {
     title: "Commerce Courses — Class 11 & 12",
@@ -140,14 +140,16 @@ const ROUTE_SEO = {
       "Explore Class 11 and 12 Commerce learning resources, notes, practice and tests.",
   },
   "/commerce-learning": {
-    title: "Commerce Learning Hub — School, College & Competitive Exams",
+    title: "Commerce Learning Hub — Archived Expansion Roadmap",
     description:
-      "Commerce learning resources from Class 11 & 12 to B.Com, M.Com, UGC NET Commerce and GSET Commerce.",
+      "An archived roadmap page for future Commerce expansion. Current public learning resources focus on Class 11 & 12 CBSE and GSEB Commerce.",
+    noindex: true,
   },
   "/college-commerce": {
-    title: "College Commerce Study Material — B.Com & M.Com",
+    title: "College Commerce Roadmap — Not Yet Published",
     description:
-      "College Commerce resource hub for B.Com and M.Com semester-wise material.",
+      "This future-resource roadmap is not part of the currently published Class 11 & 12 learning library.",
+    noindex: true,
   },
   "/college-commerce/bcom": {
     title: "B.Com Study Material Roadmap — Semesters 1–6",
@@ -162,18 +164,22 @@ const ROUTE_SEO = {
     noindex: true,
   },
   "/commerce-exams": {
-    title: "Commerce Competitive Exams — UGC NET & GSET",
-    description: "Commerce exam preparation hub for UGC NET and GSET.",
+    title: "Commerce Competitive Exam Roadmap — Not Yet Published",
+    description:
+      "This future-resource roadmap is not part of the currently published Class 11 & 12 learning library.",
+    noindex: true,
   },
   "/ugc-net-commerce": {
-    title: "UGC NET Commerce — Syllabus, Notes, MCQs & PYQs",
+    title: "UGC NET Commerce Roadmap — Not Yet Published",
     description:
-      "UGC NET Commerce subject 08/008 preparation resources and unit-wise structure.",
+      "Future-resource roadmap only. Current indexed learning resources focus on Class 11 & 12 Commerce.",
+    noindex: true,
   },
   "/gset-commerce": {
-    title: "GSET Commerce — Syllabus, Notes, MCQs & PYQs",
+    title: "GSET Commerce Roadmap — Not Yet Published",
     description:
-      "GSET Commerce code 17 preparation resources and unit-wise structure.",
+      "Future-resource roadmap only. Current indexed learning resources focus on Class 11 & 12 Commerce.",
+    noindex: true,
   },
   "/lectures": {
     title: "CBSE Commerce Video Lectures — Coming Soon",
@@ -302,6 +308,11 @@ const ROUTE_SEO = {
   "/access-policy": {
     title: "Access & Learning Policy — Smit Sir Commerce",
     description: "Learning access policy.",
+  },
+  "/disclaimer": {
+    title: "Disclaimer & Content Originality — Smit Sir Commerce",
+    description:
+      "Educational-use, accuracy, copyright, advertising and external-link disclosures.",
   },
   "/concept-lab": {
     title: "Commerce Concept Lab — Explore Inflation & Purchasing Power",
@@ -739,6 +750,7 @@ function AnimatedRoutes() {
           <Route path="/privacy" element={withPage(<Legal />)} />
           <Route path="/terms" element={withPage(<Legal />)} />
           <Route path="/access-policy" element={withPage(<Legal />)} />
+          <Route path="/disclaimer" element={withPage(<Legal />)} />
           <Route path="/concept-lab" element={withPage(<ConceptLab />)} />
           <Route path="/games" element={withPage(<Games />)} />
           <Route path="/flashcards" element={withPage(<Flashcards />)} />
