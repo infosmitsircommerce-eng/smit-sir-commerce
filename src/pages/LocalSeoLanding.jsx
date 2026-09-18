@@ -222,6 +222,34 @@ export default function LocalSeoLanding() {
       <main className="page-container section-padding space-y-8">
         <LocalTuitionDetails demoHref={demoHref} />
         <LocalRevenueActions demoHref={demoHref} />
+
+        {page.proofLinks?.length > 0 && (
+          <section className="card-paper p-5 sm:p-7">
+            <span className="eyebrow">Try the free resources first</span>
+            <h2
+              className="text-3xl mt-3"
+              style={{ fontFamily: "var(--font-serif)", color: "var(--ink)" }}
+            >
+              See the teaching approach before you enquire
+            </h2>
+            <p className="mt-3 text-sm leading-7 max-w-3xl" style={{ color: "var(--muted)" }}>
+              Open a real learning resource, try a practice page or calculator, then decide whether you want a demo. No admission is required to use these links.
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-6">
+              {page.proofLinks.map(([to, label]) => (
+                <Link
+                  key={to}
+                  to={to}
+                  className="tile-paper p-4 flex items-center justify-between gap-3 text-sm font-semibold"
+                >
+                  <span>{label}</span>
+                  <ArrowRight className="w-4 h-4 shrink-0" style={{ color: "var(--gold)" }} />
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
         <BoosterInlineCTA placement={`local:${page.path}`} />
 
         <section
