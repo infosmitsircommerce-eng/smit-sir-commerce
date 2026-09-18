@@ -102,10 +102,6 @@ const basePages = [
   ["/study-coach", "weekly", "0.92"],
   ["/tools", "weekly", "0.94"],
   ["/online-batch", "weekly", "0.82"],
-  ["/commerce-learning", "monthly", "0.72"],
-  ["/commerce-exams", "monthly", "0.72"],
-  ["/ugc-net-commerce", "monthly", "0.7"],
-  ["/gset-commerce", "monthly", "0.7"],
   ["/commerce-coaching-mehsana", "weekly", "0.9"],
   ["/about", "monthly", "0.64"],
   ["/contact", "monthly", "0.7"],
@@ -113,6 +109,7 @@ const basePages = [
   ["/privacy", "yearly", "0.25"],
   ["/terms", "yearly", "0.25"],
   ["/access-policy", "yearly", "0.3"],
+  ["/disclaimer", "yearly", "0.3"],
 ];
 
 const priorityToolSlugs = new Set([
