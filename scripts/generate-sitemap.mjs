@@ -110,6 +110,7 @@ const basePages = [
   ["/terms", "yearly", "0.25"],
   ["/access-policy", "yearly", "0.3"],
   ["/disclaimer", "yearly", "0.3"],
+  ["/content-provenance", "monthly", "0.45"],
 ];
 
 const priorityToolSlugs = new Set([
