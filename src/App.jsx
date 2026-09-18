@@ -314,6 +314,11 @@ const ROUTE_SEO = {
     description:
       "Educational-use, accuracy, copyright, advertising and external-link disclosures.",
   },
+  "/content-provenance": {
+    title: "Content Provenance & Copyright — Smit Sir Commerce",
+    description:
+      "How public Smit Sir Commerce notes, PDFs and learning resources are identified, sourced and reviewed.",
+  },
   "/concept-lab": {
     title: "Commerce Concept Lab — Explore Inflation & Purchasing Power",
     description: "Explore inflation with interactive sliders, five everyday cases, English and Hindi explanations, follow-up questions and exam-answer practice. Free, no login.",
@@ -751,6 +756,7 @@ function AnimatedRoutes() {
           <Route path="/terms" element={withPage(<Legal />)} />
           <Route path="/access-policy" element={withPage(<Legal />)} />
           <Route path="/disclaimer" element={withPage(<Legal />)} />
+          <Route path="/content-provenance" element={withPage(<Legal />)} />
           <Route path="/concept-lab" element={withPage(<ConceptLab />)} />
           <Route path="/games" element={withPage(<Games />)} />
           <Route path="/flashcards" element={withPage(<Flashcards />)} />
