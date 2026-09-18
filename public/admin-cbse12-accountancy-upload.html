@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,nosnippet">
+<title>Owner Sync — CBSE 12 Accountancy Premium</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#101b33;color:#172033;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh;padding:24px}.wrap{width:min(920px,100%);margin:auto}.panel{background:#fffdf8;border:1px solid #dfd6c4;border-radius:26px;padding:26px;box-shadow:0 28px 90px rgba(0,0,0,.25)}.tag{display:inline-flex;background:#eee8db;color:#172033;padding:7px 11px;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:.11em}.panel h1{font-family:Georgia,serif;font-size:clamp(30px,5vw,46px);line-height:1.04;margin:16px 0 10px}.muted{color:#687080;line-height:1.65}.drop{display:block;border:2px dashed #cdbd98;background:#fff;border-radius:18px;padding:24px;margin-top:22px;text-align:center}.drop input{display:block;margin:14px auto 0;max-width:100%}.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0}.summary div{background:#f6f2e9;border:1px solid #e5ddcc;border-radius:14px;padding:14px}.summary strong{display:block;font-size:24px}.summary span{font-size:12px;color:#687080}.list{display:grid;gap:9px;margin-top:20px}.row{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 14px;border:1px solid #e5dfd4;border-radius:14px;background:#fff}.num{width:38px;height:38px;display:grid;place-items:center;border-radius:11px;background:#172033;color:#f2d58f;font-size:12px;font-weight:900}.row strong,.row small{display:block}.row strong{font-size:14px}.row small{margin-top:3px;color:#727a87;font-size:11px}.state{font-size:11px;font-weight:850;color:#8a6012}.state.ok{color:#21663a}.state.bad{color:#9a332d}.btn{border:1px solid #b48b43;border-radius:13px;padding:14px 18px;font-weight:900;width:100%;margin-top:18px;background:#172033;color:#fff;cursor:pointer}.btn:disabled{opacity:.52;cursor:not-allowed}.status{margin-top:16px;border-radius:14px;padding:14px;display:none;white-space:pre-wrap;font-size:13px;line-height:1.55}.status.on{display:block}.okbox{background:#edf9f0;border:1px solid #c8e1cf;color:#245d38}.badbox{background:#fff0ef;border:1px solid #e6bbb8;color:#8d2a25}.info{background:#f6f2e9;border:1px solid #e2d9c8;border-radius:15px;padding:14px;margin-top:18px;font-size:13px;line-height:1.55}.links{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}.links a{color:#805b12;font-weight:800;font-size:13px}@media(max-width:640px){body{padding:12px}.panel{padding:18px;border-radius:20px}.summary{grid-template-columns:1fr}.row{grid-template-columns:40px minmax(0,1fr)}.state{grid-column:2}}
+</style>
+</head>
+<body>
+<main class="wrap"><section class="panel">
+<span class="tag">OWNER ONLY · PRIVATE PDF SYNC</span>
+<h1>CBSE Class 12 Accountancy — Parts I & II</h1>
+<p class="muted">Select the same 10 PDFs together. This page recognises the WhatsApp filenames you uploaded, then stores each chapter in protected Supabase chunks. Students see the chapter list publicly, but the actual PDF is served only after Premium access verification.</p>
+<div class="summary"><div><strong>10</strong><span>master chapters</span></div><div><strong>521</strong><span>total pages</span></div><div><strong>2</strong><span>Accountancy parts</span></div></div>
+<label class="drop"><b>Select all 10 CBSE Accountancy PDFs</b><span class="muted" style="display:block;font-size:12px;margin-top:5px">Expected original filenames: DOC-20260918-WA0009.pdf to WA0018.pdf</span><input id="files" type="file" multiple accept="application/pdf,.pdf"></label>
+<div id="list" class="list"></div>
+<button id="upload" class="btn" disabled>Securely sync all recognised PDFs</button>
+<div id="status" class="status"></div>
+<div class="info"><b>Security:</b> uploads require the signed-in owner/admin account. No PDF is added to the public GitHub folder, sitemap or public file path.</div>
+<div class="links"><a href="/premium/cbse-12-accountancy">View student library →</a><a href="/premium">Premium home →</a><a href="/admin">Owner Hub →</a></div>
+</section></main>
+<script>
+const catalog=[
+ {match:'WA0009',key:'part-1-chapter-1',part:1,ch:1,title:'Partnership Accounting — Fundamentals',pages:54},
+ {match:'WA0010',key:'part-1-chapter-2',part:1,ch:2,title:'Goodwill: Nature and Valuation',pages:20},
+ {match:'WA0011',key:'part-1-chapter-3',part:1,ch:3,title:'Change in Profit-Sharing Ratio',pages:15},
+ {match:'WA0012',key:'part-1-chapter-4',part:1,ch:4,title:'Admission of a Partner',pages:20},
+ {match:'WA0013',key:'part-1-chapter-5',part:1,ch:5,title:'Retirement or Death of a Partner',pages:17},
+ {match:'WA0014',key:'part-1-chapter-6',part:1,ch:6,title:'Dissolution of a Partnership Firm',pages:17},
+ {match:'WA0016',key:'part-2-chapter-1',part:2,ch:1,title:'Issue of Share Capital',pages:62},
+ {match:'WA0015',key:'part-2-chapter-2',part:2,ch:2,title:'Issue of Debentures',pages:91},
+ {match:'WA0017',key:'part-2-chapter-3',part:2,ch:3,title:'Financial Statements & Analysis',pages:93},
+ {match:'WA0018',key:'part-2-chapter-4',part:2,ch:4,title:'Comparative & Common-Size Statements',pages:132},
+];
+const input=document.getElementById('files'),list=document.getElementById('list'),button=document.getElementById('upload'),status=document.getElementById('status');
+let mapped=new Map();
+function token(){try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('sb-abpruwygnsmeqisaehip-auth-token')){const v=JSON.parse(localStorage.getItem(k)||'{}');if(v.access_token)return v.access_token;if(v.currentSession?.access_token)return v.currentSession.access_token}}}catch(e){}return ''}
+function render(states={}){list.innerHTML=catalog.map(item=>{const file=mapped.get(item.key),state=states[item.key]||(file?'Ready':'Missing');const cls=state==='Synced'?'ok':state.startsWith('Error')?'bad':'';return '<div class="row" data-key="'+item.key+'"><span class="num">P'+item.part+'·'+item.ch+'</span><span><strong>'+item.title+'</strong><small>'+item.pages+' pages'+(file?' · '+file.name:'')+'</small></span><span class="state '+cls+'">'+state+'</span></div>'}).join('')}
+function show(message,ok=false){status.textContent=message;status.className='status on '+(ok?'okbox':'badbox')}
+input.addEventListener('change',()=>{mapped=new Map();for(const file of [...input.files]){const upper=file.name.toUpperCase();const item=catalog.find(entry=>upper.includes(entry.match));if(item)mapped.set(item.key,file)}render();button.disabled=mapped.size!==catalog.length;if(mapped.size!==catalog.length)show('Recognised '+mapped.size+' of 10 files. Please select the original WA0009–WA0018 PDFs together.');else{status.className='status';}});
+button.onclick=async()=>{const auth=token();if(!auth){show('Owner sign-in not found. Open /admin, sign in with the owner account, then return here.');return}if(mapped.size!==catalog.length){show('All 10 recognised PDFs are required before the batch can start.');return}button.disabled=true;button.textContent='Secure sync in progress…';const states={};let done=0;try{for(const item of catalog){states[item.key]='Uploading…';render(states);const file=mapped.get(item.key);const response=await fetch('/api/admin-cbse12-accountancy-upload?resourceKey='+encodeURIComponent(item.key),{method:'POST',headers:{'Content-Type':'application/pdf','Authorization':'Bearer '+auth},body:file});const body=await response.json().catch(()=>({}));if(!response.ok)throw new Error(item.title+': '+(body.error||'upload failed'));states[item.key]='Synced';done+=1;render(states);show('Synced '+done+' of 10 chapters…',true)}show('All 10 CBSE Class 12 Accountancy Premium PDFs are securely synced. The student library can now serve them after access verification.',true)}catch(error){const current=catalog.find(item=>states[item.key]==='Uploading…');if(current)states[current.key]='Error';render(states);show(error.message||'Upload failed. The already-synced chapters remain safe.')}finally{button.disabled=false;button.textContent='Securely sync all recognised PDFs'}};
+render();
+</script>
+</body>
+</html>

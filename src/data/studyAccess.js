@@ -2,6 +2,7 @@ import { seoMaterials } from './seoMaterials.js';
 import { gsebMaterials, gsebPremiumEconomicsMaterials } from './gsebMaterials.js';
 import { ccspMaterials } from './ccspMaterials.js';
 import { verifiedQuizPacks } from './quizCatalog.js';
+import { cbse12AccountancyPremiumMaterials } from './cbse12AccountancyPremium.js';
 
 export const studyAccessItems = [
   ...[...seoMaterials, ...gsebMaterials, ...ccspMaterials].map(item => ({
@@ -13,6 +14,12 @@ export const studyAccessItems = [
     id: `note:${item.id}`, kind: 'Notes', title: `${item.title} · Premium revision PDF`,
     board: item.board, classLevel: item.class_level, subject: item.subject,
     path: `/premium/economics?board=GSEB&chapter=${item.chapterNumber}`, pdf: '',
+  })),
+  ...cbse12AccountancyPremiumMaterials.map(item => ({
+    id: `note:cbse12-accountancy-${item.resourceKey}`, kind: 'Notes',
+    title: `Part ${item.part} · Chapter ${item.chapterNumber} · ${item.title} · Premium Master PDF`,
+    board: 'CBSE', classLevel: 12, subject: 'Accountancy',
+    path: `/premium/cbse-12-accountancy?chapter=${item.resourceKey}`, pdf: '',
   })),
   ...verifiedQuizPacks.map(pack => ({
     id: `test:${pack.id}`, kind: 'Tests', title: `${pack.chapter} · ${pack.title}`,

@@ -5,7 +5,7 @@ const DIST = new URL('../dist/', import.meta.url).pathname;
 const BASE = 'https://www.smitsircommerce.in';
 const PREMIUM_PATH = '/premium';
 const TITLE = '₹699 Commerce Mega Premium — All Current Premium Resources | Smit Sir Commerce';
-const DESCRIPTION = 'Get the complete current Smit Sir Commerce Premium ecosystem for ₹699 one time: protected Commerce PDFs, Accountancy and Economics libraries, advanced notes, worked numericals, Hard + Extreme MCQs, Pro tests and Premium study tools.';
+const DESCRIPTION = 'Get the complete current Smit Sir Commerce Premium ecosystem for ₹699 one time: protected Commerce PDFs, CBSE and GSEB Accountancy libraries, Economics libraries, advanced notes, worked numericals, Hard + Extreme MCQs, Pro tests and Premium study tools.';
 
 function esc(value) {
   return String(value)
@@ -41,7 +41,7 @@ function premiumBody() {
     <h2>What is included</h2>
     <ul>
       <li><strong>GSEB Std. 11 Accountancy Part 1:</strong> 720-page master book, 10 detailed chapter PDFs, accounting formats, tables, worked numericals, practice, MCQs and revision.</li>
-      <li><strong>GSEB Std. 12 Economics:</strong> 10 Premium revision PDFs covering 117 pages plus Hard and Extreme Premium practice.</li>
+      <li><strong>CBSE Class 12 Accountancy — Parts I & II:</strong> 10 Premium master chapters across 521 pages, covering partnership accounts, share capital, debentures, financial statements, comparative/common-size statements, worked numericals, MCQs, cases and exam practice.</li>\n      <li><strong>GSEB Std. 12 Economics:</strong> 10 Premium revision PDFs covering 117 pages plus Hard and Extreme Premium practice.</li>
       <li><strong>CBSE Class 12 Economics:</strong> 18 chapter deep-dives, 360 focused concept explanations and 360 worked Hard and Extreme challenges across Macroeconomics and Indian Economic Development.</li>
       <li><strong>CBSE Class 11 Microeconomics:</strong> 13 chapter deep-dives, 260 focused concept explanations and 260 worked Hard and Extreme challenges.</li>
       <li><strong>Premium practice:</strong> Premium-gated MCQs, Pro-labelled tests, exam practice and Premium study tools currently published on the platform.</li>
@@ -50,7 +50,7 @@ function premiumBody() {
     <p>Instead of forcing every subject into one thousands-page file, Mega Premium keeps each subject, chapter, PDF and practice set organised while giving the student one full-access purchase. This makes the material faster to find and easier to revise.</p>
     <h2>Need only one subject?</h2>
     <p>Focused ₹199 Board Booster packs remain available separately. They unlock only the matching subject pack. Existing legacy full-library Premium accounts continue to be recognised.</p>
-    <p><a href="/gseb-class-11-accountancy-premium.html">See Premium Accountancy contents</a> · <a href="/board-booster-packs">Browse ₹199 Board Boosters</a> · <a href="/my-purchases.html">My Purchases</a> · <a href="/study-material">Free study material</a></p>
+    <p><a href="/premium/cbse-12-accountancy">See CBSE 12 Accountancy contents</a> · <a href="/gseb-class-11-accountancy-premium.html">See GSEB 11 Accountancy contents</a> · <a href="/board-booster-packs">Browse ₹199 Board Boosters</a> · <a href="/my-purchases">My Purchases</a> · <a href="/study-material">Free study material</a></p>
   </article></main>`;
 }
 

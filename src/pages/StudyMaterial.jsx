@@ -58,6 +58,7 @@ export default function StudyMaterial() {
               <p>Choose your board, class and subject. Only matching chapters appear, so your notes are always a few taps away.</p>
               <div className="ssc-library-hero-actions">
                 <a href="#chapter-finder" className="btn-primary"><Search className="w-4 h-4" /> Find my chapter</a>
+                <Link to="/study-material?board=CBSE&class=12&subject=Accountancy#chapter-finder" className="btn-outline-ink"><BookOpen className="w-4 h-4" /> CBSE 12 Accounts</Link>
                 <Link to="/study-material?board=GSEB&class=12&subject=CCSP#chapter-finder" className="btn-outline-ink"><FileText className="w-4 h-4" /> GSEB 12 CCSP</Link>
                 <Link to="/gseb-class-11-accountancy-notes" className="btn-outline-ink"><BookOpen className="w-4 h-4" /> GSEB 11 Accounts</Link>
               </div>

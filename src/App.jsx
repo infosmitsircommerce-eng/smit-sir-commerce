@@ -16,6 +16,7 @@ import { AuthProvider } from "./context/AuthContext";
 const Premium = lazy(() => import("./pages/Premium"));
 const PremiumEconomics = lazy(() => import("./pages/PremiumEconomics"));
 const PremiumAccountancy = lazy(() => import("./pages/PremiumAccountancy"));
+const Cbse12AccountancyPremium = lazy(() => import("./pages/Cbse12AccountancyPremium"));
 const MyPurchases = lazy(() => import("./pages/MyPurchases"));
 const PurchaseStatus = lazy(() => import("./pages/PurchaseStatus"));
 const QuizChapter = lazy(() => import("./pages/QuizChapter"));
@@ -406,6 +407,7 @@ function RouteSEO() {
   if (
     pathname === "/premium" ||
     pathname === "/premium/accountancy" ||
+    pathname === "/premium/cbse-12-accountancy" ||
     pathname === "/my-purchases" ||
     pathname === "/purchase-status" ||
     pathname.startsWith("/hi/") ||
@@ -685,6 +687,10 @@ function AnimatedRoutes() {
           <Route
             path="/premium/accountancy"
             element={withPage(<PremiumAccountancy />)}
+          />
+          <Route
+            path="/premium/cbse-12-accountancy"
+            element={withPage(<Cbse12AccountancyPremium />)}
           />
           <Route
             path="/economics-quizzes/:classSlug/:chapterSlug"

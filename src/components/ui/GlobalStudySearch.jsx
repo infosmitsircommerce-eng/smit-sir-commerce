@@ -8,8 +8,9 @@ import { growthPages } from '../../data/contentGrowth';
 import { getExamSearchItems } from '../../data/examBank';
 import { getPublishedCommerceResources } from '../../lib/commerceResourceStore';
 import { commerceResourceContext } from '../../lib/commerceResourceModel';
-import { verifiedQuizPacks } from '../../data/quizPublic';
+import { verifiedQuizPacks } from '../../data/quizCatalog';
 import { readStudentPreferences } from '../../lib/studentPreferences';
+import { cbse12AccountancyPremiumMaterials } from '../../data/cbse12AccountancyPremium';
 import { trackEvent } from '../../lib/analytics';
 
 const BOOKMARKS_KEY = 'ssc-bookmarks-v1';
@@ -77,6 +78,16 @@ export default function GlobalStudySearch({ initialOpen = false, initialQuery = 
     ...seoHubs.map((hub) => ({ title: hub.label, subtitle: hub.description, path: hub.path, type: 'Subject', keywords: `${hub.subject} class ${hub.classLevel}` })),
     ...seoMaterials.map((m) => ({ title: m.chapter, subtitle: `CBSE Class ${m.class_level} · ${m.subjectLabel}`, path: m.seo_path, type: 'Chapter', board: 'CBSE', classLevel: String(m.class_level), subject: m.subject, keywords: `${m.subject} ${m.keyTopics?.join(' ') || ''}` })),
     ...gsebMaterials.map((m) => ({ title: m.chapter, subtitle: `GSEB Class ${m.class_level} · ${m.subject} · ${m.pages} pages`, path: m.seo_path, type: 'GSEB Chapter', board: 'GSEB', classLevel: String(m.class_level), subject: m.subject, keywords: `gseb gujarat board ${m.subject} class ${m.class_level} chapter ${m.chapterNumber} ${m.chapter}` })),
+    ...cbse12AccountancyPremiumMaterials.map(item => ({
+      title: `Part ${item.part} · Chapter ${item.chapterNumber} · ${item.title}`,
+      subtitle: `CBSE Class 12 · Accountancy · Premium · ${item.pages} pages`,
+      path: `/premium/cbse-12-accountancy?chapter=${item.resourceKey}`,
+      type: 'Premium Accountancy',
+      board: 'CBSE',
+      classLevel: '12',
+      subject: 'Accountancy',
+      keywords: `cbse class 12 accountancy accounts part ${item.part} chapter ${item.chapterNumber} ${item.title} premium pdf notes numericals`,
+    })),
     ...verifiedQuizPacks.map(pack => ({ title: `${pack.chapter} · ${pack.title} MCQ test`, subtitle: `${pack.board} Class ${pack.classLevel} · ${pack.subject} · 4 levels`, path: `/quizzes?board=${pack.board}&class=${pack.classLevel}&subject=${encodeURIComponent(pack.subject)}&pack=${pack.id}`, type: 'Chapter Test', board: pack.board, classLevel: String(pack.classLevel), subject: pack.subject, keywords: `${pack.board} ${pack.subject} class ${pack.classLevel} ${pack.title} quiz test MCQ` })),
     ...growthPages.map((page) => ({ id: page.id, title: `${page.chapter} ${page.label}`, subtitle: `Class ${page.classLevel} · ${page.subject}`, path: page.path, type: 'Chapter Practice', keywords: `${page.chapter} ${page.subject} ${page.label} ${page.type}` })),
     ...getExamSearchItems(),

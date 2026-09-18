@@ -588,6 +588,45 @@
           "value": "noindex, nofollow, nosnippet"
         }
       ]
+    },
+    {
+      "source": "/admin-cbse12-accountancy-upload.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/api/premium-cbse12-accountancy",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store"
+        }
+      ]
+    },
+    {
+      "source": "/api/admin-cbse12-accountancy-upload",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
     }
   ],
   "rewrites": [
@@ -793,6 +832,10 @@
     },
     {
       "source": "/premium/accountancy",
+      "destination": "/"
+    },
+    {
+      "source": "/premium/cbse-12-accountancy",
       "destination": "/"
     }
   ]

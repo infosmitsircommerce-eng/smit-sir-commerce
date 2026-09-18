@@ -2,6 +2,7 @@ export const PREMIUM_MEGA_PACK_ID = 'commerce-mega-699';
 
 export const PREMIUM_MEGA_INCLUDED_PRODUCT_IDS = [
   'gseb-11-accountancy-part1',
+  'cbse-12-accountancy',
   'gseb-12-economics',
   'cbse-12-economics',
   'cbse-11-microeconomics',
@@ -27,6 +28,12 @@ export const PREMIUM_MEGA_SECTIONS = [
     meta: '720-page master book + 10 detailed chapter PDFs',
     detail: 'Accounting formats, tables, worked numericals, chapter practice, MCQs and revision.',
     href: '/premium/accountancy',
+  },
+  {
+    title: 'CBSE Class 12 Accountancy — Parts I & II',
+    meta: '10 Premium master chapters · 521 pages',
+    detail: 'Partnership accounts, shares, debentures, financial statements, worked numericals, MCQs, cases and exam practice.',
+    href: '/premium/cbse-12-accountancy',
   },
   {
     title: 'GSEB Std. 12 Economics Premium',

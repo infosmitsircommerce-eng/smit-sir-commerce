@@ -302,6 +302,51 @@
 .mobile-action-card svg { width: 19px; height: 19px; }
 .mobile-action-card strong { color: var(--ink); font-size: 0.64rem; line-height: 1.25; }
 .mobile-action-card strong span { display: block; }
+.mobile-action-status { font-size: 0.58rem; line-height: 1.35; font-weight: 700; }
+
+.mobile-action-premium {
+  grid-column: 1 / -1;
+  min-height: 86px;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 13px 15px;
+  color: #f4d486;
+  background: #172033;
+  border: 1px solid #9e7a3c;
+  border-radius: 18px;
+  text-align: left;
+  box-shadow: 0 12px 28px rgba(23, 32, 51, 0.16);
+}
+.mobile-action-premium > span {
+  flex: 0 0 auto;
+  background: #f0eadc;
+  color: #172033;
+  box-shadow: none;
+}
+.mobile-premium-copy {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.mobile-premium-copy strong {
+  display: block;
+  color: #fff !important;
+  font-size: 0.82rem;
+  line-height: 1.2;
+}
+.mobile-premium-copy .mobile-action-status {
+  display: block;
+  margin-top: 5px;
+  color: #d7deea;
+  font-size: 0.61rem;
+  line-height: 1.4;
+}
+.mobile-action-premium .mobile-premium-chevron {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+  color: #f1d28a;
+}
 .mobile-action-rose { background: #fff0f2; color: #d94a63; }
 .mobile-action-blue { background: #edf5ff; color: #3478d4; }
 .mobile-action-mint { background: #eaf9f2; color: #26946a; }

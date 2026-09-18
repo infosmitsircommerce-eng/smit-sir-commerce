@@ -423,6 +423,17 @@ const pages = [
       "</article></main>",
   },
   {
+    path: "/premium/cbse-12-accountancy",
+    title: "CBSE Class 12 Accountancy Premium Notes — Parts I & II",
+    description:
+      "Browse 10 Smit Sir Commerce CBSE Class 12 Accountancy Premium master chapters across Parts I and II: 521 pages of concepts, numericals, formats, MCQs, cases and exam practice.",
+    collection: true,
+    body:
+      '<main class="page-container section-padding" data-prerendered="cbse12-accountancy-premium"><article><nav aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/premium">Premium</a> / CBSE Class 12 Accountancy</nav><p><strong>CBSE · Class 12 · Accountancy · Premium</strong></p><h1>CBSE Class 12 Accountancy Premium — Parts I & II</h1><p>Find all 10 Premium master chapters in one organised library. Part I contains six partnership-accounting chapters (143 pages). Part II contains four company-accounts and financial-analysis chapters (378 pages). Total: 521 pages.</p><h2>Part I — Partnership Accounts</h2><ol><li><a href="/premium/cbse-12-accountancy?chapter=part-1-chapter-1">Partnership Accounting — Fundamentals — 54 pages</a></li><li><a href="/premium/cbse-12-accountancy?chapter=part-1-chapter-2">Goodwill: Nature and Valuation — 20 pages</a></li><li><a href="/premium/cbse-12-accountancy?chapter=part-1-chapter-3">Change in Profit-Sharing Ratio — 15 pages</a></li><li><a href="/premium/cbse-12-accountancy?chapter=part-1-chapter-4">Admission of a Partner — 20 pages</a></li><li><a href="/premium/cbse-12-accountancy?chapter=part-1-chapter-5">Retirement or Death of a Partner — 17 pages</a></li><li><a href="/premium/cbse-12-accountancy?chapter=part-1-chapter-6">Dissolution of a Partnership Firm — 17 pages</a></li></ol><h2>Part II — Company Accounts & Financial Analysis</h2><ol><li><a href="/premium/cbse-12-accountancy?chapter=part-2-chapter-1">Issue of Share Capital — 62 pages</a></li><li><a href="/premium/cbse-12-accountancy?chapter=part-2-chapter-2">Issue of Debentures — 91 pages</a></li><li><a href="/premium/cbse-12-accountancy?chapter=part-2-chapter-3">Financial Statements & Analysis — 93 pages</a></li><li><a href="/premium/cbse-12-accountancy?chapter=part-2-chapter-4">Comparative & Common-Size Statements — 132 pages</a></li></ol><h2>What students get</h2><p>The collection is built around teacher-style concepts, accounting logic, formats, journal-entry treatment, worked numericals, MCQs, cases, revision and exam practice. The chapter list is public; protected PDF files open only after matching Premium access is verified.</p><p><a href="/study-material?board=CBSE&class=12&subject=Accountancy">Find it from Study Material</a> · <a href="/premium">See full Premium</a> · <a href="/test-series">Open Test Series</a></p>' +
+      coreNav() +
+      "</article></main>",
+  },
+  {
     path: "/courses",
     title: "Commerce Courses — Class 11 & 12",
     description:

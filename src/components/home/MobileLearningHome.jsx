@@ -15,6 +15,7 @@ import {
   Wrench,
   Rocket,
   Store,
+  LockKeyhole,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import teacherPhoto from "../../assets/teacher-photo-opt.jpg";
@@ -27,6 +28,7 @@ const QUICK_ACTIONS = [
   { label: "Exam Tomorrow", icon: Flame, to: "/exam-tomorrow", tone: "coral" },
   { label: "Study Notes", icon: FileText, to: "/study-material", tone: "gold" },
   { label: "Quizzes", icon: FileQuestion, to: "/quizzes", tone: "violet" },
+  { label: "Premium Library", icon: LockKeyhole, to: "/premium", tone: "premium", featured: true, status: "Locked master PDFs · Test Series · Sample-paper practice · MCQs · more" },
   { label: "Test Series", icon: BarChart3, to: "/test-series", tone: "blue" },
   { label: "Daily Mission", icon: CalendarDays, to: "/study-coach", tone: "green" },
   { label: "Study Tools", icon: Wrench, to: "/tools", tone: "teal" },
@@ -176,11 +178,23 @@ export default function MobileLearningHome() {
           <section className="learning-home-actions-panel" aria-labelledby="learning-actions-title">
             <div className="mobile-section-heading mobile-shortcuts-heading"><h2 id="learning-actions-title">What will you learn today?</h2><button type="button" className="mobile-chapter-finder-trigger" onClick={() => window.dispatchEvent(new CustomEvent("ssc-open-resource-finder"))}>Find a chapter <ChevronRight aria-hidden="true" /></button></div>
             <div className="mobile-action-grid" aria-label="Quick actions">
-              {QUICK_ACTIONS.map(({ label, icon: Icon, to, tone, status }) => (
-                <AppLink key={label} to={personalizedTo(to)} data-tone={tone} className={`mobile-action-card mobile-action-${tone}`} onClick={() => void trackEvent('mobile_quick_action_click', { action: label, board: preferences?.board, classLevel: Number(preferences?.classLevel), subject: preferences?.subject })}>
+              {QUICK_ACTIONS.map(({ label, icon: Icon, to, tone, status, featured }) => (
+                <AppLink key={label} to={personalizedTo(to)} data-tone={tone} className={`mobile-action-card mobile-action-${tone}${featured ? " mobile-action-premium" : ""}`} onClick={() => void trackEvent('mobile_quick_action_click', { action: label, board: preferences?.board, classLevel: Number(preferences?.classLevel), subject: preferences?.subject })}>
                   <span><Icon aria-hidden="true" /></span>
-                  <strong>{label.split("\n").map((line) => <span key={line}>{line}</span>)}</strong>
-                  {status && <small className="mobile-action-status">{status}</small>}
+                  {featured ? (
+                    <>
+                      <div className="mobile-premium-copy">
+                        <strong>{label}</strong>
+                        <small className="mobile-action-status">{status}</small>
+                      </div>
+                      <ArrowRight className="mobile-premium-chevron" aria-hidden="true" />
+                    </>
+                  ) : (
+                    <>
+                      <strong>{label.split("\n").map((line) => <span key={line}>{line}</span>)}</strong>
+                      {status && <small className="mobile-action-status">{status}</small>}
+                    </>
+                  )}
                 </AppLink>
               ))}
             </div>
