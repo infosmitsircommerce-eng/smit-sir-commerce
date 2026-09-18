@@ -18,7 +18,7 @@ function schema(guide) {
   return {
     '@context':'https://schema.org',
     '@graph':[
-      { '@type':'LearningResource', name:guide.title, description:guide.description, url:`${BASE}${guide.path}`, isAccessibleForFree:true, inLanguage:'en-IN', datePublished:guide.updated, dateModified:guide.updated, learningResourceType:'Revision guide', author:{'@id':`${BASE}/#teacher`}, provider:{'@id':`${BASE}/#organization`} },
+      { '@type':'LearningResource', name:guide.title, description:guide.description, url:`${BASE}${guide.path}`, isAccessibleForFree:true, inLanguage:'en-IN', datePublished:guide.updated, dateModified:guide.updated, learningResourceType:guide.path.includes('case-study') ? 'Practice questions' : 'Revision guide', author:{'@id':`${BASE}/#teacher`}, provider:{'@id':`${BASE}/#organization`}, hasPart:guide.sections.flatMap(section=>section.links.map(([path,label])=>({ '@type':'LearningResource', name:label, url:`${BASE}${path}`, isAccessibleForFree:true }))) },
       { '@type':'FAQPage', mainEntity:guide.faqs.map(([question,answer])=>({ '@type':'Question', name:question, acceptedAnswer:{'@type':'Answer',text:answer} })) },
       { '@type':'BreadcrumbList', itemListElement:[{ '@type':'ListItem',position:1,name:'Home',item:`${BASE}/`},{ '@type':'ListItem',position:2,name:hubLabel,item:`${BASE}${hubPath}`},{ '@type':'ListItem',position:3,name:guide.shortTitle,item:`${BASE}${guide.path}`}] },
     ],
@@ -30,9 +30,10 @@ function enhancementBody(guide) {
   const answerFramework = enhancement.answerFramework?.length ? `<section><h2>Board-ready answer framework</h2><p>Match the depth of the answer to what the question asks. These are practice presentation guidelines, not a marks guarantee.</p><ul>${enhancement.answerFramework.map(([label,text])=>`<li><strong>${esc(label)}:</strong> ${esc(text)}</li>`).join('')}</ul></section>` : '';
   const chapterStrategy = enhancement.chapterStrategy?.length ? `<section><h2>Chapter-by-chapter question focus</h2><ul>${enhancement.chapterStrategy.map(([chapter,focus])=>`<li><strong>${esc(chapter)}:</strong> ${esc(focus)}</li>`).join('')}</ul></section>` : '';
   const caseMethod = enhancement.caseMethod?.length ? `<section><h2>5-step case-study method</h2><ol>${enhancement.caseMethod.map(step=>`<li>${esc(step)}</li>`).join('')}</ol></section>` : '';
+  const clueMap = enhancement.clueMap?.length ? `<section><h2>Case-study clue map</h2><p>Use these as signals, then read the full situation before naming the concept.</p><dl>${enhancement.clueMap.map(([chapter,clues])=>`<dt><strong>${esc(chapter)}</strong></dt><dd>${esc(clues)}</dd>`).join('')}</dl></section>` : '';
   const caselets = enhancement.caselets?.length ? `<section><h2>${enhancement.caselets.length} original caselets with answer guidance</h2><p>These caselets are original concept-application practice and are not presented as official CBSE questions.</p>${enhancement.caselets.map((item,index)=>`<article><h3>Case ${index+1}: ${esc(item.chapter)}</h3><p>${esc(item.prompt)}</p><p><strong>${esc(item.question)}</strong></p><p><strong>Answer guidance:</strong> ${esc(item.answer)}</p></article>`).join('')}</section>` : '';
   const related = enhancement.relatedLearning?.length ? `<section><h2>Continue your Business Studies revision</h2><ul>${enhancement.relatedLearning.map(([path,label])=>`<li><a href="${esc(path)}">${esc(label)}</a></li>`).join('')}</ul></section>` : '';
-  return `${answerFramework}${caseMethod}${chapterStrategy}${caselets}${related}`;
+  return `${answerFramework}${caseMethod}${clueMap}${chapterStrategy}${caselets}${related}`;
 }
 
 function body(guide) {
