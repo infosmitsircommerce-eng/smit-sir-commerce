@@ -26,7 +26,7 @@ const CORE_RESOURCE_LINKS = [
   },
   {
     name: "GSEB Class 12 Economics Notes",
-    url: `${BASE}/gseb-class-12-economics.html`,
+    url: `${BASE}/gseb-class-12-economics`,
     about: "GSEB Class 12 Economics chapter-wise notes and PDFs",
   },
   {
@@ -107,6 +107,7 @@ const SITEWIDE_ENTITY = {
         "Smit Sir Commerce Material",
       ],
       url: `${BASE}/`,
+      logo: `${BASE}/og-image.jpg`,
       email: "infosmitsircommerce@gmail.com",
       telephone: localTuitionService.phone,
       sameAs: [localTuitionService.mapsUrl],
