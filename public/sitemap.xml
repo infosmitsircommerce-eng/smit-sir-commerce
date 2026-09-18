@@ -385,26 +385,10 @@
     <changefreq>weekly</changefreq>
     <priority>0.94</priority>
   </url>
-  <url>
-    <loc>https://www.smitsircommerce.in/commerce-learning</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.72</priority>
-  </url>
-  <url>
-    <loc>https://www.smitsircommerce.in/commerce-exams</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.72</priority>
-  </url>
-  <url>
-    <loc>https://www.smitsircommerce.in/ugc-net-commerce</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.smitsircommerce.in/gset-commerce</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
+  
+  
+  
+  
   <url>
     <loc>https://www.smitsircommerce.in/commerce-coaching-mehsana</loc>
     <changefreq>weekly</changefreq>
