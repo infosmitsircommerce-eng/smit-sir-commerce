@@ -42,6 +42,7 @@ function coreNav() {
     '<li><a href="/cbse/class-12/economics-diagnostic-test">CBSE Economics Diagnostic</a></li>' +
     '<li><a href="/gseb/class-12/economics-diagnostic-test">GSEB Economics Diagnostic</a></li>' +
     '<li><a href="/concept-lab">Commerce Concept Lab</a></li>' +
+    '<li><a href="/marks-xray">Marks X-Ray question decoder</a></li>' +
     '<li><a href="/quizzes">Commerce quizzes</a></li>' +
     '<li><a href="/premium">₹999 Lifetime Premium</a></li>' +
     '<li><a href="/test-series">Commerce test series</a></li>' +
@@ -302,6 +303,26 @@ const pages = [
   {
     ...conceptLabMeta,
     body: `<main class="page-container section-padding"><article><p>Smit Sir Commerce · Free interactive practice</p><h1>Commerce Concept Lab: Make economics click.</h1><p>Explore how inflation and income changes affect purchasing power. Change the basket price and income sliders, then explain five everyday situations. Explanations are available in English and Hindi. No account or payment is required.</p><h2>The purchasing-power experiment</h2><p>A fictional starting income of ₹10,000 buys ten ₹1,000 baskets. With a 25% basket price rise and unchanged income, it buys eight baskets: 20% less purchasing power. Equal percentage increases in income and prices preserve purchasing power.</p><h2>Find the clue in each case</h2>${inflationCases.map(item => `<section><h3>${esc(item.title)}</h3><p>${esc(item.story)}</p><p>${esc(item.exam)}</p></section>`).join('')}<p>Each case includes a new follow-up question, a model exam explanation and a shareable case link. Progress is remembered on this device when local storage is available.</p><p><a href="/gseb/class-12/economics/money-and-inflation-notes.html">GSEB Money and Inflation notes</a> · <a href="/quizzes?board=GSEB&amp;class=12&amp;subject=Economics">GSEB chapter quizzes</a> · <a href="/cbse/class-12/macroeconomics-notes">CBSE Macroeconomics notes</a></p>${coreNav()}</article></main>`,
+  },
+  {
+    path: "/marks-xray",
+    title: "Marks X-Ray — Decode Any Commerce Exam Question",
+    description:
+      "Paste a Class 11 or 12 Commerce question and reveal the command word, likely topic, answer blueprint, mark-loss traps and question mutations. Free, no login.",
+    faqs: [
+      [
+        "Does Marks X-Ray give the full answer?",
+        "No. It is designed to teach question reading and answer planning: command word, likely topic, answer structure, common mark-loss traps and alternate ways the same concept can be asked.",
+      ],
+      [
+        "Which subjects are supported?",
+        "The first version supports Economics, Business Studies and Accountancy for Class 11 and 12 students, with CBSE and GSEB selection.",
+      ],
+    ],
+    body:
+      '<main class="page-container section-padding" data-prerendered="marks-xray"><article><p><strong>Free Commerce question-analysis lab</strong></p><h1>Marks X-Ray: see what an exam question is really testing</h1><p>Paste a Class 11 or 12 Commerce question and inspect the command word, likely chapter or concept, suggested answer shape, common mark-loss traps and four ways the same concept could return in a different form.</p><h2>Why this is different</h2><p>Most revision starts with the chapter. Marks X-Ray starts with the <em>question-reading skill</em>: what action is required, what concept is hidden inside the wording and how the answer should be structured before the student writes.</p><h2>The five-layer scan</h2><ol><li><strong>Question fingerprint:</strong> subject, topic, command word and mark value.</li><li><strong>Examiner intent:</strong> a plain-language explanation of what the question is asking the student to do.</li><li><strong>Marks blueprint:</strong> a short answer structure before writing begins.</li><li><strong>Trap radar:</strong> common ways students lose marks on that question type.</li><li><strong>Question mutation lab:</strong> four different forms in which the same concept can return.</li></ol><h2>Personal mark-loss pattern</h2><p>Students can record whether they usually lose marks through concept gaps, keywords, structure, calculation, case-study clues or time. The pattern is remembered on the device so revision can focus on <em>how</em> marks are being lost, not only which chapter is weak.</p><p>Marks X-Ray is an independent study tool and not an official CBSE or GSEB marking scheme.</p><p><a href="/marks-xray">Open Marks X-Ray</a> · <a href="/exam-tomorrow">Exam Tomorrow</a> · <a href="/board-exam-diagnostic">Free board diagnostic</a></p>' +
+      coreNav() +
+      "</article></main>",
   },
   {
     path: "/board-booster-packs",
