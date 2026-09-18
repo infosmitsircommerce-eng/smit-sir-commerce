@@ -139,6 +139,11 @@
       "source": "/gseb-class-12-economics-chapter-8-agriculture-sector-notes.html",
       "destination": "/gseb/class-12/economics/agriculture-sector-notes.html",
       "permanent": true
+    },
+    {
+      "source": "/cbse-class-12-business-studies-case-study-questions.html",
+      "destination": "/cbse/class-12/business-studies-case-study-questions",
+      "permanent": true
     }
   ],
   "headers": [
