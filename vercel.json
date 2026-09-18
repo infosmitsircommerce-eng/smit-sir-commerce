@@ -132,17 +132,122 @@
     },
     {
       "source": "/gseb-class-12-economics-chapter-7-population-notes.html",
-      "destination": "/gseb/class-12/economics/population-notes.html",
+      "destination": "/gseb/class-12/economics/population-notes",
       "permanent": true
     },
     {
       "source": "/gseb-class-12-economics-chapter-8-agriculture-sector-notes.html",
-      "destination": "/gseb/class-12/economics/agriculture-sector-notes.html",
+      "destination": "/gseb/class-12/economics/agriculture-sector-notes",
       "permanent": true
     },
     {
       "source": "/cbse-class-12-business-studies-case-study-questions.html",
       "destination": "/cbse/class-12/business-studies-case-study-questions",
+      "permanent": true
+    },
+    {
+      "source": "/commerce-learning",
+      "destination": "/study-material",
+      "permanent": true
+    },
+    {
+      "source": "/cbse-class-12-business-studies-chapter-wise-important-questions.html",
+      "destination": "/cbse-class-12-business-studies-chapter-wise-important-questions",
+      "permanent": true
+    },
+    {
+      "source": "/class-11-commerce-economics-notes.html",
+      "destination": "/class-11-commerce-economics-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb/class-12/economics/indicators-of-growth-and-development-notes.html",
+      "destination": "/gseb/class-12/economics/indicators-of-growth-and-development-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb/class-12/economics/money-and-inflation-notes.html",
+      "destination": "/gseb/class-12/economics/money-and-inflation-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb/class-12/economics/banking-and-monetary-policy-notes.html",
+      "destination": "/gseb/class-12/economics/banking-and-monetary-policy-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb/class-12/economics/poverty-notes.html",
+      "destination": "/gseb/class-12/economics/poverty-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb/class-12/economics/unemployment-notes.html",
+      "destination": "/gseb/class-12/economics/unemployment-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb/class-12/economics/population-notes.html",
+      "destination": "/gseb/class-12/economics/population-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb/class-12/economics/agriculture-sector-notes.html",
+      "destination": "/gseb/class-12/economics/agriculture-sector-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb/class-12/economics/foreign-trade-notes.html",
+      "destination": "/gseb/class-12/economics/foreign-trade-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb/class-12/economics/industrial-sector-notes.html",
+      "destination": "/gseb/class-12/economics/industrial-sector-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb/class-12/economics/emerging-issues-in-indian-economy-notes.html",
+      "destination": "/gseb/class-12/economics/emerging-issues-in-indian-economy-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-chapter-2-growth-development-notes.html",
+      "destination": "/gseb/class-12/economics/indicators-of-growth-and-development-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-chapter-3-money-inflation-notes.html",
+      "destination": "/gseb/class-12/economics/money-and-inflation-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-chapter-4-banking-monetary-policy-notes.html",
+      "destination": "/gseb/class-12/economics/banking-and-monetary-policy-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-chapter-5-poverty-notes.html",
+      "destination": "/gseb/class-12/economics/poverty-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-chapter-6-unemployment-notes.html",
+      "destination": "/gseb/class-12/economics/unemployment-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-chapter-9-foreign-trade-notes.html",
+      "destination": "/gseb/class-12/economics/foreign-trade-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-chapter-10-industrial-sector-notes.html",
+      "destination": "/gseb/class-12/economics/industrial-sector-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-chapter-11-emerging-issues-notes.html",
+      "destination": "/gseb/class-12/economics/emerging-issues-in-indian-economy-notes",
       "permanent": true
     }
   ],
@@ -346,15 +451,6 @@
           "key": "Cache-Control",
           "value": "private, no-store"
         },
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow, nosnippet"
-        }
-      ]
-    },
-    {
-      "source": "/commerce-learning",
-      "headers": [
         {
           "key": "X-Robots-Tag",
           "value": "noindex, nofollow, nosnippet"
