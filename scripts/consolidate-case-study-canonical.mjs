@@ -26,7 +26,7 @@ try {
   html = html.replace(/<meta name="robots"[^>]*>/gi, '');
   html = html.replace(
     '</head>',
-    `<link rel="canonical" href="${NEW_URL}" /><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />\n</head>`,
+    `<link rel="canonical" href="${NEW_URL}" /><meta name="robots" content="noindex,follow" /><meta name="googlebot" content="noindex,follow" />\n</head>`,
   );
   if (!html.includes('data-canonical-consolidation="true"')) {
     html = html.replace(
