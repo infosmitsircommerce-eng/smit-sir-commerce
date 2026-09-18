@@ -24,7 +24,7 @@ export default function PremiumPaymentDialog({ title, onClose, productId = 'gseb
       <p className="mt-4 text-sm font-semibold">{title}</p>
       <p className="text-sm leading-6 mt-4">No manual QR payment is required here. Open the pack page to see the exact paid resources, preview the free material and use secure Cashfree checkout after activation.</p>
       <a href={`/board-booster-packs?pack=${encodeURIComponent(productId)}`} className="btn-primary w-full mt-5">See ₹199 pack & preview</a>
-      <a href="/my-purchases.html" className="btn-secondary w-full mt-3">Already purchased? Open My Purchases</a>
+      <a href="/my-purchases" className="btn-secondary w-full mt-3">Already purchased? Open My Purchases</a>
     </div>
   </dialog>;
 }

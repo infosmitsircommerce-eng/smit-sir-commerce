@@ -3,10 +3,8 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import { ArrowLeft, ArrowRight, BadgeCheck, BookOpen, CheckCircle2, ChevronRight, CircleAlert, GraduationCap, Layers3, RotateCcw, ShieldCheck, Sparkles, Target, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { supabase } from '../lib/supabase';
-import { quizPageById } from '../data/quizDiscovery';
 import SEO from '../components/ui/SEO';
-import { quizBoards, quizLevels } from '../data/quizPublic';
+import { quizBoards, quizLevels } from '../data/quizCatalog';
 import { recordQuizAttempt } from '../lib/quizAttempt';
 import { quizTracks, resolveQuizSelection, quizSelectionParams } from '../data/quizNavigation';
 import QuizChapterPicker from '../components/ui/QuizChapterPicker';
@@ -253,6 +251,7 @@ function PaymentClaimForm() {
     event.preventDefault();
     setBusy(true);
     setMessage('');
+    const { supabase } = await import('../lib/supabase');
     const { error } = await supabase.rpc('submit_premium_payment_claim', { p_reference: reference.trim() });
     if (error) setMessage(error.code === '23505' ? 'This transaction reference was already submitted or verified.' : error.message);
     else {
@@ -335,7 +334,27 @@ export function LevelGrid({ pack, onAttempt, appearance }) {
   const [loadError, setLoadError] = useState('');
   async function openLevel(level) {
     setLoadError('');
-    if (['Easy', 'Moderate'].includes(level)) { onAttempt?.(); setActiveLevel(level); return; }
+    if (['Easy', 'Moderate'].includes(level)) {
+      if (loadedPack.levels?.[level]?.length) {
+        onAttempt?.();
+        setActiveLevel(level);
+        return;
+      }
+      setFetching(true);
+      try {
+        const { verifiedQuizPacks } = await import('../data/quizPublic');
+        const fullPack = verifiedQuizPacks.find((item) => item.id === pack.id);
+        if (!fullPack?.levels?.[level]?.length) throw new Error('Quiz questions are unavailable.');
+        setLoadedPack(fullPack);
+        onAttempt?.();
+        setActiveLevel(level);
+      } catch (error) {
+        setLoadError(error.message || 'Unable to load quiz.');
+      } finally {
+        setFetching(false);
+      }
+      return;
+    }
     if (!premiumAccess) { setShowPremium(true); return; }
     setFetching(true);
     try {
@@ -363,7 +382,7 @@ export function LevelGrid({ pack, onAttempt, appearance }) {
       {activeLevel && (['Easy', 'Moderate'].includes(activeLevel) || premiumAccess) && <QuizPlayer pack={loadedPack} level={activeLevel} onClose={() => setActiveLevel(null)} />}
       <div className={appearance === 'study' ? 'ssc-study-levels' : 'grid grid-cols-2 lg:grid-cols-4 gap-3 mt-5'}>
         {quizLevels.map((level, index) => {
-          const questionCount = pack.levelCounts?.[level] || pack.levels[level]?.length || 0;
+          const questionCount = pack.levelCounts?.[level] || pack.levels?.[level]?.length || 0;
           const meta = levelMeta[level];
           const premiumLevel = level === 'Hard' || level === 'Extreme';
           const locked = premiumLevel && !premiumAccess;
@@ -397,13 +416,25 @@ export function LevelGrid({ pack, onAttempt, appearance }) {
   );
 }
 
+function quizChapterPath(pack) {
+  if (pack.subject !== 'Economics') return '';
+  const slug = pack.title
+    .normalize('NFKD')
+    .toLowerCase()
+    .replace(/[’']/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+  const prefix = pack.board === 'GSEB' ? 'gseb-economics-quizzes' : 'economics-quizzes';
+  return `/${prefix}/class-${pack.classLevel}/${slug}-mcq`;
+}
+
 function VerifiedPackCard({ pack }) {
   return <article className="ssc-quiz-pack" aria-label="Selected chapter test">
     <div className="ssc-study-kicker">CHOOSE YOUR LEVEL</div>
     <h2>{pack.title}</h2>
     <p className="ssc-quiz-pack-note">{Object.values(pack.levelCounts || {}).every(count => count === 10) ? '10 questions per level' : 'Chapter practice'} · Instant answers and explanations</p>
     <LevelGrid key={pack.id} pack={pack} appearance="study" />
-    <details className="ssc-quiz-source"><summary>Chapter source & revision</summary><p>{pack.sourceLabel}</p>{quizPageById[pack.id] && <Link to={quizPageById[pack.id].path}>Open chapter revision <ArrowRight size={15} /></Link>}</details>
+    <details className="ssc-quiz-source"><summary>Chapter source & revision</summary><p>{pack.sourceLabel}</p>{quizChapterPath(pack) && <Link to={quizChapterPath(pack)}>Open chapter revision <ArrowRight size={15} /></Link>}</details>
   </article>;
 }
 

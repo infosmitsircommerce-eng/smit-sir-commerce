@@ -15,6 +15,9 @@ import { AuthProvider } from "./context/AuthContext";
 
 const Premium = lazy(() => import("./pages/Premium"));
 const PremiumEconomics = lazy(() => import("./pages/PremiumEconomics"));
+const PremiumAccountancy = lazy(() => import("./pages/PremiumAccountancy"));
+const MyPurchases = lazy(() => import("./pages/MyPurchases"));
+const PurchaseStatus = lazy(() => import("./pages/PurchaseStatus"));
 const QuizChapter = lazy(() => import("./pages/QuizChapter"));
 import Home from "./pages/Home";
 const TeacherGuidesHub = lazy(() => import("./pages/TeacherGuidesHub"));
@@ -402,6 +405,9 @@ function RouteSEO() {
   const { pathname } = useLocation();
   if (
     pathname === "/premium" ||
+    pathname === "/premium/accountancy" ||
+    pathname === "/my-purchases" ||
+    pathname === "/purchase-status" ||
     pathname.startsWith("/hi/") ||
     pathname.startsWith("/gu/") ||
     pathname.startsWith("/college/") ||
@@ -677,6 +683,10 @@ function AnimatedRoutes() {
             element={withPage(<PremiumEconomics />)}
           />
           <Route
+            path="/premium/accountancy"
+            element={withPage(<PremiumAccountancy />)}
+          />
+          <Route
             path="/economics-quizzes/:classSlug/:chapterSlug"
             element={withPage(<QuizChapter />)}
           />
@@ -748,6 +758,8 @@ function AnimatedRoutes() {
             element={withPage(<BatchPage type="offline" />)}
           />
           <Route path="/dashboard" element={withPage(<StudentDashboard />)} />
+          <Route path="/my-purchases" element={withPage(<MyPurchases />)} />
+          <Route path="/purchase-status" element={withPage(<PurchaseStatus />)} />
           <Route path="/book-demo" element={withPage(<BookDemo />)} />
           <Route
             path="/free-commerce-study-pack"

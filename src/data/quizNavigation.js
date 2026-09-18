@@ -1,4 +1,4 @@
-import { quizBoards, verifiedQuizPacks, getQuizPacks } from './quizPublic.js';
+import { quizBoards, verifiedQuizPacks, getQuizPacks } from './quizCatalog.js';
 export const quizTracks = [
   { id: 'micro', name: 'Microeconomics', board: 'CBSE', classLevel: 11, stream: null },
   { id: 'macro', name: 'Macroeconomics', board: 'CBSE', classLevel: 12, stream: 'Macroeconomics' },

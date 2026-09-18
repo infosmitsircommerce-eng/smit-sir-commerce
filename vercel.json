@@ -26,6 +26,11 @@
       "permanent": true
     },
     {
+      "source": "/my-purchases.html",
+      "destination": "/my-purchases",
+      "permanent": true
+    },
+    {
       "source": "/marks-xray",
       "destination": "/study-material",
       "permanent": true
@@ -556,6 +561,33 @@
           "value": "noindex, nofollow, nosnippet"
         }
       ]
+    },
+    {
+      "source": "/my-purchases",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/purchase-status",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/premium/accountancy",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, nosnippet"
+        }
+      ]
     }
   ],
   "rewrites": [
@@ -749,6 +781,18 @@
     },
     {
       "source": "/school-resource/:boardSlug/:classSlug/:subjectSlug/:resourceSlug",
+      "destination": "/"
+    },
+    {
+      "source": "/my-purchases",
+      "destination": "/"
+    },
+    {
+      "source": "/purchase-status",
+      "destination": "/"
+    },
+    {
+      "source": "/premium/accountancy",
       "destination": "/"
     }
   ]

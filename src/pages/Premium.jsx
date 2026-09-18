@@ -141,7 +141,7 @@ function MegaCheckout({ user, displayName, alreadyCovered, hasMegaPremium, fetch
     return (
       <div className="rounded-2xl p-5" style={{ background: '#edf9f0', border: '1px solid #bfe0c7' }}>
         <div className="flex gap-3"><CheckCircle2 className="w-6 h-6 shrink-0" style={{ color: '#21663a' }} /><div><div className="font-black" style={{ color: '#174d2a' }}>{hasMegaPremium ? 'Mega Premium is active' : 'Full Premium access is already active'}</div><p className="text-sm mt-1 leading-6" style={{ color: '#356846' }}>This account can open the Premium libraries and Premium-gated study tools covered by the full-access plan.</p></div></div>
-        <a href="/my-purchases.html" className="btn-primary w-full mt-4 text-center">Open My Purchases</a>
+        <Link to="/my-purchases" className="btn-primary w-full mt-4 text-center">Open My Purchases</Link>
       </div>
     );
   }
@@ -227,7 +227,7 @@ export default function Premium() {
               <div className="card-paper p-5"><LockKeyhole className="w-6 h-6" style={{ color: 'var(--gold)' }} /><h2 className="text-lg font-black mt-3">Server-verified access</h2><p className="text-sm mt-2 leading-6" style={{ color: 'var(--muted)' }}>Protected material is served only after the account is verified. A visible resource card is not the same as a public PDF link.</p></div>
             </div>
 
-            <div className="flex flex-wrap gap-3 mt-7"><Link to="/board-booster-packs" className="btn-primary">Browse ₹199 Board Boosters</Link><a href="/my-purchases.html" className="btn-secondary">My Purchases</a><Link to="/study-material" className="btn-secondary">Free Resources</Link></div>
+            <div className="flex flex-wrap gap-3 mt-7"><Link to="/board-booster-packs" className="btn-primary">Browse ₹199 Board Boosters</Link><Link to="/my-purchases" className="btn-secondary">My Purchases</Link><Link to="/study-material" className="btn-secondary">Free Resources</Link></div>
           </div>
 
           <aside className="card-paper p-6 sm:p-7">
