@@ -41,6 +41,7 @@ const PyqHub = lazy(() => import("./pages/PyqHub"));
 const Quizzes = lazy(() => import("./pages/Quizzes"));
 const TestSeries = lazy(() => import("./pages/TestSeriesPro"));
 const ExamMode = lazy(() => import("./pages/ExamMode"));
+const ExamTomorrow = lazy(() => import("./pages/ExamTomorrow"));
 const ExamTestLanding = lazy(() => import("./pages/ExamTestLanding"));
 const DailyPractice = lazy(() => import("./pages/DailyPractice"));
 const StudyCoach = lazy(() => import("./pages/StudyCoach"));
@@ -682,6 +683,7 @@ function AnimatedRoutes() {
           />
           <Route path="/test-series" element={withPage(<TestSeries />)} />
           <Route path="/exam-mode" element={withPage(<ExamMode />)} />
+          <Route path="/exam-tomorrow" element={withPage(<ExamTomorrow />)} />
           <Route
             path="/tests/:testSlug"
             element={withPage(<ExamTestLanding />)}
