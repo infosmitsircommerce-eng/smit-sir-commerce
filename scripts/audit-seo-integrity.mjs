@@ -331,6 +331,7 @@ const potentialOrphans = [...inbound.entries()]
   .map(([path]) => path);
 
 if (potentialOrphans.length) {
+  for (const path of potentialOrphans.slice(0, 50)) console.warn('[seo-audit][orphan] ' + path);
   issue(
     warnings,
     'POTENTIAL_ORPHAN_PAGES',
