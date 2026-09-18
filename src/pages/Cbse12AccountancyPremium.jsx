@@ -134,11 +134,11 @@ export default function Cbse12AccountancyPremium() {
         setLocked(resource);
         return;
       }
-      const response = await fetch('/api/premium-cbse12-accountancy', {
+      const response = await fetch('/api/premium-accountancy', {
         method: 'POST',
         signal: controller.signal,
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ resourceKey: resource.resourceKey }),
+        body: JSON.stringify({ library: 'cbse12', resourceKey: resource.resourceKey }),
       });
       if (response.status === 401 || response.status === 403) {
         setLocked(resource);

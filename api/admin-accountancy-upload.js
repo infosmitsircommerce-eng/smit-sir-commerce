@@ -15,6 +15,18 @@ export const config = {
 const MASTER_KEY = 'complete-book';
 const CHUNK_SIZE = 60000;
 const MAX_BYTES = 4 * 1024 * 1024;
+const CBSE12_RESOURCES = {
+  'part-1-chapter-1': { part: 1, chapter: 1, title: 'Partnership Accounting — Fundamentals', pages: 54 },
+  'part-1-chapter-2': { part: 1, chapter: 2, title: 'Goodwill: Nature and Valuation', pages: 20 },
+  'part-1-chapter-3': { part: 1, chapter: 3, title: 'Change in Profit-Sharing Ratio', pages: 15 },
+  'part-1-chapter-4': { part: 1, chapter: 4, title: 'Admission of a Partner', pages: 20 },
+  'part-1-chapter-5': { part: 1, chapter: 5, title: 'Retirement or Death of a Partner', pages: 17 },
+  'part-1-chapter-6': { part: 1, chapter: 6, title: 'Dissolution of a Partnership Firm', pages: 17 },
+  'part-2-chapter-1': { part: 2, chapter: 1, title: 'Issue of Share Capital', pages: 62 },
+  'part-2-chapter-2': { part: 2, chapter: 2, title: 'Issue of Debentures', pages: 91 },
+  'part-2-chapter-3': { part: 2, chapter: 3, title: 'Financial Statements & Analysis', pages: 93 },
+  'part-2-chapter-4': { part: 2, chapter: 4, title: 'Comparative & Common-Size Statements', pages: 132 },
+};
 
 async function readRawBody(req) {
   const chunks = [];
@@ -42,18 +54,63 @@ export default async function handler(req, res) {
   const authorization = getAuthorization(req);
   if (!authorization) return res.status(401).json({ error: 'Owner sign-in required.' });
 
+  const cbse12 = req.query?.library === 'cbse12';
+  const resourceKey = cbse12 ? String(req.query?.resourceKey || '').trim() : MASTER_KEY;
+  const resource = cbse12 ? CBSE12_RESOURCES[resourceKey] : null;
+  if (cbse12 && !resource) return res.status(404).json({ error: 'Unknown CBSE Class 12 Accountancy resource.' });
+
   try {
     const user = await verifyUser(authorization);
     if (!user || !(await isAdmin(user.id))) return res.status(403).json({ error: 'Owner access required.' });
 
     const pdf = await readRawBody(req);
-    if (pdf.subarray(0, 5).toString() !== '%PDF-') return res.status(400).json({ error: 'Please upload the Premium Complete Book PDF.' });
+    if (pdf.subarray(0, 5).toString() !== '%PDF-') {
+      return res.status(400).json({ error: cbse12 ? 'Please upload the matching chapter PDF.' : 'Please upload the Premium Complete Book PDF.' });
+    }
 
     const sha256 = createHash('sha256').update(pdf).digest('hex');
     const encoded = deflateSync(pdf, { level: 9 }).toString('base64');
     const payloads = [];
     for (let offset = 0, index = 0; offset < encoded.length; offset += CHUNK_SIZE, index += 1) {
-      payloads.push({ resource_key: MASTER_KEY, chunk_index: index, payload: encoded.slice(offset, offset + CHUNK_SIZE) });
+      payloads.push({ resource_key: resourceKey, chunk_index: index, payload: encoded.slice(offset, offset + CHUNK_SIZE) });
+    }
+
+    if (cbse12) {
+      await serviceRequest('/rest/v1/premium_cbse_12_accountancy_notes?on_conflict=resource_key', {
+        method: 'POST',
+        body: {
+          resource_key: resourceKey,
+          part: resource.part,
+          chapter: resource.chapter,
+          title: resource.title,
+          pages: resource.pages,
+          sha256,
+          updated_at: new Date().toISOString(),
+        },
+        prefer: 'resolution=merge-duplicates,return=minimal',
+      });
+
+      await serviceRequest(`/rest/v1/premium_cbse_12_accountancy_chunks?resource_key=eq.${encodeURIComponent(resourceKey)}`, {
+        method: 'DELETE',
+        prefer: 'return=minimal',
+      });
+
+      await serviceRequest('/rest/v1/premium_cbse_12_accountancy_chunks', {
+        method: 'POST',
+        body: payloads,
+        prefer: 'return=minimal',
+      });
+
+      return res.status(200).json({
+        ok: true,
+        library: 'cbse12',
+        resourceKey,
+        title: resource.title,
+        pages: resource.pages,
+        bytes: pdf.length,
+        chunks: payloads.length,
+        sha256,
+      });
     }
 
     await serviceRequest(`/rest/v1/premium_gseb_11_accountancy_chunks?resource_key=eq.${MASTER_KEY}`, {
@@ -83,7 +140,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ ok: true, pages: 720, bytes: pdf.length, chunks: payloads.length, sha256 });
   } catch (error) {
-    console.error('admin-accountancy-upload', error?.message || error);
+    console.error('admin-accountancy-upload', cbse12 ? resourceKey : 'gseb11', error?.message || error);
     return res.status(503).json({ error: error?.message || 'Unable to store the Premium book.' });
   }
 }
