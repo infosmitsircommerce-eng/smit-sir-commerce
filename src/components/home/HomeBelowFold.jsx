@@ -1,4 +1,3 @@
-import CommerceJourneyPreview from "./CommerceJourneyPreview";
 import TrustLayer from "./TrustLayer";
 import PublishedWork from "./PublishedWork";
 import CommerceToolsPreview from "./CommerceToolsPreview";
@@ -63,7 +62,6 @@ export default function HomeBelowFold() {
     <div className="ssc-home-modules">
       <TrustLayer />
       <PublishedWork />
-      <CommerceJourneyPreview />
       <CommerceToolsPreview />
       <BoardBoosterPromo />
       <Pricing
