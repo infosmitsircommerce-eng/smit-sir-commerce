@@ -40,10 +40,10 @@ export const authorityGuides = [
     path: '/cbse/class-12/business-studies-case-study-questions',
     title: 'CBSE Class 12 Business Studies Case Study Questions with Answers',
     shortTitle: 'Class 12 BST Case Studies',
-    description: 'Practise free CBSE Class 12 Business Studies case study questions with answers, chapter-wise sets and explained solutions. Learn a 5-step method to solve cases.',
+    description: 'Free CBSE Class 12 Business Studies case study questions with answers, chapter-wise practice, solved examples, clue words and a 5-step method for case-study answers.',
     eyebrow: 'Class 12 · Business Studies · Case Study Practice',
-    intro: 'Practise free Class 12 Business Studies case studies with answers chapter by chapter. Use the 5-step method to identify clue words, name the correct concept and connect each answer directly to the case.',
-    updated: UPDATED,
+    intro: 'Practise Class 12 Business Studies case-study questions chapter by chapter. Start with the chapter you searched for, spot clue words, name the exact concept and connect evidence from the case to your answer.',
+    updated: '2026-09-18',
     sections: [
       { title: 'Management foundations case studies', text: 'Practise identifying management concepts, Fayol and Taylor principles, and dimensions of business environment from short business situations.', links: [
         ['/practice/cbse/class-12/business-studies/nature-and-significance-of-management-case-study-questions','Nature and Significance - Case Studies'],
