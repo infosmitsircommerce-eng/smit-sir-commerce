@@ -249,6 +249,56 @@
       "source": "/gseb-class-12-economics-chapter-11-emerging-issues-notes.html",
       "destination": "/gseb/class-12/economics/emerging-issues-in-indian-economy-notes",
       "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-chapter-2-growth-development-notes",
+      "destination": "/gseb/class-12/economics/indicators-of-growth-and-development-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-chapter-3-money-inflation-notes",
+      "destination": "/gseb/class-12/economics/money-and-inflation-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-chapter-4-banking-monetary-policy-notes",
+      "destination": "/gseb/class-12/economics/banking-and-monetary-policy-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-chapter-5-poverty-notes",
+      "destination": "/gseb/class-12/economics/poverty-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-chapter-6-unemployment-notes",
+      "destination": "/gseb/class-12/economics/unemployment-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-chapter-7-population-notes",
+      "destination": "/gseb/class-12/economics/population-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-chapter-8-agriculture-sector-notes",
+      "destination": "/gseb/class-12/economics/agriculture-sector-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-chapter-9-foreign-trade-notes",
+      "destination": "/gseb/class-12/economics/foreign-trade-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-chapter-10-industrial-sector-notes",
+      "destination": "/gseb/class-12/economics/industrial-sector-notes",
+      "permanent": true
+    },
+    {
+      "source": "/gseb-class-12-economics-chapter-11-emerging-issues-notes",
+      "destination": "/gseb/class-12/economics/emerging-issues-in-indian-economy-notes",
+      "permanent": true
     }
   ],
   "headers": [
