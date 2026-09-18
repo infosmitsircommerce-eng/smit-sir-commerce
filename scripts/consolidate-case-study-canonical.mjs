@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 
 const dist = new URL('../dist/', import.meta.url);
@@ -38,4 +38,37 @@ try {
   console.log('[canonical] Legacy Business Studies case-study page now points to canonical authority page.');
 } catch (error) {
   if (error?.code !== 'ENOENT') console.warn('[canonical] Legacy page consolidation skipped:', error.message);
+}
+
+
+async function walkHtml(dir) {
+  const entries = await readdir(dir, { withFileTypes: true });
+  const files = [];
+  for (const entry of entries) {
+    const full = join(dir, entry.name);
+    if (entry.isDirectory()) files.push(...await walkHtml(full));
+    else if (entry.isFile() && entry.name.endsWith('.html')) files.push(full);
+  }
+  return files;
+}
+
+try {
+  const legacyRelative = OLD_PATH;
+  const legacyAbsolute = 'https://www.smitsircommerce.in' + OLD_PATH;
+  let changed = 0;
+  for (const file of await walkHtml(dist.pathname)) {
+    let html = await readFile(file, 'utf8');
+    const next = html
+      .replaceAll('href="' + legacyRelative + '"', 'href="' + NEW_URL.replace('https://www.smitsircommerce.in', '') + '"')
+      .replaceAll("href='" + legacyRelative + "'", "href='" + NEW_URL.replace('https://www.smitsircommerce.in', '') + "'")
+      .replaceAll('href="' + legacyAbsolute + '"', 'href="' + NEW_URL + '"')
+      .replaceAll("href='" + legacyAbsolute + "'", "href='" + NEW_URL + "'");
+    if (next !== html) {
+      await writeFile(file, next, 'utf8');
+      changed += 1;
+    }
+  }
+  console.log('[canonical] Normalized legacy case-study internal links in ' + changed + ' HTML files.');
+} catch (error) {
+  console.warn('[canonical] Internal-link normalization skipped:', error.message);
 }
