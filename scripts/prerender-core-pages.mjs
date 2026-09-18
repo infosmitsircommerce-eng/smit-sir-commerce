@@ -42,6 +42,7 @@ function coreNav() {
     '<li><a href="/cbse/class-12/economics-diagnostic-test">CBSE Economics Diagnostic</a></li>' +
     '<li><a href="/gseb/class-12/economics-diagnostic-test">GSEB Economics Diagnostic</a></li>' +
     '<li><a href="/concept-lab">Commerce Concept Lab</a></li>' +
+    '<li><a href="/commerce-city">Commerce City living Commerce world</a></li>' +
     '<li><a href="/marks-xray">Marks X-Ray question decoder</a></li>' +
     '<li><a href="/quizzes">Commerce quizzes</a></li>' +
     '<li><a href="/premium">₹999 Lifetime Premium</a></li>' +
@@ -303,6 +304,30 @@ const pages = [
   {
     ...conceptLabMeta,
     body: `<main class="page-container section-padding"><article><p>Smit Sir Commerce · Free interactive practice</p><h1>Commerce Concept Lab: Make economics click.</h1><p>Explore how inflation and income changes affect purchasing power. Change the basket price and income sliders, then explain five everyday situations. Explanations are available in English and Hindi. No account or payment is required.</p><h2>The purchasing-power experiment</h2><p>A fictional starting income of ₹10,000 buys ten ₹1,000 baskets. With a 25% basket price rise and unchanged income, it buys eight baskets: 20% less purchasing power. Equal percentage increases in income and prices preserve purchasing power.</p><h2>Find the clue in each case</h2>${inflationCases.map(item => `<section><h3>${esc(item.title)}</h3><p>${esc(item.story)}</p><p>${esc(item.exam)}</p></section>`).join('')}<p>Each case includes a new follow-up question, a model exam explanation and a shareable case link. Progress is remembered on this device when local storage is available.</p><p><a href="/gseb/class-12/economics/money-and-inflation-notes.html">GSEB Money and Inflation notes</a> · <a href="/quizzes?board=GSEB&amp;class=12&amp;subject=Economics">GSEB chapter quizzes</a> · <a href="/cbse/class-12/macroeconomics-notes">CBSE Macroeconomics notes</a></p>${coreNav()}</article></main>`,
+  },
+  {
+    path: "/commerce-city",
+    title: "Commerce City — Living Economics, Business Studies & Accounts World",
+    description:
+      "Change one thing and watch Economics, Business Studies and Accountancy react together. Predict outcomes, reveal causal chains, change reality and turn the same event into exam questions.",
+    faqs: [
+      [
+        "What is Commerce City?",
+        "Commerce City is an original interactive learning world where the same business or economic event is explored through Economics, Business Studies and Accountancy instead of treating the subjects as disconnected chapters.",
+      ],
+      [
+        "Is Commerce City a real market simulator?",
+        "No. It is an educational causal-learning simulation. The relationships are simplified to teach syllabus concepts and real-world reasoning; actual outcomes can depend on many additional conditions.",
+      ],
+      [
+        "Which situations are included?",
+        "The first version includes repo-rate changes, price changes, credit sales, raw-material cost shocks, advertising, household-income changes, indirect taxes and business-expansion financing.",
+      ],
+    ],
+    body:
+      '<main class="page-container section-padding" data-prerendered="commerce-city"><article><p><strong>Smit Sir Commerce Original Lab</strong></p><h1>Commerce City: a living world where the Commerce syllabus reacts</h1><p>Textbooks separate Economics, Business Studies and Accountancy. Commerce City puts them back together. A student changes one real-world variable, predicts what happens next, reveals the causal chain through three subject lenses and then turns the same event into exam questions.</p><h2>How the living world works</h2><ol><li><strong>A daily event happens:</strong> for example RBI raises the repo rate, SmitMart changes price or NovaWorks faces a cost shock.</li><li><strong>Change reality:</strong> move the event variable and watch city indicators react.</li><li><strong>Predict before reveal:</strong> choose what is likely to happen next before the causal chain unlocks.</li><li><strong>Switch subject lenses:</strong> see the same event through Economics, Business Studies and Accountancy.</li><li><strong>Turn reality into an exam:</strong> practise the event as 1-mark, 3-mark, 4-mark and longer application questions.</li></ol><h2>The first connected realities</h2><ul><li>RBI raises the repo rate</li><li>SmitMart cuts its selling price</li><li>SmitMart increases credit sales</li><li>Raw-material cost jumps</li><li>Advertising spend rises</li><li>Household income falls</li><li>An indirect tax rate rises</li><li>NovaWorks finances a new factory</li></ul><h2>Your Commerce Brain</h2><p>Predictions build a simple subject-level connection map on the student device. The goal is not only to score questions but to strengthen the causal links between concepts across subjects.</p><p><a href="/commerce-city">Enter Commerce City</a> · <a href="/exam-tomorrow">Exam Tomorrow</a> · <a href="/study-material">Open free study material</a></p>' +
+      coreNav() +
+      "</article></main>",
   },
   {
     path: "/marks-xray",
