@@ -7,8 +7,8 @@ const read = (path) => readFile(join(ROOT, path), 'utf8');
 const failures = [];
 const expect = (condition, message) => { if (!condition) failures.push(message); };
 
-const [app, routeSeo, checkout, status, webhook, purchaseUtils, vercel] = await Promise.all([
-  read('src/App.jsx'),
+const [routes, routeSeo, checkout, status, webhook, purchaseUtils, vercel] = await Promise.all([
+  read('src/routes/AppRoutes.jsx'),
   read('src/config/routeSeo.js'),
   read('api/create-checkout.js'),
   read('api/purchase-status.js'),
@@ -19,7 +19,7 @@ const [app, routeSeo, checkout, status, webhook, purchaseUtils, vercel] = await 
 
 for (const route of ['/', '/study-material', '/quizzes', '/test-series', '/premium', '/login', '/my-purchases', '/purchase-status']) {
   const needle = route === '/' ? 'path="/" ' : `path="${route}"`;
-  expect(app.includes(needle), `Critical student route missing from App.jsx: ${route}`);
+  expect(routes.includes(needle), `Critical student route missing from centralized route table: ${route}`);
 }
 for (const privateRoute of ['/login', '/dashboard', '/learning-insights', '/my-data']) {
   expect(routeSeo.includes(`"${privateRoute}"`), `Private route missing from centralized SEO policy: ${privateRoute}`);

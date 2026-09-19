@@ -8,10 +8,12 @@ const read = (path) => readFile(join(ROOT, path), 'utf8');
 const failures = [];
 const expect = (condition, message) => { if (!condition) failures.push(message); };
 
-const [pkgRaw, main, app, routeSeo, vite, styles, premiumPrerender] = await Promise.all([
+const [pkgRaw, main, app, routes, routeSeoComponent, routeSeo, vite, styles, premiumPrerender] = await Promise.all([
   read('package.json'),
   read('src/main.jsx'),
   read('src/App.jsx'),
+  read('src/routes/AppRoutes.jsx'),
+  read('src/routes/RouteSEO.jsx'),
   read('src/config/routeSeo.js'),
   read('vite.config.js'),
   read('src/styles/app.css'),
@@ -36,7 +38,11 @@ for (const legacy of ['mobile.css','premiumVisuals.css','mobileExperience.css','
 }
 expect((styles.match(/\/\* ===== /g) || []).length === 7, 'Consolidated app.css should preserve seven ordered source sections.');
 
-expect(app.includes('from "./config/routeSeo"'), 'App must consume centralized route SEO policy.');
+expect(app.length < 1500, `App.jsx should remain bootstrap-only; found ${app.length} characters.`);
+expect(app.includes('from "./routes/AppRoutes"'), 'App must use the centralized route table.');
+expect(app.includes('from "./routes/RouteSEO"'), 'App must use the centralized RouteSEO component.');
+expect(routes.includes('function AnimatedRoutes()'), 'Centralized application route table is missing.');
+expect(routeSeoComponent.includes('from "../config/routeSeo"'), 'RouteSEO component must consume centralized SEO policy.');
 expect(!app.includes('const ROUTE_SEO = {'), 'Route SEO metadata must not live inside App.jsx.');
 expect(routeSeo.includes('export const ROUTE_SEO'), 'Central route SEO map is missing.');
 expect(routeSeo.includes('export function routeUsesOwnSeo'), 'Self-managed SEO route policy is missing.');
@@ -50,5 +56,5 @@ if (failures.length) {
   for (const failure of failures) console.error('[architecture-contract] ' + failure);
   process.exitCode = 1;
 } else {
-  console.log(`[architecture-contract] PASS — ${stages.length} named build stages, centralized SEO policy, consolidated styles, no verified legacy alias.`);
+  console.log(`[architecture-contract] PASS — ${stages.length} stages, bootstrap-only App.jsx, centralized routing/SEO, consolidated styles and no verified legacy alias.`);
 }
