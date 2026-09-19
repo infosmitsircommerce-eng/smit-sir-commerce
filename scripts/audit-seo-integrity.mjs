@@ -103,7 +103,7 @@ function isIgnorableHref(href) {
   return !href || href.startsWith('#') || /^(?:mailto:|tel:|javascript:|data:|blob:)/i.test(href);
 }
 
-const appSource = await readFile(join(ROOT, 'src', 'App.jsx'), 'utf8');
+const appSource = await readFile(join(ROOT, 'src', 'routes', 'AppRoutes.jsx'), 'utf8');
 const routePatterns = [...appSource.matchAll(/<Route\s+path=["']([^"']+)["']/g)].map((m) => m[1]);
 const staticRoutes = new Set(routePatterns.filter((path) => !path.includes(':') && !path.includes('*')));
 const dynamicRoutes = routePatterns.map(compileRoutePattern).filter(Boolean);
