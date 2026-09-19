@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   BookOpen,
-  Brain,
   ChevronRight,
   GraduationCap,
   Search,
@@ -14,46 +13,22 @@ import { isLightRoute } from "../../lib/theme";
 
 const groups = [
   {
-    title: "Start Here",
+    title: "Study",
     icon: BookOpen,
     links: [
       { label: "Notes & PDFs", path: "/study-material" },
-      { label: "Chapter Quizzes", path: "/quizzes" },
-      { label: "Test Series", path: "/test-series" },
-      { label: "CBSE Notes", path: "/cbse-notes" },
+      { label: "Practice", path: "/quizzes" },
+      { label: "Board Boosters", path: "/board-booster-packs" },
+      { label: "Free Diagnostic", path: "/board-exam-diagnostic" },
     ],
   },
   {
-    title: "Practice",
-    icon: Brain,
-    links: [
-      { label: "Free Board Diagnostic", path: "/board-exam-diagnostic" },
-      { label: "Daily Practice", path: "/daily-practice" },
-      { label: "CBSE Chapter Practice", path: "/cbse-practice" },
-      { label: "Flashcards", path: "/flashcards" },
-      { label: "Study Coach", path: "/study-coach" },
-    ],
-  },
-  {
-    title: "Tools & Support",
+    title: "Useful",
     icon: Wrench,
     links: [
-      { label: "Commerce Tools", path: "/tools" },
-      { label: "Study Toolkit", path: "/study-tools" },
-      { label: "Ask AI Doubt", path: "/ask" },
-      { label: "Learning Insights", path: "/learning-insights" },
+      { label: "Study Tools", path: "/tools" },
+      { label: "Premium Library", path: "/premium" },
       { label: "Contact Smit Sir", path: "/contact" },
-    ],
-  },
-  {
-    title: "Classes",
-    icon: GraduationCap,
-    links: [
-      { label: "Courses", path: "/courses" },
-      { label: "Online Batch", path: "/online-batch" },
-      { label: "Offline Batch", path: "/offline-batch" },
-      { label: "Live Classes", path: "/live-classes" },
-      { label: "Services for Teachers", path: "/services-for-teachers" },
     ],
   },
 ];
@@ -219,7 +194,7 @@ export default function MobileHeader() {
                       Open Student Library
                     </div>
                     <div className="text-[11px] mt-0.5 opacity-80">
-                      Notes, quizzes and test series.
+                      Notes, practice and revision in one place.
                     </div>
                   </div>
                 </div>

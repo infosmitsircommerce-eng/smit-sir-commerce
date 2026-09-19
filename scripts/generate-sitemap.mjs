@@ -14,12 +14,10 @@ import { silentSearchPages } from "../src/data/silentSearchPages.js";
 import { genuineTrafficPages } from "../src/data/genuineTrafficPages.js";
 import { localActionPages } from "../src/data/localActionPages.js";
 import { DIAGNOSTIC_ROUTES } from "../src/data/boardDiagnostic.js";
-import { examTomorrowChapters } from "../src/data/examTomorrow.js";
 
 const BASE = "https://www.smitsircommerce.in";
 
 const basePages = [
-  ["/commerce-city", "weekly", "0.97"],
   ["/concept-lab", "monthly", "0.85"],
   ...quizDiscovery.map((p) => [p.path, "monthly", "0.8"]),
   ["/quizzes", "weekly", "0.95"],
@@ -102,8 +100,6 @@ const basePages = [
   ["/gseb-class-12-economics", "weekly", "0.98"],
   ["/gseb-class-12-economics-practice.html", "weekly", "0.9"],
   ["/daily-practice", "weekly", "0.86"],
-  ["/exam-tomorrow", "weekly", "0.96"],
-  ...examTomorrowChapters.map((chapter) => [`/exam-tomorrow/${chapter.slug}`, "weekly", "0.9"]),
   ["/study-coach", "weekly", "0.92"],
   ["/tools", "weekly", "0.94"],
   ["/online-batch", "weekly", "0.82"],

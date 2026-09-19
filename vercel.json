@@ -26,6 +26,26 @@
       "permanent": true
     },
     {
+      "source": "/test-series",
+      "destination": "/quizzes",
+      "permanent": true
+    },
+    {
+      "source": "/exam-tomorrow/:chapterSlug",
+      "destination": "/quizzes",
+      "permanent": true
+    },
+    {
+      "source": "/exam-tomorrow",
+      "destination": "/quizzes",
+      "permanent": true
+    },
+    {
+      "source": "/commerce-city",
+      "destination": "/study-material",
+      "permanent": true
+    },
+    {
       "source": "/my-purchases.html",
       "destination": "/my-purchases",
       "permanent": true

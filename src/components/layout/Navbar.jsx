@@ -15,16 +15,14 @@ import { isLightRoute } from "../../lib/theme";
 
 const navLinks = [
   { label: "Home", path: "/" },
-  { label: "Study Material", path: "/study-material" },
-  { label: "Quizzes", path: "/quizzes" },
-  { label: "Tests", path: "/test-series" },
+  { label: "Notes", path: "/study-material" },
+  { label: "Practice", path: "/quizzes" },
   { label: "Premium", path: "/premium" },
   {
     label: "More",
     children: [
-      { label: "Daily Practice", path: "/daily-practice" },
-      { label: "Study Tools", path: "/tools" },
       { label: "Board Boosters", path: "/board-booster-packs" },
+      { label: "Study Tools", path: "/tools" },
       { label: "Free Diagnostic", path: "/board-exam-diagnostic" },
       { label: "Contact", path: "/contact" },
     ],
@@ -33,8 +31,7 @@ const navLinks = [
 
 const featureLinks = [
   { label: "Notes", path: "/study-material", icon: BookOpen },
-  { label: "Quizzes", path: "/quizzes", icon: ListChecks },
-  { label: "Tests", path: "/test-series", icon: ListChecks },
+  { label: "Practice", path: "/quizzes", icon: ListChecks },
   { label: "Premium", path: "/premium", icon: Crown },
 ];
 

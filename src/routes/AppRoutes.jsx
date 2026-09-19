@@ -31,9 +31,7 @@ const ContentGrowthPage = lazy(() => import("../pages/ContentGrowthPage"));
 const AuthorityGuide = lazy(() => import("../pages/AuthorityGuide"));
 const PyqHub = lazy(() => import("../pages/PyqHub"));
 const Quizzes = lazy(() => import("../pages/Quizzes"));
-const TestSeries = lazy(() => import("../pages/TestSeriesPro"));
 const ExamMode = lazy(() => import("../pages/ExamMode"));
-const ExamTomorrow = lazy(() => import("../pages/ExamTomorrow"));
 const ExamTestLanding = lazy(() => import("../pages/ExamTestLanding"));
 const DailyPractice = lazy(() => import("../pages/DailyPractice"));
 const StudyCoach = lazy(() => import("../pages/StudyCoach"));
@@ -58,7 +56,6 @@ const FreeStudyPack = lazy(() => import("../pages/FreeStudyPack"));
 const DemoSuccess = lazy(() => import("../pages/DemoSuccess"));
 const Games = lazy(() => import("../pages/Games"));
 const ConceptLab = lazy(() => import("../pages/ConceptLab"));
-const CommerceCity = lazy(() => import("../pages/CommerceCity"));
 const Flashcards = lazy(() => import("../pages/Flashcards"));
 const AskDoubt = lazy(() => import("../pages/AskDoubt"));
 const ReelGenerator = lazy(() => import("../pages/ReelGenerator"));
@@ -380,10 +377,7 @@ function AnimatedRoutes() {
             path="/gseb-economics-quizzes/:classSlug/:chapterSlug"
             element={withPage(<QuizChapter />)}
           />
-          <Route path="/test-series" element={withPage(<TestSeries />)} />
           <Route path="/exam-mode" element={withPage(<ExamMode />)} />
-          <Route path="/exam-tomorrow" element={withPage(<ExamTomorrow />)} />
-          <Route path="/exam-tomorrow/:chapterSlug" element={withPage(<ExamTomorrow />)} />
           <Route
             path="/tests/:testSlug"
             element={withPage(<ExamTestLanding />)}
@@ -462,7 +456,6 @@ function AnimatedRoutes() {
           <Route path="/disclaimer" element={withPage(<Legal />)} />
           <Route path="/content-provenance" element={withPage(<Legal />)} />
           <Route path="/concept-lab" element={withPage(<ConceptLab />)} />
-          <Route path="/commerce-city" element={withPage(<CommerceCity />)} />
           <Route path="/games" element={withPage(<Games />)} />
           <Route path="/flashcards" element={withPage(<Flashcards />)} />
           <Route path="/ask" element={withPage(<AskDoubt />)} />

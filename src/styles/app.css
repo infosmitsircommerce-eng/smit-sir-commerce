@@ -1119,7 +1119,7 @@ body::before {
   .mobile-shortcuts-heading { margin-top: 25px; }
   .mobile-section-heading h2 { font: 700 19px/1.2 var(--font-serif); letter-spacing: -.02em; }
   .mobile-shortcuts-heading > span { color: #8a806d; font-size: 11px; letter-spacing: .08em; font-weight: 700; white-space: nowrap; }
-  .mobile-action-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; margin-top: 13px; }
+  .mobile-action-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 13px; }
   .mobile-action-grid .mobile-action-card {
     --action-ink: #825412; --action-accent: #e9b744; --action-wash: #fff9e7;
     --action-icon-top: #ffe6a3; --action-icon-end: #f5c45e; --action-border: #eee1be;

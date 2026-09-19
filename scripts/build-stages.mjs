@@ -44,7 +44,6 @@ export const POSTBUILD_STAGES = [
       "scripts/prerender-growth.mjs",
       "scripts/prerender-pyq.mjs",
       "scripts/prerender-authority.mjs",
-      "scripts/prerender-exam-tomorrow.mjs",
       "scripts/prerender-teacher-guides-hub.mjs",
       "scripts/prerender-local-seo.mjs",
       "scripts/prerender-conversion.mjs",

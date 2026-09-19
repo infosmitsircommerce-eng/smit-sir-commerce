@@ -243,85 +243,25 @@ function QuizPlayer({ pack, level, onClose }) {
 }
 
 
-function PaymentClaimForm() {
-  const [reference, setReference] = useState('');
-  const [busy, setBusy] = useState(false);
-  const [message, setMessage] = useState('');
-  async function submit(event) {
-    event.preventDefault();
-    setBusy(true);
-    setMessage('');
-    const { supabase } = await import('../lib/supabase');
-    const { error } = await supabase.rpc('submit_premium_payment_claim', { p_reference: reference.trim() });
-    if (error) setMessage(error.code === '23505' ? 'This transaction reference was already submitted or verified.' : error.message);
-    else {
-      setReference('');
-      setMessage('Payment reference submitted. Premium will unlock after Smit Sir verifies receipt.');
-    }
-    setBusy(false);
-  }
-  return <form onSubmit={submit} className="rounded-xl p-4 mt-5" style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,.24)' }}>
-    <label className="text-sm font-bold">Submit your transaction reference
-      <input required minLength={6} maxLength={80} pattern="[A-Za-z0-9/\\-]{6,80}" value={reference} onChange={(event) => setReference(event.target.value)} placeholder="Example: UPI transaction reference" className="w-full mt-2 rounded-lg border p-3 bg-white" />
-    </label>
-    <button disabled={busy} className="btn-primary w-full mt-3">{busy ? 'Submitting…' : 'Submit payment for verification'}</button>
-    {message && <p role="status" className="text-sm mt-3 leading-6">{message}</p>}
-  </form>;
-}
-
 function PremiumOffer({ onClose }) {
-  const { user } = useAuth();
   return (
     <QuizDialog onClose={onClose}>
       <div className="flex justify-between items-start gap-4">
-        <div><span className="eyebrow">Smit Sir Commerce Premium</span><h2 className="text-3xl mt-3">Go beyond the basics.</h2></div>
+        <div>
+          <span className="eyebrow">Premium practice</span>
+          <h2 className="text-3xl mt-3">Go harder only when you need to.</h2>
+        </div>
         <button type="button" onClick={onClose} aria-label="Close premium details" className="p-2 shrink-0"><X className="w-5 h-5" /></button>
       </div>
-      <p className="text-4xl font-black mt-5" style={{ color: 'var(--gold)' }}>₹999</p>
-      <p className="font-semibold mt-2">One-time payment · Lifetime access · No subscription</p>
-      <p className="text-sm mt-3 leading-6">Lifetime access means no scheduled expiry for your Premium account while Smit Sir Commerce operates. This plan covers digital study resources; personal tuition and live classes are separate.</p>
-      <div className="grid sm:grid-cols-2 gap-4 mt-6">
-        <div className="rounded-xl p-4" style={{ background: 'var(--gold-bg)' }}>
-          <h3 className="font-bold">Premium practice</h3>
-          <ul className="list-disc pl-5 space-y-2 mt-3 text-sm leading-6">
-            <li>Hard and Extreme chapter quizzes</li>
-            <li>Macroeconomics, Microeconomics and Indian Economic Development</li>
-            <li>All 11 GSEB Class 12 Economics chapters</li>
-            <li>Answer explanations and review of mistakes</li>
-            <li>Published Pro test series and exam practice</li>
-          </ul>
-        </div>
-        <div className="rounded-xl p-4" style={{ background: 'var(--bg-ivory)' }}>
-          <h3 className="font-bold">Planned additions</h3>
-          <ul className="list-disc pl-5 space-y-2 mt-3 text-sm leading-6">
-            <li>Extra-detailed chapter notes</li>
-            <li>Step-by-step topic explanations and worked examples</li>
-            <li>Revision sheets and additional practice sets</li>
-          </ul>
-          <p className="text-sm mt-3">These materials are being prepared and are not yet available in every chapter.</p>
-        </div>
+      <p className="mt-4 leading-7" style={{ color: 'var(--muted)' }}>
+        Easy and Moderate practice stay free. Hard and Extreme are part of the current Premium library.
+      </p>
+      <div className="rounded-2xl p-5 mt-5" style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,.22)' }}>
+        <strong className="text-lg" style={{ color: 'var(--ink)' }}>Commerce Mega Premium · ₹699 one-time</strong>
+        <p className="text-sm mt-2 leading-6" style={{ color: 'var(--charcoal)' }}>See the current included PDFs, advanced practice and account access before paying. Checkout and entitlement are handled on the Premium page.</p>
       </div>
-      <Link to="/premium" className="btn-secondary w-full mt-5">See full Premium offer</Link>
-      <p className="text-sm mt-5 leading-6"><strong>Always free:</strong> Easy and Moderate quizzes, their answer explanations, and currently published free notes.</p>
-
-      <div className="rounded-xl p-5 mt-5" style={{ background: '#f8fafc', border: '1px solid #e2e8f0' }}>
-        <h3 className="text-xl font-bold">Pay ₹999 once. Keep learning.</h3>
-        <p className="text-sm mt-2 leading-6">Scan this QR with your UPI app and enter ₹999. Check the recipient shown in your payment app before confirming.</p>
-        <img src="/premium-payment-qr.jpg" alt="UPI QR supplied by Smit Sir Commerce for the ₹999 lifetime Premium plan"
-          width="971" height="975" style={{ display: 'block', width: 'min(100%, 280px)', height: 'auto', objectFit: 'contain', margin: '16px auto', background: '#fff' }} />
-        <a href="/premium-payment-qr.jpg" download="Smit-Sir-Premium-QR.jpg" className="btn-secondary w-full">Download QR</a>
-        <ol className="list-decimal pl-5 space-y-2 mt-5 text-sm leading-6">
-          <li>Create or sign in to your student account.</li>
-          <li>Pay ₹999 using the QR above.</li>
-          <li>Send the payment receipt, transaction reference and your account email to Smit Sir using the button below.</li>
-          <li>After Smit Sir verifies the payment and activates your account, sign in again to access Premium.</li>
-        </ol>
-        {user && <PaymentClaimForm />}
-        <p className="text-sm mt-4 font-semibold">Scanning the QR or sending a receipt does not automatically unlock Premium. Please wait for payment verification; do not pay again while waiting.</p>
-        {!user && <Link to="/login" className="btn-primary w-full mt-4">Sign in / create account</Link>}
-        <a href="https://wa.me/916353709585?text=Hello%20Smit%20Sir%2C%20please%20verify%20my%20%E2%82%B9999%20lifetime%20Premium%20payment.%20I%20will%20share%20my%20receipt%2C%20transaction%20reference%20and%20student%20account%20email." target="_blank" rel="noopener noreferrer" className="btn-primary w-full mt-4">Send payment details for verification</a>
-      </div>
-      <button type="button" onClick={onClose} className="btn-secondary w-full mt-3">Continue with free quizzes</button>
+      <Link to="/premium" className="btn-primary w-full mt-5">See Premium details</Link>
+      <button type="button" onClick={onClose} className="btn-secondary w-full mt-3">Continue free practice</button>
     </QuizDialog>
   );
 }
@@ -402,7 +342,7 @@ export function LevelGrid({ pack, onAttempt, appearance }) {
             >
               <div className="text-2xl">{meta.icon}</div>
               <div className="font-black mt-2" style={{ color: 'var(--ink)' }}>{pack.board === 'GSEB' && level === 'Moderate' ? 'Medium' : meta.label}</div>
-              <div className="text-xs font-bold mt-1" style={{ color: 'var(--gold)' }}>{premiumLevel ? (loading ? 'Checking access…' : locked ? 'Premium · ₹999 lifetime' : 'Premium unlocked') : 'Free'}</div>
+              <div className="text-xs font-bold mt-1" style={{ color: 'var(--gold)' }}>{premiumLevel ? (loading ? 'Checking access…' : locked ? 'Premium' : 'Premium unlocked') : 'Free'}</div>
               <p className="text-xs mt-1 leading-5" style={{ color: 'var(--muted)' }}>{meta.note}</p>
               <div className="flex items-center justify-between mt-4 text-xs font-bold">
                 <span style={{ color: 'var(--gold)' }}>{questionCount} questions</span>
@@ -429,7 +369,7 @@ function quizChapterPath(pack) {
 }
 
 function VerifiedPackCard({ pack }) {
-  return <article className="ssc-quiz-pack" aria-label="Selected chapter test">
+  return <article className="ssc-quiz-pack" aria-label="Selected chapter practice">
     <div className="ssc-study-kicker">CHOOSE YOUR LEVEL</div>
     <h2>{pack.title}</h2>
     <p className="ssc-quiz-pack-note">{Object.values(pack.levelCounts || {}).every(count => count === 10) ? '10 questions per level' : 'Chapter practice'} · Instant answers and explanations</p>
@@ -456,11 +396,11 @@ export default function Quizzes() {
   }
   const current = { boardId, classLevel, subject, trackId: activeTrack?.id };
   return <div className="ssc-quiz-hub">
-    <SEO title="Economics MCQ Quizzes — Class 11 Micro & Class 12 Macro, Indian Economy" description="Practise Economics chapter MCQs across Class 11 Microeconomics, Class 12 Macroeconomics, Indian Economic Development and GSEB Economics, with four levels and answer explanations." path="/quizzes" />
+    <SEO title="Commerce Practice — Chapter MCQs & Revision" description="Practice Commerce chapter MCQs in one clear place, with free levels, instant explanations and optional advanced Premium practice." path="/quizzes" />
     <div className="page-container ssc-quiz-container">
       <section className="ssc-study-access">
-        <header className="ssc-study-heading"><span className="ssc-study-kicker"><span /> YOUR PRACTICE DESK</span><h1>Chapter tests, without the searching.</h1><p>Choose a subject. Open a chapter. Practise again anytime.</p></header>
-        <nav aria-label="Economics quiz subjects" className="ssc-quiz-tracks">{quizTracks.map(track => <button key={track.id} type="button" aria-pressed={activeTrack?.id === track.id} onClick={() => change({ trackId: track.id, subject: 'Economics' }, 'chapters')}><strong>{track.name}</strong><span>{track.board} · Class {track.classLevel}</span><ArrowRight size={16} aria-hidden="true" /></button>)}</nav>
+        <header className="ssc-study-heading"><span className="ssc-study-kicker"><span /> YOUR PRACTICE DESK</span><h1>Practice one chapter at a time.</h1><p>Choose a subject, chapter and level. Everything stays in one practice desk.</p></header>
+        <nav aria-label="Economics practice subjects" className="ssc-quiz-tracks">{quizTracks.map(track => <button key={track.id} type="button" aria-pressed={activeTrack?.id === track.id} onClick={() => change({ trackId: track.id, subject: 'Economics' }, 'chapters')}><strong>{track.name}</strong><span>{track.board} · Class {track.classLevel}</span><ArrowRight size={16} aria-hidden="true" /></button>)}</nav>
         <div className="ssc-study-filters">
           <label htmlFor="quiz-board">Board<select id="quiz-board" className="ssc-study-control" value={boardId} onChange={event => change({boardId:event.target.value,classLevel,subject:'Economics'})}>{quizBoards.map(item => <option key={item.id}>{item.id}</option>)}</select></label>
           <label htmlFor="quiz-class">Class<select id="quiz-class" className="ssc-study-control" value={classLevel} onChange={event => change({boardId,classLevel:Number(event.target.value),subject:'Economics'})}>{board.classes.map(item => <option key={item.classLevel} value={item.classLevel}>Class {item.classLevel}</option>)}</select></label>
@@ -471,9 +411,9 @@ export default function Quizzes() {
           <QuizChapterPicker packs={packs} selected={selected} onChange={packId => change({...current,packId}, 'pack')} />
         </section>
         <div ref={packArea} tabIndex={-1} className="ssc-quiz-pack-area">
-          {selected ? <VerifiedPackCard key={selected.id} pack={selected} /> : <p role="status" className="ssc-study-empty">No published chapter tests for this selection yet. Choose another subject or class above.</p>}
+          {selected ? <VerifiedPackCard key={selected.id} pack={selected} /> : <p role="status" className="ssc-study-empty">No published chapter practice for this selection yet. Choose another subject or class above.</p>}
         </div>
-        <p className="ssc-quiz-access-note"><ShieldCheck size={16} aria-hidden="true" /><span>Easy & {boardId === 'GSEB' ? 'Medium' : 'Moderate'} are free. Hard & Extreme need Premium. Existing ₹999 lifetime access applies.</span></p>
+        <p className="ssc-quiz-access-note"><ShieldCheck size={16} aria-hidden="true" /><span>Easy & {boardId === 'GSEB' ? 'Medium' : 'Moderate'} are free. Hard & Extreme are optional Premium practice. Existing eligible Premium accounts remain recognised.</span></p>
       </section>
     </div>
   </div>;

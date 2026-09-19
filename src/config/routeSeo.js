@@ -95,11 +95,6 @@ export const ROUTE_SEO = {
     title: "CBSE Commerce Quizzes and Practice",
     description: "Practice Commerce concepts with quizzes and revision tools.",
   },
-  "/test-series": {
-    title: "CBSE Commerce Test Series",
-    description:
-      "Practice Class 11 and 12 Commerce with chapter-wise tests, saved progress and Pro access.",
-  },
   "/exam-mode": {
     title: "Advanced CBSE Commerce Exam Mode",
     description:
@@ -188,10 +183,6 @@ export const ROUTE_SEO = {
     title: "Content Provenance & Copyright — Smit Sir Commerce",
     description:
       "How public Smit Sir Commerce notes, PDFs and learning resources are identified, sourced and reviewed.",
-  },
-  "/commerce-city": {
-    title: "Commerce Hub — See Commerce Concepts Move",
-    description: "Watch simple animated Commerce concepts such as money flow, credit sales and price-demand before learning the textbook words.",
   },
   "/concept-lab": {
     title: "Commerce Concept Lab — Explore Inflation & Purchasing Power",

@@ -50,6 +50,10 @@ expect(routeSeo.includes('export function routeUsesOwnSeo'), 'Self-managed SEO r
 expect(!vite.includes('enhanced-test-series-entry'), 'Obsolete Test Series Vite alias still exists.');
 expect(!premiumPrerender.includes('Advanced Economics practice for ₹999 once'), 'Stale ₹999 Premium source copy remains.');
 expect(!premiumPrerender.includes('premium-payment-qr.jpg'), 'Stale manual QR Premium source remains.');
+expect(!routes.includes('path="/test-series"'), 'Duplicate Test Series route has returned.');
+expect(!routes.includes('path="/commerce-city"'), 'Retired Commerce Hub route has returned.');
+expect(!routes.includes('path="/exam-tomorrow"'), 'Retired Exam Tomorrow route has returned.');
+expect(!scripts.includes('scripts/prerender-exam-tomorrow.mjs'), 'Retired Exam Tomorrow is still in the build pipeline.');
 expect(premiumPrerender.includes('complete current Premium access for ₹699'), 'Current ₹699 Mega Premium source is missing.');
 
 if (failures.length) {

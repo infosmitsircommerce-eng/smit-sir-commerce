@@ -9,12 +9,9 @@ import {
   GraduationCap,
   Search,
   SlidersHorizontal,
-  CalendarDays,
-  Flame,
   ChevronRight,
   Wrench,
   Rocket,
-  Store,
   LockKeyhole,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
@@ -25,14 +22,10 @@ import { trackEvent } from "../../lib/analytics";
 
 const QUICK_ACTIONS = [
   { label: "Study Notes", icon: FileText, to: "/study-material", tone: "gold" },
-  { label: "Quizzes", icon: FileQuestion, to: "/quizzes", tone: "violet" },
-  { label: "Test Series", icon: BarChart3, to: "/test-series", tone: "blue" },
-  { label: "Exam Tomorrow", icon: Flame, to: "/exam-tomorrow", tone: "coral" },
-  { label: "Daily Mission", icon: CalendarDays, to: "/study-coach", tone: "green" },
-  { label: "Study Tools", icon: Wrench, to: "/tools", tone: "teal" },
-  { label: "Commerce Hub", icon: Store, to: "/commerce-city", tone: "green" },
+  { label: "Practice", icon: FileQuestion, to: "/quizzes", tone: "violet" },
   { label: "Board Boosters", icon: Rocket, to: "/board-booster-packs", tone: "coral" },
-  { label: "Premium Library", icon: LockKeyhole, to: "/premium", tone: "premium", featured: true, status: "Master PDFs · Advanced tests · Sample papers · MCQs" },
+  { label: "Study Tools", icon: Wrench, to: "/tools", tone: "teal" },
+  { label: "Premium Library", icon: LockKeyhole, to: "/premium", tone: "premium", featured: true, status: "Master PDFs · Hard practice · Board-focused resources" },
 ];
 
 function readArray(key) {
@@ -164,7 +157,7 @@ export default function MobileLearningHome() {
             <div className="mobile-focus-copy">
               <span>Your personal study desk</span>
               <h2>Master Commerce<br /><em>Your Way.</em></h2>
-              <p>Notes · Quizzes · Test Series<br />All in one place</p>
+              <p>Notes · Practice · Revision<br />All in one place</p>
               <AppLink to={studyPath('/study-material', preferences)}>
                 Start learning <ArrowRight aria-hidden="true" />
               </AppLink>
@@ -176,7 +169,7 @@ export default function MobileLearningHome() {
           </article>
 
           <section className="learning-home-actions-panel" aria-labelledby="learning-actions-title">
-            <div className="mobile-section-heading mobile-shortcuts-heading"><h2 id="learning-actions-title">What will you learn today?</h2><button type="button" className="mobile-chapter-finder-trigger" onClick={() => window.dispatchEvent(new CustomEvent("ssc-open-resource-finder"))}>Find a chapter <ChevronRight aria-hidden="true" /></button></div>
+            <div className="mobile-section-heading mobile-shortcuts-heading"><h2 id="learning-actions-title">Start here</h2><button type="button" className="mobile-chapter-finder-trigger" onClick={() => window.dispatchEvent(new CustomEvent("ssc-open-resource-finder"))}>Find a chapter <ChevronRight aria-hidden="true" /></button></div>
             <div className="mobile-action-grid" aria-label="Quick actions">
               {QUICK_ACTIONS.map(({ label, icon: Icon, to, tone, status, featured }) => (
                 <AppLink key={label} to={personalizedTo(to)} data-tone={tone} className={`mobile-action-card mobile-action-${tone}`} aria-label={featured ? `Open ${label}: ${status}` : undefined} onClick={() => void trackEvent('mobile_quick_action_click', { action: label, board: preferences?.board, classLevel: Number(preferences?.classLevel), subject: preferences?.subject })}>
@@ -240,7 +233,7 @@ export default function MobileLearningHome() {
           </section>
 
           <aside className="learning-home-insight-panel">
-            <AppLink to="/commerce-city" className="mobile-lab-link"><span><Store aria-hidden="true" /><strong>Watch Commerce concepts move</strong></span><span>Open Commerce Hub <ChevronRight aria-hidden="true" /></span></AppLink>
+            <AppLink to="/board-exam-diagnostic" className="mobile-lab-link"><span><BarChart3 aria-hidden="true" /><strong>Not sure where to start?</strong></span><span>Take the free diagnostic <ChevronRight aria-hidden="true" /></span></AppLink>
             <blockquote className="mobile-quote-card">
               <strong>“Consistent practice<br />today, a confident tomorrow.”</strong>
               <span>— Smit Sir</span>

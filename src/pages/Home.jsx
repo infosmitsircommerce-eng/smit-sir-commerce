@@ -34,9 +34,9 @@ export default function Home() {
     "@type": "WebPage",
     "@id": "https://www.smitsircommerce.in/#home",
     url: "https://www.smitsircommerce.in/",
-    name: "Free Commerce Study Material, Notes, PDFs, Practice and Quizzes",
+    name: "Free Commerce Study Material, Notes, PDFs and Practice",
     description:
-      "Homepage for Smit Sir Commerce: free Commerce notes, CBSE and GSEB study material, PDFs, practice tools and chapter-wise quizzes for students.",
+      "Homepage for Smit Sir Commerce: free Commerce notes, CBSE and GSEB study material, PDFs and chapter-wise practice for students.",
     isPartOf: { "@id": "https://www.smitsircommerce.in/#website" },
     about: { "@id": "https://www.smitsircommerce.in/#organization" },
     inLanguage: "en-IN",
@@ -45,8 +45,8 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Free Commerce Notes, PDFs, Practice & Quizzes"
-        description="Free Commerce study material for Class 11 and 12 students: CBSE and GSEB notes, Economics PDFs, Business Studies resources, Accountancy support, practice tools and chapter-wise Economics quizzes."
+        title="Free Commerce Notes, PDFs & Practice"
+        description="Free Commerce study material for Class 11 and 12 students: CBSE and GSEB notes, Economics PDFs, Business Studies resources, Accountancy support, chapter-wise practice and useful study tools."
         path="/"
         structuredData={structuredData}
       />
