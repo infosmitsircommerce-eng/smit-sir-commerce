@@ -8,19 +8,7 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-  plugins: [
-    {
-      name: 'enhanced-test-series-entry',
-      enforce: 'pre',
-      resolveId(source, importer) {
-        if (source === './pages/TestSeries' && importer?.endsWith('/src/App.jsx')) {
-          return fileURLToPath(new URL('./src/pages/TestSeriesPro.jsx', import.meta.url))
-        }
-        return null
-      },
-    },
-    react(),
-  ],
+  plugins: [react()],
   build: {
     chunkSizeWarningLimit: 600,
     rollupOptions: {

@@ -1,13 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import './mobile.css'
-import './styles/premiumVisuals.css'
-import './styles/mobileExperience.css'
-import './styles/scrollSafety.css'
-import './styles/mobileLedger.css'
-import './styles/desktopLearningHome.css'
-import './styles/productPolish.css'
+import './styles/app.css'
 import App from './App.jsx'
 import { installDownloadTracking } from './lib/conversionTracking';
 

@@ -16,7 +16,8 @@
     "render:premium": "remotion render remotion/index.jsx PremiumAd out/SmitSirAd.mp4",
     "seo:audit": "node scripts/audit-seo-integrity.mjs",
     "quiz:audit": "node scripts/audit-quizzes.mjs",
-    "commerce:discovery": "node scripts/prerender-commerce-discovery.mjs"
+    "commerce:discovery": "node scripts/prerender-commerce-discovery.mjs",
+    "quality:audit": "node scripts/tests/architecture-contracts.mjs && node scripts/tests/critical-journeys.mjs"
   },
   "dependencies": {
     "@number-flow/react": "^0.6.2",
