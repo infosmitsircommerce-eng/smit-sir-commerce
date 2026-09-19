@@ -32,7 +32,7 @@ const QUICK_ACTIONS = [
   { label: "Study Tools", icon: Wrench, to: "/tools", tone: "teal" },
   { label: "Commerce Hub", icon: Store, to: "/commerce-city", tone: "green" },
   { label: "Board Boosters", icon: Rocket, to: "/board-booster-packs", tone: "coral" },
-  { label: "Premium Library", icon: LockKeyhole, to: "/premium", tone: "premium", featured: true, status: "Master PDFs · Test Series · Sample papers · MCQs · more" },
+  { label: "Premium Library", icon: LockKeyhole, to: "/premium", tone: "premium", featured: true, status: "Master PDFs · Advanced tests · Sample papers · MCQs" },
 ];
 
 function readArray(key) {
@@ -179,15 +179,19 @@ export default function MobileLearningHome() {
             <div className="mobile-section-heading mobile-shortcuts-heading"><h2 id="learning-actions-title">What will you learn today?</h2><button type="button" className="mobile-chapter-finder-trigger" onClick={() => window.dispatchEvent(new CustomEvent("ssc-open-resource-finder"))}>Find a chapter <ChevronRight aria-hidden="true" /></button></div>
             <div className="mobile-action-grid" aria-label="Quick actions">
               {QUICK_ACTIONS.map(({ label, icon: Icon, to, tone, status, featured }) => (
-                <AppLink key={label} to={personalizedTo(to)} data-tone={tone} className={`mobile-action-card mobile-action-${tone}${featured ? " mobile-action-premium" : ""}`} onClick={() => void trackEvent('mobile_quick_action_click', { action: label, board: preferences?.board, classLevel: Number(preferences?.classLevel), subject: preferences?.subject })}>
-                  <span><Icon aria-hidden="true" /></span>
+                <AppLink key={label} to={personalizedTo(to)} data-tone={tone} className={`mobile-action-card mobile-action-${tone}`} aria-label={featured ? `Open ${label}: ${status}` : undefined} onClick={() => void trackEvent('mobile_quick_action_click', { action: label, board: preferences?.board, classLevel: Number(preferences?.classLevel), subject: preferences?.subject })}>
+                  <span className={featured ? "mobile-premium-icon" : undefined}><Icon aria-hidden="true" /></span>
                   {featured ? (
                     <>
                       <div className="mobile-premium-copy">
+                        <span className="mobile-premium-eyebrow">Premium study vault</span>
                         <strong>{label}</strong>
                         <small className="mobile-action-status">{status}</small>
                       </div>
-                      <ArrowRight className="mobile-premium-chevron" aria-hidden="true" />
+                      <div className="mobile-premium-cta" aria-hidden="true">
+                        <span>Explore</span>
+                        <ArrowRight className="mobile-premium-chevron" />
+                      </div>
                     </>
                   ) : (
                     <>

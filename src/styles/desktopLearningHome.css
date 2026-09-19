@@ -222,11 +222,14 @@
     justify-content: flex-start;
     gap: 16px;
     padding: 18px 20px;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     color: #f1d28a;
-    background: #172033;
-    border: 1px solid #9e7a3c;
+    background: radial-gradient(circle at 91% 10%, rgba(246,207,117,.18), transparent 32%), linear-gradient(135deg, #121a2a, #1d293f 62%, #382d1d);
+    border: 1px solid #b98a39;
     text-align: left;
-    box-shadow: 0 15px 32px rgba(23,32,51,.14);
+    box-shadow: inset 0 1px 0 rgba(255,239,198,.16), 0 15px 32px rgba(23,32,51,.17);
   }
   .mobile-action-premium:hover {
     border-color: #c4a15e;
@@ -234,11 +237,13 @@
   }
   .mobile-action-premium > span {
     flex: 0 0 auto;
-    background: #f0eadc;
-    color: #172033;
-    box-shadow: none;
+    background: linear-gradient(145deg, #ffe79f, #dba52e);
+    color: #31250f;
+    border: 1px solid rgba(255,234,167,.8);
+    box-shadow: inset 0 1px 0 #fff7da, 0 8px 18px rgba(0,0,0,.2);
   }
   .mobile-premium-copy { min-width: 0; flex: 1 1 auto; }
+  .mobile-premium-eyebrow { display: block; margin-bottom: 4px; color: #f4ca6e; font-size: .6rem; font-weight: 850; line-height: 1.2; letter-spacing: .12em; text-transform: uppercase; }
   .mobile-premium-copy strong {
     display: block;
     color: #fff !important;
@@ -259,6 +264,7 @@
     flex: 0 0 auto;
     color: #f1d28a;
   }
+  .mobile-action-premium .mobile-premium-cta { min-height: 42px; display: inline-flex; align-items: center; gap: 8px; flex: 0 0 auto; padding: 0 13px; color: #ffe39a; background: rgba(255,255,255,.08); border: 1px solid rgba(255,227,154,.3); border-radius: 13px; font-size: .72rem; font-weight: 800; }
 
   /* The fixed dock repeats links already present in the desktop header and
      visually cuts through the next row. It remains available on smaller UI. */
