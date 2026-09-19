@@ -324,6 +324,18 @@
           "value": "SAMEORIGIN"
         },
         {
+          "key": "Content-Security-Policy-Report-Only",
+          "value": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://sdk.cashfree.com https://*.googlesyndication.com https://*.doubleclick.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://abpruwygnsmeqisaehip.supabase.co wss://abpruwygnsmeqisaehip.supabase.co https://*.google-analytics.com https://*.googletagmanager.com https://*.cashfree.com; frame-src 'self' https://*.cashfree.com https://*.googlesyndication.com https://*.doubleclick.net; form-action 'self' https://*.cashfree.com; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin-allow-popups"
+        },
+        {
+          "key": "X-Permitted-Cross-Domain-Policies",
+          "value": "none"
+        },
+        {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
         },

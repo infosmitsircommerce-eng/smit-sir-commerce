@@ -25,7 +25,7 @@ const SignIn2 = ({
   successMessage = "",
   title = "Sign in with email",
   description = "Access your notes, quizzes, tests and Premium study tools in one place.",
-  showSocial = true,
+  showSocial = false,
 }: SignIn2Props) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -72,10 +72,11 @@ const SignIn2 = ({
   const visibleError = externalError || error
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-white px-4 py-10 relative z-[1]">
-      <div className="w-full max-w-sm bg-gradient-to-b from-sky-50/50 to-white rounded-3xl shadow-xl p-8 flex flex-col items-center border border-blue-100 text-black">
-        <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-white mb-6 shadow-lg">
-          <LogIn className="w-7 h-7 text-black" />
+    <div className="min-h-screen w-full flex items-center justify-center px-4 py-10 relative z-[1]" style={{ background: "#faf6ee" }}>
+      <div className="w-full max-w-sm rounded-3xl shadow-xl p-8 flex flex-col items-center text-black" style={{ background: "#fffdf8", border: "1px solid #e5d7bc" }}>
+        <p className="text-[11px] font-black tracking-[.14em] uppercase mb-4" style={{ color: "#986b24" }}>Smit Sir Commerce</p>
+        <div className="flex items-center justify-center w-14 h-14 rounded-2xl mb-6 shadow-lg" style={{ background: "#ffedc6", color: "#704d17" }}>
+          <LogIn className="w-7 h-7" />
         </div>
 
         <h1 className="text-2xl font-semibold mb-2 text-center">{title}</h1>
@@ -99,7 +100,7 @@ const SignIn2 = ({
                 placeholder="Email"
                 type="email"
                 value={email}
-                className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-200 bg-gray-50 text-black text-sm"
+                className="w-full min-h-11 pl-10 pr-3 py-2.5 rounded-xl border border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300 bg-white text-black text-sm"
                 onChange={(event) => setEmail(event.target.value)}
               />
             </div>
@@ -114,7 +115,7 @@ const SignIn2 = ({
                 placeholder="Password"
                 type="password"
                 value={password}
-                className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-200 bg-gray-50 text-black text-sm"
+                className="w-full min-h-11 pl-10 pr-3 py-2.5 rounded-xl border border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300 bg-white text-black text-sm"
                 onChange={(event) => setPassword(event.target.value)}
               />
             </div>
@@ -128,7 +129,7 @@ const SignIn2 = ({
               <button
                 type="button"
                 onClick={() => void handleForgotPassword()}
-                className="text-xs hover:underline font-medium whitespace-nowrap"
+                className="min-h-11 inline-flex items-center text-xs hover:underline font-semibold whitespace-nowrap"
               >
                 Forgot password?
               </button>
@@ -138,7 +139,7 @@ const SignIn2 = ({
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-b from-gray-700 to-gray-900 text-white font-medium py-2.5 rounded-xl shadow hover:brightness-105 cursor-pointer transition mb-4 mt-2 disabled:opacity-60 disabled:cursor-wait flex items-center justify-center gap-2"
+            className="w-full min-h-11 text-white font-semibold py-2.5 rounded-xl shadow hover:brightness-105 cursor-pointer transition mb-4 mt-2 disabled:opacity-60 disabled:cursor-wait flex items-center justify-center gap-2" style={{ background: "linear-gradient(180deg,#353c36,#202721)" }}
           >
             {loading ? <><Loader2 className="w-4 h-4 animate-spin" /> Signing in…</> : "Get Started"}
           </button>
@@ -169,7 +170,7 @@ const SignIn2 = ({
         {onCreateAccount ? (
           <p className="text-center text-gray-500 text-xs mt-6">
             New to Smit Sir Commerce?{" "}
-            <button type="button" onClick={onCreateAccount} className="text-gray-900 hover:underline font-semibold">
+            <button type="button" onClick={onCreateAccount} className="min-h-11 inline-flex items-center text-gray-900 hover:underline font-semibold">
               Create account
             </button>
           </p>

@@ -95,15 +95,16 @@ export default function Login() {
         successMessage={success}
         title="Sign in with email"
         description="Access your Smit Sir Commerce dashboard, notes, quizzes, purchases and Premium study tools."
+        showSocial={false}
       />
     );
   }
 
   return (
-    <main className="min-h-screen w-full flex items-center justify-center bg-white px-4 py-10">
-      <section className="w-full max-w-sm bg-gradient-to-b from-sky-50/50 to-white rounded-3xl shadow-xl p-8 border border-blue-100 text-black">
+    <main className="min-h-screen w-full flex items-center justify-center px-4 py-10" style={{ background: "#faf6ee" }}>
+      <section className="w-full max-w-sm rounded-3xl shadow-xl p-8 text-black" style={{ background: "#fffdf8", border: "1px solid #e5d7bc" }}>
         <Link to="/" className="flex items-center justify-center gap-3 mb-7">
-          <span className="w-12 h-12 rounded-2xl bg-white shadow-lg flex items-center justify-center">
+          <span className="w-12 h-12 rounded-2xl shadow-lg flex items-center justify-center" style={{ background: "#ffedc6", color: "#704d17" }}>
             <GraduationCap className="w-6 h-6" />
           </span>
           <span className="text-left">
@@ -118,34 +119,34 @@ export default function Login() {
         <form onSubmit={handleSignUp} className="space-y-3">
           <div className="relative">
             <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-            <input type="text" value={form.name} onChange={set('name')} placeholder="Full name" autoComplete="name" className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-200 bg-gray-50 text-sm" required />
+            <input type="text" value={form.name} onChange={set('name')} placeholder="Full name" autoComplete="name" className="w-full min-h-11 pl-10 pr-3 py-2.5 rounded-xl border border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300 bg-white text-sm" required />
           </div>
 
-          <select value={form.classLevel} onChange={set('classLevel')} className="w-full px-3 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-200 bg-gray-50 text-sm">
+          <select value={form.classLevel} onChange={set('classLevel')} className="w-full min-h-11 px-3 py-2.5 rounded-xl border border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300 bg-white text-sm">
             <option value="11">Class 11</option>
             <option value="12">Class 12</option>
           </select>
 
           <div className="relative">
             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-            <input type="email" value={form.email} onChange={set('email')} placeholder="Email" autoComplete="email" className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-200 bg-gray-50 text-sm" required />
+            <input type="email" value={form.email} onChange={set('email')} placeholder="Email" autoComplete="email" className="w-full min-h-11 pl-10 pr-3 py-2.5 rounded-xl border border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300 bg-white text-sm" required />
           </div>
 
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-            <input type="password" value={form.password} onChange={set('password')} placeholder="Password · minimum 6 characters" autoComplete="new-password" className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-200 bg-gray-50 text-sm" required />
+            <input type="password" value={form.password} onChange={set('password')} placeholder="Password · minimum 6 characters" autoComplete="new-password" className="w-full min-h-11 pl-10 pr-3 py-2.5 rounded-xl border border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300 bg-white text-sm" required />
           </div>
 
           {error ? <p role="alert" className="text-sm text-red-500">{error}</p> : null}
 
-          <button type="submit" disabled={loading} className="w-full bg-gradient-to-b from-gray-700 to-gray-900 text-white font-medium py-2.5 rounded-xl shadow hover:brightness-105 transition flex items-center justify-center gap-2 disabled:opacity-60">
+          <button type="submit" disabled={loading} className="w-full min-h-11 text-white font-semibold py-2.5 rounded-xl shadow hover:brightness-105 transition flex items-center justify-center gap-2 disabled:opacity-60" style={{ background: "linear-gradient(180deg,#353c36,#202721)" }}>
             {loading ? <><Loader2 className="w-4 h-4 animate-spin" /> Creating account…</> : <>Create Account <ArrowRight className="w-4 h-4" /></>}
           </button>
         </form>
 
         <p className="text-center text-gray-500 text-xs mt-6">
           Already have an account?{' '}
-          <button type="button" onClick={() => { setError(''); setMode('login'); }} className="text-gray-900 hover:underline font-semibold">Sign in</button>
+          <button type="button" onClick={() => { setError(''); setMode('login'); }} className="min-h-11 inline-flex items-center text-gray-900 hover:underline font-semibold">Sign in</button>
         </p>
       </section>
     </main>
