@@ -13,212 +13,6 @@ const gsebMaterialByPath = Object.fromEntries(
   gsebMaterials.map((material) => [material.seo_path, material]),
 );
 
-const CORE_RESOURCE_LINKS = [
-  {
-    name: "Free Commerce Study Material",
-    url: `${BASE}/study-material`,
-    about: "CBSE and GSEB chapter-wise PDF notes",
-  },
-  {
-    name: "CBSE Commerce Notes",
-    url: `${BASE}/cbse-notes`,
-    about: "Class 11 and Class 12 CBSE Commerce notes",
-  },
-  {
-    name: "GSEB Class 12 Economics Notes",
-    url: `${BASE}/gseb-class-12-economics`,
-    about: "GSEB Class 12 Economics chapter-wise notes and PDFs",
-  },
-  {
-    name: "GSEB Class 11 Accountancy Notes",
-    url: `${BASE}/gseb-class-11-accountancy-notes`,
-    about: "Free chapter-wise GSEB Class 11 Accountancy concept notes PDFs",
-  },
-  {
-    name: "Commerce Practice",
-    url: `${BASE}/daily-practice`,
-    about: "Chapter practice and revision questions",
-  },
-  {
-    name: "Commerce Tools",
-    url: `${BASE}/tools`,
-    about: "Free Economics and Accountancy calculators",
-  },
-  {
-    name: "Commerce Games",
-    url: `${BASE}/games`,
-    about: "Interactive learning games for Commerce students",
-  },
-  {
-    name: "AI Discovery Summary",
-    url: `${BASE}/ai-discovery.html`,
-    about: "AI-readable first-party summary of Smit Sir Commerce resources",
-  },
-];
-
-const SITEWIDE_ENTITY = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebSite",
-      "@id": `${BASE}/#website`,
-      url: `${BASE}/`,
-      name: SITE,
-      alternateName: [
-        "Smit Sir Commerce Classes",
-        "Smit Sir Commerce Notes",
-        "Smit Sir Commerce Material",
-      ],
-      description: DEFAULT_DESCRIPTION,
-      inLanguage: "en-IN",
-      publisher: { "@id": `${BASE}/#organization` },
-      subjectOf: [
-        {
-          "@type": "CreativeWork",
-          name: "LLMS text summary",
-          url: `${BASE}/llms.txt`,
-        },
-        {
-          "@type": "Dataset",
-          name: "Smit Sir Commerce AI summary JSON",
-          url: `${BASE}/ai-summary.json`,
-        },
-        {
-          "@type": "AboutPage",
-          name: "AI Discovery for Smit Sir Commerce",
-          url: `${BASE}/ai-discovery.html`,
-        },
-      ],
-      hasPart: CORE_RESOURCE_LINKS.map((item) => ({
-        "@type": "WebPage",
-        name: item.name,
-        url: item.url,
-        about: item.about,
-        isAccessibleForFree: true,
-      })),
-    },
-    {
-      "@type": "EducationalOrganization",
-      "@id": `${BASE}/#organization`,
-      name: SITE,
-      alternateName: [
-        "Smit Sir Commerce Classes",
-        "Smit Sir Commerce Notes",
-        "Smit Sir Commerce Material",
-      ],
-      url: `${BASE}/`,
-      logo: `${BASE}/og-image.jpg`,
-      email: "infosmitsircommerce@gmail.com",
-      telephone: localTuitionService.phone,
-      sameAs: [localTuitionService.mapsUrl],
-      description:
-        "Smit Sir Commerce is a student-first Commerce learning resource library for free CBSE and GSEB notes, PDFs, practice resources, realistic learning games and Commerce tools, with optional support from Smit Sir when students need help.",
-      areaServed: [
-        { "@type": "Country", name: "India" },
-        {
-          "@type": "City",
-          name: "Mehsana",
-          containedInPlace: {
-            "@type": "State",
-            name: "Gujarat",
-            containedInPlace: { "@type": "Country", name: "India" },
-          },
-        },
-      ],
-      knowsAbout: [
-        "Class 11 Commerce",
-        "Class 12 Commerce",
-        "CBSE Commerce notes",
-        "GSEB Class 12 Economics notes",
-        "GSEB Class 11 Accountancy notes PDF",
-        "Free Commerce notes PDF",
-        "Commerce study material",
-        "Commerce learning games",
-        "Commerce calculators",
-        "Economics",
-        "Business Studies",
-        "Accountancy learning resources",
-        "Entrepreneurship",
-        "Physical Education",
-        "Commerce exam preparation",
-      ],
-      founder: { "@id": `${BASE}/about#smit-thaker` },
-      subjectOf: [
-        {
-          "@type": "AboutPage",
-          name: "AI Discovery for Smit Sir Commerce",
-          url: `${BASE}/ai-discovery.html`,
-        },
-        {
-          "@type": "CreativeWork",
-          name: "Smit Sir Commerce LLMS file",
-          url: `${BASE}/llms.txt`,
-        },
-      ],
-      hasOfferCatalog: {
-        "@type": "OfferCatalog",
-        name: "Commerce learning resources and student support",
-        itemListElement: [
-          "Free Commerce Notes PDF",
-          "CBSE Class 11 Commerce Notes",
-          "CBSE Class 12 Commerce Notes",
-          "GSEB Class 12 Economics Notes",
-          "GSEB Class 11 Accountancy Notes PDF",
-          "Economics Practice Resources",
-          "Business Studies Revision Resources",
-          "Accountancy Learning Tools",
-          "Realistic Commerce Learning Games",
-          "Commerce Doubt Support",
-        ].map((name) => ({
-          "@type": "Offer",
-          availability: "https://schema.org/InStock",
-          itemOffered: {
-            "@type": "LearningResource",
-            name,
-            provider: { "@id": `${BASE}/#organization` },
-            educationalLevel: ["Class 11", "Class 12"],
-            learningResourceType: [
-              "Notes",
-              "PDF",
-              "Practice material",
-              "Interactive resource",
-            ],
-            isAccessibleForFree: true,
-          },
-        })),
-      },
-    },
-    {
-      "@type": "Person",
-      "@id": `${BASE}/about#smit-thaker`,
-      name: "Smit Thaker",
-      alternateName: "Smit Sir",
-      url: `${BASE}/about`,
-      worksFor: { "@id": `${BASE}/#organization` },
-      knowsAbout: [
-        "Economics",
-        "Business Studies",
-        "Entrepreneurship",
-        "Physical Education",
-        "Commerce education",
-        "Commerce notes",
-        "Commerce study material",
-      ],
-    },
-    {
-      "@type": "ItemList",
-      "@id": `${BASE}/#free-commerce-resources`,
-      name: "Important free Commerce resources on Smit Sir Commerce",
-      itemListElement: CORE_RESOURCE_LINKS.map((item, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        name: item.name,
-        url: item.url,
-      })),
-    },
-  ],
-};
-
 function getChapterSearchMeta(path) {
   const material = materialByPath[path];
   if (!material) return null;
@@ -260,6 +54,13 @@ function getLocalSearchMeta(path) {
   };
 }
 
+function normalizePageTitle(value) {
+  return String(value || "")
+    .replace(new RegExp(`^${SITE}\\s*[|—–-]\\s*`, "i"), "")
+    .replace(new RegExp(`\\s*[|—–-]\\s*${SITE}$`, "i"), "")
+    .trim();
+}
+
 export default function SEO({
   title,
   description = DEFAULT_DESCRIPTION,
@@ -277,12 +78,15 @@ export default function SEO({
   const chapterMeta = getChapterSearchMeta(normalizedPath);
   const localMeta = getLocalSearchMeta(normalizedPath);
   const searchMeta = gsebMeta || chapterMeta || localMeta;
-  const effectiveTitle = searchMeta?.title || title;
+  const effectiveTitle = normalizePageTitle(searchMeta?.title || title);
   const effectiveDescription = searchMeta?.description || description;
+  const titleAlreadyNamesSite = effectiveTitle.toLowerCase().includes(SITE.toLowerCase());
   const fullTitle = effectiveTitle
-    ? normalizedPath === "/"
-      ? `${SITE} | ${effectiveTitle}`
-      : `${effectiveTitle} | ${SITE}`
+    ? titleAlreadyNamesSite
+      ? effectiveTitle
+      : normalizedPath === "/"
+        ? `${SITE} | ${effectiveTitle}`
+        : `${effectiveTitle} | ${SITE}`
     : `${SITE} | Commerce Learning Hub`;
   const url = BASE + normalizedPath;
   const robots = noindex
@@ -343,9 +147,6 @@ export default function SEO({
         content={`${effectiveTitle || SITE} — ${SITE}`}
       />
 
-      <script type="application/ld+json">
-        {JSON.stringify(SITEWIDE_ENTITY)}
-      </script>
       {structuredData && (
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}

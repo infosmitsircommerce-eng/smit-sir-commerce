@@ -210,8 +210,8 @@
   .mobile-action-card[data-tone="blue"] { --action-ink:#2b5f9c; --action-accent:#7baee7; --action-wash:#f0f7ff; --action-icon-top:#d4e7ff; --action-icon-end:#a6c9f0; --action-border:#d5e4f5; }
   .mobile-action-card[data-tone="coral"] { --action-ink:#9a4938; --action-accent:#eb9c83; --action-wash:#fff3ee; --action-icon-top:#ffe0d3; --action-icon-end:#f5b99f; --action-border:#f0dbd0; }
   .mobile-action-card[data-tone="green"] { --action-ink:#426f30; --action-accent:#9ac878; --action-wash:#f4faed; --action-icon-top:#e1f1c9; --action-icon-end:#bedb99; --action-border:#deebcf; }
-  .mobile-action-card > span { width: 49px; height: 49px; background: linear-gradient(145deg, var(--action-icon-top), var(--action-icon-end)); border-radius: 16px; box-shadow: inset 0 1px 0 rgba(255,255,255,.72); }
-  .mobile-action-card svg { width: 25px; height: 25px; stroke-width: 1.8; }
+  .mobile-action-card > span { width: 44px; height: 44px; background: linear-gradient(145deg, var(--action-icon-top), var(--action-icon-end)); border-radius: 14px; box-shadow: inset 0 1px 0 rgba(255,255,255,.72); }
+  .mobile-action-card svg { width: 22px; height: 22px; stroke-width: 1.8; }
   .mobile-action-card strong { color: #353027; font-size: .82rem; }
   .mobile-action-status { color: var(--action-ink); font-size: .65rem; font-weight: 750; }
 

@@ -4,10 +4,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "prebuild": "node scripts/apply-search-console-source-overrides.mjs && node scripts/generate-public-quizzes.mjs && node scripts/audit-quizzes.mjs && node scripts/generate-price-elasticity-pdf.mjs && node scripts/generate-direct-pdf-seo.mjs && node scripts/strengthen-price-elasticity-pdf-discovery.mjs && node scripts/generate-pdf-provenance.mjs && node scripts/generate-sitemap.mjs && node scripts/refresh-updated-sitemap-lastmods.mjs",
+    "prebuild": "node scripts/optimize-og-image.mjs && node scripts/apply-search-console-source-overrides.mjs && node scripts/generate-public-quizzes.mjs && node scripts/audit-quizzes.mjs && node scripts/generate-price-elasticity-pdf.mjs && node scripts/generate-direct-pdf-seo.mjs && node scripts/strengthen-price-elasticity-pdf-discovery.mjs && node scripts/generate-pdf-provenance.mjs && node scripts/generate-sitemap.mjs && node scripts/refresh-updated-sitemap-lastmods.mjs",
     "dev": "vite",
     "build": "vite build",
-    "postbuild": "node scripts/prerender-core-pages.mjs && node scripts/prerender-commerce-expansion.mjs && node scripts/prerender-commerce-discovery.mjs && node scripts/prerender-commerce-resources.mjs && node scripts/prerender-seo.mjs && node scripts/inject-practice-links.mjs && node scripts/prerender-growth.mjs && node scripts/prerender-pyq.mjs && node scripts/prerender-authority.mjs && node scripts/prerender-exam-tomorrow.mjs && node scripts/prerender-teacher-guides-hub.mjs && node scripts/prerender-local-seo.mjs && node scripts/prerender-conversion.mjs && node scripts/prerender-marks-recovery.mjs && node scripts/prerender-tools.mjs && node scripts/prerender-trust.mjs && node scripts/prerender-silent-search.mjs && node scripts/prerender-genuine-traffic-pages.mjs && node scripts/prerender-local-action-pages.mjs && node scripts/prepare-adsense-static.mjs && node scripts/finalize-seo-html.mjs && node scripts/prerender-i18n.mjs && node scripts/strengthen-top-pages.mjs && node scripts/strengthen-adsense-readiness.mjs && node scripts/fix-adsense-policy-canonicals.mjs && node scripts/finalize-adsense-policy-pages.mjs && node scripts/resolve-final-seo-warnings.mjs && node scripts/finalize-gseb-economics-access.mjs && node scripts/prerender-quiz-discovery.mjs && node scripts/fix-final-canonicals.mjs && node scripts/finalize-board-booster-store.mjs && node scripts/finalize-premium-transition.mjs && node scripts/connect-study-pathways.mjs && node scripts/install-static-download-tracking.mjs && node scripts/add-premium-why-section.mjs && node scripts/strengthen-search-console-winners.mjs && node scripts/upgrade-business-environment-notes.mjs && node scripts/upgrade-accounting-equation-notes.mjs && node scripts/upgrade-controlling-notes.mjs && node scripts/upgrade-net-indirect-tax.mjs && node scripts/upgrade-national-income-calculator.mjs && node scripts/upgrade-debt-equity-ratio.mjs && node scripts/upgrade-factor-cost-market-price.mjs && node scripts/upgrade-online-batch.mjs && node scripts/upgrade-economics-tuition-mehsana.mjs && node scripts/upgrade-gseb-economics-tuition-mehsana.mjs && node scripts/upgrade-commerce-coaching-pathways.mjs && node scripts/upgrade-cbse-commerce-mehsana-proof.mjs && node scripts/upgrade-book-demo-trust.mjs && node scripts/consolidate-case-study-canonical.mjs && node scripts/upgrade-bst-case-study-hub.mjs && node scripts/upgrade-bst-chapter1-case-study.mjs && node scripts/upgrade-bst-chapter2-case-study.mjs && node scripts/upgrade-bst-planning-case-study.mjs && node scripts/upgrade-bst-mcq-hub.mjs && node scripts/upgrade-gseb-growth-indicators.mjs && node scripts/upgrade-gseb-foreign-trade-mcq.mjs && node scripts/upgrade-mehsana-student-resources.mjs && node scripts/add-resource-sharing.mjs && node scripts/clean-homepage-student-language.mjs && node scripts/optimize-search-console-ctr.mjs && node scripts/strengthen-brand-authority.mjs && node scripts/consolidate-case-study-canonical.mjs && node scripts/normalize-internal-links.mjs && node scripts/final-adsense-polish.mjs && node scripts/audit-adsense-content.mjs && node scripts/audit-seo-integrity.mjs",
+    "postbuild": "node scripts/prerender-core-pages.mjs && node scripts/prerender-commerce-expansion.mjs && node scripts/prerender-commerce-discovery.mjs && node scripts/prerender-commerce-resources.mjs && node scripts/prerender-seo.mjs && node scripts/inject-practice-links.mjs && node scripts/prerender-growth.mjs && node scripts/prerender-pyq.mjs && node scripts/prerender-authority.mjs && node scripts/prerender-exam-tomorrow.mjs && node scripts/prerender-teacher-guides-hub.mjs && node scripts/prerender-local-seo.mjs && node scripts/prerender-conversion.mjs && node scripts/prerender-marks-recovery.mjs && node scripts/prerender-tools.mjs && node scripts/prerender-trust.mjs && node scripts/prerender-silent-search.mjs && node scripts/prerender-genuine-traffic-pages.mjs && node scripts/prerender-local-action-pages.mjs && node scripts/prepare-adsense-static.mjs && node scripts/finalize-seo-html.mjs && node scripts/prerender-i18n.mjs && node scripts/strengthen-top-pages.mjs && node scripts/strengthen-adsense-readiness.mjs && node scripts/fix-adsense-policy-canonicals.mjs && node scripts/finalize-adsense-policy-pages.mjs && node scripts/resolve-final-seo-warnings.mjs && node scripts/finalize-gseb-economics-access.mjs && node scripts/prerender-quiz-discovery.mjs && node scripts/fix-final-canonicals.mjs && node scripts/finalize-board-booster-store.mjs && node scripts/finalize-premium-transition.mjs && node scripts/connect-study-pathways.mjs && node scripts/install-static-download-tracking.mjs && node scripts/add-premium-why-section.mjs && node scripts/strengthen-search-console-winners.mjs && node scripts/upgrade-business-environment-notes.mjs && node scripts/upgrade-accounting-equation-notes.mjs && node scripts/upgrade-controlling-notes.mjs && node scripts/upgrade-net-indirect-tax.mjs && node scripts/upgrade-national-income-calculator.mjs && node scripts/upgrade-debt-equity-ratio.mjs && node scripts/upgrade-factor-cost-market-price.mjs && node scripts/upgrade-online-batch.mjs && node scripts/upgrade-economics-tuition-mehsana.mjs && node scripts/upgrade-gseb-economics-tuition-mehsana.mjs && node scripts/upgrade-commerce-coaching-pathways.mjs && node scripts/upgrade-cbse-commerce-mehsana-proof.mjs && node scripts/upgrade-book-demo-trust.mjs && node scripts/consolidate-case-study-canonical.mjs && node scripts/upgrade-bst-case-study-hub.mjs && node scripts/upgrade-bst-chapter1-case-study.mjs && node scripts/upgrade-bst-chapter2-case-study.mjs && node scripts/upgrade-bst-planning-case-study.mjs && node scripts/upgrade-bst-mcq-hub.mjs && node scripts/upgrade-gseb-growth-indicators.mjs && node scripts/upgrade-gseb-foreign-trade-mcq.mjs && node scripts/upgrade-mehsana-student-resources.mjs && node scripts/add-resource-sharing.mjs && node scripts/clean-homepage-student-language.mjs && node scripts/optimize-search-console-ctr.mjs && node scripts/strengthen-brand-authority.mjs && node scripts/consolidate-case-study-canonical.mjs && node scripts/normalize-internal-links.mjs && node scripts/final-adsense-polish.mjs && node scripts/dedupe-structured-data.mjs && node scripts/audit-adsense-content.mjs && node scripts/audit-seo-integrity.mjs",
     "indexnow": "node scripts/submit-indexnow.mjs",
     "preview": "vite preview",
     "studio": "remotion studio remotion/index.jsx",
@@ -23,8 +23,8 @@
     "@radix-ui/react-label": "^2.1.15",
     "@radix-ui/react-slot": "^1.3.3",
     "@radix-ui/react-switch": "^1.3.7",
-    "@remotion/cli": "^4.0.468",
-    "@remotion/google-fonts": "^4.0.468",
+    "@remotion/cli": "^4.0.526",
+    "@remotion/google-fonts": "^4.0.526",
     "@supabase/supabase-js": "^2.106.0",
     "aos": "^2.3.4",
     "canvas-confetti": "^1.9.4",
@@ -36,8 +36,8 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet-async": "^3.0.0",
-    "react-router-dom": "^6.23.1",
-    "remotion": "^4.0.468",
+    "react-router-dom": "^6.30.6",
+    "remotion": "^4.0.526",
     "tailwind-merge": "^3.7.0"
   },
   "devDependencies": {
@@ -46,10 +46,11 @@
     "@types/react-dom": "^18.3.3",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.19",
-    "postcss": "^8.4.38",
+    "postcss": "^8.5.28",
     "sharp": "^0.34.5",
     "tailwindcss": "^3.4.4",
     "typescript": "^7.0.2",
+    "vite": "^5.4.21",
     "vite-plugin-pwa": "^1.3.0"
   }
 }

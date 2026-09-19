@@ -97,15 +97,21 @@ function ScrollToTopOnNav() {
 }
 function NotFound() {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="text-center">
-        <div className="text-8xl font-bold text-gold-400 mb-4">404</div>
-        <div className="text-white text-xl mb-2">Page Not Found</div>
-        <p className="text-navy-400 mb-6">
-          The page you're looking for doesn't exist.
+    <div className="min-h-[70vh] flex items-center justify-center px-4 py-12" style={{ background: "var(--bg-ivory)" }}>
+      <div className="card-paper w-full max-w-2xl p-7 sm:p-10 text-center">
+        <span className="eyebrow">Smit Sir Commerce</span>
+        <div className="text-7xl sm:text-8xl font-bold mt-5" style={{ color: "var(--gold)" }}>404</div>
+        <h1 className="text-3xl sm:text-4xl mt-3" style={{ fontFamily: "var(--font-serif)", color: "var(--ink)" }}>This page could not be found.</h1>
+        <p className="mt-4 mx-auto max-w-lg leading-7" style={{ color: "var(--muted)" }}>
+          The link may be old, but your learning resources are still here. Choose where you want to continue.
         </p>
-        <Link to="/" className="btn-primary">
-          Go to Home
+        <div className="grid sm:grid-cols-3 gap-3 mt-7">
+          <Link to="/study-material" className="btn-primary">Open Notes</Link>
+          <Link to="/quizzes" className="btn-outline-ink">Take a Quiz</Link>
+          <Link to="/test-series" className="btn-outline-ink">View Tests</Link>
+        </div>
+        <Link to="/" className="inline-flex mt-6 text-sm font-bold" style={{ color: "var(--gold)" }}>
+          Back to home
         </Link>
       </div>
     </div>

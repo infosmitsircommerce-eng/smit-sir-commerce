@@ -4,10 +4,9 @@ import {
   BookOpen,
   Brain,
   ChevronRight,
-  ListChecks,
   GraduationCap,
-  MessageCircle,
   Search,
+  Wrench,
 } from "lucide-react";
 import { MenuToggleIcon } from "./menu-toggle-icon";
 import { useAuth } from "../../context/AuthContext";
@@ -15,14 +14,13 @@ import { isLightRoute } from "../../lib/theme";
 
 const groups = [
   {
-    title: "Study Material",
+    title: "Start Here",
     icon: BookOpen,
     links: [
-      { label: "All Study Material", path: "/study-material" },
-      { label: "GSEB Class 12 Economics", path: "/study-material?board=GSEB" },
+      { label: "Notes & PDFs", path: "/study-material" },
+      { label: "Chapter Quizzes", path: "/quizzes" },
+      { label: "Test Series", path: "/test-series" },
       { label: "CBSE Notes", path: "/cbse-notes" },
-      { label: "CBSE PYQ & Sample Papers", path: "/cbse-pyq" },
-      { label: "Study Toolkit", path: "/study-tools" },
     ],
   },
   {
@@ -32,42 +30,30 @@ const groups = [
       { label: "Free Board Diagnostic", path: "/board-exam-diagnostic" },
       { label: "Daily Practice", path: "/daily-practice" },
       { label: "CBSE Chapter Practice", path: "/cbse-practice" },
-      { label: "Test Series", path: "/test-series" },
-      { label: "Quizzes", path: "/quizzes" },
       { label: "Flashcards", path: "/flashcards" },
-      { label: "Ask AI Doubt", path: "/ask" },
-    ],
-  },
-  {
-    title: "Quizzes & Tools",
-    icon: ListChecks,
-    links: [
-      { label: "Quizzes", path: "/quizzes" },
-      { label: "Commerce Tools", path: "/tools" },
       { label: "Study Coach", path: "/study-coach" },
-      { label: "Learning Insights", path: "/learning-insights" },
     ],
   },
   {
-    title: "Help",
-    icon: MessageCircle,
+    title: "Tools & Support",
+    icon: Wrench,
     links: [
-      { label: "Services for Teachers", path: "/services-for-teachers" },
+      { label: "Commerce Tools", path: "/tools" },
+      { label: "Study Toolkit", path: "/study-tools" },
+      { label: "Ask AI Doubt", path: "/ask" },
+      { label: "Learning Insights", path: "/learning-insights" },
       { label: "Contact Smit Sir", path: "/contact" },
+    ],
+  },
+  {
+    title: "Classes",
+    icon: GraduationCap,
+    links: [
       { label: "Courses", path: "/courses" },
       { label: "Online Batch", path: "/online-batch" },
       { label: "Offline Batch", path: "/offline-batch" },
       { label: "Live Classes", path: "/live-classes" },
-    ],
-  },
-  {
-    title: "College & Exams",
-    icon: GraduationCap,
-    links: [
-      { label: "All Commerce Learning", path: "/commerce-learning" },
-      { label: "College Commerce", path: "/college-commerce" },
-      { label: "UGC NET Commerce", path: "/ugc-net-commerce" },
-      { label: "GSET Commerce", path: "/gset-commerce" },
+      { label: "Services for Teachers", path: "/services-for-teachers" },
     ],
   },
 ];
@@ -230,10 +216,10 @@ export default function MobileHeader() {
                   </div>
                   <div className="min-w-0">
                     <div className="text-sm font-black">
-                      Open Free Study Material
+                      Open Student Library
                     </div>
                     <div className="text-[11px] mt-0.5 opacity-80">
-                      Notes, PDFs, practice and tools.
+                      Notes, quizzes and test series.
                     </div>
                   </div>
                 </div>

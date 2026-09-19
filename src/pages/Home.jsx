@@ -31,50 +31,15 @@ function DeferredHomeContent() {
 export default function Home() {
   const structuredData = {
     "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": "https://www.smitsircommerce.in/#website",
-        url: "https://www.smitsircommerce.in/",
-        name: "Smit Sir Commerce",
-        description:
-          "Free Commerce learning website for Class 11 and 12 students with CBSE and GSEB notes, PDFs, practice tools and chapter-wise Economics quizzes.",
-        inLanguage: "en-IN",
-        publisher: { "@id": "https://www.smitsircommerce.in/#organization" },
-      },
-      {
-        "@type": "EducationalOrganization",
-        "@id": "https://www.smitsircommerce.in/#organization",
-        name: "Smit Sir Commerce",
-        url: "https://www.smitsircommerce.in/",
-        areaServed: ["India", "Mehsana, Gujarat"],
-        description:
-          "Commerce learning platform created by Smit Thaker with free study material, Economics notes, Business Studies support, Accountancy resources, practice tools and quizzes for students.",
-        knowsAbout: [
-          "Commerce education",
-          "CBSE Commerce",
-          "GSEB Economics",
-          "Class 11 Commerce",
-          "Class 12 Commerce",
-          "Economics",
-          "Business Studies",
-          "Accountancy",
-          "Commerce study material",
-          "Economics quizzes",
-        ],
-      },
-      {
-        "@type": "WebPage",
-        "@id": "https://www.smitsircommerce.in/#home",
-        url: "https://www.smitsircommerce.in/",
-        name: "Free Commerce Study Material, Notes, PDFs, Practice and Quizzes",
-        description:
-          "Homepage for Smit Sir Commerce: free Commerce notes, CBSE and GSEB study material, PDFs, practice tools and chapter-wise quizzes for students.",
-        isPartOf: { "@id": "https://www.smitsircommerce.in/#website" },
-        about: { "@id": "https://www.smitsircommerce.in/#organization" },
-        inLanguage: "en-IN",
-      },
-    ],
+    "@type": "WebPage",
+    "@id": "https://www.smitsircommerce.in/#home",
+    url: "https://www.smitsircommerce.in/",
+    name: "Free Commerce Study Material, Notes, PDFs, Practice and Quizzes",
+    description:
+      "Homepage for Smit Sir Commerce: free Commerce notes, CBSE and GSEB study material, PDFs, practice tools and chapter-wise quizzes for students.",
+    isPartOf: { "@id": "https://www.smitsircommerce.in/#website" },
+    about: { "@id": "https://www.smitsircommerce.in/#organization" },
+    inLanguage: "en-IN",
   };
 
   return (

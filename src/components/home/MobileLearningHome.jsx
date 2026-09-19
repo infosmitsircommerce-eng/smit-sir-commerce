@@ -24,15 +24,15 @@ import { readStudentPreferences, studyPath } from "../../lib/studentPreferences"
 import { trackEvent } from "../../lib/analytics";
 
 const QUICK_ACTIONS = [
-  { label: "Commerce Hub", icon: Store, to: "/commerce-city", tone: "green" },
-  { label: "Exam Tomorrow", icon: Flame, to: "/exam-tomorrow", tone: "coral" },
   { label: "Study Notes", icon: FileText, to: "/study-material", tone: "gold" },
   { label: "Quizzes", icon: FileQuestion, to: "/quizzes", tone: "violet" },
-  { label: "Premium Library", icon: LockKeyhole, to: "/premium", tone: "premium", featured: true, status: "Locked master PDFs · Test Series · Sample-paper practice · MCQs · more" },
   { label: "Test Series", icon: BarChart3, to: "/test-series", tone: "blue" },
+  { label: "Exam Tomorrow", icon: Flame, to: "/exam-tomorrow", tone: "coral" },
   { label: "Daily Mission", icon: CalendarDays, to: "/study-coach", tone: "green" },
   { label: "Study Tools", icon: Wrench, to: "/tools", tone: "teal" },
+  { label: "Commerce Hub", icon: Store, to: "/commerce-city", tone: "green" },
   { label: "Board Boosters", icon: Rocket, to: "/board-booster-packs", tone: "coral" },
+  { label: "Premium Library", icon: LockKeyhole, to: "/premium", tone: "premium", featured: true, status: "Master PDFs · Test Series · Sample papers · MCQs · more" },
 ];
 
 function readArray(key) {

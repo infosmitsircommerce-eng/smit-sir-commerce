@@ -73,6 +73,11 @@ function esc(value) {
     .replaceAll("'", "&#039;");
 }
 
+function withSiteName(title) {
+  const clean = title.replace(/\s*[|—–-]\s*Smit Sir Commerce$/i, "").trim();
+  return clean.toLowerCase().includes(SITE.toLowerCase()) ? clean : `${clean} | ${SITE}`;
+}
+
 function removeRouteMeta(html) {
   return html
     .replace(/<meta[^>]+name=["']description["'][^>]*>/gi, "")
@@ -131,7 +136,7 @@ function buildSchema(page) {
 
 for (const page of pages) {
   const canonical = `${BASE}${page.route}`;
-  const fullTitle = `${page.title} | ${SITE}`;
+  const fullTitle = withSiteName(page.title);
   const meta = `<meta name="description" content="${esc(page.description)}"><meta name="robots" content="${robots}"><meta name="googlebot" content="${robots}"><link rel="canonical" href="${canonical}"><meta property="og:url" content="${canonical}"><meta property="og:description" content="${esc(page.description)}"><meta name="twitter:description" content="${esc(page.description)}"><script type="application/ld+json">${JSON.stringify(buildSchema(page))}</script>`;
 
   for (const file of page.files) {

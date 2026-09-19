@@ -70,6 +70,21 @@ const schemaTag = `<script type="application/ld+json" data-brand-authority="offi
 const targets = ['index.html', 'about.html', join('about', 'index.html'), 'contact.html', join('contact', 'index.html')];
 
 function patchHead(html) {
+  html = html.replace(
+    /<script\s+type=["']application\/ld\+json["'](?![^>]*data-brand-authority)[^>]*>([\s\S]*?)<\/script>/gi,
+    (tag, json) => {
+      try {
+        const value = JSON.parse(json);
+        const nodes = Array.isArray(value?.['@graph']) ? value['@graph'] : [value];
+        const isDuplicateBrandGraph = nodes.some((node) =>
+          node?.['@id'] === `${BASE}/#website` || node?.['@id'] === `${BASE}/#organization`
+        );
+        return isDuplicateBrandGraph ? '' : tag;
+      } catch {
+        return tag;
+      }
+    },
+  );
   const oldSchema = /<script\s+type=["']application\/ld\+json["']\s+data-brand-authority=["']official["'][\s\S]*?<\/script>/i;
   html = oldSchema.test(html) ? html.replace(oldSchema, schemaTag) : html.replace('</head>', `${schemaTag}\n</head>`);
 

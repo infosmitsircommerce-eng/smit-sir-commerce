@@ -1,12 +1,12 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Home, BookOpen, CircleHelp, Crown, UserRound } from "lucide-react";
+import { Home, BookOpen, CircleHelp, ListChecks, UserRound } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 
 const BASE_TABS = [
   { path: "/", icon: Home, label: "Home" },
   { path: "/study-material", icon: BookOpen, label: "Notes" },
   { path: "/quizzes", icon: CircleHelp, label: "Quizzes" },
-  { path: "/board-booster-packs", icon: Crown, label: "Boosters" },
+  { path: "/test-series", icon: ListChecks, label: "Tests" },
 ];
 
 export default function MobileBottomBar() {

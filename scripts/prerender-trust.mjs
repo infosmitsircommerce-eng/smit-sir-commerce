@@ -73,9 +73,14 @@ function esc(value) {
   return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
 }
 
+function withSiteName(title) {
+  const clean = title.replace(/\s*[|—–-]\s*Smit Sir Commerce$/i, '').trim();
+  return clean.toLowerCase().includes(SITE.toLowerCase()) ? clean : `${clean} | ${SITE}`;
+}
+
 for (const page of pages) {
   const url = `${BASE}${page.path}`;
-  const fullTitle = `${page.title} | ${SITE}`;
+  const fullTitle = withSiteName(page.title);
   const robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
   const tags = `<meta name="description" content="${esc(page.description)}"><meta name="robots" content="${robots}"><meta name="googlebot" content="${robots}"><link rel="canonical" href="${url}"><link rel="alternate" type="text/plain" href="${BASE}/llms.txt" title="LLMS text summary for Smit Sir Commerce"><link rel="alternate" type="application/json" href="${BASE}/ai-summary.json" title="AI summary JSON for Smit Sir Commerce"><meta property="og:type" content="website"><meta property="og:site_name" content="${SITE}"><meta property="og:title" content="${esc(fullTitle)}"><meta property="og:description" content="${esc(page.description)}"><meta property="og:url" content="${url}"><meta property="og:image" content="${BASE}/og-image.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(fullTitle)}"><meta name="twitter:description" content="${esc(page.description)}"><meta name="twitter:image" content="${BASE}/og-image.jpg">`;
   const html = source
