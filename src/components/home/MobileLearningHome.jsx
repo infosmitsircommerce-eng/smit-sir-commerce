@@ -18,7 +18,7 @@ import { useAuth } from "../../context/AuthContext";
 import teacherPhoto from "../../assets/teacher-photo-opt.jpg";
 import MobileStudySetup from "./MobileStudySetup";
 import { readStudentPreferences, studyPath } from "../../lib/studentPreferences";
-import { trackEvent } from "../../lib/analytics";
+import { trackEvent } from "../../lib/analytics";\nimport { studyResourceStats } from "../../data/studyAccess";
 
 const QUICK_ACTIONS = [
   { label: "Study Notes", icon: FileText, to: "/study-material", tone: "gold" },
@@ -151,6 +151,26 @@ export default function MobileLearningHome() {
           />
           <button type="submit" aria-label="Search chapters"><SlidersHorizontal aria-hidden="true" /></button>
         </form>
+
+        <section aria-label="Published study resources" style={{ marginTop: 14, marginBottom: 16, border: '1px solid rgba(23,40,75,.10)', background: 'linear-gradient(135deg,#fffdf8,#f7f9ff)', borderRadius: 18, padding: 12, boxShadow: '0 10px 26px rgba(23,40,75,.06)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, marginBottom: 10 }}>
+            <div><small style={{ display: 'block', fontWeight: 900, letterSpacing: '.08em', color: '#8a6012' }}>LIVE STUDY LIBRARY</small><strong style={{ color: '#17284b', fontSize: 14 }}>Published study resources</strong></div>
+            <AppLink to="/study-material" style={{ fontSize: 12, fontWeight: 900, color: '#17284b', display: 'inline-flex', alignItems: 'center', gap: 4 }}>Browse all <ChevronRight size={14} /></AppLink>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,minmax(0,1fr))', gap: 8 }}>
+            {[
+              [studyResourceStats.notesTotal, 'Notes'],
+              [studyResourceStats.freeNotes, 'Free'],
+              [studyResourceStats.premiumNotes, 'Premium'],
+              [studyResourceStats.testsTotal, 'Tests'],
+            ].map(([value, label]) => (
+              <div key={label} style={{ minWidth: 0, padding: '10px 6px', borderRadius: 14, background: label === 'Premium' ? 'linear-gradient(135deg,#17284b,#293e70)' : '#fff', color: label === 'Premium' ? '#fff' : '#17284b', textAlign: 'center', border: label === 'Premium' ? '1px solid rgba(244,212,134,.35)' : '1px solid rgba(23,40,75,.08)' }}>
+                <strong style={{ display: 'block', fontSize: 20, lineHeight: 1 }}>{value}</strong>
+                <small style={{ display: 'block', marginTop: 5, fontSize: 9, fontWeight: 900, letterSpacing: '.04em', color: label === 'Premium' ? '#f4d486' : '#687386' }}>{label}</small>
+              </div>
+            ))}
+          </div>
+        </section>
 
         <div className="learning-home-primary-grid">
           <article className="mobile-focus-banner">
