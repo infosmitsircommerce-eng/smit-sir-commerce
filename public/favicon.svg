@@ -1,4 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <rect width="100" height="100" rx="20" fill="#1e1b5e"/>
-  <text y="70" x="50" font-size="60" text-anchor="middle" fill="#f59e0b" font-family="Arial" font-weight="bold">S</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Smit Sir Commerce">
+  <image width="48" height="48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAYFBMVEXIm0P+/v7GlTjTokQLFzDy59OuiEDn0qzewowABy7TrWUoKzNRRze7kUE0MzSDajwbIjJnVzl5YzvWtHKOcj2kgT/iyptEPTbcv4fjrUZdUDjt3sEAAAAAAAAAAAAAAADAODMYAAAAIHRSTlP/////////////////////////////////////AAAAAK/l1IMAAAF1SURBVHja1dbZcoQgEAXQDg0owyKomSX5//9M40RFB5R5S/rNqnuKRWyEjzcL/jYQxcoBMQArFg5iD+6MwUExdt2C4TA+kWsKmtM8CZEArAGXFXxX5KnEAq6vADNDNAto9wBRSqwHFDechz0pgSmutFZ7kge/8Q6g9zuSA0sc47J3JAOS+HOnNuQVxKWu8YnY4Gn5Ng/QKG7gsd2ah3VcBSyP4LYjQK85510BIH5GMiZroLgZiyBGaMrqSWJc0aLQHgCw3MWdIjLFv6TXIE/ANDHlKG5oQ73GMzCvxUz7XwXS01oJIoH3wPKssVOmDEBzmx51yQ3K21gGdDy69E0H1eM8vTyQXK9ng56SAQsfUFDO4vxx6DjA2SdqlO9lnIYM8zk9aQKU49o5zZVP11MGKIOjM+hvvcXKvkTzsXZ5dxnQVLVKtrZKUddbk+491HTvNgEVQzDc3EANOyEMxPaOE8gOa7kV12u3uQ+XQg2t+C+/DlX1A5ipFGbHa512AAAAAElFTkSuQmCC"/>
 </svg>

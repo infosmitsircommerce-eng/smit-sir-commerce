@@ -4,7 +4,6 @@ import {
   BookOpen,
   ChevronDown,
   ListChecks,
-  GraduationCap,
   LogOut,
   Search,
   User,
@@ -128,15 +127,15 @@ export default function Navbar() {
       <div className="page-container">
         <div className="flex items-center justify-between h-16 lg:h-20 gap-4">
           <Link to="/" className="flex items-center gap-3 group shrink-0">
-            <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform"
-              style={{
-                background: "linear-gradient(135deg, #C9A050, #B8872F)",
-                boxShadow: "0 4px 16px rgba(184,135,47,0.3)",
-              }}
-            >
-              <GraduationCap className="w-5 h-5" style={{ color: "#1E1812" }} />
-            </div>
+            <img
+              src="/favicon.svg"
+              alt=""
+              aria-hidden="true"
+              width="40"
+              height="40"
+              className="w-10 h-10 rounded-xl shrink-0 group-hover:scale-110 transition-transform"
+              style={{ boxShadow: "0 4px 16px rgba(184,135,47,0.24)" }}
+            />
             <div>
               <div
                 className="text-sm leading-tight"

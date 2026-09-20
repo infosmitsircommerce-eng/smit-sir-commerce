@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import {
   BookOpen,
   ChevronRight,
-  GraduationCap,
   Search,
   Wrench,
 } from "lucide-react";
@@ -75,16 +74,14 @@ export default function MobileHeader() {
           className="flex items-center gap-2.5 min-w-0"
           aria-label="Smit Sir Commerce home"
         >
-          <div
-            className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-            style={{ background: "linear-gradient(135deg, #C9A050, #B8872F)" }}
-          >
-            <GraduationCap
-              className="w-5 h-5"
-              style={{ color: "#1E1812" }}
-              strokeWidth={2.3}
-            />
-          </div>
+          <img
+            src="/favicon.svg"
+            alt=""
+            aria-hidden="true"
+            width="36"
+            height="36"
+            className="w-9 h-9 rounded-xl flex-shrink-0"
+          />
           <div className="min-w-0">
             <span
               className="font-black text-sm leading-none block truncate"
