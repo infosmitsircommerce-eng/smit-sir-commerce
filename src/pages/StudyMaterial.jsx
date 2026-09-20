@@ -1,11 +1,11 @@
 import { ArrowRight, BookOpen, CheckCircle2, Crown, FileText, ListChecks, Search } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import SEO from '../components/ui/SEO';
-import StudyAccessFinder from '../components/ui/StudyAccessFinder';
+import StudyAccessFinder from '../components/ui/StudyAccessFinder';\nimport { studyResourceStats } from '../data/studyAccess';
 
 const PATH = '/study-material';
-const TITLE = 'Free Commerce Notes PDF — CBSE & GSEB Class 11 and 12 | Smit Sir Commerce';
-const DESCRIPTION = 'Find free CBSE and GSEB Class 11 and 12 Commerce notes by board, class, subject and chapter. Open chapter notes, download available PDFs and continue learning.';
+const TITLE = 'Commerce Notes Library — Free & Premium CBSE/GSEB Class 11 and 12 | Smit Sir Commerce';
+const DESCRIPTION = 'Find free quick notes and detailed Premium Master notes for CBSE and GSEB Class 11 and 12 Commerce, organised by board, class, subject and chapter.';
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -55,10 +55,10 @@ export default function StudyMaterial() {
             <div>
               <span className="eyebrow">YOUR COMMERCE LIBRARY</span>
               <h1>{downloadsOnly ? 'Choose and download your chapter PDF.' : 'Find the right chapter without the searching.'}</h1>
-              <p>Choose your board, class and subject. Only matching chapters appear, so your notes are always a few taps away.</p>
+              <p>Choose board, class and subject. Free Quick Notes and Detailed Premium Masters are labelled separately, so students can understand exactly what is available.</p>
               <div className="ssc-library-hero-actions">
                 <a href="#chapter-finder" className="btn-primary"><Search className="w-4 h-4" /> Find my chapter</a>
-                <Link to="/study-material?board=CBSE&class=12&subject=Accountancy#chapter-finder" className="btn-outline-ink"><BookOpen className="w-4 h-4" /> CBSE 12 Accounts</Link>
+                <Link to="/study-material?board=CBSE&class=12&subject=Accountancy#chapter-finder" className="btn-outline-ink"><BookOpen className="w-4 h-4" /> CBSE 12 Accounts</Link>\n                <Link to="/premium/cbse-12-business-studies" className="btn-outline-ink"><Crown className="w-4 h-4" /> BST Premium Masters</Link>
                 <Link to="/study-material?board=GSEB&class=12&subject=CCSP#chapter-finder" className="btn-outline-ink"><FileText className="w-4 h-4" /> GSEB 12 CCSP</Link>
                 <Link to="/gseb-class-11-accountancy-notes" className="btn-outline-ink"><BookOpen className="w-4 h-4" /> GSEB 11 Accounts</Link>
               </div>
@@ -89,6 +89,37 @@ export default function StudyMaterial() {
             <li key={title}><span>{number}</span><div><strong>{title}</strong><small>{detail}</small></div></li>
           ))}
         </ol>
+
+        {!downloadsOnly && (
+          <section aria-labelledby="library-access-map" style={{ margin: '18px 0 24px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(150px,1fr))', gap: 12 }}>
+              <div className="card-paper p-4" style={{ background: '#fff' }}>
+                <small style={{ fontWeight: 900, letterSpacing: '.08em', color: '#687386' }}>PUBLISHED NOTES</small>
+                <strong style={{ display: 'block', fontSize: 30, color: '#17284b', marginTop: 5 }}>{studyResourceStats.notesTotal}</strong>
+                <span style={{ fontSize: 12, color: '#687386' }}>Across boards, classes and subjects</span>
+              </div>
+              <div className="card-paper p-4" style={{ background: 'linear-gradient(135deg,#effaf2,#fff)' }}>
+                <small style={{ fontWeight: 900, letterSpacing: '.08em', color: '#21663a' }}>FREE NOTES</small>
+                <strong style={{ display: 'block', fontSize: 30, color: '#174c2b', marginTop: 5 }}>{studyResourceStats.freeNotes}</strong>
+                <span style={{ fontSize: 12, color: '#4f6f59' }}>Open PDFs and quick chapter revision</span>
+              </div>
+              <div className="card-paper p-4" style={{ background: 'linear-gradient(135deg,#17284b,#293e70)', color: '#fff', border: '1px solid rgba(244,212,134,.38)' }}>
+                <small style={{ fontWeight: 900, letterSpacing: '.08em', color: '#f4d486' }}>PREMIUM MASTERS</small>
+                <strong style={{ display: 'block', fontSize: 30, marginTop: 5 }}>{studyResourceStats.premiumNotes}</strong>
+                <span style={{ fontSize: 12, color: '#d9e0ef' }}>Detailed protected resources for Premium students</span>
+              </div>
+              <Link to="/premium/cbse-12-business-studies" className="card-paper p-4" style={{ background: 'linear-gradient(135deg,#fff6d8,#fff)', textDecoration: 'none' }}>
+                <small style={{ fontWeight: 900, letterSpacing: '.08em', color: '#8a6012' }}>NEW · CBSE 12 BST</small>
+                <strong id="library-access-map" style={{ display: 'block', fontSize: 18, lineHeight: 1.25, color: '#17284b', marginTop: 7 }}>783-page Detailed Premium Master Library</strong>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, marginTop: 8, fontSize: 12, fontWeight: 900, color: '#8a6012' }}>Explore 12 chapters <ArrowRight size={14} /></span>
+              </Link>
+            </div>
+            <div className="mt-4 rounded-2xl px-4 py-3" style={{ background: '#f8f4e9', border: '1px solid #eadfca' }}>
+              <strong style={{ color: '#17284b' }}>FREE + PREMIUM, CLEARLY SEPARATED:</strong>
+              <span style={{ marginLeft: 6, color: '#687386', fontSize: 13 }}>Older shorter BST PDFs remain available as “FREE Quick Notes”. The new long-form resources appear as “Detailed Premium Master”, so students do not confuse the two editions.</span>
+            </div>
+          </section>
+        )}
 
         <section id="chapter-finder" className="ssc-library-finder-wrap">
           <StudyAccessFinder defaultKind="Notes" pdfOnly={downloadsOnly} />
