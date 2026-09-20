@@ -5,7 +5,7 @@ import Layout from "../components/layout/Layout";
 const Premium = lazy(() => import("../pages/Premium"));
 const PremiumEconomics = lazy(() => import("../pages/PremiumEconomics"));
 const PremiumAccountancy = lazy(() => import("../pages/PremiumAccountancy"));
-const Cbse12AccountancyPremium = lazy(() => import("../pages/Cbse12AccountancyPremium"));
+const Cbse12AccountancyPremium = lazy(() => import("../pages/Cbse12AccountancyPremium"));\nconst Cbse12BusinessStudiesPremium = lazy(() => import("../pages/Cbse12BusinessStudiesPremium"));
 const MyPurchases = lazy(() => import("../pages/MyPurchases"));
 const PurchaseStatus = lazy(() => import("../pages/PurchaseStatus"));
 const QuizChapter = lazy(() => import("../pages/QuizChapter"));
@@ -368,6 +368,10 @@ function AnimatedRoutes() {
           <Route
             path="/premium/cbse-12-accountancy"
             element={withPage(<Cbse12AccountancyPremium />)}
+          />
+          <Route
+            path="/premium/cbse-12-business-studies"
+            element={withPage(<Cbse12BusinessStudiesPremium />)}
           />
           <Route
             path="/economics-quizzes/:classSlug/:chapterSlug"
