@@ -847,6 +847,10 @@
     {
       "source": "/premium/cbse-12-accountancy",
       "destination": "/"
+    },
+    {
+      "source": "/premium/cbse-12-business-studies",
+      "destination": "/"
     }
   ]
 }
