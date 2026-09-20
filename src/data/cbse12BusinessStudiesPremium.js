@@ -1,0 +1,108 @@
+export const CBSE_12_BST_PRODUCT_ID = 'cbse-12-business-studies';
+
+export const cbse12BusinessStudiesPremiumMaterials = [
+  {
+    resourceKey: 'chapter-1',
+    chapterNumber: 1,
+    title: 'Nature and Significance of Management',
+    pages: 64,
+    accent: '#7c3aed',
+    freeQuickNotes: '/materials/cbse/class-12/business-studies/chapter-01-nature-and-significance-of-management.pdf',
+    freeQuickPages: 46,
+    highlights: ['Management from zero to board-answer level', 'Efficiency, effectiveness, objectives and importance', 'Levels, functions and coordination', 'MCQs, cases, model answers and exam-writing'],
+  },
+  {
+    resourceKey: 'chapter-2',
+    chapterNumber: 2,
+    title: 'Principles of Management',
+    pages: 71,
+    accent: '#d97706',
+    freeQuickNotes: '/materials/cbse/class-12/business-studies/chapter-02-principles-of-management.pdf',
+    freeQuickPages: 50,
+    highlights: ['Fayol’s 14 principles with case clues', 'Taylor, mental revolution and scientific management', 'Functional foremanship and techniques', '60 MCQs, cases, comparisons and board writing'],
+  },
+  {
+    resourceKey: 'chapter-3',
+    chapterNumber: 3,
+    title: 'Business Environment',
+    pages: 65,
+    accent: '#0f766e',
+    highlights: ['Features, importance and dimensions', 'Economic environment and policy changes', 'Liberalisation, privatisation and globalisation', 'Case-study decoding, MCQs and model answers'],
+  },
+  {
+    resourceKey: 'chapter-4',
+    chapterNumber: 4,
+    title: 'Planning',
+    pages: 63,
+    accent: '#6d28d9',
+    highlights: ['Meaning, features, importance and limitations', 'Complete planning process', 'Objectives, strategy, policy, procedure and budgets', 'Case clues, answer writing and exam practice'],
+  },
+  {
+    resourceKey: 'chapter-5',
+    chapterNumber: 5,
+    title: 'Organising',
+    pages: 64,
+    accent: '#0891b2',
+    highlights: ['Organising process and importance', 'Functional vs divisional structures', 'Formal vs informal organisation', 'Delegation, decentralisation and case practice'],
+  },
+  {
+    resourceKey: 'chapter-6',
+    chapterNumber: 6,
+    title: 'Staffing',
+    pages: 64,
+    accent: '#16a34a',
+    highlights: ['Staffing process and HR logic', 'Recruitment sources and selection process', 'Training, development and methods', 'Exam-writing, cases, MCQs and HOTS'],
+  },
+  {
+    resourceKey: 'chapter-7',
+    chapterNumber: 7,
+    title: 'Directing',
+    pages: 64,
+    accent: '#ea580c',
+    highlights: ['Supervision, motivation and leadership', 'Financial and non-financial incentives', 'Communication process and barriers', 'Deep cases, clue words and board answers'],
+  },
+  {
+    resourceKey: 'chapter-8',
+    chapterNumber: 8,
+    title: 'Controlling',
+    pages: 62,
+    accent: '#dc2626',
+    highlights: ['Meaning, importance and limitations', 'Planning-controlling relationship', 'Complete controlling process', 'Management by exception, cases and exam mastery'],
+  },
+  {
+    resourceKey: 'chapter-9',
+    chapterNumber: 9,
+    title: 'Financial Management',
+    pages: 65,
+    accent: '#4338ca',
+    highlights: ['Investment, financing and dividend decisions', 'Financial planning and capital structure', 'Fixed and working capital factors', 'Application cases, MCQs and answer frameworks'],
+  },
+  {
+    resourceKey: 'chapter-10',
+    chapterNumber: 10,
+    title: 'Financial Markets',
+    pages: 64,
+    accent: '#0284c7',
+    highlights: ['Money market and capital market', 'Primary vs secondary market', 'Stock exchange, trading and depository system', 'SEBI, instruments, cases and board practice'],
+  },
+  {
+    resourceKey: 'chapter-11',
+    chapterNumber: 11,
+    title: 'Marketing Management',
+    pages: 67,
+    accent: '#db2777',
+    highlights: ['Marketing concepts and philosophies', 'Product, price, place and promotion', 'Branding, packaging, labelling and distribution', 'Promotion mix cases and exam-writing'],
+  },
+  {
+    resourceKey: 'chapter-12',
+    chapterNumber: 12,
+    title: 'Consumer Protection',
+    pages: 70,
+    accent: '#0d9488',
+    highlights: ['Consumer rights and responsibilities', 'Consumer Protection Act framework', 'Redressal machinery and reliefs', 'Case-study identification, MCQs and model answers'],
+  },
+];
+
+export const CBSE_12_BST_TOTAL_PAGES = cbse12BusinessStudiesPremiumMaterials.reduce((sum, item) => sum + item.pages, 0);
+export const CBSE_12_BST_FREE_PREVIEWS = cbse12BusinessStudiesPremiumMaterials.filter((item) => item.freeQuickNotes).length;
+export const CBSE_12_BST_PREMIUM_CHAPTERS = cbse12BusinessStudiesPremiumMaterials.length;
