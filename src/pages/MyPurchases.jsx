@@ -111,14 +111,14 @@ export default function MyPurchases() {
         <div>
           <span className="eyebrow">Private student library</span>
           <h1 className="text-4xl sm:text-5xl mt-3" style={{ fontFamily: 'var(--font-serif)' }}>My Purchases</h1>
-          <p className="mt-3 max-w-2xl leading-7" style={{ color: 'var(--muted)' }}>Focused ₹199 purchases unlock only the matching subject pack. The ₹699 Commerce Mega Premium purchase unlocks the full current Premium ecosystem.</p>
+          <p className="mt-3 max-w-2xl leading-7" style={{ color: 'var(--muted)' }}>Focused ₹199 purchases unlock only the matching subject pack. The ₹999 Complete Commerce purchase unlocks the full current Premium ecosystem.</p>
         </div>
         <button onClick={() => void load()} disabled={busy} className="btn-secondary inline-flex items-center justify-center gap-2"><RefreshCw className={`w-4 h-4 ${busy ? 'animate-spin' : ''}`} /> Refresh</button>
       </div>
 
       {hasMegaPremium ? (
         <div className="card-paper p-5 mt-7" style={{ borderColor: 'rgba(184,135,47,.35)', background: 'linear-gradient(135deg,#fffaf0,#fff3c8)' }}>
-          <div className="flex gap-3"><CheckCircle2 className="w-6 h-6 shrink-0" style={{ color: '#21663a' }} /><div><div className="font-black">Commerce Mega Premium is active</div><p className="text-sm mt-1 leading-6" style={{ color: 'var(--muted)' }}>Your ₹699 full-access purchase unlocks the current Premium libraries, protected PDFs and Premium-gated practice tools.</p><Link to="/premium" className="font-black inline-flex mt-2" style={{ color: 'var(--gold)' }}>Open Premium home →</Link></div></div>
+          <div className="flex gap-3"><CheckCircle2 className="w-6 h-6 shrink-0" style={{ color: '#21663a' }} /><div><div className="font-black">Complete Commerce is active</div><p className="text-sm mt-1 leading-6" style={{ color: 'var(--muted)' }}>Your ₹999 full-access purchase unlocks the current Premium libraries, protected PDFs and Premium-gated practice tools.</p><Link to="/premium" className="font-black inline-flex mt-2" style={{ color: 'var(--gold)' }}>Open Premium home →</Link></div></div>
         </div>
       ) : legacyPremium || isPremium ? (
         <div className="card-paper p-5 mt-7" style={{ borderColor: 'rgba(184,135,47,.35)' }}>
@@ -136,7 +136,7 @@ export default function MyPurchases() {
             <CreditCard className="w-8 h-8 mx-auto" style={{ color: 'var(--gold)' }} />
             <h3 className="text-xl font-black mt-3">No tracked purchase yet</h3>
             <p className="mt-2" style={{ color: 'var(--muted)' }}>Choose full Mega Premium access or preview a focused subject pack first.</p>
-            <div className="flex flex-wrap justify-center gap-3 mt-5"><Link to="/premium" className="btn-primary">See ₹699 Mega Premium</Link><Link to="/board-booster-packs" className="btn-secondary">Browse ₹199 packs</Link></div>
+            <div className="flex flex-wrap justify-center gap-3 mt-5"><Link to="/premium" className="btn-primary">See ₹999 Complete Commerce</Link><Link to="/board-booster-packs" className="btn-secondary">Browse ₹199 packs</Link></div>
           </div>
         ) : (
           <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4 mt-5">
