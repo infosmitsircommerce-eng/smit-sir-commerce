@@ -17,8 +17,8 @@ export const genuineTrafficPages = [
     links: [
       { label: 'Open GSEB Economics hub', href: '/gseb-class-12-economics.html' },
       { label: 'Open important questions', href: '/gseb-class-12-economics-important-questions.html' },
-      { label: 'Open Chapter 3 Money and Inflation notes', href: '/gseb-class-12-economics-chapter-3-money-inflation-notes.html' },
-      { label: 'Open Chapter 4 Banking notes', href: '/gseb-class-12-economics-chapter-4-banking-monetary-policy-notes.html' },
+      { label: 'Open Chapter 3 Money and Inflation notes', href: '/gseb/class-12/economics/money-and-inflation-notes' },
+      { label: 'Open Chapter 4 Banking notes', href: '/gseb/class-12/economics/banking-and-monetary-policy-notes' },
       { label: 'Open study pack', href: '/free-class-12-commerce-study-pack.html' },
     ],
     faq: [
@@ -42,9 +42,9 @@ export const genuineTrafficPages = [
     ],
     links: [
       { label: 'Open full GSEB Economics hub', href: '/gseb-class-12-economics.html' },
-      { label: 'Chapter 2 notes', href: '/gseb-class-12-economics-chapter-2-growth-development-notes.html' },
-      { label: 'Chapter 3 notes', href: '/gseb-class-12-economics-chapter-3-money-inflation-notes.html' },
-      { label: 'Chapter 4 notes', href: '/gseb-class-12-economics-chapter-4-banking-monetary-policy-notes.html' },
+      { label: 'Chapter 2 notes', href: '/gseb/class-12/economics/indicators-of-growth-and-development-notes' },
+      { label: 'Chapter 3 notes', href: '/gseb/class-12/economics/money-and-inflation-notes' },
+      { label: 'Chapter 4 notes', href: '/gseb/class-12/economics/banking-and-monetary-policy-notes' },
       { label: 'Important questions', href: '/gseb-class-12-economics-important-questions.html' },
     ],
     faq: [
@@ -181,7 +181,7 @@ export const genuineTrafficPages = [
     ],
   },
   {
-    path: '/economics-diagrams-class-12.html',
+    path: '/economics-diagrams-class-12',
     title: 'Economics Diagrams Class 12 — Revision Method for Board Answers',
     description: 'Class 12 Economics diagram revision method for students who need clearer presentation, labelling and explanation in board-style answers.',
     h1: 'Economics Diagrams Class 12',
