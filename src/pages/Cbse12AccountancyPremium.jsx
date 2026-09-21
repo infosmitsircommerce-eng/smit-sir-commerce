@@ -84,9 +84,9 @@ function ChapterCard({ chapter, busy, selected, onOpen }) {
       <h3 className="text-xl sm:text-2xl mt-4" style={{ fontFamily: 'var(--font-serif)' }}>{chapter.title}</h3>
       <p className="text-sm font-bold mt-2" style={{ color: 'var(--gold)' }}>{chapter.pages} pages</p>
       <div className="space-y-2 mt-4">{chapter.highlights.map((item) => <div key={item} className="flex gap-2 text-sm leading-5"><Check className="w-4 h-4 shrink-0 mt-0.5" style={{ color: '#247447' }} /><span>{item}</span></div>)}</div>
-      <button type="button" onClick={() => onOpen(chapter)} disabled={Boolean(busy)} className="btn-primary w-full mt-5 inline-flex items-center justify-center gap-2">
-        {busy === chapter.resourceKey ? <><Loader2 className="w-4 h-4 animate-spin" /> Checking access…</> : <><Eye className="w-4 h-4" /> Open / check access</>}
-      </button>
+      <div className="w-full mt-5 rounded-xl px-4 py-3 text-center text-sm font-black" style={{ background: '#fff3cd', color: '#805a14', border: '1px solid #ead39a' }}>
+        Premium Master rebuild in progress
+      </div>
     </article>
   );
 }
@@ -187,7 +187,7 @@ export default function Cbse12AccountancyPremium() {
     <main style={{ background: '#f7f4ec' }}>
       <SEO
         title="CBSE Class 12 Accountancy Premium Notes — Parts I & II"
-        description="Browse the complete Smit Sir Commerce CBSE Class 12 Accountancy Premium library: 10 chapter books across Parts I and II, with 521 pages of concepts, numericals, formats, MCQs, cases and exam practice."
+        description="Preview the new CBSE Class 12 Accountancy Premium Master standard with the full Financial Ratios sample. The protected chapter catalogue is being upgraded and synced chapter by chapter."
         path={PATH}
         structuredData={{
           '@context': 'https://schema.org',
@@ -207,15 +207,15 @@ export default function Cbse12AccountancyPremium() {
             <div>
               <span className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-black tracking-wider" style={{ background: '#f1e6c8', color: '#172033' }}><LockKeyhole className="w-4 h-4" /> PREMIUM MASTER LIBRARY</span>
               <h1 className="text-4xl sm:text-6xl mt-5 leading-[1.03]" style={{ fontFamily: 'var(--font-serif)', letterSpacing: '-.04em' }}>CBSE Class 12 Accountancy<br/><span style={{ color: '#f1d28a' }}>Parts I & II</span></h1>
-              <p className="text-base sm:text-lg leading-8 mt-5 max-w-3xl" style={{ color: '#d7deea' }}>All 10 Smit Sir Commerce master chapters in one organised library — partnership accounts, company accounts and financial-statement analysis. Find the exact chapter first; unlock only when you need the protected PDF.</p>
+              <p className="text-base sm:text-lg leading-8 mt-5 max-w-3xl" style={{ color: '#d7deea' }}>The new Premium Master standard is now live through the full Financial Ratios sample. The remaining protected Accountancy catalogue is being rebuilt and synced chapter by chapter before we present each PDF as ready.</p>
               <div className="flex flex-wrap gap-3 mt-7"><a href="#part-1" className="btn-primary inline-flex items-center gap-2">Browse all chapters <ArrowRight className="w-4 h-4" /></a><Link to="/premium" className="btn-secondary">Premium home</Link></div>
             </div>
             <aside className="rounded-3xl p-6 sm:p-7" style={{ background: '#fffdf8', color: '#172033', border: '1px solid #dfd4bc', boxShadow: '0 22px 55px rgba(0,0,0,.18)' }}>
               <div className="flex items-center justify-between"><div className="w-13 h-13 rounded-2xl flex items-center justify-center" style={{ width: 52, height: 52, background: '#ebe5d8' }}><LibraryBig className="w-6 h-6" /></div><ShieldCheck className="w-7 h-7" style={{ color: '#247447' }} /></div>
               <span className="text-xs font-black tracking-[.15em] mt-5 block" style={{ color: '#80601e' }}>COMPLETE CLASS 12 LIBRARY</span>
-              <div className="text-4xl font-black mt-2">{CBSE_12_ACCOUNTANCY_TOTAL_PAGES} pages</div>
-              <p className="text-sm mt-2 leading-6" style={{ color: '#626b78' }}>10 detailed chapter books across both Accountancy parts.</p>
-              <div className="grid grid-cols-2 gap-3 mt-5">{cbse12AccountancyPartStats.map((part) => <div key={part.part} className="rounded-xl p-4" style={{ background: '#f7f3e9' }}><strong className="text-2xl">{part.chapters}</strong><span className="block text-xs mt-1">Part {part.part} chapters · {part.pages}p</span></div>)}</div>
+              <div className="text-4xl font-black mt-2">105-page sample live</div>
+              <p className="text-sm mt-2 leading-6" style={{ color: '#626b78' }}>Financial Ratios sets the new visual benchmark. Protected chapters below are upgraded only when their actual PDFs are ready.</p>
+              <div className="grid grid-cols-2 gap-3 mt-5"><div className="rounded-xl p-4" style={{ background: '#f7f3e9' }}><strong className="text-2xl">1</strong><span className="block text-xs mt-1">full quality sample live</span></div><div className="rounded-xl p-4" style={{ background: '#f7f3e9' }}><strong className="text-2xl">2</strong><span className="block text-xs mt-1">Accountancy parts in rebuild queue</span></div></div>
             </aside>
           </div>
         </div>
@@ -226,7 +226,7 @@ export default function Cbse12AccountancyPremium() {
       <section className="page-container max-w-6xl py-9">
         <div className="card-paper p-6 sm:p-8">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-            <div><span className="eyebrow">WHAT IS INSIDE</span><h2 className="text-3xl sm:text-4xl mt-3" style={{ fontFamily: 'var(--font-serif)' }}>Teacher-style Accountancy, organised for revision.</h2><p className="mt-3 leading-7 max-w-3xl" style={{ color: 'var(--muted)' }}>These are not hidden mystery files. Students can see every chapter, page count and coverage before opening Premium. Across the collection you get concepts, accounting logic, proper formats, worked numericals, journal-entry treatment, MCQs, cases and exam practice.</p></div>
+            <div><span className="eyebrow">WHAT IS INSIDE</span><h2 className="text-3xl sm:text-4xl mt-3" style={{ fontFamily: 'var(--font-serif)' }}>Accountancy Premium is being rebuilt around one quality bar.</h2><p className="mt-3 leading-7 max-w-3xl" style={{ color: 'var(--muted)' }}>The Financial Ratios sample shows the standard we are committing to: large readable type, visual logic, worked numericals, teacher POV and exam-focused presentation. Older catalogue entries are not labelled ready until the matching protected PDF is actually synced.</p></div>
             <Link to="/study-material?board=CBSE&class=12&subject=Accountancy" className="btn-secondary shrink-0">Find from Study Material</Link>
           </div>
         </div>
@@ -253,7 +253,7 @@ export default function Cbse12AccountancyPremium() {
       <section className="page-container max-w-6xl py-10 pb-20">
         <div className="rounded-3xl p-7 sm:p-9" style={{ background: '#13213d', color: '#fff', border: '1px solid #34415a' }}>
           <div className="grid lg:grid-cols-[1fr_auto] gap-6 items-center">
-            <div><FileText className="w-7 h-7" style={{ color: '#f1d28a' }} /><h2 className="text-3xl sm:text-4xl mt-4" style={{ fontFamily: 'var(--font-serif)' }}>See the library before you unlock it.</h2><p className="mt-3 max-w-2xl leading-7" style={{ color: '#d7deea' }}>The chapter names and coverage stay visible. Premium controls the protected PDFs, not your ability to inspect what you are getting.</p></div>
+            <div><FileText className="w-7 h-7" style={{ color: '#f1d28a' }} /><h2 className="text-3xl sm:text-4xl mt-4" style={{ fontFamily: 'var(--font-serif)' }}>See the library before you unlock it.</h2><p className="mt-3 max-w-2xl leading-7" style={{ color: '#d7deea' }}>The catalogue stays visible, but only synced files are treated as live Premium resources. Use the free Financial Ratios sample to judge the quality standard first.</p></div>
             <div className="flex flex-col gap-3">{!user ? <Link to={`/login?next=${encodeURIComponent(PATH)}`} className="btn-primary text-center">Sign in to check access</Link> : <Link to="/my-purchases" className="btn-primary text-center">Open My Purchases</Link>}<Link to="/premium" className="btn-secondary text-center">See full Premium</Link></div>
           </div>
         </div>
