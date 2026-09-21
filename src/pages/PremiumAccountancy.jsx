@@ -176,8 +176,8 @@ export default function PremiumAccountancy() {
   return (
     <main style={{ background: 'linear-gradient(180deg,#09152f 0,#111f3f 32%,#f7f4ec 32%,#f7f4ec 100%)' }}>
       <SEO
-        title="GSEB Class 11 Accountancy Part 1 Premium Book"
-        description="See exactly what is included in the GSEB English Medium Std. 11 Accountancy Part 1 Premium library: all 10 chapters, detailed accounting tables, numericals and revision resources."
+        title="GSEB Class 11 Accountancy Premium — Rebuild & Free Notes"
+        description="See the GSEB Class 11 Accountancy Premium catalogue and free concept notes. The protected numerical book is being rebuilt and synced before it is presented as live."
         path={PATH}
         structuredData={{
           '@context': 'https://schema.org',
@@ -196,16 +196,16 @@ export default function PremiumAccountancy() {
           <div>
             <span className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-black tracking-wider" style={{ background: '#f4cb61', color: '#18213c' }}><Crown className="w-4 h-4" /> PREMIUM COMPLETE EDITION</span>
             <h1 className="text-4xl sm:text-6xl mt-5 leading-[1.03]" style={{ fontFamily: 'var(--font-serif)', letterSpacing: '-.04em' }}>Std. 11 Accountancy<br/><span style={{ color: '#f3c84d' }}>Part 1 Premium Book</span></h1>
-            <p className="text-base sm:text-lg leading-8 mt-5 max-w-3xl" style={{ color: '#d8dfef' }}>GSEB English Medium. All 10 Part 1 chapters rebuilt for serious study: detailed accounting explanations, correct formats, tables, worked numericals, practice questions and revision.</p>
-            <div className="flex flex-wrap gap-3 mt-7"><a href="#premium-chapters" className="btn-primary inline-flex items-center gap-2">See all 10 chapters <ArrowRight className="w-4 h-4" /></a><button type="button" onClick={() => openResource({ ...gseb11AccountancyPremiumBook, isBook: true })} className="btn-secondary inline-flex items-center gap-2"><LibraryBig className="w-4 h-4" /> Open complete book</button></div>
+            <p className="text-base sm:text-lg leading-8 mt-5 max-w-3xl" style={{ color: '#d8dfef' }}>GSEB English Medium. The Part 1 Premium catalogue is mapped, but the protected numerical book is still being rebuilt and synced. Free concept notes remain available while the Premium files are prepared.</p>
+            <div className="flex flex-wrap gap-3 mt-7"><a href="#premium-chapters" className="btn-primary inline-flex items-center gap-2">See all 10 chapters <ArrowRight className="w-4 h-4" /></a><Link to="/gseb-class-11-accountancy-notes" className="btn-secondary inline-flex items-center gap-2"><LibraryBig className="w-4 h-4" /> Use free notes now</Link></div>
           </div>
 
           <aside className="rounded-3xl p-6 sm:p-7" style={{ background: 'linear-gradient(145deg,#fff9e7,#f7e6b4)', color: '#172033', boxShadow: '0 24px 70px rgba(0,0,0,.25)' }}>
             <div className="flex items-center justify-between"><div className="w-14 h-14 rounded-2xl flex items-center justify-center" style={{ background: '#17284b', color: '#f3c84d' }}><FileText className="w-7 h-7" /></div><BadgeCheck className="w-8 h-8" style={{ color: '#247447' }} /></div>
             <span className="text-xs font-black tracking-[.16em] mt-5 block" style={{ color: '#8a6012' }}>PART 1 • COMPLETE</span>
-            <div className="text-4xl font-black mt-2">720 pages</div>
-            <p className="text-sm mt-2 leading-6" style={{ color: '#5d6471' }}>One complete-book edition with cover and contents, plus chapter-wise access to all 10 detailed PDFs.</p>
-            <div className="grid grid-cols-2 gap-3 mt-5"><div className="rounded-xl bg-white/80 p-4"><strong className="text-2xl">10</strong><span className="block text-xs mt-1">complete chapters</span></div><div className="rounded-xl bg-white/80 p-4"><strong className="text-2xl">718</strong><span className="block text-xs mt-1">chapter pages</span></div></div>
+            <div className="text-4xl font-black mt-2">Rebuild in progress</div>
+            <p className="text-sm mt-2 leading-6" style={{ color: '#5d6471' }}>The chapter catalogue is visible for transparency. Protected PDFs will be activated only after the actual files are synced and verified.</p>
+            <div className="grid grid-cols-2 gap-3 mt-5"><div className="rounded-xl bg-white/80 p-4"><strong className="text-2xl">10</strong><span className="block text-xs mt-1">chapters mapped</span></div><div className="rounded-xl bg-white/80 p-4"><strong className="text-2xl">Free</strong><span className="block text-xs mt-1">concept notes available now</span></div></div>
           </aside>
         </div>
       </section>
@@ -217,7 +217,7 @@ export default function PremiumAccountancy() {
       <section className="page-container max-w-6xl py-9">
         <div className="card-paper p-6 sm:p-8">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-            <div><span className="eyebrow">WHAT PREMIUM ADDS</span><h2 className="text-3xl sm:text-4xl mt-3" style={{ fontFamily: 'var(--font-serif)' }}>Not another folder of PDFs.</h2><p className="mt-3 leading-7 max-w-3xl" style={{ color: 'var(--muted)' }}>The free Accountancy collection remains your concept-first foundation. This Premium Part 1 edition is the deeper practical layer students use when they need worked accounting treatment, proper tables, numericals and exam practice.</p></div>
+            <div><span className="eyebrow">WHAT PREMIUM ADDS</span><h2 className="text-3xl sm:text-4xl mt-3" style={{ fontFamily: 'var(--font-serif)' }}>Premium should be genuinely different from the free notes.</h2><p className="mt-3 leading-7 max-w-3xl" style={{ color: 'var(--muted)' }}>The free Accountancy collection remains your concept-first foundation. The deeper Premium numerical layer is being rebuilt and will only be marked live after the protected files are synced and tested.</p></div>
             <Link to="/gseb-class-11-accountancy-notes" className="btn-secondary shrink-0">Compare with free notes</Link>
           </div>
           <div className="grid sm:grid-cols-2 gap-3 mt-7">{gseb11AccountancyPremiumBenefits.map((item) => <div key={item} className="flex gap-3 rounded-xl p-4" style={{ background: '#fffaf0', border: '1px solid #eadcb8' }}><Check className="w-5 h-5 shrink-0 mt-0.5" style={{ color: '#247447' }} /><span className="text-sm font-semibold leading-6">{item}</span></div>)}</div>
@@ -225,12 +225,12 @@ export default function PremiumAccountancy() {
       </section>
 
       <section id="premium-chapters" className="page-container max-w-6xl py-10">
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4"><div><span className="eyebrow">THE EXACT LIBRARY</span><h2 className="text-3xl sm:text-5xl mt-3" style={{ fontFamily: 'var(--font-serif)' }}>See everything before you unlock.</h2><p className="mt-3" style={{ color: 'var(--muted)' }}>Every chapter remains visible to everyone. The PDF itself opens only after Premium access is verified.</p></div><div className="inline-flex items-center gap-2 text-sm font-bold"><ShieldCheck className="w-5 h-5" style={{ color: '#247447' }} /> Account-protected PDFs</div></div>
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4"><div><span className="eyebrow">THE EXACT LIBRARY</span><h2 className="text-3xl sm:text-5xl mt-3" style={{ fontFamily: 'var(--font-serif)' }}>See everything before you unlock.</h2><p className="mt-3" style={{ color: 'var(--muted)' }}>Every chapter remains visible for transparency. Protected PDFs are activated only after their actual files are synced and verified.</p></div><div className="inline-flex items-center gap-2 text-sm font-bold"><ShieldCheck className="w-5 h-5" style={{ color: '#247447' }} /> Account-protected PDFs</div></div>
 
         {error ? <div className="rounded-2xl p-4 mt-6" role="alert" style={{ background: '#fff0ef', border: '1px solid #efc5c1', color: '#8d2520' }}>{error}</div> : null}
 
         <article className="rounded-3xl p-6 sm:p-8 mt-7" style={{ background: 'linear-gradient(135deg,#101e3e,#1d315b)', color: 'white', boxShadow: '0 18px 55px rgba(9,21,47,.18)' }}>
-          <div className="grid lg:grid-cols-[1fr_auto] gap-6 items-center"><div><span className="inline-flex items-center gap-2 text-xs font-black tracking-wider" style={{ color: '#f3c84d' }}><Sparkles className="w-4 h-4" /> COMPLETE-BOOK OPTION</span><h3 className="text-2xl sm:text-3xl mt-3">All 10 chapters in one 720-page book</h3><p className="mt-3 leading-7" style={{ color: '#d8dfef' }}>Use one complete document for continuous study, or open individual chapter PDFs below when you want faster revision.</p></div><button type="button" onClick={() => openResource({ ...gseb11AccountancyPremiumBook, isBook: true })} disabled={busy === 'complete-book'} className="btn-primary min-w-[210px] inline-flex items-center justify-center gap-2">{busy === 'complete-book' ? <><Loader2 className="w-4 h-4 animate-spin" /> Checking access…</> : <><Eye className="w-4 h-4" /> Open / check access</>}</button></div>
+          <div className="grid lg:grid-cols-[1fr_auto] gap-6 items-center"><div><span className="inline-flex items-center gap-2 text-xs font-black tracking-wider" style={{ color: '#f3c84d' }}><Sparkles className="w-4 h-4" /> COMPLETE-BOOK OPTION</span><h3 className="text-2xl sm:text-3xl mt-3">Complete-book edition is being rebuilt</h3><p className="mt-3 leading-7" style={{ color: '#d8dfef' }}>The complete-book option will return after the rebuilt chapter files are synced and pass the same quality and access checks.</p></div><Link to="/gseb-class-11-accountancy-notes" className="btn-primary min-w-[210px] inline-flex items-center justify-center gap-2"><Eye className="w-4 h-4" /> Open free concept notes</Link></div>
         </article>
 
         <div className="grid md:grid-cols-2 gap-4 mt-6">
