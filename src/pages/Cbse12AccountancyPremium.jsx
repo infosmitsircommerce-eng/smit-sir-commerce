@@ -14,6 +14,7 @@ import {
   X,
 } from 'lucide-react';
 import SEO from '../components/ui/SEO';
+import AccountancyPremiumPreview from '../components/premium/AccountancyPremiumPreview';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 import {
@@ -219,6 +220,8 @@ export default function Cbse12AccountancyPremium() {
           </div>
         </div>
       </section>
+
+      <AccountancyPremiumPreview variant="showcase" />
 
       <section className="page-container max-w-6xl py-9">
         <div className="card-paper p-6 sm:p-8">
