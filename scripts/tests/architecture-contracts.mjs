@@ -50,6 +50,8 @@ expect(routeSeo.includes('export function routeUsesOwnSeo'), 'Self-managed SEO r
 expect(!vite.includes('enhanced-test-series-entry'), 'Obsolete Test Series Vite alias still exists.');
 expect(!premiumPrerender.includes('Advanced Economics practice for ₹999 once'), 'Stale ₹999 Premium source copy remains.');
 expect(!premiumPrerender.includes('premium-payment-qr.jpg'), 'Stale manual QR Premium source remains.');
+expect(premiumPrerender.includes('import { PREMIUM_MEGA_PACK } from "../src/data/premiumMegaPack.js";'), 'Premium prerender must import the canonical Mega Premium product model.');
+expect(premiumPrerender.includes('price: String(PREMIUM_MEGA_PACK.price)'), 'Premium Product schema price must come from the canonical product model.');
 expect(!routes.includes('path="/test-series"'), 'Duplicate Test Series route has returned.');
 expect(!routes.includes('path="/commerce-city"'), 'Retired Commerce Hub route has returned.');
 expect(!routes.includes('path="/exam-tomorrow"'), 'Retired Exam Tomorrow route has returned.');
