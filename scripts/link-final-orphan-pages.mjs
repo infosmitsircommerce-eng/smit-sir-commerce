@@ -47,11 +47,11 @@ const bridges = [
   <h2>Continue with GSEB Class 12 Economics chapters</h2>
   <p>Open the chapter you need next for focused revision:</p>
   <ul>
-    <li><a href="/gseb-class-12-economics-chapter-5-poverty-notes.html">Chapter 5: Poverty Notes</a></li>
-    <li><a href="/gseb-class-12-economics-chapter-6-unemployment-notes.html">Chapter 6: Unemployment Notes</a></li>
-    <li><a href="/gseb-class-12-economics-chapter-9-foreign-trade-notes.html">Chapter 9: Foreign Trade Notes</a></li>
-    <li><a href="/gseb-class-12-economics-chapter-10-industrial-sector-notes.html">Chapter 10: Industrial Sector Notes</a></li>
-    <li><a href="/gseb-class-12-economics-chapter-11-emerging-issues-notes.html">Chapter 11: Emerging Issues Notes</a></li>
+    <li><a href="/gseb/class-12/economics/poverty-notes">Chapter 5: Poverty Notes</a></li>
+    <li><a href="/gseb/class-12/economics/unemployment-notes">Chapter 6: Unemployment Notes</a></li>
+    <li><a href="/gseb/class-12/economics/foreign-trade-notes">Chapter 9: Foreign Trade Notes</a></li>
+    <li><a href="/gseb/class-12/economics/industrial-sector-notes">Chapter 10: Industrial Sector Notes</a></li>
+    <li><a href="/gseb/class-12/economics/emerging-issues-in-indian-economy-notes">Chapter 11: Emerging Issues Notes</a></li>
   </ul>
 </section>`
   },
