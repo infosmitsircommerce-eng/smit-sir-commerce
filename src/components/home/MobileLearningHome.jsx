@@ -153,8 +153,6 @@ export default function MobileLearningHome() {
           <button type="submit" aria-label="Search chapters"><SlidersHorizontal aria-hidden="true" /></button>
         </form>
 
-        <AccountancyPremiumPreview variant="compact" />
-
         <div className="learning-home-primary-grid">
           <article className="mobile-focus-banner">
             <div className="mobile-focus-copy">
@@ -200,6 +198,8 @@ export default function MobileLearningHome() {
             </div>
           </section>
         </div>
+
+        <AccountancyPremiumPreview variant="compact" />
 
         <div className="learning-home-progress-grid">
           <section className="learning-home-continue-panel" aria-labelledby="continue-learning-title">
