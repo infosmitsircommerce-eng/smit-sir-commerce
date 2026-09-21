@@ -103,7 +103,7 @@ export default function ContactCTA() {
             className="inline-flex items-center gap-2 text-sm font-semibold"
             style={{ color: 'var(--gold-bright)' }}
           >
-            Looking for Commerce classes in Mehsana? View local class details
+            Classes in Mehsana for Class 11 & 12 Commerce — view local details
             <ArrowRight className="w-4 h-4" />
           </Link>
         </motion.div>
