@@ -37,7 +37,7 @@ function coreNav() {
     '<li><a href="/quizzes">Practice</a></li>' +
     '<li><a href="/board-exam-diagnostic">Free Board Diagnostic</a></li>' +
     '<li><a href="/tools">Study tools</a></li>' +
-    '<li><a href="/premium">₹699 Premium Library</a></li>' +
+    '<li><a href="/premium">₹999 Complete Commerce</a></li>' +
     '<li><a href="/faq">Help & FAQ</a></li>' +
     "</ul></nav>"
   );
@@ -291,6 +291,23 @@ const diagnosticLandingPages = Object.values(DIAGNOSTIC_ROUTES).map((route) => {
 });
 
 const pages = [
+  {
+    path: "/cbse-class-12-accountancy-financial-ratios-notes",
+    title: "CBSE Class 12 Financial Ratios Notes PDF — Free Premium Master",
+    description:
+      "Free CBSE Class 12 Accountancy Financial Ratios notes PDF with Current Ratio, Quick Ratio, solvency, turnover and profitability formulas, worked numericals, reverse problems and interpretation.",
+    collection: false,
+    faqs: [
+      ["Is the Financial Ratios PDF free?", "Yes. The complete Premium Master sample is free to open and is used as the quality benchmark for the new Accountancy Premium format."],
+      ["What does the chapter cover?", "It covers ratio-analysis foundations, liquidity, solvency, activity and profitability ratios, worked numericals, reverse problems, interpretation and exam-focused explanation."],
+      ["What is the Current Ratio formula?", "Current Ratio equals Current Assets divided by Current Liabilities."],
+      ["What is the Quick Ratio formula?", "Quick Ratio equals Quick Assets divided by Current Liabilities."],
+    ],
+    body:
+      '<main class="page-container section-padding" data-prerendered="financial-ratios"><article><nav aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/premium">Premium</a> / Financial Ratios</nav><p><strong>CBSE Class 12 · Accountancy · Free Premium Master sample</strong></p><h1>Financial Ratios Notes PDF — formulas, numericals and interpretation</h1><p>This free Financial Ratios chapter explains the logic behind accounting ratios instead of presenting only a formula list. It is designed around four ratio families: Liquidity, Solvency, Activity and Profitability.</p><h2>Key formulas covered</h2><ul><li><strong>Current Ratio:</strong> Current Assets ÷ Current Liabilities</li><li><strong>Quick Ratio:</strong> Quick Assets ÷ Current Liabilities</li><li><strong>Working Capital:</strong> Current Assets − Current Liabilities</li><li><strong>Average Inventory:</strong> (Opening Inventory + Closing Inventory) ÷ 2</li><li><strong>Capital Employed:</strong> Shareholders’ Funds + Long-term Debt</li></ul><h2>Why ratio questions become difficult</h2><p>The calculation is often short. The harder part is classifying the correct accounting figures, selecting the correct numerator and denominator, writing the result in the correct form and interpreting what it means.</p><h2>What the free Premium Master sample includes</h2><ul><li>Visual concept maps</li><li>Formula logic</li><li>Worked direct numericals</li><li>Reverse problems</li><li>Interpretation and exam tips</li><li>Teacher POV and common traps</li></ul><p><a href="https://upload.higgsfield.ai/user_3IeBtmZKf7raEGMa7lNKq84904t/6b237a13-c780-4c21-8611-ea9b8527943b.pdf">Open the full free Financial Ratios PDF</a>.</p><p><a href="/tools/current-ratio-calculator">Use the Current Ratio calculator</a> · <a href="/tools/debt-equity-ratio-calculator">Use the Debt-Equity calculator</a> · <a href="/premium/cbse-12-accountancy">See the Accountancy Premium library</a></p>' +
+      coreNav() +
+      "</article></main>",
+  },
   {
     ...conceptLabMeta,
     body: `<main class="page-container section-padding"><article><p>Smit Sir Commerce · Free interactive practice</p><h1>Commerce Concept Lab: Make economics click.</h1><p>Explore how inflation and income changes affect purchasing power. Change the basket price and income sliders, then explain five everyday situations. Explanations are available in English and Hindi. No account or payment is required.</p><h2>The purchasing-power experiment</h2><p>A fictional starting income of ₹10,000 buys ten ₹1,000 baskets. With a 25% basket price rise and unchanged income, it buys eight baskets: 20% less purchasing power. Equal percentage increases in income and prices preserve purchasing power.</p><h2>Find the clue in each case</h2>${inflationCases.map(item => `<section><h3>${esc(item.title)}</h3><p>${esc(item.story)}</p><p>${esc(item.exam)}</p></section>`).join('')}<p>Each case includes a new follow-up question, a model exam explanation and a shareable case link. Progress is remembered on this device when local storage is available.</p><p><a href="/gseb/class-12/economics/money-and-inflation-notes.html">GSEB Money and Inflation notes</a> · <a href="/quizzes?board=GSEB&amp;class=12&amp;subject=Economics">GSEB chapter quizzes</a> · <a href="/cbse/class-12/macroeconomics-notes">CBSE Macroeconomics notes</a></p>${coreNav()}</article></main>`,
