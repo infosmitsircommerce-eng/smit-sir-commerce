@@ -15,10 +15,60 @@ async function htmlFiles(directory) {
   return files;
 }
 
-function dedupe(html) {
-  const matches = [...html.matchAll(schemaPattern)];
+const singletonHeadPatterns = [
+  /<meta\b(?=[^>]*\bname=["']description["'])[^>]*>/gi,
+  /<meta\b(?=[^>]*\bname=["']robots["'])[^>]*>/gi,
+  /<meta\b(?=[^>]*\bname=["']googlebot["'])[^>]*>/gi,
+  /<meta\b(?=[^>]*\bname=["']bingbot["'])[^>]*>/gi,
+  /<meta\b(?=[^>]*\bname=["']twitter:card["'])[^>]*>/gi,
+  /<meta\b(?=[^>]*\bname=["']twitter:title["'])[^>]*>/gi,
+  /<meta\b(?=[^>]*\bname=["']twitter:description["'])[^>]*>/gi,
+  /<meta\b(?=[^>]*\bname=["']twitter:image["'])[^>]*>/gi,
+  /<meta\b(?=[^>]*\bproperty=["']og:type["'])[^>]*>/gi,
+  /<meta\b(?=[^>]*\bproperty=["']og:site_name["'])[^>]*>/gi,
+  /<meta\b(?=[^>]*\bproperty=["']og:locale["'])[^>]*>/gi,
+  /<meta\b(?=[^>]*\bproperty=["']og:title["'])[^>]*>/gi,
+  /<meta\b(?=[^>]*\bproperty=["']og:description["'])[^>]*>/gi,
+  /<meta\b(?=[^>]*\bproperty=["']og:url["'])[^>]*>/gi,
+  /<meta\b(?=[^>]*\bproperty=["']og:image["'])[^>]*>/gi,
+  /<meta\b(?=[^>]*\bproperty=["']og:image:width["'])[^>]*>/gi,
+  /<meta\b(?=[^>]*\bproperty=["']og:image:height["'])[^>]*>/gi,
+  /<meta\b(?=[^>]*\bproperty=["']og:image:alt["'])[^>]*>/gi,
+  /<link\b(?=[^>]*\brel=["']canonical["'])[^>]*>/gi,
+];
+
+function keepLastMatch(html, pattern) {
+  const matches = [...html.matchAll(pattern)];
   if (matches.length < 2) return { html, removed: 0 };
 
+  let result = html;
+  for (const match of matches.slice(0, -1).toReversed()) {
+    result = result.slice(0, match.index) + result.slice(match.index + match[0].length);
+  }
+  return { html: result, removed: matches.length - 1 };
+}
+
+function dedupeSingletonHeadTags(html) {
+  const match = html.match(/<head\b[^>]*>[\s\S]*?<\/head>/i);
+  if (!match) return { html, removed: 0 };
+
+  let head = match[0];
+  let removed = 0;
+  for (const pattern of singletonHeadPatterns) {
+    const result = keepLastMatch(head, pattern);
+    head = result.html;
+    removed += result.removed;
+  }
+
+  if (!removed) return { html, removed: 0 };
+  return {
+    html: html.slice(0, match.index) + head + html.slice(match.index + match[0].length),
+    removed,
+  };
+}
+
+function dedupe(html) {
+  const matches = [...html.matchAll(schemaPattern)];
   const seenIds = new Set();
   const replacements = [];
   let removed = 0;
@@ -60,10 +110,12 @@ function dedupe(html) {
   }
 
   let result = html;
-  for (const replacement of replacements.sort((a, b) => b.index - a.index)) {
-    result = result.slice(0, replacement.index) + replacement.value + result.slice(replacement.index + replacement.length);
+  for (const item of replacements.sort((a, b) => b.index - a.index)) {
+    result = result.slice(0, item.index) + item.value + result.slice(item.index + item.length);
   }
-  return { html: result, removed };
+
+  const headResult = dedupeSingletonHeadTags(result);
+  return { html: headResult.html, removed: removed + headResult.removed };
 }
 
 let filesChanged = 0;
@@ -78,4 +130,4 @@ for (const file of await htmlFiles(root)) {
   }
 }
 
-console.log(`[schema] Removed ${entitiesRemoved} duplicate top-level entities across ${filesChanged} HTML files.`);
+console.log(`[schema] Removed ${entitiesRemoved} duplicate schema entities/head tags across ${filesChanged} HTML files.`);
