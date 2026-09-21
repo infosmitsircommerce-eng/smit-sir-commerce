@@ -1,0 +1,73 @@
+{
+  "property": "sc-domain:smitsircommerce.in",
+  "baselineWindow": "Last 28 days available on 2026-09-21 (Search Console data through 2026-09-19)",
+  "implementedOn": "2026-09-21",
+  "reviewAfter": "2026-10-19",
+  "notes": "Compare like-for-like 28-day windows. Search Console position is an impression-weighted average; CTR changes must be interpreted by query and device, not against a universal benchmark.",
+  "experiments": [
+    {
+      "path": "/cbse/class-12/business-studies-case-study-questions",
+      "clicks": 47,
+      "impressions": 1220,
+      "ctr": 0.0385,
+      "position": 6.768,
+      "action": "Tighten title/description to exact case-study-with-answers intent and add a direct chapter-start instruction."
+    },
+    {
+      "path": "/tools/nfia-calculator",
+      "clicks": 1,
+      "impressions": 168,
+      "ctr": 0.006,
+      "position": 6.5952,
+      "action": "Lead with NFIA formula, Class 12 intent, calculator and solved examples."
+    },
+    {
+      "path": "/tools/topics/national-income-gdp",
+      "clicks": 1,
+      "impressions": 260,
+      "ctr": 0.0038,
+      "position": 7.5808,
+      "action": "Keep the conversion-tool title and surface the free calculator/formula promise before supporting content."
+    },
+    {
+      "path": "/business-studies-tuition-mehsana",
+      "clicks": 1,
+      "impressions": 59,
+      "ctr": 0.0169,
+      "position": 5.3729,
+      "action": "Match exact local subject intent and explain the free-resource-to-demo path."
+    },
+    {
+      "path": "/economics-tuition-mehsana",
+      "clicks": 0,
+      "impressions": 32,
+      "ctr": 0,
+      "position": 6.3438,
+      "action": "Match Economics tuition in Mehsana intent with board, numericals and revision detail."
+    },
+    {
+      "path": "/school-resource/gseb/class-11/accountancy/gseb-class-11-accountancy-chapter-4-journal-notes",
+      "clicks": 0,
+      "impressions": 28,
+      "ctr": 0,
+      "position": 6.1071,
+      "action": "Lead with Journal Class 11, free PDF, GSEB and Chapter 4."
+    },
+    {
+      "path": "/school-resource/gseb/class-12/business-administration/gseb-class-12-ocm-chapter-3-planning-notes",
+      "clicks": 0,
+      "impressions": 32,
+      "ctr": 0,
+      "position": 7.2188,
+      "action": "Lead with Planning Class 12, free PDF, GSEB OCM and chapter number."
+    },
+    {
+      "path": "/gseb/class-12/banking-monetary-policy-explained",
+      "clicks": 0,
+      "impressions": 30,
+      "ctr": 0,
+      "position": 5.1,
+      "action": "Match Banking and Monetary Policy Class 12 query intent and surface RBI tools."
+    }
+  ]
+}
