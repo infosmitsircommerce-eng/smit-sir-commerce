@@ -1,7 +1,8 @@
-import { ArrowRight, BookOpen, CheckCircle2, Crown, FileText, ListChecks, Search } from 'lucide-react';
+import { ArrowRight, BookOpen, CheckCircle2, Crown, ExternalLink, FileText, ListChecks, Search } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import SEO from '../components/ui/SEO';
 import StudyAccessFinder from '../components/ui/StudyAccessFinder';
+import { studyAccessItems } from '../data/studyAccess';
 
 const PATH = '/study-material';
 const TITLE = 'Free Commerce Notes PDF — CBSE & GSEB Class 11 and 12 | Smit Sir Commerce';
@@ -29,6 +30,25 @@ const nextActions = [
   { title: 'Test series', text: 'Practise in exam format.', to: '/test-series', icon: CheckCircle2, tone: 'blue' },
   { title: 'Premium learning', text: 'Hard practice and deep revision.', to: '/premium', icon: Crown, tone: 'gold' },
 ];
+
+const freeNotes = studyAccessItems.filter((item) => item.kind === 'Notes' && !item.path.startsWith('/premium'));
+const freeCatalog = ['CBSE', 'GSEB'].map((board) => ({
+  board,
+  classes: [11, 12].map((classLevel) => ({
+    classLevel,
+    subjects: [...new Set(freeNotes.filter((item) => item.board === board && item.classLevel === classLevel).map((item) => item.subject))]
+      .sort()
+      .map((subject) => ({
+        subject,
+        items: freeNotes.filter((item) => item.board === board && item.classLevel === classLevel && item.subject === subject),
+      })),
+  })).filter((group) => group.subjects.length),
+})).filter((group) => group.classes.length);
+
+function FreeNoteLink({ item, number }) {
+  const content = <><span className="ssc-free-note-number">{String(number).padStart(2, '0')}</span><span className="ssc-free-note-copy"><strong>{item.title}</strong><small>{item.pdf ? 'Free PDF · open or download' : 'Free chapter notes · read online'}</small></span><ExternalLink aria-hidden="true" /></>;
+  return item.path.startsWith('/') ? <Link to={item.path} className="ssc-free-note-row">{content}</Link> : <a href={item.path} className="ssc-free-note-row">{content}</a>;
+}
 
 function readLatestResource() {
   if (typeof window === 'undefined') return null;
@@ -84,6 +104,33 @@ export default function StudyMaterial() {
       </header>
 
       <main className="page-container ssc-library-main">
+        <section className="ssc-free-catalog" aria-labelledby="free-library-heading">
+          <div className="ssc-free-catalog-intro">
+            <div><span className="eyebrow">ALL FREE NOTES — OPEN ACCESS</span><h2 id="free-library-heading">See every free resource before choosing.</h2><p>All {freeNotes.length} currently published free notes are listed below by board, class and subject. Tap any chapter to read or download it immediately.</p></div>
+            <span className="ssc-free-total"><strong>{freeNotes.length}</strong> free resources</span>
+          </div>
+          <div className="ssc-free-boards">
+            {freeCatalog.map((board) => (
+              <section key={board.board} className="ssc-free-board" aria-label={`${board.board} free notes`}>
+                <div className="ssc-free-board-heading"><span>BOARD</span><h3>{board.board}</h3><b>{board.classes.reduce((sum, item) => sum + item.subjects.reduce((count, subject) => count + subject.items.length, 0), 0)} resources</b></div>
+                {board.classes.map((classGroup) => (
+                  <div key={classGroup.classLevel} className="ssc-free-class">
+                    <div className="ssc-free-class-heading"><span>{classGroup.classLevel}</span><h4>Class {classGroup.classLevel}</h4></div>
+                    <div className="ssc-free-subjects">
+                      {classGroup.subjects.map((subject) => (
+                        <article key={subject.subject} className="ssc-free-subject">
+                          <header><div><h5>{subject.subject}</h5><p>{subject.items.length} free chapter resource{subject.items.length === 1 ? '' : 's'}</p></div><span>FREE</span></header>
+                          <div>{subject.items.map((item, index) => <FreeNoteLink key={item.id} item={item} number={index + 1} />)}</div>
+                        </article>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </section>
+            ))}
+          </div>
+        </section>
+
         <ol className="ssc-library-steps" aria-label="How to find study material">
           {steps.map(([number, title, detail]) => (
             <li key={title}><span>{number}</span><div><strong>{title}</strong><small>{detail}</small></div></li>
