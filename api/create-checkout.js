@@ -79,7 +79,7 @@ export default async function handler(req, res) {
           customer_phone: phone,
         },
         order_meta: {
-          return_url: `${SITE}/my-purchases.html?order_id={order_id}`,
+          return_url: `${SITE}/purchase-status?order_id={order_id}`,
           notify_url: `${SITE}/api/cashfree-webhook`,
         },
         order_note: `${product.shortName} one-time access`,
