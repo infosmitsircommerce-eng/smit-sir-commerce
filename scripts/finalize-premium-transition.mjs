@@ -45,7 +45,7 @@ function premiumBody() {
     </ul>
     <h2>Visible, but protected</h2>
     <p>Students can inspect the Premium categories before buying. Actual files remain locked until the QR payment and UTR are manually verified.</p>
-    <p><a href="/premium">Choose a Premium plan</a> · <a href="/my-purchases">My Purchases</a> · <a href="/study-material">Free study material</a></p>
+    <p><a href="/premium">Choose a Premium plan</a> · <a href="/premium/cbse-12-accountancy">CBSE Class 12 Accountancy Premium</a> · <a href="/premium/accountancy">GSEB Class 11 Accountancy Premium</a> · <a href="/my-purchases">My Purchases</a> · <a href="/study-material">Free study material</a></p>
   </article></main>`;
 }
 
