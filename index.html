@@ -110,7 +110,7 @@
         "@context": "https://schema.org",
         "@graph": [
           {
-            "@type": "EducationalOrganization",
+            "@type": ["EducationalOrganization", "LocalBusiness"],
             "@id": "https://www.smitsircommerce.in/#organization",
             "name": "Smit Sir Commerce",
             "alternateName": "Smit Sir Commerce Classes",
@@ -121,8 +121,16 @@
             "contactPoint": {
               "@type": "ContactPoint",
               "email": "infosmitsircommerce@gmail.com",
+              "telephone": "+916353709585",
               "contactType": "student support and enquiries",
               "areaServed": "IN-GJ"
+            },
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Mehsana",
+              "addressRegion": "Gujarat",
+              "postalCode": "384002",
+              "addressCountry": "IN"
             },
             "areaServed": {
               "@type": "City",
@@ -149,6 +157,7 @@
               "@id": "https://www.smitsircommerce.in/about#smit-thaker"
             },
             "sameAs": [
+              "https://maps.app.goo.gl/T5t5Mw2jKiqbozgi8?g_st=ac",
               "https://www.onlinecultus.com/why-resource-libraries-need-a-clear-learning-path/",
               "https://www.handwritingtool.com/blog/why-handwritten-retrieval-still-matters-digital-study-workflow"
             ]
