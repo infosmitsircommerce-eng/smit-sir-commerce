@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { PREMIUM_MEGA_PACK_ID } from '../data/premiumMegaPack';
+import { PREMIUM_MEGA_INCLUDED_PRODUCT_IDS, PREMIUM_MEGA_PACK_ID } from '../data/premiumMegaPack';
 
 const AuthContext = createContext({});
 let supabasePromise;
@@ -23,27 +23,35 @@ function entitlementIsActive(row) {
 }
 
 async function loadAccountState(supabase, userId) {
-  const [profileResult, megaResult] = await Promise.all([
+  const [profileResult, entitlementResult] = await Promise.all([
     supabase.from('profiles').select('*').eq('id', userId).single(),
     supabase
       .from('product_entitlements')
       .select('product_id,granted_at,expires_at,revoked_at')
       .eq('user_id', userId)
-      .eq('product_id', PREMIUM_MEGA_PACK_ID)
       .is('revoked_at', null)
-      .order('granted_at', { ascending: false })
-      .limit(1),
+      .order('granted_at', { ascending: false }),
   ]);
 
   const nextProfile = profileResult.data ?? null;
-  const megaRow = Array.isArray(megaResult.data) ? megaResult.data[0] : null;
-  return { nextProfile, hasMegaPremium: entitlementIsActive(megaRow) };
+  const activeProductIds = [...new Set(
+    (Array.isArray(entitlementResult.data) ? entitlementResult.data : [])
+      .filter(entitlementIsActive)
+      .map((row) => row.product_id)
+      .filter(Boolean),
+  )];
+  return {
+    nextProfile,
+    activeProductIds,
+    hasMegaPremium: activeProductIds.includes(PREMIUM_MEGA_PACK_ID),
+  };
 }
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
   const [hasMegaPremium, setHasMegaPremium] = useState(false);
+  const [activeProductIds, setActiveProductIds] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -64,6 +72,7 @@ export function AuthProvider({ children }) {
         if (session?.user) await fetchProfile(session.user.id);
         else {
           setHasMegaPremium(false);
+          setActiveProductIds([]);
           setLoading(false);
         }
 
@@ -74,6 +83,7 @@ export function AuthProvider({ children }) {
           else {
             setProfile(null);
             setHasMegaPremium(false);
+            setActiveProductIds([]);
             setLoading(false);
           }
         });
@@ -105,10 +115,12 @@ export function AuthProvider({ children }) {
       const state = await loadAccountState(supabase, userId);
       setProfile(state.nextProfile);
       setHasMegaPremium(state.hasMegaPremium);
+      setActiveProductIds(state.activeProductIds);
       return state.nextProfile;
     } catch {
       setProfile(null);
       setHasMegaPremium(false);
+      setActiveProductIds([]);
       return null;
     } finally {
       setLoading(false);
@@ -138,6 +150,7 @@ export function AuthProvider({ children }) {
       setUser(result.data.user);
       setProfile(state.nextProfile);
       setHasMegaPremium(state.hasMegaPremium);
+      setActiveProductIds(state.activeProductIds);
       setLoading(false);
       return { ...result, profile: state.nextProfile };
     }
@@ -147,6 +160,7 @@ export function AuthProvider({ children }) {
   async function signOut() {
     const supabase = await getSupabase();
     setHasMegaPremium(false);
+    setActiveProductIds([]);
     return supabase.auth.signOut();
   }
 
@@ -162,6 +176,11 @@ export function AuthProvider({ children }) {
   const premiumExpired = profile?.is_premium === true && premiumHasTime && premiumUntil.getTime() <= Date.now();
   const legacyPremium = profile?.is_premium === true && !premiumExpired;
   const isPremium = legacyPremium || hasMegaPremium;
+  const hasProductEntitlement = (productId) => {
+    if (!productId) return false;
+    if (activeProductIds.includes(productId)) return true;
+    return hasMegaPremium && PREMIUM_MEGA_INCLUDED_PRODUCT_IDS.includes(productId);
+  };
   const isAdmin = profile?.is_admin === true || profile?.role === 'admin';
   const displayName = profile?.full_name ?? user?.user_metadata?.full_name ?? user?.email?.split('@')[0] ?? 'Student';
   const initials = displayName.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
@@ -169,7 +188,7 @@ export function AuthProvider({ children }) {
   return (
     <AuthContext.Provider value={{
       user, profile, loading,
-      isPremium, legacyPremium, hasMegaPremium, premiumUntil, premiumExpired,
+      isPremium, legacyPremium, hasMegaPremium, activeProductIds, hasProductEntitlement, premiumUntil, premiumExpired,
       isAdmin, displayName, initials,
       signIn, signUp, signOut, resetPassword, fetchProfile,
     }}>
