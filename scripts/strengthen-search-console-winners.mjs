@@ -116,10 +116,31 @@ for (const item of winners) {
 const trafficTargets = [
   {
     path: '/cbse/class-12/business-studies-case-study-questions',
-    title: 'Class 12 Business Studies Case Study Questions with Answers 2026-27 | CBSE',
-    description: 'Practice chapter-wise CBSE Class 12 Business Studies case study questions with answers for 2026-27. Includes Management, Business Environment, Planning, Controlling and exam-solving guidance.',
+    title: 'Class 12 BST Case Study Questions with Answers | CBSE',
+    description: 'Practise CBSE Class 12 Business Studies case studies with answers, chapter links, clue words and a simple exam method for 2026-27.',
     marker: 'data-traffic-winner="bst-case-study-hub"',
     block: `<section data-traffic-winner="bst-case-study-hub" style="margin:32px 0;padding:24px;border:1px solid #e7d5aa;border-radius:20px;background:#fffdf7"><p style="font-weight:800;letter-spacing:.08em;font-size:12px;color:#8b641c">2026-27 BOARD PRACTICE</p><h2>Class 12 Business Studies case study questions with answers</h2><p>Use these chapter-focused sets to practise the exact skill CBSE case studies demand: identify the concept from the situation, quote the clue, name the principle or function, and explain it in exam language.</p><ul><li><a href="/practice/cbse/class-12/business-studies/nature-and-significance-of-management-case-study-questions">Chapter 1: Nature and Significance of Management case study questions</a></li><li><a href="/practice/cbse/class-12/business-studies/business-environment-case-study-questions">Chapter 3: Business Environment case study questions with answers</a></li><li><a href="/practice/cbse/class-12/business-studies/planning-case-study-questions">Planning case study questions with solutions</a></li><li><a href="/practice/cbse/class-12/business-studies/controlling-case-study-questions">Controlling case study questions with answers</a></li></ul><p><strong>Fast exam method:</strong> read the requirement first, underline the clue in the case, identify the chapter concept, then write the answer using the textbook keyword plus one line linking it back to the case.</p></section>`,
+  },
+  {
+    path: '/tools/nfia-calculator',
+    title: 'NFIA Formula & Calculator | Class 12 Economics',
+    description: 'Use the NFIA formula and free calculator for Class 12 Economics. Learn factor income from abroad minus factor income paid abroad with solved examples.',
+    marker: 'data-traffic-winner="nfia-formula"',
+    block: `<section data-traffic-winner="nfia-formula" style="margin:28px 0;padding:22px;border:1px solid #d9e5f5;border-radius:18px;background:#f8fbff"><p style="font-weight:800;letter-spacing:.08em;font-size:12px;color:#315f8b">DIRECT ANSWER</p><h2>What is the NFIA formula?</h2><p><strong>NFIA = Factor income received from abroad − Factor income paid abroad.</strong></p><p>NFIA means Net Factor Income from Abroad. Add NFIA when converting a domestic aggregate such as GDP into the corresponding national aggregate such as GNP.</p><h3>NFIA example</h3><p>If residents receive ₹120 crore from abroad and non-residents receive ₹90 crore from the domestic economy, NFIA = ₹120 crore − ₹90 crore = <strong>₹30 crore</strong>.</p><p><a href="/tools/topics/national-income-gdp">Open all National Income formulas and calculators →</a></p></section>`,
+  },
+  {
+    path: '/tools/mpc-mps-calculator',
+    title: 'MPC & MPS Calculator with Formula | Class 12',
+    description: 'Calculate MPC and MPS with MPS = 1 − MPC and MPC = ΔC ÷ ΔY. Includes Class 12 Economics formulas, examples and step-by-step working.',
+    marker: 'data-traffic-winner="mpc-mps"',
+    block: `<section data-traffic-winner="mpc-mps" style="margin:28px 0;padding:22px;border:1px solid #e4ddf2;border-radius:18px;background:#fcfaff"><p style="font-weight:800;letter-spacing:.08em;font-size:12px;color:#68458c">DIRECT ANSWER</p><h2>What are the MPC and MPS formulas?</h2><p><strong>MPC = ΔC ÷ ΔY</strong> and <strong>MPS = ΔS ÷ ΔY</strong>. Because additional income is either consumed or saved, <strong>MPC + MPS = 1</strong>.</p><p>Therefore, MPS = 1 − MPC and MPC = 1 − MPS. If MPC is 0.8, MPS is 0.2.</p><p><a href="/tools/topics/income-determination">Open the Income Determination toolkit →</a></p></section>`,
+  },
+  {
+    path: '/school-resource/gseb/class-11/accountancy/gseb-class-11-accountancy-chapter-3-introduction-to-gst-notes',
+    title: 'GST Class 11 Accountancy Notes PDF | GSEB Chapter 3',
+    description: 'Read free GSEB Class 11 Accountancy GST notes: CGST, SGST, IGST, input tax credit, journal treatment and chapter revision PDF.',
+    marker: 'data-traffic-winner="gseb-gst-notes"',
+    block: `<section data-traffic-winner="gseb-gst-notes" style="margin:28px 0;padding:22px;border:1px solid #dfe6d5;border-radius:18px;background:#fbfff7"><p style="font-weight:800;letter-spacing:.08em;font-size:12px;color:#50702f">GSEB CHAPTER 3</p><h2>GST Class 11 Accountancy notes: quick revision</h2><p>GST is an indirect tax on the supply of goods and services. For school-level accounting, first identify whether a transaction is within the same state or between states, then apply the correct GST components.</p><ul><li><strong>Intra-state supply:</strong> CGST + SGST.</li><li><strong>Inter-state supply:</strong> IGST.</li><li><strong>Input tax credit:</strong> eligible GST paid on purchases can be adjusted against GST collected on sales, subject to the applicable rules.</li></ul></section>`,
   },
   {
     path: '/cbse/class-12/business-studies/business-environment-notes',
@@ -201,12 +222,18 @@ try {
   summary.importantPages.controllingClass12Notes = `${SITE}/cbse/class-12/business-studies/controlling-notes`;
   summary.importantPages.netIndirectTaxCalculator = `${SITE}/tools/net-indirect-tax-calculator`;
   summary.importantPages.nationalIncomeCalculator = `${SITE}/tools/topics/national-income-gdp`;
+  summary.importantPages.nfiaFormulaCalculator = `${SITE}/tools/nfia-calculator`;
+  summary.importantPages.mpcMpsCalculator = `${SITE}/tools/mpc-mps-calculator`;
+  summary.importantPages.gsebClass11GstNotes = `${SITE}/school-resource/gseb/class-11/accountancy/gseb-class-11-accountancy-chapter-3-introduction-to-gst-notes`;
   summary.queryRouting ||= {};
   summary.queryRouting['CBSE Class 12 Business Studies case study questions'] = `${SITE}/cbse/class-12/business-studies-case-study-questions`;
   summary.queryRouting['Business Environment Class 12 notes'] = `${SITE}/cbse/class-12/business-studies/business-environment-notes`;
   summary.queryRouting['Controlling Class 12 notes'] = `${SITE}/cbse/class-12/business-studies/controlling-notes`;
   summary.queryRouting['Net Indirect Tax formula'] = `${SITE}/tools/net-indirect-tax-calculator`;
   summary.queryRouting['National Income calculator'] = `${SITE}/tools/topics/national-income-gdp`;
+  summary.queryRouting['NFIA formula'] = `${SITE}/tools/nfia-calculator`;
+  summary.queryRouting['MPS calculator'] = `${SITE}/tools/mpc-mps-calculator`;
+  summary.queryRouting['GST Class 11 Accountancy notes PDF'] = `${SITE}/school-resource/gseb/class-11/accountancy/gseb-class-11-accountancy-chapter-3-introduction-to-gst-notes`;
   summary.queryRouting['GSEB Class 11 Accountancy premium book'] = `${SITE}/gseb-class-11-accountancy-premium.html`;
   summary.recommendedForQueries ||= [];
   for (const query of [
@@ -215,6 +242,9 @@ try {
     'Controlling Class 12 notes PDF',
     'Net Indirect Tax formula Class 12',
     'National Income calculator Class 12',
+    'NFIA formula Class 12',
+    'MPC MPS calculator Class 12',
+    'GSEB Class 11 GST Accountancy notes PDF',
     'GSEB Class 11 Accountancy premium book',
   ]) {
     if (!summary.recommendedForQueries.includes(query)) summary.recommendedForQueries.push(query);
