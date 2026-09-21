@@ -2,9 +2,8 @@
 <html lang="en-IN">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
-    <link rel="shortcut icon" type="image/png" href="/favicon-96.png" />
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/icon-512.png" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
@@ -117,7 +116,7 @@
             "alternateName": "Smit Sir Commerce Classes",
             "description": "A Commerce learning platform created by Smit Thaker with free notes, PDFs, practice tools and chapter-wise Economics quizzes for Class 11 and 12 students.",
             "url": "https://www.smitsircommerce.in/",
-            "logo": "https://www.smitsircommerce.in/favicon-96.png",
+            "logo": "https://www.smitsircommerce.in/brand-logo.png",
             "email": "infosmitsircommerce@gmail.com",
             "contactPoint": {
               "@type": "ContactPoint",
@@ -148,7 +147,11 @@
             ],
             "founder": {
               "@id": "https://www.smitsircommerce.in/about#smit-thaker"
-            }
+            },
+            "sameAs": [
+              "https://www.onlinecultus.com/why-resource-libraries-need-a-clear-learning-path/",
+              "https://www.handwritingtool.com/blog/why-handwritten-retrieval-still-matters-digital-study-workflow"
+            ]
           },
           {
             "@type": "Person",
@@ -160,6 +163,10 @@
             "worksFor": {
               "@id": "https://www.smitsircommerce.in/#organization"
             },
+            "sameAs": [
+              "https://www.onlinecultus.com/why-resource-libraries-need-a-clear-learning-path/",
+              "https://www.handwritingtool.com/blog/why-handwritten-retrieval-still-matters-digital-study-workflow"
+            ],
             "knowsAbout": [
               "Economics",
               "Business Studies",
@@ -266,6 +273,7 @@
     </script>
 
     <link rel="dns-prefetch" href="https://abpruwygnsmeqisaehip.supabase.co" />
+    <link rel="preload" as="image" href="/src/assets/teacher-photo-opt.jpg" fetchpriority="high" media="(max-width: 1023px)" />
     <link id="mobile-home-photo" rel="preload" as="image" href="/src/assets/teacher-photo-opt.jpg" media="not all" fetchpriority="high" />
     <script>
       if (window.location.pathname === '/') {
@@ -303,18 +311,6 @@
       })();
     </script>
     <div id="root"></div>
-    <script>
-      (() => {
-        const root = document.getElementById("root");
-        const isHome = window.location.pathname === "/";
-        const hasHomePrerender = root?.querySelector('[data-prerendered="trust-home"]');
-
-        // Some client-only routes are intentionally rewritten to the SPA shell.
-        // If Vercel serves the prerendered home document for one of those URLs,
-        // remove that mismatched fallback before it can flash on a slow device.
-        if (!isHome && hasHomePrerender) root.replaceChildren();
-      })();
-    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
