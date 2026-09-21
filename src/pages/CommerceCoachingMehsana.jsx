@@ -173,17 +173,18 @@ export default function CommerceCoachingMehsana() {
                 <MapPin className="w-4 h-4" /> Mehsana, Gujarat
               </span>
               <h1 className="mt-5">
-                Commerce Tuition &amp; Coaching in Mehsana for <em>Class 11 &amp; 12</em>
+                Classes in Mehsana for <em>Class 11 &amp; 12 Commerce</em>
               </h1>
               <p
                 className="mt-5 text-lg leading-relaxed max-w-3xl"
                 style={{ color: "var(--muted)" }}
               >
-                Learn with concept clarity first, then practise for exams. Smit
-                Sir personally teaches Economics, Business Studies,
-                Entrepreneurship and Physical Education, with structured
-                revision and weak-topic support. Attend at Smit Sir’s location
-                or enquire about home tuition in Mehsana.
+                Looking for Commerce classes, coaching classes or tuition in
+                Mehsana for Class 11 or 12? Learn with concept clarity first,
+                then practise for exams. Smit Sir personally teaches Economics,
+                Business Studies, Entrepreneurship and Physical Education, with
+                structured revision and weak-topic support. Attend at Smit Sir’s
+                location or enquire about home tuition in Mehsana.
               </p>
 
               <div className="flex flex-wrap gap-3 mt-7">
