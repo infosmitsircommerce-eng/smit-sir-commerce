@@ -1,11 +1,11 @@
 export const localTuitionService = {
-  title: 'Commerce Classes Near Me in Mehsana | Class 11 & 12 Tuition',
-  description: 'Looking for Commerce classes near you in Mehsana? Class 11 & 12 tuition for Economics, Business Studies and Entrepreneurship, with home tuition, free resources and demo options.',
+  title: 'Classes in Mehsana for Class 11 & 12 Commerce | Coaching & Tuition',
+  description: 'Looking for classes in Mehsana for Class 11 or 12? Smit Sir Commerce offers Commerce coaching and tuition in Mehsana for Economics, Business Studies and Entrepreneurship, with demo and home-tuition options.',
   phone: '+916353709585',
   phoneLabel: '+91 63537 09585',
   mapsUrl: 'https://maps.app.goo.gl/T5t5Mw2jKiqbozgi8?g_st=ac',
-  heading: 'Commerce classes near you in Mehsana for Class 11 & 12',
-  intro: 'Looking for Commerce classes near you in Mehsana for Class 11 or Class 12? Students can enquire about face-to-face lessons at Smit Sir’s tuition location or lessons at their home in Mehsana. Support is available for Economics, Business Studies and Entrepreneurship. Share your class, board, subject and area so the suitable learning option, travel availability and timing can be confirmed before you join.',
+  heading: 'Classes in Mehsana for Class 11 & 12 Commerce',
+  intro: 'Looking for classes in Mehsana, coaching classes in Mehsana or tuition for Class 11 and 12 Commerce? Students can enquire about face-to-face lessons at Smit Sir’s tuition location or lessons at their home in Mehsana. Support is available for Economics, Business Studies and Entrepreneurship. Share your class, board, subject and area so the suitable learning option, travel availability and timing can be confirmed before you join.',
   modes: [
     { title: 'Commerce classes at Smit Sir’s location', description: 'Attend Class 11 or Class 12 Commerce lessons in person in Mehsana. Contact Smit Sir for the exact location and current class timings before visiting.' },
     { title: 'Home tuition for Commerce in Mehsana', description: 'Students can also enquire about Commerce home tuition in Mehsana. Share your area or landmark to confirm travel availability, timing and fees.' },
