@@ -6,6 +6,7 @@ const Premium = lazy(() => import("../pages/Premium"));
 const PremiumEconomics = lazy(() => import("../pages/PremiumEconomics"));
 const PremiumAccountancy = lazy(() => import("../pages/PremiumAccountancy"));
 const Cbse12AccountancyPremium = lazy(() => import("../pages/Cbse12AccountancyPremium"));
+const FinancialRatiosNotes = lazy(() => import("../pages/FinancialRatiosNotes"));
 const Cbse12BusinessStudiesPremium = lazy(() => import("../pages/Cbse12BusinessStudiesPremium"));
 const MyPurchases = lazy(() => import("../pages/MyPurchases"));
 const PurchaseStatus = lazy(() => import("../pages/PurchaseStatus"));
@@ -369,6 +370,10 @@ function AnimatedRoutes() {
           <Route
             path="/premium/cbse-12-accountancy"
             element={withPage(<Cbse12AccountancyPremium />)}
+          />
+          <Route
+            path="/cbse-class-12-accountancy-financial-ratios-notes"
+            element={withPage(<FinancialRatiosNotes />)}
           />
           <Route
             path="/premium/cbse-12-business-studies"
