@@ -303,6 +303,18 @@
       })();
     </script>
     <div id="root"></div>
+    <script>
+      (() => {
+        const root = document.getElementById("root");
+        const isHome = window.location.pathname === "/";
+        const hasHomePrerender = root?.querySelector('[data-prerendered="trust-home"]');
+
+        // Some client-only routes are intentionally rewritten to the SPA shell.
+        // If Vercel serves the prerendered home document for one of those URLs,
+        // remove that mismatched fallback before it can flash on a slow device.
+        if (!isHome && hasHomePrerender) root.replaceChildren();
+      })();
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
