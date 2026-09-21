@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { createPortal } from 'react-dom';
-import { ArrowLeft, ArrowRight, BadgeCheck, BookOpen, CheckCircle2, ChevronRight, CircleAlert, GraduationCap, Layers3, RotateCcw, ShieldCheck, Sparkles, Target, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BadgeCheck, BookOpen, CheckCircle2, ChevronRight, CircleAlert, GraduationCap, Layers3, LockKeyhole, RotateCcw, ShieldCheck, Sparkles, Target, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import SEO from '../components/ui/SEO';
 import { quizBoards, quizLevels } from '../data/quizCatalog';
@@ -266,8 +266,17 @@ function PremiumOffer({ onClose }) {
   );
 }
 
+function productIdForQuizPack(pack) {
+  if (!pack || pack.subject !== 'Economics') return null;
+  if (pack.board === 'GSEB' && pack.classLevel === 12) return 'gseb-12-economics';
+  if (pack.board === 'CBSE' && pack.classLevel === 12) return 'cbse-12-economics';
+  if (pack.board === 'CBSE' && pack.classLevel === 11) return 'cbse-11-microeconomics';
+  return null;
+}
+
 export function LevelGrid({ pack, onAttempt, appearance }) {
-  const { isPremium, isAdmin, loading } = useAuth();
+  const { isAdmin, legacyPremium, hasMegaPremium, hasProductEntitlement, loading } = useAuth();
+  const navigate = useNavigate();
   const [showPremium, setShowPremium] = useState(false);
   const [loadedPack, setLoadedPack] = useState(pack);
   const [fetching, setFetching] = useState(false);
@@ -295,7 +304,10 @@ export function LevelGrid({ pack, onAttempt, appearance }) {
       }
       return;
     }
-    if (!premiumAccess) { setShowPremium(true); return; }
+    if (!premiumAccess) {
+      navigate('/premium?plan=199&resource=Economics');
+      return;
+    }
     setFetching(true);
     try {
       const { supabase } = await import('../lib/supabase');
@@ -311,7 +323,8 @@ export function LevelGrid({ pack, onAttempt, appearance }) {
     } catch (error) { setLoadError(error.message); }
     finally { setFetching(false); }
   }
-  const premiumAccess = isPremium || isAdmin;
+  const quizProductId = productIdForQuizPack(pack);
+  const premiumAccess = isAdmin || legacyPremium || (quizProductId ? hasProductEntitlement(quizProductId) : hasMegaPremium);
   const [activeLevel, setActiveLevel] = useState(null);
 
   return (
@@ -327,7 +340,7 @@ export function LevelGrid({ pack, onAttempt, appearance }) {
           const premiumLevel = level === 'Hard' || level === 'Extreme';
           const locked = premiumLevel && !premiumAccess;
           if (appearance === 'study') return <button key={level} type="button" className="ssc-study-level" data-level={level} onClick={() => openLevel(level)} disabled={!questionCount || fetching || (premiumLevel && loading)}>
-            <div className="ssc-study-level-top"><span className="ssc-study-level-number">0{index + 1}</span><span className="ssc-study-level-access">{premiumLevel ? (loading ? 'Checking…' : locked ? 'Premium' : 'Unlocked') : 'Free'}</span></div>
+            <div className="ssc-study-level-top"><span className="ssc-study-level-number">0{index + 1}</span><span className="ssc-study-level-access">{premiumLevel ? (loading ? 'Checking…' : locked ? <><LockKeyhole size={13} aria-hidden="true" /> Locked</> : 'Premium active') : 'Free'}</span></div>
             <strong>{pack.board === 'GSEB' && level === 'Moderate' ? 'Medium' : meta.label}</strong>
             <span className="ssc-study-level-note">{meta.note}</span>
             <span className="ssc-study-level-footer">{questionCount} questions<ArrowRight size={16} aria-hidden="true" /></span>
@@ -342,7 +355,7 @@ export function LevelGrid({ pack, onAttempt, appearance }) {
             >
               <div className="text-2xl">{meta.icon}</div>
               <div className="font-black mt-2" style={{ color: 'var(--ink)' }}>{pack.board === 'GSEB' && level === 'Moderate' ? 'Medium' : meta.label}</div>
-              <div className="text-xs font-bold mt-1" style={{ color: 'var(--gold)' }}>{premiumLevel ? (loading ? 'Checking access…' : locked ? 'Premium' : 'Premium unlocked') : 'Free'}</div>
+              <div className="text-xs font-bold mt-1 inline-flex items-center gap-1.5" style={{ color: 'var(--gold)' }}>{premiumLevel ? (loading ? 'Checking access…' : locked ? <><LockKeyhole className="w-3.5 h-3.5" aria-hidden="true" /> Locked · Premium</> : 'Premium active') : 'Free'}</div>
               <p className="text-xs mt-1 leading-5" style={{ color: 'var(--muted)' }}>{meta.note}</p>
               <div className="flex items-center justify-between mt-4 text-xs font-bold">
                 <span style={{ color: 'var(--gold)' }}>{questionCount} questions</span>
