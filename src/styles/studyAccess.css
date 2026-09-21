@@ -132,6 +132,7 @@
   .ssc-library-continue { min-height: 210px; }
 }
 @media (max-width: 639px) {
+  .ssc-library-main { padding-bottom: 24px; }
   .ssc-library-hero { padding-top: 22px; }
   .ssc-library-hero-grid { gap: 18px; }
   .ssc-library-hero h1 { font-size: clamp(34px, 11vw, 48px); }
