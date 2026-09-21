@@ -70,6 +70,38 @@ const bridges = [
   <h2>Quick Accountancy revision</h2>
   <p>For Class 12 Accountancy, use the <a href="/accountancy-ratio-formulas-class-12.html">accounting ratio formulas revision page</a> for a faster formula check before practice.</p>
 </section>`
+  },
+  {
+    source: '/study-material',
+    marker: 'data-seo-concept-lab-bridge',
+    block: `<section data-seo-concept-lab-bridge>
+  <h2>Understand difficult Commerce concepts visually</h2>
+  <p>Use the <a href="/concept-lab">Commerce Concept Lab</a> when a definition alone is not enough and you want a guided, example-first explanation.</p>
+</section>`
+  },
+  {
+    source: '/tools/topics/accounting-ratios',
+    marker: 'data-seo-financial-ratios-notes-bridge',
+    block: `<section data-seo-financial-ratios-notes-bridge>
+  <h2>Learn the formulas before using the calculators</h2>
+  <p>Read the free <a href="/cbse-class-12-accountancy-financial-ratios-notes">Class 12 Financial Ratios notes and worked examples</a>, then return to the ratio calculators to verify your answers.</p>
+</section>`
+  },
+  {
+    source: '/board-exam-diagnostic',
+    marker: 'data-seo-bst-diagnostic-bridge',
+    block: `<section data-seo-bst-diagnostic-bridge>
+  <h2>Start with a subject diagnostic</h2>
+  <p>Class 12 students can take the <a href="/cbse/class-12/business-studies-diagnostic-test">free Business Studies diagnostic test</a> to identify weak chapters before choosing revision material.</p>
+</section>`
+  },
+  {
+    source: '/teacher-guides',
+    marker: 'data-seo-teacher-services-bridge',
+    block: `<section data-seo-teacher-services-bridge>
+  <h2>Need original classroom material?</h2>
+  <p>Teachers, schools and coaching classes can review <a href="/services-for-teachers">custom question-paper, notes, PPT and website services</a> after inspecting the free published samples.</p>
+</section>`
   }
 ];
 
@@ -94,4 +126,4 @@ if (missingSources.length) {
   console.warn(`[seo-orphans] Source pages not found in dist: ${missingSources.join(', ')}`);
 }
 
-console.log(`[seo-orphans] Added contextual internal links for 8 previously orphaned sitemap pages across ${patchedFiles} generated HTML files.`);
+console.log(`[seo-orphans] Verified ${bridges.length} contextual bridge groups across ${patchedFiles} generated HTML files.`);
