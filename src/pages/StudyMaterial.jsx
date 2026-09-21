@@ -46,7 +46,7 @@ export default function StudyMaterial() {
   const recent = readLatestResource();
 
   return (
-    <div className="ssc-resource-library min-h-screen">
+    <div className="ssc-resource-library">
       <SEO title={downloadsOnly ? 'Download Commerce Chapter PDFs — CBSE & GSEB' : TITLE} description={DESCRIPTION} path={PATH} structuredData={structuredData} />
 
       <header className="ssc-library-hero">
