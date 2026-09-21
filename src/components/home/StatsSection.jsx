@@ -1,15 +1,15 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { BookOpen, FileQuestion, Wrench } from 'lucide-react';
+import { freeNoteCount, premiumResourceCount, quizChapterCount, quizQuestionCount, toolCount, totalNoteCount } from '../../data/platformStats';
 
 const stats = [
-  { value: '26', label: 'Free PDFs', desc: 'Published and working' },
-  { value: '13', label: 'Microeconomics Chapters', desc: 'Class 11 CBSE' },
-  { value: '12', label: 'Business Studies Chapters', desc: 'Class 12 CBSE' },
-  { value: '2', label: 'Classes Covered', desc: 'Class 11 and 12' },
-  { value: '4', label: 'Core Subjects', desc: 'Eco · BST · Acc · Entrep.' },
-  { value: '2', label: 'Learning Modes', desc: 'Online and offline' },
+  { value: totalNoteCount.toLocaleString('en-IN'), label: 'Notes & study guides', desc: `${freeNoteCount} free + ${premiumResourceCount} Premium`, to: '/study-material', icon: BookOpen },
+  { value: quizQuestionCount.toLocaleString('en-IN'), label: 'Quiz questions', desc: `${quizChapterCount} verified chapter packs`, to: '/quizzes', icon: FileQuestion },
+  { value: toolCount.toLocaleString('en-IN'), label: 'Commerce tools', desc: 'Calculators and study utilities', to: '/tools', icon: Wrench },
 ];
-const trustPoints = ['CBSE board focused', 'Class 11 and 12', 'Free published PDF notes', 'Online and offline batches', 'Mehsana, Gujarat', 'Free demo class'];
+const trustPoints = ['CBSE + GSEB', 'Class 11 and 12', 'Free and Premium clearly separated', 'Counts generated from the live catalog'];
 
 export default function StatsSection() {
   const ref = useRef(null);
@@ -26,12 +26,17 @@ export default function StatsSection() {
           <span className="eyebrow eyebrow-on-ink mb-6">What Is Available Now</span>
           <h2 className="headline headline-on-ink mt-6">Real resources, <em>clearly counted.</em></h2>
         </motion.div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px rounded-2xl overflow-hidden" style={{ background: 'rgba(201,160,80,0.16)', border: '1px solid rgba(201,160,80,0.16)' }}>
+        <div className="grid sm:grid-cols-3 gap-px rounded-2xl overflow-hidden" style={{ background: 'rgba(201,160,80,0.16)', border: '1px solid rgba(201,160,80,0.16)' }}>
           {stats.map((stat, index) => (
-            <motion.div key={stat.label} initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: index * 0.06, duration: 0.4 }} className="p-6 sm:p-7 text-center" style={{ background: 'var(--ink-bg)' }}>
-              <div style={{ fontFamily: 'var(--font-serif)', fontWeight: 700, fontSize: 'clamp(2rem, 4vw, 2.8rem)', lineHeight: 1, color: 'var(--gold-bright)', marginBottom: '10px' }}>{stat.value}</div>
-              <div className="font-semibold text-xs sm:text-sm leading-tight mb-1" style={{ color: 'var(--ivory-on-ink)' }}>{stat.label}</div>
-              <div className="text-xs leading-tight hidden sm:block" style={{ color: 'var(--muted-on-ink)' }}>{stat.desc}</div>
+            <motion.div key={stat.label} initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: index * 0.06, duration: 0.4 }} style={{ background: 'var(--ink-bg)' }}>
+              <Link to={stat.to} className="flex sm:block items-center gap-5 p-6 sm:p-8 sm:text-center h-full" aria-label={`Explore ${stat.value} ${stat.label}`}>
+                <span className="grid place-items-center w-12 h-12 sm:mx-auto sm:mb-5 rounded-2xl flex-shrink-0" style={{ color: 'var(--gold-bright)', background: 'rgba(201,160,80,.12)', border: '1px solid rgba(201,160,80,.22)' }}><stat.icon className="w-5 h-5" aria-hidden="true" /></span>
+                <span>
+                  <span className="block" style={{ fontFamily: 'var(--font-serif)', fontWeight: 700, fontSize: 'clamp(2.25rem, 5vw, 3.5rem)', lineHeight: 1, color: 'var(--gold-bright)', marginBottom: '10px' }}>{stat.value}</span>
+                  <span className="block font-bold text-sm sm:text-base leading-tight mb-2" style={{ color: 'var(--ivory-on-ink)' }}>{stat.label}</span>
+                  <span className="block text-xs leading-5" style={{ color: 'var(--muted-on-ink)' }}>{stat.desc}</span>
+                </span>
+              </Link>
             </motion.div>
           ))}
         </div>
