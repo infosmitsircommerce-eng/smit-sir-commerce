@@ -105,6 +105,21 @@ async function warmCurrentPublicRoute() {
 
 // Keep the mobile startup path lean. AOS is decorative, so load it only on
 // larger screens and only after the first render has had time to settle.
+function scheduleLegacyPwaRetirement() {
+  const run = () => {
+    retireLegacyPwa().catch(() => false);
+  };
+
+  // Legacy cache cleanup is maintenance work, not a prerequisite for first paint.
+  // Keep it off the critical startup path unless an old worker is actively
+  // controlling this page.
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(run, { timeout: 1800 });
+  } else {
+    window.setTimeout(run, 700);
+  }
+}
+
 function scheduleDesktopAnimations() {
   if (!window.matchMedia('(min-width: 769px)').matches) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -127,8 +142,15 @@ function scheduleDesktopAnimations() {
 
 async function startApp() {
   clearInlineScrollLocks();
-  const reloadingAfterPwaRetirement = await retireLegacyPwa();
-  if (reloadingAfterPwaRetirement) return;
+
+  // Only block startup when a legacy service worker is actively controlling
+  // this page and a reload may be required. First-time/current visitors should
+  // never wait on service-worker or Cache Storage enumeration before React mounts.
+  const legacyWorkerControlsPage = Boolean(navigator.serviceWorker?.controller);
+  if (legacyWorkerControlsPage) {
+    const reloadingAfterPwaRetirement = await retireLegacyPwa();
+    if (reloadingAfterPwaRetirement) return;
+  }
 
   const shouldMountInteractiveApp = await warmCurrentPublicRoute();
   if (!shouldMountInteractiveApp) return;
@@ -154,6 +176,7 @@ async function startApp() {
   }, 1200);
 
   scheduleDesktopAnimations();
+  if (!legacyWorkerControlsPage) scheduleLegacyPwaRetirement();
 }
 
 window.addEventListener('pageshow', clearInlineScrollLocks);
