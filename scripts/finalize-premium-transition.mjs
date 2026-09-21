@@ -4,16 +4,11 @@ import { join } from 'node:path';
 const DIST = new URL('../dist/', import.meta.url).pathname;
 const BASE = 'https://www.smitsircommerce.in';
 const PREMIUM_PATH = '/premium';
-const TITLE = '₹699 Commerce Mega Premium — All Current Premium Resources | Smit Sir Commerce';
-const DESCRIPTION = 'Get the complete current Smit Sir Commerce Premium ecosystem for ₹699 one time: protected Commerce PDFs, CBSE and GSEB Accountancy libraries, Economics libraries, advanced notes, worked numericals, Hard + Extreme MCQs, Pro tests and Premium study tools.';
+const TITLE = 'Premium Commerce Notes, PDFs & Quizzes | Smit Sir Commerce';
+const DESCRIPTION = 'Compare free resources, a ₹199 single-subject pack and ₹999 Complete Commerce access with Premium notes, quizzes, papers, PPTs and study tools.';
 
 function esc(value) {
-  return String(value)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#039;');
+  return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
 }
 
 async function walk(dir) {
@@ -36,21 +31,21 @@ function replaceMeta(html, key, value, attribute = 'name') {
 function premiumBody() {
   return `<main class="page-container section-padding" data-prerendered="core-page"><article>
     <p><strong>Smit Sir Commerce Premium</strong></p>
-    <h1>Commerce Mega Premium — complete current Premium access for ₹699</h1>
-    <p>The ₹699 Commerce Mega Premium Pack is the all-in-one option for students who want the complete Premium ecosystem currently published on Smit Sir Commerce. It is one purchase connected to one signed-in student account.</p>
-    <h2>What is included</h2>
+    <h1>Choose what you need. See everything before you pay.</h1>
+    <p>Free resources stay free. Choose the ₹199 Subject Pack for one subject's Premium PDFs and quizzes, or ₹999 Complete Commerce for the full Premium library.</p>
+    <h2>₹199 Subject Pack</h2>
+    <p>Choose Economics, Accountancy or Business Studies / OCM. The selected subject includes Premium PDFs, chapter organisation and Easy, Moderate, Hard and Extreme quizzes.</p>
+    <h2>₹999 Complete Commerce</h2>
     <ul>
-      <li><strong>GSEB Std. 11 Accountancy Part 1:</strong> 720-page master book, 10 detailed chapter PDFs, accounting formats, tables, worked numericals, practice, MCQs and revision.</li>
-      <li><strong>CBSE Class 12 Accountancy — Parts I & II:</strong> 10 Premium master chapters across 521 pages, covering partnership accounts, share capital, debentures, financial statements, comparative/common-size statements, worked numericals, MCQs, cases and exam practice.</li>\n      <li><strong>GSEB Std. 12 Economics:</strong> 10 Premium revision PDFs covering 117 pages plus Hard and Extreme Premium practice.</li>
-      <li><strong>CBSE Class 12 Economics:</strong> 18 chapter deep-dives, 360 focused concept explanations and 360 worked Hard and Extreme challenges across Macroeconomics and Indian Economic Development.</li>
-      <li><strong>CBSE Class 11 Microeconomics:</strong> 13 chapter deep-dives, 260 focused concept explanations and 260 worked Hard and Extreme challenges.</li>
-      <li><strong>Premium practice:</strong> Premium-gated MCQs, Pro-labelled tests, exam practice and Premium study tools currently published on the platform.</li>
+      <li>All subjects Premium notes and PDFs</li>
+      <li>All quiz difficulties and worked explanations</li>
+      <li>Previous five years' question papers and important-question sets</li>
+      <li>Exclusive chapter PPT presentations and revision sheets</li>
+      <li>Premium test series, Exam Mode and new resources added to the plan</li>
     </ul>
-    <h2>One purchase, organised library</h2>
-    <p>Instead of forcing every subject into one thousands-page file, Mega Premium keeps each subject, chapter, PDF and practice set organised while giving the student one full-access purchase. This makes the material faster to find and easier to revise.</p>
-    <h2>Need only one subject?</h2>
-    <p>Focused ₹199 Board Booster packs remain available separately. They unlock only the matching subject pack. Existing legacy full-library Premium accounts continue to be recognised.</p>
-    <p><a href="/premium/cbse-12-accountancy">See CBSE 12 Accountancy contents</a> · <a href="/gseb-class-11-accountancy-premium.html">See GSEB 11 Accountancy contents</a> · <a href="/board-booster-packs">Browse ₹199 Board Boosters</a> · <a href="/my-purchases">My Purchases</a> · <a href="/study-material">Free study material</a></p>
+    <h2>Visible, but protected</h2>
+    <p>Students can inspect the Premium categories before buying. Actual files remain locked until the QR payment and UTR are manually verified.</p>
+    <p><a href="/premium">Choose a Premium plan</a> · <a href="/my-purchases">My Purchases</a> · <a href="/study-material">Free study material</a></p>
   </article></main>`;
 }
 
@@ -62,23 +57,23 @@ function premiumSchema() {
         '@type': 'WebPage',
         '@id': `${BASE}${PREMIUM_PATH}#webpage`,
         url: `${BASE}${PREMIUM_PATH}`,
-        name: '₹699 Commerce Mega Premium — All Current Premium Resources',
+        name: 'Premium Commerce Notes, PDFs & Quizzes',
         description: DESCRIPTION,
         inLanguage: 'en-IN',
         isPartOf: { '@id': `${BASE}/#website` },
         publisher: { '@id': `${BASE}/#organization` },
-        mainEntity: { '@id': `${BASE}${PREMIUM_PATH}#mega-premium` },
+        mainEntity: { '@id': `${BASE}${PREMIUM_PATH}#complete-commerce` },
       },
       {
         '@type': 'Product',
-        '@id': `${BASE}${PREMIUM_PATH}#mega-premium`,
-        name: 'Commerce Mega Premium Pack',
-        description: 'Complete current Smit Sir Commerce Premium access including protected Premium study libraries and Premium-gated practice resources.',
+        '@id': `${BASE}${PREMIUM_PATH}#complete-commerce`,
+        name: 'Complete Commerce Premium',
+        description: 'All-subject Premium notes, quizzes, papers, PPTs, test series and study tools with manual payment verification.',
         brand: { '@type': 'Brand', name: 'Smit Sir Commerce' },
         offers: {
           '@type': 'Offer',
           priceCurrency: 'INR',
-          price: '699',
+          price: '999',
           availability: 'https://schema.org/InStock',
           url: `${BASE}${PREMIUM_PATH}`,
         },
@@ -101,35 +96,20 @@ function patchPremium(html) {
   next = replaceMeta(next, 'og:description', DESCRIPTION, 'property');
   next = replaceMeta(next, 'twitter:title', TITLE);
   next = replaceMeta(next, 'twitter:description', DESCRIPTION);
-
   const schema = premiumSchema();
-  next = next.replace(
-    /<script\b[^>]*type=["']application\/ld\+json["'][^>]*>[\s\S]*?<\/script>/gi,
-    (match) => match.includes('/premium#webpage') || (match.includes('Smit Sir Commerce Premium') && match.includes('"price":"999"'))
+  next = next.replace(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>[\s\S]*?<\/script>/gi, match =>
+    match.includes('/premium#webpage') || match.includes('Smit Sir Commerce Premium')
       ? `<script type="application/ld+json">${schema}</script>`
-      : match,
-  );
-  next = next.replace(
-    /<main\b[^>]*data-prerendered=["']core-page["'][^>]*>[\s\S]*?<\/main>/i,
-    premiumBody(),
-  );
-  return next;
+      : match);
+  return next.replace(/<main\b[^>]*data-prerendered=["']core-page["'][^>]*>[\s\S]*?<\/main>/i, premiumBody());
 }
 
 const files = await walk(DIST);
 let changed = 0;
 for (const file of files) {
   const before = await readFile(file, 'utf8');
-  let after = before
-    .replaceAll('₹999 Lifetime Premium', 'Premium access')
-    .replaceAll('₹999 Premium option', 'focused Board Booster option')
-    .replaceAll('₹999 Premium', 'legacy Premium');
-
   const normalized = file.replaceAll('\\', '/');
-  if (normalized.endsWith('/premium.html') || normalized.endsWith('/premium/index.html')) {
-    after = patchPremium(after);
-  }
-
+  const after = normalized.endsWith('/premium.html') || normalized.endsWith('/premium/index.html') ? patchPremium(before) : before;
   if (after !== before) {
     await writeFile(file, after, 'utf8');
     changed += 1;
