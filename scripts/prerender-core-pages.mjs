@@ -4,6 +4,7 @@ import { examTests } from "../src/data/examBank.js";
 import { authorityGuides } from "../src/data/authorityGuides.js";
 import { conceptLabMeta, inflationCases } from "../src/data/conceptLab.js";
 import { gsebFreeAccountancyMaterials } from "../src/data/gsebMaterials.js";
+import { PREMIUM_MEGA_PACK } from "../src/data/premiumMegaPack.js";
 import {
   DIAGNOSTIC_ROUTES,
   DIAGNOSTIC_TESTS,
@@ -75,7 +76,7 @@ function schemaFor(page) {
       brand: { "@type": "Brand", name: SITE },
       offers: {
         "@type": "Offer",
-        price: "999",
+        price: String(PREMIUM_MEGA_PACK.price),
         priceCurrency: "INR",
         availability: "https://schema.org/InStock",
         url: BASE + page.path,
