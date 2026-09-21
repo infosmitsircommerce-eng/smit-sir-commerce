@@ -17,6 +17,7 @@ import {
 import { useAuth } from "../../context/AuthContext";
 import teacherPhoto from "../../assets/teacher-photo-opt.jpg";
 import MobileStudySetup from "./MobileStudySetup";
+import AccountancyPremiumPreview from "../premium/AccountancyPremiumPreview";
 import { readStudentPreferences, studyPath } from "../../lib/studentPreferences";
 import { trackEvent } from "../../lib/analytics";
 
@@ -151,6 +152,8 @@ export default function MobileLearningHome() {
           />
           <button type="submit" aria-label="Search chapters"><SlidersHorizontal aria-hidden="true" /></button>
         </form>
+
+        <AccountancyPremiumPreview variant="compact" />
 
         <div className="learning-home-primary-grid">
           <article className="mobile-focus-banner">
