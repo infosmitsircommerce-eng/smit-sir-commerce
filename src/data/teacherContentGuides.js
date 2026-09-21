@@ -44,7 +44,7 @@ export const teacherContentGuides = [
     sections: [
       { title: 'Mistake 1: treating one price rise as inflation', text: 'A rise in the price of one product is not automatically inflation. In exam language, inflation concerns a sustained rise in the general price level, so the answer must make the economy-wide idea clear.', links: [
         ['/gseb/class-12/economics/money-and-inflation-notes.html','Money and Inflation Notes'],
-        ['/gseb-class-12-economics-chapter-3-money-inflation-notes.html','Chapter 3 Revision Page'],
+        ['/gseb/class-12/economics/money-and-inflation-notes','Chapter 3 Revision Page'],
       ]},
       { title: 'Mistake 2: forgetting purchasing power', text: 'When the general price level rises, the purchasing power of money falls, other things equal. Students should connect inflation with what the same amount of money can buy rather than only memorising a definition.', links: [
         ['/tools/inflation-impact-calculator','Inflation Impact Calculator'],
@@ -108,7 +108,7 @@ export const teacherContentGuides = [
       ]},
       { title: 'For a 4-mark answer: add depth, not padding', text: 'Use a short opening where needed, then organised headings with explanation. A diagram, table or example should be added only when it genuinely supports the concept or is required by the question.', links: [
         ['/gseb/class-12/economics-formula-diagram-sheet','Formula + Diagram Sheet'],
-        ['/economics-diagrams-class-12.html','Class 12 Economics Diagrams'],
+        ['/economics-diagrams-class-12','Class 12 Economics Diagrams'],
       ]},
       { title: 'Final check before moving on', text: 'Underline or make the core economic terms easy to see, check whether every point answers the command word, and remove repetition. Good presentation should make the logic easier to read.', links: [
         ['/gseb-class-12-economics-last-minute-revision.html','Last-Minute Revision'],
@@ -199,7 +199,7 @@ export const teacherContentGuides = [
         ['/cbse/class-12/economics-national-income-numericals','National Income Numerical Guide'],
       ]},
       { title: 'Diagram discipline', text: 'Label axes, curves and equilibrium points clearly. A diagram should explain a relationship; an unlabeled shape is not useful. Practise drawing from memory and then explain what moves and why.', links: [
-        ['/economics-diagrams-class-12.html','Class 12 Economics Diagrams'],
+        ['/economics-diagrams-class-12','Class 12 Economics Diagrams'],
         ['/gseb/class-12/money-inflation-common-mistakes','Money & Inflation Mistakes'],
       ]},
       { title: 'Use visuals only where they help', text: 'Do not force a diagram into every answer. Use it where the concept is naturally graphical or where the question asks for it, and connect the diagram back to the written explanation.', links: [
@@ -478,7 +478,7 @@ export const teacherContentGuides = [
       ]},
       { title: 'Method leak: the student skips working or the diagram logic', text: 'In numericals, missing conversions hide mistakes. In diagrams, missing labels or unexplained shifts make the logic difficult to follow. Show the economic reasoning, not only the final result.', links: [
         ['/cbse/class-12/national-income-common-mistakes','National Income Mistakes'],
-        ['/economics-diagrams-class-12.html','Economics Diagrams'],
+        ['/economics-diagrams-class-12','Economics Diagrams'],
       ]},
       { title: 'Question leak: answering a related question instead of the asked question', text: 'Students often write everything they remember about a chapter. Underline the command word and topic boundary first, then check every paragraph against the actual demand of the question.', links: [
         ['/marks-recovery','Marks Recovery Analysis'],
@@ -516,7 +516,7 @@ export const teacherContentGuides = [
         ['/cbse/class-12/national-income-numericals-beginner-to-board','National Income Numerical Strategy'],
       ]},
       { title: 'Diagram: label before explaining', text: 'Axes, curves and important points should be labelled clearly. Then explain whether the change is a movement or shift, what caused it and what happens to the relevant economic variables.', links: [
-        ['/economics-diagrams-class-12.html','Economics Diagrams'],
+        ['/economics-diagrams-class-12','Economics Diagrams'],
         ['/gseb/class-12/economics-formula-diagram-sheet','GSEB Formula + Diagram Sheet'],
       ]},
       { title: 'Final-day revision: redraw, do not just reread', text: 'Cover the sheet and reproduce the key formulas or diagrams from memory. Check the missing labels and relationships, then repeat only the ones you could not recreate accurately.', links: [
