@@ -23,6 +23,7 @@ const basePages = [
   ["/quizzes", "weekly", "0.95"],
   ["/premium", "weekly", "0.9"],
   ["/premium/cbse-12-accountancy", "weekly", "0.92"],
+  ["/cbse-class-12-accountancy-financial-ratios-notes", "weekly", "0.96"],
   ["/board-exam-diagnostic", "weekly", "0.98"],
   ["/board-booster-packs", "weekly", "0.98"],
   ...Object.values(DIAGNOSTIC_ROUTES).map((page) => [
