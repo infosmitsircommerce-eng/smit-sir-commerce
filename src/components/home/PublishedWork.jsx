@@ -2,6 +2,14 @@ import { ExternalLink, Newspaper } from 'lucide-react';
 
 const publications = [
   {
+    outlet: 'OnlineCultus',
+    title: 'Why Resource Libraries Need a Clear Learning Path',
+    description:
+      'Smit Thaker explains how Learn → Recall → Apply → Review turns a collection of digital resources into a usable learning system for students.',
+    url: 'https://www.onlinecultus.com/why-resource-libraries-need-a-clear-learning-path/',
+    note: 'Published 17 September 2026',
+  },
+  {
     outlet: 'HandwritingTool',
     title: 'Why Handwritten Retrieval Still Matters in a Digital Study Workflow',
     description:
