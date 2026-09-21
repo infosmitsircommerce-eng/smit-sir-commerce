@@ -79,9 +79,9 @@ export const commerceToolsPhase2 = [
     calculate(v) { if (!finite(v.fc, v.nit)) return { error: 'Enter valid numbers.' }; const fc=num(v.fc), nit=num(v.nit), mp=fc+nit; return { primary:`Market Price = ${fmt(mp)}`, steps:[`Market Price = Factor Cost + NIT`,`= ${fmt(fc)} + ${fmt(nit)} = ${fmt(mp)}`], note:'If subsidies exceed indirect taxes, NIT can be negative.' }; }
   },
   {
-    slug: 'nfia-calculator', category: 'Economics', classLevel: 'Class 12', title: 'NFIA Calculator', h1: 'Net Factor Income from Abroad (NFIA) Calculator',
-    description: 'Calculate NFIA from factor income received from abroad and factor income paid abroad.',
-    keywords: ['NFIA calculator', 'net factor income from abroad calculator', 'Class 12 national income NFIA'],
+    slug: 'nfia-calculator', category: 'Economics', classLevel: 'Class 12', title: 'NFIA Formula & Calculator — Class 12 Economics', h1: 'NFIA Formula + Net Factor Income from Abroad Calculator',
+    description: 'Use the NFIA formula: Net Factor Income from Abroad = factor income received from abroad − factor income paid abroad. Calculate NFIA instantly with a worked Class 12 Economics example.',
+    keywords: ['NFIA formula', 'NFIA calculator', 'net factor income from abroad formula', 'net factor income from abroad calculator', 'NFIA formula class 12', 'Class 12 national income NFIA'],
     formula: 'NFIA = Factor Income from Abroad − Factor Income to Abroad',
     fields: [field('fromAbroad', 'Factor Income from Abroad', '120'), field('toAbroad', 'Factor Income to Abroad', '90')],
     example: 'Factor income from abroad of 120 and factor income paid abroad of 90 gives NFIA of 30.',
