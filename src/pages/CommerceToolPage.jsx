@@ -6,6 +6,52 @@ import { commerceToolBySlug, commerceTools } from '../data/allCommerceTools';
 
 const BASE = 'https://www.smitsircommerce.in';
 
+const searchBoostBySlug = {
+  'nfia-calculator': {
+    title: 'NFIA Formula & Calculator — Class 12 Economics',
+    answer: 'NFIA = Factor income earned from abroad − Factor income paid abroad.',
+    detail: 'Enter both values below to calculate Net Factor Income from Abroad. A positive answer raises national income above domestic income; a negative answer lowers it.',
+    examTip: 'In national-income conversions, add NFIA when moving from domestic to national aggregates and subtract it when moving back.',
+  },
+  'mpc-mps-calculator': {
+    title: 'MPC & MPS Calculator with Formula — Class 12 Economics',
+    answer: 'MPC = ΔC ÷ ΔY and MPS = ΔS ÷ ΔY. In the simple model, MPC + MPS = 1.',
+    detail: 'Use the change in income and change in consumption from the question. The calculator finds MPC, MPS and the change in saving with complete working.',
+    examTip: 'Use changes, not total income and total consumption. That common mix-up produces APC and APS instead.',
+  },
+  'net-indirect-tax-calculator': {
+    title: 'Net Indirect Tax Formula & Calculator — Class 12',
+    answer: 'Net Indirect Tax (NIT) = Indirect taxes − Subsidies.',
+    detail: 'Use NIT to convert values between market price and factor cost. Enter indirect taxes and subsidies below for a step-by-step answer.',
+    examTip: 'Subtract NIT when converting market price to factor cost; add NIT when converting factor cost to market price.',
+  },
+  'factor-cost-from-market-price-calculator': {
+    title: 'Market Price to Factor Cost Calculator & Formula',
+    answer: 'Factor Cost = Market Price − Indirect Taxes + Subsidies, or Market Price − NIT.',
+    detail: 'Enter the market-price value, indirect taxes and subsidies below. The calculator shows the conversion and every adjustment.',
+    examTip: 'Taxes make market price higher; subsidies make it lower. This sign logic helps you remember the formula.',
+  },
+  'gdp-to-ndp-calculator': {
+    title: 'GDP to NDP Formula & Calculator — Class 12 Economics',
+    answer: 'NDP = GDP − Depreciation (Consumption of Fixed Capital).',
+    detail: 'Enter GDP and depreciation below to convert a gross domestic aggregate into its net domestic value.',
+    examTip: 'Gross to net always means subtract depreciation; net to gross means add it.',
+  },
+  'debt-equity-ratio-calculator': {
+    title: 'Debt–Equity Ratio Calculator with Formula — Class 12',
+    answer: 'Debt–Equity Ratio = Long-term Debt ÷ Shareholders’ Funds.',
+    detail: 'Enter the figures exactly as classified in your question. The calculator returns the ratio and shows the substitution step.',
+    examTip: 'Follow the definition required by your board question before deciding which liabilities belong in debt.',
+  },
+};
+
+const getSearchBoost = (slug, tool) => searchBoostBySlug[slug] || {
+  title: `${tool.title} — Free ${tool.classLevel} ${tool.category} Tool`,
+  answer: tool.formula,
+  detail: tool.description,
+  examTip: 'Write the formula, substitute values with the same units and show the final calculation clearly.',
+};
+
 export default function CommerceToolPage() {
   const { toolSlug } = useParams();
   const tool = commerceToolBySlug[toolSlug];
@@ -23,6 +69,7 @@ export default function CommerceToolPage() {
   }
 
   const path = `/tools/${tool.slug}`;
+  const searchBoost = getSearchBoost(tool.slug, tool);
   const related = commerceTools.filter((item) => item.category === tool.category && item.slug !== tool.slug).slice(0, 5);
   const faqs = [
     { q: `What formula does the ${tool.title} use?`, a: `This calculator uses: ${tool.formula}. The result section also shows the working step by step.` },
@@ -89,7 +136,7 @@ export default function CommerceToolPage() {
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-ivory)' }}>
-      <SEO title={`${tool.title} — Free ${tool.classLevel} ${tool.category} Tool`} description={tool.description} path={path} structuredData={structuredData} />
+      <SEO title={searchBoost.title} description={`${searchBoost.answer} ${searchBoost.detail}`} path={path} structuredData={structuredData} />
 
       <section className="page-container pt-8 sm:pt-12">
         <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-xs" style={{ color: 'var(--muted)' }}>
@@ -106,6 +153,15 @@ export default function CommerceToolPage() {
           </div>
           <h1 className="headline">{tool.h1}</h1>
           <p className="mt-4 text-base leading-8 max-w-3xl" style={{ color: 'var(--muted)' }}>{tool.description}</p>
+        </div>
+      </section>
+
+      <section className="page-container pb-6">
+        <div className="card-paper p-5 sm:p-7" aria-labelledby="quick-answer-heading">
+          <span className="eyebrow">Quick answer</span>
+          <h2 id="quick-answer-heading" className="text-2xl sm:text-3xl mt-3" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{searchBoost.answer}</h2>
+          <p className="mt-3 text-sm sm:text-base leading-7" style={{ color: 'var(--muted)' }}>{searchBoost.detail}</p>
+          <div className="mt-4 rounded-xl p-4 text-sm leading-6" style={{ background: 'var(--gold-bg)', color: 'var(--ink)' }}><strong>Exam tip:</strong> {searchBoost.examTip}</div>
         </div>
       </section>
 
