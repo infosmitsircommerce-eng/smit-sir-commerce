@@ -5,19 +5,39 @@ import SEO from '../components/ui/SEO';
 import PremiumQrImage from '../components/PremiumQrImage';
 import { useAuth } from '../context/AuthContext';
 import { trackEvent } from '../lib/analytics';
+import { verifiedQuizPacks } from '../data/quizPublic';
+import { gsebPremiumEconomicsMaterials } from '../data/gsebMaterials';
+import { gseb11AccountancyPremiumMaterials } from '../data/gsebAccountancyPremium';
+import { cbse12AccountancyPremiumMaterials } from '../data/cbse12AccountancyPremium';
 
 const WHATSAPP_NUMBER = '916353709585';
 const PLANS = {
   199: { id: 'subject-pack-199', name: 'Subject Pack', price: 199, note: 'Choose one subject', features: ['Premium PDFs for one selected subject', 'Easy, Moderate, Hard & Extreme quizzes', 'Chapter-wise organised access', 'One-time payment for the selected pack'] },
   999: { id: 'complete-commerce-999', name: 'Complete Commerce', price: 999, note: 'Every subject. Every Premium resource.', features: ['All subjects Premium notes and PDFs', 'All subjects quizzes — every difficulty', 'Previous 5 years’ question papers', 'Exclusive chapter PPT presentations', 'Premium test series and Exam Mode', 'Worked numericals and answer explanations', 'Revision sheets and important-question sets', 'New Premium resources added to this plan'] },
 };
-const SUBJECTS = [
-  { title: 'Economics', meta: 'Microeconomics · Macroeconomics · Indian Economy', items: ['Chapter-wise Premium notes', 'Hard & Extreme quizzes', 'Worked concept questions'], icon: GraduationCap },
-  { title: 'Accountancy', meta: 'CBSE + GSEB · Class 11 & 12', items: ['Detailed chapter PDFs', 'Worked numericals', 'Board-pattern practice'], icon: BookOpenCheck },
-  { title: 'Business Studies / OCM', meta: 'CBSE Business Studies + GSEB BA (OCM)', items: ['Complete subject notes', 'Case-study questions', 'Chapter quizzes'], icon: Layers3 },
-  { title: 'Exam Library', meta: 'Practice built for revision and boards', items: ['Last 5 years’ papers', 'Premium test series', 'Important-question sets'], icon: FileQuestion },
-  { title: 'Premium PPT Library', meta: 'Clean, visual chapter presentations', items: ['Concept PPTs', 'Classroom-ready slides', 'Quick revision decks'], icon: Presentation },
-  { title: 'Smart Study Tools', meta: 'Practice, review and improve', items: ['Exam Mode', 'Answer explanations', 'Revision sheets'], icon: MonitorPlay },
+const cbse11Economics = verifiedQuizPacks.filter(pack => pack.board === 'CBSE' && pack.classLevel === 11 && pack.subject === 'Economics');
+const cbse12Macro = verifiedQuizPacks.filter(pack => pack.board === 'CBSE' && pack.classLevel === 12 && pack.stream === 'Macroeconomics');
+const cbse12Ied = verifiedQuizPacks.filter(pack => pack.board === 'CBSE' && pack.classLevel === 12 && pack.stream === 'Indian Economic Development');
+
+const CATALOG = [
+  {
+    board: 'CBSE',
+    classes: [
+      { level: 'Class 11', subjects: [{ name: 'Economics — Microeconomics', type: 'Premium guides + advanced quizzes', items: cbse11Economics.map(pack => ({ title: pack.title, meta: '20 concepts · 20 worked challenges · 40 MCQs' })) }] },
+      { level: 'Class 12', subjects: [
+        { name: 'Accountancy — Parts I & II', type: '10 detailed Premium PDFs', items: cbse12AccountancyPremiumMaterials.map(item => ({ title: item.title, meta: `${item.pages} pages · worked numericals + exam practice` })) },
+        { name: 'Economics — Macroeconomics', type: 'Premium guides + advanced quizzes', items: cbse12Macro.map(pack => ({ title: pack.title, meta: '20 concepts · 20 worked challenges · 40 MCQs' })) },
+        { name: 'Economics — Indian Economic Development', type: 'Premium guides + advanced quizzes', items: cbse12Ied.map(pack => ({ title: pack.title, meta: '20 concepts · 20 worked challenges · 40 MCQs' })) },
+      ] },
+    ],
+  },
+  {
+    board: 'GSEB',
+    classes: [
+      { level: 'Class 11', subjects: [{ name: 'Accountancy — Part 1', type: '10 detailed Premium PDFs · 718 chapter pages', items: gseb11AccountancyPremiumMaterials.map(item => ({ title: `Chapter ${item.chapterNumber} — ${item.title}`, meta: `${item.pages} pages · explanations + numericals` })) }] },
+      { level: 'Class 12', subjects: [{ name: 'Economics', type: '10 Premium revision PDFs', items: gsebPremiumEconomicsMaterials.map(item => ({ title: item.title, meta: `${item.pages} pages · Premium revision PDF` })) }] },
+    ],
+  },
 ];
 
 function PaymentModal({ plan, initialResource, displayName, user, onClose }) {
@@ -64,7 +84,7 @@ function PaymentModal({ plan, initialResource, displayName, user, onClose }) {
         <span className="text-xs font-black tracking-[.13em]" style={{ color: '#8b6418' }}>STEP 2 · SEND PAYMENT DETAILS</span>
         <h3 className="text-2xl font-black mt-3">Enter UTR and continue</h3>
         <p className="text-sm leading-6 mt-2" style={{ color: 'var(--muted)' }}>WhatsApp opens with your details filled. Access activates only after manual payment verification.</p>
-        {plan.price === 199 ? <label className="block text-sm font-bold mt-5">Choose your subject<select value={subject} onChange={e => setSubject(e.target.value)} className="input-field w-full mt-2"><option>Economics</option><option>Accountancy</option><option>Business Studies / OCM</option></select></label> : null}
+        {plan.price === 199 ? <label className="block text-sm font-bold mt-5">Choose your subject<select value={subject} onChange={e => setSubject(e.target.value)} className="input-field w-full mt-2">{initialResource && !['Economics', 'Accountancy', 'Business Studies / OCM'].includes(initialResource) ? <option>{initialResource}</option> : null}<option>Economics</option><option>Accountancy</option><option>Business Studies / OCM</option></select></label> : null}
         <label className="block text-sm font-bold mt-4">Student name<input value={name} onChange={e => setName(e.target.value)} className="input-field w-full mt-2" placeholder="Your full name" autoComplete="name" /></label>
         <label className="block text-sm font-bold mt-4">WhatsApp number<input value={mobile} onChange={e => setMobile(e.target.value.replace(/\D/g, '').slice(0, 10))} className="input-field w-full mt-2" inputMode="numeric" maxLength={10} placeholder="10-digit mobile number" autoComplete="tel" /></label>
         <label className="block text-sm font-bold mt-4">UTR / transaction ID<input value={utr} onChange={e => setUtr(e.target.value)} className="input-field w-full mt-2 uppercase" placeholder="Example: 426512345678" autoCapitalize="characters" /></label>
@@ -114,12 +134,24 @@ export default function Premium() {
       <section aria-labelledby="plans-heading" className="mt-12"><span className="text-xs font-black tracking-[.13em]" style={{ color: '#8b6418' }}>SIMPLE PRICING</span><h2 id="plans-heading" className="text-3xl sm:text-4xl font-black mt-2">Two plans. No confusing checkout.</h2><div className="grid lg:grid-cols-2 gap-5 mt-7"><PlanCard plan={PLANS[199]} onChoose={openPayment} /><PlanCard plan={PLANS[999]} featured onChoose={openPayment} /></div></section>
 
       <section aria-labelledby="library-heading" className="mt-16">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4"><div><span className="text-xs font-black tracking-[.13em]" style={{ color: '#8b6418' }}>VISIBLE, BUT PROTECTED</span><h2 id="library-heading" className="text-3xl sm:text-4xl font-black mt-2">Explore the Premium library</h2><p className="mt-3" style={{ color: 'var(--muted)' }}>You can see what exists. Actual files stay locked until access is verified.</p></div><div className="inline-flex items-center gap-2 text-sm font-bold"><LockKeyhole className="w-4 h-4" style={{ color: 'var(--gold)' }} /> Files remain protected</div></div>
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4 mt-7">{SUBJECTS.map(({ title, meta, items, icon: Icon }) => <article key={title} className="rounded-3xl p-5 sm:p-6" style={{ background: '#fff', border: '1px solid #e7e0d4', boxShadow: '0 12px 34px rgba(35,31,25,.055)' }}>
-          <div className="flex items-start justify-between gap-3"><div className="w-11 h-11 rounded-2xl grid place-items-center" style={{ background: '#fff5d8', color: '#8b6418' }}><Icon className="w-5 h-5" /></div><span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-black" style={{ background: '#14213d', color: '#f2c75b' }}><LockKeyhole className="w-3 h-3" /> PREMIUM</span></div>
-          <h3 className="text-xl font-black mt-4">{title}</h3><p className="text-sm mt-1 leading-6" style={{ color: 'var(--muted)' }}>{meta}</p><div className="space-y-2 mt-4">{items.map(item => <div key={item} className="flex items-center gap-2 text-sm font-semibold"><FileText className="w-4 h-4 shrink-0" style={{ color: '#b8872f' }} />{item}</div>)}</div>
-          <button type="button" onClick={() => openPayment(PLANS[999])} className="w-full rounded-xl px-4 py-3 font-black mt-5 inline-flex justify-center items-center gap-2" style={{ background: '#f5f2eb', color: '#172033' }}><LockKeyhole className="w-4 h-4" /> Unlock this library</button>
-        </article>)}</div>
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4"><div><span className="text-xs font-black tracking-[.13em]" style={{ color: '#8b6418' }}>THE COMPLETE CATALOGUE</span><h2 id="library-heading" className="text-3xl sm:text-4xl font-black mt-2">Every resource, visible now.</h2><p className="mt-3 max-w-3xl" style={{ color: 'var(--muted)' }}>No extra page or selection is required. Browse board, class, subject, chapter name and page count below. Only opening the protected file requires verified access.</p></div><div className="inline-flex items-center gap-2 text-sm font-bold"><LockKeyhole className="w-4 h-4" style={{ color: 'var(--gold)' }} /> PDFs remain protected</div></div>
+        <div className="space-y-10 mt-8">
+          {CATALOG.map(board => <section key={board.board} className="rounded-[1.75rem] p-4 sm:p-7" style={{ background: '#fff', border: '1px solid #e5ddcf', boxShadow: '0 16px 44px rgba(35,31,25,.06)' }}>
+            <div className="flex items-center justify-between gap-4"><div><span className="text-xs font-black tracking-[.14em]" style={{ color: '#8b6418' }}>BOARD</span><h3 className="text-3xl font-black mt-1">{board.board}</h3></div><span className="rounded-full px-3 py-2 text-xs font-black" style={{ background: '#14213d', color: '#f2c75b' }}>{board.classes.reduce((sum, cls) => sum + cls.subjects.reduce((count, subject) => count + subject.items.length, 0), 0)} resources</span></div>
+            <div className="space-y-8 mt-7">{board.classes.map(cls => <div key={cls.level}>
+              <div className="flex items-center gap-3"><span className="w-9 h-9 rounded-xl grid place-items-center font-black text-sm" style={{ background: '#fff2c8', color: '#805a14' }}>{cls.level.replace('Class ', '')}</span><h4 className="text-xl font-black">{cls.level}</h4></div>
+              <div className="grid xl:grid-cols-2 gap-5 mt-4">{cls.subjects.map(subject => <article key={subject.name} className="rounded-2xl overflow-hidden" style={{ border: '1px solid #e8e0d3', background: '#fcfbf8' }}>
+                <div className="p-4 sm:p-5" style={{ background: '#f6f1e7', borderBottom: '1px solid #e8e0d3' }}><div className="flex items-start justify-between gap-3"><div><h5 className="font-black text-lg">{subject.name}</h5><p className="text-xs font-bold mt-1" style={{ color: '#8b6418' }}>{subject.type}</p></div><LockKeyhole className="w-5 h-5 shrink-0" style={{ color: '#b8872f' }} /></div></div>
+                <div className="divide-y" style={{ borderColor: '#eee8de' }}>{subject.items.map((item, index) => <button key={item.title} type="button" onClick={() => { setSearchParams({ plan: '199', resource: subject.name }); setSelectedPlan(PLANS[199]); }} className="w-full flex items-start gap-3 p-4 text-left transition-colors hover:bg-white" style={{ borderColor: '#eee8de' }}>
+                  <span className="w-7 h-7 rounded-lg grid place-items-center shrink-0 text-[11px] font-black" style={{ background: '#fff2c8', color: '#805a14' }}>{String(index + 1).padStart(2, '0')}</span>
+                  <span className="min-w-0 flex-1"><strong className="block text-sm leading-5">{item.title}</strong><small className="block mt-1 leading-5" style={{ color: 'var(--muted)' }}>{item.meta}</small></span>
+                  <LockKeyhole className="w-4 h-4 shrink-0 mt-1" style={{ color: '#a77a23' }} />
+                </button>)}</div>
+                <button type="button" onClick={() => { setSearchParams({ plan: '199', resource: subject.name }); setSelectedPlan(PLANS[199]); }} className="w-full px-4 py-3 font-black text-sm inline-flex items-center justify-center gap-2" style={{ background: '#14213d', color: '#fff' }}><LockKeyhole className="w-4 h-4" /> Unlock {subject.name}</button>
+              </article>)}</div>
+            </div>)}</div>
+          </section>)}
+        </div>
       </section>
 
       <section className="rounded-[1.75rem] p-6 sm:p-8 mt-14" style={{ background: '#fff', border: '1px solid #e7e0d4' }}><div className="grid md:grid-cols-3 gap-6">
