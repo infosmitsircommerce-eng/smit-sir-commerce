@@ -147,34 +147,33 @@ export default function AccountancyPremiumPreview({ variant = "compact" }) {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 mt-5 sm:mt-6">
+              <Link
+                to="/cbse-class-12-accountancy-financial-ratios-notes"
+                className="btn-primary inline-flex min-h-12 items-center justify-center gap-2"
+                onClick={() =>
+                  void trackEvent("premium_accountancy_sample_landing_click", {
+                    placement: showcase ? "premium_accountancy_page" : "homepage",
+                  })
+                }
+              >
+                <BookOpenCheck className="w-4 h-4" /> Read Free Premium Chapter
+              </Link>
               <a
                 href={ACCOUNTANCY_PREMIUM_SAMPLE_PDF}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={openSample}
-                className="btn-primary inline-flex min-h-12 items-center justify-center gap-2"
-              >
-                <Eye className="w-4 h-4" /> Open Free PDF Preview
-              </a>
-              <Link
-                to="/premium/cbse-12-accountancy"
                 className="btn-secondary inline-flex min-h-12 items-center justify-center gap-2"
-                onClick={() =>
-                  void trackEvent("premium_accountancy_sample_cta", {
-                    placement: showcase ? "premium_accountancy_page" : "homepage",
-                  })
-                }
               >
-                <BookOpenCheck className="w-4 h-4" /> Explore Premium
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+                <Eye className="w-4 h-4" /> Open PDF
+              </a>
             </div>
 
             <div className="flex items-start gap-2 mt-4 text-xs leading-5" style={{ color: "#6d7582" }}>
               <FileText className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "#b8872f" }} />
               <span>
-                This chapter is free as a quality sample. Premium access unlocks the protected Accountancy
-                library and future Master PDFs built to this same visual standard.
+                This chapter is free as the quality benchmark. The Accountancy Premium library is being upgraded
+                chapter by chapter to this same Master standard before protected PDFs are presented as ready.
               </span>
             </div>
           </div>
