@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 
 const STORAGE_KEY = "ssc-language-v1";
 const DEFAULT_LANGUAGE = "en";
@@ -228,6 +228,8 @@ function shouldSkipTextNode(node) {
 }
 
 export function LanguageProvider({ children }) {
+  const originalTextRef = useRef(new WeakMap());
+  const originalAttributesRef = useRef(new WeakMap());
   const [language, setLanguageState] = useState(() => {
     if (typeof window === "undefined") return DEFAULT_LANGUAGE;
     return window.localStorage?.getItem(STORAGE_KEY) === "gu" ? "gu" : DEFAULT_LANGUAGE;
@@ -240,8 +242,8 @@ export function LanguageProvider({ children }) {
     document.documentElement.dataset.siteLanguage = language;
     window.localStorage?.setItem(STORAGE_KEY, language);
 
-    const originalText = new WeakMap();
-    const originalAttributes = new WeakMap();
+    const originalText = originalTextRef.current;
+    const originalAttributes = originalAttributesRef.current;
     const internalTextMutations = new WeakSet();
     const internalAttributeMutations = new WeakMap();
 
