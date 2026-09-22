@@ -335,8 +335,6 @@ export function LanguageProvider({ children }) {
       }
     };
 
-    processSubtree(document.body);
-
     const observer = new MutationObserver((records) => {
       for (const record of records) {
         if (record.type === "characterData") {
@@ -372,6 +370,8 @@ export function LanguageProvider({ children }) {
       attributes: true,
       attributeFilter: translatableAttributes,
     });
+
+    processSubtree(document.body);
 
     window.dispatchEvent(
       new CustomEvent("ssc-language-changed", { detail: { language } }),
