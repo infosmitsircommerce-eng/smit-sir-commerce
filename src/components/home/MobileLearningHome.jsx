@@ -20,6 +20,7 @@ import MobileStudySetup from "./MobileStudySetup";
 import AccountancyPremiumPreview from "../premium/AccountancyPremiumPreview";
 import { readStudentPreferences, studyPath } from "../../lib/studentPreferences";
 import { trackEvent } from "../../lib/analytics";
+import LanguageSwitcher from "../ui/LanguageSwitcher";
 
 const QUICK_ACTIONS = [
   { label: "Study Notes", icon: FileText, to: "/study-material", tone: "gold" },
@@ -132,6 +133,7 @@ export default function MobileLearningHome() {
               <p className="mobile-welcome-subtitle">Small steps make big careers.</p>
             </div>
             <div className="mobile-welcome-actions">
+              <LanguageSwitcher compact />
               <AppLink to={user ? "/learning-insights" : "/login"} className="mobile-profile-button" aria-label={user ? "Open profile" : "Log in"}>
                 {user ? initials : "SS"}
               </AppLink>
