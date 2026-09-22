@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import { isLightRoute } from "../../lib/theme";
+import LanguageSwitcher from "../ui/LanguageSwitcher";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -270,6 +271,7 @@ export default function Navbar() {
           </div>
 
           <div className="hidden lg:flex items-center gap-2 shrink-0">
+            <LanguageSwitcher tone={light ? "light" : "dark"} />
             <button
               onClick={() =>
                 window.dispatchEvent(new CustomEvent("ssc-open-resource-finder"))
