@@ -9,6 +9,7 @@ import {
 import { MenuToggleIcon } from "./menu-toggle-icon";
 import { useAuth } from "../../context/AuthContext";
 import { isLightRoute } from "../../lib/theme";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const groups = [
   {
@@ -98,6 +99,7 @@ export default function MobileHeader() {
           </div>
         </Link>
         <div className="flex items-center gap-2">
+          <LanguageSwitcher tone={light ? "light" : "dark"} compact className="hidden min-[360px]:inline-flex" />
           <Link
             to="/study-material"
             className="mobile-header-demo hidden min-[390px]:inline-flex items-center gap-1.5 min-h-10 px-3 rounded-xl text-[11px] font-black"
