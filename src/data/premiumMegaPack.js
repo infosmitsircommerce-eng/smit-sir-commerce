@@ -64,7 +64,7 @@ export const PREMIUM_MEGA_SECTIONS = [
     title: 'Premium MCQs, tests & exam practice',
     meta: 'Hard + Extreme questions, worked explanations and Pro-labelled tests',
     detail: 'Includes the Premium-gated quiz/test practice already published across the site.',
-    href: '/test-series',
+    href: '/quizzes',
   },
   {
     title: 'Premium study tools',
