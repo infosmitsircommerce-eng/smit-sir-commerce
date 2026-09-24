@@ -1,0 +1,104 @@
+/* Desktop scroll-performance layer.
+   Keep scrolling native and cheap: avoid live blur, permanent compositor layers,
+   large hover translations and broad transition-all rules on laptop/desktop. */
+
+@media (min-width: 1024px) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  body {
+    overscroll-behavior-y: auto;
+  }
+
+  /* Backdrop blur forces the browser to continuously re-sample moving content
+     underneath cards/nav surfaces while scrolling. Opaque/translucent surfaces
+     keep the same visual hierarchy without the repaint cost. */
+  :where(
+    .glass-card,
+    .card-premium,
+    .ssc-glass-card,
+    .ssc-material-card,
+    .ssc-quick-action-card,
+    .ssc-floating-dock,
+    .mobile-bottom-surface,
+    .mobile-site-header
+  ) {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  /* Permanent will-change promotes many cards to compositor layers and can
+     increase GPU memory/texture work on long pages. Promote only when truly animating. */
+  :where(
+    .card-premium,
+    .card-light,
+    .card-paper,
+    .glass-card,
+    .ssc-glass-card,
+    .ssc-material-card,
+    .ssc-quick-action-card,
+    .btn-primary,
+    .btn-secondary,
+    .btn-navy
+  ) {
+    will-change: auto !important;
+  }
+
+  /* Desktop pages should feel direct, not like every card is floating while
+     the user scrolls through a dense learning library. */
+  :where(
+    .card-premium,
+    .card-light,
+    .card-paper,
+    .ssc-hover-lift,
+    .ssc-material-card,
+    .ssc-quick-action-card,
+    .sticker
+  ):hover {
+    transform: none !important;
+  }
+
+  /* Replace global transition-all with paint-cheap interaction feedback. */
+  :where(a, button, input, select, textarea) {
+    transition-property: color, background-color, border-color, opacity !important;
+    transition-duration: 120ms !important;
+    transition-timing-function: ease-out !important;
+  }
+
+  /* Any old AOS markup must render immediately even if an older cached HTML
+     shell still contains data-aos attributes. */
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* Long homepage sections outside the viewport do not need to be painted.
+     Chrome can skip layout/paint work until they are close to view. */
+  .ssc-home-modules > section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 720px;
+  }
+
+  /* Large decorative blur fields are visually subtle but expensive to composite. */
+  .ssc-premium-canvas::after {
+    filter: none !important;
+    opacity: 0.55;
+  }
+
+  .blur-3xl,
+  .blur-2xl {
+    filter: none !important;
+    opacity: 0.35;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
