@@ -122,6 +122,7 @@ export const POSTBUILD_STAGES = [
   {
     "name": "10-final-validation",
     "scripts": [
+      "scripts/normalize-premium-pricing.mjs",
       "scripts/final-adsense-polish.mjs",
       "scripts/dedupe-structured-data.mjs",
       "scripts/audit-adsense-content.mjs",
