@@ -84,7 +84,8 @@ export default function AccountancyPremiumPreview({ variant = "compact" }) {
                 alt="Financial Ratios Analysis Premium Master Notes cover"
                 width="951"
                 height="1345"
-                loading={showcase ? "lazy" : "eager"}
+                loading="lazy"
+                fetchPriority={showcase ? "auto" : "low"}
                 decoding="async"
                 className={
                   showcase

@@ -5,10 +5,14 @@
 @media (min-width: 1024px) {
   html {
     scroll-behavior: auto !important;
+    scrollbar-gutter: stable;
   }
 
   body {
     overscroll-behavior-y: auto;
+    /* Long multi-radial body backgrounds are repainted behind the whole document.
+       Individual sections already carry their own visual treatment. */
+    background: #f7f8fc !important;
   }
 
   /* Backdrop blur forces the browser to continuously re-sample moving content
@@ -28,8 +32,9 @@
     backdrop-filter: none !important;
   }
 
-  /* Permanent will-change promotes many cards to compositor layers and can
-     increase GPU memory/texture work on long pages. Promote only when truly animating. */
+  /* Permanent will-change/translateZ promotion can create dozens of GPU layers
+     on a long page. That often makes fast wheel/trackpad scrolling worse rather
+     than better on ordinary laptops. */
   :where(
     .card-premium,
     .card-light,
@@ -43,6 +48,12 @@
     .btn-navy
   ) {
     will-change: auto !important;
+  }
+
+  .mobile-learning-home img,
+  .ssc-home-modules img {
+    transform: none !important;
+    backface-visibility: visible !important;
   }
 
   /* Desktop pages should feel direct, not like every card is floating while
@@ -74,11 +85,81 @@
     transition: none !important;
   }
 
-  /* Long homepage sections outside the viewport do not need to be painted.
-     Chrome can skip layout/paint work until they are close to view. */
+  /* The homepage gets a stricter desktop mode. Its job is to scroll smoothly;
+     decorative motion must never compete with the browser's scroll pipeline. */
+  .mobile-learning-home,
+  .ssc-home-modules {
+    isolation: isolate;
+  }
+
+  .mobile-learning-home {
+    background: #fbfaf7 !important;
+    contain: layout style paint;
+  }
+
+  .mobile-learning-home *,
+  .mobile-learning-home *::before,
+  .mobile-learning-home *::after,
+  .ssc-home-modules *,
+  .ssc-home-modules *::before,
+  .ssc-home-modules *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* A stationary mouse pointer should not make cards physically jump as the
+     document scrolls underneath it. Disable homepage hover transforms entirely. */
+  .mobile-learning-home :where(
+    .mobile-study-path,
+    .mobile-study-search button,
+    .mobile-focus-copy a,
+    .mobile-action-card,
+    .mobile-resume-card,
+    .mobile-class-card,
+    .mobile-lab-link,
+    .mobile-profile-button
+  ):hover,
+  .ssc-home-modules :where(a, button, .card-paper, .tile-paper):hover {
+    transform: none !important;
+  }
+
+  /* The legacy scroll-safety sheet intentionally disables content-visibility
+     globally because applying it to every page once caused frozen scroll states.
+     These homepage modules are simple standalone sections, so it is safe and
+     useful to opt only them back in. This lets Chrome skip painting far-off
+     sections during fast scrolling. */
   .ssc-home-modules > section {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 720px;
+    contain: layout style paint !important;
+    content-visibility: auto !important;
+    contain-intrinsic-size: auto 720px !important;
+  }
+
+  /* Huge soft shadows and image filters make large paint regions. Keep depth,
+     but use small shadows that are much cheaper to raster while scrolling. */
+  :where(
+    .mobile-focus-banner,
+    .learning-home-actions-panel,
+    .learning-home-continue-panel,
+    .learning-home-class-panel,
+    .mobile-action-card,
+    .mobile-action-premium,
+    .mobile-resume-card,
+    .mobile-class-card,
+    .mobile-lab-link,
+    .mobile-quote-card,
+    .ssc-home-modules > section,
+    .ssc-home-modules .card-paper
+  ) {
+    box-shadow: 0 4px 16px rgba(23, 32, 51, 0.07) !important;
+  }
+
+  .mobile-teacher-visual img {
+    filter: none !important;
+  }
+
+  .mobile-learning-home img[alt*="Premium"],
+  .mobile-learning-home img[alt*="Financial Ratios"] {
+    box-shadow: none !important;
   }
 
   /* Large decorative blur fields are visually subtle but expensive to composite. */
@@ -88,7 +169,9 @@
   }
 
   .blur-3xl,
-  .blur-2xl {
+  .blur-2xl,
+  .blur-xl,
+  .blur {
     filter: none !important;
     opacity: 0.35;
   }
