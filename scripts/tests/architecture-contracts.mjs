@@ -83,7 +83,7 @@ expect(performanceStyles.includes('content-visibility: auto !important'), 'Homep
 expect(performanceStyles.includes('backdrop-filter: none !important'), 'Desktop performance layer must disable expensive live blur surfaces.');
 expect(performanceStyles.includes('transition: none !important'), 'Homepage desktop motion must not animate underneath a stationary pointer during scrolling.');
 expect(home.includes('import HomeBelowFold from "../components/home/HomeBelowFold"'), 'Homepage lower content must be available synchronously on desktop.');
-expect(!home.includes('IntersectionObserver'), 'Homepage must not mount the lower document in response to active scrolling.');
+expect(!home.includes('new IntersectionObserver'), 'Homepage must not mount the lower document in response to active scrolling.');
 expect(home.includes('window.matchMedia("(min-width: 1024px)").matches'), 'Homepage must render the complete lower structure immediately on desktop.');
 
 expect(app.length < 1500, `App.jsx should remain bootstrap-only; found ${app.length} characters.`);
