@@ -9,7 +9,23 @@ const read = (path) => readFile(join(ROOT, path), 'utf8');
 const failures = [];
 const expect = (condition, message) => { if (!condition) failures.push(message); };
 
-const [pkgRaw, main, app, routes, routeSeoComponent, routeSeo, vite, styles, premiumPrerender, premiumTransition] = await Promise.all([
+const [
+  pkgRaw,
+  main,
+  app,
+  routes,
+  routeSeoComponent,
+  routeSeo,
+  vite,
+  styles,
+  premiumPrerender,
+  premiumTransition,
+  requestGuard,
+  chatApi,
+  doubtApi,
+  reelApi,
+  enquiryApi,
+] = await Promise.all([
   read('package.json'),
   read('src/main.jsx'),
   read('src/App.jsx'),
@@ -20,6 +36,11 @@ const [pkgRaw, main, app, routes, routeSeoComponent, routeSeo, vite, styles, pre
   read('src/styles/app.css'),
   read('scripts/prerender-core-pages.mjs'),
   read('scripts/finalize-premium-transition.mjs'),
+  read('api/_request-guard.js'),
+  read('api/chat.js'),
+  read('api/doubt.js'),
+  read('api/reel.js'),
+  read('api/enquiry-email.js'),
 ]);
 
 const pkg = JSON.parse(pkgRaw);
@@ -76,9 +97,29 @@ expect(!routes.includes('path="/commerce-city"'), 'Retired Commerce Hub route ha
 expect(!routes.includes('path="/exam-tomorrow"'), 'Retired Exam Tomorrow route has returned.');
 expect(!scripts.includes('scripts/prerender-exam-tomorrow.mjs'), 'Retired Exam Tomorrow is still in the build pipeline.');
 
+expect(requestGuard.includes('enforceRateLimit'), 'Shared API rate-limit guard is missing.');
+expect(requestGuard.includes('enforceSiteOrigin'), 'Shared same-site API origin guard is missing.');
+for (const [name, source] of [
+  ['chat', chatApi],
+  ['doubt', doubtApi],
+  ['reel', reelApi],
+  ['enquiry', enquiryApi],
+]) {
+  expect(source.includes("from './_request-guard.js'"), `${name} API must use the shared request guard.`);
+  expect(source.includes('enforceRateLimit'), `${name} API must enforce application-level throttling.`);
+  expect(source.includes('enforceSiteOrigin'), `${name} API must reject cross-site browser abuse.`);
+}
+expect(!chatApi.includes('200+ students'), 'Unsupported student-count claim has returned to Smit Sir AI.');
+expect(!chatApi.includes('91% score above 80%'), 'Unsupported results claim has returned to Smit Sir AI.');
+expect(!chatApi.includes('smitsircommerce.vercel.app'), 'Old Vercel domain has returned to the AI system prompt.');
+expect(chatApi.includes('www.smitsircommerce.in'), 'AI system prompt must use the official production domain.');
+expect(chatApi.includes("item.role === 'user' || item.role === 'assistant'"), 'Chat history roles must be restricted to user/assistant.');
+expect(!doubtApi.includes("Access-Control-Allow-Origin', '*'"), 'Wildcard CORS must not return on the paid AI doubt endpoint.');
+expect(!reelApi.includes("Access-Control-Allow-Origin', '*'"), 'Wildcard CORS must not return on the AI reel endpoint.');
+
 if (failures.length) {
   for (const failure of failures) console.error('[architecture-contract] ' + failure);
   process.exitCode = 1;
 } else {
-  console.log(`[architecture-contract] PASS — ${stages.length} stages, bootstrap-only App.jsx, centralized routing/SEO, consolidated styles and protected Premium discovery/access contracts.`);
+  console.log(`[architecture-contract] PASS — ${stages.length} stages, centralized routing/SEO, protected Premium contracts and hardened public APIs.`);
 }
