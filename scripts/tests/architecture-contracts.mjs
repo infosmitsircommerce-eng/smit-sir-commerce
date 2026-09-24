@@ -46,6 +46,16 @@ expect(routeSeoComponent.includes('from "../config/routeSeo"'), 'RouteSEO compon
 expect(!app.includes('const ROUTE_SEO = {'), 'Route SEO metadata must not live inside App.jsx.');
 expect(routeSeo.includes('export const ROUTE_SEO'), 'Central route SEO map is missing.');
 expect(routeSeo.includes('export function routeUsesOwnSeo'), 'Self-managed SEO route policy is missing.');
+for (const selfManagedSeoPath of [
+  '/premium/economics',
+  '/premium/cbse-12-business-studies',
+  '/cbse-class-12-accountancy-financial-ratios-notes',
+]) {
+  expect(
+    routeSeo.includes(`pathname === "${selfManagedSeoPath}"`),
+    `Self-managed SEO route is missing from routeUsesOwnSeo: ${selfManagedSeoPath}`,
+  );
+}
 
 expect(!vite.includes('enhanced-test-series-entry'), 'Obsolete Test Series Vite alias still exists.');
 expect(!premiumPrerender.includes('Advanced Economics practice for ₹999 once'), 'Stale ₹999 Premium source copy remains.');
