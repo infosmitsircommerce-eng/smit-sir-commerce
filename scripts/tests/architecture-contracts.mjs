@@ -18,6 +18,9 @@ const [
   routeSeo,
   vite,
   styles,
+  performanceStyles,
+  layout,
+  navbar,
   premiumPrerender,
   premiumTransition,
   requestGuard,
@@ -34,6 +37,9 @@ const [
   read('src/config/routeSeo.js'),
   read('vite.config.js'),
   read('src/styles/app.css'),
+  read('src/styles/performance.css'),
+  read('src/components/layout/Layout.jsx'),
+  read('src/components/layout/Navbar.jsx'),
   read('scripts/prerender-core-pages.mjs'),
   read('scripts/finalize-premium-transition.mjs'),
   read('api/_request-guard.js'),
@@ -56,10 +62,23 @@ expect(pkg.scripts.postbuild === 'node scripts/run-postbuild.mjs', 'package.json
 
 expect(main.includes("import './index.css'"), 'Base stylesheet import is missing.');
 expect(main.includes("import './styles/app.css'"), 'Consolidated application stylesheet import is missing.');
+expect(main.includes("import './styles/performance.css'"), 'Desktop performance stylesheet import is missing.');
 for (const legacy of ['mobile.css','premiumVisuals.css','mobileExperience.css','scrollSafety.css','mobileLedger.css','desktopLearningHome.css','productPolish.css']) {
   expect(!main.includes(legacy), `Legacy global style import still active: ${legacy}`);
 }
 expect((styles.match(/\/\* ===== /g) || []).length === 7, 'Consolidated app.css should preserve seven ordered source sections.');
+
+// Desktop scroll must remain native and cheap. These decorative effects caused
+// continuous layout/compositor work and noticeable laptop scroll jank.
+expect(!main.includes("import('aos')"), 'AOS desktop scroll animation bootstrap has returned.');
+expect(!layout.includes('CursorSpotlight'), 'Continuous cursor spotlight must not run in the global layout.');
+expect(!layout.includes('ScrollProgressBar'), 'React scroll progress bar must not run in the global layout.');
+expect(!navbar.includes('backdropFilter'), 'Desktop navbar live backdrop blur has returned.');
+expect(!navbar.includes('WebkitBackdropFilter'), 'Desktop navbar WebKit backdrop blur has returned.');
+expect(!navbar.includes('window.addEventListener("scroll"'), 'Desktop navbar must not subscribe to scroll just for decoration.');
+expect(performanceStyles.includes('will-change: auto !important'), 'Performance layer must clear permanent compositor promotion.');
+expect(performanceStyles.includes('content-visibility: auto'), 'Homepage below-fold paint skipping is missing.');
+expect(performanceStyles.includes('backdrop-filter: none !important'), 'Desktop performance layer must disable expensive live blur surfaces.');
 
 expect(app.length < 1500, `App.jsx should remain bootstrap-only; found ${app.length} characters.`);
 expect(app.includes('from "./routes/AppRoutes"'), 'App must use the centralized route table.');
@@ -121,5 +140,5 @@ if (failures.length) {
   for (const failure of failures) console.error('[architecture-contract] ' + failure);
   process.exitCode = 1;
 } else {
-  console.log(`[architecture-contract] PASS — ${stages.length} stages, centralized routing/SEO, protected Premium contracts and hardened public APIs.`);
+  console.log(`[architecture-contract] PASS — ${stages.length} stages, native desktop scroll, centralized routing/SEO, protected Premium contracts and hardened public APIs.`);
 }

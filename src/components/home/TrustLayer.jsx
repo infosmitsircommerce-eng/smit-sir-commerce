@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { ArrowRight, BookOpenCheck, Calculator, FileQuestion, Gauge, ShieldCheck } from 'lucide-react';
 
 const proofItems = [
@@ -46,17 +45,10 @@ export default function TrustLayer() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {proofItems.map((item, index) => {
+          {proofItems.map((item) => {
             const Icon = item.icon;
             return (
-              <motion.article
-                key={item.title}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="card-paper p-5 flex flex-col"
-              >
+              <article key={item.title} className="card-paper p-5 flex flex-col">
                 <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-4"
                   style={{ background: 'var(--gold-bg)', border: '1px solid rgba(184,135,47,0.2)' }}>
                   <Icon className="w-5 h-5" style={{ color: 'var(--gold)' }} strokeWidth={1.9} />
@@ -68,7 +60,7 @@ export default function TrustLayer() {
                 <Link to={item.to} className="inline-flex items-center gap-2 mt-4 text-sm font-extrabold" style={{ color: 'var(--gold)' }}>
                   {item.action} <ArrowRight className="w-4 h-4" />
                 </Link>
-              </motion.article>
+              </article>
             );
           })}
         </div>

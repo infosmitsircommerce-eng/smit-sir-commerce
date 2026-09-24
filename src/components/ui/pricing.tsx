@@ -1,12 +1,10 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import NumberFlow from "@number-flow/react";
-import { motion, useReducedMotion } from "framer-motion";
 import { Check, Sparkles, Star } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
 
 export interface PricingPlan {
@@ -36,26 +34,24 @@ export function Pricing({
   showBillingToggle = false,
 }: PricingProps) {
   const [alternatePricing, setAlternatePricing] = useState(false);
-  const isDesktop = useMediaQuery("(min-width: 768px)");
-  const reduceMotion = useReducedMotion();
   const switchRef = useRef<HTMLButtonElement>(null);
 
   async function celebrate(originElement: HTMLElement | null) {
-    if (reduceMotion || !originElement) return;
+    if (!originElement || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const { default: confetti } = await import("canvas-confetti");
     const rect = originElement.getBoundingClientRect();
     confetti({
-      particleCount: 42,
-      spread: 58,
+      particleCount: 30,
+      spread: 52,
       origin: {
         x: (rect.left + rect.width / 2) / window.innerWidth,
         y: (rect.top + rect.height / 2) / window.innerHeight,
       },
       colors: ["#B8872F", "#E7C66C", "#173B35", "#FFF4CF"],
-      ticks: 150,
+      ticks: 110,
       gravity: 1.15,
       decay: 0.94,
-      startVelocity: 24,
+      startVelocity: 22,
     });
   }
 
@@ -66,7 +62,6 @@ export function Pricing({
 
   return (
     <section className="relative overflow-hidden py-14 sm:py-20" aria-labelledby="pricing-title">
-      <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-amber-200/30 blur-3xl" />
       <div className="page-container relative">
         <div className="mx-auto max-w-3xl text-center">
           <span className="eyebrow inline-flex items-center gap-2"><Sparkles className="h-4 w-4" /> Clear student pricing</span>
@@ -83,18 +78,14 @@ export function Pricing({
         ) : null}
 
         <div className="mx-auto mt-10 grid max-w-6xl grid-cols-1 items-stretch gap-5 md:grid-cols-3 md:gap-4 lg:gap-6">
-          {plans.map((plan, index) => {
+          {plans.map((plan) => {
             const displayedPrice = alternatePricing && plan.alternatePrice != null ? plan.alternatePrice : plan.price;
             return (
-              <motion.article
+              <article
                 key={plan.name}
-                initial={reduceMotion ? false : { y: 24, opacity: 0 }}
-                whileInView={{ y: isDesktop && plan.isPopular ? -12 : 0, opacity: 1 }}
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.45, delay: reduceMotion ? 0 : index * 0.08 }}
                 className={cn(
-                  "relative flex flex-col overflow-hidden rounded-[1.6rem] border bg-white p-6 shadow-[0_18px_50px_rgba(44,34,22,0.08)] sm:p-7",
-                  plan.isPopular ? "border-amber-500 ring-1 ring-amber-500/40 md:shadow-[0_24px_70px_rgba(184,135,47,0.18)]" : "border-stone-200",
+                  "relative flex flex-col overflow-hidden rounded-[1.6rem] border bg-white p-6 shadow-[0_12px_32px_rgba(44,34,22,0.07)] sm:p-7",
+                  plan.isPopular ? "border-amber-500 ring-1 ring-amber-500/35" : "border-stone-200",
                 )}
               >
                 {plan.isPopular ? (
@@ -127,7 +118,7 @@ export function Pricing({
                 >
                   {plan.buttonText}
                 </Link>
-              </motion.article>
+              </article>
             );
           })}
         </div>

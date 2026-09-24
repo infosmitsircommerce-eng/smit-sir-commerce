@@ -36,13 +36,11 @@ const featureLinks = [
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, displayName, initials, isPremium, isAdmin, signOut } =
-    useAuth();
+  const { user, displayName, initials, isPremium, isAdmin, signOut } = useAuth();
 
   const light = isLightRoute(location.pathname);
 
@@ -53,16 +51,6 @@ export default function Navbar() {
   }
 
   useEffect(() => {
-    const handleScroll = () => setScrolled((current) => {
-      const next = window.scrollY > 20;
-      return current === next ? current : next;
-    });
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
     setOpenDropdown(null);
     setUserMenuOpen(false);
   }, [location]);
@@ -70,13 +58,9 @@ export default function Navbar() {
   const T = light
     ? {
         bg: {
-          background: scrolled
-            ? "rgba(247,248,252,0.94)"
-            : "rgba(247,248,252,0.82)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
-          borderBottom: "1px solid rgba(225,230,239,0.95)",
-          boxShadow: scrolled ? "0 8px 28px rgba(16,24,40,0.07)" : "none",
+          background: "rgba(247,248,252,0.985)",
+          borderBottom: "1px solid rgba(225,230,239,0.98)",
+          boxShadow: "0 2px 10px rgba(16,24,40,0.035)",
         },
         linkColor: "var(--charcoal)",
         linkActive: "var(--gold)",
@@ -92,11 +76,9 @@ export default function Navbar() {
       }
     : {
         bg: {
-          background: scrolled ? "rgba(10,15,44,0.86)" : "rgba(10,15,44,0.55)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
-          borderBottom: "1px solid rgba(212,175,55,0.1)",
-          boxShadow: scrolled ? "0 4px 30px rgba(0,0,0,0.3)" : "none",
+          background: "rgba(10,15,44,0.985)",
+          borderBottom: "1px solid rgba(212,175,55,0.12)",
+          boxShadow: "0 2px 12px rgba(0,0,0,0.16)",
         },
         linkColor: "#c7d7fe",
         linkActive: "#D9AC5C",
@@ -123,7 +105,7 @@ export default function Navbar() {
   return (
     <nav
       style={T.bg}
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 hidden lg:block"
+      className="fixed top-0 left-0 right-0 z-50 hidden lg:block"
     >
       <div className="page-container">
         <div className="flex items-center justify-between h-16 lg:h-20 gap-4">
@@ -134,8 +116,8 @@ export default function Navbar() {
               aria-hidden="true"
               width="40"
               height="40"
-              className="w-10 h-10 rounded-xl shrink-0 group-hover:scale-110 transition-transform"
-              style={{ boxShadow: "0 4px 16px rgba(184,135,47,0.24)" }}
+              className="w-10 h-10 rounded-xl shrink-0 group-hover:scale-105 transition-transform"
+              style={{ boxShadow: "0 4px 12px rgba(184,135,47,0.18)" }}
             />
             <div>
               <div
@@ -217,8 +199,7 @@ export default function Navbar() {
                           className="block px-4 py-2 text-sm font-semibold transition-colors"
                           style={{ color: T.dropdownItem }}
                           onMouseEnter={(e) => {
-                            e.currentTarget.style.background =
-                              T.dropdownItemHoverBg;
+                            e.currentTarget.style.background = T.dropdownItemHoverBg;
                             e.currentTarget.style.color = T.linkActive;
                           }}
                           onMouseLeave={(e) => {
@@ -259,9 +240,7 @@ export default function Navbar() {
                   key={item.label}
                   to={item.path}
                   className="ssc-dock-link"
-                  data-primary={
-                    item.path === "/study-material" ? "true" : undefined
-                  }
+                  data-primary={item.path === "/study-material" ? "true" : undefined}
                 >
                   <Icon className="w-4 h-4" />
                   {item.label}
@@ -273,9 +252,7 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-2 shrink-0">
             <LanguageSwitcher tone={light ? "light" : "dark"} />
             <button
-              onClick={() =>
-                window.dispatchEvent(new CustomEvent("ssc-open-resource-finder"))
-              }
+              onClick={() => window.dispatchEvent(new CustomEvent("ssc-open-resource-finder"))}
               className="w-10 h-10 rounded-xl flex items-center justify-center"
               title="Find notes and tests"
               aria-label="Find notes and tests"
@@ -346,54 +323,26 @@ export default function Navbar() {
                     className="absolute right-0 top-full mt-2 rounded-xl py-2 min-w-[200px] z-50"
                     style={T.dropdownBg}
                   >
-                    <Link
-                      to="/dashboard"
-                      onClick={() => setUserMenuOpen(false)}
-                      className="flex items-center gap-2 px-4 py-2 text-sm"
-                      style={{ color: T.dropdownItem }}
-                    >
+                    <Link to="/dashboard" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm" style={{ color: T.dropdownItem }}>
                       <User className="w-4 h-4" /> My Dashboard
                     </Link>
-                    <Link
-                      to="/learning-insights"
-                      onClick={() => setUserMenuOpen(false)}
-                      className="block px-4 py-2 text-sm"
-                      style={{ color: T.dropdownItem }}
-                    >
+                    <Link to="/learning-insights" onClick={() => setUserMenuOpen(false)} className="block px-4 py-2 text-sm" style={{ color: T.dropdownItem }}>
                       Learning Insights
                     </Link>
-                    <Link
-                      to="/my-data"
-                      onClick={() => setUserMenuOpen(false)}
-                      className="block px-4 py-2 text-sm"
-                      style={{ color: T.dropdownItem }}
-                    >
+                    <Link to="/my-data" onClick={() => setUserMenuOpen(false)} className="block px-4 py-2 text-sm" style={{ color: T.dropdownItem }}>
                       My Study Data
                     </Link>
                     {isAdmin && (
-                      <Link
-                        to="/admin"
-                        onClick={() => setUserMenuOpen(false)}
-                        className="block px-4 py-2 text-sm font-bold"
-                        style={{ color: "var(--gold)" }}
-                      >
+                      <Link to="/admin" onClick={() => setUserMenuOpen(false)} className="block px-4 py-2 text-sm font-bold" style={{ color: "var(--gold)" }}>
                         Owner Panel
                       </Link>
                     )}
                     {isAdmin && (
-                      <Link
-                        to="/admin-studio"
-                        onClick={() => setUserMenuOpen(false)}
-                        className="block px-4 py-2 text-sm"
-                        style={{ color: "var(--gold)" }}
-                      >
+                      <Link to="/admin-studio" onClick={() => setUserMenuOpen(false)} className="block px-4 py-2 text-sm" style={{ color: "var(--gold)" }}>
                         Admin Studio
                       </Link>
                     )}
-                    <button
-                      onClick={handleLogout}
-                      className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-400"
-                    >
+                    <button onClick={handleLogout} className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-400">
                       <LogOut className="w-4 h-4" /> Logout
                     </button>
                   </div>
