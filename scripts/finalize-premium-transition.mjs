@@ -1,11 +1,13 @@
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { BOARD_BOOSTER_PRODUCTS } from '../src/data/boardBoosterProducts.js';
+import { PREMIUM_MEGA_PACK, PREMIUM_MEGA_SECTIONS } from '../src/data/premiumMegaPack.js';
 
 const DIST = new URL('../dist/', import.meta.url).pathname;
 const BASE = 'https://www.smitsircommerce.in';
 const PREMIUM_PATH = '/premium';
 const TITLE = 'Premium Commerce Notes, PDFs & Quizzes | Smit Sir Commerce';
-const DESCRIPTION = 'Compare free resources, a ₹199 single-subject pack and ₹999 Complete Commerce access with Premium notes, quizzes, papers, PPTs and study tools.';
+const DESCRIPTION = `Compare free resources, focused ₹199 study packs and ₹${PREMIUM_MEGA_PACK.price} Complete Commerce access with protected notes, advanced practice and Premium study tools.`;
 
 function esc(value) {
   return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
@@ -29,23 +31,25 @@ function replaceMeta(html, key, value, attribute = 'name') {
 }
 
 function premiumBody() {
+  const focusedPacks = BOARD_BOOSTER_PRODUCTS
+    .map((product) => `<li><a href="${esc(product.previewPath || '/board-booster-packs')}">${esc(product.name)}</a> — ₹${product.price} one time.</li>`)
+    .join('');
+  const completeSections = PREMIUM_MEGA_SECTIONS
+    .map((section) => `<li><a href="${esc(section.href)}"><strong>${esc(section.title)}</strong></a> — ${esc(section.meta)}. ${esc(section.detail)}</li>`)
+    .join('');
+
   return `<main class="page-container section-padding" data-prerendered="core-page"><article>
     <p><strong>Smit Sir Commerce Premium</strong></p>
-    <h1>Choose what you need. See everything before you pay.</h1>
-    <p>Free resources stay free. Choose the ₹199 Subject Pack for one subject's Premium PDFs and quizzes, or ₹999 Complete Commerce for the full Premium library.</p>
-    <h2>₹199 Subject Pack</h2>
-    <p>Choose Economics, Accountancy or Business Studies / OCM. The selected subject includes Premium PDFs, chapter organisation and Easy, Moderate, Hard and Extreme quizzes.</p>
-    <h2>₹999 Complete Commerce</h2>
-    <ul>
-      <li>All subjects Premium notes and PDFs</li>
-      <li>All quiz difficulties and worked explanations</li>
-      <li>Previous five years' question papers and important-question sets</li>
-      <li>Exclusive chapter PPT presentations and revision sheets</li>
-      <li>Premium test series, Exam Mode and new resources added to the plan</li>
-    </ul>
-    <h2>Visible, but protected</h2>
-    <p>Students can inspect the Premium categories before buying. Actual files remain locked until the QR payment and UTR are manually verified.</p>
-    <p><a href="/premium">Choose a Premium plan</a> · <a href="/premium/cbse-12-accountancy">CBSE Class 12 Accountancy Premium</a> · <a href="/premium/accountancy">GSEB Class 11 Accountancy Premium</a> · <a href="/my-purchases">My Purchases</a> · <a href="/study-material">Free study material</a></p>
+    <h1>Choose the Premium study access that matches your need.</h1>
+    <p>Public free resources stay free. Focused packs are available for selected Economics courses, while ₹${PREMIUM_MEGA_PACK.price} Complete Commerce unlocks the current all-in-one Premium ecosystem tied to the signed-in student account.</p>
+    <h2>Focused ₹199 study packs currently published</h2>
+    <ul>${focusedPacks}</ul>
+    <p><a href="/board-booster-packs">Compare all focused packs and their exact included resources</a>.</p>
+    <h2>₹${PREMIUM_MEGA_PACK.price} Complete Commerce</h2>
+    <ul>${completeSections}</ul>
+    <h2>Secure account-based access</h2>
+    <p>Students can inspect public catalogues and free previews before buying. Complete Commerce checkout uses Cashfree, and Premium access is granted only after the server verifies a successful payment for the signed-in student account. Never share a UPI PIN or OTP with anyone.</p>
+    <p><a href="/premium/cbse-12-business-studies">CBSE Class 12 Business Studies Premium</a> · <a href="/premium/cbse-12-accountancy">CBSE Class 12 Accountancy Premium</a> · <a href="/premium/accountancy">GSEB Class 11 Accountancy Premium</a> · <a href="/my-purchases">My Purchases</a> · <a href="/study-material">Free study material</a></p>
   </article></main>`;
 }
 
@@ -67,13 +71,13 @@ function premiumSchema() {
       {
         '@type': 'Product',
         '@id': `${BASE}${PREMIUM_PATH}#complete-commerce`,
-        name: 'Complete Commerce Premium',
-        description: 'All-subject Premium notes, quizzes, papers, PPTs, test series and study tools with manual payment verification.',
+        name: PREMIUM_MEGA_PACK.name,
+        description: PREMIUM_MEGA_PACK.focus,
         brand: { '@type': 'Brand', name: 'Smit Sir Commerce' },
         offers: {
           '@type': 'Offer',
           priceCurrency: 'INR',
-          price: '999',
+          price: String(PREMIUM_MEGA_PACK.price),
           availability: 'https://schema.org/InStock',
           url: `${BASE}${PREMIUM_PATH}`,
         },
@@ -116,4 +120,4 @@ for (const file of files) {
   }
 }
 
-console.log(`Finalized Premium transition copy in ${changed} static HTML files.`);
+console.log(`Finalized canonical Premium product and secure-checkout copy in ${changed} static HTML files.`);

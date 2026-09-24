@@ -26,7 +26,8 @@ export const PREBUILD_STAGES = [
     "name": "04-discovery-index",
     "scripts": [
       "scripts/generate-sitemap.mjs",
-      "scripts/refresh-updated-sitemap-lastmods.mjs"
+      "scripts/refresh-updated-sitemap-lastmods.mjs",
+      "scripts/ensure-indexable-premium-sitemap.mjs"
     ]
   }
 ];
@@ -36,6 +37,7 @@ export const POSTBUILD_STAGES = [
     "name": "05-public-prerender",
     "scripts": [
       "scripts/prerender-core-pages.mjs",
+      "scripts/prerender-bst-premium.mjs",
       "scripts/prerender-commerce-expansion.mjs",
       "scripts/prerender-commerce-discovery.mjs",
       "scripts/prerender-commerce-resources.mjs",
