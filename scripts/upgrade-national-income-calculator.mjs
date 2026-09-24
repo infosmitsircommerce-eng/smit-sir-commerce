@@ -46,6 +46,10 @@ const block = `<section data-traffic-winner="national-income" style="margin:28px
     <li>NNP = NDP + NFIA</li>
   </ul>
 
+  <h3>NFIA in one line</h3>
+  <p><strong>NFIA = factor income received from abroad − factor income paid abroad.</strong> For example, if residents receive ₹30 crore from abroad and non-residents earn ₹45 crore here, NFIA = 30 − 45 = <strong>−₹15 crore</strong>. Add that negative value when converting domestic income to national income.</p>
+  <p><a href="/tools/nfia-calculator">Try the NFIA calculator and check the sign →</a></p>
+
   <h3>3. Factor Cost and Market Price</h3>
   <p><strong>Market Price = Factor Cost + Net Indirect Tax</strong></p>
   <p><strong>Factor Cost = Market Price − Net Indirect Tax</strong></p>
@@ -74,7 +78,8 @@ const block = `<section data-traffic-winner="national-income" style="margin:28px
     <li>NNP at market price = 600 and NIT = 40. What is NNP at factor cost?</li>
   </ul>
 
-  <p><a href="/tools/net-indirect-tax-calculator"><strong>Need help with NIT? Open the Net Indirect Tax calculator →</strong></a></p>
+  <p><strong>Self-check answers:</strong> ₹450; ₹440; ₹560 respectively.</p>
+  <p><a href="/tools/net-indirect-tax-calculator"><strong>Need help with NIT? Open the Net Indirect Tax calculator →</strong></a> · <a href="/cbse/class-12/economics-revision-guide">Class 12 Economics revision guide →</a> · <a href="/commerce-coaching-mehsana">Commerce coaching in Mehsana →</a></p>
 </section>`;
 
 const existing = /<section\s+data-traffic-winner=["']national-income["'][\s\S]*?<\/section>/i;

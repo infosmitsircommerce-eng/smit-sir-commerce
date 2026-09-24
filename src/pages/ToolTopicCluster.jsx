@@ -87,6 +87,19 @@ export default function ToolTopicCluster() {
         </div>
       </section>}
 
+      {cluster.slug === 'national-income-gdp' && <section className="page-container pb-8" aria-labelledby="nfia-example-title">
+        <div className="card-paper p-6 sm:p-8">
+          <span className="eyebrow">Class 12 Economics · NFIA</span>
+          <h2 id="nfia-example-title" className="text-3xl mt-4" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>NFIA formula with a negative answer</h2>
+          <p className="mt-3 leading-7" style={{ color: 'var(--charcoal)' }}><strong>NFIA = factor income received from abroad − factor income paid abroad.</strong> If residents receive ₹30 crore from abroad while non-residents earn ₹45 crore here, NFIA is 30 − 45 = <strong>−₹15 crore</strong>. When converting domestic income to national income, add −₹15 crore, which reduces the total.</p>
+          <div className="mt-5 flex flex-wrap gap-4 text-sm font-semibold">
+            <Link to="/tools/nfia-calculator" style={{ color: 'var(--gold)' }}>Try the NFIA calculator →</Link>
+            <Link to="/cbse/class-12/economics-revision-guide" style={{ color: 'var(--gold)' }}>Revise Class 12 Economics →</Link>
+            <Link to="/commerce-coaching-mehsana" style={{ color: 'var(--gold)' }}>Commerce classes in Mehsana →</Link>
+          </div>
+        </div>
+      </section>}
+
       <section className="page-container pb-8">
         <div className="card-paper p-6 sm:p-8">
           <div className="flex items-center gap-3"><Layers3 className="w-6 h-6" style={{ color: 'var(--gold)' }} /><h2 className="text-3xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>What this toolkit covers</h2></div>
