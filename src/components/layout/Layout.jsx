@@ -11,7 +11,6 @@ import { isAdEligiblePath } from '../../lib/adPolicy';
 import { RouteRevenueBridge } from '../leads/StudyRevenueBridge';
 import { useAuth } from '../../context/AuthContext';
 
-const ScrollToTop = lazy(() => import('../ui/ScrollToTop'));
 const GlobalStudySearch = lazy(() => import('../ui/GlobalStudySearch'));
 const StudyAccessDialog = lazy(() => import('../ui/StudyAccessDialog'));
 const CloudSyncBridge = lazy(() => import('../ui/CloudSyncBridge'));
@@ -91,7 +90,6 @@ function DeferredEnhancements() {
 
   if (!ready) return null;
 
-  const desktopPointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const isChapterRoute = /^\/cbse\/[^/]+\/[^/]+\/[^/]+\/?$/.test(pathname);
 
   return (
@@ -99,7 +97,6 @@ function DeferredEnhancements() {
       <AnalyticsTracker />
       {user && <CloudSyncBridge />}
       {isChapterRoute && <ChapterProgressTracker />}
-      {desktopPointer && <ScrollToTop />}
     </Suspense>
   );
 }
