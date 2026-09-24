@@ -12,8 +12,6 @@ import { RouteRevenueBridge } from '../leads/StudyRevenueBridge';
 import { useAuth } from '../../context/AuthContext';
 
 const ScrollToTop = lazy(() => import('../ui/ScrollToTop'));
-const CursorSpotlight = lazy(() => import('../ui/CursorSpotlight'));
-const ScrollProgressBar = lazy(() => import('../ui/ScrollProgressBar'));
 const GlobalStudySearch = lazy(() => import('../ui/GlobalStudySearch'));
 const StudyAccessDialog = lazy(() => import('../ui/StudyAccessDialog'));
 const CloudSyncBridge = lazy(() => import('../ui/CloudSyncBridge'));
@@ -31,7 +29,6 @@ class EnhancementBoundary extends Component {
   }
 
   componentDidCatch(error, info) {
-    // These widgets are optional conveniences. Never let one take down study content.
     console.error('Optional Smit Sir Commerce enhancement failed', error, info);
   }
 
@@ -74,7 +71,6 @@ function DeferredEnhancements() {
     else {
       const onLoad = () => schedule();
       window.addEventListener('load', onLoad, { once: true });
-      // Fallback in case a third-party resource keeps the load event waiting.
       loadTimerId = window.setTimeout(schedule, delay + 1800);
       return () => {
         cancelled = true;
@@ -101,8 +97,6 @@ function DeferredEnhancements() {
   return (
     <Suspense fallback={null}>
       <AnalyticsTracker />
-      {desktopPointer && <ScrollProgressBar />}
-      {desktopPointer && <CursorSpotlight />}
       {user && <CloudSyncBridge />}
       {isChapterRoute && <ChapterProgressTracker />}
       {desktopPointer && <ScrollToTop />}
