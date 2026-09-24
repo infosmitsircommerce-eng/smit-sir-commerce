@@ -13,6 +13,7 @@ const [
   pkgRaw,
   main,
   app,
+  home,
   routes,
   routeSeoComponent,
   routeSeo,
@@ -32,6 +33,7 @@ const [
   read('package.json'),
   read('src/main.jsx'),
   read('src/App.jsx'),
+  read('src/pages/Home.jsx'),
   read('src/routes/AppRoutes.jsx'),
   read('src/routes/RouteSEO.jsx'),
   read('src/config/routeSeo.js'),
@@ -77,8 +79,12 @@ expect(!navbar.includes('backdropFilter'), 'Desktop navbar live backdrop blur ha
 expect(!navbar.includes('WebkitBackdropFilter'), 'Desktop navbar WebKit backdrop blur has returned.');
 expect(!navbar.includes('window.addEventListener("scroll"'), 'Desktop navbar must not subscribe to scroll just for decoration.');
 expect(performanceStyles.includes('will-change: auto !important'), 'Performance layer must clear permanent compositor promotion.');
-expect(performanceStyles.includes('content-visibility: auto'), 'Homepage below-fold paint skipping is missing.');
+expect(performanceStyles.includes('content-visibility: auto !important'), 'Homepage below-fold paint skipping must override the legacy global scroll-safety rule.');
 expect(performanceStyles.includes('backdrop-filter: none !important'), 'Desktop performance layer must disable expensive live blur surfaces.');
+expect(performanceStyles.includes('transition: none !important'), 'Homepage desktop motion must not animate underneath a stationary pointer during scrolling.');
+expect(home.includes('import HomeBelowFold from "../components/home/HomeBelowFold"'), 'Homepage lower content must be available synchronously on desktop.');
+expect(!home.includes('IntersectionObserver'), 'Homepage must not mount the lower document in response to active scrolling.');
+expect(home.includes('window.matchMedia("(min-width: 1024px)").matches'), 'Homepage must render the complete lower structure immediately on desktop.');
 
 expect(app.length < 1500, `App.jsx should remain bootstrap-only; found ${app.length} characters.`);
 expect(app.includes('from "./routes/AppRoutes"'), 'App must use the centralized route table.');
@@ -140,5 +146,5 @@ if (failures.length) {
   for (const failure of failures) console.error('[architecture-contract] ' + failure);
   process.exitCode = 1;
 } else {
-  console.log(`[architecture-contract] PASS — ${stages.length} stages, native desktop scroll, centralized routing/SEO, protected Premium contracts and hardened public APIs.`);
+  console.log(`[architecture-contract] PASS — ${stages.length} stages, stable native desktop scroll, centralized routing/SEO, protected Premium contracts and hardened public APIs.`);
 }
