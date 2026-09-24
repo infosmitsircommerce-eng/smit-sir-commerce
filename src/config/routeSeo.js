@@ -264,8 +264,11 @@ export const ROUTE_SEO = {
 export function routeUsesOwnSeo(pathname) {
   return (
     pathname === "/premium" ||
+    pathname === "/premium/economics" ||
     pathname === "/premium/accountancy" ||
     pathname === "/premium/cbse-12-accountancy" ||
+    pathname === "/premium/cbse-12-business-studies" ||
+    pathname === "/cbse-class-12-accountancy-financial-ratios-notes" ||
     pathname === "/my-purchases" ||
     pathname === "/purchase-status" ||
     pathname.startsWith("/hi/") ||
