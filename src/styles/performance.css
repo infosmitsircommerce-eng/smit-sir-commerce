@@ -104,6 +104,23 @@
   .ssc-home-modules *::before,
   .ssc-home-modules *::after {
     animation: none !important;
+    transition: none !important;
+  }
+
+  /* A stationary mouse pointer should not make cards physically jump as the
+     document scrolls underneath it. Disable homepage hover transforms entirely. */
+  .mobile-learning-home :where(
+    .mobile-study-path,
+    .mobile-study-search button,
+    .mobile-focus-copy a,
+    .mobile-action-card,
+    .mobile-resume-card,
+    .mobile-class-card,
+    .mobile-lab-link,
+    .mobile-profile-button
+  ):hover,
+  .ssc-home-modules :where(a, button, .card-paper, .tile-paper):hover {
+    transform: none !important;
   }
 
   /* The legacy scroll-safety sheet intentionally disables content-visibility
@@ -138,6 +155,11 @@
 
   .mobile-teacher-visual img {
     filter: none !important;
+  }
+
+  .mobile-learning-home img[alt*="Premium"],
+  .mobile-learning-home img[alt*="Financial Ratios"] {
+    box-shadow: none !important;
   }
 
   /* Large decorative blur fields are visually subtle but expensive to composite. */
