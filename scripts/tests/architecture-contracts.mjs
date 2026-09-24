@@ -62,11 +62,11 @@ expect(!premiumPrerender.includes('Advanced Economics practice for ₹999 once')
 expect(!premiumPrerender.includes('premium-payment-qr.jpg'), 'Stale manual QR Premium source remains.');
 expect(premiumPrerender.includes('import { PREMIUM_MEGA_PACK } from "../src/data/premiumMegaPack.js";'), 'Premium prerender must import the canonical Mega Premium product model.');
 expect(premiumPrerender.includes('price: String(PREMIUM_MEGA_PACK.price)'), 'Premium Product schema price must come from the canonical product model.');
+expect(scripts.includes('scripts/normalize-premium-pricing.mjs'), 'Final build must normalize stale Mega Premium price copy from the canonical product model.');
 expect(!routes.includes('path="/test-series"'), 'Duplicate Test Series route has returned.');
 expect(!routes.includes('path="/commerce-city"'), 'Retired Commerce Hub route has returned.');
 expect(!routes.includes('path="/exam-tomorrow"'), 'Retired Exam Tomorrow route has returned.');
 expect(!scripts.includes('scripts/prerender-exam-tomorrow.mjs'), 'Retired Exam Tomorrow is still in the build pipeline.');
-expect(premiumPrerender.includes('complete current Premium access for ₹699'), 'Current ₹699 Mega Premium source is missing.');
 
 if (failures.length) {
   for (const failure of failures) console.error('[architecture-contract] ' + failure);
