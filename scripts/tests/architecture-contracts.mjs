@@ -8,7 +8,7 @@ const read = (path) => readFile(join(ROOT, path), 'utf8');
 const failures = [];
 const expect = (condition, message) => { if (!condition) failures.push(message); };
 
-const [pkgRaw, main, app, routes, routeSeoComponent, routeSeo, vite, styles, premiumPrerender] = await Promise.all([
+const [pkgRaw, main, app, routes, routeSeoComponent, routeSeo, vite, styles, premiumPrerender, premiumMegaModel] = await Promise.all([
   read('package.json'),
   read('src/main.jsx'),
   read('src/App.jsx'),
@@ -18,6 +18,7 @@ const [pkgRaw, main, app, routes, routeSeoComponent, routeSeo, vite, styles, pre
   read('vite.config.js'),
   read('src/styles/app.css'),
   read('scripts/prerender-core-pages.mjs'),
+  read('src/data/premiumMegaPack.js'),
 ]);
 
 const pkg = JSON.parse(pkgRaw);
@@ -63,6 +64,9 @@ expect(!premiumPrerender.includes('premium-payment-qr.jpg'), 'Stale manual QR Pr
 expect(premiumPrerender.includes('import { PREMIUM_MEGA_PACK } from "../src/data/premiumMegaPack.js";'), 'Premium prerender must import the canonical Mega Premium product model.');
 expect(premiumPrerender.includes('price: String(PREMIUM_MEGA_PACK.price)'), 'Premium Product schema price must come from the canonical product model.');
 expect(scripts.includes('scripts/normalize-premium-pricing.mjs'), 'Final build must normalize stale Mega Premium price copy from the canonical product model.');
+expect(scripts.includes('scripts/prerender-bst-premium.mjs'), 'CBSE 12 Business Studies Premium must receive crawlable prerendered HTML.');
+expect(scripts.includes('scripts/ensure-indexable-premium-sitemap.mjs'), 'Indexable Business Studies Premium must be added to the generated sitemap.');
+expect(premiumMegaModel.includes("'cbse-12-business-studies'"), 'Complete Commerce entitlements must include CBSE 12 Business Studies Premium.');
 expect(!routes.includes('path="/test-series"'), 'Duplicate Test Series route has returned.');
 expect(!routes.includes('path="/commerce-city"'), 'Retired Commerce Hub route has returned.');
 expect(!routes.includes('path="/exam-tomorrow"'), 'Retired Exam Tomorrow route has returned.');
@@ -72,5 +76,5 @@ if (failures.length) {
   for (const failure of failures) console.error('[architecture-contract] ' + failure);
   process.exitCode = 1;
 } else {
-  console.log(`[architecture-contract] PASS — ${stages.length} stages, bootstrap-only App.jsx, centralized routing/SEO, consolidated styles and no verified legacy alias.`);
+  console.log(`[architecture-contract] PASS — ${stages.length} stages, bootstrap-only App.jsx, centralized routing/SEO, consolidated styles and protected Premium discovery/access contracts.`);
 }
