@@ -86,6 +86,7 @@
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Smit Sir Commerce — Class 11 and 12 Commerce notes and practice" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta
@@ -100,6 +101,7 @@
       name="twitter:image"
       content="https://www.smitsircommerce.in/og-image.jpg"
     />
+    <meta name="twitter:image:alt" content="Smit Sir Commerce — Class 11 and 12 Commerce notes and practice" />
 
     <meta name="geo.region" content="IN-GJ" />
     <meta name="geo.placename" content="Mehsana, Gujarat, India" />
@@ -282,7 +284,7 @@
     </script>
 
     <link rel="dns-prefetch" href="https://abpruwygnsmeqisaehip.supabase.co" />
-    <link rel="preload" as="image" href="/src/assets/teacher-photo-opt.jpg" fetchpriority="high" media="(max-width: 1023px)" />
+    <!-- Only preload the teacher photo on the homepage. Avoid stealing bandwidth on every mobile route. -->
     <link id="mobile-home-photo" rel="preload" as="image" href="/src/assets/teacher-photo-opt.jpg" media="not all" fetchpriority="high" />
     <script>
       if (window.location.pathname === '/') {
