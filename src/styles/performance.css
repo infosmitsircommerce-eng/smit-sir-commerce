@@ -2,6 +2,32 @@
    Keep scrolling native and cheap: avoid live blur, permanent compositor layers,
    large hover translations and broad transition-all rules on laptop/desktop. */
 
+html {
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  overflow-wrap: break-word;
+}
+
+img {
+  max-width: 100%;
+}
+
+:where(a, button, [role="button"]) {
+  touch-action: manipulation;
+}
+
+:where(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid rgba(191, 134, 29, 0.55);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: rgba(191, 134, 29, 0.22);
+}
+
 @media (min-width: 1024px) {
   html {
     scroll-behavior: auto !important;
@@ -174,6 +200,31 @@
   .blur {
     filter: none !important;
     opacity: 0.35;
+  }
+}
+
+/* Touch devices should feel immediate. Keep the same design while removing
+   desktop-only hover movement that can briefly stick after a tap. */
+@media (hover: none), (pointer: coarse) {
+  .mobile-learning-home {
+    overflow-x: clip;
+  }
+
+  .mobile-learning-home :where(
+    .mobile-study-path,
+    .mobile-study-search button,
+    .mobile-focus-copy a,
+    .mobile-action-card,
+    .mobile-resume-card,
+    .mobile-class-card,
+    .mobile-lab-link,
+    .mobile-profile-button
+  ):hover {
+    transform: none !important;
+  }
+
+  .mobile-learning-home :where(a, button) {
+    -webkit-tap-highlight-color: transparent;
   }
 }
 
