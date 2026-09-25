@@ -48,6 +48,9 @@ const GSET_PDFS = {
   u7c5: ['unit7-ch05-dfi-nbfc-mf-regulators.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/71a2d562-8e87-4546-8f40-f96695e896c8-gset-u7-c5-dfi-nbfc-mf-regulators.pdf'],
   u7c6: ['unit7-ch06-inclusion-digital-insurance.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/bfeb58b6-b953-4ca3-a572-1e3d226b1bce-gset-u7-c6-inclusion-digital-insurance.pdf'],
 
+  u8c1: ['unit8-ch01-core-marketing-stp-product-consumer.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/27c37ca8-fa9f-43d3-b8f2-bdbf7d874d90-unit8-ch01-core-marketing-stp-product-consumer.pdf'],
+  u8c2: ['unit8-ch02-pricing-promotion-distribution-modern-marketing.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/6ad52e80-8e90-47ea-8f0c-3efe1edf4eb3-unit8-ch02-pricing-promotion-distribution-modern-marketing.pdf'],
+
   u10c1: ['unit10-ch01-basic-concepts-income-tax.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/c29095b0-4664-40cc-9292-7e5d8be33d14-unit10-ch01-basic-concepts-income-tax.pdf'],
   u10c2: ['unit10-ch02-exempted-agricultural-income.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/c43fb1a8-a5c1-4050-ac88-9d400faf0c2d-unit10-ch02-exempted-agricultural-income.pdf'],
   u10c3: ['unit10-ch03-heads-of-income.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/c489b5a5-70a7-48fe-9b69-2544a523d695-unit10-ch03-heads-of-income.pdf'],
