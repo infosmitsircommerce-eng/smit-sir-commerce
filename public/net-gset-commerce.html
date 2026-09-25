@@ -40,7 +40,7 @@
 <footer><div class="wrap">Smit Sir Commerce · NET / GSET Commerce study library · <a href="/" style="color:inherit;font-weight:800">Back to homepage</a></div></footer>
 <script>
 const pdf=(u,c)=>[`/api/premium-study?gset=u${u}c${c}`,`/api/premium-study?gset=u${u}c${c}&download=1`];
-const pdfUnit6=()=>['/api/gset-pdf?gset=u6c5','/api/gset-pdf?gset=u6c5&download=1'];
+const pdfUnit6=()=>pdf(6,5);
 const units=[
 {u:1,title:'Business Environment & International Business',pages:82,items:[
 ['Business Environment: Concepts, Elements and Indian Policy Context',21,'Business environment, PESTLE, policy context, FEMA, Consumer Protection and CSR.',...pdf(1,1)],
