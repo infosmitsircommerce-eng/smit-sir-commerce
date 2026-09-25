@@ -1,18 +1,7 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SEO from "../components/ui/SEO";
 import MobileLearningHome from "../components/home/MobileLearningHome";
-
-const HomeBelowFold = lazy(() => import("../components/home/HomeBelowFold"));
-
-function HomeBelowFoldFallback() {
-  return (
-    <div
-      aria-hidden="true"
-      data-home-below-fold-placeholder="true"
-      style={{ minHeight: "360px" }}
-    />
-  );
-}
+import HomeBelowFold from "../components/home/HomeBelowFold";
 
 function StableHomeBelowFold() {
   const [ready, setReady] = useState(() => {
@@ -33,8 +22,9 @@ function StableHomeBelowFold() {
       setReady(true);
     };
 
-    // Keep the first mobile paint lean, but load the long homepage tail as soon
-    // as the browser is idle or the visitor starts interacting/scrolling.
+    // Desktop keeps the full document available immediately. On mobile, defer
+    // the expensive lower-home render until idle — but reveal it instantly if
+    // the student starts scrolling or interacting before the idle window.
     if ("requestIdleCallback" in window) {
       idleId = window.requestIdleCallback(mount, { timeout: 1200 });
     } else {
@@ -56,13 +46,17 @@ function StableHomeBelowFold() {
     };
   }, [ready]);
 
-  if (!ready) return <HomeBelowFoldFallback />;
+  if (!ready) {
+    return (
+      <div
+        aria-hidden="true"
+        data-home-below-fold-placeholder="true"
+        style={{ minHeight: "360px" }}
+      />
+    );
+  }
 
-  return (
-    <Suspense fallback={<HomeBelowFoldFallback />}>
-      <HomeBelowFold />
-    </Suspense>
-  );
+  return <HomeBelowFold />;
 }
 
 export default function Home() {
