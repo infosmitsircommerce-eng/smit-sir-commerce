@@ -6,6 +6,7 @@ import ContactCTA from "./ContactCTA";
 import { Pricing } from "../ui/pricing";
 import BoardBoosterPromo from "./BoardBoosterPromo";
 import StatsSection from "./StatsSection";
+import { PREMIUM_MEGA_PACK } from "../../data/premiumMegaPack";
 
 const studentPlans = [
   {
@@ -41,19 +42,19 @@ const studentPlans = [
     isPopular: true,
   },
   {
-    name: "Premium Economics",
-    price: 999,
+    name: PREMIUM_MEGA_PACK.shortName,
+    price: PREMIUM_MEGA_PACK.price,
     period: "lifetime",
-    eyebrow: "DEEP PRACTICE",
-    description: "Advanced Economics practice for students who want harder preparation.",
+    eyebrow: PREMIUM_MEGA_PACK.badge,
+    description: PREMIUM_MEGA_PACK.focus,
     features: [
-      "Hard and Extreme Economics quizzes",
-      "31 chapter deep-dive guides",
-      "620 worked challenges",
-      "One account with lifetime access",
+      "All currently published Premium master resources",
+      "CBSE + GSEB Class 11 and 12 Commerce coverage",
+      "Hard + Extreme practice and Premium study tools",
+      "One-time purchase with lifetime access",
     ],
-    buttonText: "See Premium details",
-    href: "/premium",
+    buttonText: "See Complete Commerce",
+    href: PREMIUM_MEGA_PACK.accessPath,
     isPopular: false,
   },
 ];
