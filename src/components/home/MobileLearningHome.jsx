@@ -155,6 +155,22 @@ export default function MobileLearningHome() {
           <button type="submit" aria-label="Search chapters"><SlidersHorizontal aria-hidden="true" /></button>
         </form>
 
+        <a
+          href="/net-gset-commerce"
+          className="mobile-resume-card"
+          style={{ margin: "18px 0 24px", textDecoration: "none" }}
+          aria-label="Open UGC NET and GSET Commerce notes library"
+          onClick={() => void trackEvent('home_net_gset_click', { source: 'homepage_exam_library' })}
+        >
+          <span className="mobile-resume-icon"><GraduationCap aria-hidden="true" /></span>
+          <span className="mobile-resume-copy">
+            <small>NEW · GSET CODE 17 · UGC NET COMMERCE</small>
+            <strong>NET / GSET Commerce Notes</strong>
+            <span>Unit 1 + Unit 10 live · 14 deep PDFs · 322 pages</span>
+          </span>
+          <span className="mobile-resume-arrow"><ArrowRight aria-hidden="true" /></span>
+        </a>
+
         <div className="learning-home-primary-grid">
           <article className="mobile-focus-banner">
             <div className="mobile-focus-copy">
