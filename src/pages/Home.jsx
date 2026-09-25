@@ -1,7 +1,18 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import SEO from "../components/ui/SEO";
 import MobileLearningHome from "../components/home/MobileLearningHome";
-import HomeBelowFold from "../components/home/HomeBelowFold";
+
+const HomeBelowFold = lazy(() => import("../components/home/HomeBelowFold"));
+
+function HomeBelowFoldFallback() {
+  return (
+    <div
+      aria-hidden="true"
+      data-home-below-fold-placeholder="true"
+      style={{ minHeight: "360px" }}
+    />
+  );
+}
 
 function StableHomeBelowFold() {
   const [ready, setReady] = useState(() => {
@@ -12,40 +23,46 @@ function StableHomeBelowFold() {
   useEffect(() => {
     if (ready) return undefined;
 
-    const mount = () => setReady(true);
     let idleId;
     let timerId;
+    let mounted = false;
 
-    // Mobile can defer the long tail until the browser is idle, but desktop must
-    // have the complete page structure in the first render. Previously an
-    // IntersectionObserver mounted thousands of pixels of content while the user
-    // was actively scrolling into it, which caused visible scroll anchoring and
-    // a "forced" jump/jank sensation on laptops.
+    const mount = () => {
+      if (mounted) return;
+      mounted = true;
+      setReady(true);
+    };
+
+    // Keep the first mobile paint lean, but load the long homepage tail as soon
+    // as the browser is idle or the visitor starts interacting/scrolling.
     if ("requestIdleCallback" in window) {
-      idleId = window.requestIdleCallback(mount, { timeout: 1400 });
+      idleId = window.requestIdleCallback(mount, { timeout: 1200 });
     } else {
-      timerId = window.setTimeout(mount, 700);
+      timerId = window.setTimeout(mount, 650);
     }
+
+    window.addEventListener("scroll", mount, { once: true, passive: true });
+    window.addEventListener("pointerdown", mount, { once: true, passive: true });
+    window.addEventListener("touchstart", mount, { once: true, passive: true });
 
     return () => {
       if (idleId != null && "cancelIdleCallback" in window) {
         window.cancelIdleCallback(idleId);
       }
       if (timerId != null) window.clearTimeout(timerId);
+      window.removeEventListener("scroll", mount);
+      window.removeEventListener("pointerdown", mount);
+      window.removeEventListener("touchstart", mount);
     };
   }, [ready]);
 
-  if (!ready) {
-    return (
-      <div
-        aria-hidden="true"
-        data-home-below-fold-placeholder="true"
-        style={{ minHeight: "320px" }}
-      />
-    );
-  }
+  if (!ready) return <HomeBelowFoldFallback />;
 
-  return <HomeBelowFold />;
+  return (
+    <Suspense fallback={<HomeBelowFoldFallback />}>
+      <HomeBelowFold />
+    </Suspense>
+  );
 }
 
 export default function Home() {
