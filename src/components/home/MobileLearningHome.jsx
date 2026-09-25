@@ -166,7 +166,7 @@ export default function MobileLearningHome() {
           <span className="mobile-resume-copy">
             <small>NEW · GSET CODE 17 · UGC NET COMMERCE</small>
             <strong>NET / GSET Commerce Notes</strong>
-            <span>Unit 1 + Unit 10 live · 14 deep PDFs · 322 pages</span>
+            <span>7 units live · 30 detailed PDFs · 668 study pages</span>
           </span>
           <span className="mobile-resume-arrow"><ArrowRight aria-hidden="true" /></span>
         </a>
