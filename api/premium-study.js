@@ -37,6 +37,8 @@ const GSET_PDFS = {
   u5c2: ['unit5-ch02-probability-distributions.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/36f6c98f-275d-4cc9-8013-8d0dd90a4d1f-gset-u5-c2-probability-distributions.pdf'],
   u5c3: ['unit5-ch03-research-sampling-hypothesis-anova.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/740a138e-a6ce-4b33-a74b-e4a8f0c09b02-gset-u5-c3-research-sampling-hypothesis-anova.pdf'],
 
+  u6c5: ['unit6-ch05-personality-group-behaviour-culture-change.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/1a3802e4-2848-4233-8fb8-360b8bad0db4-gset-u6-c5-personality-group-behaviour-culture-change.pdf'],
+
   u10c1: ['unit10-ch01-basic-concepts-income-tax.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/c29095b0-4664-40cc-9292-7e5d8be33d14-unit10-ch01-basic-concepts-income-tax.pdf'],
   u10c2: ['unit10-ch02-exempted-agricultural-income.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/c43fb1a8-a5c1-4050-ac88-9d400faf0c2d-unit10-ch02-exempted-agricultural-income.pdf'],
   u10c3: ['unit10-ch03-heads-of-income.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/c489b5a5-70a7-48fe-9b69-2544a523d695-unit10-ch03-heads-of-income.pdf'],
