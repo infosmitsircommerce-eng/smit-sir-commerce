@@ -16,6 +16,7 @@ export const PREBUILD_STAGES = [
   {
     "name": "03-pdf-assets",
     "scripts": [
+      "scripts/sync-gset-pdfs.mjs",
       "scripts/generate-price-elasticity-pdf.mjs",
       "scripts/generate-direct-pdf-seo.mjs",
       "scripts/strengthen-price-elasticity-pdf-discovery.mjs",
