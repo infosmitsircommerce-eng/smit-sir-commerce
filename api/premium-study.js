@@ -17,6 +17,26 @@ const GSET_PDFS = {
   u1c2: ['unit1-ch02-international-business-trade-theories.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/762919b8-e15d-4da2-902b-d2b87b942df9-unit1-ch02-international-business-trade-theories.pdf'],
   u1c3: ['unit1-ch03-trade-policy-fdi-fpi-bop.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/d1b03787-fcff-456c-bb38-cf996de3b781-unit1-ch03-trade-policy-fdi-fpi-bop.pdf'],
   u1c4: ['unit1-ch04-integration-imf-worldbank-wto.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/f32df534-d557-4278-bc1b-b49c28efb658-unit1-ch04-integration-imf-worldbank-wto.pdf'],
+
+  u2c1: ['unit2-ch01-accounting-foundations.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/d39d08ef-667b-478a-a02f-fa02ff5c5ec1-gset-u2-c1-accounting-foundations.pdf'],
+  u2c2: ['unit2-ch02-partnership-accounts.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/6efa7b74-f7e8-4563-8205-9e41f90ea158-gset-u2-c2-partnership-accounts.pdf'],
+  u2c3: ['unit2-ch03-corporate-accounting.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/e4c2c33e-e461-41a8-ad68-cb572226c51b-gset-u2-c3-corporate-accounting.pdf'],
+  u2c4: ['unit2-ch04-cost-management-financial-statement-analysis.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/62fdae26-3110-4cda-ab51-bf5d86c546c4-gset-u2-c4-cost-management-fsa.pdf'],
+  u2c5: ['unit2-ch05-accounting-standards-ifrs-auditing.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/e5aa6f60-20f4-4de6-96fe-de48c0a7e422-gset-u2-c5-accounting-standards-ifrs-auditing.pdf'],
+
+  u3c1: ['unit3-ch01-business-economics-demand.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/09c06219-b97a-4755-b100-b25f4cdc0b86-gset-u3-c1-business-economics-demand.pdf'],
+  u3c2: ['unit3-ch02-utility-production-returns.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/297da7b7-7bdf-44a5-b008-df2a85fd28bc-gset-u3-c2-utility-production-returns.pdf'],
+  u3c3: ['unit3-ch03-cost-markets-pricing.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/956e13bb-5830-4d2a-ac62-b5256e959d85-gset-u3-c3-cost-markets-pricing.pdf'],
+
+  u4c1: ['unit4-ch01-scope-sources-lease-finance.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/8e166ee6-8860-451d-9a25-a24d780452a4-gset-u4-c1-scope-sources-lease-finance.pdf'],
+  u4c2: ['unit4-ch02-cost-capital-tvm-structure-leverage.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/ff6af509-6253-4b29-9633-2bbe927b4718-gset-u4-c2-cost-capital-tvm-structure-leverage.pdf'],
+  u4c3: ['unit4-ch03-capital-budgeting.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/0d18842f-6fb3-4827-8768-a07b8934465c-gset-u4-c3-capital-budgeting.pdf'],
+  u4c4: ['unit4-ch04-working-capital-dividend-risk-international-finance.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/8d0c3185-efb7-429e-808f-08ff768167e9-gset-u4-c4-working-capital-dividend-risk-international-finance.pdf'],
+
+  u5c1: ['unit5-ch01-descriptive-statistics-correlation-regression.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/56077f7d-d024-4843-a363-3aa836c0243f-gset-u5-c1-descriptive-correlation-regression.pdf'],
+  u5c2: ['unit5-ch02-probability-distributions.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/36f6c98f-275d-4cc9-8013-8d0dd90a4d1f-gset-u5-c2-probability-distributions.pdf'],
+  u5c3: ['unit5-ch03-research-sampling-hypothesis-anova.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/740a138e-a6ce-4b33-a74b-e4a8f0c09b02-gset-u5-c3-research-sampling-hypothesis-anova.pdf'],
+
   u10c1: ['unit10-ch01-basic-concepts-income-tax.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/c29095b0-4664-40cc-9292-7e5d8be33d14-unit10-ch01-basic-concepts-income-tax.pdf'],
   u10c2: ['unit10-ch02-exempted-agricultural-income.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/c43fb1a8-a5c1-4050-ac88-9d400faf0c2d-unit10-ch02-exempted-agricultural-income.pdf'],
   u10c3: ['unit10-ch03-heads-of-income.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/c489b5a5-70a7-48fe-9b69-2544a523d695-unit10-ch03-heads-of-income.pdf'],
