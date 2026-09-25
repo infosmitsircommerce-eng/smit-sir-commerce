@@ -24,6 +24,13 @@ function classify(path) {
       basis: "Branded/generated Smit Sir Commerce revision material."
     };
   }
+  if (path.startsWith("net-gset-pdfs/")) {
+    return {
+      collection: "GSET / UGC NET Commerce chapter-wise notes",
+      provenance: "creator_resource",
+      basis: "Smit Sir Commerce-branded NET/GSET study notes supplied by the creator, organized into original chapter-wise learning and revision resources."
+    };
+  }
   if (path.includes("cbse/class-11/microeconomics/")) {
     return {
       collection: "CBSE Class 11 Microeconomics notes",
@@ -89,7 +96,7 @@ const reviewRequired = items.filter((item) => item.provenance === "review_requir
 
 const manifest = {
   site: "https://www.smitsircommerce.in",
-  lastReviewed: "2026-09-18",
+  lastReviewed: "2026-09-25",
   publicPdfCount: items.length,
   reviewRequiredCount: reviewRequired.length,
   policyUrl: "https://www.smitsircommerce.in/content-provenance",
@@ -103,7 +110,7 @@ await writeFile(
   join(publicRoot, "content-provenance.txt"),
   [
     "Smit Sir Commerce - Public PDF Provenance",
-    "Last reviewed: 2026-09-18",
+    "Last reviewed: 2026-09-25",
     "",
     manifest.statement,
     "",
