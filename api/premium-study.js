@@ -51,6 +51,10 @@ const GSET_PDFS = {
   u8c1: ['unit8-ch01-core-marketing-stp-product-consumer.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/27c37ca8-fa9f-43d3-b8f2-bdbf7d874d90-unit8-ch01-core-marketing-stp-product-consumer.pdf'],
   u8c2: ['unit8-ch02-pricing-promotion-distribution-modern-marketing.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/6ad52e80-8e90-47ea-8f0c-3efe1edf4eb3-unit8-ch02-pricing-promotion-distribution-modern-marketing.pdf'],
 
+  u9c1: ['unit9-ch01-indian-contract-act.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/cc0d5980-06f5-40b6-b7ad-2aa5486ecb3c-unit9-ch01-indian-contract-act.pdf'],
+  u9c2: ['unit9-ch02-companies-llp-competition-it-rti-ipr.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/22b7c8fc-cf1f-4850-a433-0902d6af7f54-unit9-ch02-companies-llp-competition-it-rti-ipr.pdf'],
+  u9c3: ['unit9-ch03-sale-goods-negotiable-instruments-gst.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/4d86947e-96a8-410e-b2e1-f86b34598440-unit9-ch03-sale-goods-negotiable-instruments-gst.pdf'],
+
   u10c1: ['unit10-ch01-basic-concepts-income-tax.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/c29095b0-4664-40cc-9292-7e5d8be33d14-unit10-ch01-basic-concepts-income-tax.pdf'],
   u10c2: ['unit10-ch02-exempted-agricultural-income.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/c43fb1a8-a5c1-4050-ac88-9d400faf0c2d-unit10-ch02-exempted-agricultural-income.pdf'],
   u10c3: ['unit10-ch03-heads-of-income.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/c489b5a5-70a7-48fe-9b69-2544a523d695-unit10-ch03-heads-of-income.pdf'],
