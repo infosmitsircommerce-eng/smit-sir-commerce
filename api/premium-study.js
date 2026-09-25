@@ -37,7 +37,16 @@ const GSET_PDFS = {
   u5c2: ['unit5-ch02-probability-distributions.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/36f6c98f-275d-4cc9-8013-8d0dd90a4d1f-gset-u5-c2-probability-distributions.pdf'],
   u5c3: ['unit5-ch03-research-sampling-hypothesis-anova.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/740a138e-a6ce-4b33-a74b-e4a8f0c09b02-gset-u5-c3-research-sampling-hypothesis-anova.pdf'],
 
+  u6c1: ['unit6-ch01-management-organization-delegation.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/ffbd8bb6-d71d-48aa-a76e-cb9fc70fe294-gset-u6-c1-management-organization-delegation.pdf'],
+  u6c2: ['unit6-ch02-motivation-leadership-governance.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/ec5d0425-f094-40c1-a368-757bbc96f61e-gset-u6-c2-motivation-leadership-governance.pdf'],
+  u6c3: ['unit6-ch03-hrm-recruitment-training.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/62876c67-1b38-4116-9d77-589a9ed57552-gset-u6-c3-hrm-recruitment-training.pdf'],
+  u6c4: ['unit6-ch04-compensation-appraisal-industrial-relations.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/7fc17c96-1557-4153-b660-5b532f383730-gset-u6-c4-compensation-appraisal-industrial-relations.pdf'],
   u6c5: ['unit6-ch05-personality-group-behaviour-culture-change.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/1a3802e4-2848-4233-8fb8-360b8bad0db4-gset-u6-c5-personality-group-behaviour-culture-change.pdf'],
+
+  u7c3: ['unit7-ch03-banking-reforms-basel-npa.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/6229345e-bb48-4515-9f11-dd548ddadbd1-gset-u7-c3-banking-reforms-basel-npa.pdf'],
+  u7c4: ['unit7-ch04-financial-markets.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/d46eeadf-1b28-4eab-b956-87aaf2518d58-gset-u7-c4-financial-markets.pdf'],
+  u7c5: ['unit7-ch05-dfi-nbfc-mf-regulators.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/71a2d562-8e87-4546-8f40-f96695e896c8-gset-u7-c5-dfi-nbfc-mf-regulators.pdf'],
+  u7c6: ['unit7-ch06-inclusion-digital-insurance.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/bfeb58b6-b953-4ca3-a572-1e3d226b1bce-gset-u7-c6-inclusion-digital-insurance.pdf'],
 
   u10c1: ['unit10-ch01-basic-concepts-income-tax.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/c29095b0-4664-40cc-9292-7e5d8be33d14-unit10-ch01-basic-concepts-income-tax.pdf'],
   u10c2: ['unit10-ch02-exempted-agricultural-income.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/c43fb1a8-a5c1-4050-ac88-9d400faf0c2d-unit10-ch02-exempted-agricultural-income.pdf'],
