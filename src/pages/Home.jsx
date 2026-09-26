@@ -1,18 +1,7 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SEO from "../components/ui/SEO";
 import MobileLearningHome from "../components/home/MobileLearningHome";
-
-const HomeBelowFold = lazy(() => import("../components/home/HomeBelowFold"));
-
-function HomeBelowFoldFallback() {
-  return (
-    <div
-      aria-hidden="true"
-      data-home-below-fold-placeholder="true"
-      style={{ minHeight: "360px" }}
-    />
-  );
-}
+import HomeBelowFold from "../components/home/HomeBelowFold";
 
 function StableHomeBelowFold() {
   const [ready, setReady] = useState(() => {
@@ -57,13 +46,17 @@ function StableHomeBelowFold() {
     };
   }, [ready]);
 
-  if (!ready) return <HomeBelowFoldFallback />;
+  if (!ready) {
+    return (
+      <div
+        aria-hidden="true"
+        data-home-below-fold-placeholder="true"
+        style={{ minHeight: "360px" }}
+      />
+    );
+  }
 
-  return (
-    <Suspense fallback={<HomeBelowFoldFallback />}>
-      <HomeBelowFold />
-    </Suspense>
-  );
+  return <HomeBelowFold />;
 }
 
 export default function Home() {
