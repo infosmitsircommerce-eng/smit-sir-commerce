@@ -4,6 +4,7 @@ import {
   getAuthorization,
   hasProductAccess,
   serviceRequest,
+  serviceRoleKey,
   verifyUser,
 } from './_purchase-utils.js';
 import {
@@ -44,6 +45,16 @@ export default async function handler(req, res) {
       return res.status(403).json({
         error: 'This Detailed Premium Master requires Commerce Mega Premium access.',
         productId: CBSE_12_BST_PRODUCT_ID,
+      });
+    }
+
+    // Premium PDF storage uses privileged Supabase reads. Fail cleanly when
+    // deployment configuration is incomplete instead of throwing/logging a
+    // server configuration detail for every legitimate student request.
+    if (!serviceRoleKey()) {
+      res.setHeader('Retry-After', '60');
+      return res.status(503).json({
+        error: 'Premium study files are temporarily unavailable. Please try again shortly.',
       });
     }
 
