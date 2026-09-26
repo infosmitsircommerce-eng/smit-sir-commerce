@@ -19,8 +19,12 @@ const assets = [
 ];
 
 const root = path.resolve('public', 'net-gset-pdfs');
+const frozenRoot = path.join(root, 'frozen');
 const libraryHtmlPath = path.resolve('public', 'net-gset-commerce.html');
+const premiumStudyPath = path.resolve('api', 'premium-study.js');
 const generatedStatsPath = path.resolve('src', 'data', 'netGsetStats.js');
+const frozenManifestPath = path.join(frozenRoot, 'manifest.json');
+const downloadCache = new Map();
 
 async function validPdf(filePath) {
   try {
@@ -32,6 +36,103 @@ async function validPdf(filePath) {
   } catch {
     return false;
   }
+}
+
+async function fetchPdf(url) {
+  if (!downloadCache.has(url)) {
+    downloadCache.set(url, (async () => {
+      const response = await fetch(url, {
+        redirect: 'follow',
+        signal: AbortSignal.timeout(30000),
+      });
+      if (!response.ok) throw new Error(`Failed ${response.status} while fetching ${url}`);
+      const body = Buffer.from(await response.arrayBuffer());
+      if (body.subarray(0, 5).toString() !== '%PDF-') {
+        throw new Error(`Invalid PDF received from ${url}`);
+      }
+      return body;
+    })());
+  }
+  return downloadCache.get(url);
+}
+
+async function ensurePdf(destination, url, label) {
+  if (await validPdf(destination)) {
+    console.log(`[gset-pdf] keep existing ${label}`);
+    return true;
+  }
+
+  try {
+    const body = await fetchPdf(url);
+    await fs.mkdir(path.dirname(destination), { recursive: true });
+    await fs.writeFile(destination, body);
+    console.log(`[gset-pdf] synced ${label} (${body.length} bytes)`);
+    return true;
+  } catch (error) {
+    console.warn(`[gset-pdf] could not freeze ${label}: ${error?.message || error}`);
+    return false;
+  }
+}
+
+async function readGsetCatalog() {
+  const source = await fs.readFile(premiumStudyPath, 'utf8');
+  const entries = [];
+  const pattern = /\b(u\d+c\d+)\s*:\s*\[\s*'([^']+\.pdf)'\s*,\s*'(https:\/\/[^']+\.pdf)'\s*\]/g;
+
+  for (const match of source.matchAll(pattern)) {
+    entries.push({ key: match[1], filename: match[2], url: match[3] });
+  }
+
+  if (entries.length < 40) {
+    throw new Error(`Expected the NET/GSET PDF catalog, found only ${entries.length} entries.`);
+  }
+  return entries;
+}
+
+async function freezeGsetLibrary() {
+  const catalog = await readGsetCatalog();
+  const manifest = {};
+  let cursor = 0;
+
+  async function worker() {
+    while (cursor < catalog.length) {
+      const item = catalog[cursor++];
+      const relative = `frozen/${item.key}-${item.filename}`;
+      const destination = path.join(root, relative);
+      if (await ensurePdf(destination, item.url, relative)) {
+        manifest[item.key] = `/net-gset-pdfs/${relative}`;
+      }
+    }
+  }
+
+  await Promise.all(Array.from({ length: 4 }, () => worker()));
+  await fs.mkdir(frozenRoot, { recursive: true });
+  await fs.writeFile(
+    frozenManifestPath,
+    `${JSON.stringify({ count: Object.keys(manifest).length, files: manifest }, null, 2)}\n`,
+  );
+
+  let html = await fs.readFile(libraryHtmlPath, 'utf8');
+  const resolver = `const frozenPdfs=${JSON.stringify(manifest)};\nconst pdf=(u,c)=>{const key=\`u\${u}c\${c}\`,local=frozenPdfs[key];return local?[local,local]:[\`/api/premium-study?gset=\${key}\`,\`/api/premium-study?gset=\${key}&download=1\`];};`;
+  const originalResolver = 'const pdf=(u,c)=>[`/api/premium-study?gset=u${u}c${c}`,`/api/premium-study?gset=u${u}c${c}&download=1`];';
+
+  if (html.includes('const frozenPdfs=')) {
+    html = html.replace(
+      /const frozenPdfs=[\s\S]*?\nconst units=\[/,
+      `${resolver}\nconst units=[`,
+    );
+  } else if (html.includes(originalResolver)) {
+    html = html.replace(originalResolver, resolver);
+  } else {
+    throw new Error('Could not find the NET/GSET PDF resolver in the library page.');
+  }
+
+  html = html.replace(
+    'href="${x[4]}">Download PDF</a>',
+    'href="${x[4]}" download>Download PDF</a>',
+  );
+  await fs.writeFile(libraryHtmlPath, html);
+  console.log(`[gset-freeze] ${Object.keys(manifest).length}/${catalog.length} PDFs frozen into the deployment`);
 }
 
 async function syncLibraryStats() {
@@ -65,19 +166,10 @@ async function syncLibraryStats() {
 
 for (const [relativePath, sourcePath] of assets) {
   const destination = path.join(root, relativePath);
-  if (await validPdf(destination)) {
-    console.log(`[gset-pdf] keep existing ${relativePath}`);
-    continue;
-  }
-
-  await fs.mkdir(path.dirname(destination), { recursive: true });
   const url = `${SOURCE_ORIGIN}${sourcePath}`;
-  const response = await fetch(url, { redirect: 'follow' });
-  if (!response.ok) throw new Error(`Failed ${response.status} while fetching ${url}`);
-  const body = Buffer.from(await response.arrayBuffer());
-  if (body.subarray(0, 5).toString() !== '%PDF-') throw new Error(`Invalid PDF received for ${relativePath}`);
-  await fs.writeFile(destination, body);
-  console.log(`[gset-pdf] synced ${relativePath} (${body.length} bytes)`);
+  const ok = await ensurePdf(destination, url, relativePath);
+  if (!ok) throw new Error(`Required NET/GSET PDF could not be synced: ${relativePath}`);
 }
 
+await freezeGsetLibrary();
 await syncLibraryStats();
