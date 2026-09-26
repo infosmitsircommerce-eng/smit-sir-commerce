@@ -5,7 +5,7 @@ async function fetchWithTimeout(path, init = {}) {
     redirect: 'follow',
     signal: AbortSignal.timeout(15000),
     headers: {
-      'user-agent': 'SmitSirCommerceHealth/1.0',
+      'user-agent': 'SmitSirCommerceHealth/1.1',
       ...(init.headers || {}),
     },
     ...init,
@@ -17,33 +17,69 @@ async function check(path, { contains, contentType, statuses = [200] } = {}) {
   if (!statuses.includes(response.status)) {
     throw new Error(`${path}: expected ${statuses.join('/')}, got ${response.status}`);
   }
+
   const actualType = (response.headers.get('content-type') || '').toLowerCase();
   if (contentType && !actualType.includes(contentType)) {
     throw new Error(`${path}: expected content-type containing ${contentType}, got ${actualType || 'none'}`);
   }
+
+  let text = '';
   if (contains) {
-    const text = await response.text();
-    if (!text.includes(contains)) throw new Error(`${path}: expected text ${JSON.stringify(contains)}`);
+    text = await response.text();
+    if (!text.includes(contains)) {
+      throw new Error(`${path}: expected text ${JSON.stringify(contains)}`);
+    }
   }
+
   console.log(`✓ ${path} ${response.status}`);
+  return { response, text };
 }
 
-await check('/', { contains: 'Smit Sir Commerce', contentType: 'text/html' });
+const home = await check('/', { contains: 'Smit Sir Commerce', contentType: 'text/html' });
+if (!home.text.includes('https://www.smitsircommerce.in/')) {
+  throw new Error('Homepage: canonical production domain is missing from rendered HTML');
+}
+console.log('✓ homepage canonical domain');
+
 await check('/study-material', { contentType: 'text/html' });
 await check('/quizzes', { contentType: 'text/html' });
-await check('/net-gset-commerce', { contains: '43', contentType: 'text/html' });
+await check('/tools', { contentType: 'text/html' });
+await check('/premium', { contentType: 'text/html' });
+await check('/login', { contentType: 'text/html' });
+await check('/my-purchases', { contentType: 'text/html' });
+
+const netGset = await check('/net-gset-commerce', {
+  contains: 'unique PDFs live',
+  contentType: 'text/html',
+});
+
 await check('/sitemap.xml', { contains: 'smitsircommerce.in', contentType: 'xml' });
 await check('/robots.txt', { contentType: 'text/plain' });
+await check('/ads.txt', { contentType: 'text/plain' });
 
 const manifestResponse = await fetchWithTimeout('/net-gset-pdfs/frozen/manifest.json');
-if (!manifestResponse.ok) throw new Error(`Frozen PDF manifest: HTTP ${manifestResponse.status}`);
-const manifest = await manifestResponse.json();
-if (manifest.count !== 43 || Object.keys(manifest.files || {}).length !== 43) {
-  throw new Error(`Frozen PDF manifest: expected 43 files, found ${manifest.count ?? 'unknown'}`);
+if (!manifestResponse.ok) {
+  throw new Error(`Frozen PDF manifest: HTTP ${manifestResponse.status}`);
 }
-console.log('✓ frozen NET/GSET manifest 43/43');
+const manifest = await manifestResponse.json();
+const fileEntries = Object.entries(manifest.files || {});
 
-await check('/net-gset-pdfs/frozen/u1c1-unit1-ch01-business-environment.pdf', { contentType: 'application/pdf' });
-await check('/net-gset-pdfs/frozen/u10c10-unit10-ch10-tds-tcs-advance-tax-efiling.pdf', { contentType: 'application/pdf' });
+if (!Number.isInteger(manifest.count) || manifest.count < 1) {
+  throw new Error(`Frozen PDF manifest: invalid count ${manifest.count ?? 'unknown'}`);
+}
+if (fileEntries.length !== manifest.count) {
+  throw new Error(`Frozen PDF manifest: count=${manifest.count}, files=${fileEntries.length}`);
+}
+if (!netGset.text.includes(`"numberOfItems":${manifest.count}`)
+  && !netGset.text.includes(`>${manifest.count}</b><small>unique PDFs live`)) {
+  throw new Error(`NET/GSET page and frozen manifest disagree about PDF count ${manifest.count}`);
+}
+console.log(`✓ frozen NET/GSET manifest ${manifest.count}/${manifest.count}`);
+
+const firstPdf = fileEntries[0]?.[1];
+const lastPdf = fileEntries[fileEntries.length - 1]?.[1];
+for (const pdfPath of new Set([firstPdf, lastPdf].filter(Boolean))) {
+  await check(pdfPath, { contentType: 'application/pdf' });
+}
 
 console.log('Production smoke test passed.');
