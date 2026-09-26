@@ -28,7 +28,8 @@ export const PREBUILD_STAGES = [
     "scripts": [
       "scripts/generate-sitemap.mjs",
       "scripts/refresh-updated-sitemap-lastmods.mjs",
-      "scripts/ensure-indexable-premium-sitemap.mjs"
+      "scripts/ensure-indexable-premium-sitemap.mjs",
+      "scripts/extend-sitemap-net-gset.mjs"
     ]
   }
 ];
@@ -40,6 +41,7 @@ export const POSTBUILD_STAGES = [
       "scripts/prerender-core-pages.mjs",
       "scripts/prerender-bst-premium.mjs",
       "scripts/prerender-commerce-expansion.mjs",
+      "scripts/prerender-net-gset-seo.mjs",
       "scripts/prerender-commerce-discovery.mjs",
       "scripts/prerender-commerce-resources.mjs",
       "scripts/prerender-seo.mjs",
