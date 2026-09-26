@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import SEO from '../components/ui/SEO';
 import StudyAccessFinder from '../components/ui/StudyAccessFinder';
 import { studyAccessItems } from '../data/studyAccess';
+import { netGsetFreePdfCount } from '../data/netGsetStats.js';
 
 const PATH = '/study-material';
 const TITLE = 'Free Commerce Notes PDF — CBSE & GSEB Class 11 and 12 | Smit Sir Commerce';
@@ -81,6 +82,7 @@ export default function StudyMaterial() {
                 <Link to="/study-material?board=CBSE&class=12&subject=Accountancy#chapter-finder" className="btn-outline-ink"><BookOpen className="w-4 h-4" /> CBSE 12 Accounts</Link>
                 <Link to="/study-material?board=GSEB&class=12&subject=CCSP#chapter-finder" className="btn-outline-ink"><FileText className="w-4 h-4" /> GSEB 12 CCSP</Link>
                 <Link to="/gseb-class-11-accountancy-notes" className="btn-outline-ink"><BookOpen className="w-4 h-4" /> GSEB 11 Accounts</Link>
+                <a href="/net-gset-commerce" className="btn-outline-ink"><BookOpen className="w-4 h-4" /> NET/GSET {netGsetFreePdfCount} PDFs</a>
               </div>
             </div>
             {recent ? (
@@ -106,8 +108,8 @@ export default function StudyMaterial() {
       <main className="page-container ssc-library-main">
         <section className="ssc-free-catalog" aria-labelledby="free-library-heading">
           <div className="ssc-free-catalog-intro">
-            <div><span className="eyebrow">ALL FREE NOTES — OPEN ACCESS</span><h2 id="free-library-heading">See every free resource before choosing.</h2><p>All {freeNotes.length} currently published free notes are listed below by board, class and subject. Tap any chapter to read or download it immediately.</p></div>
-            <span className="ssc-free-total"><strong>{freeNotes.length}</strong> free resources</span>
+            <div><span className="eyebrow">CLASS 11–12 FREE NOTES — OPEN ACCESS</span><h2 id="free-library-heading">See every school-level free resource before choosing.</h2><p>The {freeNotes.length} Class 11–12 resources below are listed by board, class and subject. For competitive exams, the separate NET/GSET Commerce library contains {netGsetFreePdfCount} free detailed PDFs across all 10 units.</p></div>
+            <span className="ssc-free-total"><strong>{freeNotes.length}</strong> Class 11–12 free resources</span>
           </div>
           <div className="ssc-free-boards">
             {freeCatalog.map((board) => (
