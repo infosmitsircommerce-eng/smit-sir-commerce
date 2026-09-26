@@ -5,7 +5,7 @@ async function fetchWithTimeout(path, init = {}) {
     redirect: 'follow',
     signal: AbortSignal.timeout(15000),
     headers: {
-      'user-agent': 'SmitSirCommerceHealth/1.1',
+      'user-agent': 'SmitSirCommerceHealth/1.2',
       ...(init.headers || {}),
     },
     ...init,
@@ -56,6 +56,9 @@ const netGset = await check('/net-gset-commerce', {
 await check('/sitemap.xml', { contains: 'smitsircommerce.in', contentType: 'xml' });
 await check('/robots.txt', { contentType: 'text/plain' });
 await check('/ads.txt', { contentType: 'text/plain' });
+await check('/sw.js', { contains: 'Legacy PWA retirement worker', contentType: 'javascript' });
+await check('/registerSW.js', { contains: 'Legacy compatibility cleanup', contentType: 'javascript' });
+await check('/manifest.json', { contains: 'Smit Sir Commerce', contentType: 'json' });
 
 const manifestResponse = await fetchWithTimeout('/net-gset-pdfs/frozen/manifest.json');
 if (!manifestResponse.ok) {
