@@ -5,7 +5,7 @@ async function fetchWithTimeout(path, init = {}) {
     redirect: 'follow',
     signal: AbortSignal.timeout(15000),
     headers: {
-      'user-agent': 'SmitSirCommerceHealth/1.2',
+      'user-agent': 'SmitSirCommerceHealth/1.3',
       ...(init.headers || {}),
     },
     ...init,
@@ -52,8 +52,30 @@ const netGset = await check('/net-gset-commerce', {
   contains: 'unique PDFs live',
   contentType: 'text/html',
 });
+await check('/ugc-net-commerce-notes', {
+  contains: 'UGC NET Commerce notes',
+  contentType: 'text/html',
+});
+await check('/gset-commerce-code-17-notes', {
+  contains: 'GSET Commerce Code 17 notes',
+  contentType: 'text/html',
+});
+await check('/net-gset-commerce/unit-1-business-environment-international-business-notes', {
+  contains: 'Unit 1: Business Environment',
+  contentType: 'text/html',
+});
+await check('/net-gset-commerce/unit-10-income-tax-corporate-tax-planning-notes', {
+  contains: 'Unit 10: Income-tax',
+  contentType: 'text/html',
+});
 
-await check('/sitemap.xml', { contains: 'smitsircommerce.in', contentType: 'xml' });
+const sitemap = await check('/sitemap.xml', { contains: '/ugc-net-commerce-notes', contentType: 'xml' });
+if (!sitemap.text.includes('/gset-commerce-code-17-notes')
+  || !sitemap.text.includes('/net-gset-commerce/unit-10-income-tax-corporate-tax-planning-notes')) {
+  throw new Error('Sitemap is missing NET/GSET organic search landing pages');
+}
+console.log('✓ sitemap contains NET/GSET search cluster');
+
 await check('/robots.txt', { contentType: 'text/plain' });
 await check('/ads.txt', { contentType: 'text/plain' });
 await check('/sw.js', { contains: 'Legacy PWA retirement worker', contentType: 'javascript' });
@@ -73,7 +95,7 @@ if (!Number.isInteger(manifest.count) || manifest.count < 1) {
 if (fileEntries.length !== manifest.count) {
   throw new Error(`Frozen PDF manifest: count=${manifest.count}, files=${fileEntries.length}`);
 }
-if (!netGset.text.includes(`"numberOfItems":${manifest.count}`)
+if (!netGset.text.includes(`\"numberOfItems\":${manifest.count}`)
   && !netGset.text.includes(`>${manifest.count}</b><small>unique PDFs live`)) {
   throw new Error(`NET/GSET page and frozen manifest disagree about PDF count ${manifest.count}`);
 }
