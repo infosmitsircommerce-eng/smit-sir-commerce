@@ -1,7 +1,9 @@
+import { netGsetSeoPaths } from '../src/data/netGsetSeoUnits.js';
+
 const HOST = 'www.smitsircommerce.in';
 const KEY = '6489ed9080c4bf19fb1b88dc0d6ef6fc';
 const BING_ENDPOINT = 'https://www.bing.com/indexnow';
-const changedPaths = [
+const changedPaths = [...new Set([
   '/',
   '/gseb-class-11-accountancy-notes',
   '/study-material',
@@ -13,7 +15,8 @@ const changedPaths = [
   '/business-studies-tuition-mehsana',
   '/accountancy-tuition-mehsana',
   '/book-demo',
-];
+  ...netGsetSeoPaths,
+])];
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -25,7 +28,7 @@ async function submit(url) {
     try {
       const response = await fetch(requestUrl, {
         method: 'GET',
-        headers: { 'user-agent': 'SmitSirCommerce-IndexNow/1.0' },
+        headers: { 'user-agent': 'SmitSirCommerce-IndexNow/1.1' },
       });
       lastStatus = response.status;
 
