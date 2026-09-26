@@ -5,8 +5,12 @@ import { verifiedQuizPacks } from './quizCatalog.js';
 import { cbse12AccountancyPremiumMaterials } from './cbse12AccountancyPremium.js';
 import { gseb11AccountancyPremiumMaterials } from './gsebAccountancyPremium.js';
 import { commerceTools } from './allCommerceTools.js';
+import { netGsetFreePdfCount } from './netGsetStats.js';
 
-export const freeNoteCount = seoMaterials.length + gsebMaterials.length + ccspMaterials.length;
+export const freeNoteCount = seoMaterials.length
+  + gsebMaterials.length
+  + ccspMaterials.length
+  + netGsetFreePdfCount;
 
 const cbseEconomicsGuideCount = verifiedQuizPacks.filter(
   (pack) => pack.board === 'CBSE' && pack.subject === 'Economics',
