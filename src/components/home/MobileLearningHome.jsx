@@ -21,7 +21,7 @@ import AccountancyPremiumPreview from "../premium/AccountancyPremiumPreview";
 import { readStudentPreferences, studyPath } from "../../lib/studentPreferences";
 import { trackEvent } from "../../lib/analytics";
 import LanguageSwitcher from "../ui/LanguageSwitcher";
-import { netGsetFreePdfCount } from "../../data/netGsetStats.js";
+import { netGsetFreePdfCount, netGsetLiveUnitCount, netGsetStudyPageCount } from "../../data/netGsetStats.js";
 
 const QUICK_ACTIONS = [
   { label: "Study Notes", icon: FileText, to: "/study-material", tone: "gold" },
@@ -167,7 +167,7 @@ export default function MobileLearningHome() {
           <span className="mobile-resume-copy">
             <small>NEW · GSET CODE 17 · UGC NET COMMERCE</small>
             <strong>NET / GSET Commerce Notes</strong>
-            <span>10 units live · {netGsetFreePdfCount} detailed PDFs · 957 study pages</span>
+            <span>{netGsetLiveUnitCount} units live · {netGsetFreePdfCount} detailed PDFs · {netGsetStudyPageCount} study pages</span>
           </span>
           <span className="mobile-resume-arrow"><ArrowRight aria-hidden="true" /></span>
         </a>
