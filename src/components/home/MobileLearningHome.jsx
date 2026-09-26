@@ -21,6 +21,7 @@ import AccountancyPremiumPreview from "../premium/AccountancyPremiumPreview";
 import { readStudentPreferences, studyPath } from "../../lib/studentPreferences";
 import { trackEvent } from "../../lib/analytics";
 import LanguageSwitcher from "../ui/LanguageSwitcher";
+import { netGsetFreePdfCount } from "../../data/netGsetStats.js";
 
 const QUICK_ACTIONS = [
   { label: "Study Notes", icon: FileText, to: "/study-material", tone: "gold" },
@@ -43,7 +44,7 @@ function readContinueLearning() {
     ...readArray("ssc-recent-learning-v1"),
     ...readArray("ssc-chapter-progress-v1"),
   ].filter(item => typeof item?.title === "string" && typeof item?.path === "string" && /^\/(?!\/)/.test(item.path));
-  return candidates.toSorted((a, b) => new Date(b.viewedAt || b.updatedAt || 0) - new Date(a.viewedAt || a.updatedAt || 0))[0] || null;
+  return candidates.sort((a, b) => new Date(b.viewedAt || b.updatedAt || 0) - new Date(a.viewedAt || a.updatedAt || 0))[0] || null;
 }
 
 const CLASSES = [
@@ -166,7 +167,7 @@ export default function MobileLearningHome() {
           <span className="mobile-resume-copy">
             <small>NEW · GSET CODE 17 · UGC NET COMMERCE</small>
             <strong>NET / GSET Commerce Notes</strong>
-            <span>7 units live · 30 detailed PDFs · 668 study pages</span>
+            <span>10 units live · {netGsetFreePdfCount} detailed PDFs · 957 study pages</span>
           </span>
           <span className="mobile-resume-arrow"><ArrowRight aria-hidden="true" /></span>
         </a>
