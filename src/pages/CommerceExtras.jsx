@@ -35,10 +35,10 @@ export default function CommerceExtras() {
       const { data } = await supabase.auth.getSession();
       const token = data.session?.access_token;
       if (!token) throw new Error('Your sign-in session has expired. Sign in again to continue.');
-      const response = await fetch('/api/premium-commerce-extras', {
+      const response = await fetch('/api/premium-study', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ resourceKey: item.resourceKey }),
+        body: JSON.stringify({ commerceExtraKey: item.resourceKey }),
       });
       if (!response.ok) {
         const result = await response.json().catch(() => ({}));

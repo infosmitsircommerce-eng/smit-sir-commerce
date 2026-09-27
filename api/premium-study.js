@@ -1,10 +1,14 @@
 import { verifiedQuizPacks } from '../src/data/quizzes.js';
 import { applyPremiumUpgrades } from '../src/data/quizPremiumUpgrades.js';
 import { createHash } from 'node:crypto';
+import { inflateSync } from 'node:zlib';
+import { PREMIUM_MEGA_PACK } from '../src/data/premiumMegaPack.js';
+import { commerceExtras } from '../src/data/commerceExtras.js';
 import {
   getAuthorization,
   hasProductAccess,
   productIdForQuizPack,
+  serviceRequest,
   SUPABASE_ANON_KEY,
   SUPABASE_URL,
   verifyUser,
@@ -67,6 +71,38 @@ const GSET_PDFS = {
   u10c10: ['unit10-ch10-tds-tcs-advance-tax-efiling.pdf','https://smit-sir-ccsp-assets.floot.app/_cdn/static/cca1be57-9255-4e0d-9415-37c146ae854c-unit10-ch10-tds-tcs-advance-tax-efiling.pdf'],
 };
 
+const COMMERCE_EXTRA_KEYS = new Set(commerceExtras.map((item) => item.resourceKey));
+
+function safeExtraFilename(value) {
+  return String(value || 'commerce-extra-notes').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 90);
+}
+
+async function serveCommerceExtra(res, authorization, user, resourceKey) {
+  if (!COMMERCE_EXTRA_KEYS.has(resourceKey)) return res.status(404).json({ error: 'Premium extra not found.' });
+  const profiles = await serviceRequest(`/rest/v1/profiles?id=eq.${encodeURIComponent(user.id)}&select=is_premium,premium_until`);
+  const profile = Array.isArray(profiles) ? profiles[0] : null;
+  const premiumUntil = profile?.premium_until ? new Date(profile.premium_until).getTime() : null;
+  const legacyPremium = profile?.is_premium === true && (premiumUntil === null || (Number.isFinite(premiumUntil) && premiumUntil > Date.now()));
+  const megaPremium = await hasProductAccess(authorization, PREMIUM_MEGA_PACK.id);
+  if (!legacyPremium && !megaPremium) return res.status(403).json({ error: 'These Extra Notes and Question Papers are locked for Premium members.' });
+  const metadataRows = await serviceRequest(`/rest/v1/premium_commerce_extras_notes?resource_key=eq.${encodeURIComponent(resourceKey)}&select=resource_key,title,pages,sha256`);
+  const metadata = Array.isArray(metadataRows) ? metadataRows[0] : null;
+  if (!metadata) return res.status(404).json({ error: 'This Premium PDF is still syncing. Please try again shortly.' });
+  const chunks = await serviceRequest(`/rest/v1/premium_commerce_extras_chunks?resource_key=eq.${encodeURIComponent(resourceKey)}&select=chunk_index,payload&order=chunk_index.asc`);
+  if (!Array.isArray(chunks) || !chunks.length) return res.status(404).json({ error: 'This Premium PDF is still syncing. Please try again shortly.' });
+  const pdf = inflateSync(Buffer.from(chunks.map((item) => item.payload).join(''), 'base64'));
+  const validHeader = pdf.subarray(0, 5).toString() === '%PDF-';
+  const validHash = createHash('sha256').update(pdf).digest('hex') === metadata.sha256;
+  if (!validHeader || !validHash) {
+    console.error('premium-commerce-extra-integrity', resourceKey, validHeader, validHash);
+    return res.status(503).json({ error: 'Unable to load this PDF safely. Please try again.' });
+  }
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', `inline; filename="${safeExtraFilename(metadata.title)}.pdf"`);
+  res.setHeader('Content-Length', String(pdf.length));
+  return res.status(200).send(pdf);
+}
+
 async function serveGsetPdf(req, res) {
   const item = GSET_PDFS[String(req.query?.gset || '').trim()];
   if (!item) return res.status(404).json({ error: 'PDF not found.' });
@@ -103,6 +139,7 @@ export default async function handler(req, res) {
     const user = await verifyUser(authorization);
     if (!user) return res.status(401).json({ error: 'Unable to verify your sign-in.' });
     const headers = { apikey: SUPABASE_ANON_KEY, Authorization: authorization };
+    if (req.body?.commerceExtraKey !== undefined) return await serveCommerceExtra(res, authorization, user, String(req.body.commerceExtraKey || '').trim());
 
     if (req.body?.gsebChapter !== undefined) {
       const chapter = req.body.gsebChapter;
