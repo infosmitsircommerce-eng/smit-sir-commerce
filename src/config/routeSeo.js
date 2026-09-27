@@ -61,6 +61,10 @@ export const ROUTE_SEO = {
     title: "Free CBSE Commerce PDF Notes — Class 11 & 12",
     description: "Download and view free chapter-wise CBSE Commerce PDFs.",
   },
+  "/extras-notes": {
+    title: "Premium Extras: Commerce Notes & Question Practice",
+    description: "34 protected chapter PDFs across Microeconomics, Business Studies and Accountancy, with detailed notes and question practice.",
+  },
   "/services-for-teachers": {
     title: "Question Paper, Notes & PPT Services for Teachers",
     description:
@@ -264,6 +268,7 @@ export const ROUTE_SEO = {
 export function routeUsesOwnSeo(pathname) {
   return (
     pathname === "/premium" ||
+    pathname === "/extras-notes" ||
     pathname === "/premium/economics" ||
     pathname === "/premium/accountancy" ||
     pathname === "/premium/cbse-12-accountancy" ||

@@ -8,6 +8,7 @@ import {
   Search,
   User,
   Crown,
+  FileText,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import { isLightRoute } from "../../lib/theme";
@@ -22,6 +23,7 @@ const navLinks = [
     label: "More",
     children: [
       { label: "Board Boosters", path: "/board-booster-packs" },
+      { label: "Extras · Notes & Questions", path: "/extras-notes" },
       { label: "Study Tools", path: "/tools" },
       { label: "Free Diagnostic", path: "/board-exam-diagnostic" },
       { label: "Contact", path: "/contact" },
@@ -33,6 +35,7 @@ const featureLinks = [
   { label: "Notes", path: "/study-material", icon: BookOpen },
   { label: "Practice", path: "/quizzes", icon: ListChecks },
   { label: "Premium", path: "/premium", icon: Crown },
+  { label: "Extras", path: "/extras-notes", icon: FileText },
 ];
 
 export default function Navbar() {

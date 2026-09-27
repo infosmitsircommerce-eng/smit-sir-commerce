@@ -21,6 +21,7 @@ const Onboarding = lazy(() => import("../pages/Onboarding"));
 const Courses = lazy(() => import("../pages/Courses"));
 const Lectures = lazy(() => import("../pages/Lectures"));
 const StudyMaterial = lazy(() => import("../pages/StudyMaterial"));
+const CommerceExtras = lazy(() => import("../pages/CommerceExtras"));
 const GsebClass11AccountancyNotes = lazy(
   () => import("../pages/GsebClass11AccountancyNotes"),
 );
@@ -210,6 +211,7 @@ function AnimatedRoutes() {
           <Route path="/courses" element={withPage(<Courses />)} />
           <Route path="/lectures" element={withPage(<Lectures />)} />
           <Route path="/study-material" element={withPage(<StudyMaterial />)} />
+          <Route path="/extras-notes" element={withPage(<CommerceExtras />)} />
           <Route
             path="/gseb-class-11-accountancy-notes"
             element={withPage(<GsebClass11AccountancyNotes />)}

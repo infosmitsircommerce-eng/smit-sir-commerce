@@ -20,7 +20,7 @@ export const PREMIUM_MEGA_PACK = {
   accessPath: '/premium',
   previewPath: '/premium',
   badge: 'BEST VALUE',
-  focus: 'One purchase for the complete Premium study ecosystem currently published on Smit Sir Commerce.',
+  focus: 'One purchase for the complete Premium study ecosystem published on Smit Sir Commerce.',
 };
 
 export const PREMIUM_MEGA_SECTIONS = [
@@ -59,6 +59,12 @@ export const PREMIUM_MEGA_SECTIONS = [
     meta: '13 chapter deep-dives · 260 concept explanations · 260 worked challenges',
     detail: 'Concept-first Microeconomics learning with advanced solved practice.',
     href: '/premium/economics?board=CBSE',
+  },
+  {
+    title: 'Extra Notes & Question Practice',
+    meta: '34 locked chapter PDFs · 50 pages each · 1,700 pages',
+    detail: 'Microeconomics, Business Studies and Accountancy chapter notes with guided examples, revision and question practice.',
+    href: '/extras-notes',
   },
   {
     title: 'Premium MCQs, tests & exam practice',
