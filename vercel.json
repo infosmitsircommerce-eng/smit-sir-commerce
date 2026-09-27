@@ -653,6 +653,10 @@
       "destination": "/"
     },
     {
+      "source": "/extras-notes",
+      "destination": "/"
+    },
+    {
       "source": "/pdf-viewer",
       "destination": "/"
     },
