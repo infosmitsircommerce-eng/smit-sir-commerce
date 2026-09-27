@@ -167,8 +167,6 @@ export default function CommerceToolPage() {
         </div>
       </section>
 
-      <div className="page-container"><SearchPractice path={`/tools/${tool.slug}`} /></div>
-
       <section className="page-container pb-10">
         <div className="grid lg:grid-cols-[1.03fr_.97fr] gap-6 items-start">
           <form onSubmit={onSubmit} className="card-paper p-5 sm:p-7">
@@ -228,6 +226,8 @@ export default function CommerceToolPage() {
           </aside>
         </div>
       </section>
+
+      <div className="page-container"><SearchPractice path={`/tools/${tool.slug}`} /></div>
 
       <section className="page-container pb-10">
         <div className="card-paper p-6 sm:p-8">
