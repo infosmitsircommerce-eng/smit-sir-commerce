@@ -22,6 +22,7 @@ const navLinks = [
     label: "More",
     children: [
       { label: "Board Boosters", path: "/board-booster-packs" },
+      { label: "Extras · Notes & Questions", path: "/extras-notes" },
       { label: "Study Tools", path: "/tools" },
       { label: "Free Diagnostic", path: "/board-exam-diagnostic" },
       { label: "Contact", path: "/contact" },

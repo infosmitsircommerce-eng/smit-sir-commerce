@@ -12,7 +12,7 @@ function getSupabase() {
 }
 
 function shouldLoadAuthImmediately() {
-  return /^\/(login|onboarding|premium|dashboard|admin(?:\/|$)|admin-studio|learning-insights|my-data|my-purchases|purchase-status)/.test(window.location.pathname);
+  return /^\/(login|onboarding|premium|extras-notes|dashboard|admin(?:\/|$)|admin-studio|learning-insights|my-data|my-purchases|purchase-status)/.test(window.location.pathname);
 }
 
 function entitlementIsActive(row) {
