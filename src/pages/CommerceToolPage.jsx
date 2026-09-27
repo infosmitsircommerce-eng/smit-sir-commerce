@@ -4,6 +4,8 @@ import { Calculator, ArrowLeft, ArrowRight, BookOpen, RotateCcw, Lightbulb, Chec
 import SEO from '../components/ui/SEO';
 import { commerceToolBySlug, commerceTools } from '../data/allCommerceTools';
 
+import SearchPractice from '../components/growth/SearchPractice';
+
 const BASE = 'https://www.smitsircommerce.in';
 
 const searchBoostBySlug = {
@@ -164,6 +166,8 @@ export default function CommerceToolPage() {
           <div className="mt-4 rounded-xl p-4 text-sm leading-6" style={{ background: 'var(--gold-bg)', color: 'var(--ink)' }}><strong>Exam tip:</strong> {searchBoost.examTip}</div>
         </div>
       </section>
+
+      <div className="page-container"><SearchPractice path={`/tools/${tool.slug}`} /></div>
 
       <section className="page-container pb-10">
         <div className="grid lg:grid-cols-[1.03fr_.97fr] gap-6 items-start">

@@ -15,6 +15,8 @@ import { authorityEnhancements } from "../data/highIntentEnhancements";
 import BoosterInlineCTA from "../components/growth/BoosterInlineCTA";
 import SearchTeachingGuide from "../components/growth/SearchTeachingGuide";
 
+import SearchPractice from "../components/growth/SearchPractice";
+
 const SITE = "https://www.smitsircommerce.in";
 
 function structuredData(guide) {
@@ -154,6 +156,7 @@ export default function AuthorityGuide() {
       <main className="page-container section-padding">
         <div className="grid lg:grid-cols-[minmax(0,1fr)_300px] gap-8 items-start">
           <div className="space-y-7">
+            <SearchPractice path={guide.path} />
             <SearchTeachingGuide path={guide.path} />
             {guide.path.includes("business-studies") && (
               <Link

@@ -8,6 +8,8 @@ import {
 import { useAuth } from '../context/AuthContext';
 import SEO from '../components/ui/SEO';
 
+import { selectDailyQuestions } from '../lib/dailyQuestionSelection';
+
 const DAILY_HISTORY_KEY = 'ssc-daily10-history-v1';
 const MISTAKE_KEY = 'ssc-mistake-book-v1';
 const TEST_ATTEMPT_PREFIX = 'ssc-test-attempts-v1';
@@ -65,14 +67,6 @@ function dayKey(date = new Date()) {
   return `${y}-${m}-${d}`;
 }
 
-function seededQuestions(dateString) {
-  const seed = [...dateString].reduce((sum, ch) => sum + ch.charCodeAt(0), 0);
-  return [...QUESTION_BANK]
-    .map((item, index) => ({ item, rank: (index * 37 + seed * 17) % 997 }))
-    .sort((a, b) => a.rank - b.rank)
-    .slice(0, 10)
-    .map(({ item }) => item);
-}
 
 function computeStreak(history) {
   const dates = new Set(history.map((item) => item.date));
@@ -188,7 +182,7 @@ function MistakeBook({ mistakes, onChange }) {
 export default function DailyPractice() {
   const { user } = useAuth();
   const today = dayKey();
-  const dailyQuestions = useMemo(() => seededQuestions(today), [today]);
+  const dailyQuestions = useMemo(() => selectDailyQuestions(QUESTION_BANK, today), [today]);
   const [history, setHistory] = useState(() => safeRead(DAILY_HISTORY_KEY, []));
   const [mistakes, setMistakes] = useState(() => safeRead(MISTAKE_KEY, []));
   const completed = history.find((item) => item.date === today);
@@ -215,6 +209,7 @@ export default function DailyPractice() {
     addMistakes(dailyQuestions, answers);
     setHistory(nextHistory);
     setMistakes(safeRead(MISTAKE_KEY, []));
+    try { window.gtag?.('event', 'daily_practice_complete', { question_count: dailyQuestions.length, score, first_completion_today: !completed }); } catch { /* Practice must work without analytics. */ }
     setFinished(true);
   };
 
@@ -231,7 +226,7 @@ export default function DailyPractice() {
             <div>
               <span className="eyebrow">Your daily study loop</span>
               <h1 className="mt-5">10 questions. <em>Every day. Get sharper.</em></h1>
-              <p className="text-lg mt-5 max-w-2xl" style={{ color: 'var(--muted)' }}>Daily 10 finds what you get wrong, builds your Mistake Book and turns your practice history into a Weak Topic Radar.</p>
+              <p className="text-lg mt-5 max-w-2xl" style={{ color: 'var(--muted)' }}>Practise a date-based mix of Economics, Business Studies and Accountancy. Revisit mistakes and see your weakest topics. Questions can repeat for revision; progress is saved in this browser.</p>
               <div className="flex flex-wrap gap-3 mt-6">
                 <span className="tile-paper px-4 py-2 text-sm inline-flex items-center gap-2"><Flame className="w-4 h-4" style={{ color: 'var(--gold)' }} /> {streak}-day streak</span>
                 <span className="tile-paper px-4 py-2 text-sm inline-flex items-center gap-2"><Brain className="w-4 h-4" style={{ color: 'var(--gold)' }} /> {mistakes.filter(m => !m.mastered).length} mistakes to fix</span>
