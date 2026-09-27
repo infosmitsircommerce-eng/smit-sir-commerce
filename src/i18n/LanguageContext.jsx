@@ -119,7 +119,6 @@ const GUJARATI_EXACT = {
   "Privacy Policy": "પ્રાઇવસી પોલિસી",
   "Terms of Use": "ઉપયોગની શરતો",
   "Disclaimer": "ડિસ્ક્લેમર",
-  "Explore": "જુઓ",
   "Legal & Help": "કાનૂની અને મદદ",
   "Contact & Local Area": "સંપર્ક અને સ્થાનિક વિસ્તાર",
   "Email support": "ઈમેલ સપોર્ટ",
