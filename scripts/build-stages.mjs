@@ -121,6 +121,7 @@ export const POSTBUILD_STAGES = [
       "scripts/clean-homepage-student-language.mjs",
       "scripts/optimize-search-console-ctr.mjs",
       "scripts/strengthen-brand-authority.mjs",
+      "scripts/add-search-practice.mjs",
       "scripts/normalize-internal-links.mjs"
     ]
   },

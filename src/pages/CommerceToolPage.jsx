@@ -4,6 +4,8 @@ import { Calculator, ArrowLeft, ArrowRight, BookOpen, RotateCcw, Lightbulb, Chec
 import SEO from '../components/ui/SEO';
 import { commerceToolBySlug, commerceTools } from '../data/allCommerceTools';
 
+import SearchPractice from '../components/growth/SearchPractice';
+
 const BASE = 'https://www.smitsircommerce.in';
 
 const searchBoostBySlug = {
@@ -224,6 +226,8 @@ export default function CommerceToolPage() {
           </aside>
         </div>
       </section>
+
+      <div className="page-container"><SearchPractice path={`/tools/${tool.slug}`} /></div>
 
       <section className="page-container pb-10">
         <div className="card-paper p-6 sm:p-8">
