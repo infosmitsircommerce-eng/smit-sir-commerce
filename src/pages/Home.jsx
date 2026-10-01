@@ -1,18 +1,7 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SEO from "../components/ui/SEO";
 import MobileLearningHome from "../components/home/MobileLearningHome";
-
-const HomeBelowFold = lazy(() => import("../components/home/HomeBelowFold"));
-
-function BelowFoldPlaceholder() {
-  return (
-    <div
-      aria-hidden="true"
-      data-home-below-fold-placeholder="true"
-      style={{ minHeight: "360px" }}
-    />
-  );
-}
+import HomeBelowFold from "../components/home/HomeBelowFold";
 
 function StableHomeBelowFold() {
   const [ready, setReady] = useState(() => {
@@ -34,8 +23,8 @@ function StableHomeBelowFold() {
     };
 
     // Desktop keeps the full document available immediately. On mobile, defer
-    // both the lower-home render and its JavaScript chunk until idle — but
-    // reveal it instantly if the student starts interacting first.
+    // the expensive lower-home render until idle — but reveal it instantly if
+    // the student starts scrolling or interacting before the idle window.
     if ("requestIdleCallback" in window) {
       idleId = window.requestIdleCallback(mount, { timeout: 1200 });
     } else {
@@ -57,13 +46,17 @@ function StableHomeBelowFold() {
     };
   }, [ready]);
 
-  if (!ready) return <BelowFoldPlaceholder />;
+  if (!ready) {
+    return (
+      <div
+        aria-hidden="true"
+        data-home-below-fold-placeholder="true"
+        style={{ minHeight: "360px" }}
+      />
+    );
+  }
 
-  return (
-    <Suspense fallback={<BelowFoldPlaceholder />}>
-      <HomeBelowFold />
-    </Suspense>
-  );
+  return <HomeBelowFold />;
 }
 
 export default function Home() {
