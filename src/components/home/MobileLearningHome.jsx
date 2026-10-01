@@ -129,9 +129,9 @@ export default function MobileLearningHome() {
         <div className="learning-home-topline">
           <div className="mobile-welcome-row">
             <div>
-              <small>{greeting} 👋</small>
-              <h1 className="mobile-welcome-kicker">{user ? `${firstName}, let’s learn.` : "Commerce Learner!"}</h1>
-              <p className="mobile-welcome-subtitle">Small steps make big careers.</p>
+              <small>{user ? `${greeting}, ${firstName} 👋` : `${greeting} 👋`}</small>
+              <h1 className="mobile-welcome-kicker">Class 11 &amp; 12 Commerce Learning Hub</h1>
+              <p className="mobile-welcome-subtitle">{user ? "Continue with notes, practice and revision." : "Free CBSE & GSEB notes, practice and study tools."}</p>
             </div>
             <div className="mobile-welcome-actions">
               <LanguageSwitcher compact />
