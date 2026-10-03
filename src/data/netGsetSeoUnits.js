@@ -146,6 +146,7 @@ export const netGsetSeoUnits = [
 
 export const netGsetUnitPath = (unit) => `/net-gset-commerce/${unit.slug}`;
 export const netGsetSeoPaths = [
+  '/net-gset-commerce-tests',
   '/net-gset-commerce',
   '/ugc-net-commerce-notes',
   '/gset-commerce-code-17-notes',

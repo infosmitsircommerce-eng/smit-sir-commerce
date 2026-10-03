@@ -9,6 +9,9 @@ export const PREBUILD_STAGES = [
   {
     "name": "02-learning-data",
     "scripts": [
+      "scripts/net-gset/build-bank.mjs",
+      "scripts/net-gset/audit-bank.mjs",
+      "scripts/net-gset/verify-numericals.mjs",
       "scripts/generate-public-quizzes.mjs",
       "scripts/audit-quizzes.mjs"
     ]
