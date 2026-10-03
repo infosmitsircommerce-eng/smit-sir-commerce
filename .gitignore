@@ -26,3 +26,6 @@ Thumbs.db
 # Logs
 *.log
 npm-debug.log*
+
+# Generated from versioned NET/GSET source records during prebuild
+public/net-gset-tests/*.json

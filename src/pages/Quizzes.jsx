@@ -412,6 +412,7 @@ export default function Quizzes() {
     <SEO title="Commerce Practice — Chapter MCQs & Revision" description="Practice Commerce chapter MCQs in one clear place, with free levels, instant explanations and optional advanced Premium practice." path="/quizzes" />
     <div className="page-container ssc-quiz-container">
       <section className="ssc-study-access">
+        <div className="ssc-study-heading"><span className="ssc-study-kicker">UGC NET / GSET COMMERCE</span><h2>Practise all 10 Commerce units.</h2><p>40 unit tests with 50 MCQs each, plus combined practice and full subject mocks.</p><a className="ssc-study-control" href="/net-gset-commerce-tests">Open NET / GSET test series <ArrowRight size={16} aria-hidden="true" /></a></div>
         <header className="ssc-study-heading"><span className="ssc-study-kicker"><span /> YOUR PRACTICE DESK</span><h1>Practice one chapter at a time.</h1><p>Choose a subject, chapter and level. Everything stays in one practice desk.</p></header>
         <nav aria-label="Economics practice subjects" className="ssc-quiz-tracks">{quizTracks.map(track => <button key={track.id} type="button" aria-pressed={activeTrack?.id === track.id} onClick={() => change({ trackId: track.id, subject: 'Economics' }, 'chapters')}><strong>{track.name}</strong><span>{track.board} · Class {track.classLevel}</span><ArrowRight size={16} aria-hidden="true" /></button>)}</nav>
         <div className="ssc-study-filters">

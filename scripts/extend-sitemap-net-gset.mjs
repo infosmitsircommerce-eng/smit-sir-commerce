@@ -17,7 +17,8 @@ function xmlEscape(value) {
 
 function entry(path) {
   const priority = path === masterLibraryPath ? '0.99' : path.includes('/unit-') ? '0.94' : '0.97';
-  return `  <url>\n    <loc>${xmlEscape(`${BASE}${path}`)}</loc>\n    <lastmod>2026-09-26</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
+  const lastmod=path==='/net-gset-commerce-tests'?'2026-10-03':'2026-09-26';
+  return `  <url>\n    <loc>${xmlEscape(`${BASE}${path}`)}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
 }
 
 // The master library contains client-side template hrefs used to open/download PDFs.
